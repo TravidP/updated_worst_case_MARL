@@ -1,0 +1,6 @@
+model_checkpoint_path: "checkpoint-490"
+all_model_checkpoint_paths: "checkpoint-450"
+all_model_checkpoint_paths: "checkpoint-460"
+all_model_checkpoint_paths: "checkpoint-470"
+all_model_checkpoint_paths: "checkpoint-480"
+all_model_checkpoint_paths: "checkpoint-490"

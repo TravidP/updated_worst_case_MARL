@@ -1,0 +1,151 @@
+2026-02-07 22:03:22,128 [INFO] Loading Config: ./config/config_ia2c_large.ini
+2026-02-07 22:03:24,148 [INFO] Env: init 25 node information:
+nt1:
+	neigbor: ['nt6', 'nt2']
+	ilds_in: ['nt6_nt1_0', 'nt2_nt1_0', 'nt2_nt1_1', 'np1_nt1_0', 'np20_nt1_0', 'np20_nt1_1']
+nt10:
+	neigbor: ['nt15', 'nt5', 'nt9']
+	ilds_in: ['nt15_nt10_0', 'np7_nt10_0', 'np7_nt10_1', 'nt5_nt10_0', 'nt9_nt10_0', 'nt9_nt10_1']
+nt11:
+	neigbor: ['nt16', 'nt12', 'nt6']
+	ilds_in: ['nt16_nt11_0', 'nt12_nt11_0', 'nt12_nt11_1', 'nt6_nt11_0', 'np18_nt11_0', 'np18_nt11_1']
+nt12:
+	neigbor: ['nt17', 'nt13', 'nt7', 'nt11']
+	ilds_in: ['nt17_nt12_0', 'nt13_nt12_0', 'nt13_nt12_1', 'nt7_nt12_0', 'nt11_nt12_0', 'nt11_nt12_1']
+nt13:
+	neigbor: ['nt18', 'nt14', 'nt8', 'nt12']
+	ilds_in: ['nt18_nt13_0', 'nt14_nt13_0', 'nt14_nt13_1', 'nt8_nt13_0', 'nt12_nt13_0', 'nt12_nt13_1']
+nt14:
+	neigbor: ['nt19', 'nt15', 'nt9', 'nt13']
+	ilds_in: ['nt19_nt14_0', 'nt15_nt14_0', 'nt15_nt14_1', 'nt9_nt14_0', 'nt13_nt14_0', 'nt13_nt14_1']
+nt15:
+	neigbor: ['nt20', 'nt10', 'nt14']
+	ilds_in: ['nt20_nt15_0', 'np8_nt15_0', 'np8_nt15_1', 'nt10_nt15_0', 'nt14_nt15_0', 'nt14_nt15_1']
+nt16:
+	neigbor: ['nt21', 'nt17', 'nt11']
+	ilds_in: ['nt21_nt16_0', 'nt17_nt16_0', 'nt17_nt16_1', 'nt11_nt16_0', 'np17_nt16_0', 'np17_nt16_1']
+nt17:
+	neigbor: ['nt22', 'nt18', 'nt12', 'nt16']
+	ilds_in: ['nt22_nt17_0', 'nt18_nt17_0', 'nt18_nt17_1', 'nt12_nt17_0', 'nt16_nt17_0', 'nt16_nt17_1']
+nt18:
+	neigbor: ['nt23', 'nt19', 'nt13', 'nt17']
+	ilds_in: ['nt23_nt18_0', 'nt19_nt18_0', 'nt19_nt18_1', 'nt13_nt18_0', 'nt17_nt18_0', 'nt17_nt18_1']
+nt19:
+	neigbor: ['nt24', 'nt20', 'nt14', 'nt18']
+	ilds_in: ['nt24_nt19_0', 'nt20_nt19_0', 'nt20_nt19_1', 'nt14_nt19_0', 'nt18_nt19_0', 'nt18_nt19_1']
+nt2:
+	neigbor: ['nt7', 'nt3', 'nt1']
+	ilds_in: ['nt7_nt2_0', 'nt3_nt2_0', 'nt3_nt2_1', 'np2_nt2_0', 'nt1_nt2_0', 'nt1_nt2_1']
+nt20:
+	neigbor: ['nt25', 'nt15', 'nt19']
+	ilds_in: ['nt25_nt20_0', 'np9_nt20_0', 'np9_nt20_1', 'nt15_nt20_0', 'nt19_nt20_0', 'nt19_nt20_1']
+nt21:
+	neigbor: ['nt22', 'nt16']
+	ilds_in: ['np15_nt21_0', 'nt22_nt21_0', 'nt22_nt21_1', 'nt16_nt21_0', 'np16_nt21_0', 'np16_nt21_1']
+nt22:
+	neigbor: ['nt23', 'nt17', 'nt21']
+	ilds_in: ['np14_nt22_0', 'nt23_nt22_0', 'nt23_nt22_1', 'nt17_nt22_0', 'nt21_nt22_0', 'nt21_nt22_1']
+nt23:
+	neigbor: ['nt24', 'nt18', 'nt22']
+	ilds_in: ['np13_nt23_0', 'nt24_nt23_0', 'nt24_nt23_1', 'nt18_nt23_0', 'nt22_nt23_0', 'nt22_nt23_1']
+nt24:
+	neigbor: ['nt25', 'nt19', 'nt23']
+	ilds_in: ['np12_nt24_0', 'nt25_nt24_0', 'nt25_nt24_1', 'nt19_nt24_0', 'nt23_nt24_0', 'nt23_nt24_1']
+nt25:
+	neigbor: ['nt20', 'nt24']
+	ilds_in: ['np11_nt25_0', 'np10_nt25_0', 'np10_nt25_1', 'nt20_nt25_0', 'nt24_nt25_0', 'nt24_nt25_1']
+nt3:
+	neigbor: ['nt8', 'nt4', 'nt2']
+	ilds_in: ['nt8_nt3_0', 'nt4_nt3_0', 'nt4_nt3_1', 'np3_nt3_0', 'nt2_nt3_0', 'nt2_nt3_1']
+nt4:
+	neigbor: ['nt9', 'nt5', 'nt3']
+	ilds_in: ['nt9_nt4_0', 'nt5_nt4_0', 'nt5_nt4_1', 'np4_nt4_0', 'nt3_nt4_0', 'nt3_nt4_1']
+nt5:
+	neigbor: ['nt10', 'nt4']
+	ilds_in: ['nt10_nt5_0', 'np6_nt5_0', 'np6_nt5_1', 'np5_nt5_0', 'nt4_nt5_0', 'nt4_nt5_1']
+nt6:
+	neigbor: ['nt11', 'nt7', 'nt1']
+	ilds_in: ['nt11_nt6_0', 'nt7_nt6_0', 'nt7_nt6_1', 'nt1_nt6_0', 'np19_nt6_0', 'np19_nt6_1']
+nt7:
+	neigbor: ['nt12', 'nt8', 'nt2', 'nt6']
+	ilds_in: ['nt12_nt7_0', 'nt8_nt7_0', 'nt8_nt7_1', 'nt2_nt7_0', 'nt6_nt7_0', 'nt6_nt7_1']
+nt8:
+	neigbor: ['nt13', 'nt9', 'nt3', 'nt7']
+	ilds_in: ['nt13_nt8_0', 'nt9_nt8_0', 'nt9_nt8_1', 'nt3_nt8_0', 'nt7_nt8_0', 'nt7_nt8_1']
+nt9:
+	neigbor: ['nt14', 'nt10', 'nt4', 'nt8']
+	ilds_in: ['nt14_nt9_0', 'nt10_nt9_0', 'nt10_nt9_1', 'nt4_nt9_0', 'nt8_nt9_0', 'nt8_nt9_1']
+
+2026-02-07 22:03:24,190 [INFO] Loaded Group 0 from ./data_traffic/traffic_uniform_low.csv | Total Flow: 3800.0 vph
+2026-02-07 22:03:24,191 [INFO] Loaded Group 1 from ./data_traffic/traffic_west_east_peak.csv | Total Flow: 4775.0 vph
+2026-02-07 22:03:24,192 [INFO] Loaded Group 2 from ./data_traffic/traffic_north_south_peak.csv | Total Flow: 4775.0 vph
+2026-02-07 22:03:24,192 [INFO] Coevolution Env: 'dummy_path' passed. No frozen controller loaded (Trainable Agent Active).
+2026-02-07 22:03:24,192 [INFO] Adversary Global Observation Dim: 300
+2026-02-07 22:04:59,572 [INFO] >>> Loading Pre-trained Weights...
+2026-02-07 22:04:59,573 [INFO] Restoring parameters from ./output_adversary/checkpoint-490
+2026-02-07 22:04:59,582 [INFO] Checkpoint loaded: checkpoint-490
+2026-02-07 22:04:59,582 [INFO] Loaded Adversary.
+2026-02-07 22:04:59,582 [INFO] Restoring parameters from ./runs/ia2c_large/model/checkpoint-1000080
+2026-02-07 22:05:00,754 [INFO] Checkpoint loaded: checkpoint-1000080
+2026-02-07 22:05:00,754 [INFO] Loaded Traffic Agent.
+2026-02-07 22:05:12,371 [INFO] Starting Co-Evolution Training...
+2026-02-07 22:05:18,206 [INFO] Episode 0 Start.
+2026-02-07 22:05:18,242 [INFO] 
+[Adversary] Injecting Traffic... (Time: 0s)
+2026-02-07 22:09:09,984 [INFO]    Adv Step 1 | Reward: 373.5940
+2026-02-07 22:09:09,985 [INFO] 
+[Adversary] Injecting Traffic... (Time: 600s)
+2026-02-07 22:09:19,351 [INFO]    Adv Step 2 | Reward: 842.3920
+2026-02-07 22:09:19,352 [INFO] 
+[Adversary] Injecting Traffic... (Time: 1200s)
+2026-02-07 22:09:29,439 [INFO]    Adv Step 3 | Reward: 1741.2660
+2026-02-07 22:09:29,440 [INFO] 
+[Adversary] Injecting Traffic... (Time: 1800s)
+2026-02-07 22:09:39,556 [INFO]    Adv Step 4 | Reward: 2746.5200
+2026-02-07 22:09:39,557 [INFO] 
+[Adversary] Injecting Traffic... (Time: 2400s)
+2026-02-07 22:09:50,268 [INFO]    Adv Step 5 | Reward: 3345.5520
+2026-02-07 22:09:50,269 [INFO] 
+[Adversary] Injecting Traffic... (Time: 3000s)
+2026-02-07 22:10:01,338 [INFO]    Adv Step 6 | Reward: 3720.8320
+2026-02-07 22:10:01,339 [INFO] Episode 0 Finished.
+2026-02-07 22:10:11,990 [INFO] Episode 1 Start.
+2026-02-07 22:10:11,992 [INFO] 
+[Adversary] Injecting Traffic... (Time: 0s)
+2026-02-07 22:10:20,708 [INFO]    Adv Step 7 | Reward: 288.6440
+2026-02-07 22:10:20,709 [INFO] 
+[Adversary] Injecting Traffic... (Time: 600s)
+2026-02-07 22:10:29,996 [INFO]    Adv Step 8 | Reward: 566.1800
+2026-02-07 22:10:29,997 [INFO] 
+[Adversary] Injecting Traffic... (Time: 1200s)
+2026-02-07 22:10:40,704 [INFO]    Adv Step 9 | Reward: 915.9460
+2026-02-07 22:10:40,706 [INFO] 
+[Adversary] Injecting Traffic... (Time: 1800s)
+2026-02-07 22:10:52,584 [INFO]    Adv Step 10 | Reward: 2064.1300
+2026-02-07 22:10:52,587 [INFO] 
+[Adversary] Injecting Traffic... (Time: 2400s)
+2026-02-07 22:11:05,328 [INFO]    Adv Step 11 | Reward: 3615.2020
+2026-02-07 22:11:05,332 [INFO] 
+[Adversary] Injecting Traffic... (Time: 3000s)
+2026-02-07 22:11:17,874 [INFO]    Adv Step 12 | Reward: 3545.3860
+2026-02-07 22:11:17,874 [INFO] Episode 1 Finished.
+2026-02-07 22:12:03,670 [INFO] Episode 2 Start.
+2026-02-07 22:12:03,671 [INFO] 
+[Adversary] Injecting Traffic... (Time: 0s)
+2026-02-07 22:12:12,380 [INFO]    Adv Step 13 | Reward: 304.6820
+2026-02-07 22:12:12,384 [INFO] 
+[Adversary] Injecting Traffic... (Time: 600s)
+2026-02-07 22:12:22,007 [INFO]    Adv Step 14 | Reward: 594.3560
+2026-02-07 22:12:22,009 [INFO] 
+[Adversary] Injecting Traffic... (Time: 1200s)
+2026-02-07 22:12:32,247 [INFO]    Adv Step 15 | Reward: 1189.3100
+2026-02-07 22:12:32,248 [INFO] 
+[Adversary] Injecting Traffic... (Time: 1800s)
+2026-02-07 22:12:42,632 [INFO]    Adv Step 16 | Reward: 2727.7360
+2026-02-07 22:12:42,634 [INFO] 
+[Adversary] Injecting Traffic... (Time: 2400s)
+2026-02-07 22:12:53,421 [INFO]    Adv Step 17 | Reward: 3424.4720
+2026-02-07 22:12:53,422 [INFO] 
+[Adversary] Injecting Traffic... (Time: 3000s)
+2026-02-07 22:13:04,648 [INFO]    Adv Step 18 | Reward: 3737.6280
+2026-02-07 22:13:04,648 [INFO] Episode 2 Finished.

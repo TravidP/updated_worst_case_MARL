@@ -1,0 +1,10 @@
+# Ignore large simulation data and logs
+*.out
+*.tfevents.*
+*.meta
+*.ckpt
+*.pth
+
+# Ignore Python cache
+__pycache__/
+*.py[cod]

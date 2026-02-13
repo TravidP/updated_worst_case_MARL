@@ -1,0 +1,673 @@
+2026-02-03 16:42:58,189 - Loading base config from config/config_ia2c_large.ini...
+2026-02-03 16:42:58,189 - Initializing Adversarial Environment...
+2026-02-03 16:43:46,362 - Loading base config from ./config/config_ia2c_large.ini...
+2026-02-03 16:43:46,363 - Initializing Adversarial Environment...
+2026-02-03 16:44:21,003 - Initializing CNN Adversary (State: 300, Action: 2)
+2026-02-03 16:50:14,718 - Reading configuration from: ./config/config_ia2c_large.ini
+2026-02-03 16:50:14,719 - Initializing Adversarial Environment...
+2026-02-03 16:50:32,123 - Reading configuration from: ./config/config_ia2c_large.ini
+2026-02-03 16:50:32,123 - Initializing Adversarial Environment...
+2026-02-03 16:51:06,513 - Initializing CNN Adversary (State: 300, Action: 2)
+2026-02-03 16:55:00,218 - Reading configuration from: ./config/config_ia2c_large.ini
+2026-02-03 16:55:00,219 - Initializing Adversarial Environment...
+2026-02-03 16:55:34,705 - Initializing CNN Adversary (State: 300, Action: 2)
+2026-02-04 15:24:54,360 - Reading configuration from: ./config/config_ia2c_large.ini
+2026-02-04 15:24:54,360 - Initializing Adversarial Environment...
+2026-02-04 15:25:28,432 - Initializing CNN Adversary (State: 300, Action: 2)
+2026-02-04 15:25:28,480 - Start Training...
+2026-02-04 15:29:41,206 - Reading configuration from: ./config/config_ia2c_large.ini
+2026-02-04 15:29:41,207 - Initializing Adversarial Environment...
+2026-02-04 15:30:16,484 - Initializing CNN Adversary (State: 300, Action: 2)
+2026-02-04 15:30:16,529 - Start Training...
+2026-02-04 15:35:13,500 - Reading configuration from: ./config/config_ia2c_large.ini
+2026-02-04 15:35:13,501 - Initializing Adversarial Environment...
+2026-02-04 15:35:47,828 - Initializing CNN Adversary (State: 300, Action: 2)
+2026-02-04 15:35:47,875 - Start Training...
+2026-02-04 15:57:14,760 - Reading configuration from: ./config/config_ia2c_large.ini
+2026-02-04 15:57:14,760 - Initializing Adversarial Environment...
+2026-02-04 15:57:49,470 - Initializing CNN Adversary (State: 300, Action: 2)
+2026-02-04 15:57:49,516 - Start Training...
+2026-02-04 16:00:36,891 - Reading configuration from: ./config/config_ia2c_large.ini
+2026-02-04 16:00:36,892 - Initializing Adversarial Environment...
+2026-02-04 16:01:11,348 - Initializing CNN Adversary (State: 300, Action: 2)
+2026-02-04 16:01:11,394 - Start Training...
+2026-02-04 16:13:26,656 - Reading configuration from: ./config/config_ia2c_large.ini
+2026-02-04 16:13:26,656 - Initializing Adversarial Environment...
+2026-02-04 16:14:01,038 - Initializing CNN Adversary (State: 300, Action: 2)
+2026-02-04 16:14:01,084 - Start Training...
+2026-02-04 16:19:01,229 - Reading configuration from: ./config/config_ia2c_large.ini
+2026-02-04 16:19:01,229 - Initializing Adversarial Environment...
+2026-02-04 16:19:35,954 - Initializing CNN Adversary (State: 300, Action: 2)
+2026-02-04 16:19:36,000 - Start Training...
+2026-02-04 16:20:44,153 - Reading configuration from: ./config/config_ia2c_large.ini
+2026-02-04 16:20:44,154 - Initializing Adversarial Environment...
+2026-02-04 16:21:18,785 - Initializing CNN Adversary (State: 300, Action: 2)
+2026-02-04 16:21:18,831 - Start Training...
+2026-02-04 16:21:50,187 - Reading configuration from: ./config/config_ia2c_large.ini
+2026-02-04 16:21:50,187 - Initializing Adversarial Environment...
+2026-02-04 16:22:24,671 - Initializing CNN Adversary (State: 300, Action: 2)
+2026-02-04 16:22:24,717 - Start Training...
+2026-02-04 16:24:10,986 - Reading configuration from: ./config/config_ia2c_large.ini
+2026-02-04 16:24:10,986 - Initializing Adversarial Environment...
+2026-02-04 16:24:45,845 - Initializing CNN Adversary (State: 300, Action: 2)
+2026-02-04 16:24:45,891 - Start Training...
+2026-02-04 16:25:26,261 - Reading configuration from: ./config/config_ia2c_large.ini
+2026-02-04 16:25:26,261 - Initializing Adversarial Environment...
+2026-02-04 16:26:01,122 - Initializing CNN Adversary (State: 300, Action: 2)
+2026-02-04 16:26:01,169 - Start Training...
+2026-02-04 16:30:11,554 - Reading configuration from: ./config/config_ia2c_large.ini
+2026-02-04 16:30:11,554 - Initializing Adversarial Environment...
+2026-02-04 16:30:45,986 - Initializing CNN Adversary (State: 300, Action: 2)
+2026-02-04 16:30:46,031 - Start Training...
+2026-02-04 16:32:06,472 - Reading configuration from: ./config/config_ia2c_large.ini
+2026-02-04 16:32:06,473 - Initializing Adversarial Environment...
+2026-02-04 16:32:40,890 - Initializing CNN Adversary (State: 300, Action: 2)
+2026-02-04 16:32:40,936 - Start Training...
+2026-02-04 16:33:46,293 - Episode 0: Steps=720, Total Congestion=3416068.00
+2026-02-04 16:34:43,887 - Episode 1: Steps=720, Total Congestion=3324051.20
+2026-02-04 22:34:14,911 - Reading configuration from: ./config/config_ia2c_large.ini
+2026-02-04 22:34:14,912 - Initializing Adversarial Environment...
+2026-02-04 22:34:49,092 - Initializing CNN Adversary (State: 300, Action: 3)
+2026-02-04 22:34:49,138 - Start Training...
+2026-02-04 22:37:42,969 - Reading configuration from: ./config/config_ia2c_large.ini
+2026-02-04 22:37:42,969 - Initializing Adversarial Environment...
+2026-02-04 22:38:17,761 - Initializing CNN Adversary (State: 300, Action: 3)
+2026-02-04 22:38:17,807 - Start Training...
+2026-02-04 22:39:27,936 - Episode 0: Macro-Steps=6/6, Total Congestion (Reward)=1145915.20
+2026-02-04 22:40:18,034 - Episode 1: Macro-Steps=6/6, Total Congestion (Reward)=840628.40
+2026-02-04 22:41:56,637 - Episode 2: Macro-Steps=6/6, Total Congestion (Reward)=85743.20
+2026-02-05 11:48:08,904 - Episode 3: Macro-Steps=6/6, Total Congestion (Reward)=236491.20
+2026-02-05 11:48:55,467 - Episode 4: Macro-Steps=6/6, Total Congestion (Reward)=1198955.00
+2026-02-05 11:49:43,743 - Episode 5: Macro-Steps=6/6, Total Congestion (Reward)=1479767.40
+2026-02-05 11:50:29,392 - Episode 6: Macro-Steps=6/6, Total Congestion (Reward)=1071462.60
+2026-02-05 11:51:15,648 - Episode 7: Macro-Steps=6/6, Total Congestion (Reward)=343207.80
+2026-02-05 11:53:38,863 - Episode 8: Macro-Steps=6/6, Total Congestion (Reward)=1110524.00
+2026-02-05 11:54:20,612 - Episode 9: Macro-Steps=6/6, Total Congestion (Reward)=521230.20
+2026-02-05 15:35:15,652 - Reading configuration from: ./config/config_ia2c_large.ini
+2026-02-05 15:35:15,652 - Initializing Adversarial Environment...
+2026-02-05 15:35:50,762 - Initializing CNN Adversary (State: 300, Action: 3)
+2026-02-05 15:35:50,807 - Start Training...
+2026-02-05 15:38:31,132 - Episode 0: Macro-Steps=6/6, Total Congestion (Reward)=1302161.20
+2026-02-05 15:40:47,513 - Episode 1: Macro-Steps=6/6, Total Congestion (Reward)=868171.40
+2026-02-05 15:41:16,313 - Reading configuration from: ./config/config_ia2c_large.ini
+2026-02-05 15:41:16,313 - Initializing Adversarial Environment...
+2026-02-05 15:41:51,593 - Initializing CNN Adversary (State: 300, Action: 3)
+2026-02-05 15:41:51,639 - Start Training...
+2026-02-05 15:43:52,579 - Episode 0: Macro-Steps=6/6, Total Congestion (Reward)=1089570.40
+2026-02-05 15:45:46,107 - Episode 1: Macro-Steps=6/6, Total Congestion (Reward)=993350.20
+2026-02-05 16:39:21,849 - Reading configuration from: ./config/config_ia2c_large.ini
+2026-02-05 16:39:21,849 - Initializing Adversarial Environment...
+2026-02-05 16:39:57,592 - Initializing CNN Adversary (State: 300, Action: 3)
+2026-02-05 16:39:57,781 - Start Training...
+2026-02-05 17:31:04,613 - Reading configuration from: ./config/config_ia2c_large.ini
+2026-02-05 17:31:04,613 - Initializing Adversarial Environment...
+2026-02-05 17:31:40,014 - Initializing CNN Adversary (State: 300, Action: 3)
+2026-02-05 17:31:40,161 - Start Training...
+2026-02-05 17:34:56,790 - Reading configuration from: ./config/config_ia2c_large.ini
+2026-02-05 17:34:56,790 - Initializing Adversarial Environment...
+2026-02-05 17:35:32,540 - Initializing CNN Adversary (State: 300, Action: 3)
+2026-02-05 17:35:32,690 - Start Training...
+2026-02-05 17:37:53,125 - Reading configuration from: ./config/config_ia2c_large.ini
+2026-02-05 17:37:53,125 - Initializing Adversarial Environment...
+2026-02-05 17:38:28,743 - Initializing CNN Adversary (State: 300, Action: 3)
+2026-02-05 17:38:28,892 - Start Training...
+2026-02-05 17:42:24,769 - Reading configuration from: ./config/config_ia2c_large.ini
+2026-02-05 17:42:24,769 - Initializing Adversarial Environment...
+2026-02-05 17:43:00,959 - Initializing CNN Adversary (State: 300, Action: 3)
+2026-02-05 17:43:01,113 - Start Training...
+2026-02-05 17:50:15,056 - Reading configuration from: ./config/config_ia2c_large.ini
+2026-02-05 17:50:15,056 - Initializing Adversarial Environment...
+2026-02-05 17:50:50,150 - Initializing CNN Adversary (State: 300, Action: 3)
+2026-02-05 17:50:50,300 - Start Training...
+2026-02-05 17:54:42,016 - Reading configuration from: ./config/config_ia2c_large.ini
+2026-02-05 17:54:42,017 - Initializing Adversarial Environment...
+2026-02-05 17:55:17,771 - Initializing CNN Adversary (State: 300, Action: 3)
+2026-02-05 17:55:17,921 - Start Training...
+2026-02-05 18:11:07,941 - Reading configuration from: ./config/config_ia2c_large.ini
+2026-02-05 18:11:07,941 - Initializing Adversarial Environment...
+2026-02-05 18:11:43,618 - Initializing CNN Adversary (State: 300, Action: 3)
+2026-02-05 18:11:43,763 - Start Training...
+2026-02-05 18:13:43,563 - Episode 0: Macro-Steps=6/6, Total Congestion (Reward)=1219123.80
+2026-02-05 18:16:06,742 - Episode 1: Macro-Steps=6/6, Total Congestion (Reward)=1398614.80
+2026-02-05 18:17:02,021 - Reading configuration from: ./config/config_ia2c_large.ini
+2026-02-05 18:17:02,021 - Initializing Adversarial Environment...
+2026-02-05 18:17:37,640 - Initializing CNN Adversary (State: 300, Action: 3)
+2026-02-05 18:17:37,786 - Start Training...
+2026-02-05 18:19:26,640 - Episode 0: Macro-Steps=6/6, Total Congestion (Reward)=1207950.20
+2026-02-05 18:21:04,726 - Episode 1: Macro-Steps=6/6, Total Congestion (Reward)=1256033.80
+2026-02-05 18:22:43,282 - Episode 2: Macro-Steps=6/6, Total Congestion (Reward)=1188826.40
+2026-02-05 18:24:23,316 - Episode 3: Macro-Steps=6/6, Total Congestion (Reward)=1133278.00
+2026-02-05 18:26:00,980 - Episode 4: Macro-Steps=6/6, Total Congestion (Reward)=1296290.20
+2026-02-05 18:27:39,545 - Episode 5: Macro-Steps=6/6, Total Congestion (Reward)=1280156.00
+2026-02-05 18:29:16,379 - Episode 6: Macro-Steps=6/6, Total Congestion (Reward)=1175082.20
+2026-02-05 18:30:52,045 - Episode 7: Macro-Steps=6/6, Total Congestion (Reward)=1194955.60
+2026-02-05 18:32:29,819 - Episode 8: Macro-Steps=6/6, Total Congestion (Reward)=1296331.00
+2026-02-05 18:34:11,309 - Episode 9: Macro-Steps=6/6, Total Congestion (Reward)=1279428.00
+2026-02-05 18:35:49,057 - Episode 10: Macro-Steps=6/6, Total Congestion (Reward)=1106957.60
+2026-02-05 18:37:27,130 - Episode 11: Macro-Steps=6/6, Total Congestion (Reward)=1166558.20
+2026-02-05 18:39:07,166 - Episode 12: Macro-Steps=6/6, Total Congestion (Reward)=1111573.60
+2026-02-05 18:40:44,763 - Episode 13: Macro-Steps=6/6, Total Congestion (Reward)=1362189.60
+2026-02-05 18:42:21,461 - Episode 14: Macro-Steps=6/6, Total Congestion (Reward)=1255854.20
+2026-02-05 18:43:57,526 - Episode 15: Macro-Steps=6/6, Total Congestion (Reward)=1153383.20
+2026-02-05 18:45:38,315 - Episode 16: Macro-Steps=6/6, Total Congestion (Reward)=1104060.00
+2026-02-05 18:46:37,230 - Episode 17: Macro-Steps=6/6, Total Congestion (Reward)=1354905.20
+2026-02-05 18:47:18,754 - Episode 18: Macro-Steps=6/6, Total Congestion (Reward)=1223957.00
+2026-02-05 18:48:01,793 - Episode 19: Macro-Steps=6/6, Total Congestion (Reward)=1296812.40
+2026-02-05 18:48:44,324 - Episode 20: Macro-Steps=6/6, Total Congestion (Reward)=1162387.80
+2026-02-05 18:49:27,489 - Episode 21: Macro-Steps=6/6, Total Congestion (Reward)=1353931.00
+2026-02-05 18:50:08,999 - Episode 22: Macro-Steps=6/6, Total Congestion (Reward)=1169229.40
+2026-02-05 18:50:49,681 - Episode 23: Macro-Steps=6/6, Total Congestion (Reward)=1019774.20
+2026-02-05 18:51:30,173 - Episode 24: Macro-Steps=6/6, Total Congestion (Reward)=1035035.20
+2026-02-05 18:52:11,702 - Episode 25: Macro-Steps=6/6, Total Congestion (Reward)=1198761.00
+2026-02-05 18:52:53,061 - Episode 26: Macro-Steps=6/6, Total Congestion (Reward)=1155352.80
+2026-02-05 18:53:34,241 - Episode 27: Macro-Steps=6/6, Total Congestion (Reward)=1261163.60
+2026-02-05 18:54:15,340 - Episode 28: Macro-Steps=6/6, Total Congestion (Reward)=1334152.20
+2026-02-05 18:54:56,616 - Episode 29: Macro-Steps=6/6, Total Congestion (Reward)=1025239.60
+2026-02-05 18:55:38,714 - Episode 30: Macro-Steps=6/6, Total Congestion (Reward)=1515969.60
+2026-02-05 18:56:20,880 - Episode 31: Macro-Steps=6/6, Total Congestion (Reward)=1374120.40
+2026-02-05 18:57:03,358 - Episode 32: Macro-Steps=6/6, Total Congestion (Reward)=1258511.80
+2026-02-05 18:57:44,043 - Episode 33: Macro-Steps=6/6, Total Congestion (Reward)=1160021.40
+2026-02-05 18:58:25,199 - Episode 34: Macro-Steps=6/6, Total Congestion (Reward)=1095781.80
+2026-02-05 18:59:06,740 - Episode 35: Macro-Steps=6/6, Total Congestion (Reward)=1264839.80
+2026-02-05 18:59:46,490 - Episode 36: Macro-Steps=6/6, Total Congestion (Reward)=838788.40
+2026-02-05 19:00:28,002 - Episode 37: Macro-Steps=6/6, Total Congestion (Reward)=1179045.20
+2026-02-05 19:01:10,267 - Episode 38: Macro-Steps=6/6, Total Congestion (Reward)=1208580.00
+2026-02-05 19:01:52,173 - Episode 39: Macro-Steps=6/6, Total Congestion (Reward)=1233319.00
+2026-02-05 19:02:34,398 - Episode 40: Macro-Steps=6/6, Total Congestion (Reward)=1120167.40
+2026-02-05 19:03:17,315 - Episode 41: Macro-Steps=6/6, Total Congestion (Reward)=1341888.40
+2026-02-05 19:03:59,366 - Episode 42: Macro-Steps=6/6, Total Congestion (Reward)=1220043.60
+2026-02-05 19:04:42,117 - Episode 43: Macro-Steps=6/6, Total Congestion (Reward)=1325005.40
+2026-02-05 19:05:24,293 - Episode 44: Macro-Steps=6/6, Total Congestion (Reward)=1339753.60
+2026-02-05 19:06:06,800 - Episode 45: Macro-Steps=6/6, Total Congestion (Reward)=1314567.40
+2026-02-05 19:06:50,308 - Episode 46: Macro-Steps=6/6, Total Congestion (Reward)=1558251.20
+2026-02-05 19:07:31,930 - Episode 47: Macro-Steps=6/6, Total Congestion (Reward)=1032693.80
+2026-02-05 19:08:14,236 - Episode 48: Macro-Steps=6/6, Total Congestion (Reward)=1095700.80
+2026-02-05 19:08:56,534 - Episode 49: Macro-Steps=6/6, Total Congestion (Reward)=987541.60
+2026-02-05 19:09:37,788 - Episode 50: Macro-Steps=6/6, Total Congestion (Reward)=1133812.40
+2026-02-05 19:10:18,951 - Episode 51: Macro-Steps=6/6, Total Congestion (Reward)=1096375.20
+2026-02-05 19:11:02,139 - Episode 52: Macro-Steps=6/6, Total Congestion (Reward)=1367485.00
+2026-02-05 19:11:45,074 - Episode 53: Macro-Steps=6/6, Total Congestion (Reward)=1451875.20
+2026-02-05 19:12:27,516 - Episode 54: Macro-Steps=6/6, Total Congestion (Reward)=1237642.20
+2026-02-05 19:13:09,659 - Episode 55: Macro-Steps=6/6, Total Congestion (Reward)=1144539.80
+2026-02-05 19:13:52,106 - Episode 56: Macro-Steps=6/6, Total Congestion (Reward)=1398470.40
+2026-02-05 19:14:33,776 - Episode 57: Macro-Steps=6/6, Total Congestion (Reward)=1008615.80
+2026-02-05 19:15:16,165 - Episode 58: Macro-Steps=6/6, Total Congestion (Reward)=1343906.60
+2026-02-05 19:15:58,094 - Episode 59: Macro-Steps=6/6, Total Congestion (Reward)=1072420.60
+2026-02-05 19:16:41,151 - Episode 60: Macro-Steps=6/6, Total Congestion (Reward)=1255338.20
+2026-02-05 19:17:23,241 - Episode 61: Macro-Steps=6/6, Total Congestion (Reward)=1372972.40
+2026-02-05 19:18:06,172 - Episode 62: Macro-Steps=6/6, Total Congestion (Reward)=1390602.00
+2026-02-05 19:18:48,751 - Episode 63: Macro-Steps=6/6, Total Congestion (Reward)=1294400.60
+2026-02-05 19:19:30,603 - Episode 64: Macro-Steps=6/6, Total Congestion (Reward)=1097864.20
+2026-02-05 19:20:13,123 - Episode 65: Macro-Steps=6/6, Total Congestion (Reward)=1061641.60
+2026-02-05 19:20:54,539 - Episode 66: Macro-Steps=6/6, Total Congestion (Reward)=994508.20
+2026-02-05 19:21:37,609 - Episode 67: Macro-Steps=6/6, Total Congestion (Reward)=1214885.40
+2026-02-05 19:22:19,683 - Episode 68: Macro-Steps=6/6, Total Congestion (Reward)=1012343.60
+2026-02-05 19:23:01,887 - Episode 69: Macro-Steps=6/6, Total Congestion (Reward)=1298320.80
+2026-02-05 19:23:44,404 - Episode 70: Macro-Steps=6/6, Total Congestion (Reward)=1189739.40
+2026-02-05 19:24:26,758 - Episode 71: Macro-Steps=6/6, Total Congestion (Reward)=1211605.60
+2026-02-05 19:25:09,147 - Episode 72: Macro-Steps=6/6, Total Congestion (Reward)=1089409.00
+2026-02-05 19:25:51,078 - Episode 73: Macro-Steps=6/6, Total Congestion (Reward)=1220683.20
+2026-02-05 19:26:32,537 - Episode 74: Macro-Steps=6/6, Total Congestion (Reward)=932189.40
+2026-02-05 19:27:14,658 - Episode 75: Macro-Steps=6/6, Total Congestion (Reward)=1125623.40
+2026-02-05 19:27:57,305 - Episode 76: Macro-Steps=6/6, Total Congestion (Reward)=1385288.00
+2026-02-05 19:28:39,440 - Episode 77: Macro-Steps=6/6, Total Congestion (Reward)=1396646.40
+2026-02-05 19:29:21,043 - Episode 78: Macro-Steps=6/6, Total Congestion (Reward)=1146793.60
+2026-02-05 19:30:03,381 - Episode 79: Macro-Steps=6/6, Total Congestion (Reward)=1236080.40
+2026-02-05 19:30:45,645 - Episode 80: Macro-Steps=6/6, Total Congestion (Reward)=1009811.60
+2026-02-05 19:31:27,366 - Episode 81: Macro-Steps=6/6, Total Congestion (Reward)=1139274.60
+2026-02-05 19:32:09,505 - Episode 82: Macro-Steps=6/6, Total Congestion (Reward)=1251221.80
+2026-02-05 19:32:51,281 - Episode 83: Macro-Steps=6/6, Total Congestion (Reward)=1123371.40
+2026-02-05 19:33:34,370 - Episode 84: Macro-Steps=6/6, Total Congestion (Reward)=1260092.60
+2026-02-05 19:34:16,034 - Episode 85: Macro-Steps=6/6, Total Congestion (Reward)=1244851.60
+2026-02-05 19:34:56,592 - Episode 86: Macro-Steps=6/6, Total Congestion (Reward)=1100171.60
+2026-02-05 19:35:35,982 - Episode 87: Macro-Steps=6/6, Total Congestion (Reward)=1022321.20
+2026-02-05 19:36:15,717 - Episode 88: Macro-Steps=6/6, Total Congestion (Reward)=968926.60
+2026-02-05 19:36:57,040 - Episode 89: Macro-Steps=6/6, Total Congestion (Reward)=1033412.00
+2026-02-05 19:37:38,884 - Episode 90: Macro-Steps=6/6, Total Congestion (Reward)=1123275.00
+2026-02-05 19:38:20,166 - Episode 91: Macro-Steps=6/6, Total Congestion (Reward)=1020372.40
+2026-02-05 19:39:02,050 - Episode 92: Macro-Steps=6/6, Total Congestion (Reward)=1397113.00
+2026-02-05 19:39:42,700 - Episode 93: Macro-Steps=6/6, Total Congestion (Reward)=1273183.00
+2026-02-05 19:40:23,631 - Episode 94: Macro-Steps=6/6, Total Congestion (Reward)=1215185.80
+2026-02-05 19:41:05,267 - Episode 95: Macro-Steps=6/6, Total Congestion (Reward)=1154350.20
+2026-02-05 19:41:46,257 - Episode 96: Macro-Steps=6/6, Total Congestion (Reward)=1155078.20
+2026-02-05 19:42:28,008 - Episode 97: Macro-Steps=6/6, Total Congestion (Reward)=1294278.20
+2026-02-05 19:43:08,411 - Episode 98: Macro-Steps=6/6, Total Congestion (Reward)=1072397.40
+2026-02-05 19:43:48,504 - Episode 99: Macro-Steps=6/6, Total Congestion (Reward)=947095.20
+2026-02-05 19:44:29,337 - Episode 100: Macro-Steps=6/6, Total Congestion (Reward)=1256754.40
+2026-02-05 19:45:11,704 - Episode 101: Macro-Steps=6/6, Total Congestion (Reward)=1435580.40
+2026-02-05 19:45:53,302 - Episode 102: Macro-Steps=6/6, Total Congestion (Reward)=1149857.40
+2026-02-05 19:46:35,517 - Episode 103: Macro-Steps=6/6, Total Congestion (Reward)=1242299.80
+2026-02-05 19:47:17,798 - Episode 104: Macro-Steps=6/6, Total Congestion (Reward)=1144412.20
+2026-02-05 19:47:59,529 - Episode 105: Macro-Steps=6/6, Total Congestion (Reward)=1005335.80
+2026-02-05 19:48:42,120 - Episode 106: Macro-Steps=6/6, Total Congestion (Reward)=1303487.40
+2026-02-05 19:49:23,334 - Episode 107: Macro-Steps=6/6, Total Congestion (Reward)=1165462.00
+2026-02-05 19:50:05,592 - Episode 108: Macro-Steps=6/6, Total Congestion (Reward)=1263442.00
+2026-02-05 19:50:47,254 - Episode 109: Macro-Steps=6/6, Total Congestion (Reward)=1041460.40
+2026-02-05 19:51:29,391 - Episode 110: Macro-Steps=6/6, Total Congestion (Reward)=1013627.40
+2026-02-05 19:52:12,275 - Episode 111: Macro-Steps=6/6, Total Congestion (Reward)=1317509.60
+2026-02-05 19:52:55,284 - Episode 112: Macro-Steps=6/6, Total Congestion (Reward)=1398145.20
+2026-02-05 19:53:36,446 - Episode 113: Macro-Steps=6/6, Total Congestion (Reward)=934676.40
+2026-02-05 19:54:17,332 - Episode 114: Macro-Steps=6/6, Total Congestion (Reward)=1043271.20
+2026-02-05 19:54:59,057 - Episode 115: Macro-Steps=6/6, Total Congestion (Reward)=1363571.80
+2026-02-05 19:55:41,515 - Episode 116: Macro-Steps=6/6, Total Congestion (Reward)=1337207.00
+2026-02-05 19:56:23,135 - Episode 117: Macro-Steps=6/6, Total Congestion (Reward)=1323091.80
+2026-02-05 19:57:04,477 - Episode 118: Macro-Steps=6/6, Total Congestion (Reward)=1076845.20
+2026-02-05 19:57:45,017 - Episode 119: Macro-Steps=6/6, Total Congestion (Reward)=1168118.20
+2026-02-05 19:58:27,191 - Episode 120: Macro-Steps=6/6, Total Congestion (Reward)=1276648.20
+2026-02-05 19:59:08,121 - Episode 121: Macro-Steps=6/6, Total Congestion (Reward)=1123482.80
+2026-02-05 19:59:48,943 - Episode 122: Macro-Steps=6/6, Total Congestion (Reward)=1231257.00
+2026-02-05 20:00:29,856 - Episode 123: Macro-Steps=6/6, Total Congestion (Reward)=936004.80
+2026-02-05 20:01:12,647 - Episode 124: Macro-Steps=6/6, Total Congestion (Reward)=1398369.40
+2026-02-05 20:01:54,949 - Episode 125: Macro-Steps=6/6, Total Congestion (Reward)=1224209.80
+2026-02-05 20:02:37,465 - Episode 126: Macro-Steps=6/6, Total Congestion (Reward)=1284702.60
+2026-02-05 20:03:19,418 - Episode 127: Macro-Steps=6/6, Total Congestion (Reward)=1226331.60
+2026-02-05 20:04:01,041 - Episode 128: Macro-Steps=6/6, Total Congestion (Reward)=1202949.00
+2026-02-05 20:04:43,480 - Episode 129: Macro-Steps=6/6, Total Congestion (Reward)=1074956.20
+2026-02-05 20:05:25,415 - Episode 130: Macro-Steps=6/6, Total Congestion (Reward)=1187402.20
+2026-02-05 20:06:07,965 - Episode 131: Macro-Steps=6/6, Total Congestion (Reward)=1181504.40
+2026-02-05 20:06:50,849 - Episode 132: Macro-Steps=6/6, Total Congestion (Reward)=1282819.60
+2026-02-05 20:07:32,666 - Episode 133: Macro-Steps=6/6, Total Congestion (Reward)=1114761.80
+2026-02-05 20:08:14,298 - Episode 134: Macro-Steps=6/6, Total Congestion (Reward)=1268591.60
+2026-02-05 20:08:55,932 - Episode 135: Macro-Steps=6/6, Total Congestion (Reward)=1266208.20
+2026-02-05 20:09:38,070 - Episode 136: Macro-Steps=6/6, Total Congestion (Reward)=1124439.20
+2026-02-05 20:10:20,226 - Episode 137: Macro-Steps=6/6, Total Congestion (Reward)=1287182.60
+2026-02-05 20:11:03,161 - Episode 138: Macro-Steps=6/6, Total Congestion (Reward)=1323612.20
+2026-02-05 20:11:46,469 - Episode 139: Macro-Steps=6/6, Total Congestion (Reward)=1430306.80
+2026-02-05 20:12:28,831 - Episode 140: Macro-Steps=6/6, Total Congestion (Reward)=1185325.80
+2026-02-05 20:13:11,652 - Episode 141: Macro-Steps=6/6, Total Congestion (Reward)=1344248.40
+2026-02-05 20:13:53,693 - Episode 142: Macro-Steps=6/6, Total Congestion (Reward)=1222092.20
+2026-02-05 20:14:35,910 - Episode 143: Macro-Steps=6/6, Total Congestion (Reward)=1141999.80
+2026-02-05 20:15:17,625 - Episode 144: Macro-Steps=6/6, Total Congestion (Reward)=1134338.40
+2026-02-05 20:15:59,279 - Episode 145: Macro-Steps=6/6, Total Congestion (Reward)=1242005.40
+2026-02-05 20:16:40,759 - Episode 146: Macro-Steps=6/6, Total Congestion (Reward)=1290555.40
+2026-02-05 20:17:21,666 - Episode 147: Macro-Steps=6/6, Total Congestion (Reward)=1071858.80
+2026-02-05 20:18:02,719 - Episode 148: Macro-Steps=6/6, Total Congestion (Reward)=1251771.00
+2026-02-05 20:18:44,902 - Episode 149: Macro-Steps=6/6, Total Congestion (Reward)=1328953.00
+2026-02-05 20:19:26,371 - Episode 150: Macro-Steps=6/6, Total Congestion (Reward)=1359310.00
+2026-02-05 20:20:07,616 - Episode 151: Macro-Steps=6/6, Total Congestion (Reward)=1137155.20
+2026-02-05 20:20:49,352 - Episode 152: Macro-Steps=6/6, Total Congestion (Reward)=1369857.40
+2026-02-05 20:21:30,668 - Episode 153: Macro-Steps=6/6, Total Congestion (Reward)=1282054.40
+2026-02-05 20:22:11,296 - Episode 154: Macro-Steps=6/6, Total Congestion (Reward)=1056936.60
+2026-02-05 20:22:52,238 - Episode 155: Macro-Steps=6/6, Total Congestion (Reward)=1130433.80
+2026-02-05 20:23:34,790 - Episode 156: Macro-Steps=6/6, Total Congestion (Reward)=1448274.00
+2026-02-05 20:24:14,775 - Episode 157: Macro-Steps=6/6, Total Congestion (Reward)=912418.60
+2026-02-05 20:24:56,006 - Episode 158: Macro-Steps=6/6, Total Congestion (Reward)=1234790.40
+2026-02-05 20:25:37,712 - Episode 159: Macro-Steps=6/6, Total Congestion (Reward)=1120894.40
+2026-02-05 20:26:18,565 - Episode 160: Macro-Steps=6/6, Total Congestion (Reward)=1058157.20
+2026-02-05 20:26:59,459 - Episode 161: Macro-Steps=6/6, Total Congestion (Reward)=1023949.40
+2026-02-05 20:27:39,027 - Episode 162: Macro-Steps=6/6, Total Congestion (Reward)=1010886.80
+2026-02-05 20:28:19,726 - Episode 163: Macro-Steps=6/6, Total Congestion (Reward)=1226517.20
+2026-02-05 20:29:00,072 - Episode 164: Macro-Steps=6/6, Total Congestion (Reward)=1034074.20
+2026-02-05 20:29:41,066 - Episode 165: Macro-Steps=6/6, Total Congestion (Reward)=1182275.20
+2026-02-05 20:30:22,402 - Episode 166: Macro-Steps=6/6, Total Congestion (Reward)=1274693.80
+2026-02-05 20:31:04,210 - Episode 167: Macro-Steps=6/6, Total Congestion (Reward)=1393587.60
+2026-02-05 20:31:45,699 - Episode 168: Macro-Steps=6/6, Total Congestion (Reward)=1283862.80
+2026-02-05 20:32:26,853 - Episode 169: Macro-Steps=6/6, Total Congestion (Reward)=1109257.20
+2026-02-05 20:33:08,551 - Episode 170: Macro-Steps=6/6, Total Congestion (Reward)=1301540.20
+2026-02-05 20:33:48,900 - Episode 171: Macro-Steps=6/6, Total Congestion (Reward)=1155685.80
+2026-02-05 20:34:30,153 - Episode 172: Macro-Steps=6/6, Total Congestion (Reward)=1129876.20
+2026-02-05 20:35:11,566 - Episode 173: Macro-Steps=6/6, Total Congestion (Reward)=1182785.40
+2026-02-05 20:35:53,537 - Episode 174: Macro-Steps=6/6, Total Congestion (Reward)=1313241.80
+2026-02-05 20:36:35,043 - Episode 175: Macro-Steps=6/6, Total Congestion (Reward)=1285043.60
+2026-02-05 20:37:16,832 - Episode 176: Macro-Steps=6/6, Total Congestion (Reward)=1295730.80
+2026-02-05 20:37:58,000 - Episode 177: Macro-Steps=6/6, Total Congestion (Reward)=1079344.60
+2026-02-05 20:38:40,029 - Episode 178: Macro-Steps=6/6, Total Congestion (Reward)=1248353.20
+2026-02-05 20:39:20,930 - Episode 179: Macro-Steps=6/6, Total Congestion (Reward)=1185882.80
+2026-02-05 20:40:02,096 - Episode 180: Macro-Steps=6/6, Total Congestion (Reward)=1370385.40
+2026-02-05 20:40:43,370 - Episode 181: Macro-Steps=6/6, Total Congestion (Reward)=1290203.60
+2026-02-05 20:41:23,703 - Episode 182: Macro-Steps=6/6, Total Congestion (Reward)=1024132.20
+2026-02-05 20:42:04,596 - Episode 183: Macro-Steps=6/6, Total Congestion (Reward)=974043.80
+2026-02-05 20:42:45,353 - Episode 184: Macro-Steps=6/6, Total Congestion (Reward)=1064384.80
+2026-02-05 20:43:27,162 - Episode 185: Macro-Steps=6/6, Total Congestion (Reward)=1260828.60
+2026-02-05 20:44:08,115 - Episode 186: Macro-Steps=6/6, Total Congestion (Reward)=1190709.80
+2026-02-05 20:44:49,477 - Episode 187: Macro-Steps=6/6, Total Congestion (Reward)=1155458.20
+2026-02-05 20:45:30,177 - Episode 188: Macro-Steps=6/6, Total Congestion (Reward)=1015478.80
+2026-02-05 20:46:12,140 - Episode 189: Macro-Steps=6/6, Total Congestion (Reward)=1244725.20
+2026-02-05 20:46:53,910 - Episode 190: Macro-Steps=6/6, Total Congestion (Reward)=1158175.20
+2026-02-05 20:47:36,234 - Episode 191: Macro-Steps=6/6, Total Congestion (Reward)=1110176.40
+2026-02-05 20:48:18,200 - Episode 192: Macro-Steps=6/6, Total Congestion (Reward)=1107067.00
+2026-02-05 20:48:59,130 - Episode 193: Macro-Steps=6/6, Total Congestion (Reward)=1149294.60
+2026-02-05 20:49:40,098 - Episode 194: Macro-Steps=6/6, Total Congestion (Reward)=1135026.00
+2026-02-05 20:50:21,364 - Episode 195: Macro-Steps=6/6, Total Congestion (Reward)=1134723.80
+2026-02-05 20:51:03,106 - Episode 196: Macro-Steps=6/6, Total Congestion (Reward)=1262630.20
+2026-02-05 20:51:44,512 - Episode 197: Macro-Steps=6/6, Total Congestion (Reward)=1264373.40
+2026-02-05 20:52:25,977 - Episode 198: Macro-Steps=6/6, Total Congestion (Reward)=1203350.40
+2026-02-05 20:53:07,023 - Episode 199: Macro-Steps=6/6, Total Congestion (Reward)=1206426.20
+2026-02-05 20:53:48,969 - Episode 200: Macro-Steps=6/6, Total Congestion (Reward)=1346456.60
+2026-02-05 20:54:30,418 - Episode 201: Macro-Steps=6/6, Total Congestion (Reward)=1329153.20
+2026-02-05 20:55:12,121 - Episode 202: Macro-Steps=6/6, Total Congestion (Reward)=1184608.80
+2026-02-05 20:55:53,428 - Episode 203: Macro-Steps=6/6, Total Congestion (Reward)=1295895.20
+2026-02-05 20:56:35,561 - Episode 204: Macro-Steps=6/6, Total Congestion (Reward)=1388951.20
+2026-02-05 20:57:17,277 - Episode 205: Macro-Steps=6/6, Total Congestion (Reward)=1231808.80
+2026-02-05 20:57:58,440 - Episode 206: Macro-Steps=6/6, Total Congestion (Reward)=1183796.60
+2026-02-05 20:58:40,217 - Episode 207: Macro-Steps=6/6, Total Congestion (Reward)=1266411.40
+2026-02-05 20:59:21,383 - Episode 208: Macro-Steps=6/6, Total Congestion (Reward)=1152320.20
+2026-02-05 21:00:02,368 - Episode 209: Macro-Steps=6/6, Total Congestion (Reward)=1224705.80
+2026-02-05 21:00:45,072 - Episode 210: Macro-Steps=6/6, Total Congestion (Reward)=1277385.00
+2026-02-05 21:01:27,565 - Episode 211: Macro-Steps=6/6, Total Congestion (Reward)=1219415.00
+2026-02-05 21:02:09,261 - Episode 212: Macro-Steps=6/6, Total Congestion (Reward)=805347.00
+2026-02-05 21:02:51,064 - Episode 213: Macro-Steps=6/6, Total Congestion (Reward)=1111408.80
+2026-02-05 21:03:32,950 - Episode 214: Macro-Steps=6/6, Total Congestion (Reward)=1218377.20
+2026-02-05 21:04:16,196 - Episode 215: Macro-Steps=6/6, Total Congestion (Reward)=1093963.40
+2026-02-05 21:04:58,487 - Episode 216: Macro-Steps=6/6, Total Congestion (Reward)=1167194.80
+2026-02-05 21:05:40,688 - Episode 217: Macro-Steps=6/6, Total Congestion (Reward)=1101963.20
+2026-02-05 21:06:22,300 - Episode 218: Macro-Steps=6/6, Total Congestion (Reward)=969630.20
+2026-02-05 21:07:04,727 - Episode 219: Macro-Steps=6/6, Total Congestion (Reward)=1317831.20
+2026-02-05 21:07:46,560 - Episode 220: Macro-Steps=6/6, Total Congestion (Reward)=974818.60
+2026-02-05 21:08:28,683 - Episode 221: Macro-Steps=6/6, Total Congestion (Reward)=1109085.80
+2026-02-05 21:09:11,171 - Episode 222: Macro-Steps=6/6, Total Congestion (Reward)=1169593.60
+2026-02-05 21:09:53,802 - Episode 223: Macro-Steps=6/6, Total Congestion (Reward)=1150833.40
+2026-02-05 21:10:36,163 - Episode 224: Macro-Steps=6/6, Total Congestion (Reward)=1213027.00
+2026-02-05 21:11:19,375 - Episode 225: Macro-Steps=6/6, Total Congestion (Reward)=1333404.00
+2026-02-05 21:12:01,906 - Episode 226: Macro-Steps=6/6, Total Congestion (Reward)=1140695.40
+2026-02-05 21:12:44,217 - Episode 227: Macro-Steps=6/6, Total Congestion (Reward)=1140853.20
+2026-02-05 21:13:27,293 - Episode 228: Macro-Steps=6/6, Total Congestion (Reward)=1358161.20
+2026-02-05 21:14:09,504 - Episode 229: Macro-Steps=6/6, Total Congestion (Reward)=954713.80
+2026-02-05 21:14:50,870 - Episode 230: Macro-Steps=6/6, Total Congestion (Reward)=959943.20
+2026-02-05 21:15:33,378 - Episode 231: Macro-Steps=6/6, Total Congestion (Reward)=1081062.60
+2026-02-05 21:16:15,719 - Episode 232: Macro-Steps=6/6, Total Congestion (Reward)=1095262.00
+2026-02-05 21:16:58,522 - Episode 233: Macro-Steps=6/6, Total Congestion (Reward)=1139745.40
+2026-02-05 21:17:40,768 - Episode 234: Macro-Steps=6/6, Total Congestion (Reward)=1152007.00
+2026-02-05 21:18:23,275 - Episode 235: Macro-Steps=6/6, Total Congestion (Reward)=1269835.00
+2026-02-05 21:19:05,474 - Episode 236: Macro-Steps=6/6, Total Congestion (Reward)=1299853.60
+2026-02-05 21:19:48,236 - Episode 237: Macro-Steps=6/6, Total Congestion (Reward)=1307142.20
+2026-02-05 21:20:30,877 - Episode 238: Macro-Steps=6/6, Total Congestion (Reward)=1376668.20
+2026-02-05 21:21:12,239 - Episode 239: Macro-Steps=6/6, Total Congestion (Reward)=1060335.40
+2026-02-05 21:21:54,223 - Episode 240: Macro-Steps=6/6, Total Congestion (Reward)=1377101.80
+2026-02-05 21:22:35,816 - Episode 241: Macro-Steps=6/6, Total Congestion (Reward)=1268744.40
+2026-02-05 21:23:16,300 - Episode 242: Macro-Steps=6/6, Total Congestion (Reward)=994025.20
+2026-02-05 21:23:57,378 - Episode 243: Macro-Steps=6/6, Total Congestion (Reward)=1189800.80
+2026-02-05 21:24:38,477 - Episode 244: Macro-Steps=6/6, Total Congestion (Reward)=1170183.60
+2026-02-05 21:25:19,848 - Episode 245: Macro-Steps=6/6, Total Congestion (Reward)=1222520.00
+2026-02-05 21:26:02,398 - Episode 246: Macro-Steps=6/6, Total Congestion (Reward)=1306461.20
+2026-02-05 21:26:43,067 - Episode 247: Macro-Steps=6/6, Total Congestion (Reward)=928564.40
+2026-02-05 21:27:23,964 - Episode 248: Macro-Steps=6/6, Total Congestion (Reward)=1229901.20
+2026-02-05 21:28:05,725 - Episode 249: Macro-Steps=6/6, Total Congestion (Reward)=1221784.20
+2026-02-05 21:28:46,993 - Episode 250: Macro-Steps=6/6, Total Congestion (Reward)=1263789.40
+2026-02-05 21:29:28,277 - Episode 251: Macro-Steps=6/6, Total Congestion (Reward)=1173329.20
+2026-02-05 21:30:10,263 - Episode 252: Macro-Steps=6/6, Total Congestion (Reward)=1192243.60
+2026-02-05 21:30:51,203 - Episode 253: Macro-Steps=6/6, Total Congestion (Reward)=1148629.00
+2026-02-05 21:31:33,607 - Episode 254: Macro-Steps=6/6, Total Congestion (Reward)=1312728.40
+2026-02-05 21:32:16,088 - Episode 255: Macro-Steps=6/6, Total Congestion (Reward)=1415725.40
+2026-02-05 21:32:57,600 - Episode 256: Macro-Steps=6/6, Total Congestion (Reward)=1094659.40
+2026-02-05 21:33:39,741 - Episode 257: Macro-Steps=6/6, Total Congestion (Reward)=1284561.80
+2026-02-05 21:34:21,619 - Episode 258: Macro-Steps=6/6, Total Congestion (Reward)=1239950.20
+2026-02-05 21:35:03,019 - Episode 259: Macro-Steps=6/6, Total Congestion (Reward)=1207601.80
+2026-02-05 21:35:44,104 - Episode 260: Macro-Steps=6/6, Total Congestion (Reward)=1066558.00
+2026-02-05 21:36:25,414 - Episode 261: Macro-Steps=6/6, Total Congestion (Reward)=1251053.00
+2026-02-05 21:37:06,269 - Episode 262: Macro-Steps=6/6, Total Congestion (Reward)=1087884.20
+2026-02-05 21:37:46,373 - Episode 263: Macro-Steps=6/6, Total Congestion (Reward)=1078027.20
+2026-02-05 21:38:27,540 - Episode 264: Macro-Steps=6/6, Total Congestion (Reward)=1216685.20
+2026-02-05 21:39:08,387 - Episode 265: Macro-Steps=6/6, Total Congestion (Reward)=1153259.20
+2026-02-05 21:39:49,774 - Episode 266: Macro-Steps=6/6, Total Congestion (Reward)=1237071.80
+2026-02-05 21:40:31,485 - Episode 267: Macro-Steps=6/6, Total Congestion (Reward)=1264257.40
+2026-02-05 21:41:13,313 - Episode 268: Macro-Steps=6/6, Total Congestion (Reward)=1190406.20
+2026-02-05 21:41:54,829 - Episode 269: Macro-Steps=6/6, Total Congestion (Reward)=1259761.80
+2026-02-05 21:42:35,449 - Episode 270: Macro-Steps=6/6, Total Congestion (Reward)=1015149.80
+2026-02-05 21:43:16,676 - Episode 271: Macro-Steps=6/6, Total Congestion (Reward)=1132833.80
+2026-02-05 21:43:58,128 - Episode 272: Macro-Steps=6/6, Total Congestion (Reward)=1208084.60
+2026-02-05 21:44:39,980 - Episode 273: Macro-Steps=6/6, Total Congestion (Reward)=1187716.60
+2026-02-05 21:45:21,072 - Episode 274: Macro-Steps=6/6, Total Congestion (Reward)=998185.80
+2026-02-05 21:46:01,736 - Episode 275: Macro-Steps=6/6, Total Congestion (Reward)=1031607.20
+2026-02-05 21:46:44,378 - Episode 276: Macro-Steps=6/6, Total Congestion (Reward)=1248776.20
+2026-02-05 21:47:26,456 - Episode 277: Macro-Steps=6/6, Total Congestion (Reward)=1162488.60
+2026-02-05 21:48:09,202 - Episode 278: Macro-Steps=6/6, Total Congestion (Reward)=1174079.40
+2026-02-05 21:48:51,476 - Episode 279: Macro-Steps=6/6, Total Congestion (Reward)=1122309.20
+2026-02-05 21:49:33,074 - Episode 280: Macro-Steps=6/6, Total Congestion (Reward)=1067721.60
+2026-02-05 21:50:15,750 - Episode 281: Macro-Steps=6/6, Total Congestion (Reward)=1361702.60
+2026-02-05 21:50:57,666 - Episode 282: Macro-Steps=6/6, Total Congestion (Reward)=1050667.40
+2026-02-05 21:51:40,232 - Episode 283: Macro-Steps=6/6, Total Congestion (Reward)=1193285.60
+2026-02-05 21:52:22,356 - Episode 284: Macro-Steps=6/6, Total Congestion (Reward)=1210104.40
+2026-02-05 21:53:04,150 - Episode 285: Macro-Steps=6/6, Total Congestion (Reward)=1160964.20
+2026-02-05 21:53:46,850 - Episode 286: Macro-Steps=6/6, Total Congestion (Reward)=1148406.00
+2026-02-05 21:54:29,336 - Episode 287: Macro-Steps=6/6, Total Congestion (Reward)=1204908.40
+2026-02-05 21:55:10,841 - Episode 288: Macro-Steps=6/6, Total Congestion (Reward)=1042761.80
+2026-02-05 21:55:52,950 - Episode 289: Macro-Steps=6/6, Total Congestion (Reward)=1275651.80
+2026-02-05 21:56:34,794 - Episode 290: Macro-Steps=6/6, Total Congestion (Reward)=1315019.60
+2026-02-05 21:57:16,662 - Episode 291: Macro-Steps=6/6, Total Congestion (Reward)=1245781.00
+2026-02-05 21:57:57,273 - Episode 292: Macro-Steps=6/6, Total Congestion (Reward)=1028095.20
+2026-02-05 21:58:38,935 - Episode 293: Macro-Steps=6/6, Total Congestion (Reward)=1328369.00
+2026-02-05 21:59:20,051 - Episode 294: Macro-Steps=6/6, Total Congestion (Reward)=1084698.80
+2026-02-05 22:00:01,496 - Episode 295: Macro-Steps=6/6, Total Congestion (Reward)=1363118.20
+2026-02-05 22:00:44,512 - Episode 296: Macro-Steps=6/6, Total Congestion (Reward)=1428585.80
+2026-02-05 22:01:26,880 - Episode 297: Macro-Steps=6/6, Total Congestion (Reward)=1183135.40
+2026-02-05 22:02:08,685 - Episode 298: Macro-Steps=6/6, Total Congestion (Reward)=1280824.20
+2026-02-05 22:02:51,312 - Episode 299: Macro-Steps=6/6, Total Congestion (Reward)=1397776.20
+2026-02-05 22:03:32,901 - Episode 300: Macro-Steps=6/6, Total Congestion (Reward)=889186.40
+2026-02-05 22:04:16,302 - Episode 301: Macro-Steps=6/6, Total Congestion (Reward)=1481729.60
+2026-02-05 22:04:58,884 - Episode 302: Macro-Steps=6/6, Total Congestion (Reward)=1217300.80
+2026-02-05 22:05:41,385 - Episode 303: Macro-Steps=6/6, Total Congestion (Reward)=1211624.00
+2026-02-05 22:06:22,829 - Episode 304: Macro-Steps=6/6, Total Congestion (Reward)=1028435.60
+2026-02-05 22:07:05,177 - Episode 305: Macro-Steps=6/6, Total Congestion (Reward)=1206221.20
+2026-02-05 22:07:48,254 - Episode 306: Macro-Steps=6/6, Total Congestion (Reward)=1340039.40
+2026-02-05 22:08:29,850 - Episode 307: Macro-Steps=6/6, Total Congestion (Reward)=985600.00
+2026-02-05 22:09:12,301 - Episode 308: Macro-Steps=6/6, Total Congestion (Reward)=1282567.60
+2026-02-05 22:09:54,535 - Episode 309: Macro-Steps=6/6, Total Congestion (Reward)=1315663.60
+2026-02-05 22:10:37,012 - Episode 310: Macro-Steps=6/6, Total Congestion (Reward)=1104135.40
+2026-02-05 22:11:18,981 - Episode 311: Macro-Steps=6/6, Total Congestion (Reward)=1038902.60
+2026-02-05 22:12:00,563 - Episode 312: Macro-Steps=6/6, Total Congestion (Reward)=1018455.60
+2026-02-05 22:12:42,075 - Episode 313: Macro-Steps=6/6, Total Congestion (Reward)=1156656.60
+2026-02-05 22:13:25,742 - Episode 314: Macro-Steps=6/6, Total Congestion (Reward)=1311236.60
+2026-02-05 22:14:07,532 - Episode 315: Macro-Steps=6/6, Total Congestion (Reward)=1099518.00
+2026-02-05 22:14:49,038 - Episode 316: Macro-Steps=6/6, Total Congestion (Reward)=1198088.60
+2026-02-05 22:15:31,223 - Episode 317: Macro-Steps=6/6, Total Congestion (Reward)=1271308.00
+2026-02-05 22:16:12,609 - Episode 318: Macro-Steps=6/6, Total Congestion (Reward)=1266815.60
+2026-02-05 22:16:53,177 - Episode 319: Macro-Steps=6/6, Total Congestion (Reward)=1116208.80
+2026-02-05 22:17:34,265 - Episode 320: Macro-Steps=6/6, Total Congestion (Reward)=1164196.00
+2026-02-05 22:18:16,241 - Episode 321: Macro-Steps=6/6, Total Congestion (Reward)=1312396.20
+2026-02-05 22:18:58,102 - Episode 322: Macro-Steps=6/6, Total Congestion (Reward)=1194337.00
+2026-02-05 22:19:39,440 - Episode 323: Macro-Steps=6/6, Total Congestion (Reward)=1061145.20
+2026-02-05 22:20:20,869 - Episode 324: Macro-Steps=6/6, Total Congestion (Reward)=1184343.80
+2026-02-05 22:21:01,232 - Episode 325: Macro-Steps=6/6, Total Congestion (Reward)=978158.40
+2026-02-05 22:21:42,624 - Episode 326: Macro-Steps=6/6, Total Congestion (Reward)=1117723.80
+2026-02-05 22:22:24,108 - Episode 327: Macro-Steps=6/6, Total Congestion (Reward)=1125350.00
+2026-02-05 22:23:05,005 - Episode 328: Macro-Steps=6/6, Total Congestion (Reward)=1048832.00
+2026-02-05 22:23:45,633 - Episode 329: Macro-Steps=6/6, Total Congestion (Reward)=1175538.60
+2026-02-05 22:24:27,047 - Episode 330: Macro-Steps=6/6, Total Congestion (Reward)=1360382.40
+2026-02-05 22:25:08,403 - Episode 331: Macro-Steps=6/6, Total Congestion (Reward)=1250025.40
+2026-02-05 22:25:49,898 - Episode 332: Macro-Steps=6/6, Total Congestion (Reward)=1251478.80
+2026-02-05 22:26:31,532 - Episode 333: Macro-Steps=6/6, Total Congestion (Reward)=1380114.20
+2026-02-05 22:27:13,186 - Episode 334: Macro-Steps=6/6, Total Congestion (Reward)=1249516.80
+2026-02-05 22:27:55,407 - Episode 335: Macro-Steps=6/6, Total Congestion (Reward)=1300391.60
+2026-02-05 22:28:35,592 - Episode 336: Macro-Steps=6/6, Total Congestion (Reward)=1154150.40
+2026-02-05 22:29:17,558 - Episode 337: Macro-Steps=6/6, Total Congestion (Reward)=1317063.00
+2026-02-05 22:29:58,257 - Episode 338: Macro-Steps=6/6, Total Congestion (Reward)=1028571.60
+2026-02-05 22:30:39,440 - Episode 339: Macro-Steps=6/6, Total Congestion (Reward)=1308136.60
+2026-02-05 22:31:19,363 - Episode 340: Macro-Steps=6/6, Total Congestion (Reward)=1091227.40
+2026-02-05 22:32:01,831 - Episode 341: Macro-Steps=6/6, Total Congestion (Reward)=1321966.00
+2026-02-05 22:32:42,954 - Episode 342: Macro-Steps=6/6, Total Congestion (Reward)=1194529.40
+2026-02-05 22:33:24,941 - Episode 343: Macro-Steps=6/6, Total Congestion (Reward)=1248759.20
+2026-02-05 22:34:06,379 - Episode 344: Macro-Steps=6/6, Total Congestion (Reward)=1248333.00
+2026-02-05 22:34:48,059 - Episode 345: Macro-Steps=6/6, Total Congestion (Reward)=1311867.00
+2026-02-05 22:35:29,254 - Episode 346: Macro-Steps=6/6, Total Congestion (Reward)=1126695.00
+2026-02-05 22:36:10,718 - Episode 347: Macro-Steps=6/6, Total Congestion (Reward)=1129767.20
+2026-02-05 22:36:51,285 - Episode 348: Macro-Steps=6/6, Total Congestion (Reward)=1175415.40
+2026-02-05 22:37:33,161 - Episode 349: Macro-Steps=6/6, Total Congestion (Reward)=1435629.80
+2026-02-05 22:38:13,297 - Episode 350: Macro-Steps=6/6, Total Congestion (Reward)=918565.20
+2026-02-05 22:38:55,402 - Episode 351: Macro-Steps=6/6, Total Congestion (Reward)=1447396.80
+2026-02-05 22:39:36,497 - Episode 352: Macro-Steps=6/6, Total Congestion (Reward)=1132188.80
+2026-02-05 22:40:17,773 - Episode 353: Macro-Steps=6/6, Total Congestion (Reward)=1193702.00
+2026-02-05 22:40:59,579 - Episode 354: Macro-Steps=6/6, Total Congestion (Reward)=1345545.60
+2026-02-05 22:41:40,010 - Episode 355: Macro-Steps=6/6, Total Congestion (Reward)=1134590.60
+2026-02-05 22:42:20,941 - Episode 356: Macro-Steps=6/6, Total Congestion (Reward)=1070844.00
+2026-02-05 22:43:03,035 - Episode 357: Macro-Steps=6/6, Total Congestion (Reward)=1282265.00
+2026-02-05 22:43:42,857 - Episode 358: Macro-Steps=6/6, Total Congestion (Reward)=951404.60
+2026-02-05 22:44:24,391 - Episode 359: Macro-Steps=6/6, Total Congestion (Reward)=1358724.40
+2026-02-05 22:45:06,108 - Episode 360: Macro-Steps=6/6, Total Congestion (Reward)=1238118.00
+2026-02-05 22:45:45,817 - Episode 361: Macro-Steps=6/6, Total Congestion (Reward)=984070.00
+2026-02-05 22:46:27,120 - Episode 362: Macro-Steps=6/6, Total Congestion (Reward)=1109455.20
+2026-02-05 22:47:10,340 - Episode 363: Macro-Steps=6/6, Total Congestion (Reward)=1295769.80
+2026-02-05 22:47:54,085 - Episode 364: Macro-Steps=6/6, Total Congestion (Reward)=1373050.80
+2026-02-05 22:48:35,505 - Episode 365: Macro-Steps=6/6, Total Congestion (Reward)=1177001.60
+2026-02-05 22:49:16,649 - Episode 366: Macro-Steps=6/6, Total Congestion (Reward)=1220185.60
+2026-02-05 22:49:57,861 - Episode 367: Macro-Steps=6/6, Total Congestion (Reward)=1239538.40
+2026-02-05 22:50:38,844 - Episode 368: Macro-Steps=6/6, Total Congestion (Reward)=1168171.20
+2026-02-05 22:51:20,247 - Episode 369: Macro-Steps=6/6, Total Congestion (Reward)=1209382.60
+2026-02-05 22:52:01,796 - Episode 370: Macro-Steps=6/6, Total Congestion (Reward)=1250019.60
+2026-02-05 22:52:42,622 - Episode 371: Macro-Steps=6/6, Total Congestion (Reward)=1105937.00
+2026-02-05 22:53:23,988 - Episode 372: Macro-Steps=6/6, Total Congestion (Reward)=1209053.00
+2026-02-05 22:54:05,059 - Episode 373: Macro-Steps=6/6, Total Congestion (Reward)=1201363.40
+2026-02-05 22:54:45,944 - Episode 374: Macro-Steps=6/6, Total Congestion (Reward)=1229046.20
+2026-02-05 22:55:27,830 - Episode 375: Macro-Steps=6/6, Total Congestion (Reward)=1283350.60
+2026-02-05 22:56:09,533 - Episode 376: Macro-Steps=6/6, Total Congestion (Reward)=1261297.40
+2026-02-05 22:56:51,939 - Episode 377: Macro-Steps=6/6, Total Congestion (Reward)=1348707.80
+2026-02-05 22:57:34,118 - Episode 378: Macro-Steps=6/6, Total Congestion (Reward)=1314893.40
+2026-02-05 22:58:15,828 - Episode 379: Macro-Steps=6/6, Total Congestion (Reward)=1263146.20
+2026-02-05 22:58:57,528 - Episode 380: Macro-Steps=6/6, Total Congestion (Reward)=1282409.60
+2026-02-05 22:59:39,478 - Episode 381: Macro-Steps=6/6, Total Congestion (Reward)=1257296.80
+2026-02-05 23:00:20,708 - Episode 382: Macro-Steps=6/6, Total Congestion (Reward)=1282676.60
+2026-02-05 23:01:03,588 - Episode 383: Macro-Steps=6/6, Total Congestion (Reward)=1250948.60
+2026-02-05 23:01:46,279 - Episode 384: Macro-Steps=6/6, Total Congestion (Reward)=1340903.80
+2026-02-05 23:02:28,588 - Episode 385: Macro-Steps=6/6, Total Congestion (Reward)=1176262.00
+2026-02-05 23:03:11,622 - Episode 386: Macro-Steps=6/6, Total Congestion (Reward)=1256463.00
+2026-02-05 23:03:53,535 - Episode 387: Macro-Steps=6/6, Total Congestion (Reward)=1186242.00
+2026-02-05 23:04:35,981 - Episode 388: Macro-Steps=6/6, Total Congestion (Reward)=1132001.80
+2026-02-05 23:05:18,025 - Episode 389: Macro-Steps=6/6, Total Congestion (Reward)=1223116.40
+2026-02-05 23:06:00,753 - Episode 390: Macro-Steps=6/6, Total Congestion (Reward)=1280862.40
+2026-02-05 23:06:43,461 - Episode 391: Macro-Steps=6/6, Total Congestion (Reward)=1330508.20
+2026-02-05 23:07:25,866 - Episode 392: Macro-Steps=6/6, Total Congestion (Reward)=1232668.20
+2026-02-05 23:08:08,185 - Episode 393: Macro-Steps=6/6, Total Congestion (Reward)=1140864.60
+2026-02-05 23:08:51,216 - Episode 394: Macro-Steps=6/6, Total Congestion (Reward)=1406460.60
+2026-02-05 23:09:33,503 - Episode 395: Macro-Steps=6/6, Total Congestion (Reward)=1010691.00
+2026-02-05 23:10:15,539 - Episode 396: Macro-Steps=6/6, Total Congestion (Reward)=1190285.00
+2026-02-05 23:10:58,986 - Episode 397: Macro-Steps=6/6, Total Congestion (Reward)=1444422.40
+2026-02-05 23:11:41,452 - Episode 398: Macro-Steps=6/6, Total Congestion (Reward)=1201669.60
+2026-02-05 23:12:23,294 - Episode 399: Macro-Steps=6/6, Total Congestion (Reward)=1203112.20
+2026-02-05 23:13:05,329 - Episode 400: Macro-Steps=6/6, Total Congestion (Reward)=1209065.00
+2026-02-05 23:13:45,849 - Episode 401: Macro-Steps=6/6, Total Congestion (Reward)=1012025.40
+2026-02-05 23:14:28,679 - Episode 402: Macro-Steps=6/6, Total Congestion (Reward)=1315953.40
+2026-02-05 23:15:09,842 - Episode 403: Macro-Steps=6/6, Total Congestion (Reward)=1072160.00
+2026-02-05 23:15:52,799 - Episode 404: Macro-Steps=6/6, Total Congestion (Reward)=1252328.20
+2026-02-05 23:16:35,445 - Episode 405: Macro-Steps=6/6, Total Congestion (Reward)=1324589.00
+2026-02-05 23:17:18,930 - Episode 406: Macro-Steps=6/6, Total Congestion (Reward)=1315143.20
+2026-02-05 23:18:01,326 - Episode 407: Macro-Steps=6/6, Total Congestion (Reward)=1262973.80
+2026-02-05 23:18:43,535 - Episode 408: Macro-Steps=6/6, Total Congestion (Reward)=1178483.40
+2026-02-05 23:19:26,988 - Episode 409: Macro-Steps=6/6, Total Congestion (Reward)=1332258.80
+2026-02-05 23:20:09,074 - Episode 410: Macro-Steps=6/6, Total Congestion (Reward)=1355456.80
+2026-02-05 23:20:51,210 - Episode 411: Macro-Steps=6/6, Total Congestion (Reward)=1144232.40
+2026-02-05 23:21:33,555 - Episode 412: Macro-Steps=6/6, Total Congestion (Reward)=1043630.60
+2026-02-05 23:22:16,698 - Episode 413: Macro-Steps=6/6, Total Congestion (Reward)=1347608.40
+2026-02-05 23:22:59,635 - Episode 414: Macro-Steps=6/6, Total Congestion (Reward)=1363237.00
+2026-02-05 23:23:41,612 - Episode 415: Macro-Steps=6/6, Total Congestion (Reward)=1146429.40
+2026-02-05 23:24:23,921 - Episode 416: Macro-Steps=6/6, Total Congestion (Reward)=1165973.20
+2026-02-05 23:25:05,792 - Episode 417: Macro-Steps=6/6, Total Congestion (Reward)=1141522.20
+2026-02-05 23:25:47,854 - Episode 418: Macro-Steps=6/6, Total Congestion (Reward)=1219430.00
+2026-02-05 23:26:30,192 - Episode 419: Macro-Steps=6/6, Total Congestion (Reward)=1223565.20
+2026-02-05 23:27:13,586 - Episode 420: Macro-Steps=6/6, Total Congestion (Reward)=1332564.80
+2026-02-05 23:27:56,619 - Episode 421: Macro-Steps=6/6, Total Congestion (Reward)=1334964.20
+2026-02-05 23:28:39,305 - Episode 422: Macro-Steps=6/6, Total Congestion (Reward)=1350844.00
+2026-02-05 23:29:21,247 - Episode 423: Macro-Steps=6/6, Total Congestion (Reward)=1176723.80
+2026-02-05 23:30:03,346 - Episode 424: Macro-Steps=6/6, Total Congestion (Reward)=1112266.00
+2026-02-05 23:30:46,472 - Episode 425: Macro-Steps=6/6, Total Congestion (Reward)=1367642.60
+2026-02-05 23:31:29,022 - Episode 426: Macro-Steps=6/6, Total Congestion (Reward)=1034631.20
+2026-02-05 23:32:10,354 - Episode 427: Macro-Steps=6/6, Total Congestion (Reward)=1192317.40
+2026-02-05 23:32:51,570 - Episode 428: Macro-Steps=6/6, Total Congestion (Reward)=1110792.00
+2026-02-05 23:33:32,374 - Episode 429: Macro-Steps=6/6, Total Congestion (Reward)=961454.60
+2026-02-05 23:34:12,370 - Episode 430: Macro-Steps=6/6, Total Congestion (Reward)=1107554.80
+2026-02-05 23:34:53,369 - Episode 431: Macro-Steps=6/6, Total Congestion (Reward)=1118121.80
+2026-02-05 23:35:34,424 - Episode 432: Macro-Steps=6/6, Total Congestion (Reward)=1142365.80
+2026-02-05 23:36:14,883 - Episode 433: Macro-Steps=6/6, Total Congestion (Reward)=962214.20
+2026-02-05 23:36:57,080 - Episode 434: Macro-Steps=6/6, Total Congestion (Reward)=1476469.60
+2026-02-05 23:37:38,676 - Episode 435: Macro-Steps=6/6, Total Congestion (Reward)=1221921.60
+2026-02-05 23:38:20,051 - Episode 436: Macro-Steps=6/6, Total Congestion (Reward)=1177416.00
+2026-02-05 23:39:01,035 - Episode 437: Macro-Steps=6/6, Total Congestion (Reward)=1159035.40
+2026-02-05 23:39:42,536 - Episode 438: Macro-Steps=6/6, Total Congestion (Reward)=1326274.00
+2026-02-05 23:40:24,584 - Episode 439: Macro-Steps=6/6, Total Congestion (Reward)=1270299.60
+2026-02-05 23:41:07,100 - Episode 440: Macro-Steps=6/6, Total Congestion (Reward)=1352749.60
+2026-02-05 23:41:49,043 - Episode 441: Macro-Steps=6/6, Total Congestion (Reward)=1306564.00
+2026-02-05 23:42:30,102 - Episode 442: Macro-Steps=6/6, Total Congestion (Reward)=1254171.40
+2026-02-05 23:43:11,420 - Episode 443: Macro-Steps=6/6, Total Congestion (Reward)=1168123.80
+2026-02-05 23:43:52,516 - Episode 444: Macro-Steps=6/6, Total Congestion (Reward)=1100056.60
+2026-02-05 23:44:34,290 - Episode 445: Macro-Steps=6/6, Total Congestion (Reward)=1340685.80
+2026-02-05 23:45:15,563 - Episode 446: Macro-Steps=6/6, Total Congestion (Reward)=1072307.00
+2026-02-05 23:45:57,664 - Episode 447: Macro-Steps=6/6, Total Congestion (Reward)=1398285.00
+2026-02-05 23:46:40,051 - Episode 448: Macro-Steps=6/6, Total Congestion (Reward)=1279004.20
+2026-02-05 23:47:22,049 - Episode 449: Macro-Steps=6/6, Total Congestion (Reward)=1149662.60
+2026-02-05 23:48:04,634 - Episode 450: Macro-Steps=6/6, Total Congestion (Reward)=1252526.20
+2026-02-05 23:48:47,495 - Episode 451: Macro-Steps=6/6, Total Congestion (Reward)=1403131.80
+2026-02-05 23:49:29,674 - Episode 452: Macro-Steps=6/6, Total Congestion (Reward)=1189402.60
+2026-02-05 23:50:11,016 - Episode 453: Macro-Steps=6/6, Total Congestion (Reward)=980871.40
+2026-02-05 23:50:52,914 - Episode 454: Macro-Steps=6/6, Total Congestion (Reward)=1143175.80
+2026-02-05 23:51:35,043 - Episode 455: Macro-Steps=6/6, Total Congestion (Reward)=928921.40
+2026-02-05 23:52:16,779 - Episode 456: Macro-Steps=6/6, Total Congestion (Reward)=1091366.20
+2026-02-05 23:52:57,358 - Episode 457: Macro-Steps=6/6, Total Congestion (Reward)=1111926.80
+2026-02-05 23:53:38,545 - Episode 458: Macro-Steps=6/6, Total Congestion (Reward)=1256055.20
+2026-02-05 23:54:20,063 - Episode 459: Macro-Steps=6/6, Total Congestion (Reward)=1281139.80
+2026-02-05 23:55:01,562 - Episode 460: Macro-Steps=6/6, Total Congestion (Reward)=1204970.80
+2026-02-05 23:55:42,701 - Episode 461: Macro-Steps=6/6, Total Congestion (Reward)=1173021.80
+2026-02-05 23:56:24,473 - Episode 462: Macro-Steps=6/6, Total Congestion (Reward)=1193042.20
+2026-02-05 23:57:05,487 - Episode 463: Macro-Steps=6/6, Total Congestion (Reward)=1234994.20
+2026-02-05 23:57:47,449 - Episode 464: Macro-Steps=6/6, Total Congestion (Reward)=1379382.60
+2026-02-05 23:58:29,189 - Episode 465: Macro-Steps=6/6, Total Congestion (Reward)=1247343.20
+2026-02-05 23:59:10,564 - Episode 466: Macro-Steps=6/6, Total Congestion (Reward)=1328466.00
+2026-02-05 23:59:51,926 - Episode 467: Macro-Steps=6/6, Total Congestion (Reward)=1348590.40
+2026-02-06 00:00:33,073 - Episode 468: Macro-Steps=6/6, Total Congestion (Reward)=1011985.00
+2026-02-06 00:01:14,453 - Episode 469: Macro-Steps=6/6, Total Congestion (Reward)=972226.60
+2026-02-06 00:01:56,946 - Episode 470: Macro-Steps=6/6, Total Congestion (Reward)=1188570.20
+2026-02-06 00:02:38,612 - Episode 471: Macro-Steps=6/6, Total Congestion (Reward)=1181536.00
+2026-02-06 00:03:20,974 - Episode 472: Macro-Steps=6/6, Total Congestion (Reward)=1279550.20
+2026-02-06 00:04:03,378 - Episode 473: Macro-Steps=6/6, Total Congestion (Reward)=1319248.80
+2026-02-06 00:04:46,249 - Episode 474: Macro-Steps=6/6, Total Congestion (Reward)=1297041.60
+2026-02-06 00:05:29,292 - Episode 475: Macro-Steps=6/6, Total Congestion (Reward)=1314985.00
+2026-02-06 00:06:11,492 - Episode 476: Macro-Steps=6/6, Total Congestion (Reward)=967951.80
+2026-02-06 00:06:52,615 - Episode 477: Macro-Steps=6/6, Total Congestion (Reward)=950263.40
+2026-02-06 00:07:34,836 - Episode 478: Macro-Steps=6/6, Total Congestion (Reward)=1266305.00
+2026-02-06 00:08:17,354 - Episode 479: Macro-Steps=6/6, Total Congestion (Reward)=1283103.00
+2026-02-06 00:09:00,900 - Episode 480: Macro-Steps=6/6, Total Congestion (Reward)=1392674.20
+2026-02-06 00:09:42,963 - Episode 481: Macro-Steps=6/6, Total Congestion (Reward)=1209242.20
+2026-02-06 00:10:25,328 - Episode 482: Macro-Steps=6/6, Total Congestion (Reward)=1346224.80
+2026-02-06 00:11:08,527 - Episode 483: Macro-Steps=6/6, Total Congestion (Reward)=1272580.60
+2026-02-06 00:11:50,808 - Episode 484: Macro-Steps=6/6, Total Congestion (Reward)=1275668.40
+2026-02-06 00:12:32,975 - Episode 485: Macro-Steps=6/6, Total Congestion (Reward)=1216889.20
+2026-02-06 00:13:15,142 - Episode 486: Macro-Steps=6/6, Total Congestion (Reward)=1082029.20
+2026-02-06 00:13:57,997 - Episode 487: Macro-Steps=6/6, Total Congestion (Reward)=1085351.20
+2026-02-06 00:14:40,833 - Episode 488: Macro-Steps=6/6, Total Congestion (Reward)=1298969.20
+2026-02-06 00:15:22,833 - Episode 489: Macro-Steps=6/6, Total Congestion (Reward)=1100039.60
+2026-02-06 00:16:05,230 - Episode 490: Macro-Steps=6/6, Total Congestion (Reward)=1229155.60
+2026-02-06 00:16:47,191 - Episode 491: Macro-Steps=6/6, Total Congestion (Reward)=959688.40
+2026-02-06 00:17:29,412 - Episode 492: Macro-Steps=6/6, Total Congestion (Reward)=1185694.40
+2026-02-06 00:18:11,163 - Episode 493: Macro-Steps=6/6, Total Congestion (Reward)=1081024.40
+2026-02-06 00:18:53,368 - Episode 494: Macro-Steps=6/6, Total Congestion (Reward)=1183882.80
+2026-02-06 00:19:34,974 - Episode 495: Macro-Steps=6/6, Total Congestion (Reward)=1028128.40
+2026-02-06 00:20:17,862 - Episode 496: Macro-Steps=6/6, Total Congestion (Reward)=1363541.60
+2026-02-06 00:21:00,167 - Episode 497: Macro-Steps=6/6, Total Congestion (Reward)=1179325.80
+2026-02-06 00:21:40,800 - Episode 498: Macro-Steps=6/6, Total Congestion (Reward)=997620.80
+2026-02-06 00:22:22,738 - Episode 499: Macro-Steps=6/6, Total Congestion (Reward)=1219785.00
+2026-02-06 00:22:22,738 - Training Finished.
+2026-02-06 11:56:45,142 - Reading configuration from: ./config/config_ia2c_large.ini
+2026-02-06 11:56:45,142 - Initializing Adversarial Environment...
+2026-02-06 11:57:20,027 - Initializing CNN Adversary...
+2026-02-06 11:57:20,197 - Start Training...
+2026-02-06 11:58:13,242 - Episode 0: Steps=6, Reward=947695.60
+2026-02-06 11:58:59,305 - Episode 1: Steps=6, Reward=1115693.20
+2026-02-07 23:19:07,394 - Reading configuration from: ./config/config_ia2c_large.ini
+2026-02-07 23:19:07,395 - Initializing Adversarial Environment...
+2026-02-07 23:19:27,195 - Reading configuration from: ./config/config_ia2c_large.ini
+2026-02-07 23:19:27,195 - Initializing Adversarial Environment...
+2026-02-07 23:20:02,273 - Initializing CNN Adversary...
+2026-02-07 23:20:02,445 - Start Training...
+2026-02-07 23:20:44,611 - Episode 0: Steps=6, Reward=102324.20
+2026-02-07 23:21:20,074 - Episode 1: Steps=6, Reward=114955.40
+2026-02-08 13:52:03,163 - Reading configuration from: ./config/config_ia2c_large.ini
+2026-02-08 13:52:03,163 - Initializing Adversarial Environment...
+2026-02-08 13:52:38,687 - Initializing CNN Adversary...
+2026-02-08 13:52:38,860 - Start Training...
+2026-02-08 13:55:10,709 - Episode 0: Steps=11, Reward=102337.60
+2026-02-08 14:12:08,945 - Reading configuration from: ./config/config_iqll_large.ini
+2026-02-08 14:12:08,946 - Initializing Adversarial Environment...
+2026-02-09 10:45:39,244 - Reading configuration from: ./config/config_iqll_large.ini
+2026-02-09 10:45:39,244 - Initializing Adversarial Environment...
+2026-02-09 10:45:41,921 - Initializing CNN Adversary...
+2026-02-09 10:55:17,908 - Reading configuration from: ./config/config_iqll_large.ini
+2026-02-09 10:55:17,909 - Initializing Adversarial Environment...
+2026-02-09 10:55:20,291 - Initializing CNN Adversary...
+2026-02-09 10:55:20,506 - Start Training...
+2026-02-09 11:08:22,524 - Reading configuration from: ./config/config_iqll_large.ini
+2026-02-09 11:08:22,524 - Initializing Adversarial Environment...
+2026-02-09 11:08:24,894 - Initializing CNN Adversary...
+2026-02-09 11:08:25,099 - Start Training...
+2026-02-09 11:09:08,152 - Reading configuration from: ./config/config_iqll_large.ini
+2026-02-09 11:09:08,153 - Initializing Adversarial Environment...
+2026-02-09 11:09:10,449 - Initializing CNN Adversary...
+2026-02-09 11:09:10,639 - Start Training...
+2026-02-09 11:09:51,204 - Episode 0: Steps=11, Reward=1132364.60
