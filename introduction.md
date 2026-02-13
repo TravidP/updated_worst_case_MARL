@@ -68,9 +68,6 @@ Access --  you can check the password in shared google slides.
 ```
 
 ---
-Here is a polished and professional version of your Markdown. I’ve refined the technical phrasing, corrected the spelling of "Monaco" and "regional," and organized the information for better readability.
-
----
 
 # 📊 Traffic Distribution Profiles
 
