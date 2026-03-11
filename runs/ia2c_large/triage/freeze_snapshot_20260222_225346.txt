@@ -1,0 +1,686 @@
+timestamp=2026-02-22T22:53:46+01:00
+run_dir=./runs/ia2c_large
+pid=1958759
+
+==== disk ====
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/nvme0n1p5  414G  387G  5,8G  99% /
+
+==== memory ====
+               total        used        free      shared  buff/cache   available
+Mem:            62Gi        19Gi        31Gi       437Mi        11Gi        41Gi
+Swap:          2,0Gi          0B       2,0Gi
+
+==== processes ====
+1958759 python main.py --base-dir ./runs/ia2c_large train --config-dir ./config/config_ia2c_large.ini --test-mode no_test
+
+-- ps tree for pid 1958759 --
+python,1958759 main.py --base-dir ./runs/ia2c_large train --config-dir ./config/config_ia2c_large.ini --test-mode no_test
+  |-sumo,2413342 -c ./large_grid/data/expdummy_0.sumocfg --seed 331 --remote-port 8000 --no-step-log True --time-to-teleport ...
+  |-{python},1958913
+  |-{python},1958914
+  |-{python},1958915
+  |-{python},1958916
+  |-{python},1958917
+  |-{python},1958918
+  |-{python},1958919
+  |-{python},1958920
+  |-{python},1958921
+  |-{python},1958922
+  |-{python},1958923
+  |-{python},1958924
+  |-{python},1958925
+  |-{python},1958926
+  |-{python},1958927
+  |-{python},1958928
+  |-{python},1958929
+  |-{python},1958930
+  |-{python},1958931
+  |-{python},1958932
+  |-{python},1958933
+  |-{python},1958934
+  |-{python},1958935
+  |-{python},1958936
+  |-{python},1961845
+  |-{python},1961846
+  |-{python},1962210
+  |-{python},1962211
+  |-{python},1962212
+  |-{python},1962213
+  |-{python},1962214
+  |-{python},1962215
+  |-{python},1962216
+  |-{python},1962217
+  |-{python},1962218
+  |-{python},1962219
+  |-{python},1962220
+  |-{python},1962221
+  |-{python},1962222
+  |-{python},1962223
+  |-{python},1962224
+  |-{python},1962225
+  |-{python},1962226
+  |-{python},1962227
+  |-{python},1962228
+  |-{python},1962229
+  |-{python},1962230
+  |-{python},1962231
+  |-{python},1962232
+  |-{python},1962233
+  |-{python},1962234
+  |-{python},1962235
+  |-{python},1962236
+  |-{python},1962237
+  |-{python},1962238
+  |-{python},1962239
+  |-{python},1962240
+  |-{python},1962241
+  |-{python},1962242
+  |-{python},1962243
+  |-{python},1962244
+  |-{python},1962245
+  |-{python},1962246
+  `-{python},1962247
+
+-- ps summary --
+    PID    PPID STAT     ELAPSED %CPU %MEM   RSS    VSZ CMD
+1958759 1470684 Sl+   1-07:42:40  220 12.8 8400196 16540052 python main.py --base-dir ./runs/ia2c_large train --config-dir ./config/config_ia2c_large.ini --test-mode no_test
+    PID    PPID STAT     ELAPSED %CPU %MEM   RSS    VSZ CMD
+2413342 1958759 S+    1-01:14:07  0.0  0.0 40260 102424 /usr/bin/sumo -c ./large_grid/data/expdummy_0.sumocfg --seed 331 --remote-port 8000 --no-step-log True --time-to-teleport 600 --no-warnings True --duration-log.disable True
+
+-- top threads snapshot --
+top - 22:53:46 up 2 days, 12:45,  1 user,  load average: 0,14, 0,11, 0,09
+Threads:  65 total,   0 running,  65 sleeping,   0 stopped,   0 zombie
+%Cpu(s):  1,3 us,  1,3 sy,  0,0 ni, 97,4 id,  0,0 wa,  0,0 hi,  0,0 si,  0,0 st
+MiB Mem :  63643,0 total,  31900,2 free,  20036,6 used,  11706,2 buff/cache
+MiB Swap:   2048,0 total,   2048,0 free,      0,0 used.  42458,5 avail Mem 
+
+    PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND
+1958759 sdc_jor+  20   0   15,8g   8,0g 106592 S   0,0  12,9  93:30.70 python
+1958913 sdc_jor+  20   0   15,8g   8,0g 106592 S   0,0  12,9   0:00.00 python
+1958914 sdc_jor+  20   0   15,8g   8,0g 106592 S   0,0  12,9   0:13.81 python
+1958915 sdc_jor+  20   0   15,8g   8,0g 106592 S   0,0  12,9   0:13.83 python
+1958916 sdc_jor+  20   0   15,8g   8,0g 106592 S   0,0  12,9   0:13.87 python
+1958917 sdc_jor+  20   0   15,8g   8,0g 106592 S   0,0  12,9   0:14.01 python
+1958918 sdc_jor+  20   0   15,8g   8,0g 106592 S   0,0  12,9   0:13.69 python
+1958919 sdc_jor+  20   0   15,8g   8,0g 106592 S   0,0  12,9   0:13.98 python
+1958920 sdc_jor+  20   0   15,8g   8,0g 106592 S   0,0  12,9   0:14.07 python
+1958921 sdc_jor+  20   0   15,8g   8,0g 106592 S   0,0  12,9   0:13.80 python
+1958922 sdc_jor+  20   0   15,8g   8,0g 106592 S   0,0  12,9   0:13.80 python
+1958923 sdc_jor+  20   0   15,8g   8,0g 106592 S   0,0  12,9   0:13.79 python
+1958924 sdc_jor+  20   0   15,8g   8,0g 106592 S   0,0  12,9   0:13.98 python
+1958925 sdc_jor+  20   0   15,8g   8,0g 106592 S   0,0  12,9   0:14.12 python
+1958926 sdc_jor+  20   0   15,8g   8,0g 106592 S   0,0  12,9   0:13.85 python
+1958927 sdc_jor+  20   0   15,8g   8,0g 106592 S   0,0  12,9   0:13.78 python
+1958928 sdc_jor+  20   0   15,8g   8,0g 106592 S   0,0  12,9   0:13.95 python
+1958929 sdc_jor+  20   0   15,8g   8,0g 106592 S   0,0  12,9   0:13.81 python
+1958930 sdc_jor+  20   0   15,8g   8,0g 106592 S   0,0  12,9   0:13.95 python
+1958931 sdc_jor+  20   0   15,8g   8,0g 106592 S   0,0  12,9   0:13.86 python
+1958932 sdc_jor+  20   0   15,8g   8,0g 106592 S   0,0  12,9   0:13.90 python
+1958933 sdc_jor+  20   0   15,8g   8,0g 106592 S   0,0  12,9   0:13.77 python
+1958934 sdc_jor+  20   0   15,8g   8,0g 106592 S   0,0  12,9   0:00.00 python
+1958935 sdc_jor+  20   0   15,8g   8,0g 106592 S   0,0  12,9  99:18.51 python
+1958936 sdc_jor+  20   0   15,8g   8,0g 106592 S   0,0  12,9  83:07.98 python
+1961845 sdc_jor+  20   0   15,8g   8,0g 106592 S   0,0  12,9   0:00.19 python
+1961846 sdc_jor+  20   0   15,8g   8,0g 106592 S   0,0  12,9   0:01.92 python
+1962210 sdc_jor+  20   0   15,8g   8,0g 106592 S   0,0  12,9 135:38.85 python
+1962211 sdc_jor+  20   0   15,8g   8,0g 106592 S   0,0  12,9 127:22.73 python
+1962212 sdc_jor+  20   0   15,8g   8,0g 106592 S   0,0  12,9 133:46.05 python
+1962213 sdc_jor+  20   0   15,8g   8,0g 106592 S   0,0  12,9 122:59.67 python
+1962214 sdc_jor+  20   0   15,8g   8,0g 106592 S   0,0  12,9 162:12.31 python
+1962215 sdc_jor+  20   0   15,8g   8,0g 106592 S   0,0  12,9 118:56.60 python
+1962216 sdc_jor+  20   0   15,8g   8,0g 106592 S   0,0  12,9 114:59.73 python
+1962217 sdc_jor+  20   0   15,8g   8,0g 106592 S   0,0  12,9 147:29.69 python
+1962218 sdc_jor+  20   0   15,8g   8,0g 106592 S   0,0  12,9 111:34.70 python
+1962219 sdc_jor+  20   0   15,8g   8,0g 106592 S   0,0  12,9 142:51.21 python
+1962220 sdc_jor+  20   0   15,8g   8,0g 106592 S   0,0  12,9 108:42.18 python
+1962221 sdc_jor+  20   0   15,8g   8,0g 106592 S   0,0  12,9 122:56.00 python
+1962222 sdc_jor+  20   0   15,8g   8,0g 106592 S   0,0  12,9 120:20.35 python
+1962223 sdc_jor+  20   0   15,8g   8,0g 106592 S   0,0  12,9  99:36.62 python
+1962224 sdc_jor+  20   0   15,8g   8,0g 106592 S   0,0  12,9 113:03.84 python
+1962225 sdc_jor+  20   0   15,8g   8,0g 106592 S   0,0  12,9 110:21.20 python
+1962226 sdc_jor+  20   0   15,8g   8,0g 106592 S   0,0  12,9 105:10.35 python
+1962227 sdc_jor+  20   0   15,8g   8,0g 106592 S   0,0  12,9 119:32.94 python
+1962228 sdc_jor+  20   0   15,8g   8,0g 106592 S   0,0  12,9 103:58.70 python
+1962229 sdc_jor+  20   0   15,8g   8,0g 106592 S   0,0  12,9 108:13.41 python
+1962230 sdc_jor+  20   0   15,8g   8,0g 106592 S   0,0  12,9 106:32.23 python
+1962231 sdc_jor+  20   0   15,8g   8,0g 106592 S   0,0  12,9  96:33.26 python
+1962232 sdc_jor+  20   0   15,8g   8,0g 106592 S   0,0  12,9 106:53.01 python
+1962233 sdc_jor+  20   0   15,8g   8,0g 106592 S   0,0  12,9 110:13.07 python
+1962234 sdc_jor+  20   0   15,8g   8,0g 106592 S   0,0  12,9 102:38.87 python
+1962235 sdc_jor+  20   0   15,8g   8,0g 106592 S   0,0  12,9 100:10.88 python
+
+-- /proc status --
+Name:	python
+Umask:	0002
+State:	S (sleeping)
+Tgid:	1958759
+Ngid:	0
+Pid:	1958759
+PPid:	1470684
+TracerPid:	0
+Uid:	1001	1001	1001	1001
+Gid:	1001	1001	1001	1001
+FDSize:	256
+Groups:	4 24 27 30 46 122 135 136 1001 
+NStgid:	1958759
+NSpid:	1958759
+NSpgid:	1958759
+NSsid:	1470684
+Kthread:	0
+VmPeak:	16696652 kB
+VmSize:	16540052 kB
+VmLck:	       0 kB
+VmPin:	       0 kB
+VmHWM:	 8553984 kB
+VmRSS:	 8400196 kB
+RssAnon:	 8293604 kB
+RssFile:	  106592 kB
+RssShmem:	       0 kB
+VmData:	11483636 kB
+VmStk:	     136 kB
+VmExe:	    1568 kB
+VmLib:	  352308 kB
+VmPTE:	   17536 kB
+VmSwap:	       0 kB
+HugetlbPages:	       0 kB
+CoreDumping:	0
+THP_enabled:	1
+untag_mask:	0xffffffffffffffff
+Threads:	65
+SigQ:	0/254240
+SigPnd:	0000000000000000
+ShdPnd:	0000000000000000
+SigBlk:	0000000000000000
+SigIgn:	0000000001001000
+SigCgt:	0000000100000202
+CapInh:	0000000000000000
+CapPrm:	0000000000000000
+CapEff:	0000000000000000
+CapBnd:	000001ffffffffff
+CapAmb:	0000000000000000
+NoNewPrivs:	0
+Seccomp:	0
+Seccomp_filters:	0
+Speculation_Store_Bypass:	thread vulnerable
+SpeculationIndirectBranch:	conditional enabled
+Cpus_allowed:	00001
+Cpus_allowed_list:	0
+Mems_allowed:	00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000001
+Mems_allowed_list:	0
+voluntary_ctxt_switches:	366594827
+nonvoluntary_ctxt_switches:	5896979
+x86_Thread_features:	
+x86_Thread_features_locked:	
+Name:	sumo
+Umask:	0002
+State:	S (sleeping)
+Tgid:	2413342
+Ngid:	0
+Pid:	2413342
+PPid:	1958759
+TracerPid:	0
+Uid:	1001	1001	1001	1001
+Gid:	1001	1001	1001	1001
+FDSize:	128
+Groups:	4 24 27 30 46 122 135 136 1001 
+NStgid:	2413342
+NSpid:	2413342
+NSpgid:	1958759
+NSsid:	1470684
+Kthread:	0
+VmPeak:	  102424 kB
+VmSize:	  102424 kB
+VmLck:	       0 kB
+VmPin:	       0 kB
+VmHWM:	   40260 kB
+VmRSS:	   40260 kB
+RssAnon:	   16200 kB
+RssFile:	   24060 kB
+RssShmem:	       0 kB
+VmData:	   17404 kB
+VmStk:	     136 kB
+VmExe:	    7388 kB
+VmLib:	   22672 kB
+VmPTE:	     196 kB
+VmSwap:	       0 kB
+HugetlbPages:	       0 kB
+CoreDumping:	0
+THP_enabled:	1
+untag_mask:	0xffffffffffffffff
+Threads:	1
+SigQ:	0/254240
+SigPnd:	0000000000000000
+ShdPnd:	0000000000000000
+SigBlk:	0000000000000000
+SigIgn:	0000000000000000
+SigCgt:	0000000000004a02
+CapInh:	0000000000000000
+CapPrm:	0000000000000000
+CapEff:	0000000000000000
+CapBnd:	000001ffffffffff
+CapAmb:	0000000000000000
+NoNewPrivs:	0
+Seccomp:	0
+Seccomp_filters:	0
+Speculation_Store_Bypass:	thread vulnerable
+SpeculationIndirectBranch:	conditional enabled
+Cpus_allowed:	fffff
+Cpus_allowed_list:	0-19
+Mems_allowed:	00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000001
+Mems_allowed_list:	0
+voluntary_ctxt_switches:	593793
+nonvoluntary_ctxt_switches:	3052
+x86_Thread_features:	
+x86_Thread_features_locked:	
+
+==== sockets ====
+./scripts/freeze_triage.sh: line 76: rg: command not found
+
+==== latest log tail ====
+latest_log=./runs/ia2c_large/log/1771683066.log
+2026-02-22 17:54:50,342 [WARNING] Watchdog: no training progress for 72875.6s (stage=explore:forward). Dumping stacks...
+2026-02-22 17:56:20,427 [WARNING] Watchdog: no training progress for 72965.7s (stage=explore:forward). Dumping stacks...
+2026-02-22 17:57:50,506 [WARNING] Watchdog: no training progress for 73055.8s (stage=explore:forward). Dumping stacks...
+2026-02-22 17:59:20,584 [WARNING] Watchdog: no training progress for 73145.9s (stage=explore:forward). Dumping stacks...
+2026-02-22 18:00:50,646 [WARNING] Watchdog: no training progress for 73235.9s (stage=explore:forward). Dumping stacks...
+2026-02-22 18:02:20,725 [WARNING] Watchdog: no training progress for 73326.0s (stage=explore:forward). Dumping stacks...
+2026-02-22 18:03:50,809 [WARNING] Watchdog: no training progress for 73416.1s (stage=explore:forward). Dumping stacks...
+2026-02-22 18:05:20,892 [WARNING] Watchdog: no training progress for 73506.2s (stage=explore:forward). Dumping stacks...
+2026-02-22 18:06:50,972 [WARNING] Watchdog: no training progress for 73596.3s (stage=explore:forward). Dumping stacks...
+2026-02-22 18:08:21,052 [WARNING] Watchdog: no training progress for 73686.4s (stage=explore:forward). Dumping stacks...
+2026-02-22 18:09:51,143 [WARNING] Watchdog: no training progress for 73776.4s (stage=explore:forward). Dumping stacks...
+2026-02-22 18:11:21,224 [WARNING] Watchdog: no training progress for 73866.5s (stage=explore:forward). Dumping stacks...
+2026-02-22 18:12:51,310 [WARNING] Watchdog: no training progress for 73956.6s (stage=explore:forward). Dumping stacks...
+2026-02-22 18:14:21,399 [WARNING] Watchdog: no training progress for 74046.7s (stage=explore:forward). Dumping stacks...
+2026-02-22 18:15:51,471 [WARNING] Watchdog: no training progress for 74136.8s (stage=explore:forward). Dumping stacks...
+2026-02-22 18:17:21,554 [WARNING] Watchdog: no training progress for 74226.9s (stage=explore:forward). Dumping stacks...
+2026-02-22 18:18:51,627 [WARNING] Watchdog: no training progress for 74316.9s (stage=explore:forward). Dumping stacks...
+2026-02-22 18:20:21,704 [WARNING] Watchdog: no training progress for 74407.0s (stage=explore:forward). Dumping stacks...
+2026-02-22 18:21:51,768 [WARNING] Watchdog: no training progress for 74497.1s (stage=explore:forward). Dumping stacks...
+2026-02-22 18:23:21,827 [WARNING] Watchdog: no training progress for 74587.1s (stage=explore:forward). Dumping stacks...
+2026-02-22 18:24:51,891 [WARNING] Watchdog: no training progress for 74677.2s (stage=explore:forward). Dumping stacks...
+2026-02-22 18:26:21,975 [WARNING] Watchdog: no training progress for 74767.3s (stage=explore:forward). Dumping stacks...
+2026-02-22 18:27:52,058 [WARNING] Watchdog: no training progress for 74857.4s (stage=explore:forward). Dumping stacks...
+2026-02-22 18:29:22,133 [WARNING] Watchdog: no training progress for 74947.4s (stage=explore:forward). Dumping stacks...
+2026-02-22 18:30:52,221 [WARNING] Watchdog: no training progress for 75037.5s (stage=explore:forward). Dumping stacks...
+2026-02-22 18:32:22,297 [WARNING] Watchdog: no training progress for 75127.6s (stage=explore:forward). Dumping stacks...
+2026-02-22 18:33:52,384 [WARNING] Watchdog: no training progress for 75217.7s (stage=explore:forward). Dumping stacks...
+2026-02-22 18:35:22,475 [WARNING] Watchdog: no training progress for 75307.8s (stage=explore:forward). Dumping stacks...
+2026-02-22 18:36:52,561 [WARNING] Watchdog: no training progress for 75397.9s (stage=explore:forward). Dumping stacks...
+2026-02-22 18:38:22,646 [WARNING] Watchdog: no training progress for 75487.9s (stage=explore:forward). Dumping stacks...
+2026-02-22 18:39:52,729 [WARNING] Watchdog: no training progress for 75578.0s (stage=explore:forward). Dumping stacks...
+2026-02-22 18:41:22,810 [WARNING] Watchdog: no training progress for 75668.1s (stage=explore:forward). Dumping stacks...
+2026-02-22 18:42:52,886 [WARNING] Watchdog: no training progress for 75758.2s (stage=explore:forward). Dumping stacks...
+2026-02-22 18:44:22,963 [WARNING] Watchdog: no training progress for 75848.3s (stage=explore:forward). Dumping stacks...
+2026-02-22 18:45:53,038 [WARNING] Watchdog: no training progress for 75938.3s (stage=explore:forward). Dumping stacks...
+2026-02-22 18:47:23,115 [WARNING] Watchdog: no training progress for 76028.4s (stage=explore:forward). Dumping stacks...
+2026-02-22 18:48:53,182 [WARNING] Watchdog: no training progress for 76118.5s (stage=explore:forward). Dumping stacks...
+2026-02-22 18:50:23,257 [WARNING] Watchdog: no training progress for 76208.6s (stage=explore:forward). Dumping stacks...
+2026-02-22 18:51:53,337 [WARNING] Watchdog: no training progress for 76298.6s (stage=explore:forward). Dumping stacks...
+2026-02-22 18:53:23,425 [WARNING] Watchdog: no training progress for 76388.7s (stage=explore:forward). Dumping stacks...
+2026-02-22 18:54:53,511 [WARNING] Watchdog: no training progress for 76478.8s (stage=explore:forward). Dumping stacks...
+2026-02-22 18:56:23,594 [WARNING] Watchdog: no training progress for 76568.9s (stage=explore:forward). Dumping stacks...
+2026-02-22 18:57:53,661 [WARNING] Watchdog: no training progress for 76659.0s (stage=explore:forward). Dumping stacks...
+2026-02-22 18:59:23,746 [WARNING] Watchdog: no training progress for 76749.0s (stage=explore:forward). Dumping stacks...
+2026-02-22 19:00:53,820 [WARNING] Watchdog: no training progress for 76839.1s (stage=explore:forward). Dumping stacks...
+2026-02-22 19:02:23,877 [WARNING] Watchdog: no training progress for 76929.2s (stage=explore:forward). Dumping stacks...
+2026-02-22 19:03:53,953 [WARNING] Watchdog: no training progress for 77019.3s (stage=explore:forward). Dumping stacks...
+2026-02-22 19:05:24,023 [WARNING] Watchdog: no training progress for 77109.3s (stage=explore:forward). Dumping stacks...
+2026-02-22 19:06:54,103 [WARNING] Watchdog: no training progress for 77199.4s (stage=explore:forward). Dumping stacks...
+2026-02-22 19:08:24,185 [WARNING] Watchdog: no training progress for 77289.5s (stage=explore:forward). Dumping stacks...
+2026-02-22 19:09:54,256 [WARNING] Watchdog: no training progress for 77379.6s (stage=explore:forward). Dumping stacks...
+2026-02-22 19:11:24,338 [WARNING] Watchdog: no training progress for 77469.6s (stage=explore:forward). Dumping stacks...
+2026-02-22 19:12:54,411 [WARNING] Watchdog: no training progress for 77559.7s (stage=explore:forward). Dumping stacks...
+2026-02-22 19:14:24,469 [WARNING] Watchdog: no training progress for 77649.8s (stage=explore:forward). Dumping stacks...
+2026-02-22 19:15:54,552 [WARNING] Watchdog: no training progress for 77739.9s (stage=explore:forward). Dumping stacks...
+2026-02-22 19:17:24,631 [WARNING] Watchdog: no training progress for 77829.9s (stage=explore:forward). Dumping stacks...
+2026-02-22 19:18:54,701 [WARNING] Watchdog: no training progress for 77920.0s (stage=explore:forward). Dumping stacks...
+2026-02-22 19:20:24,770 [WARNING] Watchdog: no training progress for 78010.1s (stage=explore:forward). Dumping stacks...
+2026-02-22 19:21:54,834 [WARNING] Watchdog: no training progress for 78100.1s (stage=explore:forward). Dumping stacks...
+2026-02-22 19:23:24,921 [WARNING] Watchdog: no training progress for 78190.2s (stage=explore:forward). Dumping stacks...
+2026-02-22 19:24:55,007 [WARNING] Watchdog: no training progress for 78280.3s (stage=explore:forward). Dumping stacks...
+2026-02-22 19:26:25,080 [WARNING] Watchdog: no training progress for 78370.4s (stage=explore:forward). Dumping stacks...
+2026-02-22 19:27:55,158 [WARNING] Watchdog: no training progress for 78460.5s (stage=explore:forward). Dumping stacks...
+2026-02-22 19:29:25,239 [WARNING] Watchdog: no training progress for 78550.5s (stage=explore:forward). Dumping stacks...
+2026-02-22 19:30:55,326 [WARNING] Watchdog: no training progress for 78640.6s (stage=explore:forward). Dumping stacks...
+2026-02-22 19:32:25,413 [WARNING] Watchdog: no training progress for 78730.7s (stage=explore:forward). Dumping stacks...
+2026-02-22 19:33:55,484 [WARNING] Watchdog: no training progress for 78820.8s (stage=explore:forward). Dumping stacks...
+2026-02-22 19:35:25,556 [WARNING] Watchdog: no training progress for 78910.9s (stage=explore:forward). Dumping stacks...
+2026-02-22 19:36:55,638 [WARNING] Watchdog: no training progress for 79000.9s (stage=explore:forward). Dumping stacks...
+2026-02-22 19:38:25,709 [WARNING] Watchdog: no training progress for 79091.0s (stage=explore:forward). Dumping stacks...
+2026-02-22 19:39:55,785 [WARNING] Watchdog: no training progress for 79181.1s (stage=explore:forward). Dumping stacks...
+2026-02-22 19:41:25,861 [WARNING] Watchdog: no training progress for 79271.2s (stage=explore:forward). Dumping stacks...
+2026-02-22 19:42:55,947 [WARNING] Watchdog: no training progress for 79361.2s (stage=explore:forward). Dumping stacks...
+2026-02-22 19:44:26,031 [WARNING] Watchdog: no training progress for 79451.3s (stage=explore:forward). Dumping stacks...
+2026-02-22 19:45:56,113 [WARNING] Watchdog: no training progress for 79541.4s (stage=explore:forward). Dumping stacks...
+2026-02-22 19:47:26,197 [WARNING] Watchdog: no training progress for 79631.5s (stage=explore:forward). Dumping stacks...
+2026-02-22 19:48:56,278 [WARNING] Watchdog: no training progress for 79721.6s (stage=explore:forward). Dumping stacks...
+2026-02-22 19:50:26,349 [WARNING] Watchdog: no training progress for 79811.6s (stage=explore:forward). Dumping stacks...
+2026-02-22 19:51:56,437 [WARNING] Watchdog: no training progress for 79901.7s (stage=explore:forward). Dumping stacks...
+2026-02-22 19:53:26,505 [WARNING] Watchdog: no training progress for 79991.8s (stage=explore:forward). Dumping stacks...
+2026-02-22 19:54:56,573 [WARNING] Watchdog: no training progress for 80081.9s (stage=explore:forward). Dumping stacks...
+2026-02-22 19:56:26,647 [WARNING] Watchdog: no training progress for 80171.9s (stage=explore:forward). Dumping stacks...
+2026-02-22 19:57:56,723 [WARNING] Watchdog: no training progress for 80262.0s (stage=explore:forward). Dumping stacks...
+2026-02-22 19:59:26,802 [WARNING] Watchdog: no training progress for 80352.1s (stage=explore:forward). Dumping stacks...
+2026-02-22 20:00:56,881 [WARNING] Watchdog: no training progress for 80442.2s (stage=explore:forward). Dumping stacks...
+2026-02-22 20:02:26,962 [WARNING] Watchdog: no training progress for 80532.3s (stage=explore:forward). Dumping stacks...
+2026-02-22 20:03:57,043 [WARNING] Watchdog: no training progress for 80622.3s (stage=explore:forward). Dumping stacks...
+2026-02-22 20:05:27,119 [WARNING] Watchdog: no training progress for 80712.4s (stage=explore:forward). Dumping stacks...
+2026-02-22 20:06:57,200 [WARNING] Watchdog: no training progress for 80802.5s (stage=explore:forward). Dumping stacks...
+2026-02-22 20:08:27,271 [WARNING] Watchdog: no training progress for 80892.6s (stage=explore:forward). Dumping stacks...
+2026-02-22 20:09:57,347 [WARNING] Watchdog: no training progress for 80982.6s (stage=explore:forward). Dumping stacks...
+2026-02-22 20:11:27,426 [WARNING] Watchdog: no training progress for 81072.7s (stage=explore:forward). Dumping stacks...
+2026-02-22 20:12:57,490 [WARNING] Watchdog: no training progress for 81162.8s (stage=explore:forward). Dumping stacks...
+2026-02-22 20:14:27,568 [WARNING] Watchdog: no training progress for 81252.9s (stage=explore:forward). Dumping stacks...
+2026-02-22 20:15:57,652 [WARNING] Watchdog: no training progress for 81342.9s (stage=explore:forward). Dumping stacks...
+2026-02-22 20:17:27,720 [WARNING] Watchdog: no training progress for 81433.0s (stage=explore:forward). Dumping stacks...
+2026-02-22 20:18:57,804 [WARNING] Watchdog: no training progress for 81523.1s (stage=explore:forward). Dumping stacks...
+2026-02-22 20:20:27,883 [WARNING] Watchdog: no training progress for 81613.2s (stage=explore:forward). Dumping stacks...
+2026-02-22 20:21:57,965 [WARNING] Watchdog: no training progress for 81703.3s (stage=explore:forward). Dumping stacks...
+2026-02-22 20:23:28,039 [WARNING] Watchdog: no training progress for 81793.3s (stage=explore:forward). Dumping stacks...
+2026-02-22 20:24:58,113 [WARNING] Watchdog: no training progress for 81883.4s (stage=explore:forward). Dumping stacks...
+2026-02-22 20:26:28,189 [WARNING] Watchdog: no training progress for 81973.5s (stage=explore:forward). Dumping stacks...
+2026-02-22 20:27:58,274 [WARNING] Watchdog: no training progress for 82063.6s (stage=explore:forward). Dumping stacks...
+2026-02-22 20:29:28,356 [WARNING] Watchdog: no training progress for 82153.7s (stage=explore:forward). Dumping stacks...
+2026-02-22 20:30:58,438 [WARNING] Watchdog: no training progress for 82243.7s (stage=explore:forward). Dumping stacks...
+2026-02-22 20:32:28,523 [WARNING] Watchdog: no training progress for 82333.8s (stage=explore:forward). Dumping stacks...
+2026-02-22 20:33:58,590 [WARNING] Watchdog: no training progress for 82423.9s (stage=explore:forward). Dumping stacks...
+2026-02-22 20:35:28,669 [WARNING] Watchdog: no training progress for 82514.0s (stage=explore:forward). Dumping stacks...
+2026-02-22 20:36:58,742 [WARNING] Watchdog: no training progress for 82604.0s (stage=explore:forward). Dumping stacks...
+2026-02-22 20:38:28,818 [WARNING] Watchdog: no training progress for 82694.1s (stage=explore:forward). Dumping stacks...
+2026-02-22 20:39:58,890 [WARNING] Watchdog: no training progress for 82784.2s (stage=explore:forward). Dumping stacks...
+2026-02-22 20:41:28,957 [WARNING] Watchdog: no training progress for 82874.3s (stage=explore:forward). Dumping stacks...
+2026-02-22 20:42:59,032 [WARNING] Watchdog: no training progress for 82964.3s (stage=explore:forward). Dumping stacks...
+2026-02-22 20:44:29,109 [WARNING] Watchdog: no training progress for 83054.4s (stage=explore:forward). Dumping stacks...
+2026-02-22 20:45:59,186 [WARNING] Watchdog: no training progress for 83144.5s (stage=explore:forward). Dumping stacks...
+2026-02-22 20:47:29,255 [WARNING] Watchdog: no training progress for 83234.6s (stage=explore:forward). Dumping stacks...
+2026-02-22 20:48:59,330 [WARNING] Watchdog: no training progress for 83324.6s (stage=explore:forward). Dumping stacks...
+2026-02-22 20:50:29,413 [WARNING] Watchdog: no training progress for 83414.7s (stage=explore:forward). Dumping stacks...
+2026-02-22 20:51:59,498 [WARNING] Watchdog: no training progress for 83504.8s (stage=explore:forward). Dumping stacks...
+2026-02-22 20:53:29,573 [WARNING] Watchdog: no training progress for 83594.9s (stage=explore:forward). Dumping stacks...
+2026-02-22 20:54:59,650 [WARNING] Watchdog: no training progress for 83684.9s (stage=explore:forward). Dumping stacks...
+2026-02-22 20:56:29,740 [WARNING] Watchdog: no training progress for 83775.0s (stage=explore:forward). Dumping stacks...
+2026-02-22 20:57:59,827 [WARNING] Watchdog: no training progress for 83865.1s (stage=explore:forward). Dumping stacks...
+2026-02-22 20:59:29,890 [WARNING] Watchdog: no training progress for 83955.2s (stage=explore:forward). Dumping stacks...
+2026-02-22 21:00:59,963 [WARNING] Watchdog: no training progress for 84045.3s (stage=explore:forward). Dumping stacks...
+2026-02-22 21:02:30,046 [WARNING] Watchdog: no training progress for 84135.3s (stage=explore:forward). Dumping stacks...
+2026-02-22 21:04:00,123 [WARNING] Watchdog: no training progress for 84225.4s (stage=explore:forward). Dumping stacks...
+2026-02-22 21:05:30,200 [WARNING] Watchdog: no training progress for 84315.5s (stage=explore:forward). Dumping stacks...
+2026-02-22 21:07:00,279 [WARNING] Watchdog: no training progress for 84405.6s (stage=explore:forward). Dumping stacks...
+2026-02-22 21:08:30,363 [WARNING] Watchdog: no training progress for 84495.7s (stage=explore:forward). Dumping stacks...
+2026-02-22 21:10:00,450 [WARNING] Watchdog: no training progress for 84585.7s (stage=explore:forward). Dumping stacks...
+2026-02-22 21:11:30,515 [WARNING] Watchdog: no training progress for 84675.8s (stage=explore:forward). Dumping stacks...
+2026-02-22 21:13:00,599 [WARNING] Watchdog: no training progress for 84765.9s (stage=explore:forward). Dumping stacks...
+2026-02-22 21:14:30,671 [WARNING] Watchdog: no training progress for 84856.0s (stage=explore:forward). Dumping stacks...
+2026-02-22 21:16:00,744 [WARNING] Watchdog: no training progress for 84946.0s (stage=explore:forward). Dumping stacks...
+2026-02-22 21:17:30,820 [WARNING] Watchdog: no training progress for 85036.1s (stage=explore:forward). Dumping stacks...
+2026-02-22 21:19:00,905 [WARNING] Watchdog: no training progress for 85126.2s (stage=explore:forward). Dumping stacks...
+2026-02-22 21:20:30,975 [WARNING] Watchdog: no training progress for 85216.3s (stage=explore:forward). Dumping stacks...
+2026-02-22 21:22:01,044 [WARNING] Watchdog: no training progress for 85306.3s (stage=explore:forward). Dumping stacks...
+2026-02-22 21:23:31,123 [WARNING] Watchdog: no training progress for 85396.4s (stage=explore:forward). Dumping stacks...
+2026-02-22 21:25:01,192 [WARNING] Watchdog: no training progress for 85486.5s (stage=explore:forward). Dumping stacks...
+2026-02-22 21:26:31,262 [WARNING] Watchdog: no training progress for 85576.6s (stage=explore:forward). Dumping stacks...
+2026-02-22 21:28:01,348 [WARNING] Watchdog: no training progress for 85666.6s (stage=explore:forward). Dumping stacks...
+2026-02-22 21:29:31,426 [WARNING] Watchdog: no training progress for 85756.7s (stage=explore:forward). Dumping stacks...
+2026-02-22 21:31:01,499 [WARNING] Watchdog: no training progress for 85846.8s (stage=explore:forward). Dumping stacks...
+2026-02-22 21:32:31,580 [WARNING] Watchdog: no training progress for 85936.9s (stage=explore:forward). Dumping stacks...
+2026-02-22 21:34:01,668 [WARNING] Watchdog: no training progress for 86027.0s (stage=explore:forward). Dumping stacks...
+2026-02-22 21:35:31,739 [WARNING] Watchdog: no training progress for 86117.0s (stage=explore:forward). Dumping stacks...
+2026-02-22 21:37:01,813 [WARNING] Watchdog: no training progress for 86207.1s (stage=explore:forward). Dumping stacks...
+2026-02-22 21:38:31,895 [WARNING] Watchdog: no training progress for 86297.2s (stage=explore:forward). Dumping stacks...
+2026-02-22 21:40:01,973 [WARNING] Watchdog: no training progress for 86387.3s (stage=explore:forward). Dumping stacks...
+2026-02-22 21:41:32,060 [WARNING] Watchdog: no training progress for 86477.4s (stage=explore:forward). Dumping stacks...
+2026-02-22 21:43:02,137 [WARNING] Watchdog: no training progress for 86567.4s (stage=explore:forward). Dumping stacks...
+2026-02-22 21:44:32,222 [WARNING] Watchdog: no training progress for 86657.5s (stage=explore:forward). Dumping stacks...
+2026-02-22 21:46:02,302 [WARNING] Watchdog: no training progress for 86747.6s (stage=explore:forward). Dumping stacks...
+2026-02-22 21:47:32,378 [WARNING] Watchdog: no training progress for 86837.7s (stage=explore:forward). Dumping stacks...
+2026-02-22 21:49:02,466 [WARNING] Watchdog: no training progress for 86927.8s (stage=explore:forward). Dumping stacks...
+2026-02-22 21:50:32,546 [WARNING] Watchdog: no training progress for 87017.8s (stage=explore:forward). Dumping stacks...
+2026-02-22 21:52:02,615 [WARNING] Watchdog: no training progress for 87107.9s (stage=explore:forward). Dumping stacks...
+2026-02-22 21:53:32,695 [WARNING] Watchdog: no training progress for 87198.0s (stage=explore:forward). Dumping stacks...
+2026-02-22 21:55:02,767 [WARNING] Watchdog: no training progress for 87288.1s (stage=explore:forward). Dumping stacks...
+2026-02-22 21:56:32,849 [WARNING] Watchdog: no training progress for 87378.1s (stage=explore:forward). Dumping stacks...
+2026-02-22 21:58:02,933 [WARNING] Watchdog: no training progress for 87468.2s (stage=explore:forward). Dumping stacks...
+2026-02-22 21:59:33,021 [WARNING] Watchdog: no training progress for 87558.3s (stage=explore:forward). Dumping stacks...
+2026-02-22 22:01:03,106 [WARNING] Watchdog: no training progress for 87648.4s (stage=explore:forward). Dumping stacks...
+2026-02-22 22:02:33,183 [WARNING] Watchdog: no training progress for 87738.5s (stage=explore:forward). Dumping stacks...
+2026-02-22 22:04:03,267 [WARNING] Watchdog: no training progress for 87828.6s (stage=explore:forward). Dumping stacks...
+2026-02-22 22:05:33,352 [WARNING] Watchdog: no training progress for 87918.6s (stage=explore:forward). Dumping stacks...
+2026-02-22 22:07:03,424 [WARNING] Watchdog: no training progress for 88008.7s (stage=explore:forward). Dumping stacks...
+2026-02-22 22:08:33,500 [WARNING] Watchdog: no training progress for 88098.8s (stage=explore:forward). Dumping stacks...
+2026-02-22 22:10:03,577 [WARNING] Watchdog: no training progress for 88188.9s (stage=explore:forward). Dumping stacks...
+2026-02-22 22:11:33,641 [WARNING] Watchdog: no training progress for 88278.9s (stage=explore:forward). Dumping stacks...
+2026-02-22 22:13:03,727 [WARNING] Watchdog: no training progress for 88369.0s (stage=explore:forward). Dumping stacks...
+2026-02-22 22:14:33,817 [WARNING] Watchdog: no training progress for 88459.1s (stage=explore:forward). Dumping stacks...
+2026-02-22 22:16:03,899 [WARNING] Watchdog: no training progress for 88549.2s (stage=explore:forward). Dumping stacks...
+2026-02-22 22:17:33,983 [WARNING] Watchdog: no training progress for 88639.3s (stage=explore:forward). Dumping stacks...
+2026-02-22 22:19:04,049 [WARNING] Watchdog: no training progress for 88729.3s (stage=explore:forward). Dumping stacks...
+2026-02-22 22:20:34,133 [WARNING] Watchdog: no training progress for 88819.4s (stage=explore:forward). Dumping stacks...
+2026-02-22 22:22:04,206 [WARNING] Watchdog: no training progress for 88909.5s (stage=explore:forward). Dumping stacks...
+2026-02-22 22:23:34,290 [WARNING] Watchdog: no training progress for 88999.6s (stage=explore:forward). Dumping stacks...
+2026-02-22 22:25:04,369 [WARNING] Watchdog: no training progress for 89089.7s (stage=explore:forward). Dumping stacks...
+2026-02-22 22:26:34,442 [WARNING] Watchdog: no training progress for 89179.7s (stage=explore:forward). Dumping stacks...
+2026-02-22 22:28:04,523 [WARNING] Watchdog: no training progress for 89269.8s (stage=explore:forward). Dumping stacks...
+2026-02-22 22:29:34,609 [WARNING] Watchdog: no training progress for 89359.9s (stage=explore:forward). Dumping stacks...
+2026-02-22 22:31:04,683 [WARNING] Watchdog: no training progress for 89450.0s (stage=explore:forward). Dumping stacks...
+2026-02-22 22:32:34,765 [WARNING] Watchdog: no training progress for 89540.1s (stage=explore:forward). Dumping stacks...
+2026-02-22 22:34:04,840 [WARNING] Watchdog: no training progress for 89630.1s (stage=explore:forward). Dumping stacks...
+2026-02-22 22:35:34,926 [WARNING] Watchdog: no training progress for 89720.2s (stage=explore:forward). Dumping stacks...
+2026-02-22 22:37:05,005 [WARNING] Watchdog: no training progress for 89810.3s (stage=explore:forward). Dumping stacks...
+2026-02-22 22:38:35,068 [WARNING] Watchdog: no training progress for 89900.4s (stage=explore:forward). Dumping stacks...
+2026-02-22 22:40:05,146 [WARNING] Watchdog: no training progress for 89990.4s (stage=explore:forward). Dumping stacks...
+2026-02-22 22:41:35,216 [WARNING] Watchdog: no training progress for 90080.5s (stage=explore:forward). Dumping stacks...
+2026-02-22 22:43:05,301 [WARNING] Watchdog: no training progress for 90170.6s (stage=explore:forward). Dumping stacks...
+2026-02-22 22:44:35,388 [WARNING] Watchdog: no training progress for 90260.7s (stage=explore:forward). Dumping stacks...
+2026-02-22 22:46:05,463 [WARNING] Watchdog: no training progress for 90350.8s (stage=explore:forward). Dumping stacks...
+2026-02-22 22:47:35,546 [WARNING] Watchdog: no training progress for 90440.8s (stage=explore:forward). Dumping stacks...
+2026-02-22 22:49:05,619 [WARNING] Watchdog: no training progress for 90530.9s (stage=explore:forward). Dumping stacks...
+2026-02-22 22:50:35,709 [WARNING] Watchdog: no training progress for 90621.0s (stage=explore:forward). Dumping stacks...
+2026-02-22 22:52:05,787 [WARNING] Watchdog: no training progress for 90711.1s (stage=explore:forward). Dumping stacks...
+2026-02-22 22:53:35,873 [WARNING] Watchdog: no training progress for 90801.2s (stage=explore:forward). Dumping stacks...
+
+==== watchdog dump tail ====
+  File "/home/sdc_joran/Journal/deeprl_signal_control/utils.py", line 261 in explore
+  File "/home/sdc_joran/Journal/deeprl_signal_control/utils.py", line 431 in run
+  File "main.py", line 130 in train
+  File "main.py", line 241 in <module>
+
+=== 2026-02-22 22:44:35 stalled_for=90260.7s stage=explore:forward ===
+Current thread 0x0000776229ffe640 (most recent call first):
+  File "/home/sdc_joran/Journal/deeprl_signal_control/utils.py", line 190 in _watchdog_loop
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 864 in run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 916 in _bootstrap_inner
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 884 in _bootstrap
+
+Thread 0x0000776230f36640 (most recent call first):
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 295 in wait
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/queue.py", line 164 in get
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/summary/writer/event_file_writer.py", line 159 in run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 916 in _bootstrap_inner
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 884 in _bootstrap
+
+Thread 0x00007763ce0473c0 (most recent call first):
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1407 in _call_tf_sessionrun
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1319 in _run_fn
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1334 in _do_call
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1328 in _do_run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1152 in _run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 929 in run
+  File "/home/sdc_joran/Journal/deeprl_signal_control/agents/policies.py", line 132 in forward
+  File "/home/sdc_joran/Journal/deeprl_signal_control/agents/models.py", line 191 in forward
+  File "/home/sdc_joran/Journal/deeprl_signal_control/utils.py", line 261 in explore
+  File "/home/sdc_joran/Journal/deeprl_signal_control/utils.py", line 431 in run
+  File "main.py", line 130 in train
+  File "main.py", line 241 in <module>
+
+=== 2026-02-22 22:46:05 stalled_for=90350.8s stage=explore:forward ===
+Current thread 0x0000776229ffe640 (most recent call first):
+  File "/home/sdc_joran/Journal/deeprl_signal_control/utils.py", line 190 in _watchdog_loop
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 864 in run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 916 in _bootstrap_inner
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 884 in _bootstrap
+
+Thread 0x0000776230f36640 (most recent call first):
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 295 in wait
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/queue.py", line 164 in get
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/summary/writer/event_file_writer.py", line 159 in run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 916 in _bootstrap_inner
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 884 in _bootstrap
+
+Thread 0x00007763ce0473c0 (most recent call first):
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1407 in _call_tf_sessionrun
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1319 in _run_fn
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1334 in _do_call
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1328 in _do_run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1152 in _run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 929 in run
+  File "/home/sdc_joran/Journal/deeprl_signal_control/agents/policies.py", line 132 in forward
+  File "/home/sdc_joran/Journal/deeprl_signal_control/agents/models.py", line 191 in forward
+  File "/home/sdc_joran/Journal/deeprl_signal_control/utils.py", line 261 in explore
+  File "/home/sdc_joran/Journal/deeprl_signal_control/utils.py", line 431 in run
+  File "main.py", line 130 in train
+  File "main.py", line 241 in <module>
+
+=== 2026-02-22 22:47:35 stalled_for=90440.8s stage=explore:forward ===
+Current thread 0x0000776229ffe640 (most recent call first):
+  File "/home/sdc_joran/Journal/deeprl_signal_control/utils.py", line 190 in _watchdog_loop
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 864 in run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 916 in _bootstrap_inner
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 884 in _bootstrap
+
+Thread 0x0000776230f36640 (most recent call first):
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 295 in wait
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/queue.py", line 164 in get
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/summary/writer/event_file_writer.py", line 159 in run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 916 in _bootstrap_inner
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 884 in _bootstrap
+
+Thread 0x00007763ce0473c0 (most recent call first):
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1407 in _call_tf_sessionrun
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1319 in _run_fn
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1334 in _do_call
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1328 in _do_run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1152 in _run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 929 in run
+  File "/home/sdc_joran/Journal/deeprl_signal_control/agents/policies.py", line 132 in forward
+  File "/home/sdc_joran/Journal/deeprl_signal_control/agents/models.py", line 191 in forward
+  File "/home/sdc_joran/Journal/deeprl_signal_control/utils.py", line 261 in explore
+  File "/home/sdc_joran/Journal/deeprl_signal_control/utils.py", line 431 in run
+  File "main.py", line 130 in train
+  File "main.py", line 241 in <module>
+
+=== 2026-02-22 22:49:05 stalled_for=90530.9s stage=explore:forward ===
+Current thread 0x0000776229ffe640 (most recent call first):
+  File "/home/sdc_joran/Journal/deeprl_signal_control/utils.py", line 190 in _watchdog_loop
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 864 in run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 916 in _bootstrap_inner
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 884 in _bootstrap
+
+Thread 0x0000776230f36640 (most recent call first):
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 295 in wait
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/queue.py", line 164 in get
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/summary/writer/event_file_writer.py", line 159 in run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 916 in _bootstrap_inner
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 884 in _bootstrap
+
+Thread 0x00007763ce0473c0 (most recent call first):
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1407 in _call_tf_sessionrun
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1319 in _run_fn
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1334 in _do_call
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1328 in _do_run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1152 in _run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 929 in run
+  File "/home/sdc_joran/Journal/deeprl_signal_control/agents/policies.py", line 132 in forward
+  File "/home/sdc_joran/Journal/deeprl_signal_control/agents/models.py", line 191 in forward
+  File "/home/sdc_joran/Journal/deeprl_signal_control/utils.py", line 261 in explore
+  File "/home/sdc_joran/Journal/deeprl_signal_control/utils.py", line 431 in run
+  File "main.py", line 130 in train
+  File "main.py", line 241 in <module>
+
+=== 2026-02-22 22:50:35 stalled_for=90621.0s stage=explore:forward ===
+Current thread 0x0000776229ffe640 (most recent call first):
+  File "/home/sdc_joran/Journal/deeprl_signal_control/utils.py", line 190 in _watchdog_loop
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 864 in run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 916 in _bootstrap_inner
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 884 in _bootstrap
+
+Thread 0x0000776230f36640 (most recent call first):
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 295 in wait
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/queue.py", line 164 in get
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/summary/writer/event_file_writer.py", line 159 in run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 916 in _bootstrap_inner
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 884 in _bootstrap
+
+Thread 0x00007763ce0473c0 (most recent call first):
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1407 in _call_tf_sessionrun
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1319 in _run_fn
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1334 in _do_call
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1328 in _do_run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1152 in _run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 929 in run
+  File "/home/sdc_joran/Journal/deeprl_signal_control/agents/policies.py", line 132 in forward
+  File "/home/sdc_joran/Journal/deeprl_signal_control/agents/models.py", line 191 in forward
+  File "/home/sdc_joran/Journal/deeprl_signal_control/utils.py", line 261 in explore
+  File "/home/sdc_joran/Journal/deeprl_signal_control/utils.py", line 431 in run
+  File "main.py", line 130 in train
+  File "main.py", line 241 in <module>
+
+=== 2026-02-22 22:52:05 stalled_for=90711.1s stage=explore:forward ===
+Current thread 0x0000776229ffe640 (most recent call first):
+  File "/home/sdc_joran/Journal/deeprl_signal_control/utils.py", line 190 in _watchdog_loop
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 864 in run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 916 in _bootstrap_inner
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 884 in _bootstrap
+
+Thread 0x0000776230f36640 (most recent call first):
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 295 in wait
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/queue.py", line 164 in get
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/summary/writer/event_file_writer.py", line 159 in run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 916 in _bootstrap_inner
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 884 in _bootstrap
+
+Thread 0x00007763ce0473c0 (most recent call first):
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1407 in _call_tf_sessionrun
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1319 in _run_fn
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1334 in _do_call
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1328 in _do_run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1152 in _run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 929 in run
+  File "/home/sdc_joran/Journal/deeprl_signal_control/agents/policies.py", line 132 in forward
+  File "/home/sdc_joran/Journal/deeprl_signal_control/agents/models.py", line 191 in forward
+  File "/home/sdc_joran/Journal/deeprl_signal_control/utils.py", line 261 in explore
+  File "/home/sdc_joran/Journal/deeprl_signal_control/utils.py", line 431 in run
+  File "main.py", line 130 in train
+  File "main.py", line 241 in <module>
+
+=== 2026-02-22 22:53:35 stalled_for=90801.2s stage=explore:forward ===
+Current thread 0x0000776229ffe640 (most recent call first):
+  File "/home/sdc_joran/Journal/deeprl_signal_control/utils.py", line 190 in _watchdog_loop
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 864 in run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 916 in _bootstrap_inner
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 884 in _bootstrap
+
+Thread 0x0000776230f36640 (most recent call first):
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 295 in wait
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/queue.py", line 164 in get
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/summary/writer/event_file_writer.py", line 159 in run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 916 in _bootstrap_inner
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 884 in _bootstrap
+
+Thread 0x00007763ce0473c0 (most recent call first):
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1407 in _call_tf_sessionrun
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1319 in _run_fn
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1334 in _do_call
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1328 in _do_run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1152 in _run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 929 in run
+  File "/home/sdc_joran/Journal/deeprl_signal_control/agents/policies.py", line 132 in forward
+  File "/home/sdc_joran/Journal/deeprl_signal_control/agents/models.py", line 191 in forward
+  File "/home/sdc_joran/Journal/deeprl_signal_control/utils.py", line 261 in explore
+  File "/home/sdc_joran/Journal/deeprl_signal_control/utils.py", line 431 in run
+  File "main.py", line 130 in train
+  File "main.py", line 241 in <module>
+
+==== manual signal dump ====
+disabled (pass --signal-dump to enable)

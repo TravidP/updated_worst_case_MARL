@@ -2,7 +2,7 @@ import os
 import logging
 import configparser
 import numpy as np
-import tensorflow as tf
+from tf_compat import tf
 import sys
 from envs.adversarial_real_net_env import AdversarialRealNetEnv
 from agents.models import GCNA2C

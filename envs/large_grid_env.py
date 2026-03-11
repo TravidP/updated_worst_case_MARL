@@ -11,6 +11,7 @@ import matplotlib.pyplot as plt
 import os
 import seaborn as sns
 import time
+import socket
 from envs.env import PhaseMap, PhaseSet, TrafficSimulator
 from large_grid.data.build_file import gen_rou_file
 import traci
@@ -69,35 +70,61 @@ class LargeGridEnv(TrafficSimulator):
         self.peak_flow1 = config.getint('peak_flow1')
         self.peak_flow2 = config.getint('peak_flow2')
         self.init_density = config.getfloat('init_density')
+        self.traffic_data_dir = self._resolve_traffic_data_dir()
+        self.csv_paths = []
+        self.scenarios = []
+        self.loaded_filenames = []
+        self._load_dynamic_scenarios()
+        if self.scenarios:
+            config['episode_length_sec'] = str(len(self.scenarios) * SCENARIO_DURATION)
         super().__init__(config, output_path, is_record, record_stat, port=port)
-        # --- 1. Automatic Discovery of Traffic Scenarios ---
-        traffic_data_dir = "./data_traffic"
-        
-        if not os.path.exists(traffic_data_dir):
-            os.makedirs(traffic_data_dir)
-            logging.warning(f"Created missing directory: {traffic_data_dir}")
-
-        search_path = os.path.join(traffic_data_dir, "*.csv")
-        self.csv_paths = sorted(glob.glob(search_path))
-        
-        self.scenarios = [] # List of dictionaries containing flow data
-        self.loaded_filenames = []  # <--- ADD THIS LINE
-        if not self.csv_paths:
-            logging.warning(f"No traffic scenarios found in {traffic_data_dir}. Please add .csv files.")
+        self.num_scenarios = len(self.scenarios)
+        if self.num_scenarios:
+            self.episode_length_sec = self.num_scenarios * SCENARIO_DURATION
+            self.T = np.ceil(self.episode_length_sec / self.control_interval_sec)
+            logging.info(f"Loaded {self.num_scenarios} scenarios from {self.traffic_data_dir}.")
+            logging.info(
+                f"Updated Episode Duration: {self.episode_length_sec} seconds "
+                f"({self.episode_length_sec/60:.1f} mins), T={int(self.T)}"
+            )
         else:
-            logging.info(f"Found {len(self.csv_paths)} adversarial scenarios: {self.csv_paths}")
+            logging.info(
+                "No dynamic traffic scenarios found in %s. Falling back to generated baseline routes.",
+                self.traffic_data_dir
+            )
 
-        # --- 2. Load Scenarios into Memory ---
+        # Route cache to prevent calling findRoute excessively
+        self.route_cache = set()
+
+    def _resolve_traffic_data_dir(self):
+        project_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+        return os.path.join(project_dir, 'data_traffic')
+
+    def _load_dynamic_scenarios(self):
+        if not os.path.exists(self.traffic_data_dir):
+            logging.warning(
+                "Traffic scenario directory %s does not exist. Dynamic demand disabled.",
+                self.traffic_data_dir
+            )
+            return
+
+        search_path = os.path.join(self.traffic_data_dir, "*.csv")
+        self.csv_paths = sorted(glob.glob(search_path))
+        if not self.csv_paths:
+            logging.warning(
+                "No traffic scenarios found in %s. Dynamic demand disabled.",
+                self.traffic_data_dir
+            )
+            return
+
+        logging.info("Found %d dynamic traffic scenarios in %s", len(self.csv_paths), self.traffic_data_dir)
         for i, path in enumerate(self.csv_paths):
             try:
                 df = pd.read_csv(path)
-                
                 if 'veh_per_hour' not in df.columns:
-                    logging.error(f"File {path} skipped: missing 'veh_per_hour' column")
+                    logging.error("File %s skipped: missing 'veh_per_hour' column", path)
                     continue
 
-                # Store as a list of dicts for faster iteration during injection
-                # Each item: {'origin': str, 'dest': str, 'rate': float}
                 scenario_data = []
                 for _, row in df.iterrows():
                     scenario_data.append({
@@ -105,23 +132,12 @@ class LargeGridEnv(TrafficSimulator):
                         'dest': row['dest_edge'],
                         'rate': row['veh_per_hour']
                     })
-                
+
                 self.scenarios.append(scenario_data)
                 self.loaded_filenames.append(os.path.basename(path).replace('.csv', ''))
-                logging.info(f"Loaded Scenario {i} from {os.path.basename(path)}")
-                
+                logging.info("Loaded Scenario %d from %s", i, os.path.basename(path))
             except Exception as e:
-                logging.error(f"Error reading {path}: {e}")
-            # --- 3. OVERRIDE EPISODE LENGTH ---
-            # We overwrite the parent's variable here
-            self.num_scenarios = len(self.scenarios)
-            self.episode_length_sec = self.num_scenarios * SCENARIO_DURATION
-            
-            logging.info(f"Loaded {self.num_scenarios} scenarios.")
-            logging.info(f"Updated Episode Duration: {self.episode_length_sec} seconds ({self.episode_length_sec/60:.1f} mins).")
-
-        # Route cache to prevent calling findRoute excessively
-        self.route_cache = set()
+                logging.error("Error reading %s: %s", path, e)
 
     def _get_node_phase_id(self, node_name):
         return PHASE_NUM
@@ -271,21 +287,29 @@ class LargeGridEnv(TrafficSimulator):
         self.state_names = STATE_NAMES
 
     def _init_sim_config(self, seed):
-        # return gen_rou_file(self.data_path,
-        #                     self.peak_flow1,
-        #                     self.peak_flow2,
-        #                     self.init_density,
-        #                     seed=seed,
-        #                     thread=self.sim_thread)
-        route_file_path = self.data_path + f'expdummy_{self.sim_thread}.rou.xml'
+        if not self.scenarios:
+            return gen_rou_file(self.data_path,
+                                self.peak_flow1,
+                                self.peak_flow2,
+                                self.init_density,
+                                seed=seed,
+                                thread=self.sim_thread)
+
+        route_file_path = os.path.join(self.data_path, f'expdummy_{self.sim_thread}.rou.xml')
+        keepalive_depart = max(1, int(self.episode_length_sec) - 1)
         with open(route_file_path, 'w') as f:
             f.write('<routes>\n')
             f.write('  <vType id="type1" length="5" accel="5" decel="10"/>\n')
+            # Keep one benign future departure queued so SUMO stays alive after TraCI connects.
+            f.write(
+                '  <trip id="keepalive" depart="%d" from="np1_nt1" to="nt25_np11" type="type1"/>\n'
+                % keepalive_depart
+            )
             f.write('</routes>\n')
-        # We still need the sumocfg file
+
         from large_grid.data.build_file import output_config, write_file
-        sumocfg_file = self.data_path + f'expdummy_{self.sim_thread}.sumocfg'
-        write_file(sumocfg_file, output_config(thread=self.sim_thread))
+        sumocfg_file = os.path.join(self.data_path, f'expdummy_{self.sim_thread}.sumocfg')
+        write_file(sumocfg_file, output_config(thread=self.sim_thread, end=self.episode_length_sec))
         return sumocfg_file
     
     def _inject_scenario_traffic(self, scenario_idx, current_time):
@@ -293,12 +317,20 @@ class LargeGridEnv(TrafficSimulator):
         Generates and adds vehicles for the entire 10-minute block 
         using TraCI's future departure capability.
         """
+        if scenario_idx >= len(self.scenarios):
+            logging.warning(
+                "Scenario %d out of range (loaded=%d).",
+                scenario_idx, len(self.scenarios)
+            )
+            return
+
         flow_data = self.scenarios[scenario_idx]
         duration = SCENARIO_DURATION
         
         count_spawned = 0
 
         for item in flow_data:
+            valid_route = False
             origin = item['origin']
             dest = item['dest']
             rate = item['rate']
@@ -324,17 +356,18 @@ class LargeGridEnv(TrafficSimulator):
                     
                     if route_stage and route_stage.edges:
                         # Register the route in SUMO
-                        self.sim.route.add(route_id, route_stage.edges)
-                        
-                        # Add to local cache so we never calculate this OD pair again
+                        try:
+                            self.sim.route.add(route_id, route_stage.edges)
+                        except traci.TraCIException:
+                            # Route may already exist in SUMO.
+                            pass
                         self.route_cache.add(route_id)
                         valid_route = True
                     else:
-                        # Optional: Cache invalid routes too, to stop trying to find them?
-                        # self.route_cache.add(route_id) # Treat as known but valid_route stays False
+                        logging.debug("No valid route found for %s -> %s", origin, dest)
                         pass
                 except traci.TraCIException as e:
-                    # logging.warning(f"Route fail: {e}")
+                    logging.debug("Route lookup failed for %s -> %s: %s", origin, dest, e)
                     pass
 
             if not valid_route:
@@ -362,7 +395,8 @@ class LargeGridEnv(TrafficSimulator):
                     # Randomize speed factor slightly for realism
                     self.sim.vehicle.setSpeedFactor(veh_id, np.random.normal(1.0, 0.1))
                     count_spawned += 1
-                except traci.TraCIException:
+                except traci.TraCIException as e:
+                    logging.debug("Vehicle add failed for %s: %s", veh_id, e)
                     pass
         
         logging.info(f"Scenario {scenario_idx}: Scheduled {count_spawned} vehicles.")
@@ -401,6 +435,8 @@ class LargeGridEnv(TrafficSimulator):
         """
         Overrides the standard simulation loop to inject traffic dynamically.
         """
+        self._validate_traci_connection()
+
         # 1. Check if we need to inject the next group (Scenario)
         if self.cur_sec >= self.next_switch_time:
             if self.current_scenario_idx < len(self.scenarios):
@@ -416,16 +452,41 @@ class LargeGridEnv(TrafficSimulator):
 
         # 2. Standard SUMO Stepping
         for _ in range(num_step):
-            self.sim.simulationStep()
+            try:
+                self.sim.simulationStep()
+            except (socket.timeout, traci.TraCIException, OSError) as e:
+                logging.error(
+                    "TraCI simulationStep failed at t=%d (scenario=%d): %s",
+                    self.cur_sec, self.current_scenario_idx, e
+                )
+                raise RuntimeError('LargeGrid simulationStep failed')
             self.cur_sec += 1
             if self.is_record:
                 self._measure_traffic_step()
+            if self.sim_progress_log_sec > 0:
+                if (self.cur_sec - self._last_progress_sim_sec) >= self.sim_progress_log_sec:
+                    active_vehicles = -1
+                    try:
+                        active_vehicles = self.sim.vehicle.getIDCount()
+                    except Exception:
+                        pass
+                    now = time.time()
+                    wall_elapsed = now - self._last_progress_wall_sec
+                    logging.info(
+                        "Sim progress: t=%d/%d, active_vehicles=%d, wall=%.1fs for +%ds sim",
+                        self.cur_sec, self.episode_length_sec, active_vehicles,
+                        wall_elapsed, self.cur_sec - self._last_progress_sim_sec
+                    )
+                    self._last_progress_sim_sec = self.cur_sec
+                    self._last_progress_wall_sec = now
 
     def reset(self, gui=False, test_ind=0):
         # Reset internal scenario tracking
         self.current_scenario_idx = 0
         self.next_switch_time = 0
         self.route_cache = set()
+        self._last_progress_sim_sec = 0
+        self._last_progress_wall_sec = time.time()
 
         return super().reset(gui=gui, test_ind=test_ind)
     

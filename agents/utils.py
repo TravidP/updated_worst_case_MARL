@@ -1,6 +1,6 @@
 import numpy as np
 import random
-import tensorflow as tf
+from tf_compat import tf
 
 """
 initializers
@@ -227,9 +227,34 @@ class OnPolicyBuffer(TransBuffer):
         Rs = np.array(self.Rs, dtype=np.float32)
         Advs = np.array(self.Advs, dtype=np.float32)
         # use pre-step dones here
-        dones = np.array(self.dones[:-1], dtype=np.bool)
+        dones = np.array(self.dones[:-1], dtype=bool)
         self.reset(self.dones[-1])
         return obs, acts, dones, Rs, Advs
+
+
+class PPOOnPolicyBuffer(OnPolicyBuffer):
+    def reset(self, done=False):
+        super().reset(done=done)
+        self.old_logps = []
+
+    def add_transition(self, ob, a, r, v, done, old_logp):
+        self.obs.append(ob)
+        self.acts.append(a)
+        self.rs.append(r)
+        self.vs.append(v)
+        self.dones.append(done)
+        self.old_logps.append(old_logp)
+
+    def sample_transition(self, R):
+        self._add_R_Adv(R)
+        obs = np.array(self.obs, dtype=np.float32)
+        acts = np.array(self.acts, dtype=np.int32)
+        Rs = np.array(self.Rs, dtype=np.float32)
+        Advs = np.array(self.Advs, dtype=np.float32)
+        dones = np.array(self.dones[:-1], dtype=bool)
+        old_logps = np.array(self.old_logps, dtype=np.float32)
+        self.reset(self.dones[-1])
+        return obs, acts, dones, Rs, Advs, old_logps
 
 
 class ReplayBuffer(TransBuffer):
@@ -276,6 +301,9 @@ class Scheduler:
         self.val_min = val_min
         self.decay = decay
         self.n = 0
+
+    def set_step(self, step):
+        self.n = max(0, int(step))
 
     def get(self, n_step):
         self.n += n_step

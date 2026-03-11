@@ -9,7 +9,48 @@ from agents.policies import *
 import logging
 import multiprocessing as mp
 import numpy as np
-import tensorflow as tf
+from tf_compat import tf
+
+
+def _build_tf_session_config(model_config, model_name):
+    """Build a TensorFlow session config with optional stability controls.
+
+    These values are optional in config files and default to TensorFlow behavior.
+    """
+    config = tf.ConfigProto(allow_soft_placement=True)
+
+    intra_threads = model_config.getint('tf_intra_op_threads', fallback=0)
+    inter_threads = model_config.getint('tf_inter_op_threads', fallback=0)
+    op_timeout_ms = model_config.getint('tf_operation_timeout_ms', fallback=0)
+
+    if intra_threads > 0:
+        config.intra_op_parallelism_threads = intra_threads
+    if inter_threads > 0:
+        config.inter_op_parallelism_threads = inter_threads
+    if op_timeout_ms > 0:
+        config.operation_timeout_in_ms = op_timeout_ms
+
+    if intra_threads > 0 or inter_threads > 0 or op_timeout_ms > 0:
+        logging.info(
+            '%s TF session config: intra_op=%d, inter_op=%d, op_timeout_ms=%d',
+            model_name, intra_threads, inter_threads, op_timeout_ms
+        )
+    return config
+
+
+def _safe_log_prob(pi, action):
+    probs = np.asarray(pi, dtype=np.float32).flatten()
+    n = probs.size
+    if n <= 0:
+        return float(np.log(1e-8))
+    idx = int(action)
+    if idx < 0 or idx >= n:
+        return float(np.log(1.0 / float(n)))
+    prob = probs[idx]
+    if not np.isfinite(prob) or prob <= 0:
+        prob = 1.0 / float(n)
+    prob = float(np.clip(prob, 1e-8, 1.0))
+    return float(np.log(prob))
 
 
 class A2C:
@@ -26,7 +67,7 @@ class A2C:
         # init tf
         # tf.reset_default_graph()
         tf.set_random_seed(seed)
-        config = tf.ConfigProto(allow_soft_placement=True)
+        config = _build_tf_session_config(model_config, self.name)
         self.sess = tf.Session(config=config)
         self.policy = self._init_policy(n_s, n_a, n_f, model_config)
         self.saver = tf.train.Saver(max_to_keep=5)
@@ -81,7 +122,8 @@ class A2C:
         self.trans_buffer = OnPolicyBuffer(gamma)
 
     def save(self, model_dir, global_step):
-        self.saver.save(self.sess, model_dir + 'checkpoint', global_step=global_step)
+        checkpoint_prefix = os.path.join(model_dir, 'checkpoint')
+        self.saver.save(self.sess, checkpoint_prefix, global_step=global_step)
 
     def load(self, model_dir, checkpoint=None):
         save_file = None
@@ -94,18 +136,43 @@ class A2C:
                         tokens = prefix.split('-')
                         if len(tokens) != 2:
                             continue
-                        cur_step = int(tokens[1])
+                        try:
+                            cur_step = int(tokens[1])
+                        except ValueError:
+                            continue
                         if cur_step > save_step:
                             save_file = prefix
                             save_step = cur_step
             else:
-                save_file = 'checkpoint-' + str(int(checkpoint))
+                save_step = int(checkpoint)
+                candidate = os.path.join(model_dir, 'checkpoint-%d.index' % save_step)
+                if os.path.exists(candidate):
+                    save_file = 'checkpoint-' + str(save_step)
         if save_file is not None:
-            self.saver.restore(self.sess, model_dir + save_file)
-            logging.info('Checkpoint loaded: %s' % save_file)
-            return True
+            try:
+                checkpoint_path = os.path.join(model_dir, save_file)
+                self.saver.restore(self.sess, checkpoint_path)
+                self.loaded_checkpoint_step = save_step
+                logging.info('Checkpoint loaded: %s' % save_file)
+                return True
+            except Exception as e:
+                logging.error('Failed to load checkpoint %s from %s: %s',
+                              save_file, model_dir, e)
+                return False
+        self.loaded_checkpoint_step = 0
         logging.error('Can not find old checkpoint for %s' % model_dir)
         return False
+
+    def set_train_step(self, step):
+        step = max(0, int(step))
+        for scheduler_name in ['lr_scheduler', 'beta_scheduler', 'eps_scheduler']:
+            scheduler = getattr(self, scheduler_name, None)
+            if scheduler is None:
+                continue
+            if hasattr(scheduler, 'set_step'):
+                scheduler.set_step(step)
+            else:
+                scheduler.n = step
 
     def reset(self):
         self.policy._reset()
@@ -144,7 +211,7 @@ class IA2C(A2C):
         # init tf
         # tf.reset_default_graph()
         tf.set_random_seed(seed)
-        config = tf.ConfigProto(allow_soft_placement=True)
+        config = _build_tf_session_config(model_config, self.name)
         self.sess = tf.Session(config=config)
         self.policy_ls = []
         for i, (n_s, n_w, n_a) in enumerate(zip(self.n_s_ls, self.n_w_ls, self.n_a_ls)):
@@ -245,7 +312,7 @@ class MA2C(IA2C):
         # init tf
         # tf.reset_default_graph()
         tf.set_random_seed(seed)
-        config = tf.ConfigProto(allow_soft_placement=True)
+        config = _build_tf_session_config(model_config, self.name)
         self.sess = tf.Session(config=config)
         self.policy_ls = []
         for i, (n_s, n_a, n_w, n_f) in enumerate(zip(self.n_s_ls, self.n_a_ls, self.n_w_ls, self.n_f_ls)):
@@ -259,6 +326,92 @@ class MA2C(IA2C):
             self._init_scheduler(model_config)
             self._init_train(model_config)
         self.sess.run(tf.global_variables_initializer())
+
+
+class PPO(IA2C):
+    def __init__(self, n_s_ls, n_a_ls, n_w_ls, total_step, model_config, seed=0):
+        self.name = 'ppo'
+        self.agents = []
+        self.n_agent = len(n_s_ls)
+        self.reward_clip = model_config.getfloat('reward_clip')
+        self.reward_norm = model_config.getfloat('reward_norm')
+        self.n_s_ls = n_s_ls
+        self.n_a_ls = n_a_ls
+        self.n_w_ls = n_w_ls
+        self.n_step = model_config.getint('batch_size')
+        tf.set_random_seed(seed)
+        config = _build_tf_session_config(model_config, self.name)
+        self.sess = tf.Session(config=config)
+        self.policy_ls = []
+        for i, (n_s, n_w, n_a) in enumerate(zip(self.n_s_ls, self.n_w_ls, self.n_a_ls)):
+            self.policy_ls.append(
+                self._init_policy(n_s - n_w, n_a, n_w, 0, model_config,
+                                  agent_name='{:d}a'.format(i))
+            )
+        self.saver = tf.train.Saver(max_to_keep=5)
+        if total_step:
+            self.total_step = total_step
+            self._init_scheduler(model_config)
+            self._init_train(model_config)
+        self.sess.run(tf.global_variables_initializer())
+
+    def _init_policy(self, n_s, n_a, n_w, n_f, model_config, agent_name=None):
+        del n_f
+        n_fw = model_config.getint('num_fw')
+        n_ft = model_config.getint('num_ft')
+        n_lstm = model_config.getint('num_lstm')
+        return PPOLstmACPolicy(
+            n_s, n_a, n_w, self.n_step, n_fc_wave=n_fw, n_fc_wait=n_ft,
+            n_lstm=n_lstm, name=agent_name
+        )
+
+    def _init_train(self, model_config):
+        v_coef = model_config.getfloat('value_coef')
+        max_grad_norm = model_config.getfloat('max_grad_norm')
+        alpha = model_config.getfloat('rmsp_alpha')
+        epsilon = model_config.getfloat('rmsp_epsilon')
+        gamma = model_config.getfloat('gamma')
+        self.ppo_clip_ratio = model_config.getfloat('ppo_clip_ratio', fallback=0.2)
+        self.ppo_n_epoch = model_config.getint('ppo_n_epoch', fallback=4)
+        self.ppo_adv_norm = model_config.getboolean('ppo_adv_norm', fallback=True)
+
+        self.trans_buffer_ls = []
+        for i in range(self.n_agent):
+            self.policy_ls[i].prepare_loss(
+                v_coef, max_grad_norm, alpha, epsilon, clip_ratio=self.ppo_clip_ratio
+            )
+            self.trans_buffer_ls.append(PPOOnPolicyBuffer(gamma))
+
+    def backward(self, R_ls, summary_writer=None, global_step=None):
+        cur_lr = self.lr_scheduler.get(self.n_step)
+        cur_beta = self.beta_scheduler.get(self.n_step)
+        for i in range(self.n_agent):
+            obs, acts, dones, Rs, Advs, old_logps = self.trans_buffer_ls[i].sample_transition(R_ls[i])
+            if self.ppo_adv_norm:
+                adv_mean = np.mean(Advs)
+                adv_std = np.std(Advs)
+                Advs = (Advs - adv_mean) / (adv_std + 1e-8)
+            for k in range(self.ppo_n_epoch):
+                if i == 0 and k == 0:
+                    self.policy_ls[i].backward(
+                        self.sess, obs, acts, dones, Rs, Advs, old_logps, cur_lr, cur_beta,
+                        summary_writer=summary_writer, global_step=global_step
+                    )
+                else:
+                    self.policy_ls[i].backward(
+                        self.sess, obs, acts, dones, Rs, Advs, old_logps, cur_lr, cur_beta
+                    )
+
+    def add_transition(self, obs, actions, rewards, values, done, policies):
+        if self.reward_norm:
+            rewards = rewards / self.reward_norm
+        if self.reward_clip:
+            rewards = np.clip(rewards, -self.reward_clip, self.reward_clip)
+        for i in range(self.n_agent):
+            old_logp = _safe_log_prob(policies[i], actions[i])
+            self.trans_buffer_ls[i].add_transition(
+                obs[i], actions[i], rewards[i], values[i], done, old_logp
+            )
 
 
 class IQL(A2C):
@@ -276,7 +429,7 @@ class IQL(A2C):
         # init tf
         # tf.reset_default_graph()
         tf.set_random_seed(seed)
-        config = tf.ConfigProto(allow_soft_placement=True)
+        config = _build_tf_session_config(model_config, self.name)
         self.sess = tf.Session(config=config)
         self.policy_ls = []
         for i, (n_s, n_a, n_w) in enumerate(zip(self.n_s_ls, self.n_a_ls, self.n_w_ls)):
@@ -357,8 +510,15 @@ class IQL(A2C):
                 if not stochastic:
                     action.append(np.argmax(qs))
                 else:
-                    qs = qs / np.sum(qs)
-                    action.append(np.random.choice(np.arange(len(qs)), p=qs))
+                    # Convert arbitrary Q-values into a valid sampling distribution.
+                    shifted_qs = qs - np.max(qs)
+                    probs = np.exp(shifted_qs)
+                    prob_sum = np.sum(probs)
+                    if prob_sum <= 0 or not np.isfinite(prob_sum):
+                        action.append(np.argmax(qs))
+                    else:
+                        probs = probs / prob_sum
+                        action.append(np.random.choice(np.arange(len(qs)), p=probs))
             qs_ls.append(qs)
         return action, qs_ls
 

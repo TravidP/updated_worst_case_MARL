@@ -4,9 +4,11 @@ import logging
 import traci
 import os
 import glob
+import socket
+import time
 from envs.large_grid_env import LargeGridEnv
-from agents.models import A2C, IA2C, MA2C, IQL
-import tensorflow as tf
+from agents.models import A2C, IA2C, MA2C, IQL, PPO
+from tf_compat import tf
 import configparser
 from utils import find_file
 
@@ -57,6 +59,7 @@ class AdversarialLargeGridEnv(LargeGridEnv):
         # --- 3. Configuration ---
         self.n_adversary_action = len(self.group_names)
         self.adversary_step_duration = 600  # 10 Minutes
+        self.adversary_reward_scale = 100.0
         self._init_adversary_state_space()
         self.known_routes = set()
 
@@ -75,8 +78,23 @@ class AdversarialLargeGridEnv(LargeGridEnv):
             global_obs.append(node.wave_state)
             global_obs.append(node.wait_state)
         return np.concatenate(global_obs)
+
+    def _normalize_action_weights(self, actions):
+        """Convert unconstrained adversary logits into a valid mixture."""
+        logits = np.array(actions, dtype=np.float32).flatten()
+        if logits.size == 0:
+            raise ValueError("Adversary action is empty.")
+        shifted = logits - np.max(logits)
+        exp_logits = np.exp(np.clip(shifted, -50.0, 50.0))
+        total = np.sum(exp_logits)
+        if not np.isfinite(total) or total <= 1e-6:
+            return np.ones_like(logits) / float(len(logits))
+        return exp_logits / total
     
     def reset(self, gui=False, test_ind=0):
+        # Route IDs live inside the current SUMO process only.
+        # Clear per-episode cache so routes are rebuilt after each reset.
+        self.known_routes = set()
         _ = super().reset(gui=gui, test_ind=test_ind)
         self.cur_sec = 0 
         return self._get_adversary_state()
@@ -98,6 +116,8 @@ class AdversarialLargeGridEnv(LargeGridEnv):
                 self.frozen_controller = IA2C(self.n_s_ls, self.n_a_ls, self.n_w_ls, 0, saved_config['MODEL_CONFIG'])
             elif agent_type == 'ma2c':
                 self.frozen_controller = MA2C(self.n_s_ls, self.n_a_ls, self.n_w_ls, self.n_f_ls, 0, saved_config['MODEL_CONFIG'])
+            elif agent_type == 'ppo':
+                self.frozen_controller = PPO(self.n_s_ls, self.n_a_ls, self.n_w_ls, 0, saved_config['MODEL_CONFIG'])
             elif agent_type == 'iqld':
                 self.frozen_controller = IQL(self.n_s_ls, self.n_a_ls, self.n_w_ls, 0, saved_config['MODEL_CONFIG'], seed=0, model_type='dqn')
             # --- ADDED BLOCK FOR IQLL ---
@@ -112,32 +132,21 @@ class AdversarialLargeGridEnv(LargeGridEnv):
     def step(self, adversary_action):
         """
         Adversary Step (Continuous Control):
-        1. Receive action vector (weights for each traffic group).
-        2. Normalize to ensure valid probability distribution.
+        1. Receive unconstrained action logits for each traffic group.
+        2. Normalize with softmax into a valid probability distribution.
         3. Inject traffic and simulate.
         """
         # --- DEBUG: Print Adversary (Worst Case Estimator) Action ---
         logging.info("\n" + "="*40)
         logging.info(f"--- ADVERSARY STEP (Worst Case Estimator) ---")
         
-        # 1. Process Weights (Continuous Action)
-        # We expect a vector of shape (n_groups,), e.g., [w1, w2, w3]
+        # 1. Process the unconstrained action vector.
         raw_weights = np.array(adversary_action, dtype=np.float32).flatten()
         
         logging.info(f"Raw Adversary Output: {raw_weights}")
 
-        # Safe Normalization:
-        # A. Clip negative values (if agent outputs [-1, 1] e.g., tanh)
-        weights = np.maximum(raw_weights, 0.0)
-        
-        # B. Normalize to sum to 1.0
-        total_weight = np.sum(weights)
-        if total_weight > 1e-6:
-            weights = weights / total_weight
-        else:
-            # Fallback: If all weights are 0, use Uniform distribution
-            weights = np.ones_like(weights) / len(weights)
-            logging.warning("Adversary output 0 or negative weights. Using Uniform Fallback.")
+        # Softmax keeps the WCE action mapping identical across standalone and co-evolution.
+        weights = self._normalize_action_weights(raw_weights)
         
         # --- DEBUG: Print Final Scenario Weights ---
         weight_info = {name: f"{w:.2f}" for name, w in zip(self.group_names, weights)}
@@ -193,7 +202,8 @@ class AdversarialLargeGridEnv(LargeGridEnv):
                 done = True
                 break
 
-        return self._get_adversary_state(), segment_reward, done, {}
+        scaled_reward = segment_reward / float(self.adversary_reward_scale)
+        return self._get_adversary_state(), scaled_reward, done, {}
 
 
 
@@ -203,6 +213,11 @@ class AdversarialLargeGridEnv(LargeGridEnv):
         """
         # current_time = self.sim.get_current_time()
         current_time = self.sim.simulation.getTime()
+        requested_vehicles = 0
+        scheduled_vehicles = 0
+        skipped_route = 0
+        vehicle_add_fail = 0
+        active_od_pairs = 0
         
         # 1. Identify all unique OD pairs
         all_od_pairs = set()
@@ -225,6 +240,8 @@ class AdversarialLargeGridEnv(LargeGridEnv):
             expected_n = (mixed_rate / 3600.0) * duration
             num_vehicles = np.random.poisson(expected_n)
             if num_vehicles == 0: continue
+            active_od_pairs += 1
+            requested_vehicles += int(num_vehicles)
 
             # --- C. FIND ROUTE (The Fix) ---
             # --- OPTIMIZED ROUTE HANDLING ---
@@ -246,6 +263,7 @@ class AdversarialLargeGridEnv(LargeGridEnv):
                     pass
 
             if not valid_route:
+                skipped_route += int(num_vehicles)
                 continue
 
             # D. Schedule Vehicles
@@ -263,12 +281,41 @@ class AdversarialLargeGridEnv(LargeGridEnv):
                         depart=f"{t:.2f}"
                     )
                     self.sim.vehicle.setSpeedFactor(veh_id, np.random.normal(1.0, 0.1))
+                    scheduled_vehicles += 1
                 except traci.TraCIException:
-                    pass
+                    vehicle_add_fail += 1
+
+        logging.info(
+            "Adversary traffic inject @t=%.0f (+%ds): active_od=%d requested=%d scheduled=%d "
+            "route_skipped=%d add_failed=%d known_routes=%d",
+            current_time, duration, active_od_pairs, requested_vehicles, scheduled_vehicles,
+            skipped_route, vehicle_add_fail, len(self.known_routes)
+        )
 
     def _simulate(self, num_step):
+        self._validate_traci_connection()
         for _ in range(num_step):
-            self.sim.simulationStep()
+            try:
+                self.sim.simulationStep()
+            except (socket.timeout, traci.TraCIException, OSError) as e:
+                logging.error("Adversarial simulationStep failed at t=%d: %s", self.cur_sec, e)
+                raise RuntimeError('Adversarial simulationStep failed')
             self.cur_sec += 1
             if self.is_record:
                 self._measure_traffic_step()
+            if self.sim_progress_log_sec > 0:
+                if (self.cur_sec - self._last_progress_sim_sec) >= self.sim_progress_log_sec:
+                    active_vehicles = -1
+                    try:
+                        active_vehicles = self.sim.vehicle.getIDCount()
+                    except Exception:
+                        pass
+                    now = time.time()
+                    wall_elapsed = now - self._last_progress_wall_sec
+                    logging.info(
+                        "Adversarial sim progress: t=%d/%d, active_vehicles=%d, wall=%.1fs for +%ds sim",
+                        self.cur_sec, self.episode_length_sec, active_vehicles,
+                        wall_elapsed, self.cur_sec - self._last_progress_sim_sec
+                    )
+                    self._last_progress_sim_sec = self.cur_sec
+                    self._last_progress_wall_sec = now

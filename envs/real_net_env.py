@@ -13,6 +13,7 @@ import time
 import numpy as np
 import pandas as pd
 import traci
+import socket
 from envs.env import PhaseMap, PhaseSet, TrafficSimulator
 from real_net.data.build_file import gen_rou_file
 from real_net.data.build_file import output_config, write_file
@@ -128,7 +129,8 @@ class RealNetEnv(TrafficSimulator):
         self.scenarios = self._load_scenarios()
         self.num_scenarios = len(self.scenarios)
         self.episode_length_sec = self.num_scenarios * SCENARIO_DURATION
-        logging.info(f"Loaded {len(self.scenarios)} scenarios.")
+        self.T = np.ceil(self.episode_length_sec / self.control_interval_sec)
+        logging.info(f"Loaded {len(self.scenarios)} scenarios. Episode length={self.episode_length_sec}s, T={int(self.T)}")
 
     def _load_scenarios(self):
         """
@@ -273,7 +275,11 @@ class RealNetEnv(TrafficSimulator):
                     
                     if route_stage and route_stage.edges:
                         # Register the route in SUMO
-                        self.sim.route.add(route_id, route_stage.edges)
+                        try:
+                            self.sim.route.add(route_id, route_stage.edges)
+                        except traci.TraCIException:
+                            # Route may already exist.
+                            pass
                         
                         # Add to local cache so we never calculate this OD pair again
                         self.route_cache.add(route_id)
@@ -319,6 +325,8 @@ class RealNetEnv(TrafficSimulator):
         """
         Overrides the standard simulation loop to inject traffic dynamically.
         """
+        self._validate_traci_connection()
+
         # 1. Check if we need to inject the next group (Scenario)
         if self.cur_sec >= self.next_switch_time:
             if self.current_scenario_idx < len(self.scenarios):
@@ -336,10 +344,33 @@ class RealNetEnv(TrafficSimulator):
 
         # 2. Standard SUMO Stepping
         for _ in range(num_step):
-            self.sim.simulationStep()
+            try:
+                self.sim.simulationStep()
+            except (socket.timeout, traci.TraCIException, OSError) as e:
+                logging.error(
+                    "TraCI simulationStep failed at t=%d (scenario=%d): %s",
+                    self.cur_sec, self.current_scenario_idx, e
+                )
+                raise RuntimeError('RealNet simulationStep failed')
             self.cur_sec += 1
             if self.is_record:
                 self._measure_traffic_step()
+            if self.sim_progress_log_sec > 0:
+                if (self.cur_sec - self._last_progress_sim_sec) >= self.sim_progress_log_sec:
+                    active_vehicles = -1
+                    try:
+                        active_vehicles = self.sim.vehicle.getIDCount()
+                    except Exception:
+                        pass
+                    now = time.time()
+                    wall_elapsed = now - self._last_progress_wall_sec
+                    logging.info(
+                        "Sim progress: t=%d/%d, active_vehicles=%d, wall=%.1fs for +%ds sim",
+                        self.cur_sec, self.episode_length_sec, active_vehicles,
+                        wall_elapsed, self.cur_sec - self._last_progress_sim_sec
+                    )
+                    self._last_progress_sim_sec = self.cur_sec
+                    self._last_progress_wall_sec = now
 
 
 def plot_cdf(X, c='b', label=None):

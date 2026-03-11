@@ -2,7 +2,7 @@ import os
 import logging
 import configparser
 import numpy as np
-import tensorflow as tf
+from tf_compat import tf
 import shutil
 import sys
 
@@ -12,7 +12,7 @@ from utils import init_dir, init_log
 from train_adversary import ConfigWrapper, set_seed, get_logger
 from envs.coevolution_real_net_env import CoevolutionRealNetEnv
 # Assuming GCNA2C is available in agents.models (based on user request)
-from agents.models import A2C, IA2C, MA2C, IQL, CNNA2C, GCNA2C
+from agents.models import A2C, IA2C, MA2C, IQL, CNNA2C, GCNA2C, PPO
 
 # --- PATH CONFIGURATION ---
 FROZEN_CONFIG_PATH = './config/config_ia2c_real.ini'
@@ -29,6 +29,8 @@ def load_traffic_agent(env, env_config, traffic_model_config, model_dir):
         traffic_agent = IA2C(env.n_s_ls, env.n_a_ls, env.n_w_ls, 0, traffic_model_config, seed=42)
     elif agent_type == 'ma2c':
         traffic_agent = MA2C(env.n_s_ls, env.n_a_ls, env.n_w_ls, env.n_f_ls, 0, traffic_model_config, seed=42)
+    elif agent_type == 'ppo':
+        traffic_agent = PPO(env.n_s_ls, env.n_a_ls, env.n_w_ls, 0, traffic_model_config, seed=42)
     elif agent_type == 'iqld':
         traffic_agent = IQL(env.n_s_ls, env.n_a_ls, env.n_w_ls, 0, traffic_model_config, seed=42, model_type='dqn')
     elif agent_type == 'iqll':

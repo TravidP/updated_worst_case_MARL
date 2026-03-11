@@ -1,0 +1,12 @@
+group_index,group_name,csv_path
+0,demand_N_to_S,/home/sdc_joran/Journal/deeprl_signal_control/data_traffic/demand_N_to_S.csv
+1,demand_S_to_N,/home/sdc_joran/Journal/deeprl_signal_control/data_traffic/demand_S_to_N.csv
+2,demand_W_to_E,/home/sdc_joran/Journal/deeprl_signal_control/data_traffic/demand_W_to_E.csv
+3,demand_E_to_W,/home/sdc_joran/Journal/deeprl_signal_control/data_traffic/demand_E_to_W.csv
+4,demand_NW_to_SE,/home/sdc_joran/Journal/deeprl_signal_control/data_traffic/demand_NW_to_SE.csv
+5,demand_SE_to_NW,/home/sdc_joran/Journal/deeprl_signal_control/data_traffic/demand_SE_to_NW.csv
+6,demand_SW_to_NE,/home/sdc_joran/Journal/deeprl_signal_control/data_traffic/demand_SW_to_NE.csv
+7,demand_NE_to_SW,/home/sdc_joran/Journal/deeprl_signal_control/data_traffic/demand_NE_to_SW.csv
+8,demand_Periphery_to_Center,/home/sdc_joran/Journal/deeprl_signal_control/data_traffic/demand_Periphery_to_Center.csv
+9,demand_Center_to_Periphery,/home/sdc_joran/Journal/deeprl_signal_control/data_traffic/demand_Center_to_Periphery.csv
+10,demand_Uniform,/home/sdc_joran/Journal/deeprl_signal_control/data_traffic/demand_Uniform.csv

@@ -13,13 +13,14 @@ class CoevolutionLargeGridEnv(AdversarialLargeGridEnv):
         logging.info("Coevolution Env: 'dummy_path' passed. No frozen controller loaded (Trainable Agent Active).")
         pass
 
-    def step(self, adversary_action, traffic_agent, summary_writer=None, global_traffic_step=0):
+    def step(self, adversary_action, traffic_agent, summary_writer=None, global_traffic_step=0,
+             watchdog_touch=None):
         """
         Executes one ADVERSARY Step (e.g., 10 minutes).
         Inside, it runs the Traffic Agent loop (per-step control & training).
         
         Args:
-            adversary_action: Weights for traffic injection.
+            adversary_action: Unconstrained WCE logits for traffic mixing.
             traffic_agent: The trainable IA2C agent object.
             summary_writer: For logging traffic agent metrics.
             global_traffic_step: Current global step counter for the traffic agent.
@@ -28,24 +29,15 @@ class CoevolutionLargeGridEnv(AdversarialLargeGridEnv):
             next_adv_obs: Observation for the Adversary (next segment).
             adv_reward: Reward for the Adversary (inverted traffic reward).
             done: Whether the full 1-hour episode is finished.
-            info: Contains updated 'global_traffic_step'.
+            info: Contains updated 'global_traffic_step' and segment reward stats.
         """
         # --- 1. ADVERSARY ACTS (Inject Traffic) ---
+        if callable(watchdog_touch):
+            watchdog_touch('coev:env_step:inject_traffic')
         logging.info(f"\n[Adversary] Injecting Traffic... (Time: {self.cur_sec}s)")
         
-        # Process Weights
-        raw_weights = np.array(adversary_action, dtype=np.float32).flatten()
-        weights = np.maximum(raw_weights, 0.0)
-        total_weight = np.sum(weights)
-        if total_weight > 1e-6:
-            weights = weights / total_weight
-        else:
-            weights = np.ones_like(weights) / len(weights)
-        # --- DEBUG PRINT START ---
-        print("\n[DEBUG] Adversary Weights:")
-        print(f"Raw Weights: {raw_weights}")
-        print(f"Normalized Weights: {weights}")
-        # --- DEBUG PRINT END ---
+        # Keep the adversary action transform identical to standalone WCE training.
+        weights = self._normalize_action_weights(adversary_action)
             
         # Inject Traffic
         self._inject_dynamic_traffic(weights, duration=self.adversary_step_duration)
@@ -58,7 +50,9 @@ class CoevolutionLargeGridEnv(AdversarialLargeGridEnv):
         
         traffic_obs = self._get_state() # Initial state for this segment
 
-        for _ in range(steps_to_run):
+        for step_i in range(steps_to_run):
+            if callable(watchdog_touch):
+                watchdog_touch('coev:env_step:control_step_%d' % step_i)
             # A. Traffic Agent Decision
             # Note: We assume traffic_agent handles its own graph context internally 
             # or is called within the correct context in main.py.
@@ -67,16 +61,19 @@ class CoevolutionLargeGridEnv(AdversarialLargeGridEnv):
             # --- A. Traffic Agent Decision ---
             # Determine if the agent is IQL-based (value-based) or A2C-based (actor-critic)
             is_iql = traffic_agent.name.startswith('iql')
+            is_ppo = traffic_agent.name == 'ppo'
             
             # Ensure we are in the agent's graph context
             # Fallback to sess.graph if 'graph' attribute is missing
             graph_context = traffic_agent.graph if hasattr(traffic_agent, 'graph') else traffic_agent.sess.graph
             
+            if callable(watchdog_touch):
+                watchdog_touch('coev:env_step:traffic_forward')
             with graph_context.as_default():
                 if is_iql:
                     # IQL returns (actions, q_values). We only need actions here.
-                    # Stochastic=True allows exploration (epsilon-greedy) during training.
-                    actions, _ = traffic_agent.forward(traffic_obs, mode='act', stochastic=True)
+                    # Use the same epsilon-greedy exploration mode as the standard trainer.
+                    actions, _ = traffic_agent.forward(traffic_obs, mode='explore')
                     values = None # IQL doesn't use state-value V(s) for transitions
                 else:
                     # IA2C/MA2C returns (policies, values)
@@ -89,10 +86,14 @@ class CoevolutionLargeGridEnv(AdversarialLargeGridEnv):
 
             # B. Simulation Step (Yellow -> Green)
             # Yellow
+            if callable(watchdog_touch):
+                watchdog_touch('coev:env_step:simulate_yellow')
             self._set_phase(actions, 'yellow', self.yellow_interval_sec)
             self._simulate(self.yellow_interval_sec)
             # Green
             rest = self.control_interval_sec - self.yellow_interval_sec
+            if callable(watchdog_touch):
+                watchdog_touch('coev:env_step:simulate_green')
             self._set_phase(actions, 'green', rest)
             self._simulate(rest)
 
@@ -111,34 +112,60 @@ class CoevolutionLargeGridEnv(AdversarialLargeGridEnv):
                 traffic_agent.add_transition(traffic_obs, actions, step_rewards, next_traffic_obs, done)
             else:
                 # A2C Transition: (obs, action, reward, value, done)
-                traffic_agent.add_transition(traffic_obs, actions, step_rewards, values, done)
+                if is_ppo:
+                    traffic_agent.add_transition(
+                        traffic_obs, actions, step_rewards, values, done, policies
+                    )
+                else:
+                    traffic_agent.add_transition(traffic_obs, actions, step_rewards, values, done)
             # --- FIX: Check the first agent's buffer in the list ---
             # IA2C uses 'trans_buffer_ls' instead of 'trans_buffer'
             # --- FIX: Check the buffer length correctly ---
             if hasattr(traffic_agent, 'trans_buffer_ls'):
-                 # Multi-agent case (IA2C, MA2C) - check first agent's buffer list length
-                 buffer_len = len(traffic_agent.trans_buffer_ls[0].obs)
+                 # Multi-agent case (IA2C/MA2C/IQL): infer length from available buffer API.
+                 first_buf = traffic_agent.trans_buffer_ls[0]
+                 if hasattr(first_buf, 'obs'):
+                     buffer_len = len(first_buf.obs)
+                 elif hasattr(first_buf, 'size'):
+                     buffer_len = first_buf.size
+                 else:
+                     buffer_len = 0
             else:
-                 # Single-agent case (A2C, CNNA2C) - check buffer list length
-                 buffer_len = len(traffic_agent.trans_buffer.obs)
+                 # Single-agent case (A2C/CNNA2C)
+                 if hasattr(traffic_agent.trans_buffer, 'obs'):
+                     buffer_len = len(traffic_agent.trans_buffer.obs)
+                 elif hasattr(traffic_agent.trans_buffer, 'size'):
+                     buffer_len = traffic_agent.trans_buffer.size
+                 else:
+                     buffer_len = 0
 
             if buffer_len >= traffic_agent.n_step:
                 if is_iql:
                     # IQL Backward: Learns from Replay Buffer (no bootstrap R needed)
+                    if callable(watchdog_touch):
+                        watchdog_touch('coev:env_step:traffic_backward_iql')
                     traffic_agent.backward(summary_writer=summary_writer, 
                                            global_step=global_traffic_step)
                 else:
-                    # IA2C/MA2C Backward: Needs bootstrap returns (R_ls).
-                    # Since we are stepping continuously, we pass 0s or estimated values.
-                    # For simplicity in this loop (similar to your snippet), we use 0s.
-                    if hasattr(traffic_agent, 'n_agent'):
-                        R_ls = [0] * traffic_agent.n_agent
+                    # IA2C/MA2C Backward: bootstrap with next state value when not done.
+                    if done:
+                        if hasattr(traffic_agent, 'n_agent'):
+                            R_ls = [0] * traffic_agent.n_agent
+                        else:
+                            R_ls = 0
                     else:
-                        R_ls = 0
+                        graph_context = traffic_agent.graph if hasattr(traffic_agent, 'graph') else traffic_agent.sess.graph
+                        with graph_context.as_default():
+                            _, next_values = traffic_agent.forward(next_traffic_obs, done=False, out_type='pv')
+                        R_ls = next_values
                     
+                    if callable(watchdog_touch):
+                        watchdog_touch('coev:env_step:traffic_backward_a2c')
                     traffic_agent.backward(R_ls, 
                                            summary_writer=summary_writer, 
                                            global_step=global_traffic_step)
+                    if callable(watchdog_touch):
+                        watchdog_touch('coev:env_step:traffic_backward_a2c_done')
         
 
             # Update loop variables
@@ -151,7 +178,7 @@ class CoevolutionLargeGridEnv(AdversarialLargeGridEnv):
 
         # --- 3. RETURN ADVERSARY RESULTS ---
         # Adversary Reward = Negative of Traffic Reward (Zero-Sum)
-        adv_reward = -segment_traffic_reward / 100.0
+        adv_reward = -segment_traffic_reward / float(self.adversary_reward_scale)
         
         # Get next Adversary State
         if done:
@@ -159,6 +186,11 @@ class CoevolutionLargeGridEnv(AdversarialLargeGridEnv):
         else:
             next_adv_obs = self._get_adversary_state()
 
-        info = {'global_traffic_step': global_traffic_step}
+        info = {
+            'global_traffic_step': global_traffic_step,
+            'segment_traffic_reward': float(segment_traffic_reward),
+            'segment_wce_reward': float(adv_reward),
+            'segment_control_steps': int(steps_to_run)
+        }
         
         return next_adv_obs, adv_reward, done, info

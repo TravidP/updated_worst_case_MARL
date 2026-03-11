@@ -1,0 +1,494 @@
+timestamp=2026-02-21T15:06:32+01:00
+run_dir=./runs/ia2c_large
+pid=1598550
+
+==== disk ====
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/nvme0n1p5  414G  387G  6.1G  99% /
+
+==== memory ====
+               total        used        free      shared  buff/cache   available
+Mem:            62Gi        19Gi        31Gi       394Mi        10Gi        41Gi
+Swap:          2.0Gi          0B       2.0Gi
+
+==== processes ====
+1598550 python main.py --base-dir ./runs/ia2c_large train --config-dir ./config/config_ia2c_large.ini --test-mode no_test
+
+-- ps tree for pid 1598550 --
+python,1598550 main.py --base-dir ./runs/ia2c_large train --config-dir ./config/config_ia2c_large.ini --test-mode no_test
+  |-sumo,1786942 -c ./large_grid/data/expdummy_0.sumocfg --seed 82 --remote-port 8000 --no-step-log True --time-to-teleport 600...
+  |-{python},1598708
+  |-{python},1598709
+  |-{python},1598710
+  |-{python},1598711
+  |-{python},1598712
+  |-{python},1598713
+  |-{python},1598714
+  |-{python},1598715
+  |-{python},1598716
+  |-{python},1598717
+  |-{python},1598718
+  |-{python},1598719
+  |-{python},1598720
+  |-{python},1598721
+  |-{python},1598722
+  |-{python},1598723
+  |-{python},1598724
+  |-{python},1598725
+  |-{python},1598726
+  |-{python},1598727
+  |-{python},1598728
+  |-{python},1598729
+  |-{python},1598730
+  |-{python},1598731
+  |-{python},1601538
+  |-{python},1601929
+  |-{python},1601930
+  |-{python},1601931
+  |-{python},1601932
+  |-{python},1601933
+  |-{python},1601934
+  |-{python},1601935
+  |-{python},1601936
+  |-{python},1601937
+  |-{python},1601938
+  |-{python},1601939
+  |-{python},1601940
+  |-{python},1601941
+  |-{python},1601942
+  |-{python},1601943
+  |-{python},1601944
+  |-{python},1601945
+  |-{python},1601946
+  |-{python},1601947
+  |-{python},1601948
+  |-{python},1601949
+  |-{python},1601950
+  |-{python},1601951
+  |-{python},1601952
+  |-{python},1601953
+  |-{python},1601954
+  |-{python},1601955
+  |-{python},1601956
+  |-{python},1601957
+  |-{python},1601958
+  |-{python},1601959
+  |-{python},1601960
+  |-{python},1601961
+  |-{python},1601962
+  |-{python},1601963
+  |-{python},1601964
+  |-{python},1601965
+  `-{python},1601966
+
+-- ps summary --
+    PID    PPID STAT     ELAPSED %CPU %MEM   RSS    VSZ CMD
+1598550 1470684 Sl+     04:05:29  392 12.6 8266104 15789788 python main.py --base-dir ./runs/ia2c_large train --config-dir ./config/config_ia2c_large.ini --test-mode no_test
+    PID    PPID STAT     ELAPSED %CPU %MEM   RSS    VSZ CMD
+1786942 1598550 S+      02:33:20  0.0  0.0 38148 100172 /usr/bin/sumo -c ./large_grid/data/expdummy_0.sumocfg --seed 82 --remote-port 8000 --no-step-log True --time-to-teleport 600 --no-warnings True --duration-log.disable True
+
+-- top threads snapshot --
+top - 15:06:32 up 1 day,  4:58,  1 user,  load average: 0.58, 0.41, 0.27
+Threads:  64 total,   0 running,  64 sleeping,   0 stopped,   0 zombie
+%Cpu(s):  5.9 us,  0.3 sy,  0.0 ni, 93.7 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+MiB Mem :  63643.0 total,  32286.3 free,  20356.4 used,  11000.4 buff/cache
+MiB Swap:   2048.0 total,   2048.0 free,      0.0 used.  42184.0 avail Mem 
+
+    PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND
+1598550 sdc_jor+  20   0   15.1g   7.9g 106540 S   0.0  12.7  25:16.85 python
+1598708 sdc_jor+  20   0   15.1g   7.9g 106540 S   0.0  12.7   0:00.00 python
+1598709 sdc_jor+  20   0   15.1g   7.9g 106540 S   0.0  12.7   0:03.23 python
+1598710 sdc_jor+  20   0   15.1g   7.9g 106540 S   0.0  12.7   0:03.15 python
+1598711 sdc_jor+  20   0   15.1g   7.9g 106540 S   0.0  12.7   0:03.27 python
+1598712 sdc_jor+  20   0   15.1g   7.9g 106540 S   0.0  12.7   0:03.17 python
+1598713 sdc_jor+  20   0   15.1g   7.9g 106540 S   0.0  12.7   0:03.18 python
+1598714 sdc_jor+  20   0   15.1g   7.9g 106540 S   0.0  12.7   0:03.27 python
+1598715 sdc_jor+  20   0   15.1g   7.9g 106540 S   0.0  12.7   0:03.26 python
+1598716 sdc_jor+  20   0   15.1g   7.9g 106540 S   0.0  12.7   0:03.09 python
+1598717 sdc_jor+  20   0   15.1g   7.9g 106540 S   0.0  12.7   0:03.25 python
+1598718 sdc_jor+  20   0   15.1g   7.9g 106540 S   0.0  12.7   0:03.29 python
+1598719 sdc_jor+  20   0   15.1g   7.9g 106540 S   0.0  12.7   0:03.20 python
+1598720 sdc_jor+  20   0   15.1g   7.9g 106540 S   0.0  12.7   0:03.27 python
+1598721 sdc_jor+  20   0   15.1g   7.9g 106540 S   0.0  12.7   0:03.14 python
+1598722 sdc_jor+  20   0   15.1g   7.9g 106540 S   0.0  12.7   0:03.22 python
+1598723 sdc_jor+  20   0   15.1g   7.9g 106540 S   0.0  12.7   0:03.19 python
+1598724 sdc_jor+  20   0   15.1g   7.9g 106540 S   0.0  12.7   0:03.29 python
+1598725 sdc_jor+  20   0   15.1g   7.9g 106540 S   0.0  12.7   0:03.21 python
+1598726 sdc_jor+  20   0   15.1g   7.9g 106540 S   0.0  12.7   0:03.31 python
+1598727 sdc_jor+  20   0   15.1g   7.9g 106540 S   0.0  12.7   0:03.28 python
+1598728 sdc_jor+  20   0   15.1g   7.9g 106540 S   0.0  12.7   0:03.18 python
+1598729 sdc_jor+  20   0   15.1g   7.9g 106540 S   0.0  12.7   0:00.00 python
+1598730 sdc_jor+  20   0   15.1g   7.9g 106540 S   0.0  12.7  22:57.40 python
+1598731 sdc_jor+  20   0   15.1g   7.9g 106540 S   0.0  12.7  19:19.16 python
+1601538 sdc_jor+  20   0   15.1g   7.9g 106540 S   0.0  12.7   0:00.03 python
+1601929 sdc_jor+  20   0   15.1g   7.9g 106540 S   0.0  12.7  36:41.22 python
+1601930 sdc_jor+  20   0   15.1g   7.9g 106540 S   0.0  12.7  26:56.38 python
+1601931 sdc_jor+  20   0   15.1g   7.9g 106540 S   0.0  12.7  26:15.76 python
+1601932 sdc_jor+  20   0   15.1g   7.9g 106540 S   0.0  12.7  33:22.60 python
+1601933 sdc_jor+  20   0   15.1g   7.9g 106540 S   0.0  12.7  30:54.86 python
+1601934 sdc_jor+  20   0   15.1g   7.9g 106540 S   0.0  12.7  29:07.55 python
+1601935 sdc_jor+  20   0   15.1g   7.9g 106540 S   0.0  12.7  30:41.15 python
+1601936 sdc_jor+  20   0   15.1g   7.9g 106540 S   0.0  12.7  28:18.50 python
+1601937 sdc_jor+  20   0   15.1g   7.9g 106540 S   0.0  12.7  25:28.38 python
+1601938 sdc_jor+  20   0   15.1g   7.9g 106540 S   0.0  12.7  32:28.40 python
+1601939 sdc_jor+  20   0   15.1g   7.9g 106540 S   0.0  12.7  24:51.00 python
+1601940 sdc_jor+  20   0   15.1g   7.9g 106540 S   0.0  12.7  28:09.04 python
+1601941 sdc_jor+  20   0   15.1g   7.9g 106540 S   0.0  12.7  27:26.99 python
+1601942 sdc_jor+  20   0   15.1g   7.9g 106540 S   0.0  12.7  22:50.78 python
+1601943 sdc_jor+  20   0   15.1g   7.9g 106540 S   0.0  12.7  25:44.93 python
+1601944 sdc_jor+  20   0   15.1g   7.9g 106540 S   0.0  12.7  25:26.39 python
+1601945 sdc_jor+  20   0   15.1g   7.9g 106540 S   0.0  12.7  23:56.24 python
+1601946 sdc_jor+  20   0   15.1g   7.9g 106540 S   0.0  12.7  27:20.59 python
+1601947 sdc_jor+  20   0   15.1g   7.9g 106540 S   0.0  12.7  23:45.78 python
+1601948 sdc_jor+  20   0   15.1g   7.9g 106540 S   0.0  12.7  24:57.22 python
+1601949 sdc_jor+  20   0   15.1g   7.9g 106540 S   0.0  12.7  24:18.24 python
+1601950 sdc_jor+  20   0   15.1g   7.9g 106540 S   0.0  12.7  22:07.26 python
+1601951 sdc_jor+  20   0   15.1g   7.9g 106540 S   0.0  12.7  24:31.18 python
+1601952 sdc_jor+  20   0   15.1g   7.9g 106540 S   0.0  12.7  25:07.04 python
+1601953 sdc_jor+  20   0   15.1g   7.9g 106540 S   0.0  12.7  23:23.27 python
+1601954 sdc_jor+  20   0   15.1g   7.9g 106540 S   0.0  12.7  23:06.85 python
+1601955 sdc_jor+  20   0   15.1g   7.9g 106540 S   0.0  12.7  21:12.39 python
+
+-- /proc status --
+Name:	python
+Umask:	0002
+State:	S (sleeping)
+Tgid:	1598550
+Ngid:	0
+Pid:	1598550
+PPid:	1470684
+TracerPid:	0
+Uid:	1001	1001	1001	1001
+Gid:	1001	1001	1001	1001
+FDSize:	256
+Groups:	4 24 27 30 46 122 135 136 1001 
+NStgid:	1598550
+NSpid:	1598550
+NSpgid:	1598550
+NSsid:	1470684
+Kthread:	0
+VmPeak:	15946388 kB
+VmSize:	15789788 kB
+VmLck:	       0 kB
+VmPin:	       0 kB
+VmHWM:	 8419836 kB
+VmRSS:	 8266104 kB
+RssAnon:	 8159564 kB
+RssFile:	  106540 kB
+RssShmem:	       0 kB
+VmData:	11256764 kB
+VmStk:	     136 kB
+VmExe:	    1568 kB
+VmLib:	  352308 kB
+VmPTE:	   17244 kB
+VmSwap:	       0 kB
+HugetlbPages:	       0 kB
+CoreDumping:	0
+THP_enabled:	1
+untag_mask:	0xffffffffffffffff
+Threads:	64
+SigQ:	0/254240
+SigPnd:	0000000000000000
+ShdPnd:	0000000000000000
+SigBlk:	0000000000000000
+SigIgn:	0000000001001000
+SigCgt:	0000000100000002
+CapInh:	0000000000000000
+CapPrm:	0000000000000000
+CapEff:	0000000000000000
+CapBnd:	000001ffffffffff
+CapAmb:	0000000000000000
+NoNewPrivs:	0
+Seccomp:	0
+Seccomp_filters:	0
+Speculation_Store_Bypass:	thread vulnerable
+SpeculationIndirectBranch:	conditional enabled
+Cpus_allowed:	00001
+Cpus_allowed_list:	0
+Mems_allowed:	00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000001
+Mems_allowed_list:	0
+voluntary_ctxt_switches:	80534885
+nonvoluntary_ctxt_switches:	677955
+x86_Thread_features:	
+x86_Thread_features_locked:	
+Name:	sumo
+Umask:	0002
+State:	S (sleeping)
+Tgid:	1786942
+Ngid:	0
+Pid:	1786942
+PPid:	1598550
+TracerPid:	0
+Uid:	1001	1001	1001	1001
+Gid:	1001	1001	1001	1001
+FDSize:	128
+Groups:	4 24 27 30 46 122 135 136 1001 
+NStgid:	1786942
+NSpid:	1786942
+NSpgid:	1598550
+NSsid:	1470684
+Kthread:	0
+VmPeak:	  100172 kB
+VmSize:	  100172 kB
+VmLck:	       0 kB
+VmPin:	       0 kB
+VmHWM:	   38148 kB
+VmRSS:	   38148 kB
+RssAnon:	   14024 kB
+RssFile:	   24124 kB
+RssShmem:	       0 kB
+VmData:	   15152 kB
+VmStk:	     136 kB
+VmExe:	    7388 kB
+VmLib:	   22672 kB
+VmPTE:	     184 kB
+VmSwap:	       0 kB
+HugetlbPages:	       0 kB
+CoreDumping:	0
+THP_enabled:	1
+untag_mask:	0xffffffffffffffff
+Threads:	1
+SigQ:	0/254240
+SigPnd:	0000000000000000
+ShdPnd:	0000000000000000
+SigBlk:	0000000000000000
+SigIgn:	0000000000000000
+SigCgt:	0000000000004a02
+CapInh:	0000000000000000
+CapPrm:	0000000000000000
+CapEff:	0000000000000000
+CapBnd:	000001ffffffffff
+CapAmb:	0000000000000000
+NoNewPrivs:	0
+Seccomp:	0
+Seccomp_filters:	0
+Speculation_Store_Bypass:	thread vulnerable
+SpeculationIndirectBranch:	conditional enabled
+Cpus_allowed:	fffff
+Cpus_allowed_list:	0-19
+Mems_allowed:	00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000001
+Mems_allowed_list:	0
+voluntary_ctxt_switches:	197645
+nonvoluntary_ctxt_switches:	394
+x86_Thread_features:	
+x86_Thread_features_locked:	
+
+==== sockets ====
+Cannot open netlink socket: Operation not permitted
+ESTAB      0      0               127.0.0.1:49156          127.0.1.1:6006        
+ESTAB      0      0               127.0.0.1:8000           127.0.0.1:55206       
+ESTAB      0      0               127.0.0.1:49136          127.0.1.1:6006        
+ESTAB      0      0               127.0.0.1:55206          127.0.0.1:8000        
+ESTAB      0      0               127.0.0.1:49160          127.0.1.1:6006        
+ESTAB      0      0               127.0.0.1:49140          127.0.1.1:6006        
+ESTAB      0      0               127.0.0.1:49134          127.0.1.1:6006        
+
+==== latest log tail ====
+latest_log=./runs/ia2c_large/log/1771668063.log
+       0.        , 0.        , 0.2       , 0.        , 0.2       ,
+       0.        , 0.        , 0.        , 0.        , 0.00571429,
+       0.045     , 0.        , 0.        , 0.        , 0.        ]), array([0.        , 0.8       , 0.2       , 1.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 1.4       ,
+       0.        , 0.        , 0.4       , 0.2       , 0.        ,
+       0.2       , 0.        , 0.        , 0.2       , 0.6       ,
+       0.2       , 0.2       , 0.        , 0.        , 0.        ,
+       0.13666667, 0.39      , 0.00777778, 0.        , 0.        ]), array([0.4 , 0.2 , 0.  , 0.2 , 0.  , 0.  , 0.  , 0.  , 0.  , 1.4 , 0.  ,
+       0.  , 1.2 , 0.2 , 0.2 , 1.2 , 0.2 , 0.  , 0.  , 0.6 , 0.  , 0.2 ,
+       0.  , 0.  , 0.  , 0.8 , 0.2 , 1.  , 0.  , 0.  , 0.  , 0.  , 0.  ,
+       0.12, 0.  , 0.  ]), array([1.2       , 0.2       , 0.2       , 1.2       , 0.2       ,
+       0.        , 0.        , 0.4       , 0.        , 0.4       ,
+       0.2       , 0.        , 0.        , 1.2       , 0.        ,
+       0.        , 0.        , 0.        , 1.4       , 0.4       ,
+       0.2       , 0.8       , 0.        , 0.        , 0.4       ,
+       0.2       , 0.        , 0.2       , 0.        , 0.        ,
+       0.05176471, 0.        , 0.        , 0.07333333, 0.07      ,
+       0.        ]), array([0.        , 1.2       , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.6       , 1.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.2       ,
+       0.        , 0.        , 0.        , 0.        , 1.2       ,
+       0.2       , 0.2       , 1.2       , 0.2       , 0.        ,
+       0.        , 0.03190476, 0.        , 0.        , 0.        ,
+       0.        ]), array([0.2 , 0.  , 0.  , 0.  , 0.  , 0.  , 0.  , 0.2 , 0.  , 0.  , 0.  ,
+       0.  , 0.4 , 1.4 , 0.  , 0.  , 0.  , 0.  , 0.  , 1.  , 0.  , 0.  ,
+       0.  , 0.  , 0.05, 0.  , 0.  , 0.  , 0.  , 0.  ]), array([0.6       , 1.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.6       , 0.        , 0.        ,
+       0.        , 0.        , 1.2       , 1.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 1.2       ,
+       0.        , 0.        , 0.        , 0.        , 0.175     ,
+       0.09428571, 0.        , 0.        , 0.        , 0.        ]), array([0.        , 0.        , 0.        , 1.4       , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 1.4       ,
+       0.        , 0.        , 0.        , 0.8       , 0.2       ,
+       1.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.11923077, 0.        , 0.        ]), array([0.        , 0.        , 0.        , 1.4       , 0.        ,
+       0.        , 0.        , 0.4       , 0.        , 0.4       ,
+       0.2       , 0.        , 0.4       , 0.2       , 0.        ,
+       0.2       , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 1.4       , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.31666667, 0.        , 0.        ]), array([0.  , 0.4 , 0.  , 0.4 , 0.2 , 0.  , 0.  , 0.  , 0.  , 0.  , 0.  ,
+       0.  , 1.2 , 0.2 , 0.2 , 1.2 , 0.2 , 0.  , 0.  , 0.  , 0.  , 1.4 ,
+       0.  , 0.  , 0.  , 0.12, 0.  , 0.05, 0.  , 0.  ]), array([0. , 0. , 0. , 0. , 0. , 0. , 0. , 0.6, 0. , 0. , 0. , 0. , 0. ,
+       1.2, 0. , 0. , 0. , 0. , 0. , 0.4, 0. , 0.4, 0.2, 0. , 0. , 0. ,
+       0. , 0. , 0. , 0. ]), array([0.   , 0.6  , 0.   , 0.   , 0.   , 0.   , 0.6  , 1.   , 0.   ,
+       0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   ,
+       0.   , 0.025, 0.   , 0.   , 0.   , 0.   ]), array([0.4       , 1.4       , 0.        , 0.        , 0.        ,
+       0.        , 1.2       , 1.        , 0.        , 0.        ,
+       0.2       , 0.        , 1.4       , 1.        , 0.        ,
+       0.        , 0.        , 0.        , 0.2       , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.02      ,
+       0.06277778, 0.        , 0.        , 0.        , 0.        ]), array([1.4       , 1.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 1.2       , 0.        , 0.        ,
+       0.        , 0.        , 0.2       , 1.4       , 0.        ,
+       0.        , 0.        , 0.        , 0.4       , 1.4       ,
+       0.        , 0.        , 0.        , 0.        , 0.31714286,
+       0.054     , 0.        , 0.        , 0.        , 0.        ]), array([0.2       , 1.4       , 0.        , 0.        , 0.        ,
+       0.        , 1.        , 0.2       , 0.        , 0.        ,
+       0.        , 0.2       , 1.4       , 1.        , 0.        ,
+       0.        , 0.        , 0.        , 0.04      , 0.09333333,
+       0.        , 0.        , 0.        , 0.        ]), array([0. , 0.8, 0. , 0.2, 0. , 0. , 0.2, 0.6, 0.2, 0.2, 0. , 0. , 0. ,
+       0.2, 0. , 0. , 0. , 0. , 0. , 1. , 0. , 0. , 0. , 0. , 0. , 0. ,
+       0. , 0. , 0. , 0. ]), array([0. , 0.2, 0. , 0. , 0. , 0. , 0. , 0.6, 0. , 0.2, 0. , 0. , 1.2,
+       1. , 0. , 0. , 0.2, 0. , 0.2, 0. , 0. , 0. , 0. , 0. , 0. , 0.8,
+       0. , 0.2, 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. ]), array([1.2       , 1.        , 0.        , 0.        , 0.2       ,
+       0.        , 1.4       , 0.4       , 0.2       , 0.8       ,
+       0.        , 0.        , 0.        , 1.2       , 0.        ,
+       0.        , 0.        , 0.        , 0.4       , 1.4       ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.2       , 0.        , 0.        , 0.        , 0.        ,
+       0.05227273, 0.018     , 0.        , 0.        , 0.        ,
+       0.        ]), array([0.  , 1.2 , 0.  , 0.  , 0.  , 0.  , 0.  , 0.2 , 0.  , 0.  , 0.  ,
+       0.  , 1.  , 0.2 , 0.  , 0.  , 0.  , 0.2 , 1.4 , 1.  , 0.  , 0.  ,
+       0.  , 0.  , 1.2 , 1.  , 0.  , 0.  , 0.2 , 0.  , 0.  , 0.01, 0.  ,
+       0.  , 0.  , 0.  ])], a: [3, 0, 0, 4, 1, 1, 2, 1, 3, 3, 0, 0, 2, 1, 3, 4, 2, 2, 2, 1, 2, 3, 0, 0, 3], pi: [array([0.2484993 , 0.18872583, 0.1484854 , 0.19719844, 0.21709102],
+      dtype=float32), array([0.20820908, 0.11892215, 0.22952107, 0.27268738, 0.17066033],
+      dtype=float32), array([0.27169082, 0.18318097, 0.15782471, 0.16162983, 0.22567363],
+      dtype=float32), array([0.2042896 , 0.14637296, 0.25400048, 0.22719412, 0.16814286],
+      dtype=float32), array([0.3313814 , 0.19100763, 0.11622161, 0.21864654, 0.14274292],
+      dtype=float32), array([0.30558237, 0.16598012, 0.24448518, 0.14841959, 0.13553274],
+      dtype=float32), array([0.14351533, 0.16421054, 0.17985679, 0.24119222, 0.27122512],
+      dtype=float32), array([0.24227938, 0.25252393, 0.18120319, 0.16665438, 0.1573391 ],
+      dtype=float32), array([0.20362519, 0.11858144, 0.2868964 , 0.1801266 , 0.21077041],
+      dtype=float32), array([0.20837136, 0.20183016, 0.2069523 , 0.23193504, 0.15091112],
+      dtype=float32), array([0.2594788 , 0.21189427, 0.11061524, 0.117094  , 0.30091774],
+      dtype=float32), array([0.18234617, 0.23070236, 0.23931101, 0.1564523 , 0.19118817],
+      dtype=float32), array([0.18721324, 0.1408427 , 0.30287552, 0.18135647, 0.18771201],
+      dtype=float32), array([0.15332797, 0.27036366, 0.15334994, 0.22593528, 0.19702318],
+      dtype=float32), array([0.16450128, 0.20463622, 0.20776   , 0.23434968, 0.18875283],
+      dtype=float32), array([0.1579359 , 0.2453325 , 0.14358447, 0.24897787, 0.20416921],
+      dtype=float32), array([0.2026766 , 0.1499417 , 0.20871928, 0.20055942, 0.23810303],
+      dtype=float32), array([0.17598897, 0.20955244, 0.14973047, 0.2574359 , 0.20729226],
+      dtype=float32), array([0.26995444, 0.15135527, 0.1639986 , 0.19277014, 0.2219216 ],
+      dtype=float32), array([0.15697424, 0.33957878, 0.17941093, 0.12209992, 0.20193608],
+      dtype=float32), array([0.22074817, 0.19651945, 0.12729411, 0.16209145, 0.29334673],
+      dtype=float32), array([0.15418623, 0.18831058, 0.21825999, 0.18087175, 0.25837144],
+      dtype=float32), array([0.2449202 , 0.1558052 , 0.14492   , 0.21590371, 0.23845087],
+      dtype=float32), array([0.18349624, 0.16818213, 0.25546452, 0.1775925 , 0.21526457],
+      dtype=float32), array([0.2886326 , 0.14588019, 0.15271114, 0.17698196, 0.23579413],
+      dtype=float32)], r: -187.41, train r: -187.41, done: False
+2026-02-21 12:30:54,686 [INFO] Training: checkpoint model at step 90000 ...
+2026-02-21 12:31:00,566 [INFO] Training: checkpoint finished in 5.88s
+2026-02-21 12:31:01,811 [INFO] Injecting traffic for Scenario 2 at t=1200
+2026-02-21 12:31:01,844 [INFO] Scenario 2: Scheduled 525 vehicles.
+2026-02-21 12:31:04,141 [INFO] Sim progress: t=1500/6600, active_vehicles=364, wall=9.5s for +300s sim
+2026-02-21 12:31:06,482 [INFO] Sim progress: t=1800/6600, active_vehicles=417, wall=2.3s for +300s sim
+2026-02-21 12:31:07,781 [INFO] Injecting traffic for Scenario 3 at t=1800
+2026-02-21 12:31:07,811 [INFO] Scenario 3: Scheduled 478 vehicles.
+2026-02-21 12:31:10,143 [INFO] Sim progress: t=2100/6600, active_vehicles=463, wall=3.7s for +300s sim
+2026-02-21 12:31:12,620 [INFO] Sim progress: t=2400/6600, active_vehicles=494, wall=2.5s for +300s sim
+2026-02-21 12:31:13,874 [INFO] Injecting traffic for Scenario 4 at t=2400
+2026-02-21 12:31:13,904 [INFO] Scenario 4: Scheduled 507 vehicles.
+2026-02-21 12:31:16,231 [INFO] Sim progress: t=2700/6600, active_vehicles=448, wall=3.6s for +300s sim
+2026-02-21 12:31:18,620 [INFO] Sim progress: t=3000/6600, active_vehicles=420, wall=2.4s for +300s sim
+2026-02-21 12:31:19,976 [INFO] Injecting traffic for Scenario 5 at t=3000
+2026-02-21 12:31:20,018 [INFO] Scenario 5: Scheduled 439 vehicles.
+2026-02-21 12:31:22,440 [INFO] Sim progress: t=3300/6600, active_vehicles=457, wall=3.8s for +300s sim
+2026-02-21 12:31:24,868 [INFO] Sim progress: t=3600/6600, active_vehicles=485, wall=2.4s for +300s sim
+2026-02-21 12:31:26,241 [INFO] Injecting traffic for Scenario 6 at t=3600
+2026-02-21 12:31:26,270 [INFO] Scenario 6: Scheduled 507 vehicles.
+2026-02-21 12:31:28,768 [INFO] Sim progress: t=3900/6600, active_vehicles=607, wall=3.9s for +300s sim
+2026-02-21 12:31:31,474 [INFO] Sim progress: t=4200/6600, active_vehicles=742, wall=2.7s for +300s sim
+2026-02-21 12:31:32,792 [INFO] Injecting traffic for Scenario 7 at t=4200
+2026-02-21 12:31:32,822 [INFO] Scenario 7: Scheduled 502 vehicles.
+2026-02-21 12:31:35,439 [INFO] Sim progress: t=4500/6600, active_vehicles=916, wall=4.0s for +300s sim
+2026-02-21 12:31:38,184 [INFO] Sim progress: t=4800/6600, active_vehicles=1029, wall=2.7s for +300s sim
+2026-02-21 12:31:39,495 [INFO] Injecting traffic for Scenario 8 at t=4800
+2026-02-21 12:31:39,522 [INFO] Scenario 8: Scheduled 500 vehicles.
+2026-02-21 12:31:42,265 [INFO] Sim progress: t=5100/6600, active_vehicles=1049, wall=4.1s for +300s sim
+2026-02-21 12:31:45,067 [INFO] Sim progress: t=5400/6600, active_vehicles=1053, wall=2.8s for +300s sim
+2026-02-21 12:31:46,374 [INFO] Injecting traffic for Scenario 9 at t=5400
+2026-02-21 12:31:46,409 [INFO] Scenario 9: Scheduled 492 vehicles.
+2026-02-21 12:31:49,355 [INFO] Sim progress: t=5700/6600, active_vehicles=1132, wall=4.3s for +300s sim
+2026-02-21 12:31:52,248 [INFO] Sim progress: t=6000/6600, active_vehicles=1171, wall=2.9s for +300s sim
+2026-02-21 12:31:53,593 [INFO] Injecting traffic for Scenario 10 at t=6000
+2026-02-21 12:31:53,619 [INFO] Scenario 10: Scheduled 490 vehicles.
+2026-02-21 12:31:56,492 [INFO] Sim progress: t=6300/6600, active_vehicles=1236, wall=4.2s for +300s sim
+2026-02-21 12:31:59,411 [INFO] Sim progress: t=6600/6600, active_vehicles=1266, wall=2.9s for +300s sim
+2026-02-21 12:32:00,791 [INFO] Training: episode 69 done at global step 91080, terminating env ...
+2026-02-21 12:32:00,823 [INFO] Training: env termination finished in 0.03s
+2026-02-21 12:32:00,824 [INFO] Training: episode 69 finished in 79.00s (global step 91080, avg R -1386.88)
+2026-02-21 12:32:02,986 [INFO] TraCI connection established on port 8000
+2026-02-21 12:32:03,041 [INFO] Training: episode 70 started at global step 91080
+2026-02-21 12:32:03,071 [INFO] Injecting traffic for Scenario 0 at t=0
+2026-02-21 12:32:03,118 [INFO] Scenario 0: Scheduled 469 vehicles.
+2026-02-21 12:32:05,314 [INFO] Sim progress: t=300/6600, active_vehicles=130, wall=2.3s for +300s sim
+2026-02-21 12:32:07,499 [INFO] Sim progress: t=600/6600, active_vehicles=200, wall=2.2s for +300s sim
+2026-02-21 12:32:08,834 [INFO] Injecting traffic for Scenario 1 at t=600
+2026-02-21 12:32:08,864 [INFO] Scenario 1: Scheduled 503 vehicles.
+2026-02-21 12:32:11,096 [INFO] Sim progress: t=900/6600, active_vehicles=256, wall=3.6s for +300s sim
+2026-02-21 12:32:13,367 [INFO] Sim progress: t=1200/6600, active_vehicles=279, wall=2.3s for +300s sim
+2026-02-21 12:32:14,616 [INFO] Injecting traffic for Scenario 2 at t=1200
+2026-02-21 12:32:14,647 [INFO] Scenario 2: Scheduled 509 vehicles.
+2026-02-21 12:32:16,911 [INFO] Sim progress: t=1500/6600, active_vehicles=378, wall=3.5s for +300s sim
+2026-02-21 12:32:19,281 [INFO] Sim progress: t=1800/6600, active_vehicles=379, wall=2.4s for +300s sim
+2026-02-21 12:32:20,583 [INFO] Injecting traffic for Scenario 3 at t=1800
+2026-02-21 12:32:20,614 [INFO] Scenario 3: Scheduled 524 vehicles.
+2026-02-21 12:32:22,891 [INFO] Sim progress: t=2100/6600, active_vehicles=404, wall=3.6s for +300s sim
+2026-02-21 12:32:25,322 [INFO] Sim progress: t=2400/6600, active_vehicles=412, wall=2.4s for +300s sim
+2026-02-21 12:32:26,686 [INFO] Injecting traffic for Scenario 4 at t=2400
+2026-02-21 12:32:26,715 [INFO] Scenario 4: Scheduled 504 vehicles.
+2026-02-21 12:32:29,096 [INFO] Sim progress: t=2700/6600, active_vehicles=403, wall=3.8s for +300s sim
+2026-02-21 12:32:31,652 [INFO] Sim progress: t=3000/6600, active_vehicles=390, wall=2.6s for +300s sim
+2026-02-21 12:32:32,915 [INFO] Injecting traffic for Scenario 5 at t=3000
+2026-02-21 12:32:32,962 [INFO] Scenario 5: Scheduled 479 vehicles.
+2026-02-21 12:32:35,372 [INFO] Sim progress: t=3300/6600, active_vehicles=426, wall=3.7s for +300s sim
+2026-02-21 12:32:37,831 [INFO] Sim progress: t=3600/6600, active_vehicles=447, wall=2.5s for +300s sim
+2026-02-21 12:32:39,107 [INFO] Injecting traffic for Scenario 6 at t=3600
+2026-02-21 12:32:39,135 [INFO] Scenario 6: Scheduled 489 vehicles.
+2026-02-21 12:32:41,564 [INFO] Sim progress: t=3900/6600, active_vehicles=549, wall=3.7s for +300s sim
+2026-02-21 12:32:44,050 [INFO] Sim progress: t=4200/6600, active_vehicles=575, wall=2.5s for +300s sim
+2026-02-21 12:32:45,329 [INFO] Injecting traffic for Scenario 7 at t=4200
+2026-02-21 12:32:45,358 [INFO] Scenario 7: Scheduled 492 vehicles.
+2026-02-21 12:32:47,899 [INFO] Sim progress: t=4500/6600, active_vehicles=753, wall=3.8s for +300s sim
+2026-02-21 12:32:50,565 [INFO] Sim progress: t=4800/6600, active_vehicles=885, wall=2.7s for +300s sim
+2026-02-21 12:32:51,977 [INFO] Injecting traffic for Scenario 8 at t=4800
+2026-02-21 12:32:52,009 [INFO] Scenario 8: Scheduled 471 vehicles.
+2026-02-21 12:32:54,656 [INFO] Sim progress: t=5100/6600, active_vehicles=919, wall=4.1s for +300s sim
+2026-02-21 12:32:57,330 [INFO] Sim progress: t=5400/6600, active_vehicles=928, wall=2.7s for +300s sim
+2026-02-21 12:32:58,655 [INFO] Injecting traffic for Scenario 9 at t=5400
+2026-02-21 12:32:58,692 [INFO] Scenario 9: Scheduled 500 vehicles.
+2026-02-21 12:33:01,490 [INFO] Sim progress: t=5700/6600, active_vehicles=1018, wall=4.2s for +300s sim
+2026-02-21 12:33:04,215 [INFO] Sim progress: t=6000/6600, active_vehicles=1084, wall=2.7s for +300s sim
+2026-02-21 12:33:05,446 [INFO] Injecting traffic for Scenario 10 at t=6000
+2026-02-21 12:33:05,475 [INFO] Scenario 10: Scheduled 550 vehicles.
+2026-02-21 12:33:08,134 [INFO] Sim progress: t=6300/6600, active_vehicles=1110, wall=3.9s for +300s sim
+2026-02-21 12:33:10,864 [INFO] Sim progress: t=6600/6600, active_vehicles=1149, wall=2.7s for +300s sim
+2026-02-21 12:33:12,049 [INFO] Training: episode 70 done at global step 92400, terminating env ...
+2026-02-21 12:33:12,113 [INFO] Training: env termination finished in 0.06s
+2026-02-21 12:33:12,114 [INFO] Training: episode 70 finished in 71.29s (global step 92400, avg R -1092.65)
+2026-02-21 12:33:14,270 [INFO] TraCI connection established on port 8000
+2026-02-21 12:33:14,327 [INFO] Training: episode 71 started at global step 92400
+2026-02-21 12:33:14,357 [INFO] Injecting traffic for Scenario 0 at t=0
+2026-02-21 12:33:14,404 [INFO] Scenario 0: Scheduled 486 vehicles.
+2026-02-21 12:33:16,529 [INFO] Sim progress: t=300/6600, active_vehicles=147, wall=2.3s for +300s sim
+2026-02-21 12:33:18,744 [INFO] Sim progress: t=600/6600, active_vehicles=218, wall=2.2s for +300s sim
+2026-02-21 12:33:20,182 [INFO] Injecting traffic for Scenario 1 at t=600
+2026-02-21 12:33:20,214 [INFO] Scenario 1: Scheduled 491 vehicles.
+2026-02-21 12:33:22,475 [INFO] Sim progress: t=900/6600, active_vehicles=252, wall=3.7s for +300s sim
+2026-02-21 12:33:24,778 [INFO] Sim progress: t=1200/6600, active_vehicles=339, wall=2.3s for +300s sim
+
+==== watchdog dump tail ====
+missing ./runs/ia2c_large/data/stall_watchdog_stacks.log
+
+==== manual signal dump trigger ====
+sending SIGUSR1 to 1598550
+missing ./runs/ia2c_large/data/manual_signal_stacks.log

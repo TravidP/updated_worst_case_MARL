@@ -6,17 +6,8 @@ Main function for training and evaluating agents in traffic envs
 import argparse
 import configparser
 import logging
-import tensorflow as tf
+import os
 import threading
-# from envs.test_env import GymEnv
-from envs.small_grid_env import SmallGridEnv, SmallGridController
-from envs.large_grid_env import LargeGridEnv, LargeGridController
-from envs.real_net_env import RealNetEnv, RealNetController
-from agents.models import A2C, IA2C, MA2C, IQL
-from utils import (Counter, Trainer, Tester, Evaluator,
-                   check_dir, copy_file, find_file,
-                   init_dir, init_log, init_test_flag,
-                   plot_evaluation, plot_train)
 
 def parse_args():
     default_base_dir = '/Users/tchu/Documents/rl_test/signal_control_results/eval_sep2019/large_grid'
@@ -48,7 +39,38 @@ def parse_args():
     return args
 
 
+def ensure_runtime_dependencies():
+    missing = []
+    for module_name in ('tensorflow', 'pandas', 'seaborn'):
+        try:
+            __import__(module_name)
+        except ModuleNotFoundError:
+            missing.append(module_name)
+    if missing:
+        raise ModuleNotFoundError(
+            "Missing Python packages: %s. Install them with "
+            "`python3 -m pip install \"tensorflow<2.16\" pandas seaborn matplotlib`."
+            % ', '.join(missing)
+        )
+
+
+def normalize_config_paths(config):
+    project_dir = os.path.dirname(os.path.abspath(__file__))
+    if config.has_option('ENV_CONFIG', 'data_path'):
+        data_path = config.get('ENV_CONFIG', 'data_path').strip()
+        if data_path and not os.path.isabs(data_path):
+            config.set(
+                'ENV_CONFIG',
+                'data_path',
+                os.path.abspath(os.path.join(project_dir, data_path))
+            )
+
+
 def init_env(config, port=0, naive_policy=False):
+    from envs.large_grid_env import LargeGridEnv, LargeGridController
+    from envs.real_net_env import RealNetEnv, RealNetController
+    from envs.small_grid_env import SmallGridEnv, SmallGridController
+
     if config.get('scenario') == 'small_grid':
         if not naive_policy:
             return SmallGridEnv(config, port=port)
@@ -80,14 +102,20 @@ def init_env(config, port=0, naive_policy=False):
 
 
 def train(args):
+    ensure_runtime_dependencies()
+    from agents.models import IA2C, MA2C, IQL, PPO
+    from tf_compat import tf
+    from utils import Counter, Trainer, Tester, copy_file, init_dir, init_log, init_test_flag
+
     tf.reset_default_graph()
     base_dir = args.base_dir
     dirs = init_dir(base_dir)
     init_log(dirs['log'])
-    config_dir = args.config_dir
+    config_dir = os.path.abspath(args.config_dir)
     copy_file(config_dir, dirs['data'])
     config = configparser.ConfigParser()
     config.read(config_dir)
+    normalize_config_paths(config)
     in_test, post_test = init_test_flag(args.test_mode)
 
     # init env
@@ -95,11 +123,12 @@ def train(args):
     logging.info('Training: s dim: %d, a dim %d, s dim ls: %r, a dim ls: %r' %
                  (env.n_s, env.n_a, env.n_s_ls, env.n_a_ls))
 
-    # init step counter
+    # init step counter config
     total_step = int(config.getfloat('TRAIN_CONFIG', 'total_step'))
     test_step = int(config.getfloat('TRAIN_CONFIG', 'test_interval'))
     log_step = int(config.getfloat('TRAIN_CONFIG', 'log_interval'))
-    global_counter = Counter(total_step, test_step, log_step)
+    resume = config.getboolean('TRAIN_CONFIG', 'resume', fallback=False)
+    resume_step_cfg = config.get('TRAIN_CONFIG', 'resume_step', fallback='latest').strip().lower()
 
     # init centralized or multi agent
     seed = config.getint('ENV_CONFIG', 'seed')
@@ -114,12 +143,33 @@ def train(args):
     elif env.agent == 'ma2c':
         model = MA2C(env.n_s_ls, env.n_a_ls, env.n_w_ls, env.n_f_ls, total_step,
                      config['MODEL_CONFIG'], seed=seed)
+    elif env.agent == 'ppo':
+        model = PPO(env.n_s_ls, env.n_a_ls, env.n_w_ls, total_step,
+                    config['MODEL_CONFIG'], seed=seed)
     elif env.agent == 'iqld':
         model = IQL(env.n_s_ls, env.n_a_ls, env.n_w_ls, total_step, config['MODEL_CONFIG'],
                     seed=0, model_type='dqn')
-    else:
+    elif env.agent == 'iqll':
         model = IQL(env.n_s_ls, env.n_a_ls, env.n_w_ls, total_step, config['MODEL_CONFIG'],
                     seed=0, model_type='lr')
+    else:
+        raise ValueError('Unsupported agent type in ENV_CONFIG.agent: %s' % env.agent)
+
+    start_step = 0
+    if resume:
+        checkpoint_step = None
+        if resume_step_cfg not in ['', 'latest', 'auto']:
+            checkpoint_step = int(float(resume_step_cfg))
+        if not model.load(dirs['model'], checkpoint=checkpoint_step):
+            raise RuntimeError('Training resume requested but checkpoint load failed.')
+        start_step = int(getattr(model, 'loaded_checkpoint_step', 0))
+        if start_step <= 0:
+            raise RuntimeError('Training resume requested but no checkpoint step was restored.')
+        model.set_train_step(start_step)
+        logging.info('Training resume enabled: start_step=%d, target_total_step=%d (remaining=%d)',
+                     start_step, total_step, max(0, total_step - start_step))
+
+    global_counter = Counter(total_step, test_step, log_step, start_step=start_step)
 
     # disable multi-threading for safe SUMO implementation
     # threads = []
@@ -159,6 +209,10 @@ def train(args):
 
 
 def evaluate_fn(agent_dir, output_dir, seeds, port, demo, policy_type):
+    from agents.models import A2C, IA2C, MA2C, IQL, PPO
+    from tf_compat import tf
+    from utils import Evaluator, check_dir, find_file
+
     agent_folder_name = agent_dir.split('/')[-1]
     if not check_dir(agent_dir):
         logging.error('Evaluation: %s does not exist!' % agent_folder_name)
@@ -170,6 +224,7 @@ def evaluate_fn(agent_dir, output_dir, seeds, port, demo, policy_type):
         return
     config = configparser.ConfigParser()
     config.read(config_dir)
+    normalize_config_paths(config)
     
     # READ AGENT FROM CONFIG (Fixes the "folder name" bug)
     agent = config.get('ENV_CONFIG', 'agent')
@@ -192,12 +247,16 @@ def evaluate_fn(agent_dir, output_dir, seeds, port, demo, policy_type):
                 model = IA2C(env.n_s_ls, env.n_a_ls, env.n_w_ls, 0, config['MODEL_CONFIG'])
             elif agent == 'ma2c':
                 model = MA2C(env.n_s_ls, env.n_a_ls, env.n_w_ls, env.n_f_ls, 0, config['MODEL_CONFIG'])
+            elif agent == 'ppo':
+                model = PPO(env.n_s_ls, env.n_a_ls, env.n_w_ls, 0, config['MODEL_CONFIG'])
             elif agent == 'iqld':
                 model = IQL(env.n_s_ls, env.n_a_ls, env.n_w_ls, 0, config['MODEL_CONFIG'],
                             seed=0, model_type='dqn')
-            else:
+            elif agent == 'iqll':
                 model = IQL(env.n_s_ls, env.n_a_ls, env.n_w_ls, 0, config['MODEL_CONFIG'],
                             seed=0, model_type='lr')
+            else:
+                raise ValueError('Unsupported agent type in ENV_CONFIG.agent: %s' % agent)
             
             # Load the specific checkpoint
             if not model.load(agent_dir + '/model/'):
@@ -212,6 +271,9 @@ def evaluate_fn(agent_dir, output_dir, seeds, port, demo, policy_type):
 
 
 def evaluate(args):
+    ensure_runtime_dependencies()
+    from utils import init_dir, init_log
+
     base_dir = args.base_dir
     dirs = init_dir(base_dir, pathes=['eva_data', 'eva_log'])
     init_log(dirs['eva_log'])

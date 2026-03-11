@@ -1,7 +1,7 @@
 import argparse
 import os
 import pandas as pd
-import tensorflow as tf
+from tf_compat import tf
 from tensorboard.backend.event_processing import plugin_event_multiplexer as event_multiplexer
 
 SIZE_GUIDANCE = {'scalars': 5000}

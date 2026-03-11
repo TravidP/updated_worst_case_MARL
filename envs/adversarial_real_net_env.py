@@ -2,11 +2,11 @@ import numpy as np
 import logging
 import pandas as pd
 import os
-import tensorflow as tf
+from tf_compat import tf
 import configparser
 import traci
 from envs.real_net_env import RealNetEnv, NODES
-from agents.models import A2C, IA2C, MA2C, IQL
+from agents.models import A2C, IA2C, MA2C, IQL, PPO
 from utils import find_file
 
 class AdversarialRealNetEnv(RealNetEnv):
@@ -272,9 +272,11 @@ class AdversarialRealNetEnv(RealNetEnv):
                 self.frozen_controller = IA2C(self.n_s_ls, self.n_a_ls, self.n_w_ls, 0, saved_config['MODEL_CONFIG'])
             elif agent_type == 'ma2c':
                 self.frozen_controller = MA2C(self.n_s_ls, self.n_a_ls, self.n_w_ls, self.n_f_ls, 0, saved_config['MODEL_CONFIG'])
+            elif agent_type == 'ppo':
+                self.frozen_controller = PPO(self.n_s_ls, self.n_a_ls, self.n_w_ls, 0, saved_config['MODEL_CONFIG'])
             elif agent_type == 'iqld':
                 self.frozen_controller = IQL(self.n_s_ls, self.n_a_ls, self.n_w_ls, 0, saved_config['MODEL_CONFIG'], seed=0, model_type='dqn')
-            elif agent_type == 'iql':
+            elif agent_type in ('iql', 'iqll'):
                 self.frozen_controller = IQL(self.n_s_ls, self.n_a_ls, self.n_w_ls, 0, saved_config['MODEL_CONFIG'], seed=0, model_type='lr')
             
             self.frozen_controller.load(agent_dir + '/model/')

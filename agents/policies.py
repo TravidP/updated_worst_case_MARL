@@ -1,5 +1,5 @@
 import numpy as np
-import tensorflow as tf
+from tf_compat import tf
 from agents.utils import *
 import bisect
 
@@ -161,6 +161,73 @@ class LstmACPolicy(ACPolicy):
         if 'v' in out_type:
             outs.append(self.v_fw)
         return outs
+
+
+class PPOLstmACPolicy(LstmACPolicy):
+    def prepare_loss(self, v_coef, max_grad_norm, alpha, epsilon, clip_ratio=0.2):
+        del alpha  # PPO uses Adam in this implementation.
+        self.A = tf.placeholder(tf.int32, [self.n_step])
+        self.ADV = tf.placeholder(tf.float32, [self.n_step])
+        self.R = tf.placeholder(tf.float32, [self.n_step])
+        self.OLD_LOGP = tf.placeholder(tf.float32, [self.n_step])
+        self.entropy_coef = tf.placeholder(tf.float32, [])
+
+        A_sparse = tf.one_hot(self.A, self.n_a)
+        log_pi_all = tf.log(tf.clip_by_value(self.pi, 1e-10, 1.0))
+        log_pi = tf.reduce_sum(log_pi_all * A_sparse, axis=1)
+        ratio = tf.exp(log_pi - self.OLD_LOGP)
+        clipped_ratio = tf.clip_by_value(ratio, 1.0 - clip_ratio, 1.0 + clip_ratio)
+
+        surr1 = ratio * self.ADV
+        surr2 = clipped_ratio * self.ADV
+        policy_loss = -tf.reduce_mean(tf.minimum(surr1, surr2))
+        entropy = -tf.reduce_sum(self.pi * log_pi_all, axis=1)
+        entropy_loss = -tf.reduce_mean(entropy) * self.entropy_coef
+        value_loss = tf.reduce_mean(tf.square(self.R - self.v)) * 0.5 * v_coef
+        self.loss = policy_loss + value_loss + entropy_loss
+
+        self.approx_kl = tf.reduce_mean(tf.square(log_pi - self.OLD_LOGP))
+        self.clip_frac = tf.reduce_mean(
+            tf.cast(tf.greater(tf.abs(ratio - 1.0), clip_ratio), tf.float32)
+        )
+
+        wts = tf.trainable_variables(scope=self.name)
+        grads = tf.gradients(self.loss, wts)
+        if max_grad_norm > 0:
+            grads, self.grad_norm = tf.clip_by_global_norm(grads, max_grad_norm)
+        self.lr = tf.placeholder(tf.float32, [])
+        self.optimizer = tf.train.AdamOptimizer(learning_rate=self.lr, epsilon=epsilon)
+        self._train = self.optimizer.apply_gradients(list(zip(grads, wts)))
+
+        if self.name.endswith('_0a'):
+            summaries = []
+            summaries.append(tf.summary.scalar('loss/%s_policy_loss' % self.name, policy_loss))
+            summaries.append(tf.summary.scalar('loss/%s_value_loss' % self.name, value_loss))
+            summaries.append(tf.summary.scalar('loss/%s_total_loss' % self.name, self.loss))
+            summaries.append(tf.summary.scalar('train/%s_approx_kl' % self.name, self.approx_kl))
+            summaries.append(tf.summary.scalar('train/%s_clip_frac' % self.name, self.clip_frac))
+            summaries.append(tf.summary.scalar('train/%s_gradnorm' % self.name, self.grad_norm))
+            self.summary = tf.summary.merge(summaries)
+
+    def backward(self, sess, obs, acts, dones, Rs, Advs, old_logps, cur_lr, cur_beta,
+                 summary_writer=None, global_step=None):
+        feed_dict = {
+            self.ob_bw: obs,
+            self.done_bw: dones,
+            self.states: self.states_bw,
+            self.A: acts,
+            self.ADV: Advs,
+            self.R: Rs,
+            self.OLD_LOGP: old_logps,
+            self.lr: cur_lr,
+            self.entropy_coef: cur_beta
+        }
+        if summary_writer is None or not hasattr(self, 'summary'):
+            sess.run(self._train, feed_dict)
+        else:
+            summ, _ = sess.run([self.summary, self._train], feed_dict)
+            summary_writer.add_summary(summ, global_step=global_step)
+        self.states_bw = np.copy(self.states_fw)
 
 
 class FPLstmACPolicy(LstmACPolicy):

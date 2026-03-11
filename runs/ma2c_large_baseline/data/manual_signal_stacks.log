@@ -1,0 +1,25 @@
+Thread 0x00007b9d18bf2640 (most recent call first):
+  File "/home/sdc_joran/Journal/deeprl_signal_control/utils.py", line 171 in _watchdog_loop
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 864 in run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 916 in _bootstrap_inner
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 884 in _bootstrap
+
+Thread 0x00007b9d193f3640 (most recent call first):
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 295 in wait
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/queue.py", line 164 in get
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/summary/writer/event_file_writer.py", line 159 in run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 916 in _bootstrap_inner
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 884 in _bootstrap
+
+Current thread 0x00007b9eb9c5e3c0 (most recent call first):
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1407 in _call_tf_sessionrun
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1319 in _run_fn
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1334 in _do_call
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1328 in _do_run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1152 in _run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 929 in run
+  File "/home/sdc_joran/Journal/deeprl_signal_control/agents/policies.py", line 152 in backward
+  File "/home/sdc_joran/Journal/deeprl_signal_control/agents/models.py", line 207 in backward
+  File "/home/sdc_joran/Journal/deeprl_signal_control/utils.py", line 454 in run
+  File "main.py", line 147 in train
+  File "main.py", line 258 in <module>

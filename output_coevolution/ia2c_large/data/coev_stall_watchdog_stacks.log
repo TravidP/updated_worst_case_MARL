@@ -1,0 +1,162 @@
+
+=== 2026-02-24 09:43:19 stalled_for=188.0s stage=coev:env_step ===
+Current thread 0x0000777064bf5640 (most recent call first):
+  File "train_coevolution.py", line 240 in _watchdog_loop
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 864 in run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 916 in _bootstrap_inner
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 884 in _bootstrap
+
+Thread 0x000077705d7fd640 (most recent call first):
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 295 in wait
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/queue.py", line 164 in get
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/summary/writer/event_file_writer.py", line 159 in run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 916 in _bootstrap_inner
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 884 in _bootstrap
+
+Thread 0x000077721385a3c0 (most recent call first):
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1407 in _call_tf_sessionrun
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1319 in _run_fn
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1334 in _do_call
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1328 in _do_run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1152 in _run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 929 in run
+  File "/home/sdc_joran/Journal/deeprl_signal_control/agents/policies.py", line 152 in backward
+  File "/home/sdc_joran/Journal/deeprl_signal_control/agents/models.py", line 207 in backward
+  File "/home/sdc_joran/Journal/deeprl_signal_control/envs/coevolution_env.py", line 151 in step
+  File "train_coevolution.py", line 454 in train_coevolution
+  File "train_coevolution.py", line 550 in <module>
+
+=== 2026-02-24 12:19:18 stalled_for=902.7s stage=coev:env_step:traffic_forward ===
+Current thread 0x0000728a7d638640 (most recent call first):
+  File "train_coevolution.py", line 245 in _watchdog_loop
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 864 in run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 916 in _bootstrap_inner
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 884 in _bootstrap
+
+Thread 0x0000728a75ffe640 (most recent call first):
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 295 in wait
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/queue.py", line 164 in get
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/summary/writer/event_file_writer.py", line 159 in run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 916 in _bootstrap_inner
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 884 in _bootstrap
+
+Thread 0x0000728c2c1eb3c0 (most recent call first):
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1407 in _call_tf_sessionrun
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1319 in _run_fn
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1334 in _do_call
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1328 in _do_run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1152 in _run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 929 in run
+  File "/home/sdc_joran/Journal/deeprl_signal_control/agents/policies.py", line 132 in forward
+  File "/home/sdc_joran/Journal/deeprl_signal_control/agents/models.py", line 215 in forward
+  File "/home/sdc_joran/Journal/deeprl_signal_control/envs/coevolution_env.py", line 85 in step
+  File "train_coevolution.py", line 460 in train_coevolution
+  File "train_coevolution.py", line 556 in <module>
+
+=== 2026-02-24 14:50:15 stalled_for=610.0s stage=coev:env_step:traffic_backward_a2c ===
+Current thread 0x00007683e5db7640 (most recent call first):
+  File "train_coevolution.py", line 245 in _watchdog_loop
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 864 in run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 916 in _bootstrap_inner
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 884 in _bootstrap
+
+Thread 0x00007683e4db5640 (most recent call first):
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 295 in wait
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/queue.py", line 164 in get
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/summary/writer/event_file_writer.py", line 159 in run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 916 in _bootstrap_inner
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 884 in _bootstrap
+
+Thread 0x00007685969813c0 (most recent call first):
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1407 in _call_tf_sessionrun
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1319 in _run_fn
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1334 in _do_call
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1328 in _do_run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1152 in _run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 929 in run
+  File "/home/sdc_joran/Journal/deeprl_signal_control/agents/policies.py", line 152 in backward
+  File "/home/sdc_joran/Journal/deeprl_signal_control/agents/models.py", line 207 in backward
+  File "/home/sdc_joran/Journal/deeprl_signal_control/envs/coevolution_env.py", line 166 in step
+  File "train_coevolution.py", line 460 in train_coevolution
+  File "train_coevolution.py", line 556 in <module>
+
+=== 2026-02-24 19:21:18 stalled_for=604.3s stage=coev:env_step:traffic_backward_a2c ===
+Current thread 0x0000779c55cf2640 (most recent call first):
+  File "train_coevolution.py", line 245 in _watchdog_loop
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 864 in run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 916 in _bootstrap_inner
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 884 in _bootstrap
+
+Thread 0x0000779c54cf0640 (most recent call first):
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 295 in wait
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/queue.py", line 164 in get
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/summary/writer/event_file_writer.py", line 159 in run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 916 in _bootstrap_inner
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 884 in _bootstrap
+
+Thread 0x0000779e048193c0 (most recent call first):
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1407 in _call_tf_sessionrun
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1319 in _run_fn
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1334 in _do_call
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1328 in _do_run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1152 in _run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 929 in run
+  File "/home/sdc_joran/Journal/deeprl_signal_control/agents/policies.py", line 152 in backward
+  File "/home/sdc_joran/Journal/deeprl_signal_control/agents/models.py", line 207 in backward
+  File "/home/sdc_joran/Journal/deeprl_signal_control/envs/coevolution_env.py", line 166 in step
+  File "train_coevolution.py", line 460 in train_coevolution
+  File "train_coevolution.py", line 556 in <module>
+
+=== 2026-02-25 04:44:23 stalled_for=608.7s stage=coev:env_step:traffic_backward_a2c ===
+Current thread 0x00007f767cff1640 (most recent call first):
+  File "train_coevolution.py", line 245 in _watchdog_loop
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 864 in run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 916 in _bootstrap_inner
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 884 in _bootstrap
+
+Thread 0x00007f76777fe640 (most recent call first):
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 295 in wait
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/queue.py", line 164 in get
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/summary/writer/event_file_writer.py", line 159 in run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 916 in _bootstrap_inner
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 884 in _bootstrap
+
+Thread 0x00007f782db473c0 (most recent call first):
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1407 in _call_tf_sessionrun
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1319 in _run_fn
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1334 in _do_call
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1328 in _do_run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1152 in _run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 929 in run
+  File "/home/sdc_joran/Journal/deeprl_signal_control/agents/policies.py", line 152 in backward
+  File "/home/sdc_joran/Journal/deeprl_signal_control/agents/models.py", line 207 in backward
+  File "/home/sdc_joran/Journal/deeprl_signal_control/envs/coevolution_env.py", line 166 in step
+  File "train_coevolution.py", line 460 in train_coevolution
+  File "train_coevolution.py", line 556 in <module>
+
+=== 2026-02-25 11:02:55 stalled_for=606.6s stage=coev:env_step:traffic_forward ===
+Current thread 0x00007e119d371640 (most recent call first):
+  File "train_coevolution.py", line 245 in _watchdog_loop
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 864 in run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 916 in _bootstrap_inner
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 884 in _bootstrap
+
+Thread 0x00007e1197fff640 (most recent call first):
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 295 in wait
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/queue.py", line 164 in get
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/summary/writer/event_file_writer.py", line 159 in run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 916 in _bootstrap_inner
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 884 in _bootstrap
+
+Thread 0x00007e134de9e3c0 (most recent call first):
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1407 in _call_tf_sessionrun
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1319 in _run_fn
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1334 in _do_call
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1328 in _do_run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1152 in _run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 929 in run
+  File "/home/sdc_joran/Journal/deeprl_signal_control/agents/policies.py", line 132 in forward
+  File "/home/sdc_joran/Journal/deeprl_signal_control/agents/models.py", line 215 in forward
+  File "/home/sdc_joran/Journal/deeprl_signal_control/envs/coevolution_env.py", line 85 in step
+  File "train_coevolution.py", line 460 in train_coevolution
+  File "train_coevolution.py", line 556 in <module>

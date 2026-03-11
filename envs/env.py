@@ -4,15 +4,21 @@ Traffic network simulator w/ defined sumo files
 """
 import logging
 import numpy as np
+import os
 import pandas as pd
 import subprocess
 from sumolib import checkBinary
 import time
 import traci
 import xml.etree.cElementTree as ET
+import socket
+import threading
 
 DEFAULT_PORT = 8000
 SEC_IN_MS = 1000
+TRACI_CONNECT_TIMEOUT_SEC = 20
+TRACI_SOCKET_TIMEOUT_SEC = 180
+TRACI_CLOSE_TIMEOUT_SEC = 15
 
 # hard code real-net reward norm
 REALNET_REWARD_NORM = 20
@@ -91,6 +97,8 @@ class TrafficSimulator:
         self.sim_thread = port
         self.obj = config.get('objective')
         self.data_path = config.get('data_path')
+        if self.data_path and not self.data_path.endswith(os.sep):
+            self.data_path += os.sep
         self.agent = config.get('agent')
         self.coop_gamma = config.getfloat('coop_gamma')
         self.cur_episode = 0
@@ -99,6 +107,28 @@ class TrafficSimulator:
         self.clips = {'wave': config.getfloat('clip_wave'),
                       'wait': config.getfloat('clip_wait')}
         self.coef_wait = config.getfloat('coef_wait')
+        self.fast_wait_metric = config.getboolean('fast_wait_metric', fallback=False)
+        self.sim_progress_log_sec = config.getint('sim_progress_log_sec', fallback=0)
+        self.step_stage_warn_sec = config.getfloat('step_stage_warn_sec', fallback=15.0)
+        self.stall_watchdog_sec = config.getint('stall_watchdog_sec', fallback=180)
+        self.stall_watchdog_poll_sec = config.getint('stall_watchdog_poll_sec', fallback=10)
+        self.trainer_stage_warn_sec = config.getfloat('trainer_stage_warn_sec', fallback=60.0)
+        self.sim = None
+        self.sumo_process = None
+        self.sumo_log_fh = None
+        self.sumo_log_file = None
+        self._last_progress_sim_sec = 0
+        self._last_progress_wall_sec = time.time()
+        self._env_step_idx = 0
+        if self.fast_wait_metric:
+            logging.info('Using fast lane wait metric for state/reward computation.')
+        if self.sim_progress_log_sec > 0:
+            logging.info('Simulation heartbeat enabled every %d sim-seconds.', self.sim_progress_log_sec)
+        logging.info(
+            'Step probe: warn_if_stage_over=%.1fs, watchdog=%ss poll=%ss, trainer_warn=%.1fs',
+            self.step_stage_warn_sec, self.stall_watchdog_sec, self.stall_watchdog_poll_sec,
+            self.trainer_stage_warn_sec
+        )
         self.train_mode = True
         test_seeds = config.get('test_seeds').split(',')
         test_seeds = [int(s) for s in test_seeds]
@@ -288,14 +318,49 @@ class TrafficSimulator:
         if self.is_record:
             command += ['--tripinfo-output',
                         self.output_path + ('%s_%s_trip.xml' % (self.name, self.agent))]
-        # subprocess.Popen(command)
-        # === FIX: Redirect output to DEVNULL ===
-        # Import subprocess at the top if not already: import subprocess
-        subprocess.Popen(command, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-        # =======================================
-        # wait 2s to establish the traci server
+        sumo_log_dir = self.output_path if self.output_path else self.data_path
+        self.sumo_log_file = os.path.join(sumo_log_dir, 'sumo_port_%d.log' % self.port)
+        self.sumo_log_fh = open(self.sumo_log_file, 'a')
+        logging.info('Starting SUMO on port %d (log: %s)', self.port, self.sumo_log_file)
+        self.sumo_process = subprocess.Popen(
+            command,
+            stdout=self.sumo_log_fh,
+            stderr=subprocess.STDOUT
+        )
         time.sleep(2)
-        self.sim = traci.connect(port=self.port)
+
+        old_default_timeout = socket.getdefaulttimeout()
+        try:
+            socket.setdefaulttimeout(TRACI_CONNECT_TIMEOUT_SEC)
+            try:
+                self.sim = traci.connect(port=self.port, wait=True, numRetries=5)
+            except TypeError:
+                try:
+                    self.sim = traci.connect(port=self.port, waitUntilConnected=True, numRetries=5)
+                except TypeError:
+                    try:
+                        self.sim = traci.connect(port=self.port, numRetries=5)
+                    except TypeError:
+                        self.sim = traci.connect(port=self.port)
+            if hasattr(self.sim, '_socket') and self.sim._socket is not None:
+                self.sim._socket.settimeout(TRACI_SOCKET_TIMEOUT_SEC)
+            logging.info('TraCI connection established on port %d', self.port)
+        except Exception as e:
+            logging.error('Failed to connect to TraCI on port %d: %s', self.port, e)
+            if self.sumo_process is not None:
+                try:
+                    self.sumo_process.terminate()
+                    self.sumo_process.wait(timeout=5)
+                except Exception:
+                    try:
+                        self.sumo_process.kill()
+                    except Exception:
+                        pass
+            self.sumo_process = None
+            self.sim = None
+            raise RuntimeError('Could not initialize SUMO/TraCI connection')
+        finally:
+            socket.setdefaulttimeout(old_default_timeout)
 
     def _init_sim_config(self):
         # needs to be overwriteen
@@ -339,18 +404,7 @@ class TrafficSimulator:
                         cur_queue = self.sim.lanearea.getLastStepHaltingNumber(ild)
                     queues.append(cur_queue)
                 if self.obj in ['wait', 'hybrid']:
-                    max_pos = 0
-                    car_wait = 0
-                    if self.name == 'real_net':
-                        cur_cars = self.sim.lane.getLastStepVehicleIDs(ild)
-                    else:
-                        cur_cars = self.sim.lanearea.getLastStepVehicleIDs(ild)
-                    for vid in cur_cars:
-                        car_pos = self.sim.vehicle.getLanePosition(vid)
-                        if car_pos > max_pos:
-                            max_pos = car_pos
-                            car_wait = self.sim.vehicle.getWaitingTime(vid)
-                    waits.append(car_wait)
+                    waits.append(self._get_lane_wait_metric(ild))
                 # if self.name == 'real_net':
                 #     lane_name = ild.split(':')[1]
                 # else:
@@ -386,18 +440,7 @@ class TrafficSimulator:
                 else:
                     cur_state = []
                     for ild in node.ilds_in:
-                        max_pos = 0
-                        car_wait = 0
-                        if self.name == 'real_net':
-                            cur_cars = self.sim.lane.getLastStepVehicleIDs(ild)
-                        else:
-                            cur_cars = self.sim.lanearea.getLastStepVehicleIDs(ild)
-                        for vid in cur_cars:
-                            car_pos = self.sim.vehicle.getLanePosition(vid)
-                            if car_pos > max_pos:
-                                max_pos = car_pos
-                                car_wait = self.sim.vehicle.getWaitingTime(vid)
-                        cur_state.append(car_wait)
+                        cur_state.append(self._get_lane_wait_metric(ild))
                     cur_state = np.array(cur_state)
                 if self.record_stats:
                     self.state_stat[state_name] += list(cur_state)
@@ -427,8 +470,10 @@ class TrafficSimulator:
         for node_name in self.node_names:
             for ild in self.nodes[node_name].ilds_in:
                 queues.append(self.sim.lane.getLastStepHaltingNumber(ild))
-        avg_queue = np.mean(np.array(queues))
-        std_queue = np.std(np.array(queues))
+        queue_arr = np.array(queues, dtype=np.float32)
+        total_queue = float(np.sum(queue_arr)) if len(queue_arr) else 0.0
+        avg_queue = float(np.mean(queue_arr)) if len(queue_arr) else 0.0
+        std_queue = float(np.std(queue_arr)) if len(queue_arr) else 0.0
         cur_traffic = {'episode': self.cur_episode,
                        'time_sec': self.cur_sec,
                        'number_total_car': num_tot_car,
@@ -436,9 +481,38 @@ class TrafficSimulator:
                        'number_arrived_car': num_out_car,
                        'avg_wait_sec': avg_waiting_time,
                        'avg_speed_mps': avg_speed,
+                       'total_queue': total_queue,
                        'std_queue': std_queue,
                        'avg_queue': avg_queue}
         self.traffic_data.append(cur_traffic)
+
+    def _get_lane_wait_metric(self, ild):
+        """Per-lane wait metric used for state and reward.
+
+        fast_wait_metric=True uses an aggregate lane waiting-time query to avoid
+        per-vehicle loops that become expensive under congestion.
+        """
+        if self.fast_wait_metric:
+            try:
+                nveh = self.sim.lane.getLastStepVehicleNumber(ild)
+                if nveh <= 0:
+                    return 0.0
+                return self.sim.lane.getWaitingTime(ild) / float(nveh)
+            except Exception:
+                return 0.0
+
+        max_pos = 0.0
+        car_wait = 0.0
+        if self.name == 'real_net':
+            cur_cars = self.sim.lane.getLastStepVehicleIDs(ild)
+        else:
+            cur_cars = self.sim.lanearea.getLastStepVehicleIDs(ild)
+        for vid in cur_cars:
+            car_pos = self.sim.vehicle.getLanePosition(vid)
+            if car_pos > max_pos:
+                max_pos = car_pos
+                car_wait = self.sim.vehicle.getWaitingTime(vid)
+        return car_wait
 
     @staticmethod
     def _norm_clip_state(x, norm, clip=-1):
@@ -464,15 +538,52 @@ class TrafficSimulator:
 
     def _simulate(self, num_step):
         # reward = np.zeros(len(self.control_node_names))
+        self._validate_traci_connection()
         for _ in range(num_step):
-            self.sim.simulationStep()
+            try:
+                self.sim.simulationStep()
+            except (socket.timeout, traci.TraCIException, OSError) as e:
+                logging.error('TraCI simulationStep failed at t=%d: %s', self.cur_sec, e)
+                raise RuntimeError('TraCI simulationStep failed')
             # self._measure_state_step()
             # reward += self._measure_reward_step()
             self.cur_sec += 1
             if self.is_record:
                 # self._debug_traffic_step()
                 self._measure_traffic_step()
+            if self.sim_progress_log_sec > 0:
+                if (self.cur_sec - self._last_progress_sim_sec) >= self.sim_progress_log_sec:
+                    active_vehicles = -1
+                    try:
+                        active_vehicles = self.sim.vehicle.getIDCount()
+                    except Exception:
+                        pass
+                    now = time.time()
+                    wall_elapsed = now - self._last_progress_wall_sec
+                    logging.info(
+                        'Sim progress: t=%d/%d, active_vehicles=%d, wall=%.1fs for +%ds sim',
+                        self.cur_sec, self.episode_length_sec, active_vehicles,
+                        wall_elapsed, self.cur_sec - self._last_progress_sim_sec
+                    )
+                    self._last_progress_sim_sec = self.cur_sec
+                    self._last_progress_wall_sec = now
         # return reward
+
+    def _validate_traci_connection(self):
+        if self.sim is None:
+            raise RuntimeError('TraCI connection not initialized')
+        try:
+            _ = self.sim.simulation.getTime()
+        except Exception as e:
+            logging.error('TraCI connection validation failed: %s', e)
+            raise RuntimeError('TraCI connection invalid')
+
+    def _log_slow_step_stage(self, stage_name, elapsed_sec):
+        if elapsed_sec >= self.step_stage_warn_sec:
+            logging.warning(
+                "Slow env.step stage '%s': %.2fs (episode=%d, sim_t=%d, env_step=%d)",
+                stage_name, elapsed_sec, self.cur_episode, self.cur_sec, self._env_step_idx
+            )
 
     def _transfer_action(self, action):
         '''Transfer global action to a list of local actions'''
@@ -546,15 +657,19 @@ class TrafficSimulator:
         trip_data.to_csv(self.output_path + ('%s_%s_trip.csv' % (self.name, self.agent)))
 
     def reset(self, gui=False, test_ind=0):
-        # have to terminate previous sim before calling reset
+        if (self.sim is not None) or (self.sumo_process is not None):
+            self.terminate()
         self._reset_state()
         if self.train_mode:
             seed = self.seed
         else:
             seed = self.test_seeds[test_ind]
-        self._init_sim(seed, gui=True)
-        # self._init_sim(seed, gui=gui)
+        # self._init_sim(seed, gui=True)
+        self._init_sim(seed, gui=gui)
         self.cur_sec = 0
+        self._last_progress_sim_sec = 0
+        self._last_progress_wall_sec = time.time()
+        self._env_step_idx = 0
         self.cur_episode += 1
         # initialize fingerprint
         if self.agent == 'ma2c':
@@ -565,74 +680,160 @@ class TrafficSimulator:
         return self._get_state()
 
     def terminate(self):
-        self.sim.close()
+        sim = self.sim
+        sumo_process = self.sumo_process
+        sumo_log_fh = self.sumo_log_fh
+        close_timed_out = False
+
+        # Make terminate idempotent immediately.
+        self.sim = None
+        self.sumo_process = None
+        self.sumo_log_fh = None
+
+        if sim is not None:
+            close_error = {'exc': None}
+
+            def _close_sim():
+                try:
+                    if hasattr(sim, '_socket') and sim._socket is not None:
+                        sim._socket.settimeout(TRACI_SOCKET_TIMEOUT_SEC)
+                    try:
+                        sim.close(wait=True)
+                    except TypeError:
+                        try:
+                            sim.close(True)
+                        except TypeError:
+                            sim.close()
+                except Exception as e:
+                    close_error['exc'] = e
+
+            close_thread = threading.Thread(target=_close_sim, daemon=True)
+            close_thread.start()
+            close_thread.join(timeout=TRACI_CLOSE_TIMEOUT_SEC)
+            if close_thread.is_alive():
+                close_timed_out = True
+                logging.warning('TraCI close timed out; proceeding with process cleanup.')
+            elif close_error['exc'] is not None:
+                logging.warning('TraCI close warning: %s', close_error['exc'])
+
+        if sumo_process is not None:
+            try:
+                if sumo_process.poll() is None:
+                    if not close_timed_out:
+                        try:
+                            sumo_process.wait(timeout=5)
+                        except subprocess.TimeoutExpired:
+                            logging.warning('SUMO did not exit after TraCI close; terminating process.')
+                            sumo_process.terminate()
+                            sumo_process.wait(timeout=5)
+                    else:
+                        sumo_process.terminate()
+                        sumo_process.wait(timeout=5)
+            except subprocess.TimeoutExpired:
+                logging.warning('SUMO did not terminate gracefully; killing process.')
+                try:
+                    sumo_process.kill()
+                except Exception as e:
+                    logging.warning('Error killing SUMO process: %s', e)
+            except Exception as e:
+                logging.warning('Error terminating SUMO process: %s', e)
+
+        if sumo_log_fh is not None:
+            try:
+                sumo_log_fh.close()
+            except Exception:
+                pass
 
     def step(self, action):
-        if self.agent == 'a2c':
-            action = self._transfer_action(action)
-        # self._update_waits(action)
-        self._set_phase(action, 'yellow', self.yellow_interval_sec)
-        self._simulate(self.yellow_interval_sec)
-        rest_interval_sec = self.control_interval_sec - self.yellow_interval_sec
-        self._set_phase(action, 'green', rest_interval_sec)
-        self._simulate(rest_interval_sec)
-        state = self._get_state()
-        reward = self._measure_reward_step()
-        done = False
-        if self.cur_sec >= self.episode_length_sec:
-            done = True
-        global_reward = np.sum(reward) # for fair comparison
-        if self.is_record:
-            action_r = ','.join(['%d' % a for a in action])
-            cur_control = {'episode': self.cur_episode,
-                           'time_sec': self.cur_sec,
-                           'step': self.cur_sec / self.control_interval_sec,
-                           'action': action_r,
-                           'reward': global_reward}
-            self.control_data.append(cur_control)
+        self._env_step_idx += 1
+        step_start = time.time()
+        stage_name = 'transfer_action'
 
-        # use local rewards in test
-        if not self.train_mode:
+        try:
+            if self.agent == 'a2c':
+                action = self._transfer_action(action)
+
+            stage_name = 'set_phase_yellow'
+            t0 = time.time()
+            self._set_phase(action, 'yellow', self.yellow_interval_sec)
+            self._log_slow_step_stage(stage_name, time.time() - t0)
+
+            stage_name = 'simulate_yellow'
+            t0 = time.time()
+            self._simulate(self.yellow_interval_sec)
+            self._log_slow_step_stage(stage_name, time.time() - t0)
+
+            rest_interval_sec = self.control_interval_sec - self.yellow_interval_sec
+
+            stage_name = 'set_phase_green'
+            t0 = time.time()
+            self._set_phase(action, 'green', rest_interval_sec)
+            self._log_slow_step_stage(stage_name, time.time() - t0)
+
+            stage_name = 'simulate_green'
+            t0 = time.time()
+            self._simulate(rest_interval_sec)
+            self._log_slow_step_stage(stage_name, time.time() - t0)
+
+            stage_name = 'get_state'
+            t0 = time.time()
+            state = self._get_state()
+            self._log_slow_step_stage(stage_name, time.time() - t0)
+
+            stage_name = 'measure_reward'
+            t0 = time.time()
+            reward = self._measure_reward_step()
+            self._log_slow_step_stage(stage_name, time.time() - t0)
+
+            done = (self.cur_sec >= self.episode_length_sec)
+            global_reward = np.sum(reward) # for fair comparison
+
+            if self.is_record:
+                action_r = ','.join(['%d' % a for a in action])
+                cur_control = {'episode': self.cur_episode,
+                               'time_sec': self.cur_sec,
+                               'step': self.cur_sec / self.control_interval_sec,
+                               'action': action_r,
+                               'reward': global_reward}
+                self.control_data.append(cur_control)
+
+            # use local rewards in test
+            if not self.train_mode:
+                self._log_slow_step_stage('total', time.time() - step_start)
+                return state, reward, done, global_reward
+
+            if self.agent in ['a2c', 'greedy']:
+                reward = global_reward
+            elif self.agent != 'ma2c':
+                # global reward is shared in independent rl
+                new_reward = [global_reward] * len(reward)
+                reward = np.array(new_reward)
+                if self.name == 'real_net':
+                    # reward normalization in env for realnet
+                    reward = reward / (len(self.node_names) * REALNET_REWARD_NORM)
+            else:
+                # discounted global reward for ma2c
+                new_reward = []
+                for node_name, r in zip(self.node_names, reward):
+                    cur_reward = r
+                    for nnode_name in self.nodes[node_name].neighbor:
+                        i = self.node_names.index(nnode_name)
+                        cur_reward += self.coop_gamma * reward[i]
+                    if self.name != 'real_net':
+                        new_reward.append(cur_reward)
+                    else:
+                        n_node = 1 + len(self.nodes[node_name].neighbor)
+                        new_reward.append(cur_reward / (n_node * REALNET_REWARD_NORM))
+                reward = np.array(new_reward)
+
+            self._log_slow_step_stage('total', time.time() - step_start)
             return state, reward, done, global_reward
-        if self.agent in ['a2c', 'greedy']:
-            reward = global_reward
-        elif self.agent != 'ma2c':
-            # global reward is shared in independent rl
-            new_reward = [global_reward] * len(reward)
-            reward = np.array(new_reward)
-            if self.name == 'real_net':
-                # reward normalization in env for realnet
-                reward = reward / (len(self.node_names) * REALNET_REWARD_NORM)
-        else:
-            # discounted global reward for ma2c
-            new_reward = []
-            for node_name, r in zip(self.node_names, reward):
-                cur_reward = r
-                for nnode_name in self.nodes[node_name].neighbor:
-                    i = self.node_names.index(nnode_name)
-                    cur_reward += self.coop_gamma * reward[i]
-                # for i, nnode in enumerate(self.node_names):
-                #     if nnode == node:
-                #         continue
-                #     if nnode in self.nodes[node].neighbor:
-                #         cur_reward += self.coop_gamma * reward[i]
-                #     elif self.name == 'small_grid':
-                #         # in small grid, agent is at most 2 steps away
-                #         cur_reward += (self.coop_gamma ** 2) * reward[i]
-                #     else:
-                #         # in large grid, a distance map is used
-                #         if nnode in self.distance_map[node]:
-                #             distance = self.distance_map[node][nnode]
-                #             cur_reward += (self.coop_gamma ** distance) * reward[i]
-                #         else:
-                #             cur_reward += (self.coop_gamma ** self.max_distance) * reward[i]
-                if self.name != 'real_net':
-                    new_reward.append(cur_reward)
-                else:
-                    n_node = 1 + len(self.nodes[node_name].neighbor)
-                    new_reward.append(cur_reward / (n_node * REALNET_REWARD_NORM))
-            reward = np.array(new_reward)
-        return state, reward, done, global_reward
+        except Exception as e:
+            logging.error(
+                "env.step failed at stage '%s' (episode=%d, sim_t=%d, env_step=%d): %s",
+                stage_name, self.cur_episode, self.cur_sec, self._env_step_idx, e
+            )
+            raise
 
     def update_fingerprint(self, policy):
         for node_name, pi in zip(self.node_names, policy):

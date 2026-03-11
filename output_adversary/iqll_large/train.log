@@ -1,0 +1,1289 @@
+2026-03-02 09:36:05,304 - Reading configuration from: /home/sdc_joran/Journal/deeprl_signal_control/config/config_iqll_large.ini
+2026-03-02 09:36:05,304 - Using frozen controller run dir: /home/sdc_joran/Journal/deeprl_signal_control/runs/iqll_large
+2026-03-02 09:36:05,304 - Adversary output dir: /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large
+2026-03-02 09:36:05,304 - Initializing Adversarial Environment...
+2026-03-02 09:36:08,136 - Initializing CNN Adversary...
+2026-03-02 09:36:08,258 - WCE setup: scenarios=11, episode_length_sec=6600, adversary_step_duration=600, macro_steps_per_episode~11, total_episodes=500, expected_total_macro_steps~5500, checkpoint_interval=5, resume=False, model_dir=/home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 09:36:08,259 - Manual stack dump enabled: `kill -USR1 2813948` -> /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/manual_signal_stacks.log
+2026-03-02 09:36:08,259 - Start Training from episode 0 ...
+2026-03-02 09:36:31,286 - WCE training crashed. Saving emergency checkpoint.
+Traceback (most recent call last):
+  File "/home/sdc_joran/Journal/deeprl_signal_control/train_adversary.py", line 510, in train_adversary
+    adversary.backward(R=0, summary_writer=summary_writer, global_step=global_step)
+  File "/home/sdc_joran/Journal/deeprl_signal_control/agents/models.py", line 446, in backward
+    obs, acts, dones, Rs, Advs = self.trans_buffer.sample_transition(R)
+  File "/home/sdc_joran/Journal/deeprl_signal_control/agents/utils.py", line 230, in sample_transition
+    dones = np.array(self.dones[:-1], dtype=np.bool)
+  File "/home/sdc_joran/.local/lib/python3.10/site-packages/numpy/__init__.py", line 324, in __getattr__
+    raise AttributeError(__former_attrs__[attr])
+AttributeError: module 'numpy' has no attribute 'bool'.
+`np.bool` was a deprecated alias for the builtin `bool`. To avoid this error in existing code, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
+The aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:
+    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+2026-03-02 09:36:31,303 - Saved checkpoint at episode=0 (global_step=10) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 09:36:32,418 - Training Finished.
+2026-03-02 09:38:16,025 - Reading configuration from: /home/sdc_joran/Journal/deeprl_signal_control/config/config_iqll_large.ini
+2026-03-02 09:38:16,025 - Using frozen controller run dir: /home/sdc_joran/Journal/deeprl_signal_control/runs/iqll_large
+2026-03-02 09:38:16,025 - Adversary output dir: /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large
+2026-03-02 09:38:16,025 - Initializing Adversarial Environment...
+2026-03-02 09:38:18,843 - Initializing CNN Adversary...
+2026-03-02 09:38:18,965 - WCE setup: scenarios=11, episode_length_sec=6600, adversary_step_duration=600, macro_steps_per_episode~11, total_episodes=500, expected_total_macro_steps~5500, checkpoint_interval=5, resume=False, model_dir=/home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 09:38:18,966 - Manual stack dump enabled: `kill -USR1 2816262` -> /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/manual_signal_stacks.log
+2026-03-02 09:38:18,966 - Start Training from episode 0 ...
+2026-03-02 09:38:43,530 - Episode 0: Steps=11, Reward=269782.20
+2026-03-02 09:39:07,036 - Episode 1: Steps=11, Reward=99482.20
+2026-03-02 09:39:31,162 - Episode 2: Steps=11, Reward=124773.00
+2026-03-02 09:39:55,156 - Episode 3: Steps=11, Reward=117403.60
+2026-03-02 09:40:19,537 - Episode 4: Steps=11, Reward=235339.80
+2026-03-02 09:40:19,553 - Saved checkpoint at episode=4 (global_step=55) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 09:40:45,507 - Episode 5: Steps=11, Reward=498344.80
+2026-03-02 09:41:12,771 - Episode 6: Steps=11, Reward=730171.00
+2026-03-02 09:41:36,262 - Episode 7: Steps=11, Reward=157035.20
+2026-03-02 09:41:59,558 - Episode 8: Steps=11, Reward=133208.40
+2026-03-02 09:42:22,128 - Episode 9: Steps=11, Reward=165652.00
+2026-03-02 09:42:22,136 - Saved checkpoint at episode=9 (global_step=110) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 09:42:47,444 - Episode 10: Steps=11, Reward=570167.40
+2026-03-02 09:43:15,002 - Episode 11: Steps=11, Reward=656213.60
+2026-03-02 09:43:37,924 - Episode 12: Steps=11, Reward=112991.40
+2026-03-02 09:44:01,004 - Episode 13: Steps=11, Reward=123902.80
+2026-03-02 09:44:25,404 - Episode 14: Steps=11, Reward=218987.60
+2026-03-02 09:44:25,412 - Saved checkpoint at episode=14 (global_step=165) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 09:44:50,175 - Episode 15: Steps=11, Reward=320923.40
+2026-03-02 09:45:17,226 - Episode 16: Steps=11, Reward=1070085.00
+2026-03-02 09:45:42,511 - Episode 17: Steps=11, Reward=447455.00
+2026-03-02 09:46:05,485 - Episode 18: Steps=11, Reward=111200.80
+2026-03-02 09:46:33,797 - Episode 19: Steps=11, Reward=1192692.00
+2026-03-02 09:46:33,807 - Saved checkpoint at episode=19 (global_step=220) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 09:46:57,715 - Episode 20: Steps=11, Reward=216861.60
+2026-03-02 09:47:20,596 - Episode 21: Steps=11, Reward=115284.40
+2026-03-02 09:47:52,502 - Episode 22: Steps=11, Reward=2119628.00
+2026-03-02 09:48:24,376 - Episode 23: Steps=11, Reward=1653621.40
+2026-03-02 09:48:48,949 - Episode 24: Steps=11, Reward=348094.20
+2026-03-02 09:48:48,957 - Saved checkpoint at episode=24 (global_step=275) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 09:49:12,257 - Episode 25: Steps=11, Reward=259776.00
+2026-03-02 09:49:38,578 - Episode 26: Steps=11, Reward=750811.80
+2026-03-02 09:50:06,007 - Episode 27: Steps=11, Reward=857950.20
+2026-03-02 09:50:28,975 - Episode 28: Steps=11, Reward=171432.60
+2026-03-02 09:50:54,057 - Episode 29: Steps=11, Reward=550518.80
+2026-03-02 09:50:54,068 - Saved checkpoint at episode=29 (global_step=330) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 09:51:23,963 - Episode 30: Steps=11, Reward=1606669.60
+2026-03-02 09:51:46,773 - Episode 31: Steps=11, Reward=122536.60
+2026-03-02 09:52:10,941 - Episode 32: Steps=11, Reward=357383.40
+2026-03-02 09:52:34,501 - Episode 33: Steps=11, Reward=317646.00
+2026-03-02 09:53:06,411 - Episode 34: Steps=11, Reward=1513667.20
+2026-03-02 09:53:06,424 - Saved checkpoint at episode=34 (global_step=385) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 09:53:33,417 - Episode 35: Steps=11, Reward=681365.00
+2026-03-02 09:53:59,917 - Episode 36: Steps=11, Reward=645743.80
+2026-03-02 09:54:22,850 - Episode 37: Steps=11, Reward=104377.00
+2026-03-02 09:54:46,960 - Episode 38: Steps=11, Reward=246185.60
+2026-03-02 09:55:16,432 - Episode 39: Steps=11, Reward=898488.60
+2026-03-02 09:55:16,442 - Saved checkpoint at episode=39 (global_step=440) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 09:55:40,717 - Episode 40: Steps=11, Reward=318505.80
+2026-03-02 09:56:05,046 - Episode 41: Steps=11, Reward=292993.60
+2026-03-02 09:56:30,117 - Episode 42: Steps=11, Reward=451249.00
+2026-03-02 09:56:52,569 - Episode 43: Steps=11, Reward=97802.00
+2026-03-02 09:57:16,422 - Episode 44: Steps=11, Reward=206934.40
+2026-03-02 09:57:16,433 - Saved checkpoint at episode=44 (global_step=495) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 09:57:42,055 - Episode 45: Steps=11, Reward=629929.00
+2026-03-02 09:58:14,140 - Episode 46: Steps=11, Reward=1623546.80
+2026-03-02 09:58:38,517 - Episode 47: Steps=11, Reward=368442.80
+2026-03-02 09:59:02,673 - Episode 48: Steps=11, Reward=304849.40
+2026-03-02 09:59:27,106 - Episode 49: Steps=11, Reward=372849.20
+2026-03-02 09:59:27,115 - Saved checkpoint at episode=49 (global_step=550) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 09:59:53,677 - Episode 50: Steps=11, Reward=712051.20
+2026-03-02 10:00:20,172 - Episode 51: Steps=11, Reward=503307.00
+2026-03-02 10:00:46,994 - Episode 52: Steps=11, Reward=554667.40
+2026-03-02 10:01:17,439 - Episode 53: Steps=11, Reward=1438191.80
+2026-03-02 10:01:41,016 - Episode 54: Steps=11, Reward=133590.20
+2026-03-02 10:01:41,027 - Saved checkpoint at episode=54 (global_step=605) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 10:02:09,901 - Episode 55: Steps=11, Reward=990164.60
+2026-03-02 10:02:34,661 - Episode 56: Steps=11, Reward=275744.60
+2026-03-02 10:02:58,829 - Episode 57: Steps=11, Reward=143707.20
+2026-03-02 10:03:22,670 - Episode 58: Steps=11, Reward=114161.80
+2026-03-02 10:03:46,833 - Episode 59: Steps=11, Reward=133871.40
+2026-03-02 10:03:46,847 - Saved checkpoint at episode=59 (global_step=660) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 10:04:17,967 - Episode 60: Steps=11, Reward=1525875.20
+2026-03-02 10:04:42,401 - Episode 61: Steps=11, Reward=156914.60
+2026-03-02 10:05:06,518 - Episode 62: Steps=11, Reward=97512.80
+2026-03-02 10:05:31,424 - Episode 63: Steps=11, Reward=154868.00
+2026-03-02 10:06:00,440 - Episode 64: Steps=11, Reward=506279.00
+2026-03-02 10:06:00,449 - Saved checkpoint at episode=64 (global_step=715) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 10:06:25,207 - Episode 65: Steps=11, Reward=132620.60
+2026-03-02 10:06:54,291 - Episode 66: Steps=11, Reward=730643.40
+2026-03-02 10:07:20,863 - Episode 67: Steps=11, Reward=335649.80
+2026-03-02 10:07:48,126 - Episode 68: Steps=11, Reward=388658.20
+2026-03-02 10:08:13,768 - Episode 69: Steps=11, Reward=213603.60
+2026-03-02 10:08:13,775 - Saved checkpoint at episode=69 (global_step=770) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 10:08:39,694 - Episode 70: Steps=11, Reward=136952.00
+2026-03-02 10:09:04,848 - Episode 71: Steps=11, Reward=172839.80
+2026-03-02 10:09:32,409 - Episode 72: Steps=11, Reward=264765.00
+2026-03-02 10:10:03,602 - Episode 73: Steps=11, Reward=1226008.40
+2026-03-02 10:10:27,615 - Episode 74: Steps=11, Reward=105192.80
+2026-03-02 10:10:27,624 - Saved checkpoint at episode=74 (global_step=825) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 10:10:52,053 - Episode 75: Steps=11, Reward=175665.20
+2026-03-02 10:11:18,525 - Episode 76: Steps=11, Reward=199865.40
+2026-03-02 10:11:45,507 - Episode 77: Steps=11, Reward=424278.80
+2026-03-02 10:12:10,795 - Episode 78: Steps=11, Reward=255930.20
+2026-03-02 10:12:37,745 - Episode 79: Steps=11, Reward=360318.80
+2026-03-02 10:12:37,755 - Saved checkpoint at episode=79 (global_step=880) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 10:13:02,624 - Episode 80: Steps=11, Reward=116514.40
+2026-03-02 10:13:29,196 - Episode 81: Steps=11, Reward=460890.80
+2026-03-02 10:14:00,112 - Episode 82: Steps=11, Reward=1456683.80
+2026-03-02 10:14:24,733 - Episode 83: Steps=11, Reward=222684.60
+2026-03-02 10:14:52,140 - Episode 84: Steps=11, Reward=516258.20
+2026-03-02 10:14:52,151 - Saved checkpoint at episode=84 (global_step=935) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 10:15:17,765 - Episode 85: Steps=11, Reward=326796.40
+2026-03-02 10:15:44,968 - Episode 86: Steps=11, Reward=566596.00
+2026-03-02 10:16:09,517 - Episode 87: Steps=11, Reward=134161.60
+2026-03-02 10:16:34,593 - Episode 88: Steps=11, Reward=188834.20
+2026-03-02 10:17:01,251 - Episode 89: Steps=11, Reward=341188.40
+2026-03-02 10:17:01,259 - Saved checkpoint at episode=89 (global_step=990) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 10:17:27,211 - Episode 90: Steps=11, Reward=338359.60
+2026-03-02 10:17:51,288 - Episode 91: Steps=11, Reward=116043.00
+2026-03-02 10:18:20,716 - Episode 92: Steps=11, Reward=883350.00
+2026-03-02 10:18:45,289 - Episode 93: Steps=11, Reward=176885.20
+2026-03-02 10:19:10,634 - Episode 94: Steps=11, Reward=183009.80
+2026-03-02 10:19:10,644 - Saved checkpoint at episode=94 (global_step=1045) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 10:19:34,939 - Episode 95: Steps=11, Reward=115391.20
+2026-03-02 10:20:01,685 - Episode 96: Steps=11, Reward=381393.60
+2026-03-02 10:20:25,795 - Episode 97: Steps=11, Reward=122340.80
+2026-03-02 10:20:53,209 - Episode 98: Steps=11, Reward=813225.80
+2026-03-02 10:21:22,546 - Episode 99: Steps=11, Reward=644599.40
+2026-03-02 10:21:22,556 - Saved checkpoint at episode=99 (global_step=1100) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 10:21:49,685 - Episode 100: Steps=11, Reward=373969.60
+2026-03-02 10:22:17,198 - Episode 101: Steps=11, Reward=505986.00
+2026-03-02 10:22:46,523 - Episode 102: Steps=11, Reward=800991.80
+2026-03-02 10:23:17,480 - Episode 103: Steps=11, Reward=1192724.80
+2026-03-02 10:23:45,055 - Episode 104: Steps=11, Reward=533993.80
+2026-03-02 10:23:45,066 - Saved checkpoint at episode=104 (global_step=1155) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 10:24:11,404 - Episode 105: Steps=11, Reward=349392.40
+2026-03-02 10:24:36,182 - Episode 106: Steps=11, Reward=161954.00
+2026-03-02 10:25:06,440 - Episode 107: Steps=11, Reward=1245460.00
+2026-03-02 10:25:31,016 - Episode 108: Steps=11, Reward=151044.80
+2026-03-02 10:26:01,240 - Episode 109: Steps=11, Reward=1139557.40
+2026-03-02 10:26:01,254 - Saved checkpoint at episode=109 (global_step=1210) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 10:26:30,818 - Episode 110: Steps=11, Reward=1029302.40
+2026-03-02 10:26:56,834 - Episode 111: Steps=11, Reward=290494.60
+2026-03-02 10:27:21,139 - Episode 112: Steps=11, Reward=102813.40
+2026-03-02 10:27:46,313 - Episode 113: Steps=11, Reward=128107.20
+2026-03-02 10:28:17,415 - Episode 114: Steps=11, Reward=1098134.00
+2026-03-02 10:28:17,422 - Saved checkpoint at episode=114 (global_step=1265) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 10:28:48,495 - Episode 115: Steps=11, Reward=1226711.20
+2026-03-02 10:29:13,162 - Episode 116: Steps=11, Reward=126942.60
+2026-03-02 10:29:39,712 - Episode 117: Steps=11, Reward=509344.20
+2026-03-02 10:30:05,293 - Episode 118: Steps=11, Reward=317556.80
+2026-03-02 10:30:29,001 - Episode 119: Steps=11, Reward=92296.00
+2026-03-02 10:30:29,007 - Saved checkpoint at episode=119 (global_step=1320) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 10:31:00,246 - Episode 120: Steps=11, Reward=1142539.20
+2026-03-02 10:31:23,890 - Episode 121: Steps=11, Reward=157830.80
+2026-03-02 10:31:50,549 - Episode 122: Steps=11, Reward=505639.80
+2026-03-02 10:32:15,848 - Episode 123: Steps=11, Reward=252855.20
+2026-03-02 10:32:42,465 - Episode 124: Steps=11, Reward=402843.20
+2026-03-02 10:32:42,476 - Saved checkpoint at episode=124 (global_step=1375) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 10:33:09,619 - Episode 125: Steps=11, Reward=455662.00
+2026-03-02 10:33:35,896 - Episode 126: Steps=11, Reward=445436.40
+2026-03-02 10:34:00,269 - Episode 127: Steps=11, Reward=190335.80
+2026-03-02 10:34:25,073 - Episode 128: Steps=11, Reward=128534.60
+2026-03-02 10:34:49,123 - Episode 129: Steps=11, Reward=115140.60
+2026-03-02 10:34:49,130 - Saved checkpoint at episode=129 (global_step=1430) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 10:35:13,499 - Episode 130: Steps=11, Reward=108857.20
+2026-03-02 10:35:39,137 - Episode 131: Steps=11, Reward=342363.00
+2026-03-02 10:36:03,323 - Episode 132: Steps=11, Reward=135929.00
+2026-03-02 10:36:29,371 - Episode 133: Steps=11, Reward=240698.60
+2026-03-02 10:36:57,380 - Episode 134: Steps=11, Reward=332464.20
+2026-03-02 10:36:57,391 - Saved checkpoint at episode=134 (global_step=1485) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 10:37:21,634 - Episode 135: Steps=11, Reward=110307.20
+2026-03-02 10:37:45,246 - Episode 136: Steps=11, Reward=171234.00
+2026-03-02 10:38:13,492 - Episode 137: Steps=11, Reward=831382.80
+2026-03-02 10:38:40,370 - Episode 138: Steps=11, Reward=340758.20
+2026-03-02 10:39:05,204 - Episode 139: Steps=11, Reward=126256.80
+2026-03-02 10:39:05,214 - Saved checkpoint at episode=139 (global_step=1540) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 10:39:31,175 - Episode 140: Steps=11, Reward=345272.20
+2026-03-02 10:39:55,422 - Episode 141: Steps=11, Reward=124859.60
+2026-03-02 10:40:20,704 - Episode 142: Steps=11, Reward=177861.00
+2026-03-02 10:40:49,164 - Episode 143: Steps=11, Reward=685639.00
+2026-03-02 10:41:15,062 - Episode 144: Steps=11, Reward=110434.40
+2026-03-02 10:41:15,069 - Saved checkpoint at episode=144 (global_step=1595) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 10:41:40,365 - Episode 145: Steps=11, Reward=219048.20
+2026-03-02 10:42:03,316 - Episode 146: Steps=11, Reward=107451.40
+2026-03-02 10:42:29,299 - Episode 147: Steps=11, Reward=316594.20
+2026-03-02 10:42:54,363 - Episode 148: Steps=11, Reward=240741.40
+2026-03-02 10:43:16,957 - Episode 149: Steps=11, Reward=109777.80
+2026-03-02 10:43:16,965 - Saved checkpoint at episode=149 (global_step=1650) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 10:43:40,172 - Episode 150: Steps=11, Reward=146156.40
+2026-03-02 10:44:03,163 - Episode 151: Steps=11, Reward=118638.20
+2026-03-02 10:44:29,414 - Episode 152: Steps=11, Reward=480155.00
+2026-03-02 10:44:52,889 - Episode 153: Steps=11, Reward=243518.60
+2026-03-02 10:45:15,725 - Episode 154: Steps=11, Reward=179567.60
+2026-03-02 10:45:15,734 - Saved checkpoint at episode=154 (global_step=1705) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 10:45:38,410 - Episode 155: Steps=11, Reward=110321.20
+2026-03-02 10:46:01,367 - Episode 156: Steps=11, Reward=126151.80
+2026-03-02 10:46:25,513 - Episode 157: Steps=11, Reward=181701.20
+2026-03-02 10:46:48,715 - Episode 158: Steps=11, Reward=156979.00
+2026-03-02 10:47:11,915 - Episode 159: Steps=11, Reward=117065.00
+2026-03-02 10:47:11,921 - Saved checkpoint at episode=159 (global_step=1760) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 10:47:35,772 - Episode 160: Steps=11, Reward=207293.80
+2026-03-02 10:48:00,740 - Episode 161: Steps=11, Reward=335243.60
+2026-03-02 10:48:25,143 - Episode 162: Steps=11, Reward=234198.20
+2026-03-02 10:48:48,991 - Episode 163: Steps=11, Reward=192169.20
+2026-03-02 10:49:12,613 - Episode 164: Steps=11, Reward=216858.00
+2026-03-02 10:49:12,622 - Saved checkpoint at episode=164 (global_step=1815) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 10:49:36,643 - Episode 165: Steps=11, Reward=524215.40
+2026-03-02 10:49:59,780 - Episode 166: Steps=11, Reward=136878.40
+2026-03-02 10:50:30,106 - Episode 167: Steps=11, Reward=1319924.60
+2026-03-02 10:50:54,254 - Episode 168: Steps=11, Reward=250682.60
+2026-03-02 10:51:19,628 - Episode 169: Steps=11, Reward=480711.80
+2026-03-02 10:51:19,635 - Saved checkpoint at episode=169 (global_step=1870) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 10:51:48,469 - Episode 170: Steps=11, Reward=1147739.80
+2026-03-02 10:52:10,911 - Episode 171: Steps=11, Reward=96695.00
+2026-03-02 10:52:32,779 - Episode 172: Steps=11, Reward=99730.40
+2026-03-02 10:52:55,255 - Episode 173: Steps=11, Reward=112033.00
+2026-03-02 10:53:19,748 - Episode 174: Steps=11, Reward=548141.80
+2026-03-02 10:53:19,755 - Saved checkpoint at episode=174 (global_step=1925) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 10:53:45,625 - Episode 175: Steps=11, Reward=643236.60
+2026-03-02 10:54:09,022 - Episode 176: Steps=11, Reward=252378.20
+2026-03-02 10:54:31,703 - Episode 177: Steps=11, Reward=170352.40
+2026-03-02 10:54:58,348 - Episode 178: Steps=11, Reward=605614.60
+2026-03-02 10:55:21,910 - Episode 179: Steps=11, Reward=173963.80
+2026-03-02 10:55:21,919 - Saved checkpoint at episode=179 (global_step=1980) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 10:55:45,071 - Episode 180: Steps=11, Reward=220236.40
+2026-03-02 10:56:07,757 - Episode 181: Steps=11, Reward=112077.60
+2026-03-02 10:56:32,903 - Episode 182: Steps=11, Reward=514922.00
+2026-03-02 10:56:56,631 - Episode 183: Steps=11, Reward=263954.80
+2026-03-02 10:57:19,743 - Episode 184: Steps=11, Reward=265634.80
+2026-03-02 10:57:19,749 - Saved checkpoint at episode=184 (global_step=2035) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 10:57:45,917 - Episode 185: Steps=11, Reward=561915.00
+2026-03-02 10:58:08,723 - Episode 186: Steps=11, Reward=110555.80
+2026-03-02 10:58:31,320 - Episode 187: Steps=11, Reward=123095.20
+2026-03-02 10:58:53,339 - Episode 188: Steps=11, Reward=90990.20
+2026-03-02 10:59:15,590 - Episode 189: Steps=11, Reward=103956.80
+2026-03-02 10:59:15,598 - Saved checkpoint at episode=189 (global_step=2090) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 10:59:40,934 - Episode 190: Steps=11, Reward=755332.00
+2026-03-02 11:00:03,825 - Episode 191: Steps=11, Reward=169043.80
+2026-03-02 11:00:37,005 - Episode 192: Steps=11, Reward=2097597.60
+2026-03-02 11:01:07,317 - Episode 193: Steps=11, Reward=1662661.60
+2026-03-02 11:01:35,134 - Episode 194: Steps=11, Reward=782040.00
+2026-03-02 11:01:35,141 - Saved checkpoint at episode=194 (global_step=2145) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 11:02:01,021 - Episode 195: Steps=11, Reward=303815.80
+2026-03-02 11:02:29,222 - Episode 196: Steps=11, Reward=666920.00
+2026-03-02 11:02:53,921 - Episode 197: Steps=11, Reward=282954.40
+2026-03-02 11:03:24,083 - Episode 198: Steps=11, Reward=1101554.80
+2026-03-02 11:03:47,357 - Episode 199: Steps=11, Reward=108074.80
+2026-03-02 11:03:47,366 - Saved checkpoint at episode=199 (global_step=2200) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 11:04:10,756 - Episode 200: Steps=11, Reward=109461.80
+2026-03-02 11:04:42,677 - Episode 201: Steps=11, Reward=1873476.00
+2026-03-02 11:05:06,901 - Episode 202: Steps=11, Reward=231193.00
+2026-03-02 11:05:29,901 - Episode 203: Steps=11, Reward=169842.40
+2026-03-02 11:06:03,926 - Episode 204: Steps=11, Reward=1400560.20
+2026-03-02 11:06:03,941 - Saved checkpoint at episode=204 (global_step=2255) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 11:06:29,223 - Episode 205: Steps=11, Reward=486658.40
+2026-03-02 11:07:02,128 - Episode 206: Steps=11, Reward=1464464.20
+2026-03-02 11:07:24,903 - Episode 207: Steps=11, Reward=97984.00
+2026-03-02 11:07:49,315 - Episode 208: Steps=11, Reward=258120.00
+2026-03-02 11:08:16,776 - Episode 209: Steps=11, Reward=421178.40
+2026-03-02 11:08:16,783 - Saved checkpoint at episode=209 (global_step=2310) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 11:08:40,080 - Episode 210: Steps=11, Reward=187722.00
+2026-03-02 11:09:04,978 - Episode 211: Steps=11, Reward=233755.00
+2026-03-02 11:09:28,834 - Episode 212: Steps=11, Reward=172300.00
+2026-03-02 11:09:58,868 - Episode 213: Steps=11, Reward=1014310.20
+2026-03-02 11:10:23,351 - Episode 214: Steps=11, Reward=334580.00
+2026-03-02 11:10:23,363 - Saved checkpoint at episode=214 (global_step=2365) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 11:10:55,440 - Episode 215: Steps=11, Reward=1827434.80
+2026-03-02 11:11:19,644 - Episode 216: Steps=11, Reward=270866.00
+2026-03-02 11:11:45,420 - Episode 217: Steps=11, Reward=497866.00
+2026-03-02 11:12:13,060 - Episode 218: Steps=11, Reward=654289.00
+2026-03-02 11:12:40,423 - Episode 219: Steps=11, Reward=750415.40
+2026-03-02 11:12:40,430 - Saved checkpoint at episode=219 (global_step=2420) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 11:13:04,997 - Episode 220: Steps=11, Reward=154321.00
+2026-03-02 11:13:28,750 - Episode 221: Steps=11, Reward=150187.60
+2026-03-02 11:13:53,582 - Episode 222: Steps=11, Reward=449380.20
+2026-03-02 11:14:17,608 - Episode 223: Steps=11, Reward=212030.00
+2026-03-02 11:14:41,211 - Episode 224: Steps=11, Reward=152167.60
+2026-03-02 11:14:41,218 - Saved checkpoint at episode=224 (global_step=2475) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 11:15:17,605 - Episode 225: Steps=11, Reward=2402908.60
+2026-03-02 11:15:41,785 - Episode 226: Steps=11, Reward=258392.00
+2026-03-02 11:16:05,059 - Episode 227: Steps=11, Reward=133942.60
+2026-03-02 11:16:43,274 - Episode 228: Steps=11, Reward=2952575.40
+2026-03-02 11:17:15,469 - Episode 229: Steps=11, Reward=1960327.40
+2026-03-02 11:17:15,479 - Saved checkpoint at episode=229 (global_step=2530) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 11:17:41,847 - Episode 230: Steps=11, Reward=501365.20
+2026-03-02 11:18:05,974 - Episode 231: Steps=11, Reward=311422.80
+2026-03-02 11:18:28,788 - Episode 232: Steps=11, Reward=114346.00
+2026-03-02 11:19:00,167 - Episode 233: Steps=11, Reward=1651061.20
+2026-03-02 11:19:28,423 - Episode 234: Steps=11, Reward=934989.80
+2026-03-02 11:19:28,430 - Saved checkpoint at episode=234 (global_step=2585) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 11:19:55,350 - Episode 235: Steps=11, Reward=544030.00
+2026-03-02 11:20:18,661 - Episode 236: Steps=11, Reward=107786.40
+2026-03-02 11:20:41,566 - Episode 237: Steps=11, Reward=115946.40
+2026-03-02 11:21:05,723 - Episode 238: Steps=11, Reward=119691.20
+2026-03-02 11:21:29,592 - Episode 239: Steps=11, Reward=224564.40
+2026-03-02 11:21:29,600 - Saved checkpoint at episode=239 (global_step=2640) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 11:21:54,241 - Episode 240: Steps=11, Reward=178479.00
+2026-03-02 11:22:23,606 - Episode 241: Steps=11, Reward=683564.60
+2026-03-02 11:22:49,286 - Episode 242: Steps=11, Reward=426059.40
+2026-03-02 11:23:13,614 - Episode 243: Steps=11, Reward=214907.00
+2026-03-02 11:23:36,214 - Episode 244: Steps=11, Reward=96268.20
+2026-03-02 11:23:36,223 - Saved checkpoint at episode=244 (global_step=2695) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 11:24:05,634 - Episode 245: Steps=11, Reward=786801.60
+2026-03-02 11:24:28,565 - Episode 246: Steps=11, Reward=115576.40
+2026-03-02 11:24:51,929 - Episode 247: Steps=11, Reward=190586.80
+2026-03-02 11:25:19,375 - Episode 248: Steps=11, Reward=958024.00
+2026-03-02 11:25:44,905 - Episode 249: Steps=11, Reward=295737.00
+2026-03-02 11:25:44,914 - Saved checkpoint at episode=249 (global_step=2750) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 11:26:07,855 - Episode 250: Steps=11, Reward=102603.20
+2026-03-02 11:26:30,754 - Episode 251: Steps=11, Reward=140883.00
+2026-03-02 11:26:55,079 - Episode 252: Steps=11, Reward=238123.80
+2026-03-02 11:27:23,591 - Episode 253: Steps=11, Reward=931664.80
+2026-03-02 11:27:50,195 - Episode 254: Steps=11, Reward=564236.60
+2026-03-02 11:27:50,208 - Saved checkpoint at episode=254 (global_step=2805) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 11:28:16,711 - Episode 255: Steps=11, Reward=582345.20
+2026-03-02 11:28:39,786 - Episode 256: Steps=11, Reward=109873.00
+2026-03-02 11:29:04,006 - Episode 257: Steps=11, Reward=222934.60
+2026-03-02 11:29:27,722 - Episode 258: Steps=11, Reward=174254.60
+2026-03-02 11:29:55,453 - Episode 259: Steps=11, Reward=779344.60
+2026-03-02 11:29:55,462 - Saved checkpoint at episode=259 (global_step=2860) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 11:30:26,350 - Episode 260: Steps=11, Reward=1450460.00
+2026-03-02 11:30:50,172 - Episode 261: Steps=11, Reward=113384.20
+2026-03-02 11:31:16,665 - Episode 262: Steps=11, Reward=544272.60
+2026-03-02 11:31:42,438 - Episode 263: Steps=11, Reward=209337.60
+2026-03-02 11:32:17,158 - Episode 264: Steps=11, Reward=2361546.20
+2026-03-02 11:32:17,165 - Saved checkpoint at episode=264 (global_step=2915) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 11:32:39,654 - Episode 265: Steps=11, Reward=118475.40
+2026-03-02 11:33:13,069 - Episode 266: Steps=11, Reward=2171512.80
+2026-03-02 11:33:47,185 - Episode 267: Steps=11, Reward=1513724.40
+2026-03-02 11:34:11,704 - Episode 268: Steps=11, Reward=217551.40
+2026-03-02 11:34:36,641 - Episode 269: Steps=11, Reward=207305.40
+2026-03-02 11:34:36,650 - Saved checkpoint at episode=269 (global_step=2970) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 11:35:03,675 - Episode 270: Steps=11, Reward=635342.60
+2026-03-02 11:35:28,360 - Episode 271: Steps=11, Reward=384213.80
+2026-03-02 11:35:50,988 - Episode 272: Steps=11, Reward=142514.60
+2026-03-02 11:36:14,490 - Episode 273: Steps=11, Reward=144688.60
+2026-03-02 11:36:40,027 - Episode 274: Steps=11, Reward=440613.60
+2026-03-02 11:36:40,036 - Saved checkpoint at episode=274 (global_step=3025) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 11:37:05,633 - Episode 275: Steps=11, Reward=496344.20
+2026-03-02 11:37:30,060 - Episode 276: Steps=11, Reward=236621.20
+2026-03-02 11:37:53,817 - Episode 277: Steps=11, Reward=134340.40
+2026-03-02 11:38:22,420 - Episode 278: Steps=11, Reward=661803.00
+2026-03-02 11:38:45,735 - Episode 279: Steps=11, Reward=116212.60
+2026-03-02 11:38:45,747 - Saved checkpoint at episode=279 (global_step=3080) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 11:38:52,765 - WCE training crashed. Saving emergency checkpoint.
+Traceback (most recent call last):
+  File "/home/sdc_joran/Journal/deeprl_signal_control/envs/env.py", line 336, in _init_sim
+    self.sim = traci.connect(port=self.port, wait=True, numRetries=5)
+TypeError: connect() got an unexpected keyword argument 'wait'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/sdc_joran/Journal/deeprl_signal_control/envs/env.py", line 339, in _init_sim
+    self.sim = traci.connect(port=self.port, waitUntilConnected=True, numRetries=5)
+TypeError: connect() got an unexpected keyword argument 'waitUntilConnected'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/sdc_joran/Journal/deeprl_signal_control/envs/env.py", line 342, in _init_sim
+    self.sim = traci.connect(port=self.port, numRetries=5)
+  File "/usr/share/sumo/tools/traci/main.py", line 106, in connect
+    raise FatalTraCIError("Could not connect in %s tries" % (numRetries + 1))
+traci.exceptions.FatalTraCIError: Could not connect in 6 tries
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/sdc_joran/Journal/deeprl_signal_control/train_adversary.py", line 487, in train_adversary
+    obs = env.reset()
+  File "/home/sdc_joran/Journal/deeprl_signal_control/envs/adversarial_large_grid_env.py", line 85, in reset
+    _ = super().reset(gui=gui, test_ind=test_ind)
+  File "/home/sdc_joran/Journal/deeprl_signal_control/envs/large_grid_env.py", line 491, in reset
+    return super().reset(gui=gui, test_ind=test_ind)
+  File "/home/sdc_joran/Journal/deeprl_signal_control/envs/env.py", line 665, in reset
+    self._init_sim(seed, gui=gui)
+  File "/home/sdc_joran/Journal/deeprl_signal_control/envs/env.py", line 361, in _init_sim
+    raise RuntimeError('Could not initialize SUMO/TraCI connection')
+RuntimeError: Could not initialize SUMO/TraCI connection
+2026-03-02 11:38:52,777 - Saved checkpoint at episode=280 (global_step=3080) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 11:38:53,778 - Training Finished.
+2026-03-02 11:42:02,766 - Reading configuration from: /home/sdc_joran/Journal/deeprl_signal_control/config/config_iqll_large.ini
+2026-03-02 11:42:02,766 - Using frozen controller run dir: /home/sdc_joran/Journal/deeprl_signal_control/runs/iqll_large
+2026-03-02 11:42:02,766 - Adversary output dir: /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large
+2026-03-02 11:42:02,766 - Initializing Adversarial Environment...
+2026-03-02 11:42:05,550 - Initializing CNN Adversary...
+2026-03-02 11:42:05,679 - Resumed WCE from checkpoint episode=280, start_episode=281, global_step=3080
+2026-03-02 11:42:05,679 - WCE setup: scenarios=11, episode_length_sec=6600, adversary_step_duration=600, macro_steps_per_episode~11, total_episodes=500, expected_total_macro_steps~5500, checkpoint_interval=5, resume=True, model_dir=/home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 11:42:05,679 - Manual stack dump enabled: `kill -USR1 2964593` -> /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/manual_signal_stacks.log
+2026-03-02 11:42:05,679 - Start Training from episode 281 ...
+2026-03-02 11:42:28,295 - Episode 281: Steps=11, Reward=113455.40
+2026-03-02 11:42:51,148 - Episode 282: Steps=11, Reward=110985.60
+2026-03-02 11:43:15,342 - Episode 283: Steps=11, Reward=287349.80
+2026-03-02 11:43:38,395 - Episode 284: Steps=11, Reward=246624.00
+2026-03-02 11:43:38,411 - Saved checkpoint at episode=284 (global_step=3124) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 11:44:00,966 - Episode 285: Steps=11, Reward=118906.20
+2026-03-02 11:44:25,981 - Episode 286: Steps=11, Reward=623273.80
+2026-03-02 11:44:48,652 - Episode 287: Steps=11, Reward=174221.00
+2026-03-02 11:45:12,498 - Episode 288: Steps=11, Reward=342728.20
+2026-03-02 11:45:36,762 - Episode 289: Steps=11, Reward=237618.40
+2026-03-02 11:45:36,771 - Saved checkpoint at episode=289 (global_step=3179) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 11:45:59,718 - Episode 290: Steps=11, Reward=92841.60
+2026-03-02 11:46:25,470 - Episode 291: Steps=11, Reward=601627.80
+2026-03-02 11:46:51,449 - Episode 292: Steps=11, Reward=381621.00
+2026-03-02 11:47:14,802 - Episode 293: Steps=11, Reward=108836.60
+2026-03-02 11:47:38,099 - Episode 294: Steps=11, Reward=115932.60
+2026-03-02 11:47:38,107 - Saved checkpoint at episode=294 (global_step=3234) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 11:48:01,792 - Episode 295: Steps=11, Reward=155857.60
+2026-03-02 11:48:25,237 - Episode 296: Steps=11, Reward=126802.00
+2026-03-02 11:48:56,809 - Episode 297: Steps=11, Reward=1399784.40
+2026-03-02 11:49:19,638 - Episode 298: Steps=11, Reward=119790.80
+2026-03-02 11:49:44,814 - Episode 299: Steps=11, Reward=247186.60
+2026-03-02 11:49:44,824 - Saved checkpoint at episode=299 (global_step=3289) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 11:50:12,111 - Episode 300: Steps=11, Reward=792256.40
+2026-03-02 11:50:35,094 - Episode 301: Steps=11, Reward=153313.60
+2026-03-02 11:50:57,792 - Episode 302: Steps=11, Reward=107958.80
+2026-03-02 11:51:21,987 - Episode 303: Steps=11, Reward=265178.00
+2026-03-02 11:51:44,606 - Episode 304: Steps=11, Reward=103622.00
+2026-03-02 11:51:44,612 - Saved checkpoint at episode=304 (global_step=3344) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 11:52:08,301 - Episode 305: Steps=11, Reward=218405.80
+2026-03-02 11:52:33,406 - Episode 306: Steps=11, Reward=618318.80
+2026-03-02 11:53:00,779 - Episode 307: Steps=11, Reward=982892.80
+2026-03-02 11:53:27,530 - Episode 308: Steps=11, Reward=852559.20
+2026-03-02 11:53:51,468 - Episode 309: Steps=11, Reward=309248.80
+2026-03-02 11:53:51,483 - Saved checkpoint at episode=309 (global_step=3399) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 11:54:17,792 - Episode 310: Steps=11, Reward=566334.40
+2026-03-02 11:54:47,294 - Episode 311: Steps=11, Reward=1438883.20
+2026-03-02 11:55:14,109 - Episode 312: Steps=11, Reward=803295.20
+2026-03-02 11:55:36,470 - Episode 313: Steps=11, Reward=107466.00
+2026-03-02 11:56:02,994 - Episode 314: Steps=11, Reward=935067.00
+2026-03-02 11:56:03,005 - Saved checkpoint at episode=314 (global_step=3454) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 11:56:27,728 - Episode 315: Steps=11, Reward=466672.20
+2026-03-02 11:56:53,292 - Episode 316: Steps=11, Reward=225735.20
+2026-03-02 11:57:17,444 - Episode 317: Steps=11, Reward=198239.60
+2026-03-02 11:57:44,410 - Episode 318: Steps=11, Reward=548998.00
+2026-03-02 11:58:08,805 - Episode 319: Steps=11, Reward=260848.20
+2026-03-02 11:58:08,813 - Saved checkpoint at episode=319 (global_step=3509) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 11:58:36,982 - Episode 320: Steps=11, Reward=489943.00
+2026-03-02 11:59:00,371 - Episode 321: Steps=11, Reward=112074.60
+2026-03-02 11:59:24,515 - Episode 322: Steps=11, Reward=252909.80
+2026-03-02 11:59:50,587 - Episode 323: Steps=11, Reward=566784.60
+2026-03-02 12:00:16,464 - Episode 324: Steps=11, Reward=409471.60
+2026-03-02 12:00:16,477 - Saved checkpoint at episode=324 (global_step=3564) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 12:00:40,469 - Episode 325: Steps=11, Reward=293252.40
+2026-03-02 12:01:04,813 - Episode 326: Steps=11, Reward=255215.00
+2026-03-02 12:01:38,361 - Episode 327: Steps=11, Reward=1753527.00
+2026-03-02 12:02:03,137 - Episode 328: Steps=11, Reward=351912.60
+2026-03-02 12:02:25,750 - Episode 329: Steps=11, Reward=100881.60
+2026-03-02 12:02:25,760 - Saved checkpoint at episode=329 (global_step=3619) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 12:02:50,338 - Episode 330: Steps=11, Reward=249736.60
+2026-03-02 12:03:15,183 - Episode 331: Steps=11, Reward=214823.00
+2026-03-02 12:03:37,736 - Episode 332: Steps=11, Reward=96514.80
+2026-03-02 12:04:01,987 - Episode 333: Steps=11, Reward=270420.60
+2026-03-02 12:04:27,539 - Episode 334: Steps=11, Reward=340486.00
+2026-03-02 12:04:27,550 - Saved checkpoint at episode=334 (global_step=3674) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 12:04:50,373 - Episode 335: Steps=11, Reward=126339.80
+2026-03-02 12:05:20,308 - Episode 336: Steps=11, Reward=673612.60
+2026-03-02 12:05:48,377 - Episode 337: Steps=11, Reward=913437.00
+2026-03-02 12:06:13,290 - Episode 338: Steps=11, Reward=332952.60
+2026-03-02 12:06:36,221 - Episode 339: Steps=11, Reward=112397.00
+2026-03-02 12:06:36,231 - Saved checkpoint at episode=339 (global_step=3729) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 12:07:01,298 - Episode 340: Steps=11, Reward=464421.40
+2026-03-02 12:07:25,172 - Episode 341: Steps=11, Reward=222746.60
+2026-03-02 12:07:48,373 - Episode 342: Steps=11, Reward=101490.60
+2026-03-02 12:08:11,610 - Episode 343: Steps=11, Reward=115744.60
+2026-03-02 12:08:34,835 - Episode 344: Steps=11, Reward=146773.40
+2026-03-02 12:08:34,844 - Saved checkpoint at episode=344 (global_step=3784) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 12:09:00,114 - Episode 345: Steps=11, Reward=322732.40
+2026-03-02 12:09:26,776 - Episode 346: Steps=11, Reward=517182.60
+2026-03-02 12:09:51,345 - Episode 347: Steps=11, Reward=144604.60
+2026-03-02 12:10:14,319 - Episode 348: Steps=11, Reward=122789.80
+2026-03-02 12:10:42,715 - Episode 349: Steps=11, Reward=949611.80
+2026-03-02 12:10:42,727 - Saved checkpoint at episode=349 (global_step=3839) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 12:11:05,828 - Episode 350: Steps=11, Reward=130838.40
+2026-03-02 12:11:28,428 - Episode 351: Steps=11, Reward=115099.40
+2026-03-02 12:11:51,376 - Episode 352: Steps=11, Reward=133447.40
+2026-03-02 12:12:14,847 - Episode 353: Steps=11, Reward=113558.00
+2026-03-02 12:12:43,700 - Episode 354: Steps=11, Reward=849958.80
+2026-03-02 12:12:43,710 - Saved checkpoint at episode=354 (global_step=3894) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 12:13:10,469 - Episode 355: Steps=11, Reward=508764.80
+2026-03-02 12:13:33,318 - Episode 356: Steps=11, Reward=98204.20
+2026-03-02 12:13:56,013 - Episode 357: Steps=11, Reward=144210.00
+2026-03-02 12:14:21,584 - Episode 358: Steps=11, Reward=512653.00
+2026-03-02 12:14:45,129 - Episode 359: Steps=11, Reward=255632.20
+2026-03-02 12:14:45,139 - Saved checkpoint at episode=359 (global_step=3949) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 12:15:07,843 - Episode 360: Steps=11, Reward=144931.20
+2026-03-02 12:15:30,490 - Episode 361: Steps=11, Reward=218347.80
+2026-03-02 12:15:54,571 - Episode 362: Steps=11, Reward=292075.20
+2026-03-02 12:16:22,155 - Episode 363: Steps=11, Reward=751652.00
+2026-03-02 12:16:49,782 - Episode 364: Steps=11, Reward=740600.80
+2026-03-02 12:16:49,795 - Saved checkpoint at episode=364 (global_step=4004) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 12:17:14,418 - Episode 365: Steps=11, Reward=358355.80
+2026-03-02 12:17:39,340 - Episode 366: Steps=11, Reward=523402.40
+2026-03-02 12:18:11,421 - Episode 367: Steps=11, Reward=1632330.60
+2026-03-02 12:18:34,376 - Episode 368: Steps=11, Reward=190703.40
+2026-03-02 12:19:02,146 - Episode 369: Steps=11, Reward=603154.20
+2026-03-02 12:19:02,154 - Saved checkpoint at episode=369 (global_step=4059) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 12:19:26,815 - Episode 370: Steps=11, Reward=445361.40
+2026-03-02 12:19:49,453 - Episode 371: Steps=11, Reward=171563.60
+2026-03-02 12:20:12,119 - Episode 372: Steps=11, Reward=112540.00
+2026-03-02 12:20:35,489 - Episode 373: Steps=11, Reward=217333.00
+2026-03-02 12:20:59,156 - Episode 374: Steps=11, Reward=297783.20
+2026-03-02 12:20:59,165 - Saved checkpoint at episode=374 (global_step=4114) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 12:21:21,758 - Episode 375: Steps=11, Reward=129826.20
+2026-03-02 12:21:45,075 - Episode 376: Steps=11, Reward=188587.20
+2026-03-02 12:22:07,612 - Episode 377: Steps=11, Reward=125437.20
+2026-03-02 12:22:35,774 - Episode 378: Steps=11, Reward=845173.20
+2026-03-02 12:23:00,717 - Episode 379: Steps=11, Reward=506547.40
+2026-03-02 12:23:00,726 - Saved checkpoint at episode=379 (global_step=4169) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 12:23:25,516 - Episode 380: Steps=11, Reward=343842.60
+2026-03-02 12:23:47,813 - Episode 381: Steps=11, Reward=112280.60
+2026-03-02 12:24:12,885 - Episode 382: Steps=11, Reward=566303.20
+2026-03-02 12:24:35,826 - Episode 383: Steps=11, Reward=114367.40
+2026-03-02 12:24:59,244 - Episode 384: Steps=11, Reward=179443.20
+2026-03-02 12:24:59,251 - Saved checkpoint at episode=384 (global_step=4224) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 12:25:24,035 - Episode 385: Steps=11, Reward=322215.00
+2026-03-02 12:25:46,975 - Episode 386: Steps=11, Reward=131972.40
+2026-03-02 12:26:12,053 - Episode 387: Steps=11, Reward=440121.40
+2026-03-02 12:26:42,818 - Episode 388: Steps=11, Reward=1784336.80
+2026-03-02 12:27:07,782 - Episode 389: Steps=11, Reward=395776.80
+2026-03-02 12:27:07,792 - Saved checkpoint at episode=389 (global_step=4279) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 12:27:34,595 - Episode 390: Steps=11, Reward=579423.60
+2026-03-02 12:28:02,115 - Episode 391: Steps=11, Reward=721101.80
+2026-03-02 12:28:33,067 - Episode 392: Steps=11, Reward=1407373.80
+2026-03-02 12:28:55,985 - Episode 393: Steps=11, Reward=169006.80
+2026-03-02 12:29:20,459 - Episode 394: Steps=11, Reward=364711.80
+2026-03-02 12:29:20,470 - Saved checkpoint at episode=394 (global_step=4334) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 12:29:44,910 - Episode 395: Steps=11, Reward=502562.60
+2026-03-02 12:30:15,415 - Episode 396: Steps=11, Reward=1528403.00
+2026-03-02 12:30:38,880 - Episode 397: Steps=11, Reward=244525.60
+2026-03-02 12:31:01,612 - Episode 398: Steps=11, Reward=134745.20
+2026-03-02 12:31:24,309 - Episode 399: Steps=11, Reward=116850.00
+2026-03-02 12:31:24,316 - Saved checkpoint at episode=399 (global_step=4389) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 12:31:47,380 - Episode 400: Steps=11, Reward=242962.80
+2026-03-02 12:32:10,916 - Episode 401: Steps=11, Reward=183572.60
+2026-03-02 12:32:33,620 - Episode 402: Steps=11, Reward=118049.80
+2026-03-02 12:32:59,129 - Episode 403: Steps=11, Reward=561287.60
+2026-03-02 12:33:22,221 - Episode 404: Steps=11, Reward=259894.80
+2026-03-02 12:33:22,230 - Saved checkpoint at episode=404 (global_step=4444) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 12:33:51,676 - Episode 405: Steps=11, Reward=1305134.60
+2026-03-02 12:34:15,104 - Episode 406: Steps=11, Reward=184021.80
+2026-03-02 12:34:42,441 - Episode 407: Steps=11, Reward=708000.00
+2026-03-02 12:35:07,269 - Episode 408: Steps=11, Reward=324908.20
+2026-03-02 12:35:30,671 - Episode 409: Steps=11, Reward=261939.20
+2026-03-02 12:35:30,678 - Saved checkpoint at episode=409 (global_step=4499) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 12:35:52,888 - Episode 410: Steps=11, Reward=99011.00
+2026-03-02 12:36:15,991 - Episode 411: Steps=11, Reward=165710.20
+2026-03-02 12:36:39,917 - Episode 412: Steps=11, Reward=276840.00
+2026-03-02 12:37:04,063 - Episode 413: Steps=11, Reward=267823.40
+2026-03-02 12:37:27,401 - Episode 414: Steps=11, Reward=348143.60
+2026-03-02 12:37:27,411 - Saved checkpoint at episode=414 (global_step=4554) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 12:37:56,253 - Episode 415: Steps=11, Reward=1260180.20
+2026-03-02 12:38:21,289 - Episode 416: Steps=11, Reward=545659.00
+2026-03-02 12:38:44,073 - Episode 417: Steps=11, Reward=191289.00
+2026-03-02 12:39:07,081 - Episode 418: Steps=11, Reward=212289.00
+2026-03-02 12:39:30,100 - Episode 419: Steps=11, Reward=150015.20
+2026-03-02 12:39:30,112 - Saved checkpoint at episode=419 (global_step=4609) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 12:39:53,794 - Episode 420: Steps=11, Reward=289559.80
+2026-03-02 12:40:19,074 - Episode 421: Steps=11, Reward=402061.00
+2026-03-02 12:40:41,280 - Episode 422: Steps=11, Reward=97804.20
+2026-03-02 12:41:04,320 - Episode 423: Steps=11, Reward=147409.80
+2026-03-02 12:41:28,398 - Episode 424: Steps=11, Reward=246175.80
+2026-03-02 12:41:28,408 - Saved checkpoint at episode=424 (global_step=4664) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 12:41:50,744 - Episode 425: Steps=11, Reward=109912.20
+2026-03-02 12:42:13,580 - Episode 426: Steps=11, Reward=118369.40
+2026-03-02 12:42:37,884 - Episode 427: Steps=11, Reward=506419.20
+2026-03-02 12:43:00,357 - Episode 428: Steps=11, Reward=109023.20
+2026-03-02 12:43:23,287 - Episode 429: Steps=11, Reward=140454.80
+2026-03-02 12:43:23,299 - Saved checkpoint at episode=429 (global_step=4719) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 12:43:46,331 - Episode 430: Steps=11, Reward=244701.20
+2026-03-02 12:44:13,549 - Episode 431: Steps=11, Reward=935018.80
+2026-03-02 12:44:36,081 - Episode 432: Steps=11, Reward=116502.60
+2026-03-02 12:44:59,365 - Episode 433: Steps=11, Reward=245044.60
+2026-03-02 12:45:22,662 - Episode 434: Steps=11, Reward=305211.60
+2026-03-02 12:45:22,671 - Saved checkpoint at episode=434 (global_step=4774) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 12:45:45,230 - Episode 435: Steps=11, Reward=115427.20
+2026-03-02 12:46:07,771 - Episode 436: Steps=11, Reward=120565.80
+2026-03-02 12:46:31,749 - Episode 437: Steps=11, Reward=312533.40
+2026-03-02 12:46:54,120 - Episode 438: Steps=11, Reward=101259.20
+2026-03-02 12:47:18,321 - Episode 439: Steps=11, Reward=306847.80
+2026-03-02 12:47:18,331 - Saved checkpoint at episode=439 (global_step=4829) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 12:47:40,921 - Episode 440: Steps=11, Reward=116986.00
+2026-03-02 12:48:04,496 - Episode 441: Steps=11, Reward=274795.80
+2026-03-02 12:48:27,078 - Episode 442: Steps=11, Reward=115950.00
+2026-03-02 12:48:51,123 - Episode 443: Steps=11, Reward=165008.60
+2026-03-02 12:49:16,025 - Episode 444: Steps=11, Reward=586436.60
+2026-03-02 12:49:16,036 - Saved checkpoint at episode=444 (global_step=4884) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 12:49:38,802 - Episode 445: Steps=11, Reward=189107.60
+2026-03-02 12:50:02,382 - Episode 446: Steps=11, Reward=109847.20
+2026-03-02 12:50:25,558 - Episode 447: Steps=11, Reward=152318.60
+2026-03-02 12:50:56,495 - Episode 448: Steps=11, Reward=1663185.60
+2026-03-02 12:51:19,448 - Episode 449: Steps=11, Reward=202114.00
+2026-03-02 12:51:19,458 - Saved checkpoint at episode=449 (global_step=4939) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 12:51:42,505 - Episode 450: Steps=11, Reward=159390.80
+2026-03-02 12:52:06,038 - Episode 451: Steps=11, Reward=256027.20
+2026-03-02 12:52:28,647 - Episode 452: Steps=11, Reward=196730.80
+2026-03-02 12:52:51,106 - Episode 453: Steps=11, Reward=190596.00
+2026-03-02 12:53:13,953 - Episode 454: Steps=11, Reward=125171.20
+2026-03-02 12:53:13,960 - Saved checkpoint at episode=454 (global_step=4994) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 12:53:37,924 - Episode 455: Steps=11, Reward=268419.40
+2026-03-02 12:54:05,903 - Episode 456: Steps=11, Reward=1011679.20
+2026-03-02 12:54:28,404 - Episode 457: Steps=11, Reward=115963.00
+2026-03-02 12:54:51,276 - Episode 458: Steps=11, Reward=199859.40
+2026-03-02 12:55:14,759 - Episode 459: Steps=11, Reward=253108.40
+2026-03-02 12:55:14,767 - Saved checkpoint at episode=459 (global_step=5049) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 12:55:41,339 - Episode 460: Steps=11, Reward=1004909.40
+2026-03-02 12:56:04,544 - Episode 461: Steps=11, Reward=215680.20
+2026-03-02 12:56:27,147 - Episode 462: Steps=11, Reward=108251.80
+2026-03-02 12:56:50,304 - Episode 463: Steps=11, Reward=149473.40
+2026-03-02 12:57:13,359 - Episode 464: Steps=11, Reward=139247.00
+2026-03-02 12:57:13,365 - Saved checkpoint at episode=464 (global_step=5104) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 12:57:36,252 - Episode 465: Steps=11, Reward=151746.80
+2026-03-02 12:58:00,421 - Episode 466: Steps=11, Reward=352711.40
+2026-03-02 12:58:23,604 - Episode 467: Steps=11, Reward=134983.40
+2026-03-02 12:58:47,450 - Episode 468: Steps=11, Reward=385161.00
+2026-03-02 12:59:11,958 - Episode 469: Steps=11, Reward=418604.80
+2026-03-02 12:59:11,966 - Saved checkpoint at episode=469 (global_step=5159) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 12:59:34,544 - Episode 470: Steps=11, Reward=107833.00
+2026-03-02 12:59:58,352 - Episode 471: Steps=11, Reward=348402.40
+2026-03-02 13:00:24,303 - Episode 472: Steps=11, Reward=594514.20
+2026-03-02 13:00:55,884 - Episode 473: Steps=11, Reward=2012677.40
+2026-03-02 13:01:19,240 - Episode 474: Steps=11, Reward=241646.40
+2026-03-02 13:01:19,247 - Saved checkpoint at episode=474 (global_step=5214) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 13:01:43,078 - Episode 475: Steps=11, Reward=180864.80
+2026-03-02 13:02:05,920 - Episode 476: Steps=11, Reward=103913.00
+2026-03-02 13:02:31,873 - Episode 477: Steps=11, Reward=771719.60
+2026-03-02 13:02:54,526 - Episode 478: Steps=11, Reward=137090.60
+2026-03-02 13:03:24,543 - Episode 479: Steps=11, Reward=1542929.60
+2026-03-02 13:03:24,551 - Saved checkpoint at episode=479 (global_step=5269) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 13:03:46,773 - Episode 480: Steps=11, Reward=113085.20
+2026-03-02 13:04:09,476 - Episode 481: Steps=11, Reward=111077.40
+2026-03-02 13:04:32,431 - Episode 482: Steps=11, Reward=187513.60
+2026-03-02 13:04:56,257 - Episode 483: Steps=11, Reward=277068.60
+2026-03-02 13:05:19,426 - Episode 484: Steps=11, Reward=204878.80
+2026-03-02 13:05:19,435 - Saved checkpoint at episode=484 (global_step=5324) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 13:05:50,393 - Episode 485: Steps=11, Reward=1670107.20
+2026-03-02 13:06:12,915 - Episode 486: Steps=11, Reward=106046.20
+2026-03-02 13:06:40,831 - Episode 487: Steps=11, Reward=961370.00
+2026-03-02 13:07:03,436 - Episode 488: Steps=11, Reward=137154.20
+2026-03-02 13:07:27,285 - Episode 489: Steps=11, Reward=400756.00
+2026-03-02 13:07:27,294 - Saved checkpoint at episode=489 (global_step=5379) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 13:07:49,933 - Episode 490: Steps=11, Reward=137824.80
+2026-03-02 13:08:12,702 - Episode 491: Steps=11, Reward=112302.40
+2026-03-02 13:08:40,864 - Episode 492: Steps=11, Reward=1236085.60
+2026-03-02 13:09:06,000 - Episode 493: Steps=11, Reward=445521.80
+2026-03-02 13:09:36,017 - Episode 494: Steps=11, Reward=1256751.20
+2026-03-02 13:09:36,026 - Saved checkpoint at episode=494 (global_step=5434) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 13:09:59,023 - Episode 495: Steps=11, Reward=176702.00
+2026-03-02 13:10:25,890 - Episode 496: Steps=11, Reward=746827.40
+2026-03-02 13:10:54,680 - Episode 497: Steps=11, Reward=1233150.80
+2026-03-02 13:11:25,679 - Episode 498: Steps=11, Reward=1837226.60
+2026-03-02 13:11:55,370 - Episode 499: Steps=11, Reward=1270222.60
+2026-03-02 13:11:55,379 - Saved checkpoint at episode=499 (global_step=5489) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-02 13:11:56,445 - Training Finished.
+2026-03-10 23:01:17,500 - Reading configuration from: /home/sdc_joran/Journal/deeprl_signal_control/config/config_iqll_large.ini
+2026-03-10 23:01:17,503 - Using frozen controller run dir: /home/sdc_joran/Journal/deeprl_signal_control/runs/iqll_large
+2026-03-10 23:01:17,503 - Adversary output dir: /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large
+2026-03-10 23:01:17,503 - Initializing Adversarial Environment...
+2026-03-10 23:01:20,302 - WCE training overrides: reward_norm=500.0, reward_clip=5.0, batch_size=20 (base_config_batch=20, ~1.8 episodes/update)
+2026-03-10 23:01:20,302 - Initializing CNN Adversary...
+2026-03-10 23:01:20,428 - WCE setup: scenarios=11, episode_length_sec=6600, adversary_step_duration=600, macro_steps_per_episode~11, total_episodes=500, expected_total_macro_steps~5500, batch_size=20, checkpoint_interval=5, resume=False, model_dir=/home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-10 23:01:20,428 - Manual stack dump enabled: `kill -USR1 656661` -> /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/manual_signal_stacks.log
+2026-03-10 23:01:20,429 - Start Training from episode 0 ...
+2026-03-10 23:01:45,306 - Episode 0: Steps=11, Reward=2431.15
+2026-03-10 23:02:15,123 - Episode 1: Steps=11, Reward=11217.00
+2026-03-10 23:02:39,530 - Episode 2: Steps=11, Reward=1596.20
+2026-03-10 23:03:05,260 - Episode 3: Steps=11, Reward=3440.05
+2026-03-10 23:03:28,597 - Episode 4: Steps=11, Reward=1076.87
+2026-03-10 23:03:28,613 - Saved checkpoint at episode=4 (global_step=55) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-10 23:04:00,567 - Episode 5: Steps=11, Reward=12818.76
+2026-03-10 23:04:27,295 - Episode 6: Steps=11, Reward=4240.85
+2026-03-10 23:04:52,104 - Episode 7: Steps=11, Reward=2455.54
+2026-03-10 23:05:16,004 - Episode 8: Steps=11, Reward=1258.34
+2026-03-10 23:05:41,896 - Episode 9: Steps=11, Reward=4255.62
+2026-03-10 23:05:41,904 - Saved checkpoint at episode=9 (global_step=110) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-10 23:06:20,383 - Episode 10: Steps=11, Reward=28985.14
+2026-03-10 23:06:50,352 - Episode 11: Steps=11, Reward=10058.77
+2026-03-10 23:07:15,179 - Episode 12: Steps=11, Reward=3428.83
+2026-03-10 23:07:40,841 - Episode 13: Steps=11, Reward=5297.98
+2026-03-10 23:08:05,083 - Episode 14: Steps=11, Reward=2897.40
+2026-03-10 23:08:05,091 - Saved checkpoint at episode=14 (global_step=165) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-10 23:08:32,917 - Episode 15: Steps=11, Reward=9986.50
+2026-03-10 23:09:00,447 - Episode 16: Steps=11, Reward=8520.84
+2026-03-10 23:09:26,346 - Episode 17: Steps=11, Reward=5064.77
+2026-03-10 23:09:56,844 - Episode 18: Steps=11, Reward=11718.10
+2026-03-10 23:10:21,184 - Episode 19: Steps=11, Reward=3004.97
+2026-03-10 23:10:21,192 - Saved checkpoint at episode=19 (global_step=220) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-10 23:10:46,395 - Episode 20: Steps=11, Reward=3869.62
+2026-03-10 23:11:11,164 - Episode 21: Steps=11, Reward=2442.92
+2026-03-10 23:11:34,803 - Episode 22: Steps=11, Reward=1694.08
+2026-03-10 23:11:59,748 - Episode 23: Steps=11, Reward=3692.86
+2026-03-10 23:12:23,617 - Episode 24: Steps=11, Reward=1619.31
+2026-03-10 23:12:23,625 - Saved checkpoint at episode=24 (global_step=275) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-10 23:12:47,653 - Episode 25: Steps=11, Reward=1879.96
+2026-03-10 23:13:12,192 - Episode 26: Steps=11, Reward=3018.36
+2026-03-10 23:13:40,944 - Episode 27: Steps=11, Reward=8932.56
+2026-03-10 23:14:04,752 - Episode 28: Steps=11, Reward=1486.37
+2026-03-10 23:14:32,100 - Episode 29: Steps=11, Reward=6713.39
+2026-03-10 23:14:32,112 - Saved checkpoint at episode=29 (global_step=330) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-10 23:14:55,363 - Episode 30: Steps=11, Reward=1528.12
+2026-03-10 23:15:23,056 - Episode 31: Steps=11, Reward=7531.90
+2026-03-10 23:15:46,122 - Episode 32: Steps=11, Reward=1167.95
+2026-03-10 23:16:10,916 - Episode 33: Steps=11, Reward=2657.08
+2026-03-10 23:16:37,850 - Episode 34: Steps=11, Reward=3566.52
+2026-03-10 23:16:37,862 - Saved checkpoint at episode=34 (global_step=385) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-10 23:17:02,683 - Episode 35: Steps=11, Reward=3426.63
+2026-03-10 23:17:32,266 - Episode 36: Steps=11, Reward=11865.69
+2026-03-10 23:17:56,801 - Episode 37: Steps=11, Reward=2494.09
+2026-03-10 23:18:26,495 - Episode 38: Steps=11, Reward=9917.92
+2026-03-10 23:18:49,454 - Episode 39: Steps=11, Reward=1522.95
+2026-03-10 23:18:49,461 - Saved checkpoint at episode=39 (global_step=440) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-10 23:19:15,991 - Episode 40: Steps=11, Reward=6087.41
+2026-03-10 23:19:39,684 - Episode 41: Steps=11, Reward=1962.61
+2026-03-10 23:20:04,884 - Episode 42: Steps=11, Reward=4432.44
+2026-03-10 23:20:33,128 - Episode 43: Steps=11, Reward=9640.02
+2026-03-10 23:21:07,685 - Episode 44: Steps=11, Reward=19876.54
+2026-03-10 23:21:07,697 - Saved checkpoint at episode=44 (global_step=495) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-10 23:21:35,491 - Episode 45: Steps=11, Reward=8468.37
+2026-03-10 23:21:58,988 - Episode 46: Steps=11, Reward=1899.58
+2026-03-10 23:22:25,290 - Episode 47: Steps=11, Reward=4790.21
+2026-03-10 23:22:52,489 - Episode 48: Steps=11, Reward=6474.16
+2026-03-10 23:23:15,975 - Episode 49: Steps=11, Reward=1594.57
+2026-03-10 23:23:15,985 - Saved checkpoint at episode=49 (global_step=550) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-10 23:23:41,826 - Episode 50: Steps=11, Reward=3834.88
+2026-03-10 23:24:07,221 - Episode 51: Steps=11, Reward=5500.63
+2026-03-10 23:24:31,559 - Episode 52: Steps=11, Reward=2341.09
+2026-03-10 23:25:03,196 - Episode 53: Steps=11, Reward=14200.46
+2026-03-10 23:25:27,316 - Episode 54: Steps=11, Reward=2025.85
+2026-03-10 23:25:27,323 - Saved checkpoint at episode=54 (global_step=605) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-10 23:25:53,464 - Episode 55: Steps=11, Reward=3242.76
+2026-03-10 23:26:17,295 - Episode 56: Steps=11, Reward=1735.13
+2026-03-10 23:26:48,900 - Episode 57: Steps=11, Reward=17194.85
+2026-03-10 23:27:12,767 - Episode 58: Steps=11, Reward=1933.09
+2026-03-10 23:27:40,156 - Episode 59: Steps=11, Reward=9751.68
+2026-03-10 23:27:40,169 - Saved checkpoint at episode=59 (global_step=660) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-10 23:28:04,079 - Episode 60: Steps=11, Reward=1703.22
+2026-03-10 23:28:27,443 - Episode 61: Steps=11, Reward=1172.39
+2026-03-10 23:28:52,044 - Episode 62: Steps=11, Reward=2590.30
+2026-03-10 23:29:15,336 - Episode 63: Steps=11, Reward=1817.24
+2026-03-10 23:29:38,991 - Episode 64: Steps=11, Reward=1526.53
+2026-03-10 23:29:39,000 - Saved checkpoint at episode=64 (global_step=715) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-10 23:30:02,454 - Episode 65: Steps=11, Reward=1113.02
+2026-03-10 23:30:27,594 - Episode 66: Steps=11, Reward=3815.94
+2026-03-10 23:30:50,693 - Episode 67: Steps=11, Reward=1151.73
+2026-03-10 23:31:16,252 - Episode 68: Steps=11, Reward=4049.98
+2026-03-10 23:31:39,985 - Episode 69: Steps=11, Reward=2148.28
+2026-03-10 23:31:39,996 - Saved checkpoint at episode=69 (global_step=770) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-10 23:32:07,627 - Episode 70: Steps=11, Reward=7713.17
+2026-03-10 23:32:31,791 - Episode 71: Steps=11, Reward=2616.59
+2026-03-10 23:32:54,748 - Episode 72: Steps=11, Reward=997.44
+2026-03-10 23:33:19,272 - Episode 73: Steps=11, Reward=3079.42
+2026-03-10 23:33:52,677 - Episode 74: Steps=11, Reward=17809.05
+2026-03-10 23:33:52,687 - Saved checkpoint at episode=74 (global_step=825) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-10 23:34:16,356 - Episode 75: Steps=11, Reward=1597.49
+2026-03-10 23:34:39,748 - Episode 76: Steps=11, Reward=1073.95
+2026-03-10 23:35:02,802 - Episode 77: Steps=11, Reward=1017.81
+2026-03-10 23:35:27,553 - Episode 78: Steps=11, Reward=3473.08
+2026-03-10 23:35:50,787 - Episode 79: Steps=11, Reward=1230.56
+2026-03-10 23:35:50,798 - Saved checkpoint at episode=79 (global_step=880) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-10 23:36:19,751 - Episode 80: Steps=11, Reward=10764.49
+2026-03-10 23:36:45,772 - Episode 81: Steps=11, Reward=3731.53
+2026-03-10 23:37:10,677 - Episode 82: Steps=11, Reward=3276.69
+2026-03-10 23:37:36,523 - Episode 83: Steps=11, Reward=5178.72
+2026-03-10 23:38:13,916 - Episode 84: Steps=11, Reward=30350.43
+2026-03-10 23:38:13,925 - Saved checkpoint at episode=84 (global_step=935) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-10 23:38:39,987 - Episode 85: Steps=11, Reward=6929.36
+2026-03-10 23:39:03,386 - Episode 86: Steps=11, Reward=1486.49
+2026-03-10 23:39:27,870 - Episode 87: Steps=11, Reward=3215.63
+2026-03-10 23:39:50,981 - Episode 88: Steps=11, Reward=1087.78
+2026-03-10 23:40:14,461 - Episode 89: Steps=11, Reward=1796.81
+2026-03-10 23:40:14,472 - Saved checkpoint at episode=89 (global_step=990) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-10 23:40:40,702 - Episode 90: Steps=11, Reward=4302.74
+2026-03-10 23:41:04,224 - Episode 91: Steps=11, Reward=1326.27
+2026-03-10 23:41:28,919 - Episode 92: Steps=11, Reward=3106.40
+2026-03-10 23:41:56,105 - Episode 93: Steps=11, Reward=7522.30
+2026-03-10 23:42:26,815 - Episode 94: Steps=11, Reward=11886.27
+2026-03-10 23:42:26,823 - Saved checkpoint at episode=94 (global_step=1045) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-10 23:42:51,654 - Episode 95: Steps=11, Reward=2713.55
+2026-03-10 23:43:15,801 - Episode 96: Steps=11, Reward=1878.97
+2026-03-10 23:43:44,680 - Episode 97: Steps=11, Reward=11465.03
+2026-03-10 23:44:12,018 - Episode 98: Steps=11, Reward=4384.59
+2026-03-10 23:44:36,923 - Episode 99: Steps=11, Reward=2858.67
+2026-03-10 23:44:36,932 - Saved checkpoint at episode=99 (global_step=1100) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-10 23:45:14,814 - Episode 100: Steps=11, Reward=27384.44
+2026-03-10 23:45:39,714 - Episode 101: Steps=11, Reward=3435.55
+2026-03-10 23:46:05,817 - Episode 102: Steps=11, Reward=4279.96
+2026-03-10 23:46:29,055 - Episode 103: Steps=11, Reward=1132.22
+2026-03-10 23:46:57,665 - Episode 104: Steps=11, Reward=11382.63
+2026-03-10 23:46:57,674 - Saved checkpoint at episode=104 (global_step=1155) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-10 23:47:20,599 - Episode 105: Steps=11, Reward=1425.70
+2026-03-10 23:47:43,897 - Episode 106: Steps=11, Reward=1176.05
+2026-03-10 23:48:14,923 - Episode 107: Steps=11, Reward=11157.80
+2026-03-10 23:48:38,162 - Episode 108: Steps=11, Reward=1531.75
+2026-03-10 23:49:06,664 - Episode 109: Steps=11, Reward=11005.04
+2026-03-10 23:49:06,673 - Saved checkpoint at episode=109 (global_step=1210) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-10 23:49:34,236 - Episode 110: Steps=11, Reward=4719.76
+2026-03-10 23:49:59,499 - Episode 111: Steps=11, Reward=3485.78
+2026-03-10 23:50:23,411 - Episode 112: Steps=11, Reward=1632.49
+2026-03-10 23:50:47,059 - Episode 113: Steps=11, Reward=1708.45
+2026-03-10 23:51:10,937 - Episode 114: Steps=11, Reward=1438.41
+2026-03-10 23:51:10,948 - Saved checkpoint at episode=114 (global_step=1265) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-10 23:51:34,227 - Episode 115: Steps=11, Reward=1144.77
+2026-03-10 23:51:57,748 - Episode 116: Steps=11, Reward=1315.27
+2026-03-10 23:52:21,417 - Episode 117: Steps=11, Reward=1716.53
+2026-03-10 23:52:45,216 - Episode 118: Steps=11, Reward=1418.21
+2026-03-10 23:53:11,145 - Episode 119: Steps=11, Reward=6473.23
+2026-03-10 23:53:11,154 - Saved checkpoint at episode=119 (global_step=1320) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-10 23:53:39,661 - Episode 120: Steps=11, Reward=7411.08
+2026-03-10 23:54:04,649 - Episode 121: Steps=11, Reward=2744.02
+2026-03-10 23:54:28,915 - Episode 122: Steps=11, Reward=3461.34
+2026-03-10 23:54:55,262 - Episode 123: Steps=11, Reward=5942.02
+2026-03-10 23:55:18,352 - Episode 124: Steps=11, Reward=977.83
+2026-03-10 23:55:18,362 - Saved checkpoint at episode=124 (global_step=1375) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-10 23:55:42,952 - Episode 125: Steps=11, Reward=2042.69
+2026-03-10 23:56:07,279 - Episode 126: Steps=11, Reward=3187.24
+2026-03-10 23:56:33,861 - Episode 127: Steps=11, Reward=4956.04
+2026-03-10 23:57:00,611 - Episode 128: Steps=11, Reward=8607.36
+2026-03-10 23:57:24,341 - Episode 129: Steps=11, Reward=1674.23
+2026-03-10 23:57:24,350 - Saved checkpoint at episode=129 (global_step=1430) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-10 23:57:49,520 - Episode 130: Steps=11, Reward=4089.32
+2026-03-10 23:58:15,068 - Episode 131: Steps=11, Reward=4278.14
+2026-03-10 23:58:40,508 - Episode 132: Steps=11, Reward=4734.50
+2026-03-10 23:59:03,681 - Episode 133: Steps=11, Reward=1162.90
+2026-03-10 23:59:33,087 - Episode 134: Steps=11, Reward=10817.40
+2026-03-10 23:59:33,094 - Saved checkpoint at episode=134 (global_step=1485) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-10 23:59:56,575 - Episode 135: Steps=11, Reward=1308.61
+2026-03-11 00:00:19,781 - Episode 136: Steps=11, Reward=1213.85
+2026-03-11 00:00:45,544 - Episode 137: Steps=11, Reward=7309.26
+2026-03-11 00:01:08,980 - Episode 138: Steps=11, Reward=1627.60
+2026-03-11 00:01:34,668 - Episode 139: Steps=11, Reward=4571.15
+2026-03-11 00:01:34,681 - Saved checkpoint at episode=139 (global_step=1540) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 00:01:58,307 - Episode 140: Steps=11, Reward=2377.81
+2026-03-11 00:02:24,342 - Episode 141: Steps=11, Reward=4317.10
+2026-03-11 00:02:49,696 - Episode 142: Steps=11, Reward=3938.34
+2026-03-11 00:03:13,159 - Episode 143: Steps=11, Reward=1243.22
+2026-03-11 00:03:36,951 - Episode 144: Steps=11, Reward=2501.45
+2026-03-11 00:03:36,961 - Saved checkpoint at episode=144 (global_step=1595) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 00:04:00,630 - Episode 145: Steps=11, Reward=1238.18
+2026-03-11 00:04:24,897 - Episode 146: Steps=11, Reward=2570.09
+2026-03-11 00:04:50,771 - Episode 147: Steps=11, Reward=5699.87
+2026-03-11 00:05:14,952 - Episode 148: Steps=11, Reward=2075.58
+2026-03-11 00:05:38,552 - Episode 149: Steps=11, Reward=1230.95
+2026-03-11 00:05:38,561 - Saved checkpoint at episode=149 (global_step=1650) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 00:06:02,105 - Episode 150: Steps=11, Reward=2047.73
+2026-03-11 00:06:25,657 - Episode 151: Steps=11, Reward=1278.74
+2026-03-11 00:06:50,552 - Episode 152: Steps=11, Reward=3268.26
+2026-03-11 00:07:14,223 - Episode 153: Steps=11, Reward=1225.06
+2026-03-11 00:07:39,320 - Episode 154: Steps=11, Reward=3117.88
+2026-03-11 00:07:39,331 - Saved checkpoint at episode=154 (global_step=1705) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 00:08:07,851 - Episode 155: Steps=11, Reward=11236.87
+2026-03-11 00:08:37,634 - Episode 156: Steps=11, Reward=9252.47
+2026-03-11 00:09:00,889 - Episode 157: Steps=11, Reward=1021.34
+2026-03-11 00:09:24,228 - Episode 158: Steps=11, Reward=1309.26
+2026-03-11 00:09:48,335 - Episode 159: Steps=11, Reward=3036.55
+2026-03-11 00:09:48,344 - Saved checkpoint at episode=159 (global_step=1760) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 00:10:12,890 - Episode 160: Steps=11, Reward=2784.86
+2026-03-11 00:10:37,216 - Episode 161: Steps=11, Reward=2836.22
+2026-03-11 00:11:00,204 - Episode 162: Steps=11, Reward=1090.42
+2026-03-11 00:11:34,296 - Episode 163: Steps=11, Reward=17871.15
+2026-03-11 00:11:58,658 - Episode 164: Steps=11, Reward=3436.27
+2026-03-11 00:11:58,665 - Saved checkpoint at episode=164 (global_step=1815) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 00:12:24,789 - Episode 165: Steps=11, Reward=4660.86
+2026-03-11 00:12:48,479 - Episode 166: Steps=11, Reward=1249.49
+2026-03-11 00:13:12,008 - Episode 167: Steps=11, Reward=1290.71
+2026-03-11 00:13:36,199 - Episode 168: Steps=11, Reward=3407.93
+2026-03-11 00:14:01,417 - Episode 169: Steps=11, Reward=4764.91
+2026-03-11 00:14:01,427 - Saved checkpoint at episode=169 (global_step=1870) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 00:14:25,150 - Episode 170: Steps=11, Reward=1422.32
+2026-03-11 00:14:49,193 - Episode 171: Steps=11, Reward=2241.03
+2026-03-11 00:15:15,036 - Episode 172: Steps=11, Reward=5916.59
+2026-03-11 00:15:40,219 - Episode 173: Steps=11, Reward=4733.06
+2026-03-11 00:16:12,394 - Episode 174: Steps=11, Reward=16678.18
+2026-03-11 00:16:12,404 - Saved checkpoint at episode=174 (global_step=1925) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 00:16:36,046 - Episode 175: Steps=11, Reward=1521.07
+2026-03-11 00:17:02,917 - Episode 176: Steps=11, Reward=5724.17
+2026-03-11 00:17:27,470 - Episode 177: Steps=11, Reward=2865.43
+2026-03-11 00:17:50,956 - Episode 178: Steps=11, Reward=1529.54
+2026-03-11 00:18:14,256 - Episode 179: Steps=11, Reward=1497.78
+2026-03-11 00:18:14,267 - Saved checkpoint at episode=179 (global_step=1980) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 00:18:39,865 - Episode 180: Steps=11, Reward=5404.60
+2026-03-11 00:19:05,333 - Episode 181: Steps=11, Reward=4669.42
+2026-03-11 00:19:34,101 - Episode 182: Steps=11, Reward=10916.44
+2026-03-11 00:19:57,622 - Episode 183: Steps=11, Reward=1219.41
+2026-03-11 00:20:22,740 - Episode 184: Steps=11, Reward=3231.17
+2026-03-11 00:20:22,750 - Saved checkpoint at episode=184 (global_step=2035) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 00:20:49,460 - Episode 185: Steps=11, Reward=7165.13
+2026-03-11 00:21:14,505 - Episode 186: Steps=11, Reward=2245.56
+2026-03-11 00:21:37,879 - Episode 187: Steps=11, Reward=1190.65
+2026-03-11 00:22:02,173 - Episode 188: Steps=11, Reward=2024.96
+2026-03-11 00:22:26,114 - Episode 189: Steps=11, Reward=1772.27
+2026-03-11 00:22:26,123 - Saved checkpoint at episode=189 (global_step=2090) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 00:22:54,200 - Episode 190: Steps=11, Reward=10671.17
+2026-03-11 00:23:27,295 - Episode 191: Steps=11, Reward=20350.20
+2026-03-11 00:23:50,664 - Episode 192: Steps=11, Reward=1298.37
+2026-03-11 00:24:17,264 - Episode 193: Steps=11, Reward=5667.05
+2026-03-11 00:24:41,375 - Episode 194: Steps=11, Reward=2310.43
+2026-03-11 00:24:41,384 - Saved checkpoint at episode=194 (global_step=2145) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 00:25:13,378 - Episode 195: Steps=11, Reward=16969.66
+2026-03-11 00:25:38,016 - Episode 196: Steps=11, Reward=4036.44
+2026-03-11 00:26:02,480 - Episode 197: Steps=11, Reward=2875.62
+2026-03-11 00:26:27,186 - Episode 198: Steps=11, Reward=2912.27
+2026-03-11 00:26:51,153 - Episode 199: Steps=11, Reward=1995.25
+2026-03-11 00:26:51,162 - Saved checkpoint at episode=199 (global_step=2200) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 00:27:17,371 - Episode 200: Steps=11, Reward=6116.84
+2026-03-11 00:27:41,030 - Episode 201: Steps=11, Reward=1603.06
+2026-03-11 00:28:04,655 - Episode 202: Steps=11, Reward=1247.84
+2026-03-11 00:28:28,560 - Episode 203: Steps=11, Reward=2548.21
+2026-03-11 00:29:01,134 - Episode 204: Steps=11, Reward=17258.60
+2026-03-11 00:29:01,144 - Saved checkpoint at episode=204 (global_step=2255) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 00:29:25,389 - Episode 205: Steps=11, Reward=2090.94
+2026-03-11 00:29:48,696 - Episode 206: Steps=11, Reward=1076.37
+2026-03-11 00:30:12,043 - Episode 207: Steps=11, Reward=1240.65
+2026-03-11 00:30:35,277 - Episode 208: Steps=11, Reward=1698.65
+2026-03-11 00:30:58,654 - Episode 209: Steps=11, Reward=1093.63
+2026-03-11 00:30:58,667 - Saved checkpoint at episode=209 (global_step=2310) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 00:31:22,117 - Episode 210: Steps=11, Reward=1475.86
+2026-03-11 00:31:46,027 - Episode 211: Steps=11, Reward=1637.89
+2026-03-11 00:32:09,906 - Episode 212: Steps=11, Reward=2544.64
+2026-03-11 00:32:33,327 - Episode 213: Steps=11, Reward=1645.15
+2026-03-11 00:32:58,470 - Episode 214: Steps=11, Reward=4454.32
+2026-03-11 00:32:58,479 - Saved checkpoint at episode=214 (global_step=2365) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 00:33:28,840 - Episode 215: Steps=11, Reward=12816.54
+2026-03-11 00:33:53,066 - Episode 216: Steps=11, Reward=2416.28
+2026-03-11 00:34:16,772 - Episode 217: Steps=11, Reward=2193.79
+2026-03-11 00:34:41,568 - Episode 218: Steps=11, Reward=2011.49
+2026-03-11 00:35:06,256 - Episode 219: Steps=11, Reward=2680.92
+2026-03-11 00:35:06,269 - Saved checkpoint at episode=219 (global_step=2420) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 00:35:31,661 - Episode 220: Steps=11, Reward=4745.85
+2026-03-11 00:35:55,685 - Episode 221: Steps=11, Reward=1623.61
+2026-03-11 00:36:21,696 - Episode 222: Steps=11, Reward=5355.63
+2026-03-11 00:36:56,908 - Episode 223: Steps=11, Reward=22933.54
+2026-03-11 00:37:29,925 - Episode 224: Steps=11, Reward=17149.49
+2026-03-11 00:37:29,937 - Saved checkpoint at episode=224 (global_step=2475) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 00:37:54,785 - Episode 225: Steps=11, Reward=3135.48
+2026-03-11 00:38:18,204 - Episode 226: Steps=11, Reward=1769.04
+2026-03-11 00:38:42,312 - Episode 227: Steps=11, Reward=2703.39
+2026-03-11 00:39:06,277 - Episode 228: Steps=11, Reward=1873.01
+2026-03-11 00:39:29,823 - Episode 229: Steps=11, Reward=1454.60
+2026-03-11 00:39:29,831 - Saved checkpoint at episode=229 (global_step=2530) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 00:40:00,223 - Episode 230: Steps=11, Reward=13849.28
+2026-03-11 00:40:23,772 - Episode 231: Steps=11, Reward=1302.99
+2026-03-11 00:40:49,745 - Episode 232: Steps=11, Reward=6118.47
+2026-03-11 00:41:12,597 - Episode 233: Steps=11, Reward=966.40
+2026-03-11 00:41:36,655 - Episode 234: Steps=11, Reward=2084.66
+2026-03-11 00:41:36,665 - Saved checkpoint at episode=234 (global_step=2585) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 00:42:00,700 - Episode 235: Steps=11, Reward=2045.69
+2026-03-11 00:42:24,239 - Episode 236: Steps=11, Reward=1591.18
+2026-03-11 00:42:55,184 - Episode 237: Steps=11, Reward=15348.68
+2026-03-11 00:43:18,221 - Episode 238: Steps=11, Reward=1325.79
+2026-03-11 00:43:41,832 - Episode 239: Steps=11, Reward=1336.25
+2026-03-11 00:43:41,840 - Saved checkpoint at episode=239 (global_step=2640) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 00:44:05,682 - Episode 240: Steps=11, Reward=2153.43
+2026-03-11 00:44:32,887 - Episode 241: Steps=11, Reward=8135.75
+2026-03-11 00:44:58,120 - Episode 242: Steps=11, Reward=2640.94
+2026-03-11 00:45:22,003 - Episode 243: Steps=11, Reward=2118.86
+2026-03-11 00:45:45,552 - Episode 244: Steps=11, Reward=1692.24
+2026-03-11 00:45:45,560 - Saved checkpoint at episode=244 (global_step=2695) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 00:46:10,737 - Episode 245: Steps=11, Reward=4315.82
+2026-03-11 00:46:37,561 - Episode 246: Steps=11, Reward=6647.61
+2026-03-11 00:47:01,369 - Episode 247: Steps=11, Reward=1446.87
+2026-03-11 00:47:24,937 - Episode 248: Steps=11, Reward=1309.45
+2026-03-11 00:48:00,643 - Episode 249: Steps=11, Reward=24798.49
+2026-03-11 00:48:00,655 - Saved checkpoint at episode=249 (global_step=2750) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 00:48:25,872 - Episode 250: Steps=11, Reward=3026.07
+2026-03-11 00:48:54,534 - Episode 251: Steps=11, Reward=8880.72
+2026-03-11 00:49:17,958 - Episode 252: Steps=11, Reward=1356.27
+2026-03-11 00:49:46,110 - Episode 253: Steps=11, Reward=6915.21
+2026-03-11 00:50:14,442 - Episode 254: Steps=11, Reward=9539.52
+2026-03-11 00:50:14,450 - Saved checkpoint at episode=254 (global_step=2805) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 00:50:44,581 - Episode 255: Steps=11, Reward=14387.25
+2026-03-11 00:51:10,759 - Episode 256: Steps=11, Reward=6424.04
+2026-03-11 00:51:34,383 - Episode 257: Steps=11, Reward=1387.33
+2026-03-11 00:52:01,242 - Episode 258: Steps=11, Reward=5449.15
+2026-03-11 00:52:28,115 - Episode 259: Steps=11, Reward=6455.95
+2026-03-11 00:52:28,123 - Saved checkpoint at episode=259 (global_step=2860) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 00:52:52,158 - Episode 260: Steps=11, Reward=2052.86
+2026-03-11 00:53:15,761 - Episode 261: Steps=11, Reward=1234.68
+2026-03-11 00:53:38,727 - Episode 262: Steps=11, Reward=992.41
+2026-03-11 00:54:01,809 - Episode 263: Steps=11, Reward=1321.77
+2026-03-11 00:54:25,196 - Episode 264: Steps=11, Reward=1103.13
+2026-03-11 00:54:25,204 - Saved checkpoint at episode=264 (global_step=2915) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 00:54:48,683 - Episode 265: Steps=11, Reward=1300.27
+2026-03-11 00:55:12,817 - Episode 266: Steps=11, Reward=1827.87
+2026-03-11 00:55:40,060 - Episode 267: Steps=11, Reward=8993.79
+2026-03-11 00:56:05,349 - Episode 268: Steps=11, Reward=3939.56
+2026-03-11 00:56:28,847 - Episode 269: Steps=11, Reward=1664.51
+2026-03-11 00:56:28,855 - Saved checkpoint at episode=269 (global_step=2970) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 00:57:00,029 - Episode 270: Steps=11, Reward=15112.90
+2026-03-11 00:57:23,022 - Episode 271: Steps=11, Reward=1043.28
+2026-03-11 00:57:48,455 - Episode 272: Steps=11, Reward=4073.16
+2026-03-11 00:58:17,686 - Episode 273: Steps=11, Reward=11723.63
+2026-03-11 00:58:47,578 - Episode 274: Steps=11, Reward=14580.23
+2026-03-11 00:58:47,588 - Saved checkpoint at episode=274 (global_step=3025) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 00:59:11,513 - Episode 275: Steps=11, Reward=1570.40
+2026-03-11 00:59:36,307 - Episode 276: Steps=11, Reward=2123.96
+2026-03-11 01:00:03,137 - Episode 277: Steps=11, Reward=8226.17
+2026-03-11 01:00:27,140 - Episode 278: Steps=11, Reward=1460.94
+2026-03-11 01:00:54,844 - Episode 279: Steps=11, Reward=5908.41
+2026-03-11 01:00:54,852 - Saved checkpoint at episode=279 (global_step=3080) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 01:01:21,321 - Episode 280: Steps=11, Reward=7467.30
+2026-03-11 01:01:49,824 - Episode 281: Steps=11, Reward=11178.86
+2026-03-11 01:02:14,881 - Episode 282: Steps=11, Reward=3342.17
+2026-03-11 01:02:43,641 - Episode 283: Steps=11, Reward=10701.60
+2026-03-11 01:03:07,821 - Episode 284: Steps=11, Reward=2261.74
+2026-03-11 01:03:07,830 - Saved checkpoint at episode=284 (global_step=3135) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 01:03:37,441 - Episode 285: Steps=11, Reward=8207.92
+2026-03-11 01:04:04,751 - Episode 286: Steps=11, Reward=9115.60
+2026-03-11 01:04:34,130 - Episode 287: Steps=11, Reward=9867.11
+2026-03-11 01:04:59,104 - Episode 288: Steps=11, Reward=2483.51
+2026-03-11 01:05:22,577 - Episode 289: Steps=11, Reward=1320.43
+2026-03-11 01:05:22,587 - Saved checkpoint at episode=289 (global_step=3190) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 01:05:46,885 - Episode 290: Steps=11, Reward=2565.41
+2026-03-11 01:06:15,011 - Episode 291: Steps=11, Reward=7017.14
+2026-03-11 01:06:38,745 - Episode 292: Steps=11, Reward=1408.56
+2026-03-11 01:07:04,430 - Episode 293: Steps=11, Reward=4160.61
+2026-03-11 01:07:27,691 - Episode 294: Steps=11, Reward=1041.73
+2026-03-11 01:07:27,699 - Saved checkpoint at episode=294 (global_step=3245) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 01:07:58,731 - Episode 295: Steps=11, Reward=13804.58
+2026-03-11 01:08:27,352 - Episode 296: Steps=11, Reward=5690.14
+2026-03-11 01:08:54,938 - Episode 297: Steps=11, Reward=5969.26
+2026-03-11 01:09:24,383 - Episode 298: Steps=11, Reward=9102.41
+2026-03-11 01:09:49,663 - Episode 299: Steps=11, Reward=3307.31
+2026-03-11 01:09:49,670 - Saved checkpoint at episode=299 (global_step=3300) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 01:10:16,791 - Episode 300: Steps=11, Reward=8644.53
+2026-03-11 01:10:41,779 - Episode 301: Steps=11, Reward=4310.81
+2026-03-11 01:11:04,976 - Episode 302: Steps=11, Reward=1324.31
+2026-03-11 01:11:34,322 - Episode 303: Steps=11, Reward=12718.35
+2026-03-11 01:11:59,842 - Episode 304: Steps=11, Reward=2817.16
+2026-03-11 01:11:59,851 - Saved checkpoint at episode=304 (global_step=3355) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 01:12:23,497 - Episode 305: Steps=11, Reward=1558.69
+2026-03-11 01:12:46,839 - Episode 306: Steps=11, Reward=1055.37
+2026-03-11 01:13:15,633 - Episode 307: Steps=11, Reward=8741.37
+2026-03-11 01:13:40,633 - Episode 308: Steps=11, Reward=3069.43
+2026-03-11 01:14:05,062 - Episode 309: Steps=11, Reward=2562.38
+2026-03-11 01:14:05,073 - Saved checkpoint at episode=309 (global_step=3410) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 01:14:28,093 - Episode 310: Steps=11, Reward=1016.89
+2026-03-11 01:14:51,631 - Episode 311: Steps=11, Reward=1192.11
+2026-03-11 01:15:14,813 - Episode 312: Steps=11, Reward=1181.35
+2026-03-11 01:15:39,850 - Episode 313: Steps=11, Reward=2665.06
+2026-03-11 01:16:03,641 - Episode 314: Steps=11, Reward=1549.50
+2026-03-11 01:16:03,652 - Saved checkpoint at episode=314 (global_step=3465) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 01:16:27,069 - Episode 315: Steps=11, Reward=1592.95
+2026-03-11 01:16:58,959 - Episode 316: Steps=11, Reward=16207.31
+2026-03-11 01:17:23,072 - Episode 317: Steps=11, Reward=2126.28
+2026-03-11 01:17:51,062 - Episode 318: Steps=11, Reward=6951.31
+2026-03-11 01:18:22,481 - Episode 319: Steps=11, Reward=16667.93
+2026-03-11 01:18:22,488 - Saved checkpoint at episode=319 (global_step=3520) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 01:18:46,892 - Episode 320: Steps=11, Reward=2522.05
+2026-03-11 01:19:10,164 - Episode 321: Steps=11, Reward=1322.97
+2026-03-11 01:19:35,103 - Episode 322: Steps=11, Reward=3418.47
+2026-03-11 01:20:00,030 - Episode 323: Steps=11, Reward=4995.97
+2026-03-11 01:20:30,906 - Episode 324: Steps=11, Reward=12813.57
+2026-03-11 01:20:30,912 - Saved checkpoint at episode=324 (global_step=3575) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 01:20:56,925 - Episode 325: Steps=11, Reward=4792.19
+2026-03-11 01:21:26,067 - Episode 326: Steps=11, Reward=10554.09
+2026-03-11 01:21:49,594 - Episode 327: Steps=11, Reward=1172.12
+2026-03-11 01:22:13,009 - Episode 328: Steps=11, Reward=1792.29
+2026-03-11 01:22:43,253 - Episode 329: Steps=11, Reward=14851.92
+2026-03-11 01:22:43,264 - Saved checkpoint at episode=329 (global_step=3630) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 01:23:07,350 - Episode 330: Steps=11, Reward=1922.61
+2026-03-11 01:23:30,710 - Episode 331: Steps=11, Reward=1124.21
+2026-03-11 01:23:53,907 - Episode 332: Steps=11, Reward=1026.03
+2026-03-11 01:24:17,640 - Episode 333: Steps=11, Reward=1468.00
+2026-03-11 01:24:41,262 - Episode 334: Steps=11, Reward=1760.82
+2026-03-11 01:24:41,269 - Saved checkpoint at episode=334 (global_step=3685) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 01:25:05,434 - Episode 335: Steps=11, Reward=2423.24
+2026-03-11 01:25:29,882 - Episode 336: Steps=11, Reward=2538.19
+2026-03-11 01:25:54,154 - Episode 337: Steps=11, Reward=2858.96
+2026-03-11 01:26:18,032 - Episode 338: Steps=11, Reward=1890.97
+2026-03-11 01:26:51,119 - Episode 339: Steps=11, Reward=18047.90
+2026-03-11 01:26:51,130 - Saved checkpoint at episode=339 (global_step=3740) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 01:27:20,969 - Episode 340: Steps=11, Reward=10504.13
+2026-03-11 01:27:44,963 - Episode 341: Steps=11, Reward=1584.19
+2026-03-11 01:28:11,025 - Episode 342: Steps=11, Reward=5154.20
+2026-03-11 01:28:44,641 - Episode 343: Steps=11, Reward=21708.72
+2026-03-11 01:29:08,381 - Episode 344: Steps=11, Reward=1261.41
+2026-03-11 01:29:08,392 - Saved checkpoint at episode=344 (global_step=3795) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 01:29:32,876 - Episode 345: Steps=11, Reward=2379.20
+2026-03-11 01:30:01,127 - Episode 346: Steps=11, Reward=9332.94
+2026-03-11 01:30:24,367 - Episode 347: Steps=11, Reward=1179.12
+2026-03-11 01:30:49,001 - Episode 348: Steps=11, Reward=4239.28
+2026-03-11 01:31:15,303 - Episode 349: Steps=11, Reward=5039.01
+2026-03-11 01:31:15,310 - Saved checkpoint at episode=349 (global_step=3850) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 01:31:44,104 - Episode 350: Steps=11, Reward=9731.93
+2026-03-11 01:32:07,704 - Episode 351: Steps=11, Reward=1358.42
+2026-03-11 01:32:31,168 - Episode 352: Steps=11, Reward=1359.87
+2026-03-11 01:32:55,017 - Episode 353: Steps=11, Reward=2372.61
+2026-03-11 01:33:20,097 - Episode 354: Steps=11, Reward=4628.01
+2026-03-11 01:33:20,109 - Saved checkpoint at episode=354 (global_step=3905) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 01:33:45,556 - Episode 355: Steps=11, Reward=4061.17
+2026-03-11 01:34:09,725 - Episode 356: Steps=11, Reward=2545.35
+2026-03-11 01:34:37,110 - Episode 357: Steps=11, Reward=4743.02
+2026-03-11 01:35:00,385 - Episode 358: Steps=11, Reward=1329.85
+2026-03-11 01:35:30,400 - Episode 359: Steps=11, Reward=10271.31
+2026-03-11 01:35:30,411 - Saved checkpoint at episode=359 (global_step=3960) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 01:35:54,782 - Episode 360: Steps=11, Reward=2700.88
+2026-03-11 01:36:18,543 - Episode 361: Steps=11, Reward=1797.73
+2026-03-11 01:36:43,545 - Episode 362: Steps=11, Reward=4800.96
+2026-03-11 01:37:15,160 - Episode 363: Steps=11, Reward=17265.24
+2026-03-11 01:37:41,269 - Episode 364: Steps=11, Reward=5452.53
+2026-03-11 01:37:41,278 - Saved checkpoint at episode=364 (global_step=4015) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 01:38:05,982 - Episode 365: Steps=11, Reward=3668.76
+2026-03-11 01:38:35,276 - Episode 366: Steps=11, Reward=12221.94
+2026-03-11 01:39:02,311 - Episode 367: Steps=11, Reward=6792.84
+2026-03-11 01:39:29,839 - Episode 368: Steps=11, Reward=9060.03
+2026-03-11 01:39:53,240 - Episode 369: Steps=11, Reward=1156.47
+2026-03-11 01:39:53,254 - Saved checkpoint at episode=369 (global_step=4070) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 01:40:18,472 - Episode 370: Steps=11, Reward=3399.31
+2026-03-11 01:40:45,122 - Episode 371: Steps=11, Reward=5287.90
+2026-03-11 01:41:09,388 - Episode 372: Steps=11, Reward=2168.05
+2026-03-11 01:41:33,019 - Episode 373: Steps=11, Reward=1729.54
+2026-03-11 01:41:59,046 - Episode 374: Steps=11, Reward=5842.19
+2026-03-11 01:41:59,053 - Saved checkpoint at episode=374 (global_step=4125) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 01:42:27,423 - Episode 375: Steps=11, Reward=12657.46
+2026-03-11 01:42:51,089 - Episode 376: Steps=11, Reward=1587.23
+2026-03-11 01:43:15,338 - Episode 377: Steps=11, Reward=1886.88
+2026-03-11 01:43:49,152 - Episode 378: Steps=11, Reward=19844.61
+2026-03-11 01:44:12,443 - Episode 379: Steps=11, Reward=1130.97
+2026-03-11 01:44:12,451 - Saved checkpoint at episode=379 (global_step=4180) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 01:44:39,809 - Episode 380: Steps=11, Reward=9389.24
+2026-03-11 01:45:05,070 - Episode 381: Steps=11, Reward=4331.49
+2026-03-11 01:45:28,916 - Episode 382: Steps=11, Reward=1746.70
+2026-03-11 01:45:57,090 - Episode 383: Steps=11, Reward=7039.84
+2026-03-11 01:46:20,553 - Episode 384: Steps=11, Reward=1717.47
+2026-03-11 01:46:20,567 - Saved checkpoint at episode=384 (global_step=4235) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 01:46:43,482 - Episode 385: Steps=11, Reward=1007.60
+2026-03-11 01:47:16,416 - Episode 386: Steps=11, Reward=19370.19
+2026-03-11 01:47:40,300 - Episode 387: Steps=11, Reward=1966.97
+2026-03-11 01:48:11,192 - Episode 388: Steps=11, Reward=14284.99
+2026-03-11 01:48:35,434 - Episode 389: Steps=11, Reward=2721.32
+2026-03-11 01:48:35,440 - Saved checkpoint at episode=389 (global_step=4290) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 01:48:58,888 - Episode 390: Steps=11, Reward=1904.52
+2026-03-11 01:49:22,234 - Episode 391: Steps=11, Reward=1469.88
+2026-03-11 01:49:45,476 - Episode 392: Steps=11, Reward=1120.99
+2026-03-11 01:50:09,565 - Episode 393: Steps=11, Reward=2875.75
+2026-03-11 01:50:38,848 - Episode 394: Steps=11, Reward=9233.69
+2026-03-11 01:50:38,859 - Saved checkpoint at episode=394 (global_step=4345) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 01:51:04,538 - Episode 395: Steps=11, Reward=5452.49
+2026-03-11 01:51:27,848 - Episode 396: Steps=11, Reward=1093.25
+2026-03-11 01:51:58,566 - Episode 397: Steps=11, Reward=12307.51
+2026-03-11 01:52:21,610 - Episode 398: Steps=11, Reward=1247.07
+2026-03-11 01:52:46,962 - Episode 399: Steps=11, Reward=3914.17
+2026-03-11 01:52:46,972 - Saved checkpoint at episode=399 (global_step=4400) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 01:53:10,681 - Episode 400: Steps=11, Reward=1280.42
+2026-03-11 01:53:34,930 - Episode 401: Steps=11, Reward=2236.31
+2026-03-11 01:53:58,972 - Episode 402: Steps=11, Reward=1770.45
+2026-03-11 01:54:23,001 - Episode 403: Steps=11, Reward=2145.63
+2026-03-11 01:54:48,099 - Episode 404: Steps=11, Reward=3677.21
+2026-03-11 01:54:48,107 - Saved checkpoint at episode=404 (global_step=4455) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 01:55:12,033 - Episode 405: Steps=11, Reward=1393.36
+2026-03-11 01:55:35,560 - Episode 406: Steps=11, Reward=1506.16
+2026-03-11 01:55:59,484 - Episode 407: Steps=11, Reward=1986.64
+2026-03-11 01:56:23,214 - Episode 408: Steps=11, Reward=1731.24
+2026-03-11 01:56:50,278 - Episode 409: Steps=11, Reward=5722.56
+2026-03-11 01:56:50,288 - Saved checkpoint at episode=409 (global_step=4510) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 01:57:26,687 - Episode 410: Steps=11, Reward=26264.32
+2026-03-11 01:57:53,580 - Episode 411: Steps=11, Reward=7301.22
+2026-03-11 01:58:17,141 - Episode 412: Steps=11, Reward=1710.31
+2026-03-11 01:58:40,323 - Episode 413: Steps=11, Reward=1164.31
+2026-03-11 01:59:03,629 - Episode 414: Steps=11, Reward=1262.21
+2026-03-11 01:59:03,636 - Saved checkpoint at episode=414 (global_step=4565) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 01:59:27,150 - Episode 415: Steps=11, Reward=1120.98
+2026-03-11 02:00:00,618 - Episode 416: Steps=11, Reward=20225.21
+2026-03-11 02:00:24,158 - Episode 417: Steps=11, Reward=1447.27
+2026-03-11 02:00:48,521 - Episode 418: Steps=11, Reward=2994.79
+2026-03-11 02:01:20,792 - Episode 419: Steps=11, Reward=16895.38
+2026-03-11 02:01:20,800 - Saved checkpoint at episode=419 (global_step=4620) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 02:01:44,459 - Episode 420: Steps=11, Reward=2267.96
+2026-03-11 02:02:12,081 - Episode 421: Steps=11, Reward=6646.56
+2026-03-11 02:02:36,690 - Episode 422: Steps=11, Reward=3139.74
+2026-03-11 02:03:02,269 - Episode 423: Steps=11, Reward=3117.80
+2026-03-11 02:03:27,192 - Episode 424: Steps=11, Reward=3041.60
+2026-03-11 02:03:27,205 - Saved checkpoint at episode=424 (global_step=4675) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 02:03:52,598 - Episode 425: Steps=11, Reward=3760.30
+2026-03-11 02:04:16,499 - Episode 426: Steps=11, Reward=1394.70
+2026-03-11 02:04:39,951 - Episode 427: Steps=11, Reward=1201.36
+2026-03-11 02:05:03,170 - Episode 428: Steps=11, Reward=1212.17
+2026-03-11 02:05:26,171 - Episode 429: Steps=11, Reward=1111.41
+2026-03-11 02:05:26,179 - Saved checkpoint at episode=429 (global_step=4730) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 02:05:54,099 - Episode 430: Steps=11, Reward=8301.53
+2026-03-11 02:06:18,799 - Episode 431: Steps=11, Reward=3012.64
+2026-03-11 02:06:42,732 - Episode 432: Steps=11, Reward=1240.01
+2026-03-11 02:07:06,263 - Episode 433: Steps=11, Reward=1267.15
+2026-03-11 02:07:31,178 - Episode 434: Steps=11, Reward=4398.45
+2026-03-11 02:07:31,190 - Saved checkpoint at episode=434 (global_step=4785) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 02:07:54,547 - Episode 435: Steps=11, Reward=1442.22
+2026-03-11 02:08:19,551 - Episode 436: Steps=11, Reward=3387.20
+2026-03-11 02:08:43,919 - Episode 437: Steps=11, Reward=2683.00
+2026-03-11 02:09:08,284 - Episode 438: Steps=11, Reward=2765.45
+2026-03-11 02:09:36,903 - Episode 439: Steps=11, Reward=9041.17
+2026-03-11 02:09:36,910 - Saved checkpoint at episode=439 (global_step=4840) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 02:10:00,738 - Episode 440: Steps=11, Reward=2153.17
+2026-03-11 02:10:25,667 - Episode 441: Steps=11, Reward=2816.58
+2026-03-11 02:10:49,795 - Episode 442: Steps=11, Reward=2533.37
+2026-03-11 02:11:15,719 - Episode 443: Steps=11, Reward=4672.33
+2026-03-11 02:11:43,116 - Episode 444: Steps=11, Reward=5569.59
+2026-03-11 02:11:43,124 - Saved checkpoint at episode=444 (global_step=4895) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 02:12:07,541 - Episode 445: Steps=11, Reward=3213.12
+2026-03-11 02:12:33,739 - Episode 446: Steps=11, Reward=4402.92
+2026-03-11 02:12:57,256 - Episode 447: Steps=11, Reward=1583.38
+2026-03-11 02:13:21,333 - Episode 448: Steps=11, Reward=2677.86
+2026-03-11 02:13:49,139 - Episode 449: Steps=11, Reward=7386.60
+2026-03-11 02:13:49,150 - Saved checkpoint at episode=449 (global_step=4950) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 02:14:12,760 - Episode 450: Steps=11, Reward=2227.69
+2026-03-11 02:14:43,814 - Episode 451: Steps=11, Reward=14864.02
+2026-03-11 02:15:07,621 - Episode 452: Steps=11, Reward=2187.78
+2026-03-11 02:15:35,450 - Episode 453: Steps=11, Reward=10000.89
+2026-03-11 02:15:59,995 - Episode 454: Steps=11, Reward=2418.55
+2026-03-11 02:16:00,002 - Saved checkpoint at episode=454 (global_step=5005) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 02:16:25,389 - Episode 455: Steps=11, Reward=4668.02
+2026-03-11 02:16:48,801 - Episode 456: Steps=11, Reward=1160.54
+2026-03-11 02:17:14,984 - Episode 457: Steps=11, Reward=5085.66
+2026-03-11 02:17:38,275 - Episode 458: Steps=11, Reward=1097.02
+2026-03-11 02:18:03,478 - Episode 459: Steps=11, Reward=3693.71
+2026-03-11 02:18:03,485 - Saved checkpoint at episode=459 (global_step=5060) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 02:18:27,260 - Episode 460: Steps=11, Reward=2136.31
+2026-03-11 02:18:55,179 - Episode 461: Steps=11, Reward=6736.36
+2026-03-11 02:19:24,928 - Episode 462: Steps=11, Reward=11582.21
+2026-03-11 02:19:48,113 - Episode 463: Steps=11, Reward=977.27
+2026-03-11 02:20:11,496 - Episode 464: Steps=11, Reward=2200.38
+2026-03-11 02:20:11,507 - Saved checkpoint at episode=464 (global_step=5115) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 02:20:34,840 - Episode 465: Steps=11, Reward=1638.95
+2026-03-11 02:20:58,051 - Episode 466: Steps=11, Reward=1123.97
+2026-03-11 02:21:24,165 - Episode 467: Steps=11, Reward=4736.17
+2026-03-11 02:21:48,506 - Episode 468: Steps=11, Reward=2638.10
+2026-03-11 02:22:15,822 - Episode 469: Steps=11, Reward=9517.97
+2026-03-11 02:22:15,830 - Saved checkpoint at episode=469 (global_step=5170) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 02:22:47,452 - Episode 470: Steps=11, Reward=17497.75
+2026-03-11 02:23:13,463 - Episode 471: Steps=11, Reward=4816.52
+2026-03-11 02:23:47,566 - Episode 472: Steps=11, Reward=21770.00
+2026-03-11 02:24:11,051 - Episode 473: Steps=11, Reward=1737.88
+2026-03-11 02:24:35,428 - Episode 474: Steps=11, Reward=2500.11
+2026-03-11 02:24:35,438 - Saved checkpoint at episode=474 (global_step=5225) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 02:25:00,730 - Episode 475: Steps=11, Reward=4284.71
+2026-03-11 02:25:24,242 - Episode 476: Steps=11, Reward=1148.70
+2026-03-11 02:25:48,941 - Episode 477: Steps=11, Reward=2431.03
+2026-03-11 02:26:20,998 - Episode 478: Steps=11, Reward=16131.81
+2026-03-11 02:26:47,707 - Episode 479: Steps=11, Reward=6152.71
+2026-03-11 02:26:47,714 - Saved checkpoint at episode=479 (global_step=5280) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 02:27:16,683 - Episode 480: Steps=11, Reward=12797.94
+2026-03-11 02:27:46,803 - Episode 481: Steps=11, Reward=13880.24
+2026-03-11 02:28:13,424 - Episode 482: Steps=11, Reward=8726.80
+2026-03-11 02:28:37,240 - Episode 483: Steps=11, Reward=2159.79
+2026-03-11 02:29:07,096 - Episode 484: Steps=11, Reward=13504.94
+2026-03-11 02:29:07,103 - Saved checkpoint at episode=484 (global_step=5335) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 02:29:37,731 - Episode 485: Steps=11, Reward=14080.44
+2026-03-11 02:30:02,417 - Episode 486: Steps=11, Reward=2292.30
+2026-03-11 02:30:29,021 - Episode 487: Steps=11, Reward=5525.33
+2026-03-11 02:30:59,665 - Episode 488: Steps=11, Reward=12812.14
+2026-03-11 02:31:23,879 - Episode 489: Steps=11, Reward=2950.12
+2026-03-11 02:31:23,888 - Saved checkpoint at episode=489 (global_step=5390) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 02:31:48,748 - Episode 490: Steps=11, Reward=2314.43
+2026-03-11 02:32:13,367 - Episode 491: Steps=11, Reward=3049.34
+2026-03-11 02:32:39,144 - Episode 492: Steps=11, Reward=4227.70
+2026-03-11 02:33:01,919 - Episode 493: Steps=11, Reward=1213.88
+2026-03-11 02:33:27,395 - Episode 494: Steps=11, Reward=4527.72
+2026-03-11 02:33:27,404 - Saved checkpoint at episode=494 (global_step=5445) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 02:33:52,133 - Episode 495: Steps=11, Reward=3831.11
+2026-03-11 02:34:16,897 - Episode 496: Steps=11, Reward=2906.93
+2026-03-11 02:34:41,733 - Episode 497: Steps=11, Reward=2453.38
+2026-03-11 02:35:04,681 - Episode 498: Steps=11, Reward=965.97
+2026-03-11 02:35:30,580 - Episode 499: Steps=11, Reward=4907.69
+2026-03-11 02:35:30,587 - Saved checkpoint at episode=499 (global_step=5500) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/iqll_large/model
+2026-03-11 02:35:31,604 - Training Finished.

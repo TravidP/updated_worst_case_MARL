@@ -1,0 +1,2125 @@
+2026-02-23 09:39:28,766 [INFO] Using fast lane wait metric for state/reward computation.
+2026-02-23 09:39:28,766 [INFO] Simulation heartbeat enabled every 300 sim-seconds.
+2026-02-23 09:39:28,766 [INFO] Step probe: warn_if_stage_over=15.0s, watchdog=180s poll=10s, trainer_warn=60.0s
+2026-02-23 09:39:30,772 [INFO] TraCI connection established on port 8000
+2026-02-23 09:39:30,811 [INFO] Env: init 25 node information:
+nt1:
+	neigbor: ['nt6', 'nt2']
+	ilds_in: ['nt6_nt1_0', 'nt2_nt1_0', 'nt2_nt1_1', 'np1_nt1_0', 'np20_nt1_0', 'np20_nt1_1']
+nt10:
+	neigbor: ['nt15', 'nt5', 'nt9']
+	ilds_in: ['nt15_nt10_0', 'np7_nt10_0', 'np7_nt10_1', 'nt5_nt10_0', 'nt9_nt10_0', 'nt9_nt10_1']
+nt11:
+	neigbor: ['nt16', 'nt12', 'nt6']
+	ilds_in: ['nt16_nt11_0', 'nt12_nt11_0', 'nt12_nt11_1', 'nt6_nt11_0', 'np18_nt11_0', 'np18_nt11_1']
+nt12:
+	neigbor: ['nt17', 'nt13', 'nt7', 'nt11']
+	ilds_in: ['nt17_nt12_0', 'nt13_nt12_0', 'nt13_nt12_1', 'nt7_nt12_0', 'nt11_nt12_0', 'nt11_nt12_1']
+nt13:
+	neigbor: ['nt18', 'nt14', 'nt8', 'nt12']
+	ilds_in: ['nt18_nt13_0', 'nt14_nt13_0', 'nt14_nt13_1', 'nt8_nt13_0', 'nt12_nt13_0', 'nt12_nt13_1']
+nt14:
+	neigbor: ['nt19', 'nt15', 'nt9', 'nt13']
+	ilds_in: ['nt19_nt14_0', 'nt15_nt14_0', 'nt15_nt14_1', 'nt9_nt14_0', 'nt13_nt14_0', 'nt13_nt14_1']
+nt15:
+	neigbor: ['nt20', 'nt10', 'nt14']
+	ilds_in: ['nt20_nt15_0', 'np8_nt15_0', 'np8_nt15_1', 'nt10_nt15_0', 'nt14_nt15_0', 'nt14_nt15_1']
+nt16:
+	neigbor: ['nt21', 'nt17', 'nt11']
+	ilds_in: ['nt21_nt16_0', 'nt17_nt16_0', 'nt17_nt16_1', 'nt11_nt16_0', 'np17_nt16_0', 'np17_nt16_1']
+nt17:
+	neigbor: ['nt22', 'nt18', 'nt12', 'nt16']
+	ilds_in: ['nt22_nt17_0', 'nt18_nt17_0', 'nt18_nt17_1', 'nt12_nt17_0', 'nt16_nt17_0', 'nt16_nt17_1']
+nt18:
+	neigbor: ['nt23', 'nt19', 'nt13', 'nt17']
+	ilds_in: ['nt23_nt18_0', 'nt19_nt18_0', 'nt19_nt18_1', 'nt13_nt18_0', 'nt17_nt18_0', 'nt17_nt18_1']
+nt19:
+	neigbor: ['nt24', 'nt20', 'nt14', 'nt18']
+	ilds_in: ['nt24_nt19_0', 'nt20_nt19_0', 'nt20_nt19_1', 'nt14_nt19_0', 'nt18_nt19_0', 'nt18_nt19_1']
+nt2:
+	neigbor: ['nt7', 'nt3', 'nt1']
+	ilds_in: ['nt7_nt2_0', 'nt3_nt2_0', 'nt3_nt2_1', 'np2_nt2_0', 'nt1_nt2_0', 'nt1_nt2_1']
+nt20:
+	neigbor: ['nt25', 'nt15', 'nt19']
+	ilds_in: ['nt25_nt20_0', 'np9_nt20_0', 'np9_nt20_1', 'nt15_nt20_0', 'nt19_nt20_0', 'nt19_nt20_1']
+nt21:
+	neigbor: ['nt22', 'nt16']
+	ilds_in: ['np15_nt21_0', 'nt22_nt21_0', 'nt22_nt21_1', 'nt16_nt21_0', 'np16_nt21_0', 'np16_nt21_1']
+nt22:
+	neigbor: ['nt23', 'nt17', 'nt21']
+	ilds_in: ['np14_nt22_0', 'nt23_nt22_0', 'nt23_nt22_1', 'nt17_nt22_0', 'nt21_nt22_0', 'nt21_nt22_1']
+nt23:
+	neigbor: ['nt24', 'nt18', 'nt22']
+	ilds_in: ['np13_nt23_0', 'nt24_nt23_0', 'nt24_nt23_1', 'nt18_nt23_0', 'nt22_nt23_0', 'nt22_nt23_1']
+nt24:
+	neigbor: ['nt25', 'nt19', 'nt23']
+	ilds_in: ['np12_nt24_0', 'nt25_nt24_0', 'nt25_nt24_1', 'nt19_nt24_0', 'nt23_nt24_0', 'nt23_nt24_1']
+nt25:
+	neigbor: ['nt20', 'nt24']
+	ilds_in: ['np11_nt25_0', 'np10_nt25_0', 'np10_nt25_1', 'nt20_nt25_0', 'nt24_nt25_0', 'nt24_nt25_1']
+nt3:
+	neigbor: ['nt8', 'nt4', 'nt2']
+	ilds_in: ['nt8_nt3_0', 'nt4_nt3_0', 'nt4_nt3_1', 'np3_nt3_0', 'nt2_nt3_0', 'nt2_nt3_1']
+nt4:
+	neigbor: ['nt9', 'nt5', 'nt3']
+	ilds_in: ['nt9_nt4_0', 'nt5_nt4_0', 'nt5_nt4_1', 'np4_nt4_0', 'nt3_nt4_0', 'nt3_nt4_1']
+nt5:
+	neigbor: ['nt10', 'nt4']
+	ilds_in: ['nt10_nt5_0', 'np6_nt5_0', 'np6_nt5_1', 'np5_nt5_0', 'nt4_nt5_0', 'nt4_nt5_1']
+nt6:
+	neigbor: ['nt11', 'nt7', 'nt1']
+	ilds_in: ['nt11_nt6_0', 'nt7_nt6_0', 'nt7_nt6_1', 'nt1_nt6_0', 'np19_nt6_0', 'np19_nt6_1']
+nt7:
+	neigbor: ['nt12', 'nt8', 'nt2', 'nt6']
+	ilds_in: ['nt12_nt7_0', 'nt8_nt7_0', 'nt8_nt7_1', 'nt2_nt7_0', 'nt6_nt7_0', 'nt6_nt7_1']
+nt8:
+	neigbor: ['nt13', 'nt9', 'nt3', 'nt7']
+	ilds_in: ['nt13_nt8_0', 'nt9_nt8_0', 'nt9_nt8_1', 'nt3_nt8_0', 'nt7_nt8_0', 'nt7_nt8_1']
+nt9:
+	neigbor: ['nt14', 'nt10', 'nt4', 'nt8']
+	ilds_in: ['nt14_nt9_0', 'nt10_nt9_0', 'nt10_nt9_1', 'nt4_nt9_0', 'nt8_nt9_0', 'nt8_nt9_1']
+
+2026-02-23 09:39:30,819 [INFO] Found 11 adversarial scenarios: ['./data_traffic/demand_Center_to_Periphery.csv', './data_traffic/demand_E_to_W.csv', './data_traffic/demand_NE_to_SW.csv', './data_traffic/demand_NW_to_SE.csv', './data_traffic/demand_N_to_S.csv', './data_traffic/demand_Periphery_to_Center.csv', './data_traffic/demand_SE_to_NW.csv', './data_traffic/demand_SW_to_NE.csv', './data_traffic/demand_S_to_N.csv', './data_traffic/demand_Uniform.csv', './data_traffic/demand_W_to_E.csv']
+2026-02-23 09:39:30,899 [INFO] Loaded Scenario 0 from demand_Center_to_Periphery.csv
+2026-02-23 09:39:30,979 [INFO] Loaded Scenario 1 from demand_E_to_W.csv
+2026-02-23 09:39:31,057 [INFO] Loaded Scenario 2 from demand_NE_to_SW.csv
+2026-02-23 09:39:31,134 [INFO] Loaded Scenario 3 from demand_NW_to_SE.csv
+2026-02-23 09:39:31,237 [INFO] Loaded Scenario 4 from demand_N_to_S.csv
+2026-02-23 09:39:31,315 [INFO] Loaded Scenario 5 from demand_Periphery_to_Center.csv
+2026-02-23 09:39:31,393 [INFO] Loaded Scenario 6 from demand_SE_to_NW.csv
+2026-02-23 09:39:31,471 [INFO] Loaded Scenario 7 from demand_SW_to_NE.csv
+2026-02-23 09:39:31,548 [INFO] Loaded Scenario 8 from demand_S_to_N.csv
+2026-02-23 09:39:31,626 [INFO] Loaded Scenario 9 from demand_Uniform.csv
+2026-02-23 09:39:31,703 [INFO] Loaded Scenario 10 from demand_W_to_E.csv
+2026-02-23 09:39:31,703 [INFO] Loaded 11 scenarios.
+2026-02-23 09:39:31,703 [INFO] Updated Episode Duration: 6600 seconds (110.0 mins), T=1320
+2026-02-23 09:39:31,703 [INFO] Training: s dim: 780, a dim 298023223876953125, s dim ls: [24, 30, 30, 36, 36, 36, 30, 30, 36, 36, 36, 30, 30, 24, 30, 30, 30, 24, 30, 30, 24, 30, 36, 36, 36], a dim ls: [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5]
+2026-02-23 09:41:05,869 [INFO] Restoring parameters from ./runs/ia2c_large/model/checkpoint-960000
+2026-02-23 09:41:06,951 [INFO] Checkpoint loaded: checkpoint-960000
+2026-02-23 09:41:06,951 [INFO] Training resume enabled: start_step=960000, target_total_step=1000000 (remaining=40000)
+2026-02-23 09:41:06,953 [INFO] Manual stack dump enabled: send `kill -USR1 378011` to write ./runs/ia2c_large/data/manual_signal_stacks.log
+2026-02-23 09:41:06,953 [INFO] Watchdog enabled: stall=180s poll=10s dump_file=./runs/ia2c_large/data/stall_watchdog_stacks.log
+2026-02-23 09:41:09,085 [INFO] TraCI connection established on port 8000
+2026-02-23 09:41:09,100 [INFO] Training: episode 1 started at global step 960000
+2026-02-23 09:41:52,024 [INFO] Injecting traffic for Scenario 0 at t=0
+2026-02-23 09:41:52,074 [INFO] Scenario 0: Scheduled 468 vehicles.
+2026-02-23 09:41:54,267 [INFO] Sim progress: t=300/6600, active_vehicles=129, wall=45.2s for +300s sim
+2026-02-23 09:41:56,442 [INFO] Sim progress: t=600/6600, active_vehicles=130, wall=2.2s for +300s sim
+2026-02-23 09:45:37,224 [WARNING] Watchdog: no training progress for 186.4s (stage=run:backward). Dumping stacks...
+2026-02-23 09:46:08,066 [WARNING] Training: slow backward 217.27s at global step 960120
+2026-02-23 09:46:08,102 [INFO] Injecting traffic for Scenario 1 at t=600
+2026-02-23 09:46:08,131 [INFO] Scenario 1: Scheduled 459 vehicles.
+2026-02-23 09:46:10,292 [INFO] Sim progress: t=900/6600, active_vehicles=168, wall=253.8s for +300s sim
+2026-02-23 09:46:12,478 [INFO] Sim progress: t=1200/6600, active_vehicles=200, wall=2.2s for +300s sim
+2026-02-23 09:46:13,756 [INFO] Injecting traffic for Scenario 2 at t=1200
+2026-02-23 09:46:13,788 [INFO] Scenario 2: Scheduled 483 vehicles.
+2026-02-23 09:46:16,012 [INFO] Sim progress: t=1500/6600, active_vehicles=274, wall=3.5s for +300s sim
+2026-02-23 09:46:18,237 [INFO] Sim progress: t=1800/6600, active_vehicles=285, wall=2.2s for +300s sim
+2026-02-23 09:46:19,521 [INFO] Injecting traffic for Scenario 3 at t=1800
+2026-02-23 09:46:19,551 [INFO] Scenario 3: Scheduled 502 vehicles.
+2026-02-23 09:46:21,773 [INFO] Sim progress: t=2100/6600, active_vehicles=360, wall=3.5s for +300s sim
+2026-02-23 09:46:24,048 [INFO] Sim progress: t=2400/6600, active_vehicles=343, wall=2.3s for +300s sim
+2026-02-23 09:46:25,308 [INFO] Injecting traffic for Scenario 4 at t=2400
+2026-02-23 09:46:25,337 [INFO] Scenario 4: Scheduled 539 vehicles.
+2026-02-23 09:46:27,588 [INFO] Sim progress: t=2700/6600, active_vehicles=347, wall=3.5s for +300s sim
+2026-02-23 09:46:29,812 [INFO] Sim progress: t=3000/6600, active_vehicles=321, wall=2.2s for +300s sim
+2026-02-23 09:46:31,119 [INFO] Injecting traffic for Scenario 5 at t=3000
+2026-02-23 09:46:31,165 [INFO] Scenario 5: Scheduled 445 vehicles.
+2026-02-23 09:46:33,415 [INFO] Sim progress: t=3300/6600, active_vehicles=369, wall=3.6s for +300s sim
+2026-02-23 09:46:35,802 [INFO] Sim progress: t=3600/6600, active_vehicles=350, wall=2.4s for +300s sim
+2026-02-23 09:46:37,052 [INFO] Injecting traffic for Scenario 6 at t=3600
+2026-02-23 09:46:37,081 [INFO] Scenario 6: Scheduled 494 vehicles.
+2026-02-23 09:46:39,303 [INFO] Sim progress: t=3900/6600, active_vehicles=417, wall=3.5s for +300s sim
+2026-02-23 09:46:41,649 [INFO] Sim progress: t=4200/6600, active_vehicles=441, wall=2.3s for +300s sim
+2026-02-23 09:46:42,908 [INFO] Injecting traffic for Scenario 7 at t=4200
+2026-02-23 09:46:42,936 [INFO] Scenario 7: Scheduled 478 vehicles.
+2026-02-23 09:46:45,257 [INFO] Sim progress: t=4500/6600, active_vehicles=523, wall=3.6s for +300s sim
+2026-02-23 09:46:47,664 [INFO] Sim progress: t=4800/6600, active_vehicles=574, wall=2.4s for +300s sim
+2026-02-23 09:46:48,951 [INFO] Injecting traffic for Scenario 8 at t=4800
+2026-02-23 09:46:48,978 [INFO] Scenario 8: Scheduled 482 vehicles.
+2026-02-23 09:46:51,414 [INFO] Sim progress: t=5100/6600, active_vehicles=555, wall=3.8s for +300s sim
+2026-02-23 09:46:53,785 [INFO] Sim progress: t=5400/6600, active_vehicles=528, wall=2.4s for +300s sim
+2026-02-23 09:46:55,092 [INFO] Injecting traffic for Scenario 9 at t=5400
+2026-02-23 09:46:55,163 [INFO] Scenario 9: Scheduled 492 vehicles.
+2026-02-23 09:46:57,565 [INFO] Sim progress: t=5700/6600, active_vehicles=588, wall=3.8s for +300s sim
+2026-02-23 09:47:00,001 [INFO] Sim progress: t=6000/6600, active_vehicles=549, wall=2.4s for +300s sim
+2026-02-23 09:47:01,316 [INFO] Injecting traffic for Scenario 10 at t=6000
+2026-02-23 09:47:01,349 [INFO] Scenario 10: Scheduled 521 vehicles.
+2026-02-23 09:47:03,729 [INFO] Sim progress: t=6300/6600, active_vehicles=478, wall=3.7s for +300s sim
+2026-02-23 09:47:06,077 [INFO] Sim progress: t=6600/6600, active_vehicles=481, wall=2.3s for +300s sim
+2026-02-23 09:47:07,324 [INFO] Training: episode 1 done at global step 961320, terminating env ...
+2026-02-23 09:47:07,356 [INFO] Training: env termination finished in 0.03s
+2026-02-23 09:47:08,486 [INFO] Training: episode 1 finished in 361.53s (global step 961320, avg R -311.30)
+2026-02-23 09:47:10,649 [INFO] TraCI connection established on port 8000
+2026-02-23 09:47:10,705 [INFO] Training: episode 2 started at global step 961320
+2026-02-23 09:47:10,740 [INFO] Injecting traffic for Scenario 0 at t=0
+2026-02-23 09:47:10,785 [INFO] Scenario 0: Scheduled 427 vehicles.
+2026-02-23 09:47:12,889 [INFO] Sim progress: t=300/6600, active_vehicles=111, wall=2.2s for +300s sim
+2026-02-23 09:47:15,111 [INFO] Sim progress: t=600/6600, active_vehicles=132, wall=2.2s for +300s sim
+2026-02-23 09:47:16,502 [INFO] Injecting traffic for Scenario 1 at t=600
+2026-02-23 09:47:16,533 [INFO] Scenario 1: Scheduled 504 vehicles.
+2026-02-23 09:47:18,696 [INFO] Sim progress: t=900/6600, active_vehicles=189, wall=3.6s for +300s sim
+2026-02-23 09:47:20,892 [INFO] Sim progress: t=1200/6600, active_vehicles=219, wall=2.2s for +300s sim
+2026-02-23 09:47:22,149 [INFO] Injecting traffic for Scenario 2 at t=1200
+2026-02-23 09:47:22,179 [INFO] Scenario 2: Scheduled 495 vehicles.
+2026-02-23 09:47:24,375 [INFO] Sim progress: t=1500/6600, active_vehicles=315, wall=3.5s for +300s sim
+2026-02-23 09:47:26,662 [INFO] Sim progress: t=1800/6600, active_vehicles=345, wall=2.3s for +300s sim
+2026-02-23 09:47:27,929 [INFO] Injecting traffic for Scenario 3 at t=1800
+2026-02-23 09:47:27,960 [INFO] Scenario 3: Scheduled 536 vehicles.
+2026-02-23 09:47:30,219 [INFO] Sim progress: t=2100/6600, active_vehicles=418, wall=3.6s for +300s sim
+2026-02-23 09:47:32,543 [INFO] Sim progress: t=2400/6600, active_vehicles=400, wall=2.3s for +300s sim
+2026-02-23 09:47:33,793 [INFO] Injecting traffic for Scenario 4 at t=2400
+2026-02-23 09:47:33,824 [INFO] Scenario 4: Scheduled 504 vehicles.
+2026-02-23 09:47:36,136 [INFO] Sim progress: t=2700/6600, active_vehicles=369, wall=3.6s for +300s sim
+2026-02-23 09:47:38,463 [INFO] Sim progress: t=3000/6600, active_vehicles=347, wall=2.3s for +300s sim
+2026-02-23 09:47:39,772 [INFO] Injecting traffic for Scenario 5 at t=3000
+2026-02-23 09:47:39,824 [INFO] Scenario 5: Scheduled 505 vehicles.
+2026-02-23 09:47:42,126 [INFO] Sim progress: t=3300/6600, active_vehicles=419, wall=3.7s for +300s sim
+2026-02-23 09:47:44,493 [INFO] Sim progress: t=3600/6600, active_vehicles=378, wall=2.4s for +300s sim
+2026-02-23 09:47:45,760 [INFO] Injecting traffic for Scenario 6 at t=3600
+2026-02-23 09:47:45,790 [INFO] Scenario 6: Scheduled 501 vehicles.
+2026-02-23 09:47:48,131 [INFO] Sim progress: t=3900/6600, active_vehicles=467, wall=3.6s for +300s sim
+2026-02-23 09:47:50,519 [INFO] Sim progress: t=4200/6600, active_vehicles=558, wall=2.4s for +300s sim
+2026-02-23 09:47:51,925 [INFO] Injecting traffic for Scenario 7 at t=4200
+2026-02-23 09:47:51,955 [INFO] Scenario 7: Scheduled 516 vehicles.
+2026-02-23 09:47:54,354 [INFO] Sim progress: t=4500/6600, active_vehicles=647, wall=3.8s for +300s sim
+2026-02-23 09:47:56,829 [INFO] Sim progress: t=4800/6600, active_vehicles=632, wall=2.5s for +300s sim
+2026-02-23 09:47:58,099 [INFO] Injecting traffic for Scenario 8 at t=4800
+2026-02-23 09:47:58,126 [INFO] Scenario 8: Scheduled 498 vehicles.
+2026-02-23 09:48:00,607 [INFO] Sim progress: t=5100/6600, active_vehicles=668, wall=3.8s for +300s sim
+2026-02-23 09:48:03,070 [INFO] Sim progress: t=5400/6600, active_vehicles=650, wall=2.5s for +300s sim
+2026-02-23 09:48:04,348 [INFO] Injecting traffic for Scenario 9 at t=5400
+2026-02-23 09:48:04,385 [INFO] Scenario 9: Scheduled 502 vehicles.
+2026-02-23 09:48:06,861 [INFO] Sim progress: t=5700/6600, active_vehicles=735, wall=3.8s for +300s sim
+2026-02-23 09:48:09,411 [INFO] Sim progress: t=6000/6600, active_vehicles=778, wall=2.6s for +300s sim
+2026-02-23 09:48:10,670 [INFO] Injecting traffic for Scenario 10 at t=6000
+2026-02-23 09:48:10,698 [INFO] Scenario 10: Scheduled 512 vehicles.
+2026-02-23 09:48:13,255 [INFO] Sim progress: t=6300/6600, active_vehicles=807, wall=3.8s for +300s sim
+2026-02-23 09:48:15,850 [INFO] Sim progress: t=6600/6600, active_vehicles=848, wall=2.6s for +300s sim
+2026-02-23 09:48:17,093 [INFO] Training: episode 2 done at global step 962640, terminating env ...
+2026-02-23 09:48:17,157 [INFO] Training: env termination finished in 0.06s
+2026-02-23 09:48:17,158 [INFO] Training: episode 2 finished in 68.67s (global step 962640, avg R -698.53)
+2026-02-23 09:48:19,314 [INFO] TraCI connection established on port 8000
+2026-02-23 09:48:19,370 [INFO] Training: episode 3 started at global step 962640
+2026-02-23 09:48:19,398 [INFO] Injecting traffic for Scenario 0 at t=0
+2026-02-23 09:48:19,445 [INFO] Scenario 0: Scheduled 467 vehicles.
+2026-02-23 09:48:21,602 [INFO] Sim progress: t=300/6600, active_vehicles=121, wall=2.3s for +300s sim
+2026-02-23 09:48:23,774 [INFO] Sim progress: t=600/6600, active_vehicles=130, wall=2.2s for +300s sim
+2026-02-23 09:48:25,122 [INFO] Injecting traffic for Scenario 1 at t=600
+2026-02-23 09:48:25,152 [INFO] Scenario 1: Scheduled 500 vehicles.
+2026-02-23 09:48:27,305 [INFO] Sim progress: t=900/6600, active_vehicles=176, wall=3.5s for +300s sim
+2026-02-23 09:48:29,514 [INFO] Sim progress: t=1200/6600, active_vehicles=240, wall=2.2s for +300s sim
+2026-02-23 09:48:30,784 [INFO] Injecting traffic for Scenario 2 at t=1200
+2026-02-23 09:48:30,811 [INFO] Scenario 2: Scheduled 461 vehicles.
+2026-02-23 09:48:33,060 [INFO] Sim progress: t=1500/6600, active_vehicles=257, wall=3.5s for +300s sim
+2026-02-23 09:48:35,243 [INFO] Sim progress: t=1800/6600, active_vehicles=260, wall=2.2s for +300s sim
+2026-02-23 09:48:36,501 [INFO] Injecting traffic for Scenario 3 at t=1800
+2026-02-23 09:48:36,535 [INFO] Scenario 3: Scheduled 500 vehicles.
+2026-02-23 09:48:38,756 [INFO] Sim progress: t=2100/6600, active_vehicles=318, wall=3.5s for +300s sim
+2026-02-23 09:48:41,093 [INFO] Sim progress: t=2400/6600, active_vehicles=349, wall=2.3s for +300s sim
+2026-02-23 09:48:42,353 [INFO] Injecting traffic for Scenario 4 at t=2400
+2026-02-23 09:48:42,380 [INFO] Scenario 4: Scheduled 440 vehicles.
+2026-02-23 09:48:44,616 [INFO] Sim progress: t=2700/6600, active_vehicles=332, wall=3.5s for +300s sim
+2026-02-23 09:48:46,926 [INFO] Sim progress: t=3000/6600, active_vehicles=285, wall=2.3s for +300s sim
+2026-02-23 09:48:48,187 [INFO] Injecting traffic for Scenario 5 at t=3000
+2026-02-23 09:48:48,234 [INFO] Scenario 5: Scheduled 440 vehicles.
+2026-02-23 09:48:50,568 [INFO] Sim progress: t=3300/6600, active_vehicles=377, wall=3.6s for +300s sim
+2026-02-23 09:48:52,943 [INFO] Sim progress: t=3600/6600, active_vehicles=381, wall=2.4s for +300s sim
+2026-02-23 09:48:54,213 [INFO] Injecting traffic for Scenario 6 at t=3600
+2026-02-23 09:48:54,243 [INFO] Scenario 6: Scheduled 509 vehicles.
+2026-02-23 09:48:56,607 [INFO] Sim progress: t=3900/6600, active_vehicles=446, wall=3.7s for +300s sim
+2026-02-23 09:48:59,013 [INFO] Sim progress: t=4200/6600, active_vehicles=527, wall=2.4s for +300s sim
+2026-02-23 09:49:00,299 [INFO] Injecting traffic for Scenario 7 at t=4200
+2026-02-23 09:49:00,328 [INFO] Scenario 7: Scheduled 512 vehicles.
+2026-02-23 09:49:02,690 [INFO] Sim progress: t=4500/6600, active_vehicles=600, wall=3.7s for +300s sim
+2026-02-23 09:49:05,116 [INFO] Sim progress: t=4800/6600, active_vehicles=618, wall=2.4s for +300s sim
+2026-02-23 09:49:06,380 [INFO] Injecting traffic for Scenario 8 at t=4800
+2026-02-23 09:49:06,431 [INFO] Scenario 8: Scheduled 472 vehicles.
+2026-02-23 09:49:08,832 [INFO] Sim progress: t=5100/6600, active_vehicles=553, wall=3.7s for +300s sim
+2026-02-23 09:49:11,244 [INFO] Sim progress: t=5400/6600, active_vehicles=488, wall=2.4s for +300s sim
+2026-02-23 09:49:12,501 [INFO] Injecting traffic for Scenario 9 at t=5400
+2026-02-23 09:49:12,541 [INFO] Scenario 9: Scheduled 502 vehicles.
+2026-02-23 09:49:14,977 [INFO] Sim progress: t=5700/6600, active_vehicles=477, wall=3.7s for +300s sim
+2026-02-23 09:49:17,420 [INFO] Sim progress: t=6000/6600, active_vehicles=412, wall=2.4s for +300s sim
+2026-02-23 09:49:19,850 [INFO] Injecting traffic for Scenario 10 at t=6000
+2026-02-23 09:49:19,879 [INFO] Scenario 10: Scheduled 520 vehicles.
+2026-02-23 09:49:22,309 [INFO] Sim progress: t=6300/6600, active_vehicles=470, wall=4.9s for +300s sim
+2026-02-23 09:49:24,768 [INFO] Sim progress: t=6600/6600, active_vehicles=507, wall=2.5s for +300s sim
+2026-02-23 09:49:26,207 [INFO] Training: episode 3 done at global step 963960, terminating env ...
+2026-02-23 09:49:26,271 [INFO] Training: env termination finished in 0.06s
+2026-02-23 09:49:26,272 [INFO] Training: episode 3 finished in 69.11s (global step 963960, avg R -259.98)
+2026-02-23 09:49:28,428 [INFO] TraCI connection established on port 8000
+2026-02-23 09:49:28,484 [INFO] Training: episode 4 started at global step 963960
+2026-02-23 09:49:28,526 [INFO] Injecting traffic for Scenario 0 at t=0
+2026-02-23 09:49:28,574 [INFO] Scenario 0: Scheduled 454 vehicles.
+2026-02-23 09:49:30,709 [INFO] Sim progress: t=300/6600, active_vehicles=117, wall=2.3s for +300s sim
+2026-02-23 09:49:32,869 [INFO] Sim progress: t=600/6600, active_vehicles=138, wall=2.2s for +300s sim
+2026-02-23 09:49:34,269 [INFO] Injecting traffic for Scenario 1 at t=600
+2026-02-23 09:49:34,303 [INFO] Scenario 1: Scheduled 502 vehicles.
+2026-02-23 09:49:36,508 [INFO] Sim progress: t=900/6600, active_vehicles=158, wall=3.6s for +300s sim
+2026-02-23 09:49:38,772 [INFO] Sim progress: t=1200/6600, active_vehicles=230, wall=2.3s for +300s sim
+2026-02-23 09:49:40,302 [INFO] Injecting traffic for Scenario 2 at t=1200
+2026-02-23 09:49:40,335 [INFO] Scenario 2: Scheduled 490 vehicles.
+2026-02-23 09:49:43,154 [INFO] Sim progress: t=1500/6600, active_vehicles=295, wall=4.4s for +300s sim
+2026-02-23 09:49:46,277 [INFO] Sim progress: t=1800/6600, active_vehicles=263, wall=3.1s for +300s sim
+2026-02-23 09:49:47,679 [INFO] Injecting traffic for Scenario 3 at t=1800
+2026-02-23 09:49:47,715 [INFO] Scenario 3: Scheduled 480 vehicles.
+2026-02-23 09:49:49,989 [INFO] Sim progress: t=2100/6600, active_vehicles=305, wall=3.7s for +300s sim
+2026-02-23 09:49:52,455 [INFO] Sim progress: t=2400/6600, active_vehicles=340, wall=2.5s for +300s sim
+2026-02-23 09:49:53,757 [INFO] Injecting traffic for Scenario 4 at t=2400
+2026-02-23 09:49:53,789 [INFO] Scenario 4: Scheduled 516 vehicles.
+2026-02-23 09:49:56,103 [INFO] Sim progress: t=2700/6600, active_vehicles=322, wall=3.6s for +300s sim
+2026-02-23 09:49:58,455 [INFO] Sim progress: t=3000/6600, active_vehicles=287, wall=2.4s for +300s sim
+2026-02-23 09:49:59,835 [INFO] Injecting traffic for Scenario 5 at t=3000
+2026-02-23 09:49:59,883 [INFO] Scenario 5: Scheduled 458 vehicles.
+2026-02-23 09:50:02,304 [INFO] Sim progress: t=3300/6600, active_vehicles=324, wall=3.8s for +300s sim
+2026-02-23 09:50:04,760 [INFO] Sim progress: t=3600/6600, active_vehicles=326, wall=2.5s for +300s sim
+2026-02-23 09:50:06,061 [INFO] Injecting traffic for Scenario 6 at t=3600
+2026-02-23 09:50:06,090 [INFO] Scenario 6: Scheduled 492 vehicles.
+2026-02-23 09:50:08,427 [INFO] Sim progress: t=3900/6600, active_vehicles=387, wall=3.7s for +300s sim
+2026-02-23 09:50:10,880 [INFO] Sim progress: t=4200/6600, active_vehicles=458, wall=2.5s for +300s sim
+2026-02-23 09:50:12,182 [INFO] Injecting traffic for Scenario 7 at t=4200
+2026-02-23 09:50:12,216 [INFO] Scenario 7: Scheduled 526 vehicles.
+2026-02-23 09:50:14,617 [INFO] Sim progress: t=4500/6600, active_vehicles=500, wall=3.7s for +300s sim
+2026-02-23 09:50:17,147 [INFO] Sim progress: t=4800/6600, active_vehicles=507, wall=2.5s for +300s sim
+2026-02-23 09:50:18,962 [INFO] Injecting traffic for Scenario 8 at t=4800
+2026-02-23 09:50:18,992 [INFO] Scenario 8: Scheduled 496 vehicles.
+2026-02-23 09:50:21,623 [INFO] Sim progress: t=5100/6600, active_vehicles=435, wall=4.5s for +300s sim
+2026-02-23 09:50:23,981 [INFO] Sim progress: t=5400/6600, active_vehicles=367, wall=2.4s for +300s sim
+2026-02-23 09:50:25,340 [INFO] Injecting traffic for Scenario 9 at t=5400
+2026-02-23 09:50:25,375 [INFO] Scenario 9: Scheduled 492 vehicles.
+2026-02-23 09:50:27,813 [INFO] Sim progress: t=5700/6600, active_vehicles=417, wall=3.8s for +300s sim
+2026-02-23 09:50:30,191 [INFO] Sim progress: t=6000/6600, active_vehicles=425, wall=2.4s for +300s sim
+2026-02-23 09:50:31,458 [INFO] Injecting traffic for Scenario 10 at t=6000
+2026-02-23 09:50:31,489 [INFO] Scenario 10: Scheduled 520 vehicles.
+2026-02-23 09:50:33,962 [INFO] Sim progress: t=6300/6600, active_vehicles=455, wall=3.8s for +300s sim
+2026-02-23 09:50:36,465 [INFO] Sim progress: t=6600/6600, active_vehicles=485, wall=2.5s for +300s sim
+2026-02-23 09:50:37,813 [INFO] Training: episode 4 done at global step 965280, terminating env ...
+2026-02-23 09:50:37,828 [INFO] Training: env termination finished in 0.02s
+2026-02-23 09:50:37,829 [INFO] Training: episode 4 finished in 71.56s (global step 965280, avg R -255.80)
+2026-02-23 09:50:39,986 [INFO] TraCI connection established on port 8000
+2026-02-23 09:50:40,044 [INFO] Training: episode 5 started at global step 965280
+2026-02-23 09:50:40,076 [INFO] Injecting traffic for Scenario 0 at t=0
+2026-02-23 09:50:40,125 [INFO] Scenario 0: Scheduled 479 vehicles.
+2026-02-23 09:50:42,319 [INFO] Sim progress: t=300/6600, active_vehicles=132, wall=2.3s for +300s sim
+2026-02-23 09:50:44,613 [INFO] Sim progress: t=600/6600, active_vehicles=126, wall=2.3s for +300s sim
+2026-02-23 09:50:46,033 [INFO] Injecting traffic for Scenario 1 at t=600
+2026-02-23 09:50:46,062 [INFO] Scenario 1: Scheduled 475 vehicles.
+2026-02-23 09:50:48,328 [INFO] Sim progress: t=900/6600, active_vehicles=170, wall=3.7s for +300s sim
+2026-02-23 09:50:50,620 [INFO] Sim progress: t=1200/6600, active_vehicles=242, wall=2.3s for +300s sim
+2026-02-23 09:50:52,072 [INFO] Injecting traffic for Scenario 2 at t=1200
+2026-02-23 09:50:52,103 [INFO] Scenario 2: Scheduled 484 vehicles.
+2026-02-23 09:50:54,496 [INFO] Sim progress: t=1500/6600, active_vehicles=291, wall=3.9s for +300s sim
+2026-02-23 09:50:56,911 [INFO] Sim progress: t=1800/6600, active_vehicles=303, wall=2.4s for +300s sim
+2026-02-23 09:50:58,264 [INFO] Injecting traffic for Scenario 3 at t=1800
+2026-02-23 09:50:58,300 [INFO] Scenario 3: Scheduled 519 vehicles.
+2026-02-23 09:51:00,759 [INFO] Sim progress: t=2100/6600, active_vehicles=355, wall=3.8s for +300s sim
+2026-02-23 09:51:03,173 [INFO] Sim progress: t=2400/6600, active_vehicles=391, wall=2.4s for +300s sim
+2026-02-23 09:51:04,527 [INFO] Injecting traffic for Scenario 4 at t=2400
+2026-02-23 09:51:04,557 [INFO] Scenario 4: Scheduled 504 vehicles.
+2026-02-23 09:51:07,109 [INFO] Sim progress: t=2700/6600, active_vehicles=373, wall=3.9s for +300s sim
+2026-02-23 09:51:09,476 [INFO] Sim progress: t=3000/6600, active_vehicles=307, wall=2.4s for +300s sim
+2026-02-23 09:51:10,801 [INFO] Injecting traffic for Scenario 5 at t=3000
+2026-02-23 09:51:10,848 [INFO] Scenario 5: Scheduled 470 vehicles.
+2026-02-23 09:51:13,298 [INFO] Sim progress: t=3300/6600, active_vehicles=388, wall=3.8s for +300s sim
+2026-02-23 09:51:15,774 [INFO] Sim progress: t=3600/6600, active_vehicles=378, wall=2.5s for +300s sim
+2026-02-23 09:51:17,111 [INFO] Injecting traffic for Scenario 6 at t=3600
+2026-02-23 09:51:17,145 [INFO] Scenario 6: Scheduled 501 vehicles.
+2026-02-23 09:51:19,663 [INFO] Sim progress: t=3900/6600, active_vehicles=472, wall=3.9s for +300s sim
+2026-02-23 09:51:22,067 [INFO] Sim progress: t=4200/6600, active_vehicles=484, wall=2.4s for +300s sim
+2026-02-23 09:51:23,341 [INFO] Injecting traffic for Scenario 7 at t=4200
+2026-02-23 09:51:23,371 [INFO] Scenario 7: Scheduled 500 vehicles.
+2026-02-23 09:51:25,798 [INFO] Sim progress: t=4500/6600, active_vehicles=553, wall=3.7s for +300s sim
+2026-02-23 09:51:28,189 [INFO] Sim progress: t=4800/6600, active_vehicles=593, wall=2.4s for +300s sim
+2026-02-23 09:51:29,480 [INFO] Injecting traffic for Scenario 8 at t=4800
+2026-02-23 09:51:29,508 [INFO] Scenario 8: Scheduled 508 vehicles.
+2026-02-23 09:51:31,923 [INFO] Sim progress: t=5100/6600, active_vehicles=569, wall=3.7s for +300s sim
+2026-02-23 09:51:34,329 [INFO] Sim progress: t=5400/6600, active_vehicles=574, wall=2.4s for +300s sim
+2026-02-23 09:51:35,611 [INFO] Injecting traffic for Scenario 9 at t=5400
+2026-02-23 09:51:35,651 [INFO] Scenario 9: Scheduled 559 vehicles.
+2026-02-23 09:51:38,085 [INFO] Sim progress: t=5700/6600, active_vehicles=657, wall=3.8s for +300s sim
+2026-02-23 09:51:40,624 [INFO] Sim progress: t=6000/6600, active_vehicles=707, wall=2.5s for +300s sim
+2026-02-23 09:51:41,992 [INFO] Injecting traffic for Scenario 10 at t=6000
+2026-02-23 09:51:42,022 [INFO] Scenario 10: Scheduled 516 vehicles.
+2026-02-23 09:51:44,868 [INFO] Sim progress: t=6300/6600, active_vehicles=768, wall=4.2s for +300s sim
+2026-02-23 09:51:48,025 [INFO] Sim progress: t=6600/6600, active_vehicles=724, wall=3.2s for +300s sim
+2026-02-23 09:51:49,341 [INFO] Training: episode 5 done at global step 966600, terminating env ...
+2026-02-23 09:51:49,405 [INFO] Training: env termination finished in 0.06s
+2026-02-23 09:51:49,406 [INFO] Training: episode 5 finished in 71.58s (global step 966600, avg R -457.98)
+2026-02-23 09:51:51,563 [INFO] TraCI connection established on port 8000
+2026-02-23 09:51:51,620 [INFO] Training: episode 6 started at global step 966600
+2026-02-23 09:51:51,668 [INFO] Injecting traffic for Scenario 0 at t=0
+2026-02-23 09:51:51,718 [INFO] Scenario 0: Scheduled 483 vehicles.
+2026-02-23 09:51:54,246 [INFO] Sim progress: t=300/6600, active_vehicles=119, wall=2.7s for +300s sim
+2026-02-23 09:51:56,745 [INFO] Sim progress: t=600/6600, active_vehicles=148, wall=2.5s for +300s sim
+2026-02-23 09:51:58,726 [INFO] Injecting traffic for Scenario 1 at t=600
+2026-02-23 09:51:58,755 [INFO] Scenario 1: Scheduled 482 vehicles.
+2026-02-23 09:52:01,580 [INFO] Sim progress: t=900/6600, active_vehicles=179, wall=4.8s for +300s sim
+2026-02-23 09:52:03,896 [INFO] Sim progress: t=1200/6600, active_vehicles=227, wall=2.3s for +300s sim
+2026-02-23 09:52:05,168 [INFO] Injecting traffic for Scenario 2 at t=1200
+2026-02-23 09:52:05,204 [INFO] Scenario 2: Scheduled 518 vehicles.
+2026-02-23 09:52:07,487 [INFO] Sim progress: t=1500/6600, active_vehicles=304, wall=3.6s for +300s sim
+2026-02-23 09:52:09,815 [INFO] Sim progress: t=1800/6600, active_vehicles=343, wall=2.3s for +300s sim
+2026-02-23 09:52:11,123 [INFO] Injecting traffic for Scenario 3 at t=1800
+2026-02-23 09:52:11,153 [INFO] Scenario 3: Scheduled 503 vehicles.
+2026-02-23 09:52:13,553 [INFO] Sim progress: t=2100/6600, active_vehicles=335, wall=3.7s for +300s sim
+2026-02-23 09:52:16,038 [INFO] Sim progress: t=2400/6600, active_vehicles=343, wall=2.5s for +300s sim
+2026-02-23 09:52:17,315 [INFO] Injecting traffic for Scenario 4 at t=2400
+2026-02-23 09:52:17,346 [INFO] Scenario 4: Scheduled 526 vehicles.
+2026-02-23 09:52:19,819 [INFO] Sim progress: t=2700/6600, active_vehicles=332, wall=3.8s for +300s sim
+2026-02-23 09:52:22,462 [INFO] Sim progress: t=3000/6600, active_vehicles=305, wall=2.6s for +300s sim
+2026-02-23 09:52:24,606 [INFO] Injecting traffic for Scenario 5 at t=3000
+2026-02-23 09:52:24,659 [INFO] Scenario 5: Scheduled 516 vehicles.
+2026-02-23 09:52:27,267 [INFO] Sim progress: t=3300/6600, active_vehicles=394, wall=4.8s for +300s sim
+2026-02-23 09:52:29,976 [INFO] Sim progress: t=3600/6600, active_vehicles=404, wall=2.7s for +300s sim
+2026-02-23 09:52:31,470 [INFO] Injecting traffic for Scenario 6 at t=3600
+2026-02-23 09:52:31,498 [INFO] Scenario 6: Scheduled 473 vehicles.
+2026-02-23 09:52:33,916 [INFO] Sim progress: t=3900/6600, active_vehicles=428, wall=3.9s for +300s sim
+2026-02-23 09:52:36,402 [INFO] Sim progress: t=4200/6600, active_vehicles=435, wall=2.5s for +300s sim
+2026-02-23 09:52:37,774 [INFO] Injecting traffic for Scenario 7 at t=4200
+2026-02-23 09:52:37,807 [INFO] Scenario 7: Scheduled 536 vehicles.
+2026-02-23 09:52:40,322 [INFO] Sim progress: t=4500/6600, active_vehicles=454, wall=3.9s for +300s sim
+2026-02-23 09:52:43,211 [INFO] Sim progress: t=4800/6600, active_vehicles=494, wall=2.9s for +300s sim
+2026-02-23 09:52:44,487 [INFO] Injecting traffic for Scenario 8 at t=4800
+2026-02-23 09:52:44,516 [INFO] Scenario 8: Scheduled 492 vehicles.
+2026-02-23 09:52:46,894 [INFO] Sim progress: t=5100/6600, active_vehicles=458, wall=3.7s for +300s sim
+2026-02-23 09:52:49,382 [INFO] Sim progress: t=5400/6600, active_vehicles=446, wall=2.5s for +300s sim
+2026-02-23 09:52:50,673 [INFO] Injecting traffic for Scenario 9 at t=5400
+2026-02-23 09:52:50,711 [INFO] Scenario 9: Scheduled 512 vehicles.
+2026-02-23 09:52:53,178 [INFO] Sim progress: t=5700/6600, active_vehicles=484, wall=3.8s for +300s sim
+2026-02-23 09:52:55,609 [INFO] Sim progress: t=6000/6600, active_vehicles=434, wall=2.4s for +300s sim
+2026-02-23 09:52:56,898 [INFO] Injecting traffic for Scenario 10 at t=6000
+2026-02-23 09:52:56,927 [INFO] Scenario 10: Scheduled 510 vehicles.
+2026-02-23 09:52:59,309 [INFO] Sim progress: t=6300/6600, active_vehicles=488, wall=3.7s for +300s sim
+2026-02-23 09:53:01,787 [INFO] Sim progress: t=6600/6600, active_vehicles=535, wall=2.5s for +300s sim
+2026-02-23 09:53:03,070 [INFO] Training: episode 6 done at global step 967920, terminating env ...
+2026-02-23 09:53:03,102 [INFO] Training: env termination finished in 0.03s
+2026-02-23 09:53:03,103 [INFO] Training: episode 6 finished in 73.70s (global step 967920, avg R -246.55)
+2026-02-23 09:53:05,260 [INFO] TraCI connection established on port 8000
+2026-02-23 09:53:05,316 [INFO] Training: episode 7 started at global step 967920
+2026-02-23 09:53:05,342 [INFO] Injecting traffic for Scenario 0 at t=0
+2026-02-23 09:53:05,392 [INFO] Scenario 0: Scheduled 487 vehicles.
+2026-02-23 09:53:07,570 [INFO] Sim progress: t=300/6600, active_vehicles=116, wall=2.3s for +300s sim
+2026-02-23 09:53:09,814 [INFO] Sim progress: t=600/6600, active_vehicles=155, wall=2.2s for +300s sim
+2026-02-23 09:53:11,190 [INFO] Injecting traffic for Scenario 1 at t=600
+2026-02-23 09:53:11,218 [INFO] Scenario 1: Scheduled 470 vehicles.
+2026-02-23 09:53:13,422 [INFO] Sim progress: t=900/6600, active_vehicles=177, wall=3.6s for +300s sim
+2026-02-23 09:53:15,667 [INFO] Sim progress: t=1200/6600, active_vehicles=215, wall=2.2s for +300s sim
+2026-02-23 09:53:16,950 [INFO] Injecting traffic for Scenario 2 at t=1200
+2026-02-23 09:53:16,981 [INFO] Scenario 2: Scheduled 487 vehicles.
+2026-02-23 09:53:19,305 [INFO] Sim progress: t=1500/6600, active_vehicles=285, wall=3.6s for +300s sim
+2026-02-23 09:53:21,583 [INFO] Sim progress: t=1800/6600, active_vehicles=280, wall=2.3s for +300s sim
+2026-02-23 09:53:22,887 [INFO] Injecting traffic for Scenario 3 at t=1800
+2026-02-23 09:53:22,919 [INFO] Scenario 3: Scheduled 505 vehicles.
+2026-02-23 09:53:25,181 [INFO] Sim progress: t=2100/6600, active_vehicles=319, wall=3.6s for +300s sim
+2026-02-23 09:53:27,571 [INFO] Sim progress: t=2400/6600, active_vehicles=325, wall=2.4s for +300s sim
+2026-02-23 09:53:28,891 [INFO] Injecting traffic for Scenario 4 at t=2400
+2026-02-23 09:53:28,919 [INFO] Scenario 4: Scheduled 484 vehicles.
+2026-02-23 09:53:31,187 [INFO] Sim progress: t=2700/6600, active_vehicles=308, wall=3.6s for +300s sim
+2026-02-23 09:53:33,483 [INFO] Sim progress: t=3000/6600, active_vehicles=323, wall=2.3s for +300s sim
+2026-02-23 09:53:34,847 [INFO] Injecting traffic for Scenario 5 at t=3000
+2026-02-23 09:53:34,896 [INFO] Scenario 5: Scheduled 487 vehicles.
+2026-02-23 09:53:37,231 [INFO] Sim progress: t=3300/6600, active_vehicles=365, wall=3.7s for +300s sim
+2026-02-23 09:53:39,695 [INFO] Sim progress: t=3600/6600, active_vehicles=399, wall=2.5s for +300s sim
+2026-02-23 09:53:41,001 [INFO] Injecting traffic for Scenario 6 at t=3600
+2026-02-23 09:53:41,038 [INFO] Scenario 6: Scheduled 510 vehicles.
+2026-02-23 09:53:43,406 [INFO] Sim progress: t=3900/6600, active_vehicles=378, wall=3.7s for +300s sim
+2026-02-23 09:53:45,775 [INFO] Sim progress: t=4200/6600, active_vehicles=379, wall=2.4s for +300s sim
+2026-02-23 09:53:47,065 [INFO] Injecting traffic for Scenario 7 at t=4200
+2026-02-23 09:53:47,100 [INFO] Scenario 7: Scheduled 487 vehicles.
+2026-02-23 09:53:49,484 [INFO] Sim progress: t=4500/6600, active_vehicles=470, wall=3.7s for +300s sim
+2026-02-23 09:53:51,870 [INFO] Sim progress: t=4800/6600, active_vehicles=472, wall=2.4s for +300s sim
+2026-02-23 09:53:53,130 [INFO] Injecting traffic for Scenario 8 at t=4800
+2026-02-23 09:53:53,157 [INFO] Scenario 8: Scheduled 495 vehicles.
+2026-02-23 09:53:55,461 [INFO] Sim progress: t=5100/6600, active_vehicles=414, wall=3.6s for +300s sim
+2026-02-23 09:53:57,823 [INFO] Sim progress: t=5400/6600, active_vehicles=375, wall=2.4s for +300s sim
+2026-02-23 09:53:59,099 [INFO] Injecting traffic for Scenario 9 at t=5400
+2026-02-23 09:53:59,135 [INFO] Scenario 9: Scheduled 474 vehicles.
+2026-02-23 09:54:01,481 [INFO] Sim progress: t=5700/6600, active_vehicles=427, wall=3.7s for +300s sim
+2026-02-23 09:54:03,809 [INFO] Sim progress: t=6000/6600, active_vehicles=390, wall=2.3s for +300s sim
+2026-02-23 09:54:05,091 [INFO] Injecting traffic for Scenario 10 at t=6000
+2026-02-23 09:54:05,117 [INFO] Scenario 10: Scheduled 492 vehicles.
+2026-02-23 09:54:07,431 [INFO] Sim progress: t=6300/6600, active_vehicles=452, wall=3.6s for +300s sim
+2026-02-23 09:54:09,793 [INFO] Sim progress: t=6600/6600, active_vehicles=485, wall=2.4s for +300s sim
+2026-02-23 09:54:11,034 [INFO] Training: episode 7 done at global step 969240, terminating env ...
+2026-02-23 09:54:11,051 [INFO] Training: env termination finished in 0.02s
+2026-02-23 09:54:11,052 [INFO] Training: episode 7 finished in 67.95s (global step 969240, avg R -229.03)
+2026-02-23 09:54:13,208 [INFO] TraCI connection established on port 8000
+2026-02-23 09:54:13,265 [INFO] Training: episode 8 started at global step 969240
+2026-02-23 09:54:13,332 [INFO] Injecting traffic for Scenario 0 at t=0
+2026-02-23 09:54:13,383 [INFO] Scenario 0: Scheduled 478 vehicles.
+2026-02-23 09:54:15,511 [INFO] Sim progress: t=300/6600, active_vehicles=145, wall=2.3s for +300s sim
+2026-02-23 09:54:17,639 [INFO] Sim progress: t=600/6600, active_vehicles=121, wall=2.1s for +300s sim
+2026-02-23 09:54:19,015 [INFO] Injecting traffic for Scenario 1 at t=600
+2026-02-23 09:54:19,048 [INFO] Scenario 1: Scheduled 474 vehicles.
+2026-02-23 09:54:21,250 [INFO] Sim progress: t=900/6600, active_vehicles=167, wall=3.6s for +300s sim
+2026-02-23 09:54:23,440 [INFO] Sim progress: t=1200/6600, active_vehicles=247, wall=2.2s for +300s sim
+2026-02-23 09:54:24,750 [INFO] Injecting traffic for Scenario 2 at t=1200
+2026-02-23 09:54:24,784 [INFO] Scenario 2: Scheduled 501 vehicles.
+2026-02-23 09:54:27,025 [INFO] Sim progress: t=1500/6600, active_vehicles=277, wall=3.6s for +300s sim
+2026-02-23 09:54:29,297 [INFO] Sim progress: t=1800/6600, active_vehicles=283, wall=2.3s for +300s sim
+2026-02-23 09:54:30,558 [INFO] Injecting traffic for Scenario 3 at t=1800
+2026-02-23 09:54:30,587 [INFO] Scenario 3: Scheduled 488 vehicles.
+2026-02-23 09:54:32,820 [INFO] Sim progress: t=2100/6600, active_vehicles=316, wall=3.5s for +300s sim
+2026-02-23 09:54:35,065 [INFO] Sim progress: t=2400/6600, active_vehicles=324, wall=2.2s for +300s sim
+2026-02-23 09:54:36,341 [INFO] Injecting traffic for Scenario 4 at t=2400
+2026-02-23 09:54:36,368 [INFO] Scenario 4: Scheduled 489 vehicles.
+2026-02-23 09:54:38,611 [INFO] Sim progress: t=2700/6600, active_vehicles=374, wall=3.5s for +300s sim
+2026-02-23 09:54:40,889 [INFO] Sim progress: t=3000/6600, active_vehicles=308, wall=2.3s for +300s sim
+2026-02-23 09:54:42,125 [INFO] Injecting traffic for Scenario 5 at t=3000
+2026-02-23 09:54:42,169 [INFO] Scenario 5: Scheduled 460 vehicles.
+2026-02-23 09:54:44,468 [INFO] Sim progress: t=3300/6600, active_vehicles=374, wall=3.6s for +300s sim
+2026-02-23 09:54:46,857 [INFO] Sim progress: t=3600/6600, active_vehicles=392, wall=2.4s for +300s sim
+2026-02-23 09:54:48,162 [INFO] Injecting traffic for Scenario 6 at t=3600
+2026-02-23 09:54:48,190 [INFO] Scenario 6: Scheduled 475 vehicles.
+2026-02-23 09:54:49,750 [INFO] Training: global step 970000, episode step 760,
+                                   ob: [array([0.4 , 0.2 , 0.  , 0.  , 0.  , 0.  , 0.  , 0.  , 0.2 , 0.  , 0.  ,
+       0.  , 0.  , 1.  , 0.  , 0.  , 0.  , 0.  , 0.25, 0.  , 0.  , 0.  ,
+       0.  , 0.  ]), array([1.4   , 0.8   , 0.    , 0.4   , 0.    , 0.    , 0.    , 0.2   ,
+       0.    , 0.2   , 0.    , 0.    , 1.4   , 0.6   , 0.    , 0.8   ,
+       0.    , 0.    , 0.4   , 1.2   , 0.    , 0.    , 0.    , 0.    ,
+       0.102 , 0.0025, 0.    , 0.095 , 0.    , 0.    ]), array([0. , 0. , 0. , 0. , 0. , 0. , 0.2, 0. , 0. , 0. , 0. , 0. , 0. ,
+       0.4, 0. , 0. , 0. , 0. , 0. , 0. , 0.2, 0. , 0. , 0. , 0. , 0. ,
+       0. , 0. , 0. , 0. ]), array([0.   , 0.4  , 0.   , 0.   , 0.   , 0.   , 0.4  , 0.   , 0.   ,
+       0.4  , 0.   , 0.   , 1.4  , 0.6  , 0.   , 0.4  , 0.   , 0.   ,
+       1.2  , 0.   , 0.   , 0.6  , 0.   , 0.   , 0.   , 0.   , 0.   ,
+       0.   , 0.   , 0.   , 0.   , 0.042, 0.   , 0.   , 0.   , 0.   ]), array([1.4       , 0.6       , 0.        , 0.4       , 0.        ,
+       0.        , 1.4       , 0.        , 0.        , 1.        ,
+       0.8       , 0.        , 1.2       , 1.        , 0.        ,
+       1.2       , 0.        , 0.        , 1.2       , 1.4       ,
+       0.        , 0.        , 0.2       , 0.        , 0.        ,
+       0.4       , 0.        , 0.        , 0.        , 0.        ,
+       0.00823529, 0.04727273, 0.        , 0.02666667, 0.        ,
+       0.        ]), array([1.2       , 1.        , 0.        , 1.2       , 0.        ,
+       0.        , 1.        , 0.        , 0.        , 0.2       ,
+       0.4       , 0.        , 0.        , 0.2       , 0.        ,
+       0.2       , 0.        , 0.        , 0.4       , 1.2       ,
+       0.        , 0.        , 0.        , 0.        , 1.4       ,
+       0.6       , 0.        , 0.4       , 0.        , 0.        ,
+       0.09333333, 0.01625   , 0.        , 0.17      , 0.        ,
+       0.        ]), array([0.  , 0.2 , 0.  , 0.2 , 0.  , 0.  , 0.4 , 0.  , 0.  , 0.2 , 0.  ,
+       0.  , 1.4 , 0.8 , 0.  , 0.4 , 0.  , 0.  , 1.2 , 1.  , 0.  , 1.2 ,
+       0.  , 0.  , 0.  , 0.03, 0.  , 0.  , 0.  , 0.  ]), array([0.2, 0. , 0. , 0. , 0. , 0. , 1. , 0. , 0. , 0.2, 0.4, 0. , 0.4,
+       0. , 0. , 0.4, 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. ,
+       0. , 0. , 0. , 0. ]), array([0.4       , 0.        , 0.        , 0.4       , 0.        ,
+       0.        , 0.2       , 0.        , 0.2       , 0.        ,
+       1.4       , 0.        , 1.4       , 0.        , 0.        ,
+       1.        , 0.8       , 0.        , 0.        , 0.4       ,
+       0.        , 0.        , 0.        , 0.        , 0.2       ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.02333333, 0.        , 0.        , 0.        , 0.        ,
+       0.        ]), array([1.4       , 0.        , 0.        , 1.        , 0.8       ,
+       0.        , 1.4       , 0.        , 1.4       , 0.6       ,
+       1.4       , 0.        , 1.        , 0.        , 0.        ,
+       0.2       , 0.4       , 0.        , 1.4       , 0.6       ,
+       0.        , 0.4       , 0.        , 0.        , 0.4       ,
+       0.        , 0.        , 0.4       , 0.        , 0.        ,
+       0.255     , 0.        , 0.        , 0.14666667, 0.065     ,
+       0.        ]), array([1.        , 0.        , 0.        , 0.2       , 0.4       ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.2       , 0.        , 0.4       , 0.        , 0.        ,
+       0.2       , 0.        , 0.        , 1.2       , 1.        ,
+       0.        , 1.2       , 0.        , 0.        , 1.4       ,
+       0.        , 0.        , 1.        , 0.8       , 0.        ,
+       0.06571429, 0.        , 0.        , 0.        , 0.03      ,
+       0.        ]), array([0.        , 1.        , 0.        , 0.        , 0.        ,
+       0.        , 1.2       , 0.        , 0.        , 0.6       ,
+       0.        , 0.        , 1.2       , 0.        , 0.        ,
+       1.2       , 0.        , 0.        , 0.4       , 0.2       ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.01833333, 0.        , 0.        , 0.        , 0.        ]), array([0.4 , 0.  , 0.  , 0.2 , 0.  , 0.  , 0.  , 0.  , 0.  , 0.  , 0.  ,
+       0.  , 0.  , 0.2 , 0.  , 0.2 , 0.  , 0.  , 1.  , 0.  , 0.  , 0.2 ,
+       0.4 , 0.  , 0.09, 0.  , 0.  , 0.  , 0.  , 0.  ]), array([1.        , 0.        , 0.        , 0.2       , 0.4       ,
+       0.        , 0.2       , 0.        , 0.2       , 0.        ,
+       1.4       , 0.        , 0.2       , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.00166667, 0.        ,
+       0.        , 0.03      , 0.        , 0.        ]), array([0.2       , 0.        , 0.2       , 0.        , 1.4       ,
+       0.        , 1.4       , 0.        , 1.4       , 0.6       ,
+       1.4       , 0.        , 0.4       , 0.        , 0.        ,
+       0.4       , 0.        , 0.        , 1.        , 0.        ,
+       0.        , 0.2       , 0.4       , 0.        , 0.01      ,
+       0.        , 0.        , 0.        , 0.03541667, 0.        ]), array([1.4       , 0.        , 1.4       , 0.6       , 1.4       ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.2       , 0.        , 1.4       , 0.        , 0.        ,
+       1.        , 0.8       , 0.        , 0.2       , 0.        ,
+       0.2       , 0.        , 1.4       , 0.        , 0.115     ,
+       0.        , 0.03111111, 0.14333333, 0.01      , 0.        ]), array([0. , 0. , 0. , 0. , 0.2, 0. , 0. , 0. , 0. , 0. , 0. , 0. , 1. ,
+       0. , 0. , 0.2, 0.4, 0. , 1.4, 0. , 1.4, 0.6, 1.4, 0. , 0. , 0. ,
+       0. , 0. , 0. , 0. ]), array([0. , 0. , 0. , 0. , 0. , 0. , 0.4, 0. , 0. , 0.2, 0. , 0. , 0. ,
+       0. , 0. , 0. , 0.2, 0. , 0. , 0. , 0. , 0. , 0. , 0. ]), array([1.2       , 0.        , 0.        , 1.2       , 0.        ,
+       0.        , 1.2       , 1.4       , 0.        , 0.        ,
+       0.2       , 0.        , 0.        , 0.        , 0.        ,
+       1.        , 0.        , 0.        , 0.        , 1.        ,
+       0.        , 0.        , 0.        , 0.        , 0.03809524,
+       0.        , 0.        , 0.10333333, 0.        , 0.        ]), array([0.        , 0.        , 0.        , 1.        , 0.        ,
+       0.        , 0.4       , 1.2       , 0.        , 0.        ,
+       0.        , 0.        , 1.4       , 0.6       , 0.        ,
+       0.8       , 0.        , 0.        , 1.2       , 0.        ,
+       0.        , 1.2       , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.00166667, 0.        , 0.        ]), array([1.4   , 0.6   , 0.    , 0.8   , 0.    , 0.    , 1.4   , 0.8   ,
+       0.    , 0.4   , 0.    , 0.    , 0.    , 0.    , 0.    , 1.    ,
+       0.    , 0.    , 0.25  , 0.005 , 0.    , 0.2825, 0.    , 0.    ]), array([0. , 0. , 0.2, 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 1.2,
+       0. , 0. , 0.6, 0. , 0. , 0.4, 0.2, 0. , 0. , 0. , 0. , 0. , 0. ,
+       0. , 0. , 0. , 0. ]), array([1.2       , 0.        , 0.        , 0.6       , 0.        ,
+       0.        , 0.        , 0.4       , 0.        , 0.        ,
+       0.        , 0.        , 1.2       , 1.4       , 0.        ,
+       0.        , 0.2       , 0.        , 0.        , 1.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.2       , 0.        , 0.        , 0.        ,
+       0.25875   , 0.        , 0.        , 0.26333333, 0.        ,
+       0.        ]), array([1.2       , 1.4       , 0.        , 0.        , 0.2       ,
+       0.        , 1.4       , 0.6       , 0.        , 0.4       ,
+       0.        , 0.        , 0.4       , 1.2       , 0.        ,
+       0.        , 0.        , 0.        , 1.2       , 0.        ,
+       0.        , 1.2       , 0.        , 0.        , 1.2       ,
+       0.        , 0.        , 0.6       , 0.        , 0.        ,
+       0.00428571, 0.25111111, 0.        , 0.        , 0.69      ,
+       0.        ]), array([0.4       , 1.2       , 0.        , 0.        , 0.        ,
+       0.        , 1.2       , 1.        , 0.        , 1.2       ,
+       0.        , 0.        , 1.4       , 0.8       , 0.        ,
+       0.4       , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 1.        , 0.        , 0.        , 1.2       ,
+       1.4       , 0.        , 0.        , 0.2       , 0.        ,
+       0.        , 0.00666667, 0.        , 0.        , 0.        ,
+       0.        ])], a: [4, 4, 2, 4, 0, 0, 0, 4, 0, 3, 0, 1, 0, 1, 0, 2, 1, 3, 3, 1, 0, 3, 0, 4, 1], pi: [array([0.2183443 , 0.11026762, 0.21793605, 0.18422878, 0.26922333],
+      dtype=float32), array([0.4855497 , 0.15979381, 0.12973587, 0.13638973, 0.0885309 ],
+      dtype=float32), array([0.29381725, 0.17300323, 0.20111783, 0.16737251, 0.16468924],
+      dtype=float32), array([0.16712582, 0.17723377, 0.19098587, 0.2592756 , 0.20537893],
+      dtype=float32), array([0.27591068, 0.17260863, 0.11003966, 0.2823983 , 0.15904269],
+      dtype=float32), array([0.32470855, 0.17798007, 0.17744581, 0.13947381, 0.1803917 ],
+      dtype=float32), array([0.37701818, 0.10020451, 0.14938574, 0.24906823, 0.12432329],
+      dtype=float32), array([0.3403378 , 0.08645688, 0.1428254 , 0.253191  , 0.17718892],
+      dtype=float32), array([0.4210293 , 0.12887722, 0.11769906, 0.23531637, 0.09707809],
+      dtype=float32), array([0.47162822, 0.11659367, 0.14084662, 0.17088692, 0.10004447],
+      dtype=float32), array([0.5012825 , 0.11741339, 0.12997511, 0.1015758 , 0.14975321],
+      dtype=float32), array([0.31760588, 0.18354818, 0.2074939 , 0.15091334, 0.1404386 ],
+      dtype=float32), array([0.35481164, 0.14403374, 0.1492472 , 0.18569969, 0.16620776],
+      dtype=float32), array([0.21387364, 0.07237301, 0.20352696, 0.24163796, 0.26858842],
+      dtype=float32), array([0.23825818, 0.10807183, 0.2571681 , 0.22562464, 0.17087726],
+      dtype=float32), array([0.27944925, 0.10511342, 0.29961604, 0.12017982, 0.19564149],
+      dtype=float32), array([0.31622413, 0.15510584, 0.16072354, 0.1589761 , 0.20897046],
+      dtype=float32), array([0.24128592, 0.17397921, 0.1989281 , 0.2128678 , 0.17293893],
+      dtype=float32), array([0.21443953, 0.16159141, 0.19577114, 0.29953977, 0.1286582 ],
+      dtype=float32), array([0.32005358, 0.15782286, 0.23160093, 0.20282051, 0.08770213],
+      dtype=float32), array([0.2805579 , 0.18423755, 0.22437324, 0.06054103, 0.25029036],
+      dtype=float32), array([0.28765973, 0.1316548 , 0.15968496, 0.22808132, 0.19291914],
+      dtype=float32), array([0.28786644, 0.21908611, 0.1508258 , 0.20833388, 0.13388774],
+      dtype=float32), array([0.3841658 , 0.1719154 , 0.17233364, 0.17758322, 0.09400196],
+      dtype=float32), array([0.27508068, 0.20707949, 0.2866337 , 0.14082171, 0.09038445],
+      dtype=float32)], r: -208.22, train r: -208.22, done: False
+2026-02-23 09:54:51,070 [INFO] Sim progress: t=3900/6600, active_vehicles=372, wall=4.2s for +300s sim
+2026-02-23 09:54:53,692 [INFO] Sim progress: t=4200/6600, active_vehicles=390, wall=2.6s for +300s sim
+2026-02-23 09:54:54,998 [INFO] Injecting traffic for Scenario 7 at t=4200
+2026-02-23 09:54:55,028 [INFO] Scenario 7: Scheduled 520 vehicles.
+2026-02-23 09:54:57,355 [INFO] Sim progress: t=4500/6600, active_vehicles=382, wall=3.7s for +300s sim
+2026-02-23 09:54:59,741 [INFO] Sim progress: t=4800/6600, active_vehicles=405, wall=2.4s for +300s sim
+2026-02-23 09:55:00,979 [INFO] Injecting traffic for Scenario 8 at t=4800
+2026-02-23 09:55:01,010 [INFO] Scenario 8: Scheduled 490 vehicles.
+2026-02-23 09:55:03,355 [INFO] Sim progress: t=5100/6600, active_vehicles=366, wall=3.6s for +300s sim
+2026-02-23 09:55:05,655 [INFO] Sim progress: t=5400/6600, active_vehicles=313, wall=2.3s for +300s sim
+2026-02-23 09:55:06,967 [INFO] Injecting traffic for Scenario 9 at t=5400
+2026-02-23 09:55:07,003 [INFO] Scenario 9: Scheduled 463 vehicles.
+2026-02-23 09:55:09,332 [INFO] Sim progress: t=5700/6600, active_vehicles=337, wall=3.7s for +300s sim
+2026-02-23 09:55:11,712 [INFO] Sim progress: t=6000/6600, active_vehicles=389, wall=2.4s for +300s sim
+2026-02-23 09:55:12,970 [INFO] Injecting traffic for Scenario 10 at t=6000
+2026-02-23 09:55:13,016 [INFO] Scenario 10: Scheduled 491 vehicles.
+2026-02-23 09:55:15,378 [INFO] Sim progress: t=6300/6600, active_vehicles=412, wall=3.7s for +300s sim
+2026-02-23 09:55:17,792 [INFO] Sim progress: t=6600/6600, active_vehicles=437, wall=2.4s for +300s sim
+2026-02-23 09:55:19,038 [INFO] Training: episode 8 done at global step 970560, terminating env ...
+2026-02-23 09:55:19,071 [INFO] Training: env termination finished in 0.03s
+2026-02-23 09:55:19,072 [INFO] Training: episode 8 finished in 68.02s (global step 970560, avg R -216.89)
+2026-02-23 09:55:21,229 [INFO] TraCI connection established on port 8000
+2026-02-23 09:55:21,286 [INFO] Training: episode 9 started at global step 970560
+2026-02-23 09:55:21,316 [INFO] Injecting traffic for Scenario 0 at t=0
+2026-02-23 09:55:21,366 [INFO] Scenario 0: Scheduled 496 vehicles.
+2026-02-23 09:55:23,459 [INFO] Sim progress: t=300/6600, active_vehicles=125, wall=2.2s for +300s sim
+2026-02-23 09:55:25,659 [INFO] Sim progress: t=600/6600, active_vehicles=141, wall=2.2s for +300s sim
+2026-02-23 09:55:27,036 [INFO] Injecting traffic for Scenario 1 at t=600
+2026-02-23 09:55:27,070 [INFO] Scenario 1: Scheduled 539 vehicles.
+2026-02-23 09:55:29,308 [INFO] Sim progress: t=900/6600, active_vehicles=179, wall=3.6s for +300s sim
+2026-02-23 09:55:31,525 [INFO] Sim progress: t=1200/6600, active_vehicles=253, wall=2.2s for +300s sim
+2026-02-23 09:55:32,795 [INFO] Injecting traffic for Scenario 2 at t=1200
+2026-02-23 09:55:32,824 [INFO] Scenario 2: Scheduled 482 vehicles.
+2026-02-23 09:55:35,103 [INFO] Sim progress: t=1500/6600, active_vehicles=288, wall=3.6s for +300s sim
+2026-02-23 09:55:37,348 [INFO] Sim progress: t=1800/6600, active_vehicles=300, wall=2.2s for +300s sim
+2026-02-23 09:55:38,659 [INFO] Injecting traffic for Scenario 3 at t=1800
+2026-02-23 09:55:38,690 [INFO] Scenario 3: Scheduled 487 vehicles.
+2026-02-23 09:55:40,971 [INFO] Sim progress: t=2100/6600, active_vehicles=368, wall=3.6s for +300s sim
+2026-02-23 09:55:43,305 [INFO] Sim progress: t=2400/6600, active_vehicles=381, wall=2.3s for +300s sim
+2026-02-23 09:55:44,601 [INFO] Injecting traffic for Scenario 4 at t=2400
+2026-02-23 09:55:44,631 [INFO] Scenario 4: Scheduled 513 vehicles.
+2026-02-23 09:55:46,956 [INFO] Sim progress: t=2700/6600, active_vehicles=354, wall=3.7s for +300s sim
+2026-02-23 09:55:49,240 [INFO] Sim progress: t=3000/6600, active_vehicles=323, wall=2.3s for +300s sim
+2026-02-23 09:55:50,521 [INFO] Injecting traffic for Scenario 5 at t=3000
+2026-02-23 09:55:50,569 [INFO] Scenario 5: Scheduled 445 vehicles.
+2026-02-23 09:55:53,108 [INFO] Sim progress: t=3300/6600, active_vehicles=333, wall=3.9s for +300s sim
+2026-02-23 09:55:55,470 [INFO] Sim progress: t=3600/6600, active_vehicles=367, wall=2.4s for +300s sim
+2026-02-23 09:55:56,729 [INFO] Injecting traffic for Scenario 6 at t=3600
+2026-02-23 09:55:56,759 [INFO] Scenario 6: Scheduled 514 vehicles.
+2026-02-23 09:55:59,086 [INFO] Sim progress: t=3900/6600, active_vehicles=427, wall=3.6s for +300s sim
+2026-02-23 09:56:01,461 [INFO] Sim progress: t=4200/6600, active_vehicles=511, wall=2.4s for +300s sim
+2026-02-23 09:56:02,741 [INFO] Injecting traffic for Scenario 7 at t=4200
+2026-02-23 09:56:02,770 [INFO] Scenario 7: Scheduled 489 vehicles.
+2026-02-23 09:56:05,167 [INFO] Sim progress: t=4500/6600, active_vehicles=554, wall=3.7s for +300s sim
+2026-02-23 09:56:07,581 [INFO] Sim progress: t=4800/6600, active_vehicles=579, wall=2.4s for +300s sim
+2026-02-23 09:56:08,818 [INFO] Injecting traffic for Scenario 8 at t=4800
+2026-02-23 09:56:08,846 [INFO] Scenario 8: Scheduled 471 vehicles.
+2026-02-23 09:56:11,220 [INFO] Sim progress: t=5100/6600, active_vehicles=564, wall=3.6s for +300s sim
+2026-02-23 09:56:13,585 [INFO] Sim progress: t=5400/6600, active_vehicles=498, wall=2.4s for +300s sim
+2026-02-23 09:56:14,862 [INFO] Injecting traffic for Scenario 9 at t=5400
+2026-02-23 09:56:14,905 [INFO] Scenario 9: Scheduled 541 vehicles.
+2026-02-23 09:56:17,309 [INFO] Sim progress: t=5700/6600, active_vehicles=544, wall=3.7s for +300s sim
+2026-02-23 09:56:19,792 [INFO] Sim progress: t=6000/6600, active_vehicles=541, wall=2.5s for +300s sim
+2026-02-23 09:56:21,055 [INFO] Injecting traffic for Scenario 10 at t=6000
+2026-02-23 09:56:21,081 [INFO] Scenario 10: Scheduled 491 vehicles.
+2026-02-23 09:56:23,512 [INFO] Sim progress: t=6300/6600, active_vehicles=592, wall=3.7s for +300s sim
+2026-02-23 09:56:25,923 [INFO] Sim progress: t=6600/6600, active_vehicles=656, wall=2.4s for +300s sim
+2026-02-23 09:56:27,159 [INFO] Training: episode 9 done at global step 971880, terminating env ...
+2026-02-23 09:56:27,190 [INFO] Training: env termination finished in 0.03s
+2026-02-23 09:56:27,191 [INFO] Training: episode 9 finished in 68.12s (global step 971880, avg R -313.51)
+2026-02-23 09:56:29,348 [INFO] TraCI connection established on port 8000
+2026-02-23 09:56:29,406 [INFO] Training: episode 10 started at global step 971880
+2026-02-23 09:56:29,444 [INFO] Injecting traffic for Scenario 0 at t=0
+2026-02-23 09:56:29,491 [INFO] Scenario 0: Scheduled 455 vehicles.
+2026-02-23 09:56:31,620 [INFO] Sim progress: t=300/6600, active_vehicles=118, wall=2.3s for +300s sim
+2026-02-23 09:56:33,824 [INFO] Sim progress: t=600/6600, active_vehicles=120, wall=2.2s for +300s sim
+2026-02-23 09:56:35,198 [INFO] Injecting traffic for Scenario 1 at t=600
+2026-02-23 09:56:35,229 [INFO] Scenario 1: Scheduled 468 vehicles.
+2026-02-23 09:56:37,408 [INFO] Sim progress: t=900/6600, active_vehicles=176, wall=3.6s for +300s sim
+2026-02-23 09:56:39,632 [INFO] Sim progress: t=1200/6600, active_vehicles=223, wall=2.2s for +300s sim
+2026-02-23 09:56:40,913 [INFO] Injecting traffic for Scenario 2 at t=1200
+2026-02-23 09:56:40,946 [INFO] Scenario 2: Scheduled 515 vehicles.
+2026-02-23 09:56:43,197 [INFO] Sim progress: t=1500/6600, active_vehicles=300, wall=3.6s for +300s sim
+2026-02-23 09:56:45,459 [INFO] Sim progress: t=1800/6600, active_vehicles=298, wall=2.3s for +300s sim
+2026-02-23 09:56:46,700 [INFO] Injecting traffic for Scenario 3 at t=1800
+2026-02-23 09:56:46,733 [INFO] Scenario 3: Scheduled 505 vehicles.
+2026-02-23 09:56:48,974 [INFO] Sim progress: t=2100/6600, active_vehicles=352, wall=3.5s for +300s sim
+2026-02-23 09:56:51,309 [INFO] Sim progress: t=2400/6600, active_vehicles=345, wall=2.3s for +300s sim
+2026-02-23 09:56:52,631 [INFO] Injecting traffic for Scenario 4 at t=2400
+2026-02-23 09:56:52,660 [INFO] Scenario 4: Scheduled 506 vehicles.
+2026-02-23 09:56:54,926 [INFO] Sim progress: t=2700/6600, active_vehicles=359, wall=3.6s for +300s sim
+2026-02-23 09:56:57,197 [INFO] Sim progress: t=3000/6600, active_vehicles=338, wall=2.3s for +300s sim
+2026-02-23 09:56:58,480 [INFO] Injecting traffic for Scenario 5 at t=3000
+2026-02-23 09:56:58,527 [INFO] Scenario 5: Scheduled 464 vehicles.
+2026-02-23 09:57:00,860 [INFO] Sim progress: t=3300/6600, active_vehicles=350, wall=3.7s for +300s sim
+2026-02-23 09:57:03,226 [INFO] Sim progress: t=3600/6600, active_vehicles=375, wall=2.4s for +300s sim
+2026-02-23 09:57:04,461 [INFO] Injecting traffic for Scenario 6 at t=3600
+2026-02-23 09:57:04,490 [INFO] Scenario 6: Scheduled 511 vehicles.
+2026-02-23 09:57:06,835 [INFO] Sim progress: t=3900/6600, active_vehicles=417, wall=3.6s for +300s sim
+2026-02-23 09:57:09,246 [INFO] Sim progress: t=4200/6600, active_vehicles=445, wall=2.4s for +300s sim
+2026-02-23 09:57:10,514 [INFO] Injecting traffic for Scenario 7 at t=4200
+2026-02-23 09:57:10,542 [INFO] Scenario 7: Scheduled 488 vehicles.
+2026-02-23 09:57:12,954 [INFO] Sim progress: t=4500/6600, active_vehicles=517, wall=3.7s for +300s sim
+2026-02-23 09:57:15,361 [INFO] Sim progress: t=4800/6600, active_vehicles=483, wall=2.4s for +300s sim
+2026-02-23 09:57:16,644 [INFO] Injecting traffic for Scenario 8 at t=4800
+2026-02-23 09:57:16,671 [INFO] Scenario 8: Scheduled 485 vehicles.
+2026-02-23 09:57:19,026 [INFO] Sim progress: t=5100/6600, active_vehicles=392, wall=3.7s for +300s sim
+2026-02-23 09:57:21,370 [INFO] Sim progress: t=5400/6600, active_vehicles=327, wall=2.3s for +300s sim
+2026-02-23 09:57:22,642 [INFO] Injecting traffic for Scenario 9 at t=5400
+2026-02-23 09:57:22,676 [INFO] Scenario 9: Scheduled 469 vehicles.
+2026-02-23 09:57:24,996 [INFO] Sim progress: t=5700/6600, active_vehicles=362, wall=3.6s for +300s sim
+2026-02-23 09:57:27,321 [INFO] Sim progress: t=6000/6600, active_vehicles=352, wall=2.3s for +300s sim
+2026-02-23 09:57:28,620 [INFO] Injecting traffic for Scenario 10 at t=6000
+2026-02-23 09:57:28,649 [INFO] Scenario 10: Scheduled 529 vehicles.
+2026-02-23 09:57:30,997 [INFO] Sim progress: t=6300/6600, active_vehicles=417, wall=3.7s for +300s sim
+2026-02-23 09:57:33,355 [INFO] Sim progress: t=6600/6600, active_vehicles=483, wall=2.4s for +300s sim
+2026-02-23 09:57:34,570 [INFO] Training: episode 10 done at global step 973200, terminating env ...
+2026-02-23 09:57:34,634 [INFO] Training: env termination finished in 0.06s
+2026-02-23 09:57:34,636 [INFO] Training: episode 10 finished in 67.44s (global step 973200, avg R -226.96)
+2026-02-23 09:57:36,793 [INFO] TraCI connection established on port 8000
+2026-02-23 09:57:36,853 [INFO] Training: episode 11 started at global step 973200
+2026-02-23 09:57:36,881 [INFO] Injecting traffic for Scenario 0 at t=0
+2026-02-23 09:57:36,933 [INFO] Scenario 0: Scheduled 460 vehicles.
+2026-02-23 09:57:39,059 [INFO] Sim progress: t=300/6600, active_vehicles=152, wall=2.3s for +300s sim
+2026-02-23 09:57:41,247 [INFO] Sim progress: t=600/6600, active_vehicles=125, wall=2.2s for +300s sim
+2026-02-23 09:57:42,634 [INFO] Injecting traffic for Scenario 1 at t=600
+2026-02-23 09:57:42,664 [INFO] Scenario 1: Scheduled 482 vehicles.
+2026-02-23 09:57:44,787 [INFO] Sim progress: t=900/6600, active_vehicles=165, wall=3.5s for +300s sim
+2026-02-23 09:57:47,044 [INFO] Sim progress: t=1200/6600, active_vehicles=205, wall=2.3s for +300s sim
+2026-02-23 09:57:48,295 [INFO] Injecting traffic for Scenario 2 at t=1200
+2026-02-23 09:57:48,328 [INFO] Scenario 2: Scheduled 506 vehicles.
+2026-02-23 09:57:50,634 [INFO] Sim progress: t=1500/6600, active_vehicles=288, wall=3.6s for +300s sim
+2026-02-23 09:57:52,947 [INFO] Sim progress: t=1800/6600, active_vehicles=329, wall=2.3s for +300s sim
+2026-02-23 09:57:54,242 [INFO] Injecting traffic for Scenario 3 at t=1800
+2026-02-23 09:57:54,271 [INFO] Scenario 3: Scheduled 513 vehicles.
+2026-02-23 09:57:56,525 [INFO] Sim progress: t=2100/6600, active_vehicles=414, wall=3.6s for +300s sim
+2026-02-23 09:57:58,855 [INFO] Sim progress: t=2400/6600, active_vehicles=427, wall=2.3s for +300s sim
+2026-02-23 09:58:00,168 [INFO] Injecting traffic for Scenario 4 at t=2400
+2026-02-23 09:58:00,197 [INFO] Scenario 4: Scheduled 506 vehicles.
+2026-02-23 09:58:02,580 [INFO] Sim progress: t=2700/6600, active_vehicles=444, wall=3.7s for +300s sim
+2026-02-23 09:58:04,957 [INFO] Sim progress: t=3000/6600, active_vehicles=388, wall=2.4s for +300s sim
+2026-02-23 09:58:06,240 [INFO] Injecting traffic for Scenario 5 at t=3000
+2026-02-23 09:58:06,287 [INFO] Scenario 5: Scheduled 488 vehicles.
+2026-02-23 09:58:08,694 [INFO] Sim progress: t=3300/6600, active_vehicles=469, wall=3.7s for +300s sim
+2026-02-23 09:58:11,102 [INFO] Sim progress: t=3600/6600, active_vehicles=442, wall=2.4s for +300s sim
+2026-02-23 09:58:12,370 [INFO] Injecting traffic for Scenario 6 at t=3600
+2026-02-23 09:58:12,400 [INFO] Scenario 6: Scheduled 504 vehicles.
+2026-02-23 09:58:14,802 [INFO] Sim progress: t=3900/6600, active_vehicles=505, wall=3.7s for +300s sim
+2026-02-23 09:58:17,209 [INFO] Sim progress: t=4200/6600, active_vehicles=561, wall=2.4s for +300s sim
+2026-02-23 09:58:18,494 [INFO] Injecting traffic for Scenario 7 at t=4200
+2026-02-23 09:58:18,525 [INFO] Scenario 7: Scheduled 516 vehicles.
+2026-02-23 09:58:21,312 [INFO] Sim progress: t=4500/6600, active_vehicles=721, wall=4.1s for +300s sim
+2026-02-23 09:58:24,007 [INFO] Sim progress: t=4800/6600, active_vehicles=767, wall=2.7s for +300s sim
+2026-02-23 09:58:25,466 [INFO] Injecting traffic for Scenario 8 at t=4800
+2026-02-23 09:58:25,494 [INFO] Scenario 8: Scheduled 475 vehicles.
+2026-02-23 09:58:28,135 [INFO] Sim progress: t=5100/6600, active_vehicles=787, wall=4.1s for +300s sim
+2026-02-23 09:58:30,861 [INFO] Sim progress: t=5400/6600, active_vehicles=799, wall=2.7s for +300s sim
+2026-02-23 09:58:32,219 [INFO] Injecting traffic for Scenario 9 at t=5400
+2026-02-23 09:58:32,257 [INFO] Scenario 9: Scheduled 507 vehicles.
+2026-02-23 09:58:35,103 [INFO] Sim progress: t=5700/6600, active_vehicles=901, wall=4.2s for +300s sim
+2026-02-23 09:58:37,858 [INFO] Sim progress: t=6000/6600, active_vehicles=975, wall=2.8s for +300s sim
+2026-02-23 09:58:39,369 [INFO] Injecting traffic for Scenario 10 at t=6000
+2026-02-23 09:58:39,396 [INFO] Scenario 10: Scheduled 482 vehicles.
+2026-02-23 09:58:42,273 [INFO] Sim progress: t=6300/6600, active_vehicles=992, wall=4.4s for +300s sim
+2026-02-23 09:58:45,104 [INFO] Sim progress: t=6600/6600, active_vehicles=997, wall=2.8s for +300s sim
+2026-02-23 09:58:46,530 [INFO] Training: episode 11 done at global step 974520, terminating env ...
+2026-02-23 09:58:46,546 [INFO] Training: env termination finished in 0.02s
+2026-02-23 09:58:46,547 [INFO] Training: episode 11 finished in 71.91s (global step 974520, avg R -818.46)
+2026-02-23 09:58:48,707 [INFO] TraCI connection established on port 8000
+2026-02-23 09:58:48,767 [INFO] Training: episode 12 started at global step 974520
+2026-02-23 09:58:48,812 [INFO] Injecting traffic for Scenario 0 at t=0
+2026-02-23 09:58:48,868 [INFO] Scenario 0: Scheduled 515 vehicles.
+2026-02-23 09:58:51,257 [INFO] Sim progress: t=300/6600, active_vehicles=139, wall=2.5s for +300s sim
+2026-02-23 09:58:53,645 [INFO] Sim progress: t=600/6600, active_vehicles=139, wall=2.4s for +300s sim
+2026-02-23 09:58:55,218 [INFO] Injecting traffic for Scenario 1 at t=600
+2026-02-23 09:58:55,247 [INFO] Scenario 1: Scheduled 509 vehicles.
+2026-02-23 09:58:57,458 [INFO] Sim progress: t=900/6600, active_vehicles=151, wall=3.8s for +300s sim
+2026-02-23 09:58:59,999 [INFO] Sim progress: t=1200/6600, active_vehicles=245, wall=2.5s for +300s sim
+2026-02-23 09:59:01,459 [INFO] Injecting traffic for Scenario 2 at t=1200
+2026-02-23 09:59:01,493 [INFO] Scenario 2: Scheduled 474 vehicles.
+2026-02-23 09:59:03,894 [INFO] Sim progress: t=1500/6600, active_vehicles=286, wall=3.9s for +300s sim
+2026-02-23 09:59:06,347 [INFO] Sim progress: t=1800/6600, active_vehicles=314, wall=2.5s for +300s sim
+2026-02-23 09:59:07,816 [INFO] Injecting traffic for Scenario 3 at t=1800
+2026-02-23 09:59:07,850 [INFO] Scenario 3: Scheduled 551 vehicles.
+2026-02-23 09:59:10,404 [INFO] Sim progress: t=2100/6600, active_vehicles=361, wall=4.1s for +300s sim
+2026-02-23 09:59:12,925 [INFO] Sim progress: t=2400/6600, active_vehicles=350, wall=2.5s for +300s sim
+2026-02-23 09:59:14,266 [INFO] Injecting traffic for Scenario 4 at t=2400
+2026-02-23 09:59:14,297 [INFO] Scenario 4: Scheduled 522 vehicles.
+2026-02-23 09:59:16,626 [INFO] Sim progress: t=2700/6600, active_vehicles=346, wall=3.7s for +300s sim
+2026-02-23 09:59:18,923 [INFO] Sim progress: t=3000/6600, active_vehicles=317, wall=2.3s for +300s sim
+2026-02-23 09:59:20,210 [INFO] Injecting traffic for Scenario 5 at t=3000
+2026-02-23 09:59:20,254 [INFO] Scenario 5: Scheduled 464 vehicles.
+2026-02-23 09:59:22,678 [INFO] Sim progress: t=3300/6600, active_vehicles=388, wall=3.8s for +300s sim
+2026-02-23 09:59:25,081 [INFO] Sim progress: t=3600/6600, active_vehicles=398, wall=2.4s for +300s sim
+2026-02-23 09:59:26,343 [INFO] Injecting traffic for Scenario 6 at t=3600
+2026-02-23 09:59:26,372 [INFO] Scenario 6: Scheduled 520 vehicles.
+2026-02-23 09:59:28,730 [INFO] Sim progress: t=3900/6600, active_vehicles=476, wall=3.6s for +300s sim
+2026-02-23 09:59:31,278 [INFO] Sim progress: t=4200/6600, active_vehicles=519, wall=2.5s for +300s sim
+2026-02-23 09:59:32,736 [INFO] Injecting traffic for Scenario 7 at t=4200
+2026-02-23 09:59:32,765 [INFO] Scenario 7: Scheduled 499 vehicles.
+2026-02-23 09:59:35,404 [INFO] Sim progress: t=4500/6600, active_vehicles=628, wall=4.1s for +300s sim
+2026-02-23 09:59:37,975 [INFO] Sim progress: t=4800/6600, active_vehicles=616, wall=2.6s for +300s sim
+2026-02-23 09:59:39,289 [INFO] Injecting traffic for Scenario 8 at t=4800
+2026-02-23 09:59:39,315 [INFO] Scenario 8: Scheduled 482 vehicles.
+2026-02-23 09:59:41,685 [INFO] Sim progress: t=5100/6600, active_vehicles=549, wall=3.7s for +300s sim
+2026-02-23 09:59:44,131 [INFO] Sim progress: t=5400/6600, active_vehicles=547, wall=2.4s for +300s sim
+2026-02-23 09:59:45,455 [INFO] Injecting traffic for Scenario 9 at t=5400
+2026-02-23 09:59:45,494 [INFO] Scenario 9: Scheduled 513 vehicles.
+2026-02-23 09:59:48,016 [INFO] Sim progress: t=5700/6600, active_vehicles=657, wall=3.9s for +300s sim
+2026-02-23 09:59:50,506 [INFO] Sim progress: t=6000/6600, active_vehicles=711, wall=2.5s for +300s sim
+2026-02-23 09:59:51,915 [INFO] Injecting traffic for Scenario 10 at t=6000
+2026-02-23 09:59:51,942 [INFO] Scenario 10: Scheduled 485 vehicles.
+2026-02-23 09:59:54,551 [INFO] Sim progress: t=6300/6600, active_vehicles=741, wall=4.0s for +300s sim
+2026-02-23 09:59:57,122 [INFO] Sim progress: t=6600/6600, active_vehicles=706, wall=2.6s for +300s sim
+2026-02-23 09:59:58,352 [INFO] Training: episode 12 done at global step 975840, terminating env ...
+2026-02-23 09:59:58,384 [INFO] Training: env termination finished in 0.03s
+2026-02-23 09:59:58,385 [INFO] Training: episode 12 finished in 71.84s (global step 975840, avg R -445.98)
+2026-02-23 10:00:00,542 [INFO] TraCI connection established on port 8000
+2026-02-23 10:00:00,601 [INFO] Training: episode 13 started at global step 975840
+2026-02-23 10:00:00,634 [INFO] Injecting traffic for Scenario 0 at t=0
+2026-02-23 10:00:00,685 [INFO] Scenario 0: Scheduled 486 vehicles.
+2026-02-23 10:00:02,859 [INFO] Sim progress: t=300/6600, active_vehicles=133, wall=2.3s for +300s sim
+2026-02-23 10:00:05,005 [INFO] Sim progress: t=600/6600, active_vehicles=133, wall=2.1s for +300s sim
+2026-02-23 10:00:06,388 [INFO] Injecting traffic for Scenario 1 at t=600
+2026-02-23 10:00:06,416 [INFO] Scenario 1: Scheduled 484 vehicles.
+2026-02-23 10:00:08,642 [INFO] Sim progress: t=900/6600, active_vehicles=177, wall=3.6s for +300s sim
+2026-02-23 10:00:10,890 [INFO] Sim progress: t=1200/6600, active_vehicles=187, wall=2.2s for +300s sim
+2026-02-23 10:00:12,176 [INFO] Injecting traffic for Scenario 2 at t=1200
+2026-02-23 10:00:12,206 [INFO] Scenario 2: Scheduled 480 vehicles.
+2026-02-23 10:00:14,397 [INFO] Sim progress: t=1500/6600, active_vehicles=248, wall=3.5s for +300s sim
+2026-02-23 10:00:16,651 [INFO] Sim progress: t=1800/6600, active_vehicles=262, wall=2.3s for +300s sim
+2026-02-23 10:00:17,932 [INFO] Injecting traffic for Scenario 3 at t=1800
+2026-02-23 10:00:17,966 [INFO] Scenario 3: Scheduled 525 vehicles.
+2026-02-23 10:00:20,218 [INFO] Sim progress: t=2100/6600, active_vehicles=319, wall=3.6s for +300s sim
+2026-02-23 10:00:22,596 [INFO] Sim progress: t=2400/6600, active_vehicles=314, wall=2.4s for +300s sim
+2026-02-23 10:00:23,916 [INFO] Injecting traffic for Scenario 4 at t=2400
+2026-02-23 10:00:23,946 [INFO] Scenario 4: Scheduled 460 vehicles.
+2026-02-23 10:00:26,233 [INFO] Sim progress: t=2700/6600, active_vehicles=332, wall=3.6s for +300s sim
+2026-02-23 10:00:28,501 [INFO] Sim progress: t=3000/6600, active_vehicles=315, wall=2.3s for +300s sim
+2026-02-23 10:00:29,813 [INFO] Injecting traffic for Scenario 5 at t=3000
+2026-02-23 10:00:29,856 [INFO] Scenario 5: Scheduled 446 vehicles.
+2026-02-23 10:00:32,167 [INFO] Sim progress: t=3300/6600, active_vehicles=356, wall=3.7s for +300s sim
+2026-02-23 10:00:34,547 [INFO] Sim progress: t=3600/6600, active_vehicles=324, wall=2.4s for +300s sim
+2026-02-23 10:00:35,834 [INFO] Injecting traffic for Scenario 6 at t=3600
+2026-02-23 10:00:35,863 [INFO] Scenario 6: Scheduled 509 vehicles.
+2026-02-23 10:00:38,184 [INFO] Sim progress: t=3900/6600, active_vehicles=341, wall=3.6s for +300s sim
+2026-02-23 10:00:40,514 [INFO] Sim progress: t=4200/6600, active_vehicles=365, wall=2.3s for +300s sim
+2026-02-23 10:00:41,851 [INFO] Injecting traffic for Scenario 7 at t=4200
+2026-02-23 10:00:41,881 [INFO] Scenario 7: Scheduled 499 vehicles.
+2026-02-23 10:00:44,289 [INFO] Sim progress: t=4500/6600, active_vehicles=368, wall=3.8s for +300s sim
+2026-02-23 10:00:46,663 [INFO] Sim progress: t=4800/6600, active_vehicles=363, wall=2.4s for +300s sim
+2026-02-23 10:00:47,927 [INFO] Injecting traffic for Scenario 8 at t=4800
+2026-02-23 10:00:47,955 [INFO] Scenario 8: Scheduled 477 vehicles.
+2026-02-23 10:00:50,292 [INFO] Sim progress: t=5100/6600, active_vehicles=334, wall=3.6s for +300s sim
+2026-02-23 10:00:52,684 [INFO] Sim progress: t=5400/6600, active_vehicles=281, wall=2.4s for +300s sim
+2026-02-23 10:00:54,022 [INFO] Injecting traffic for Scenario 9 at t=5400
+2026-02-23 10:00:54,060 [INFO] Scenario 9: Scheduled 502 vehicles.
+2026-02-23 10:00:56,352 [INFO] Sim progress: t=5700/6600, active_vehicles=323, wall=3.7s for +300s sim
+2026-02-23 10:00:58,864 [INFO] Sim progress: t=6000/6600, active_vehicles=340, wall=2.5s for +300s sim
+2026-02-23 10:01:00,182 [INFO] Injecting traffic for Scenario 10 at t=6000
+2026-02-23 10:01:00,210 [INFO] Scenario 10: Scheduled 536 vehicles.
+2026-02-23 10:01:02,491 [INFO] Sim progress: t=6300/6600, active_vehicles=382, wall=3.6s for +300s sim
+2026-02-23 10:01:04,856 [INFO] Sim progress: t=6600/6600, active_vehicles=361, wall=2.4s for +300s sim
+2026-02-23 10:01:06,175 [INFO] Training: episode 13 done at global step 977160, terminating env ...
+2026-02-23 10:01:06,241 [INFO] Training: env termination finished in 0.06s
+2026-02-23 10:01:06,242 [INFO] Training: episode 13 finished in 67.86s (global step 977160, avg R -196.70)
+2026-02-23 10:01:08,400 [INFO] TraCI connection established on port 8000
+2026-02-23 10:01:08,457 [INFO] Training: episode 14 started at global step 977160
+2026-02-23 10:01:08,489 [INFO] Injecting traffic for Scenario 0 at t=0
+2026-02-23 10:01:08,537 [INFO] Scenario 0: Scheduled 474 vehicles.
+2026-02-23 10:01:10,675 [INFO] Sim progress: t=300/6600, active_vehicles=126, wall=2.3s for +300s sim
+2026-02-23 10:01:12,861 [INFO] Sim progress: t=600/6600, active_vehicles=132, wall=2.2s for +300s sim
+2026-02-23 10:01:14,264 [INFO] Injecting traffic for Scenario 1 at t=600
+2026-02-23 10:01:14,294 [INFO] Scenario 1: Scheduled 505 vehicles.
+2026-02-23 10:01:16,441 [INFO] Sim progress: t=900/6600, active_vehicles=163, wall=3.6s for +300s sim
+2026-02-23 10:01:18,683 [INFO] Sim progress: t=1200/6600, active_vehicles=208, wall=2.2s for +300s sim
+2026-02-23 10:01:20,001 [INFO] Injecting traffic for Scenario 2 at t=1200
+2026-02-23 10:01:20,037 [INFO] Scenario 2: Scheduled 473 vehicles.
+2026-02-23 10:01:22,256 [INFO] Sim progress: t=1500/6600, active_vehicles=277, wall=3.6s for +300s sim
+2026-02-23 10:01:24,500 [INFO] Sim progress: t=1800/6600, active_vehicles=295, wall=2.2s for +300s sim
+2026-02-23 10:01:25,792 [INFO] Injecting traffic for Scenario 3 at t=1800
+2026-02-23 10:01:25,826 [INFO] Scenario 3: Scheduled 496 vehicles.
+2026-02-23 10:01:28,042 [INFO] Sim progress: t=2100/6600, active_vehicles=307, wall=3.5s for +300s sim
+2026-02-23 10:01:30,404 [INFO] Sim progress: t=2400/6600, active_vehicles=351, wall=2.4s for +300s sim
+2026-02-23 10:01:31,661 [INFO] Injecting traffic for Scenario 4 at t=2400
+2026-02-23 10:01:31,691 [INFO] Scenario 4: Scheduled 513 vehicles.
+2026-02-23 10:01:33,980 [INFO] Sim progress: t=2700/6600, active_vehicles=305, wall=3.6s for +300s sim
+2026-02-23 10:01:36,243 [INFO] Sim progress: t=3000/6600, active_vehicles=277, wall=2.3s for +300s sim
+2026-02-23 10:01:37,513 [INFO] Injecting traffic for Scenario 5 at t=3000
+2026-02-23 10:01:37,559 [INFO] Scenario 5: Scheduled 480 vehicles.
+2026-02-23 10:01:39,865 [INFO] Sim progress: t=3300/6600, active_vehicles=375, wall=3.6s for +300s sim
+2026-02-23 10:01:42,195 [INFO] Sim progress: t=3600/6600, active_vehicles=378, wall=2.3s for +300s sim
+2026-02-23 10:01:43,468 [INFO] Injecting traffic for Scenario 6 at t=3600
+2026-02-23 10:01:43,498 [INFO] Scenario 6: Scheduled 491 vehicles.
+2026-02-23 10:01:45,845 [INFO] Sim progress: t=3900/6600, active_vehicles=400, wall=3.6s for +300s sim
+2026-02-23 10:01:48,241 [INFO] Sim progress: t=4200/6600, active_vehicles=395, wall=2.4s for +300s sim
+2026-02-23 10:01:49,576 [INFO] Injecting traffic for Scenario 7 at t=4200
+2026-02-23 10:01:49,604 [INFO] Scenario 7: Scheduled 477 vehicles.
+2026-02-23 10:01:51,995 [INFO] Sim progress: t=4500/6600, active_vehicles=456, wall=3.8s for +300s sim
+2026-02-23 10:01:54,360 [INFO] Sim progress: t=4800/6600, active_vehicles=458, wall=2.4s for +300s sim
+2026-02-23 10:01:55,624 [INFO] Injecting traffic for Scenario 8 at t=4800
+2026-02-23 10:01:55,649 [INFO] Scenario 8: Scheduled 454 vehicles.
+2026-02-23 10:01:57,981 [INFO] Sim progress: t=5100/6600, active_vehicles=423, wall=3.6s for +300s sim
+2026-02-23 10:02:00,338 [INFO] Sim progress: t=5400/6600, active_vehicles=373, wall=2.4s for +300s sim
+2026-02-23 10:02:01,613 [INFO] Injecting traffic for Scenario 9 at t=5400
+2026-02-23 10:02:01,655 [INFO] Scenario 9: Scheduled 494 vehicles.
+2026-02-23 10:02:03,983 [INFO] Sim progress: t=5700/6600, active_vehicles=398, wall=3.6s for +300s sim
+2026-02-23 10:02:06,464 [INFO] Sim progress: t=6000/6600, active_vehicles=392, wall=2.5s for +300s sim
+2026-02-23 10:02:07,757 [INFO] Injecting traffic for Scenario 10 at t=6000
+2026-02-23 10:02:07,786 [INFO] Scenario 10: Scheduled 551 vehicles.
+2026-02-23 10:02:10,156 [INFO] Sim progress: t=6300/6600, active_vehicles=443, wall=3.7s for +300s sim
+2026-02-23 10:02:12,626 [INFO] Sim progress: t=6600/6600, active_vehicles=490, wall=2.5s for +300s sim
+2026-02-23 10:02:14,081 [INFO] Training: episode 14 done at global step 978480, terminating env ...
+2026-02-23 10:02:14,145 [INFO] Training: env termination finished in 0.06s
+2026-02-23 10:02:14,146 [INFO] Training: episode 14 finished in 67.90s (global step 978480, avg R -230.92)
+2026-02-23 10:02:16,303 [INFO] TraCI connection established on port 8000
+2026-02-23 10:02:16,365 [INFO] Training: episode 15 started at global step 978480
+2026-02-23 10:02:16,401 [INFO] Injecting traffic for Scenario 0 at t=0
+2026-02-23 10:02:16,459 [INFO] Scenario 0: Scheduled 515 vehicles.
+2026-02-23 10:02:18,769 [INFO] Sim progress: t=300/6600, active_vehicles=136, wall=2.5s for +300s sim
+2026-02-23 10:02:21,068 [INFO] Sim progress: t=600/6600, active_vehicles=146, wall=2.3s for +300s sim
+2026-02-23 10:02:22,601 [INFO] Injecting traffic for Scenario 1 at t=600
+2026-02-23 10:02:22,630 [INFO] Scenario 1: Scheduled 475 vehicles.
+2026-02-23 10:02:24,818 [INFO] Sim progress: t=900/6600, active_vehicles=190, wall=3.7s for +300s sim
+2026-02-23 10:02:27,092 [INFO] Sim progress: t=1200/6600, active_vehicles=213, wall=2.3s for +300s sim
+2026-02-23 10:02:28,440 [INFO] Injecting traffic for Scenario 2 at t=1200
+2026-02-23 10:02:28,470 [INFO] Scenario 2: Scheduled 498 vehicles.
+2026-02-23 10:02:30,750 [INFO] Sim progress: t=1500/6600, active_vehicles=297, wall=3.7s for +300s sim
+2026-02-23 10:02:32,995 [INFO] Sim progress: t=1800/6600, active_vehicles=290, wall=2.2s for +300s sim
+2026-02-23 10:02:34,530 [INFO] Injecting traffic for Scenario 3 at t=1800
+2026-02-23 10:02:34,564 [INFO] Scenario 3: Scheduled 488 vehicles.
+2026-02-23 10:02:37,018 [INFO] Sim progress: t=2100/6600, active_vehicles=349, wall=4.0s for +300s sim
+2026-02-23 10:02:39,392 [INFO] Sim progress: t=2400/6600, active_vehicles=362, wall=2.4s for +300s sim
+2026-02-23 10:02:40,660 [INFO] Injecting traffic for Scenario 4 at t=2400
+2026-02-23 10:02:40,688 [INFO] Scenario 4: Scheduled 500 vehicles.
+2026-02-23 10:02:42,989 [INFO] Sim progress: t=2700/6600, active_vehicles=380, wall=3.6s for +300s sim
+2026-02-23 10:02:45,285 [INFO] Sim progress: t=3000/6600, active_vehicles=340, wall=2.3s for +300s sim
+2026-02-23 10:02:46,550 [INFO] Injecting traffic for Scenario 5 at t=3000
+2026-02-23 10:02:46,603 [INFO] Scenario 5: Scheduled 527 vehicles.
+2026-02-23 10:02:48,967 [INFO] Sim progress: t=3300/6600, active_vehicles=449, wall=3.7s for +300s sim
+2026-02-23 10:02:51,465 [INFO] Sim progress: t=3600/6600, active_vehicles=429, wall=2.5s for +300s sim
+2026-02-23 10:02:52,825 [INFO] Injecting traffic for Scenario 6 at t=3600
+2026-02-23 10:02:52,856 [INFO] Scenario 6: Scheduled 465 vehicles.
+2026-02-23 10:02:55,274 [INFO] Sim progress: t=3900/6600, active_vehicles=486, wall=3.8s for +300s sim
+2026-02-23 10:02:57,719 [INFO] Sim progress: t=4200/6600, active_vehicles=551, wall=2.4s for +300s sim
+2026-02-23 10:02:58,997 [INFO] Injecting traffic for Scenario 7 at t=4200
+2026-02-23 10:02:59,029 [INFO] Scenario 7: Scheduled 518 vehicles.
+2026-02-23 10:03:01,458 [INFO] Sim progress: t=4500/6600, active_vehicles=583, wall=3.7s for +300s sim
+2026-02-23 10:03:03,970 [INFO] Sim progress: t=4800/6600, active_vehicles=556, wall=2.5s for +300s sim
+2026-02-23 10:03:05,282 [INFO] Injecting traffic for Scenario 8 at t=4800
+2026-02-23 10:03:05,312 [INFO] Scenario 8: Scheduled 507 vehicles.
+2026-02-23 10:03:07,699 [INFO] Sim progress: t=5100/6600, active_vehicles=554, wall=3.7s for +300s sim
+2026-02-23 10:03:10,069 [INFO] Sim progress: t=5400/6600, active_vehicles=530, wall=2.4s for +300s sim
+2026-02-23 10:03:11,359 [INFO] Injecting traffic for Scenario 9 at t=5400
+2026-02-23 10:03:11,399 [INFO] Scenario 9: Scheduled 464 vehicles.
+2026-02-23 10:03:13,895 [INFO] Sim progress: t=5700/6600, active_vehicles=573, wall=3.8s for +300s sim
+2026-02-23 10:03:16,383 [INFO] Sim progress: t=6000/6600, active_vehicles=689, wall=2.5s for +300s sim
+2026-02-23 10:03:17,656 [INFO] Injecting traffic for Scenario 10 at t=6000
+2026-02-23 10:03:17,685 [INFO] Scenario 10: Scheduled 551 vehicles.
+2026-02-23 10:03:20,158 [INFO] Sim progress: t=6300/6600, active_vehicles=737, wall=3.8s for +300s sim
+2026-02-23 10:03:22,700 [INFO] Sim progress: t=6600/6600, active_vehicles=699, wall=2.5s for +300s sim
+2026-02-23 10:03:23,963 [INFO] Training: episode 15 done at global step 979800, terminating env ...
+2026-02-23 10:03:23,995 [INFO] Training: env termination finished in 0.03s
+2026-02-23 10:03:23,996 [INFO] Training: episode 15 finished in 69.85s (global step 979800, avg R -475.61)
+2026-02-23 10:03:26,154 [INFO] TraCI connection established on port 8000
+2026-02-23 10:03:26,212 [INFO] Training: episode 16 started at global step 979800
+2026-02-23 10:03:26,242 [INFO] Injecting traffic for Scenario 0 at t=0
+2026-02-23 10:03:26,298 [INFO] Scenario 0: Scheduled 527 vehicles.
+2026-02-23 10:03:28,405 [INFO] Sim progress: t=300/6600, active_vehicles=140, wall=2.3s for +300s sim
+2026-02-23 10:03:30,630 [INFO] Sim progress: t=600/6600, active_vehicles=150, wall=2.2s for +300s sim
+2026-02-23 10:03:32,000 [INFO] Injecting traffic for Scenario 1 at t=600
+2026-02-23 10:03:32,033 [INFO] Scenario 1: Scheduled 492 vehicles.
+2026-02-23 10:03:34,249 [INFO] Sim progress: t=900/6600, active_vehicles=179, wall=3.6s for +300s sim
+2026-02-23 10:03:35,089 [INFO] Training: global step 980000, episode step 200,
+                                   ob: [array([0. , 0.4, 0. , 0. , 0. , 0. , 0. , 0.2, 0. , 0. , 0. , 0. , 0. ,
+       0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. ]), array([0.  , 1.2 , 0.  , 0.  , 0.  , 0.  , 0.  , 1.2 , 0.  , 0.  , 0.  ,
+       0.  , 0.6 , 0.8 , 0.  , 0.  , 0.  , 0.  , 0.  , 0.8 , 0.  , 0.  ,
+       0.  , 0.  , 0.  , 0.06, 0.  , 0.  , 0.  , 0.  ]), array([0.    , 1.2   , 0.    , 0.2   , 0.    , 0.    , 0.    , 0.    ,
+       0.    , 0.2   , 0.    , 0.    , 0.    , 1.4   , 0.    , 0.4   ,
+       0.    , 0.    , 0.    , 0.2   , 0.    , 0.    , 0.    , 0.    ,
+       0.    , 0.0075, 0.    , 0.    , 0.    , 0.    ]), array([0.        , 1.4       , 0.        , 0.4       , 0.        ,
+       0.        , 0.        , 0.6       , 0.        , 0.2       ,
+       0.        , 0.        , 1.2       , 0.2       , 0.        ,
+       0.6       , 0.        , 0.        , 0.        , 1.4       ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       1.2       , 0.        , 0.2       , 0.        , 0.        ,
+       0.        , 0.02555556, 0.        , 0.335     , 0.        ,
+       0.        ]), array([1.2       , 0.2       , 0.        , 0.6       , 0.        ,
+       0.        , 1.4       , 0.        , 0.        , 0.6       ,
+       0.2       , 0.        , 0.        , 0.2       , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.8       ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       1.4       , 0.        , 0.4       , 0.        , 0.        ,
+       0.02055556, 0.        , 0.        , 0.        , 0.        ,
+       0.        ]), array([0. , 0.2, 0. , 0. , 0. , 0. , 0. , 1. , 0. , 0. , 0. , 0. , 0. ,
+       1.2, 0. , 0. , 0. , 0. , 0. , 0.8, 0. , 0. , 0. , 0. , 1.2, 0.2,
+       0. , 0.6, 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. ]), array([0.     , 1.2    , 0.     , 0.     , 0.     , 0.     , 0.     ,
+       1.4    , 0.2    , 0.     , 0.     , 0.     , 0.     , 1.2    ,
+       0.     , 0.     , 0.     , 0.     , 0.     , 0.2    , 0.     ,
+       0.     , 0.     , 0.     , 0.     , 0.01375, 0.     , 0.     ,
+       0.     , 0.     ]), array([0. , 0. , 0. , 0.2, 0. , 0. , 0. , 0. , 0. , 0.2, 0. , 0. , 0. ,
+       0.6, 0. , 0.2, 0. , 0. , 0. , 1.2, 0. , 0.2, 0. , 0. , 0. , 0. ,
+       0. , 0. , 0. , 0. ]), array([0. , 0.6, 0. , 0.2, 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 1.4,
+       0. , 0. , 0.6, 0.2, 0. , 0. , 1.4, 0. , 0.4, 0. , 0. , 0. , 0. ,
+       0. , 0.2, 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. ]), array([1.4       , 0.        , 0.        , 0.6       , 0.2       ,
+       0.        , 0.        , 0.4       , 0.        , 0.4       ,
+       0.        , 0.        , 0.        , 1.        , 0.        ,
+       0.        , 0.        , 0.        , 1.2       , 0.2       ,
+       0.        , 0.6       , 0.        , 0.        , 0.        ,
+       0.6       , 0.        , 0.2       , 0.        , 0.        ,
+       0.03909091, 0.        , 0.        , 0.08666667, 0.        ,
+       0.        ]), array([0.        , 1.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.2       , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 1.4       , 0.2       ,
+       0.        , 0.        , 0.        , 0.        , 0.2       ,
+       0.        , 0.        , 0.        , 0.        , 1.4       ,
+       0.        , 0.        , 0.6       , 0.2       , 0.        ,
+       0.        , 0.00333333, 0.        , 0.        , 0.        ,
+       0.        ]), array([0. , 0. , 0. , 0. , 0. , 0. , 0. , 1.4, 0. , 0. , 0. , 0. , 1.2,
+       1.2, 0. , 0. , 0. , 0. , 0. , 0.4, 0. , 0. , 0. , 0. , 0. , 0. ,
+       0. , 0. , 0. , 0. ]), array([0.        , 1.4       , 0.2       , 0.        , 0.        ,
+       0.        , 0.        , 0.2       , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 1.2       , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 1.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.09555556, 0.        , 0.        , 0.        , 0.        ]), array([0.  , 0.  , 0.  , 0.2 , 0.  , 0.  , 0.  , 0.  , 0.  , 0.  , 0.  ,
+       0.  , 0.  , 0.  , 0.  , 0.2 , 0.  , 0.  , 0.  , 0.  , 0.  , 0.04,
+       0.  , 0.  ]), array([0. , 0. , 0. , 0. , 0. , 0. , 0. , 0.4, 0. , 0.4, 0. , 0. , 0. ,
+       0.6, 0. , 0.2, 0. , 0. , 0. , 0. , 0. , 0.2, 0. , 0. , 0. , 0. ,
+       0. , 0. , 0. , 0. ]), array([0. , 0.4, 0. , 0.4, 0. , 0. , 0. , 0.2, 0. , 0. , 0. , 0. , 1.4,
+       0. , 0. , 0.6, 0.2, 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. ,
+       0. , 0. , 0. , 0. ]), array([0. , 0.2, 0. , 0. , 0. , 0. , 0. , 0.2, 0. , 0. , 0. , 0. , 0. ,
+       1. , 0. , 0. , 0. , 0. , 0. , 0.4, 0. , 0.4, 0. , 0. , 0. , 0. ,
+       0. , 0. , 0. , 0. ]), array([0. , 0.2, 0. , 0. , 0. , 0. , 0. , 1.4, 0.2, 0. , 0. , 0. , 0. ,
+       0.2, 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. ]), array([1.2       , 1.2       , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.8       , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 1.4       , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.06625   ,
+       0.01142857, 0.        , 0.        , 0.        , 0.        ]), array([0.        , 1.4       , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.8       , 0.        , 0.        ,
+       0.        , 0.        , 0.6       , 0.8       , 0.        ,
+       0.        , 0.        , 0.        , 1.2       , 1.2       ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.11916667, 0.        , 0.        , 0.        , 0.        ]), array([0.6   , 0.8   , 0.    , 0.    , 0.    , 0.    , 0.    , 1.2   ,
+       0.    , 0.    , 0.    , 0.    , 0.    , 1.4   , 0.    , 0.    ,
+       0.    , 0.    , 0.1   , 0.0025, 0.    , 0.    , 0.    , 0.    ]), array([0.  , 0.2 , 0.  , 0.  , 0.  , 0.  , 0.  , 1.2 , 0.  , 0.2 , 0.  ,
+       0.  , 0.  , 1.4 , 0.  , 0.  , 0.  , 0.  , 0.  , 0.4 , 0.  , 0.  ,
+       0.  , 0.  , 0.  , 0.12, 0.  , 0.  , 0.  , 0.  ]), array([0.        , 1.4       , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 1.4       , 0.        , 0.4       ,
+       0.        , 0.        , 0.        , 0.8       , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.2       , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.10857143, 0.        , 0.        , 0.        ,
+       0.        ]), array([0.    , 0.8   , 0.    , 0.    , 0.    , 0.    , 1.2   , 0.2   ,
+       0.    , 0.6   , 0.    , 0.    , 0.    , 0.8   , 0.    , 0.    ,
+       0.    , 0.    , 1.2   , 1.2   , 0.    , 0.    , 0.    , 0.    ,
+       0.    , 1.4   , 0.    , 0.    , 0.    , 0.    , 0.    , 0.0125,
+       0.    , 0.    , 0.    , 0.    ]), array([0.   , 0.8  , 0.   , 0.   , 0.   , 0.   , 0.   , 0.2  , 0.   ,
+       0.   , 0.   , 0.   , 0.   , 1.2  , 0.   , 0.   , 0.   , 0.   ,
+       0.   , 1.4  , 0.   , 0.   , 0.   , 0.   , 0.   , 0.8  , 0.   ,
+       0.   , 0.   , 0.   , 0.   , 0.028, 0.   , 0.   , 0.   , 0.   ])], a: [4, 1, 2, 2, 0, 0, 1, 3, 2, 3, 4, 0, 3, 4, 3, 0, 2, 2, 4, 1, 4, 4, 4, 3, 1], pi: [array([0.1789248 , 0.12137459, 0.2670176 , 0.15830044, 0.27438256],
+      dtype=float32), array([0.4110786 , 0.14963983, 0.16002065, 0.14978276, 0.12947826],
+      dtype=float32), array([0.23308031, 0.15148115, 0.24375886, 0.19102278, 0.18065685],
+      dtype=float32), array([0.18223791, 0.14203575, 0.16336752, 0.25913933, 0.2532194 ],
+      dtype=float32), array([0.3992705 , 0.13210359, 0.12011319, 0.1977921 , 0.15072052],
+      dtype=float32), array([0.28019872, 0.17334774, 0.20325015, 0.17393564, 0.16926783],
+      dtype=float32), array([0.46864155, 0.0875252 , 0.1577197 , 0.1810726 , 0.10504092],
+      dtype=float32), array([0.30771473, 0.09263877, 0.16830279, 0.24649179, 0.18485199],
+      dtype=float32), array([0.40750858, 0.116226  , 0.15444809, 0.21810095, 0.10371634],
+      dtype=float32), array([0.40084252, 0.16835998, 0.13527945, 0.19004068, 0.10547727],
+      dtype=float32), array([0.29674962, 0.15720144, 0.1587315 , 0.17264207, 0.21467537],
+      dtype=float32), array([0.23522863, 0.16015814, 0.23736683, 0.23293298, 0.13431343],
+      dtype=float32), array([0.2739292 , 0.16678424, 0.1510522 , 0.22221051, 0.1860238 ],
+      dtype=float32), array([0.2662325 , 0.13664417, 0.17920946, 0.22451365, 0.19340022],
+      dtype=float32), array([0.2601931 , 0.14832832, 0.20574549, 0.20189698, 0.18383604],
+      dtype=float32), array([0.26630378, 0.1269641 , 0.23268367, 0.19058384, 0.18346466],
+      dtype=float32), array([0.2583775 , 0.20551337, 0.17134108, 0.17259458, 0.19217351],
+      dtype=float32), array([0.2527034 , 0.18986847, 0.1944771 , 0.18863696, 0.17431404],
+      dtype=float32), array([0.19395275, 0.17028202, 0.23863113, 0.2555549 , 0.14157915],
+      dtype=float32), array([0.38164467, 0.17696327, 0.16809149, 0.21800643, 0.05529411],
+      dtype=float32), array([0.20207211, 0.25219333, 0.18273097, 0.06277599, 0.30022758],
+      dtype=float32), array([0.2919723 , 0.12505889, 0.24586564, 0.17156509, 0.16553804],
+      dtype=float32), array([0.24303538, 0.17809822, 0.19604452, 0.20553215, 0.17728971],
+      dtype=float32), array([0.35998034, 0.18527192, 0.18162939, 0.20027217, 0.07284626],
+      dtype=float32), array([0.26123   , 0.23446624, 0.2588324 , 0.11379712, 0.13167429],
+      dtype=float32)], r: -118.32, train r: -118.32, done: False
+2026-02-23 10:03:36,522 [INFO] Sim progress: t=1200/6600, active_vehicles=254, wall=2.3s for +300s sim
+2026-02-23 10:03:37,754 [INFO] Injecting traffic for Scenario 2 at t=1200
+2026-02-23 10:03:37,786 [INFO] Scenario 2: Scheduled 522 vehicles.
+2026-02-23 10:03:39,980 [INFO] Sim progress: t=1500/6600, active_vehicles=285, wall=3.5s for +300s sim
+2026-02-23 10:03:42,221 [INFO] Sim progress: t=1800/6600, active_vehicles=331, wall=2.2s for +300s sim
+2026-02-23 10:03:43,514 [INFO] Injecting traffic for Scenario 3 at t=1800
+2026-02-23 10:03:43,544 [INFO] Scenario 3: Scheduled 507 vehicles.
+2026-02-23 10:03:45,806 [INFO] Sim progress: t=2100/6600, active_vehicles=389, wall=3.6s for +300s sim
+2026-02-23 10:03:48,099 [INFO] Sim progress: t=2400/6600, active_vehicles=375, wall=2.3s for +300s sim
+2026-02-23 10:03:49,383 [INFO] Injecting traffic for Scenario 4 at t=2400
+2026-02-23 10:03:49,412 [INFO] Scenario 4: Scheduled 517 vehicles.
+2026-02-23 10:03:51,633 [INFO] Sim progress: t=2700/6600, active_vehicles=388, wall=3.5s for +300s sim
+2026-02-23 10:03:53,958 [INFO] Sim progress: t=3000/6600, active_vehicles=359, wall=2.3s for +300s sim
+2026-02-23 10:03:55,195 [INFO] Injecting traffic for Scenario 5 at t=3000
+2026-02-23 10:03:55,253 [INFO] Scenario 5: Scheduled 518 vehicles.
+2026-02-23 10:03:57,579 [INFO] Sim progress: t=3300/6600, active_vehicles=435, wall=3.6s for +300s sim
+2026-02-23 10:04:00,008 [INFO] Sim progress: t=3600/6600, active_vehicles=460, wall=2.4s for +300s sim
+2026-02-23 10:04:01,258 [INFO] Injecting traffic for Scenario 6 at t=3600
+2026-02-23 10:04:01,288 [INFO] Scenario 6: Scheduled 522 vehicles.
+2026-02-23 10:04:03,654 [INFO] Sim progress: t=3900/6600, active_vehicles=516, wall=3.6s for +300s sim
+2026-02-23 10:04:06,061 [INFO] Sim progress: t=4200/6600, active_vehicles=577, wall=2.4s for +300s sim
+2026-02-23 10:04:07,312 [INFO] Injecting traffic for Scenario 7 at t=4200
+2026-02-23 10:04:07,345 [INFO] Scenario 7: Scheduled 520 vehicles.
+2026-02-23 10:04:09,792 [INFO] Sim progress: t=4500/6600, active_vehicles=691, wall=3.7s for +300s sim
+2026-02-23 10:04:12,301 [INFO] Sim progress: t=4800/6600, active_vehicles=718, wall=2.5s for +300s sim
+2026-02-23 10:04:13,533 [INFO] Injecting traffic for Scenario 8 at t=4800
+2026-02-23 10:04:13,560 [INFO] Scenario 8: Scheduled 465 vehicles.
+2026-02-23 10:04:16,041 [INFO] Sim progress: t=5100/6600, active_vehicles=673, wall=3.7s for +300s sim
+2026-02-23 10:04:18,445 [INFO] Sim progress: t=5400/6600, active_vehicles=585, wall=2.4s for +300s sim
+2026-02-23 10:04:19,711 [INFO] Injecting traffic for Scenario 9 at t=5400
+2026-02-23 10:04:19,746 [INFO] Scenario 9: Scheduled 479 vehicles.
+2026-02-23 10:04:22,137 [INFO] Sim progress: t=5700/6600, active_vehicles=617, wall=3.7s for +300s sim
+2026-02-23 10:04:24,616 [INFO] Sim progress: t=6000/6600, active_vehicles=632, wall=2.5s for +300s sim
+2026-02-23 10:04:25,866 [INFO] Injecting traffic for Scenario 10 at t=6000
+2026-02-23 10:04:25,894 [INFO] Scenario 10: Scheduled 505 vehicles.
+2026-02-23 10:04:28,350 [INFO] Sim progress: t=6300/6600, active_vehicles=656, wall=3.7s for +300s sim
+2026-02-23 10:04:30,823 [INFO] Sim progress: t=6600/6600, active_vehicles=659, wall=2.5s for +300s sim
+2026-02-23 10:04:32,034 [INFO] Training: episode 16 done at global step 981120, terminating env ...
+2026-02-23 10:04:32,050 [INFO] Training: env termination finished in 0.02s
+2026-02-23 10:04:32,051 [INFO] Training: episode 16 finished in 68.05s (global step 981120, avg R -419.42)
+2026-02-23 10:04:34,206 [INFO] TraCI connection established on port 8000
+2026-02-23 10:04:34,263 [INFO] Training: episode 17 started at global step 981120
+2026-02-23 10:04:34,294 [INFO] Injecting traffic for Scenario 0 at t=0
+2026-02-23 10:04:34,345 [INFO] Scenario 0: Scheduled 488 vehicles.
+2026-02-23 10:04:36,505 [INFO] Sim progress: t=300/6600, active_vehicles=126, wall=2.3s for +300s sim
+2026-02-23 10:04:38,683 [INFO] Sim progress: t=600/6600, active_vehicles=146, wall=2.2s for +300s sim
+2026-02-23 10:04:40,022 [INFO] Injecting traffic for Scenario 1 at t=600
+2026-02-23 10:04:40,051 [INFO] Scenario 1: Scheduled 492 vehicles.
+2026-02-23 10:04:42,168 [INFO] Sim progress: t=900/6600, active_vehicles=169, wall=3.5s for +300s sim
+2026-02-23 10:04:44,415 [INFO] Sim progress: t=1200/6600, active_vehicles=227, wall=2.2s for +300s sim
+2026-02-23 10:04:45,663 [INFO] Injecting traffic for Scenario 2 at t=1200
+2026-02-23 10:04:45,691 [INFO] Scenario 2: Scheduled 466 vehicles.
+2026-02-23 10:04:47,969 [INFO] Sim progress: t=1500/6600, active_vehicles=269, wall=3.6s for +300s sim
+2026-02-23 10:04:50,220 [INFO] Sim progress: t=1800/6600, active_vehicles=281, wall=2.3s for +300s sim
+2026-02-23 10:04:51,478 [INFO] Injecting traffic for Scenario 3 at t=1800
+2026-02-23 10:04:51,508 [INFO] Scenario 3: Scheduled 489 vehicles.
+2026-02-23 10:04:53,757 [INFO] Sim progress: t=2100/6600, active_vehicles=347, wall=3.5s for +300s sim
+2026-02-23 10:04:56,022 [INFO] Sim progress: t=2400/6600, active_vehicles=331, wall=2.3s for +300s sim
+2026-02-23 10:04:57,258 [INFO] Injecting traffic for Scenario 4 at t=2400
+2026-02-23 10:04:57,288 [INFO] Scenario 4: Scheduled 514 vehicles.
+2026-02-23 10:04:59,562 [INFO] Sim progress: t=2700/6600, active_vehicles=326, wall=3.5s for +300s sim
+2026-02-23 10:05:01,851 [INFO] Sim progress: t=3000/6600, active_vehicles=294, wall=2.3s for +300s sim
+2026-02-23 10:05:03,077 [INFO] Injecting traffic for Scenario 5 at t=3000
+2026-02-23 10:05:03,140 [INFO] Scenario 5: Scheduled 466 vehicles.
+2026-02-23 10:05:05,399 [INFO] Sim progress: t=3300/6600, active_vehicles=340, wall=3.5s for +300s sim
+2026-02-23 10:05:07,738 [INFO] Sim progress: t=3600/6600, active_vehicles=344, wall=2.3s for +300s sim
+2026-02-23 10:05:09,010 [INFO] Injecting traffic for Scenario 6 at t=3600
+2026-02-23 10:05:09,040 [INFO] Scenario 6: Scheduled 512 vehicles.
+2026-02-23 10:05:11,321 [INFO] Sim progress: t=3900/6600, active_vehicles=411, wall=3.6s for +300s sim
+2026-02-23 10:05:13,656 [INFO] Sim progress: t=4200/6600, active_vehicles=428, wall=2.3s for +300s sim
+2026-02-23 10:05:14,915 [INFO] Injecting traffic for Scenario 7 at t=4200
+2026-02-23 10:05:14,945 [INFO] Scenario 7: Scheduled 511 vehicles.
+2026-02-23 10:05:17,291 [INFO] Sim progress: t=4500/6600, active_vehicles=472, wall=3.6s for +300s sim
+2026-02-23 10:05:19,646 [INFO] Sim progress: t=4800/6600, active_vehicles=431, wall=2.4s for +300s sim
+2026-02-23 10:05:20,911 [INFO] Injecting traffic for Scenario 8 at t=4800
+2026-02-23 10:05:20,940 [INFO] Scenario 8: Scheduled 524 vehicles.
+2026-02-23 10:05:23,214 [INFO] Sim progress: t=5100/6600, active_vehicles=420, wall=3.6s for +300s sim
+2026-02-23 10:05:25,555 [INFO] Sim progress: t=5400/6600, active_vehicles=354, wall=2.3s for +300s sim
+2026-02-23 10:05:26,840 [INFO] Injecting traffic for Scenario 9 at t=5400
+2026-02-23 10:05:26,878 [INFO] Scenario 9: Scheduled 480 vehicles.
+2026-02-23 10:05:29,145 [INFO] Sim progress: t=5700/6600, active_vehicles=390, wall=3.6s for +300s sim
+2026-02-23 10:05:31,456 [INFO] Sim progress: t=6000/6600, active_vehicles=401, wall=2.3s for +300s sim
+2026-02-23 10:05:32,693 [INFO] Injecting traffic for Scenario 10 at t=6000
+2026-02-23 10:05:32,720 [INFO] Scenario 10: Scheduled 517 vehicles.
+2026-02-23 10:05:35,062 [INFO] Sim progress: t=6300/6600, active_vehicles=445, wall=3.6s for +300s sim
+2026-02-23 10:05:37,479 [INFO] Sim progress: t=6600/6600, active_vehicles=425, wall=2.4s for +300s sim
+2026-02-23 10:05:38,698 [INFO] Training: episode 17 done at global step 982440, terminating env ...
+2026-02-23 10:05:38,729 [INFO] Training: env termination finished in 0.03s
+2026-02-23 10:05:38,730 [INFO] Training: episode 17 finished in 66.68s (global step 982440, avg R -223.15)
+2026-02-23 10:05:40,885 [INFO] TraCI connection established on port 8000
+2026-02-23 10:05:40,943 [INFO] Training: episode 18 started at global step 982440
+2026-02-23 10:05:40,969 [INFO] Injecting traffic for Scenario 0 at t=0
+2026-02-23 10:05:41,020 [INFO] Scenario 0: Scheduled 496 vehicles.
+2026-02-23 10:05:43,131 [INFO] Sim progress: t=300/6600, active_vehicles=140, wall=2.2s for +300s sim
+2026-02-23 10:05:45,320 [INFO] Sim progress: t=600/6600, active_vehicles=142, wall=2.2s for +300s sim
+2026-02-23 10:05:46,616 [INFO] Injecting traffic for Scenario 1 at t=600
+2026-02-23 10:05:46,644 [INFO] Scenario 1: Scheduled 458 vehicles.
+2026-02-23 10:05:48,793 [INFO] Sim progress: t=900/6600, active_vehicles=160, wall=3.5s for +300s sim
+2026-02-23 10:05:51,015 [INFO] Sim progress: t=1200/6600, active_vehicles=198, wall=2.2s for +300s sim
+2026-02-23 10:05:52,250 [INFO] Injecting traffic for Scenario 2 at t=1200
+2026-02-23 10:05:52,280 [INFO] Scenario 2: Scheduled 486 vehicles.
+2026-02-23 10:05:54,492 [INFO] Sim progress: t=1500/6600, active_vehicles=255, wall=3.5s for +300s sim
+2026-02-23 10:05:56,789 [INFO] Sim progress: t=1800/6600, active_vehicles=252, wall=2.3s for +300s sim
+2026-02-23 10:05:58,025 [INFO] Injecting traffic for Scenario 3 at t=1800
+2026-02-23 10:05:58,055 [INFO] Scenario 3: Scheduled 509 vehicles.
+2026-02-23 10:06:00,253 [INFO] Sim progress: t=2100/6600, active_vehicles=347, wall=3.5s for +300s sim
+2026-02-23 10:06:02,560 [INFO] Sim progress: t=2400/6600, active_vehicles=373, wall=2.3s for +300s sim
+2026-02-23 10:06:03,838 [INFO] Injecting traffic for Scenario 4 at t=2400
+2026-02-23 10:06:03,869 [INFO] Scenario 4: Scheduled 563 vehicles.
+2026-02-23 10:06:06,185 [INFO] Sim progress: t=2700/6600, active_vehicles=396, wall=3.6s for +300s sim
+2026-02-23 10:06:08,495 [INFO] Sim progress: t=3000/6600, active_vehicles=338, wall=2.3s for +300s sim
+2026-02-23 10:06:09,776 [INFO] Injecting traffic for Scenario 5 at t=3000
+2026-02-23 10:06:09,822 [INFO] Scenario 5: Scheduled 469 vehicles.
+2026-02-23 10:06:12,115 [INFO] Sim progress: t=3300/6600, active_vehicles=393, wall=3.6s for +300s sim
+2026-02-23 10:06:14,451 [INFO] Sim progress: t=3600/6600, active_vehicles=352, wall=2.3s for +300s sim
+2026-02-23 10:06:15,705 [INFO] Injecting traffic for Scenario 6 at t=3600
+2026-02-23 10:06:15,733 [INFO] Scenario 6: Scheduled 493 vehicles.
+2026-02-23 10:06:18,083 [INFO] Sim progress: t=3900/6600, active_vehicles=440, wall=3.6s for +300s sim
+2026-02-23 10:06:20,473 [INFO] Sim progress: t=4200/6600, active_vehicles=514, wall=2.4s for +300s sim
+2026-02-23 10:06:21,725 [INFO] Injecting traffic for Scenario 7 at t=4200
+2026-02-23 10:06:21,756 [INFO] Scenario 7: Scheduled 512 vehicles.
+2026-02-23 10:06:24,176 [INFO] Sim progress: t=4500/6600, active_vehicles=658, wall=3.7s for +300s sim
+2026-02-23 10:06:26,622 [INFO] Sim progress: t=4800/6600, active_vehicles=666, wall=2.4s for +300s sim
+2026-02-23 10:06:27,859 [INFO] Injecting traffic for Scenario 8 at t=4800
+2026-02-23 10:06:27,890 [INFO] Scenario 8: Scheduled 499 vehicles.
+2026-02-23 10:06:30,299 [INFO] Sim progress: t=5100/6600, active_vehicles=604, wall=3.7s for +300s sim
+2026-02-23 10:06:32,704 [INFO] Sim progress: t=5400/6600, active_vehicles=545, wall=2.4s for +300s sim
+2026-02-23 10:06:33,934 [INFO] Injecting traffic for Scenario 9 at t=5400
+2026-02-23 10:06:33,975 [INFO] Scenario 9: Scheduled 517 vehicles.
+2026-02-23 10:06:36,377 [INFO] Sim progress: t=5700/6600, active_vehicles=548, wall=3.7s for +300s sim
+2026-02-23 10:06:38,843 [INFO] Sim progress: t=6000/6600, active_vehicles=525, wall=2.5s for +300s sim
+2026-02-23 10:06:40,077 [INFO] Injecting traffic for Scenario 10 at t=6000
+2026-02-23 10:06:40,102 [INFO] Scenario 10: Scheduled 470 vehicles.
+2026-02-23 10:06:42,478 [INFO] Sim progress: t=6300/6600, active_vehicles=645, wall=3.6s for +300s sim
+2026-02-23 10:06:44,941 [INFO] Sim progress: t=6600/6600, active_vehicles=627, wall=2.5s for +300s sim
+2026-02-23 10:06:46,162 [INFO] Training: episode 18 done at global step 983760, terminating env ...
+2026-02-23 10:06:46,226 [INFO] Training: env termination finished in 0.06s
+2026-02-23 10:06:46,227 [INFO] Training: episode 18 finished in 67.50s (global step 983760, avg R -326.04)
+2026-02-23 10:06:48,384 [INFO] TraCI connection established on port 8000
+2026-02-23 10:06:48,442 [INFO] Training: episode 19 started at global step 983760
+2026-02-23 10:06:48,468 [INFO] Injecting traffic for Scenario 0 at t=0
+2026-02-23 10:06:48,518 [INFO] Scenario 0: Scheduled 506 vehicles.
+2026-02-23 10:06:50,609 [INFO] Sim progress: t=300/6600, active_vehicles=126, wall=2.2s for +300s sim
+2026-02-23 10:06:52,780 [INFO] Sim progress: t=600/6600, active_vehicles=158, wall=2.2s for +300s sim
+2026-02-23 10:06:54,126 [INFO] Injecting traffic for Scenario 1 at t=600
+2026-02-23 10:06:54,158 [INFO] Scenario 1: Scheduled 528 vehicles.
+2026-02-23 10:06:56,293 [INFO] Sim progress: t=900/6600, active_vehicles=185, wall=3.5s for +300s sim
+2026-02-23 10:06:58,509 [INFO] Sim progress: t=1200/6600, active_vehicles=254, wall=2.2s for +300s sim
+2026-02-23 10:06:59,798 [INFO] Injecting traffic for Scenario 2 at t=1200
+2026-02-23 10:06:59,828 [INFO] Scenario 2: Scheduled 515 vehicles.
+2026-02-23 10:07:02,076 [INFO] Sim progress: t=1500/6600, active_vehicles=297, wall=3.6s for +300s sim
+2026-02-23 10:07:04,343 [INFO] Sim progress: t=1800/6600, active_vehicles=322, wall=2.3s for +300s sim
+2026-02-23 10:07:05,592 [INFO] Injecting traffic for Scenario 3 at t=1800
+2026-02-23 10:07:05,626 [INFO] Scenario 3: Scheduled 535 vehicles.
+2026-02-23 10:07:07,829 [INFO] Sim progress: t=2100/6600, active_vehicles=383, wall=3.5s for +300s sim
+2026-02-23 10:07:10,179 [INFO] Sim progress: t=2400/6600, active_vehicles=370, wall=2.4s for +300s sim
+2026-02-23 10:07:11,411 [INFO] Injecting traffic for Scenario 4 at t=2400
+2026-02-23 10:07:11,437 [INFO] Scenario 4: Scheduled 478 vehicles.
+2026-02-23 10:07:13,694 [INFO] Sim progress: t=2700/6600, active_vehicles=404, wall=3.5s for +300s sim
+2026-02-23 10:07:16,021 [INFO] Sim progress: t=3000/6600, active_vehicles=339, wall=2.3s for +300s sim
+2026-02-23 10:07:17,257 [INFO] Injecting traffic for Scenario 5 at t=3000
+2026-02-23 10:07:17,304 [INFO] Scenario 5: Scheduled 502 vehicles.
+2026-02-23 10:07:19,657 [INFO] Sim progress: t=3300/6600, active_vehicles=435, wall=3.6s for +300s sim
+2026-02-23 10:07:22,032 [INFO] Sim progress: t=3600/6600, active_vehicles=413, wall=2.4s for +300s sim
+2026-02-23 10:07:23,304 [INFO] Injecting traffic for Scenario 6 at t=3600
+2026-02-23 10:07:23,333 [INFO] Scenario 6: Scheduled 493 vehicles.
+2026-02-23 10:07:25,717 [INFO] Sim progress: t=3900/6600, active_vehicles=459, wall=3.7s for +300s sim
+2026-02-23 10:07:28,091 [INFO] Sim progress: t=4200/6600, active_vehicles=557, wall=2.4s for +300s sim
+2026-02-23 10:07:29,424 [INFO] Injecting traffic for Scenario 7 at t=4200
+2026-02-23 10:07:29,455 [INFO] Scenario 7: Scheduled 497 vehicles.
+2026-02-23 10:07:31,861 [INFO] Sim progress: t=4500/6600, active_vehicles=657, wall=3.8s for +300s sim
+2026-02-23 10:07:34,383 [INFO] Sim progress: t=4800/6600, active_vehicles=702, wall=2.5s for +300s sim
+2026-02-23 10:07:35,686 [INFO] Injecting traffic for Scenario 8 at t=4800
+2026-02-23 10:07:35,713 [INFO] Scenario 8: Scheduled 505 vehicles.
+2026-02-23 10:07:38,136 [INFO] Sim progress: t=5100/6600, active_vehicles=687, wall=3.8s for +300s sim
+2026-02-23 10:07:40,747 [INFO] Sim progress: t=5400/6600, active_vehicles=746, wall=2.6s for +300s sim
+2026-02-23 10:07:42,011 [INFO] Injecting traffic for Scenario 9 at t=5400
+2026-02-23 10:07:42,048 [INFO] Scenario 9: Scheduled 513 vehicles.
+2026-02-23 10:07:44,628 [INFO] Sim progress: t=5700/6600, active_vehicles=754, wall=3.9s for +300s sim
+2026-02-23 10:07:47,104 [INFO] Sim progress: t=6000/6600, active_vehicles=716, wall=2.5s for +300s sim
+2026-02-23 10:07:48,373 [INFO] Injecting traffic for Scenario 10 at t=6000
+2026-02-23 10:07:48,400 [INFO] Scenario 10: Scheduled 507 vehicles.
+2026-02-23 10:07:50,904 [INFO] Sim progress: t=6300/6600, active_vehicles=773, wall=3.8s for +300s sim
+2026-02-23 10:07:53,466 [INFO] Sim progress: t=6600/6600, active_vehicles=783, wall=2.6s for +300s sim
+2026-02-23 10:07:54,661 [INFO] Training: episode 19 done at global step 985080, terminating env ...
+2026-02-23 10:07:54,725 [INFO] Training: env termination finished in 0.06s
+2026-02-23 10:07:54,726 [INFO] Training: episode 19 finished in 68.50s (global step 985080, avg R -502.59)
+2026-02-23 10:07:56,881 [INFO] TraCI connection established on port 8000
+2026-02-23 10:07:56,939 [INFO] Training: episode 20 started at global step 985080
+2026-02-23 10:07:56,970 [INFO] Injecting traffic for Scenario 0 at t=0
+2026-02-23 10:07:57,020 [INFO] Scenario 0: Scheduled 491 vehicles.
+2026-02-23 10:07:59,122 [INFO] Sim progress: t=300/6600, active_vehicles=136, wall=2.2s for +300s sim
+2026-02-23 10:08:01,320 [INFO] Sim progress: t=600/6600, active_vehicles=134, wall=2.2s for +300s sim
+2026-02-23 10:08:02,663 [INFO] Injecting traffic for Scenario 1 at t=600
+2026-02-23 10:08:02,694 [INFO] Scenario 1: Scheduled 478 vehicles.
+2026-02-23 10:08:04,809 [INFO] Sim progress: t=900/6600, active_vehicles=159, wall=3.5s for +300s sim
+2026-02-23 10:08:06,998 [INFO] Sim progress: t=1200/6600, active_vehicles=205, wall=2.2s for +300s sim
+2026-02-23 10:08:08,222 [INFO] Injecting traffic for Scenario 2 at t=1200
+2026-02-23 10:08:08,256 [INFO] Scenario 2: Scheduled 510 vehicles.
+2026-02-23 10:08:10,478 [INFO] Sim progress: t=1500/6600, active_vehicles=291, wall=3.5s for +300s sim
+2026-02-23 10:08:12,743 [INFO] Sim progress: t=1800/6600, active_vehicles=317, wall=2.3s for +300s sim
+2026-02-23 10:08:13,986 [INFO] Injecting traffic for Scenario 3 at t=1800
+2026-02-23 10:08:14,024 [INFO] Scenario 3: Scheduled 518 vehicles.
+2026-02-23 10:08:16,233 [INFO] Sim progress: t=2100/6600, active_vehicles=344, wall=3.5s for +300s sim
+2026-02-23 10:08:18,472 [INFO] Sim progress: t=2400/6600, active_vehicles=371, wall=2.2s for +300s sim
+2026-02-23 10:08:19,732 [INFO] Injecting traffic for Scenario 4 at t=2400
+2026-02-23 10:08:19,760 [INFO] Scenario 4: Scheduled 498 vehicles.
+2026-02-23 10:08:22,049 [INFO] Sim progress: t=2700/6600, active_vehicles=358, wall=3.6s for +300s sim
+2026-02-23 10:08:24,373 [INFO] Sim progress: t=3000/6600, active_vehicles=325, wall=2.3s for +300s sim
+2026-02-23 10:08:25,654 [INFO] Injecting traffic for Scenario 5 at t=3000
+2026-02-23 10:08:25,702 [INFO] Scenario 5: Scheduled 506 vehicles.
+2026-02-23 10:08:28,028 [INFO] Sim progress: t=3300/6600, active_vehicles=405, wall=3.7s for +300s sim
+2026-02-23 10:08:30,439 [INFO] Sim progress: t=3600/6600, active_vehicles=417, wall=2.4s for +300s sim
+2026-02-23 10:08:31,700 [INFO] Injecting traffic for Scenario 6 at t=3600
+2026-02-23 10:08:31,734 [INFO] Scenario 6: Scheduled 501 vehicles.
+2026-02-23 10:08:34,092 [INFO] Sim progress: t=3900/6600, active_vehicles=501, wall=3.7s for +300s sim
+2026-02-23 10:08:36,505 [INFO] Sim progress: t=4200/6600, active_vehicles=554, wall=2.4s for +300s sim
+2026-02-23 10:08:37,841 [INFO] Injecting traffic for Scenario 7 at t=4200
+2026-02-23 10:08:37,869 [INFO] Scenario 7: Scheduled 464 vehicles.
+2026-02-23 10:08:40,381 [INFO] Sim progress: t=4500/6600, active_vehicles=656, wall=3.9s for +300s sim
+2026-02-23 10:08:42,797 [INFO] Sim progress: t=4800/6600, active_vehicles=662, wall=2.4s for +300s sim
+2026-02-23 10:08:44,055 [INFO] Injecting traffic for Scenario 8 at t=4800
+2026-02-23 10:08:44,082 [INFO] Scenario 8: Scheduled 497 vehicles.
+2026-02-23 10:08:46,564 [INFO] Sim progress: t=5100/6600, active_vehicles=718, wall=3.8s for +300s sim
+2026-02-23 10:08:49,076 [INFO] Sim progress: t=5400/6600, active_vehicles=708, wall=2.5s for +300s sim
+2026-02-23 10:08:50,344 [INFO] Injecting traffic for Scenario 9 at t=5400
+2026-02-23 10:08:50,382 [INFO] Scenario 9: Scheduled 505 vehicles.
+2026-02-23 10:08:52,958 [INFO] Sim progress: t=5700/6600, active_vehicles=834, wall=3.9s for +300s sim
+2026-02-23 10:08:55,603 [INFO] Sim progress: t=6000/6600, active_vehicles=895, wall=2.6s for +300s sim
+2026-02-23 10:08:56,844 [INFO] Injecting traffic for Scenario 10 at t=6000
+2026-02-23 10:08:56,871 [INFO] Scenario 10: Scheduled 503 vehicles.
+2026-02-23 10:08:59,565 [INFO] Sim progress: t=6300/6600, active_vehicles=902, wall=4.0s for +300s sim
+2026-02-23 10:09:02,197 [INFO] Sim progress: t=6600/6600, active_vehicles=932, wall=2.6s for +300s sim
+2026-02-23 10:09:03,378 [INFO] Training: episode 20 done at global step 986400, terminating env ...
+2026-02-23 10:09:03,410 [INFO] Training: env termination finished in 0.03s
+2026-02-23 10:09:03,411 [INFO] Training: episode 20 finished in 68.69s (global step 986400, avg R -831.80)
+2026-02-23 10:09:05,567 [INFO] TraCI connection established on port 8000
+2026-02-23 10:09:05,623 [INFO] Training: episode 21 started at global step 986400
+2026-02-23 10:09:05,671 [INFO] Injecting traffic for Scenario 0 at t=0
+2026-02-23 10:09:05,720 [INFO] Scenario 0: Scheduled 469 vehicles.
+2026-02-23 10:09:07,870 [INFO] Sim progress: t=300/6600, active_vehicles=139, wall=2.3s for +300s sim
+2026-02-23 10:09:10,117 [INFO] Sim progress: t=600/6600, active_vehicles=130, wall=2.2s for +300s sim
+2026-02-23 10:09:11,528 [INFO] Injecting traffic for Scenario 1 at t=600
+2026-02-23 10:09:11,558 [INFO] Scenario 1: Scheduled 492 vehicles.
+2026-02-23 10:09:13,752 [INFO] Sim progress: t=900/6600, active_vehicles=174, wall=3.6s for +300s sim
+2026-02-23 10:09:16,021 [INFO] Sim progress: t=1200/6600, active_vehicles=223, wall=2.3s for +300s sim
+2026-02-23 10:09:17,268 [INFO] Injecting traffic for Scenario 2 at t=1200
+2026-02-23 10:09:17,297 [INFO] Scenario 2: Scheduled 479 vehicles.
+2026-02-23 10:09:19,656 [INFO] Sim progress: t=1500/6600, active_vehicles=274, wall=3.6s for +300s sim
+2026-02-23 10:09:21,999 [INFO] Sim progress: t=1800/6600, active_vehicles=300, wall=2.3s for +300s sim
+2026-02-23 10:09:23,259 [INFO] Injecting traffic for Scenario 3 at t=1800
+2026-02-23 10:09:23,296 [INFO] Scenario 3: Scheduled 507 vehicles.
+2026-02-23 10:09:25,602 [INFO] Sim progress: t=2100/6600, active_vehicles=356, wall=3.6s for +300s sim
+2026-02-23 10:09:27,948 [INFO] Sim progress: t=2400/6600, active_vehicles=388, wall=2.3s for +300s sim
+2026-02-23 10:09:29,325 [INFO] Injecting traffic for Scenario 4 at t=2400
+2026-02-23 10:09:29,353 [INFO] Scenario 4: Scheduled 505 vehicles.
+2026-02-23 10:09:31,705 [INFO] Sim progress: t=2700/6600, active_vehicles=366, wall=3.8s for +300s sim
+2026-02-23 10:09:34,101 [INFO] Sim progress: t=3000/6600, active_vehicles=301, wall=2.4s for +300s sim
+2026-02-23 10:09:35,563 [INFO] Injecting traffic for Scenario 5 at t=3000
+2026-02-23 10:09:35,606 [INFO] Scenario 5: Scheduled 444 vehicles.
+2026-02-23 10:09:37,988 [INFO] Sim progress: t=3300/6600, active_vehicles=326, wall=3.9s for +300s sim
+2026-02-23 10:09:40,385 [INFO] Sim progress: t=3600/6600, active_vehicles=325, wall=2.4s for +300s sim
+2026-02-23 10:09:41,880 [INFO] Injecting traffic for Scenario 6 at t=3600
+2026-02-23 10:09:41,915 [INFO] Scenario 6: Scheduled 501 vehicles.
+2026-02-23 10:09:44,377 [INFO] Sim progress: t=3900/6600, active_vehicles=393, wall=4.0s for +300s sim
+2026-02-23 10:09:46,973 [INFO] Sim progress: t=4200/6600, active_vehicles=406, wall=2.6s for +300s sim
+2026-02-23 10:09:48,398 [INFO] Injecting traffic for Scenario 7 at t=4200
+2026-02-23 10:09:48,427 [INFO] Scenario 7: Scheduled 494 vehicles.
+2026-02-23 10:09:51,044 [INFO] Sim progress: t=4500/6600, active_vehicles=446, wall=4.1s for +300s sim
+2026-02-23 10:09:53,489 [INFO] Sim progress: t=4800/6600, active_vehicles=419, wall=2.4s for +300s sim
+2026-02-23 10:09:54,822 [INFO] Injecting traffic for Scenario 8 at t=4800
+2026-02-23 10:09:54,848 [INFO] Scenario 8: Scheduled 466 vehicles.
+2026-02-23 10:09:57,260 [INFO] Sim progress: t=5100/6600, active_vehicles=385, wall=3.8s for +300s sim
+2026-02-23 10:09:59,598 [INFO] Sim progress: t=5400/6600, active_vehicles=311, wall=2.3s for +300s sim
+2026-02-23 10:10:01,162 [INFO] Injecting traffic for Scenario 9 at t=5400
+2026-02-23 10:10:01,199 [INFO] Scenario 9: Scheduled 525 vehicles.
+2026-02-23 10:10:03,610 [INFO] Sim progress: t=5700/6600, active_vehicles=339, wall=4.0s for +300s sim
+2026-02-23 10:10:06,067 [INFO] Sim progress: t=6000/6600, active_vehicles=303, wall=2.5s for +300s sim
+2026-02-23 10:10:07,440 [INFO] Injecting traffic for Scenario 10 at t=6000
+2026-02-23 10:10:07,470 [INFO] Scenario 10: Scheduled 526 vehicles.
+2026-02-23 10:10:09,941 [INFO] Sim progress: t=6300/6600, active_vehicles=352, wall=3.9s for +300s sim
+2026-02-23 10:10:12,504 [INFO] Sim progress: t=6600/6600, active_vehicles=422, wall=2.6s for +300s sim
+2026-02-23 10:10:13,892 [INFO] Training: episode 21 done at global step 987720, terminating env ...
+2026-02-23 10:10:13,956 [INFO] Training: env termination finished in 0.06s
+2026-02-23 10:10:13,957 [INFO] Training: episode 21 finished in 70.55s (global step 987720, avg R -212.20)
+2026-02-23 10:10:16,114 [INFO] TraCI connection established on port 8000
+2026-02-23 10:10:16,171 [INFO] Training: episode 22 started at global step 987720
+2026-02-23 10:10:16,198 [INFO] Injecting traffic for Scenario 0 at t=0
+2026-02-23 10:10:16,249 [INFO] Scenario 0: Scheduled 495 vehicles.
+2026-02-23 10:10:18,674 [INFO] Sim progress: t=300/6600, active_vehicles=140, wall=2.6s for +300s sim
+2026-02-23 10:10:21,268 [INFO] Sim progress: t=600/6600, active_vehicles=146, wall=2.6s for +300s sim
+2026-02-23 10:10:22,903 [INFO] Injecting traffic for Scenario 1 at t=600
+2026-02-23 10:10:22,933 [INFO] Scenario 1: Scheduled 491 vehicles.
+2026-02-23 10:10:25,191 [INFO] Sim progress: t=900/6600, active_vehicles=180, wall=3.9s for +300s sim
+2026-02-23 10:10:27,571 [INFO] Sim progress: t=1200/6600, active_vehicles=248, wall=2.4s for +300s sim
+2026-02-23 10:10:28,873 [INFO] Injecting traffic for Scenario 2 at t=1200
+2026-02-23 10:10:28,908 [INFO] Scenario 2: Scheduled 530 vehicles.
+2026-02-23 10:10:31,308 [INFO] Sim progress: t=1500/6600, active_vehicles=292, wall=3.7s for +300s sim
+2026-02-23 10:10:33,874 [INFO] Sim progress: t=1800/6600, active_vehicles=286, wall=2.6s for +300s sim
+2026-02-23 10:10:35,133 [INFO] Injecting traffic for Scenario 3 at t=1800
+2026-02-23 10:10:35,164 [INFO] Scenario 3: Scheduled 506 vehicles.
+2026-02-23 10:10:37,451 [INFO] Sim progress: t=2100/6600, active_vehicles=378, wall=3.6s for +300s sim
+2026-02-23 10:10:39,850 [INFO] Sim progress: t=2400/6600, active_vehicles=363, wall=2.4s for +300s sim
+2026-02-23 10:10:41,200 [INFO] Injecting traffic for Scenario 4 at t=2400
+2026-02-23 10:10:41,229 [INFO] Scenario 4: Scheduled 486 vehicles.
+2026-02-23 10:10:43,700 [INFO] Sim progress: t=2700/6600, active_vehicles=385, wall=3.9s for +300s sim
+2026-02-23 10:10:46,156 [INFO] Sim progress: t=3000/6600, active_vehicles=332, wall=2.5s for +300s sim
+2026-02-23 10:10:47,595 [INFO] Injecting traffic for Scenario 5 at t=3000
+2026-02-23 10:10:47,640 [INFO] Scenario 5: Scheduled 473 vehicles.
+2026-02-23 10:10:50,054 [INFO] Sim progress: t=3300/6600, active_vehicles=384, wall=3.9s for +300s sim
+2026-02-23 10:10:52,490 [INFO] Sim progress: t=3600/6600, active_vehicles=408, wall=2.4s for +300s sim
+2026-02-23 10:10:53,788 [INFO] Injecting traffic for Scenario 6 at t=3600
+2026-02-23 10:10:53,818 [INFO] Scenario 6: Scheduled 528 vehicles.
+2026-02-23 10:10:56,265 [INFO] Sim progress: t=3900/6600, active_vehicles=470, wall=3.8s for +300s sim
+2026-02-23 10:10:58,817 [INFO] Sim progress: t=4200/6600, active_vehicles=540, wall=2.6s for +300s sim
+2026-02-23 10:11:00,119 [INFO] Injecting traffic for Scenario 7 at t=4200
+2026-02-23 10:11:00,149 [INFO] Scenario 7: Scheduled 509 vehicles.
+2026-02-23 10:11:02,749 [INFO] Sim progress: t=4500/6600, active_vehicles=662, wall=3.9s for +300s sim
+2026-02-23 10:11:05,328 [INFO] Sim progress: t=4800/6600, active_vehicles=677, wall=2.6s for +300s sim
+2026-02-23 10:11:06,699 [INFO] Injecting traffic for Scenario 8 at t=4800
+2026-02-23 10:11:06,728 [INFO] Scenario 8: Scheduled 504 vehicles.
+2026-02-23 10:11:09,233 [INFO] Sim progress: t=5100/6600, active_vehicles=667, wall=3.9s for +300s sim
+2026-02-23 10:11:11,921 [INFO] Sim progress: t=5400/6600, active_vehicles=692, wall=2.7s for +300s sim
+2026-02-23 10:11:13,471 [INFO] Injecting traffic for Scenario 9 at t=5400
+2026-02-23 10:11:13,505 [INFO] Scenario 9: Scheduled 479 vehicles.
+2026-02-23 10:11:16,298 [INFO] Sim progress: t=5700/6600, active_vehicles=780, wall=4.4s for +300s sim
+2026-02-23 10:11:19,142 [INFO] Sim progress: t=6000/6600, active_vehicles=847, wall=2.8s for +300s sim
+2026-02-23 10:11:20,433 [INFO] Injecting traffic for Scenario 10 at t=6000
+2026-02-23 10:11:20,462 [INFO] Scenario 10: Scheduled 539 vehicles.
+2026-02-23 10:11:23,084 [INFO] Sim progress: t=6300/6600, active_vehicles=861, wall=3.9s for +300s sim
+2026-02-23 10:11:25,782 [INFO] Sim progress: t=6600/6600, active_vehicles=866, wall=2.7s for +300s sim
+2026-02-23 10:11:27,041 [INFO] Training: episode 22 done at global step 989040, terminating env ...
+2026-02-23 10:11:27,073 [INFO] Training: env termination finished in 0.03s
+2026-02-23 10:11:27,074 [INFO] Training: episode 22 finished in 73.12s (global step 989040, avg R -624.42)
+2026-02-23 10:11:29,230 [INFO] TraCI connection established on port 8000
+2026-02-23 10:11:29,288 [INFO] Training: episode 23 started at global step 989040
+2026-02-23 10:11:29,315 [INFO] Injecting traffic for Scenario 0 at t=0
+2026-02-23 10:11:29,365 [INFO] Scenario 0: Scheduled 494 vehicles.
+2026-02-23 10:11:31,529 [INFO] Sim progress: t=300/6600, active_vehicles=125, wall=2.3s for +300s sim
+2026-02-23 10:11:33,772 [INFO] Sim progress: t=600/6600, active_vehicles=167, wall=2.2s for +300s sim
+2026-02-23 10:11:35,173 [INFO] Injecting traffic for Scenario 1 at t=600
+2026-02-23 10:11:35,210 [INFO] Scenario 1: Scheduled 498 vehicles.
+2026-02-23 10:11:37,466 [INFO] Sim progress: t=900/6600, active_vehicles=153, wall=3.7s for +300s sim
+2026-02-23 10:11:39,736 [INFO] Sim progress: t=1200/6600, active_vehicles=210, wall=2.3s for +300s sim
+2026-02-23 10:11:41,011 [INFO] Injecting traffic for Scenario 2 at t=1200
+2026-02-23 10:11:41,044 [INFO] Scenario 2: Scheduled 493 vehicles.
+2026-02-23 10:11:43,305 [INFO] Sim progress: t=1500/6600, active_vehicles=274, wall=3.6s for +300s sim
+2026-02-23 10:11:45,587 [INFO] Sim progress: t=1800/6600, active_vehicles=313, wall=2.3s for +300s sim
+2026-02-23 10:11:46,910 [INFO] Injecting traffic for Scenario 3 at t=1800
+2026-02-23 10:11:46,941 [INFO] Scenario 3: Scheduled 519 vehicles.
+2026-02-23 10:11:49,262 [INFO] Sim progress: t=2100/6600, active_vehicles=368, wall=3.7s for +300s sim
+2026-02-23 10:11:51,682 [INFO] Sim progress: t=2400/6600, active_vehicles=355, wall=2.4s for +300s sim
+2026-02-23 10:11:53,062 [INFO] Injecting traffic for Scenario 4 at t=2400
+2026-02-23 10:11:53,093 [INFO] Scenario 4: Scheduled 488 vehicles.
+2026-02-23 10:11:55,457 [INFO] Sim progress: t=2700/6600, active_vehicles=369, wall=3.8s for +300s sim
+2026-02-23 10:11:57,945 [INFO] Sim progress: t=3000/6600, active_vehicles=345, wall=2.5s for +300s sim
+2026-02-23 10:11:59,469 [INFO] Injecting traffic for Scenario 5 at t=3000
+2026-02-23 10:11:59,517 [INFO] Scenario 5: Scheduled 495 vehicles.
+2026-02-23 10:12:02,045 [INFO] Sim progress: t=3300/6600, active_vehicles=393, wall=4.1s for +300s sim
+2026-02-23 10:12:04,475 [INFO] Sim progress: t=3600/6600, active_vehicles=413, wall=2.4s for +300s sim
+2026-02-23 10:12:06,571 [INFO] Injecting traffic for Scenario 6 at t=3600
+2026-02-23 10:12:06,601 [INFO] Scenario 6: Scheduled 500 vehicles.
+2026-02-23 10:12:08,952 [INFO] Sim progress: t=3900/6600, active_vehicles=468, wall=4.5s for +300s sim
+2026-02-23 10:12:11,367 [INFO] Sim progress: t=4200/6600, active_vehicles=495, wall=2.4s for +300s sim
+2026-02-23 10:12:12,625 [INFO] Injecting traffic for Scenario 7 at t=4200
+2026-02-23 10:12:12,655 [INFO] Scenario 7: Scheduled 478 vehicles.
+2026-02-23 10:12:15,189 [INFO] Sim progress: t=4500/6600, active_vehicles=630, wall=3.8s for +300s sim
+2026-02-23 10:12:17,704 [INFO] Sim progress: t=4800/6600, active_vehicles=651, wall=2.5s for +300s sim
+2026-02-23 10:12:17,718 [INFO] Training: global step 990000, episode step 960,
+                                   ob: [array([0.    , 0.    , 0.    , 1.4   , 1.    , 0.    , 0.    , 0.    ,
+       0.    , 1.4   , 1.4   , 0.    , 0.    , 1.    , 0.    , 1.4   ,
+       0.6   , 0.    , 0.    , 0.    , 0.    , 0.0625, 0.005 , 0.    ]), array([0.2 , 0.  , 0.  , 0.4 , 0.  , 0.  , 0.2 , 0.  , 0.  , 0.  , 0.  ,
+       0.  , 0.  , 0.  , 0.  , 0.6 , 0.  , 0.  , 0.2 , 0.  , 0.  , 0.  ,
+       0.  , 0.  , 0.1 , 0.  , 0.  , 0.04, 0.  , 0.  ]), array([0.2       , 0.        , 0.        , 1.4       , 0.6       ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 1.        , 0.        ,
+       1.2       , 1.4       , 0.        , 0.        , 0.        ,
+       0.        , 1.4       , 1.4       , 0.        , 0.08      ,
+       0.        , 0.        , 0.02222222, 0.02      , 0.        ]), array([0.        , 1.        , 0.        , 1.2       , 1.4       ,
+       0.        , 0.        , 0.        , 0.        , 1.4       ,
+       0.        , 0.        , 1.2       , 0.        , 0.        ,
+       1.        , 1.4       , 1.4       , 0.        , 0.        ,
+       0.        , 1.4       , 1.        , 0.        , 0.2       ,
+       0.        , 0.        , 1.4       , 0.6       , 0.        ,
+       0.        , 0.01      , 0.        , 1.13136364, 0.14166667,
+       0.        ]), array([1.2       , 0.        , 0.        , 1.        , 1.4       ,
+       1.4       , 1.4       , 0.        , 0.        , 1.4       ,
+       0.2       , 0.2       , 0.        , 0.        , 0.        ,
+       0.8       , 0.        , 0.        , 1.4       , 0.6       ,
+       0.        , 1.4       , 0.8       , 1.4       , 0.        ,
+       1.        , 0.        , 1.2       , 1.4       , 0.        ,
+       0.01095238, 0.        , 0.        , 0.011     , 0.15208333,
+       0.05428571]), array([0.  , 0.  , 0.  , 0.8 , 0.  , 0.  , 0.2 , 0.  , 0.  , 0.2 , 0.2 ,
+       0.  , 0.2 , 0.  , 0.  , 0.  , 0.  , 0.  , 0.2 , 0.  , 0.  , 0.  ,
+       0.  , 0.  , 1.2 , 0.  , 0.  , 1.  , 1.4 , 1.4 , 0.  , 0.  , 0.  ,
+       0.08, 0.  , 0.  ]), array([0.2, 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0.2, 0. , 0. , 0.2,
+       0. , 0. , 0.4, 0. , 0. , 0. , 0. , 0. , 0.8, 0. , 0. , 0. , 0. ,
+       0. , 0. , 0. , 0. ]), array([0. , 0. , 0. , 0. , 0. , 0. , 1.2, 0.2, 0. , 1.4, 0.2, 0. , 0. ,
+       0. , 0. , 1.4, 0. , 0. , 0.2, 0. , 0. , 1.4, 0.6, 0. , 0. , 0. ,
+       0. , 0. , 0. , 0. ]), array([0.    , 0.    , 0.    , 1.4   , 0.    , 0.    , 0.    , 0.2   ,
+       0.2   , 1.4   , 1.2   , 1.2   , 1.4   , 0.    , 0.    , 1.4   ,
+       0.2   , 0.2   , 0.    , 1.    , 0.    , 1.2   , 1.4   , 0.    ,
+       0.    , 0.    , 0.    , 0.    , 0.    , 0.    , 0.    , 0.    ,
+       0.    , 0.0445, 0.    , 0.    ]), array([1.4    , 0.     , 0.     , 1.4    , 0.2    , 0.2    , 1.4    ,
+       1.2    , 1.4    , 1.4    , 1.4    , 0.     , 0.2    , 0.     ,
+       0.     , 0.2    , 0.2    , 0.     , 1.2    , 0.     , 0.     ,
+       1.     , 1.4    , 1.4    , 0.     , 0.     , 0.     , 1.4    ,
+       0.     , 0.     , 0.49625, 0.     , 0.     , 0.0715 , 0.     ,
+       1.81   ]), array([0.2 , 0.  , 0.  , 0.2 , 0.2 , 0.  , 0.  , 0.  , 0.  , 0.  , 0.  ,
+       0.  , 0.  , 0.  , 0.  , 0.2 , 0.  , 0.  , 0.  , 0.  , 0.  , 0.8 ,
+       0.  , 0.  , 1.4 , 0.  , 0.  , 1.4 , 0.2 , 0.2 , 0.  , 0.  , 0.  ,
+       0.  , 0.01, 0.  ]), array([0.        , 1.        , 0.        , 1.4       , 0.6       ,
+       0.        , 0.        , 0.        , 0.        , 1.4       ,
+       1.        , 0.        , 1.4       , 0.2       , 0.        ,
+       1.4       , 0.4       , 1.4       , 0.        , 0.        ,
+       0.        , 1.4       , 1.        , 0.        , 0.        ,
+       0.728     , 0.        , 0.41428571, 0.002     , 0.        ]), array([0. , 0. , 0. , 0.2, 0. , 0. , 0. , 0. , 0. , 0.4, 0. , 0. , 0.2,
+       0. , 0. , 0. , 0. , 0. , 0.2, 0. , 0. , 0.2, 0.2, 0. , 0. , 0. ,
+       0. , 0. , 0. , 0. ]), array([1.2 , 0.2 , 0.  , 1.4 , 0.2 , 0.  , 0.  , 0.2 , 0.2 , 1.4 , 1.2 ,
+       1.2 , 0.  , 0.  , 0.  , 0.  , 0.  , 0.  , 0.08, 0.  , 0.  , 0.19,
+       0.38, 0.  ]), array([0.        , 0.2       , 0.2       , 1.4       , 1.2       ,
+       1.2       , 1.4       , 1.2       , 1.4       , 1.4       ,
+       1.4       , 0.        , 0.        , 0.        , 0.        ,
+       1.4       , 0.        , 0.        , 1.2       , 0.2       ,
+       0.        , 1.4       , 0.2       , 0.        , 0.        ,
+       0.        , 0.09      , 0.12478261, 0.50086957, 0.25157895]), array([1.4       , 1.2       , 1.4       , 1.4       , 1.4       ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 1.4       , 0.        , 0.        ,
+       1.4       , 0.2       , 0.2       , 0.        , 0.2       ,
+       0.2       , 1.4       , 1.2       , 1.2       , 0.3175    ,
+       0.00571429, 0.48043478, 0.25291667, 0.49041667, 0.        ]), array([0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0.4, 0. , 0. , 0.2,
+       0. , 0. , 0.2, 0.2, 0. , 1.4, 1.2, 1.4, 1.4, 1.4, 0. , 0. , 0. ,
+       0. , 0. , 0. , 0. ]), array([0.  , 0.  , 0.  , 0.4 , 0.  , 0.  , 0.  , 0.  , 0.  , 0.2 , 0.  ,
+       0.  , 0.  , 0.  , 0.  , 0.  , 0.  , 0.  , 0.  , 0.  , 0.  , 0.05,
+       0.  , 0.  ]), array([1.4       , 0.2       , 0.        , 1.4       , 0.4       ,
+       1.4       , 1.4       , 0.6       , 0.        , 1.4       ,
+       0.8       , 1.4       , 0.        , 0.        , 0.        ,
+       0.        , 0.2       , 0.2       , 0.        , 1.        ,
+       0.        , 1.4       , 0.6       , 0.        , 0.41791667,
+       0.        , 0.        , 1.94777778, 0.045     , 1.33105263]), array([0. , 0. , 0. , 0. , 0.2, 0.2, 0.2, 0. , 0. , 0. , 0. , 0. , 0. ,
+       0. , 0. , 0.6, 0. , 0. , 1.4, 0.2, 0. , 1.4, 0.4, 1.4, 0. , 0. ,
+       0. , 0. , 0. , 0. ]), array([0.   , 0.   , 0.   , 0.6  , 0.   , 0.   , 0.2  , 0.   , 0.   ,
+       0.4  , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.2  , 0.2  ,
+       0.   , 0.   , 0.   , 0.115, 0.   , 0.   ]), array([0.        , 0.        , 0.        , 1.4       , 1.4       ,
+       0.        , 0.2       , 0.        , 0.        , 1.4       ,
+       0.6       , 0.        , 0.        , 0.        , 0.        ,
+       1.4       , 1.        , 0.        , 0.        , 0.        ,
+       0.        , 1.4       , 1.        , 0.        , 0.        ,
+       0.        , 0.        , 0.014     , 0.16333333, 0.        ]), array([0.        , 0.        , 0.        , 1.4       , 1.        ,
+       0.        , 0.        , 1.        , 0.        , 1.2       ,
+       1.4       , 0.        , 1.4       , 0.6       , 0.        ,
+       1.4       , 0.8       , 1.4       , 0.        , 1.        ,
+       0.        , 1.4       , 0.6       , 0.        , 0.        ,
+       0.        , 0.        , 1.4       , 1.4       , 0.        ,
+       0.        , 0.        , 0.        , 1.56083333, 0.04095238,
+       0.        ]), array([1.4       , 0.6       , 0.        , 1.4       , 0.8       ,
+       1.4       , 1.2       , 0.        , 0.        , 1.        ,
+       1.4       , 1.4       , 0.2       , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 1.4       , 0.2       ,
+       0.        , 1.4       , 0.4       , 1.4       , 0.        ,
+       0.        , 0.        , 1.4       , 1.        , 0.        ,
+       0.06217391, 0.64      , 0.        , 0.07826087, 0.345     ,
+       0.18888889]), array([0.2, 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0.8, 0. , 0. , 0.2,
+       0. , 0. , 0.4, 0. , 0. , 0. , 0. , 0. , 0. , 0.2, 0.2, 1.4, 0.6,
+       0. , 1.4, 0.8, 1.4, 0. , 0. , 0. , 0. , 0. , 0. ])], a: [0, 3, 4, 0, 0, 1, 0, 0, 4, 4, 4, 2, 4, 2, 4, 0, 2, 0, 3, 1, 1, 4, 3, 1, 0], pi: [array([0.22985102, 0.04440774, 0.09795146, 0.5142242 , 0.11356565],
+      dtype=float32), array([0.26499435, 0.17251866, 0.1929521 , 0.19083509, 0.17869984],
+      dtype=float32), array([0.3449994 , 0.1484824 , 0.20743184, 0.14662862, 0.15245777],
+      dtype=float32), array([0.3073229 , 0.19643784, 0.1382816 , 0.0923484 , 0.26560923],
+      dtype=float32), array([0.37260008, 0.1477301 , 0.09867509, 0.24363941, 0.13735525],
+      dtype=float32), array([0.28831345, 0.18765403, 0.16612591, 0.1188446 , 0.23906204],
+      dtype=float32), array([0.3221811 , 0.13506521, 0.17218883, 0.2270007 , 0.14356412],
+      dtype=float32), array([0.42201748, 0.05216872, 0.11581576, 0.2077093 , 0.20228872],
+      dtype=float32), array([0.47691053, 0.14298792, 0.1157866 , 0.18115696, 0.08315801],
+      dtype=float32), array([0.50200343, 0.0876271 , 0.15134872, 0.15202743, 0.10699327],
+      dtype=float32), array([0.39995673, 0.12951274, 0.14012355, 0.15203959, 0.1783674 ],
+      dtype=float32), array([0.3292524 , 0.1678226 , 0.2111969 , 0.1346064 , 0.15712172],
+      dtype=float32), array([0.27545783, 0.18519773, 0.16323997, 0.19922924, 0.17687516],
+      dtype=float32), array([0.3097794 , 0.0620774 , 0.15820214, 0.24323067, 0.22671045],
+      dtype=float32), array([0.26098832, 0.07550483, 0.27678126, 0.19050671, 0.19621882],
+      dtype=float32), array([0.34681082, 0.0714654 , 0.28971604, 0.11851939, 0.17348836],
+      dtype=float32), array([0.4298089 , 0.14912754, 0.11484893, 0.15547472, 0.1507399 ],
+      dtype=float32), array([0.2731441 , 0.15769987, 0.19780949, 0.19015913, 0.1811874 ],
+      dtype=float32), array([0.13135594, 0.1686798 , 0.10839636, 0.5363401 , 0.05522779],
+      dtype=float32), array([0.40132824, 0.20811197, 0.11728966, 0.22670266, 0.04656749],
+      dtype=float32), array([0.21072017, 0.19037332, 0.24493465, 0.09888641, 0.25508547],
+      dtype=float32), array([0.30788088, 0.09131753, 0.17556216, 0.2749896 , 0.15024988],
+      dtype=float32), array([0.18733406, 0.32102147, 0.16219775, 0.23708679, 0.0923599 ],
+      dtype=float32), array([0.40525064, 0.32133475, 0.06907263, 0.18687831, 0.01746362],
+      dtype=float32), array([0.27091342, 0.20441397, 0.34512648, 0.0894568 , 0.0900893 ],
+      dtype=float32)], r: -550.36, train r: -550.36, done: False
+2026-02-23 10:12:17,754 [INFO] Training: checkpoint model at step 990000 ...
+2026-02-23 10:12:25,486 [INFO] Training: checkpoint finished in 7.73s
+2026-02-23 10:12:26,711 [INFO] Injecting traffic for Scenario 8 at t=4800
+2026-02-23 10:12:26,735 [INFO] Scenario 8: Scheduled 429 vehicles.
+2026-02-23 10:12:29,097 [INFO] Sim progress: t=5100/6600, active_vehicles=633, wall=11.4s for +300s sim
+2026-02-23 10:12:31,658 [INFO] Sim progress: t=5400/6600, active_vehicles=604, wall=2.6s for +300s sim
+2026-02-23 10:12:32,962 [INFO] Injecting traffic for Scenario 9 at t=5400
+2026-02-23 10:12:33,001 [INFO] Scenario 9: Scheduled 509 vehicles.
+2026-02-23 10:12:35,458 [INFO] Sim progress: t=5700/6600, active_vehicles=704, wall=3.8s for +300s sim
+2026-02-23 10:12:37,947 [INFO] Sim progress: t=6000/6600, active_vehicles=720, wall=2.5s for +300s sim
+2026-02-23 10:12:39,184 [INFO] Injecting traffic for Scenario 10 at t=6000
+2026-02-23 10:12:39,213 [INFO] Scenario 10: Scheduled 525 vehicles.
+2026-02-23 10:12:42,039 [INFO] Sim progress: t=6300/6600, active_vehicles=744, wall=4.1s for +300s sim
+2026-02-23 10:12:44,532 [INFO] Sim progress: t=6600/6600, active_vehicles=704, wall=2.5s for +300s sim
+2026-02-23 10:12:45,826 [INFO] Training: episode 23 done at global step 990360, terminating env ...
+2026-02-23 10:12:45,858 [INFO] Training: env termination finished in 0.03s
+2026-02-23 10:12:45,859 [INFO] Training: episode 23 finished in 78.78s (global step 990360, avg R -472.23)
+2026-02-23 10:12:48,038 [INFO] TraCI connection established on port 8000
+2026-02-23 10:12:48,099 [INFO] Training: episode 24 started at global step 990360
+2026-02-23 10:12:48,134 [INFO] Injecting traffic for Scenario 0 at t=0
+2026-02-23 10:12:48,191 [INFO] Scenario 0: Scheduled 510 vehicles.
+2026-02-23 10:12:50,534 [INFO] Sim progress: t=300/6600, active_vehicles=130, wall=2.5s for +300s sim
+2026-02-23 10:12:52,743 [INFO] Sim progress: t=600/6600, active_vehicles=169, wall=2.2s for +300s sim
+2026-02-23 10:12:54,072 [INFO] Injecting traffic for Scenario 1 at t=600
+2026-02-23 10:12:54,107 [INFO] Scenario 1: Scheduled 500 vehicles.
+2026-02-23 10:12:56,229 [INFO] Sim progress: t=900/6600, active_vehicles=182, wall=3.5s for +300s sim
+2026-02-23 10:12:58,415 [INFO] Sim progress: t=1200/6600, active_vehicles=234, wall=2.2s for +300s sim
+2026-02-23 10:12:59,688 [INFO] Injecting traffic for Scenario 2 at t=1200
+2026-02-23 10:12:59,719 [INFO] Scenario 2: Scheduled 515 vehicles.
+2026-02-23 10:13:01,912 [INFO] Sim progress: t=1500/6600, active_vehicles=265, wall=3.5s for +300s sim
+2026-02-23 10:13:04,217 [INFO] Sim progress: t=1800/6600, active_vehicles=280, wall=2.3s for +300s sim
+2026-02-23 10:13:05,463 [INFO] Injecting traffic for Scenario 3 at t=1800
+2026-02-23 10:13:05,493 [INFO] Scenario 3: Scheduled 476 vehicles.
+2026-02-23 10:13:07,723 [INFO] Sim progress: t=2100/6600, active_vehicles=342, wall=3.5s for +300s sim
+2026-02-23 10:13:10,021 [INFO] Sim progress: t=2400/6600, active_vehicles=375, wall=2.3s for +300s sim
+2026-02-23 10:13:11,247 [INFO] Injecting traffic for Scenario 4 at t=2400
+2026-02-23 10:13:11,279 [INFO] Scenario 4: Scheduled 489 vehicles.
+2026-02-23 10:13:13,704 [INFO] Sim progress: t=2700/6600, active_vehicles=341, wall=3.7s for +300s sim
+2026-02-23 10:13:15,999 [INFO] Sim progress: t=3000/6600, active_vehicles=313, wall=2.3s for +300s sim
+2026-02-23 10:13:17,377 [INFO] Injecting traffic for Scenario 5 at t=3000
+2026-02-23 10:13:17,430 [INFO] Scenario 5: Scheduled 510 vehicles.
+2026-02-23 10:13:19,916 [INFO] Sim progress: t=3300/6600, active_vehicles=367, wall=3.9s for +300s sim
+2026-02-23 10:13:22,557 [INFO] Sim progress: t=3600/6600, active_vehicles=353, wall=2.6s for +300s sim
+2026-02-23 10:13:23,873 [INFO] Injecting traffic for Scenario 6 at t=3600
+2026-02-23 10:13:23,904 [INFO] Scenario 6: Scheduled 495 vehicles.
+2026-02-23 10:13:26,311 [INFO] Sim progress: t=3900/6600, active_vehicles=432, wall=3.8s for +300s sim
+2026-02-23 10:13:28,836 [INFO] Sim progress: t=4200/6600, active_vehicles=472, wall=2.5s for +300s sim
+2026-02-23 10:13:30,095 [INFO] Injecting traffic for Scenario 7 at t=4200
+2026-02-23 10:13:30,124 [INFO] Scenario 7: Scheduled 483 vehicles.
+2026-02-23 10:13:32,574 [INFO] Sim progress: t=4500/6600, active_vehicles=493, wall=3.7s for +300s sim
+2026-02-23 10:13:35,138 [INFO] Sim progress: t=4800/6600, active_vehicles=442, wall=2.6s for +300s sim
+2026-02-23 10:13:36,479 [INFO] Injecting traffic for Scenario 8 at t=4800
+2026-02-23 10:13:36,506 [INFO] Scenario 8: Scheduled 479 vehicles.
+2026-02-23 10:13:38,866 [INFO] Sim progress: t=5100/6600, active_vehicles=373, wall=3.7s for +300s sim
+2026-02-23 10:13:41,136 [INFO] Sim progress: t=5400/6600, active_vehicles=327, wall=2.3s for +300s sim
+2026-02-23 10:13:42,426 [INFO] Injecting traffic for Scenario 9 at t=5400
+2026-02-23 10:13:42,461 [INFO] Scenario 9: Scheduled 474 vehicles.
+2026-02-23 10:13:44,748 [INFO] Sim progress: t=5700/6600, active_vehicles=349, wall=3.6s for +300s sim
+2026-02-23 10:13:47,127 [INFO] Sim progress: t=6000/6600, active_vehicles=356, wall=2.4s for +300s sim
+2026-02-23 10:13:48,373 [INFO] Injecting traffic for Scenario 10 at t=6000
+2026-02-23 10:13:48,401 [INFO] Scenario 10: Scheduled 513 vehicles.
+2026-02-23 10:13:50,779 [INFO] Sim progress: t=6300/6600, active_vehicles=431, wall=3.7s for +300s sim
+2026-02-23 10:13:53,117 [INFO] Sim progress: t=6600/6600, active_vehicles=493, wall=2.3s for +300s sim
+2026-02-23 10:13:54,361 [INFO] Training: episode 24 done at global step 991680, terminating env ...
+2026-02-23 10:13:54,393 [INFO] Training: env termination finished in 0.03s
+2026-02-23 10:13:54,394 [INFO] Training: episode 24 finished in 68.54s (global step 991680, avg R -242.94)
+2026-02-23 10:13:56,562 [INFO] TraCI connection established on port 8000
+2026-02-23 10:13:56,620 [INFO] Training: episode 25 started at global step 991680
+2026-02-23 10:13:56,650 [INFO] Injecting traffic for Scenario 0 at t=0
+2026-02-23 10:13:56,703 [INFO] Scenario 0: Scheduled 461 vehicles.
+2026-02-23 10:13:58,874 [INFO] Sim progress: t=300/6600, active_vehicles=116, wall=2.3s for +300s sim
+2026-02-23 10:14:01,073 [INFO] Sim progress: t=600/6600, active_vehicles=149, wall=2.2s for +300s sim
+2026-02-23 10:14:02,394 [INFO] Injecting traffic for Scenario 1 at t=600
+2026-02-23 10:14:02,428 [INFO] Scenario 1: Scheduled 538 vehicles.
+2026-02-23 10:14:04,625 [INFO] Sim progress: t=900/6600, active_vehicles=181, wall=3.6s for +300s sim
+2026-02-23 10:14:06,858 [INFO] Sim progress: t=1200/6600, active_vehicles=251, wall=2.2s for +300s sim
+2026-02-23 10:14:08,119 [INFO] Injecting traffic for Scenario 2 at t=1200
+2026-02-23 10:14:08,152 [INFO] Scenario 2: Scheduled 515 vehicles.
+2026-02-23 10:14:10,429 [INFO] Sim progress: t=1500/6600, active_vehicles=284, wall=3.6s for +300s sim
+2026-02-23 10:14:12,765 [INFO] Sim progress: t=1800/6600, active_vehicles=316, wall=2.3s for +300s sim
+2026-02-23 10:14:14,108 [INFO] Injecting traffic for Scenario 3 at t=1800
+2026-02-23 10:14:14,139 [INFO] Scenario 3: Scheduled 507 vehicles.
+2026-02-23 10:14:16,380 [INFO] Sim progress: t=2100/6600, active_vehicles=365, wall=3.6s for +300s sim
+2026-02-23 10:14:18,667 [INFO] Sim progress: t=2400/6600, active_vehicles=365, wall=2.3s for +300s sim
+2026-02-23 10:14:19,928 [INFO] Injecting traffic for Scenario 4 at t=2400
+2026-02-23 10:14:19,955 [INFO] Scenario 4: Scheduled 492 vehicles.
+2026-02-23 10:14:22,227 [INFO] Sim progress: t=2700/6600, active_vehicles=341, wall=3.6s for +300s sim
+2026-02-23 10:14:24,503 [INFO] Sim progress: t=3000/6600, active_vehicles=313, wall=2.3s for +300s sim
+2026-02-23 10:14:25,741 [INFO] Injecting traffic for Scenario 5 at t=3000
+2026-02-23 10:14:25,793 [INFO] Scenario 5: Scheduled 536 vehicles.
+2026-02-23 10:14:28,158 [INFO] Sim progress: t=3300/6600, active_vehicles=394, wall=3.7s for +300s sim
+2026-02-23 10:14:30,585 [INFO] Sim progress: t=3600/6600, active_vehicles=376, wall=2.4s for +300s sim
+2026-02-23 10:14:31,894 [INFO] Injecting traffic for Scenario 6 at t=3600
+2026-02-23 10:14:31,925 [INFO] Scenario 6: Scheduled 502 vehicles.
+2026-02-23 10:14:34,342 [INFO] Sim progress: t=3900/6600, active_vehicles=394, wall=3.8s for +300s sim
+2026-02-23 10:14:36,745 [INFO] Sim progress: t=4200/6600, active_vehicles=402, wall=2.4s for +300s sim
+2026-02-23 10:14:38,005 [INFO] Injecting traffic for Scenario 7 at t=4200
+2026-02-23 10:14:38,036 [INFO] Scenario 7: Scheduled 514 vehicles.
+2026-02-23 10:14:40,345 [INFO] Sim progress: t=4500/6600, active_vehicles=468, wall=3.6s for +300s sim
+2026-02-23 10:14:42,733 [INFO] Sim progress: t=4800/6600, active_vehicles=443, wall=2.4s for +300s sim
+2026-02-23 10:14:44,026 [INFO] Injecting traffic for Scenario 8 at t=4800
+2026-02-23 10:14:44,052 [INFO] Scenario 8: Scheduled 483 vehicles.
+2026-02-23 10:14:46,388 [INFO] Sim progress: t=5100/6600, active_vehicles=380, wall=3.7s for +300s sim
+2026-02-23 10:14:48,734 [INFO] Sim progress: t=5400/6600, active_vehicles=352, wall=2.3s for +300s sim
+2026-02-23 10:14:50,018 [INFO] Injecting traffic for Scenario 9 at t=5400
+2026-02-23 10:14:50,058 [INFO] Scenario 9: Scheduled 528 vehicles.
+2026-02-23 10:14:52,400 [INFO] Sim progress: t=5700/6600, active_vehicles=365, wall=3.7s for +300s sim
+2026-02-23 10:14:54,897 [INFO] Sim progress: t=6000/6600, active_vehicles=375, wall=2.5s for +300s sim
+2026-02-23 10:14:56,291 [INFO] Injecting traffic for Scenario 10 at t=6000
+2026-02-23 10:14:56,321 [INFO] Scenario 10: Scheduled 527 vehicles.
+2026-02-23 10:14:58,703 [INFO] Sim progress: t=6300/6600, active_vehicles=464, wall=3.8s for +300s sim
+2026-02-23 10:15:01,129 [INFO] Sim progress: t=6600/6600, active_vehicles=538, wall=2.4s for +300s sim
+2026-02-23 10:15:02,364 [INFO] Training: episode 25 done at global step 993000, terminating env ...
+2026-02-23 10:15:02,396 [INFO] Training: env termination finished in 0.03s
+2026-02-23 10:15:02,397 [INFO] Training: episode 25 finished in 68.00s (global step 993000, avg R -230.37)
+2026-02-23 10:15:04,567 [INFO] TraCI connection established on port 8000
+2026-02-23 10:15:04,623 [INFO] Training: episode 26 started at global step 993000
+2026-02-23 10:15:04,662 [INFO] Injecting traffic for Scenario 0 at t=0
+2026-02-23 10:15:04,714 [INFO] Scenario 0: Scheduled 508 vehicles.
+2026-02-23 10:15:06,991 [INFO] Sim progress: t=300/6600, active_vehicles=115, wall=2.4s for +300s sim
+2026-02-23 10:15:09,309 [INFO] Sim progress: t=600/6600, active_vehicles=155, wall=2.3s for +300s sim
+2026-02-23 10:15:10,676 [INFO] Injecting traffic for Scenario 1 at t=600
+2026-02-23 10:15:10,707 [INFO] Scenario 1: Scheduled 499 vehicles.
+2026-02-23 10:15:12,900 [INFO] Sim progress: t=900/6600, active_vehicles=172, wall=3.6s for +300s sim
+2026-02-23 10:15:15,155 [INFO] Sim progress: t=1200/6600, active_vehicles=238, wall=2.3s for +300s sim
+2026-02-23 10:15:16,450 [INFO] Injecting traffic for Scenario 2 at t=1200
+2026-02-23 10:15:16,480 [INFO] Scenario 2: Scheduled 496 vehicles.
+2026-02-23 10:15:19,026 [INFO] Sim progress: t=1500/6600, active_vehicles=269, wall=3.9s for +300s sim
+2026-02-23 10:15:21,364 [INFO] Sim progress: t=1800/6600, active_vehicles=317, wall=2.3s for +300s sim
+2026-02-23 10:15:22,617 [INFO] Injecting traffic for Scenario 3 at t=1800
+2026-02-23 10:15:22,647 [INFO] Scenario 3: Scheduled 498 vehicles.
+2026-02-23 10:15:24,961 [INFO] Sim progress: t=2100/6600, active_vehicles=363, wall=3.6s for +300s sim
+2026-02-23 10:15:27,387 [INFO] Sim progress: t=2400/6600, active_vehicles=317, wall=2.4s for +300s sim
+2026-02-23 10:15:28,699 [INFO] Injecting traffic for Scenario 4 at t=2400
+2026-02-23 10:15:28,727 [INFO] Scenario 4: Scheduled 511 vehicles.
+2026-02-23 10:15:30,953 [INFO] Sim progress: t=2700/6600, active_vehicles=315, wall=3.6s for +300s sim
+2026-02-23 10:15:33,234 [INFO] Sim progress: t=3000/6600, active_vehicles=298, wall=2.3s for +300s sim
+2026-02-23 10:15:34,472 [INFO] Injecting traffic for Scenario 5 at t=3000
+2026-02-23 10:15:34,520 [INFO] Scenario 5: Scheduled 462 vehicles.
+2026-02-23 10:15:36,820 [INFO] Sim progress: t=3300/6600, active_vehicles=351, wall=3.6s for +300s sim
+2026-02-23 10:15:39,104 [INFO] Sim progress: t=3600/6600, active_vehicles=320, wall=2.3s for +300s sim
+2026-02-23 10:15:40,345 [INFO] Injecting traffic for Scenario 6 at t=3600
+2026-02-23 10:15:40,375 [INFO] Scenario 6: Scheduled 485 vehicles.
+2026-02-23 10:15:42,648 [INFO] Sim progress: t=3900/6600, active_vehicles=384, wall=3.5s for +300s sim
+2026-02-23 10:15:44,962 [INFO] Sim progress: t=4200/6600, active_vehicles=422, wall=2.3s for +300s sim
+2026-02-23 10:15:46,177 [INFO] Injecting traffic for Scenario 7 at t=4200
+2026-02-23 10:15:46,205 [INFO] Scenario 7: Scheduled 478 vehicles.
+2026-02-23 10:15:48,609 [INFO] Sim progress: t=4500/6600, active_vehicles=548, wall=3.6s for +300s sim
+2026-02-23 10:15:51,061 [INFO] Sim progress: t=4800/6600, active_vehicles=502, wall=2.5s for +300s sim
+2026-02-23 10:15:52,280 [INFO] Injecting traffic for Scenario 8 at t=4800
+2026-02-23 10:15:52,306 [INFO] Scenario 8: Scheduled 487 vehicles.
+2026-02-23 10:15:54,588 [INFO] Sim progress: t=5100/6600, active_vehicles=482, wall=3.5s for +300s sim
+2026-02-23 10:15:56,825 [INFO] Sim progress: t=5400/6600, active_vehicles=443, wall=2.2s for +300s sim
+2026-02-23 10:15:58,039 [INFO] Injecting traffic for Scenario 9 at t=5400
+2026-02-23 10:15:58,077 [INFO] Scenario 9: Scheduled 488 vehicles.
+2026-02-23 10:16:00,393 [INFO] Sim progress: t=5700/6600, active_vehicles=479, wall=3.6s for +300s sim
+2026-02-23 10:16:02,743 [INFO] Sim progress: t=6000/6600, active_vehicles=435, wall=2.3s for +300s sim
+2026-02-23 10:16:03,996 [INFO] Injecting traffic for Scenario 10 at t=6000
+2026-02-23 10:16:04,021 [INFO] Scenario 10: Scheduled 459 vehicles.
+2026-02-23 10:16:06,568 [INFO] Sim progress: t=6300/6600, active_vehicles=510, wall=3.8s for +300s sim
+2026-02-23 10:16:09,394 [INFO] Sim progress: t=6600/6600, active_vehicles=522, wall=2.8s for +300s sim
+2026-02-23 10:16:10,594 [INFO] Training: episode 26 done at global step 994320, terminating env ...
+2026-02-23 10:16:10,657 [INFO] Training: env termination finished in 0.06s
+2026-02-23 10:16:10,658 [INFO] Training: episode 26 finished in 68.26s (global step 994320, avg R -262.31)
+2026-02-23 10:16:12,828 [INFO] TraCI connection established on port 8000
+2026-02-23 10:16:12,887 [INFO] Training: episode 27 started at global step 994320
+2026-02-23 10:16:12,915 [INFO] Injecting traffic for Scenario 0 at t=0
+2026-02-23 10:16:12,967 [INFO] Scenario 0: Scheduled 516 vehicles.
+2026-02-23 10:16:15,077 [INFO] Sim progress: t=300/6600, active_vehicles=137, wall=2.2s for +300s sim
+2026-02-23 10:16:17,267 [INFO] Sim progress: t=600/6600, active_vehicles=159, wall=2.2s for +300s sim
+2026-02-23 10:16:18,593 [INFO] Injecting traffic for Scenario 1 at t=600
+2026-02-23 10:16:18,622 [INFO] Scenario 1: Scheduled 488 vehicles.
+2026-02-23 10:16:20,731 [INFO] Sim progress: t=900/6600, active_vehicles=182, wall=3.5s for +300s sim
+2026-02-23 10:16:22,886 [INFO] Sim progress: t=1200/6600, active_vehicles=230, wall=2.2s for +300s sim
+2026-02-23 10:16:24,150 [INFO] Injecting traffic for Scenario 2 at t=1200
+2026-02-23 10:16:24,181 [INFO] Scenario 2: Scheduled 537 vehicles.
+2026-02-23 10:16:26,416 [INFO] Sim progress: t=1500/6600, active_vehicles=306, wall=3.5s for +300s sim
+2026-02-23 10:16:28,641 [INFO] Sim progress: t=1800/6600, active_vehicles=328, wall=2.2s for +300s sim
+2026-02-23 10:16:29,907 [INFO] Injecting traffic for Scenario 3 at t=1800
+2026-02-23 10:16:29,937 [INFO] Scenario 3: Scheduled 496 vehicles.
+2026-02-23 10:16:32,247 [INFO] Sim progress: t=2100/6600, active_vehicles=392, wall=3.6s for +300s sim
+2026-02-23 10:16:34,578 [INFO] Sim progress: t=2400/6600, active_vehicles=391, wall=2.3s for +300s sim
+2026-02-23 10:16:35,906 [INFO] Injecting traffic for Scenario 4 at t=2400
+2026-02-23 10:16:35,934 [INFO] Scenario 4: Scheduled 494 vehicles.
+2026-02-23 10:16:38,162 [INFO] Sim progress: t=2700/6600, active_vehicles=365, wall=3.6s for +300s sim
+2026-02-23 10:16:40,371 [INFO] Sim progress: t=3000/6600, active_vehicles=312, wall=2.2s for +300s sim
+2026-02-23 10:16:41,666 [INFO] Injecting traffic for Scenario 5 at t=3000
+2026-02-23 10:16:41,715 [INFO] Scenario 5: Scheduled 471 vehicles.
+2026-02-23 10:16:43,997 [INFO] Sim progress: t=3300/6600, active_vehicles=385, wall=3.6s for +300s sim
+2026-02-23 10:16:46,329 [INFO] Sim progress: t=3600/6600, active_vehicles=404, wall=2.3s for +300s sim
+2026-02-23 10:16:47,562 [INFO] Injecting traffic for Scenario 6 at t=3600
+2026-02-23 10:16:47,588 [INFO] Scenario 6: Scheduled 444 vehicles.
+2026-02-23 10:16:49,901 [INFO] Sim progress: t=3900/6600, active_vehicles=453, wall=3.6s for +300s sim
+2026-02-23 10:16:52,242 [INFO] Sim progress: t=4200/6600, active_vehicles=436, wall=2.3s for +300s sim
+2026-02-23 10:16:53,499 [INFO] Injecting traffic for Scenario 7 at t=4200
+2026-02-23 10:16:53,527 [INFO] Scenario 7: Scheduled 461 vehicles.
+2026-02-23 10:16:55,881 [INFO] Sim progress: t=4500/6600, active_vehicles=522, wall=3.6s for +300s sim
+2026-02-23 10:16:58,267 [INFO] Sim progress: t=4800/6600, active_vehicles=529, wall=2.4s for +300s sim
+2026-02-23 10:16:59,515 [INFO] Injecting traffic for Scenario 8 at t=4800
+2026-02-23 10:16:59,544 [INFO] Scenario 8: Scheduled 535 vehicles.
+2026-02-23 10:17:01,898 [INFO] Sim progress: t=5100/6600, active_vehicles=535, wall=3.6s for +300s sim
+2026-02-23 10:17:04,263 [INFO] Sim progress: t=5400/6600, active_vehicles=473, wall=2.4s for +300s sim
+2026-02-23 10:17:05,498 [INFO] Injecting traffic for Scenario 9 at t=5400
+2026-02-23 10:17:05,536 [INFO] Scenario 9: Scheduled 526 vehicles.
+2026-02-23 10:17:07,886 [INFO] Sim progress: t=5700/6600, active_vehicles=492, wall=3.6s for +300s sim
+2026-02-23 10:17:10,292 [INFO] Sim progress: t=6000/6600, active_vehicles=507, wall=2.4s for +300s sim
+2026-02-23 10:17:11,519 [INFO] Injecting traffic for Scenario 10 at t=6000
+2026-02-23 10:17:11,546 [INFO] Scenario 10: Scheduled 517 vehicles.
+2026-02-23 10:17:13,910 [INFO] Sim progress: t=6300/6600, active_vehicles=545, wall=3.6s for +300s sim
+2026-02-23 10:17:16,273 [INFO] Sim progress: t=6600/6600, active_vehicles=558, wall=2.4s for +300s sim
+2026-02-23 10:17:17,553 [INFO] Training: episode 27 done at global step 995640, terminating env ...
+2026-02-23 10:17:18,622 [INFO] Training: env termination finished in 1.07s
+2026-02-23 10:17:18,623 [INFO] Training: episode 27 finished in 67.96s (global step 995640, avg R -278.33)
+2026-02-23 10:17:20,792 [INFO] TraCI connection established on port 8000
+2026-02-23 10:17:20,849 [INFO] Training: episode 28 started at global step 995640
+2026-02-23 10:17:20,877 [INFO] Injecting traffic for Scenario 0 at t=0
+2026-02-23 10:17:20,926 [INFO] Scenario 0: Scheduled 482 vehicles.
+2026-02-23 10:17:23,033 [INFO] Sim progress: t=300/6600, active_vehicles=132, wall=2.2s for +300s sim
+2026-02-23 10:17:25,147 [INFO] Sim progress: t=600/6600, active_vehicles=140, wall=2.1s for +300s sim
+2026-02-23 10:17:26,455 [INFO] Injecting traffic for Scenario 1 at t=600
+2026-02-23 10:17:26,484 [INFO] Scenario 1: Scheduled 489 vehicles.
+2026-02-23 10:17:28,719 [INFO] Sim progress: t=900/6600, active_vehicles=181, wall=3.6s for +300s sim
+2026-02-23 10:17:30,921 [INFO] Sim progress: t=1200/6600, active_vehicles=233, wall=2.2s for +300s sim
+2026-02-23 10:17:32,161 [INFO] Injecting traffic for Scenario 2 at t=1200
+2026-02-23 10:17:32,192 [INFO] Scenario 2: Scheduled 525 vehicles.
+2026-02-23 10:17:34,424 [INFO] Sim progress: t=1500/6600, active_vehicles=282, wall=3.5s for +300s sim
+2026-02-23 10:17:36,645 [INFO] Sim progress: t=1800/6600, active_vehicles=278, wall=2.2s for +300s sim
+2026-02-23 10:17:37,893 [INFO] Injecting traffic for Scenario 3 at t=1800
+2026-02-23 10:17:37,924 [INFO] Scenario 3: Scheduled 506 vehicles.
+2026-02-23 10:17:40,326 [INFO] Sim progress: t=2100/6600, active_vehicles=338, wall=3.7s for +300s sim
+2026-02-23 10:17:42,700 [INFO] Sim progress: t=2400/6600, active_vehicles=378, wall=2.4s for +300s sim
+2026-02-23 10:17:44,134 [INFO] Injecting traffic for Scenario 4 at t=2400
+2026-02-23 10:17:44,164 [INFO] Scenario 4: Scheduled 508 vehicles.
+2026-02-23 10:17:46,567 [INFO] Sim progress: t=2700/6600, active_vehicles=369, wall=3.9s for +300s sim
+2026-02-23 10:17:49,156 [INFO] Sim progress: t=3000/6600, active_vehicles=345, wall=2.6s for +300s sim
+2026-02-23 10:17:50,505 [INFO] Injecting traffic for Scenario 5 at t=3000
+2026-02-23 10:17:50,555 [INFO] Scenario 5: Scheduled 499 vehicles.
+2026-02-23 10:17:53,006 [INFO] Sim progress: t=3300/6600, active_vehicles=374, wall=3.8s for +300s sim
+2026-02-23 10:17:55,480 [INFO] Sim progress: t=3600/6600, active_vehicles=356, wall=2.5s for +300s sim
+2026-02-23 10:17:56,742 [INFO] Injecting traffic for Scenario 6 at t=3600
+2026-02-23 10:17:56,770 [INFO] Scenario 6: Scheduled 493 vehicles.
+2026-02-23 10:17:59,067 [INFO] Sim progress: t=3900/6600, active_vehicles=405, wall=3.6s for +300s sim
+2026-02-23 10:18:01,380 [INFO] Sim progress: t=4200/6600, active_vehicles=466, wall=2.3s for +300s sim
+2026-02-23 10:18:02,656 [INFO] Injecting traffic for Scenario 7 at t=4200
+2026-02-23 10:18:02,689 [INFO] Scenario 7: Scheduled 540 vehicles.
+2026-02-23 10:18:04,970 [INFO] Sim progress: t=4500/6600, active_vehicles=504, wall=3.6s for +300s sim
+2026-02-23 10:18:07,371 [INFO] Sim progress: t=4800/6600, active_vehicles=487, wall=2.4s for +300s sim
+2026-02-23 10:18:08,622 [INFO] Injecting traffic for Scenario 8 at t=4800
+2026-02-23 10:18:08,648 [INFO] Scenario 8: Scheduled 472 vehicles.
+2026-02-23 10:18:10,956 [INFO] Sim progress: t=5100/6600, active_vehicles=433, wall=3.6s for +300s sim
+2026-02-23 10:18:13,280 [INFO] Sim progress: t=5400/6600, active_vehicles=399, wall=2.3s for +300s sim
+2026-02-23 10:18:14,504 [INFO] Injecting traffic for Scenario 9 at t=5400
+2026-02-23 10:18:14,542 [INFO] Scenario 9: Scheduled 509 vehicles.
+2026-02-23 10:18:16,875 [INFO] Sim progress: t=5700/6600, active_vehicles=432, wall=3.6s for +300s sim
+2026-02-23 10:18:19,474 [INFO] Sim progress: t=6000/6600, active_vehicles=382, wall=2.6s for +300s sim
+2026-02-23 10:18:20,720 [INFO] Injecting traffic for Scenario 10 at t=6000
+2026-02-23 10:18:20,748 [INFO] Scenario 10: Scheduled 526 vehicles.
+2026-02-23 10:18:23,060 [INFO] Sim progress: t=6300/6600, active_vehicles=430, wall=3.6s for +300s sim
+2026-02-23 10:18:25,396 [INFO] Sim progress: t=6600/6600, active_vehicles=521, wall=2.3s for +300s sim
+2026-02-23 10:18:26,623 [INFO] Training: episode 28 done at global step 996960, terminating env ...
+2026-02-23 10:18:26,655 [INFO] Training: env termination finished in 0.03s
+2026-02-23 10:18:26,656 [INFO] Training: episode 28 finished in 68.03s (global step 996960, avg R -233.90)
+2026-02-23 10:18:28,826 [INFO] TraCI connection established on port 8000
+2026-02-23 10:18:28,883 [INFO] Training: episode 29 started at global step 996960
+2026-02-23 10:18:28,912 [INFO] Injecting traffic for Scenario 0 at t=0
+2026-02-23 10:18:28,958 [INFO] Scenario 0: Scheduled 439 vehicles.
+2026-02-23 10:18:31,001 [INFO] Sim progress: t=300/6600, active_vehicles=118, wall=2.2s for +300s sim
+2026-02-23 10:18:33,129 [INFO] Sim progress: t=600/6600, active_vehicles=107, wall=2.1s for +300s sim
+2026-02-23 10:18:34,451 [INFO] Injecting traffic for Scenario 1 at t=600
+2026-02-23 10:18:34,480 [INFO] Scenario 1: Scheduled 472 vehicles.
+2026-02-23 10:18:36,666 [INFO] Sim progress: t=900/6600, active_vehicles=165, wall=3.5s for +300s sim
+2026-02-23 10:18:38,824 [INFO] Sim progress: t=1200/6600, active_vehicles=212, wall=2.2s for +300s sim
+2026-02-23 10:18:40,066 [INFO] Injecting traffic for Scenario 2 at t=1200
+2026-02-23 10:18:40,095 [INFO] Scenario 2: Scheduled 477 vehicles.
+2026-02-23 10:18:42,310 [INFO] Sim progress: t=1500/6600, active_vehicles=274, wall=3.5s for +300s sim
+2026-02-23 10:18:44,551 [INFO] Sim progress: t=1800/6600, active_vehicles=283, wall=2.2s for +300s sim
+2026-02-23 10:18:45,804 [INFO] Injecting traffic for Scenario 3 at t=1800
+2026-02-23 10:18:45,833 [INFO] Scenario 3: Scheduled 489 vehicles.
+2026-02-23 10:18:48,006 [INFO] Sim progress: t=2100/6600, active_vehicles=340, wall=3.5s for +300s sim
+2026-02-23 10:18:50,360 [INFO] Sim progress: t=2400/6600, active_vehicles=334, wall=2.4s for +300s sim
+2026-02-23 10:18:51,647 [INFO] Injecting traffic for Scenario 4 at t=2400
+2026-02-23 10:18:51,674 [INFO] Scenario 4: Scheduled 473 vehicles.
+2026-02-23 10:18:53,872 [INFO] Sim progress: t=2700/6600, active_vehicles=316, wall=3.5s for +300s sim
+2026-02-23 10:18:56,053 [INFO] Sim progress: t=3000/6600, active_vehicles=308, wall=2.2s for +300s sim
+2026-02-23 10:18:57,375 [INFO] Injecting traffic for Scenario 5 at t=3000
+2026-02-23 10:18:57,421 [INFO] Scenario 5: Scheduled 473 vehicles.
+2026-02-23 10:18:59,720 [INFO] Sim progress: t=3300/6600, active_vehicles=366, wall=3.7s for +300s sim
+2026-02-23 10:19:02,074 [INFO] Sim progress: t=3600/6600, active_vehicles=338, wall=2.4s for +300s sim
+2026-02-23 10:19:03,323 [INFO] Injecting traffic for Scenario 6 at t=3600
+2026-02-23 10:19:03,353 [INFO] Scenario 6: Scheduled 523 vehicles.
+2026-02-23 10:19:05,664 [INFO] Sim progress: t=3900/6600, active_vehicles=401, wall=3.6s for +300s sim
+2026-02-23 10:19:07,982 [INFO] Sim progress: t=4200/6600, active_vehicles=448, wall=2.3s for +300s sim
+2026-02-23 10:19:09,215 [INFO] Injecting traffic for Scenario 7 at t=4200
+2026-02-23 10:19:09,245 [INFO] Scenario 7: Scheduled 492 vehicles.
+2026-02-23 10:19:11,592 [INFO] Sim progress: t=4500/6600, active_vehicles=611, wall=3.6s for +300s sim
+2026-02-23 10:19:14,036 [INFO] Sim progress: t=4800/6600, active_vehicles=665, wall=2.4s for +300s sim
+2026-02-23 10:19:15,295 [INFO] Injecting traffic for Scenario 8 at t=4800
+2026-02-23 10:19:15,325 [INFO] Scenario 8: Scheduled 541 vehicles.
+2026-02-23 10:19:17,745 [INFO] Sim progress: t=5100/6600, active_vehicles=644, wall=3.7s for +300s sim
+2026-02-23 10:19:20,318 [INFO] Sim progress: t=5400/6600, active_vehicles=556, wall=2.6s for +300s sim
+2026-02-23 10:19:21,551 [INFO] Injecting traffic for Scenario 9 at t=5400
+2026-02-23 10:19:21,587 [INFO] Scenario 9: Scheduled 485 vehicles.
+2026-02-23 10:19:23,963 [INFO] Sim progress: t=5700/6600, active_vehicles=587, wall=3.6s for +300s sim
+2026-02-23 10:19:26,437 [INFO] Sim progress: t=6000/6600, active_vehicles=553, wall=2.5s for +300s sim
+2026-02-23 10:19:27,670 [INFO] Injecting traffic for Scenario 10 at t=6000
+2026-02-23 10:19:27,704 [INFO] Scenario 10: Scheduled 492 vehicles.
+2026-02-23 10:19:30,091 [INFO] Sim progress: t=6300/6600, active_vehicles=532, wall=3.7s for +300s sim
+2026-02-23 10:19:32,525 [INFO] Sim progress: t=6600/6600, active_vehicles=583, wall=2.4s for +300s sim
+2026-02-23 10:19:33,749 [INFO] Training: episode 29 done at global step 998280, terminating env ...
+2026-02-23 10:19:33,780 [INFO] Training: env termination finished in 0.03s
+2026-02-23 10:19:33,781 [INFO] Training: episode 29 finished in 67.13s (global step 998280, avg R -375.87)
+2026-02-23 10:19:35,952 [INFO] TraCI connection established on port 8000
+2026-02-23 10:19:36,010 [INFO] Training: episode 30 started at global step 998280
+2026-02-23 10:19:36,043 [INFO] Injecting traffic for Scenario 0 at t=0
+2026-02-23 10:19:36,093 [INFO] Scenario 0: Scheduled 486 vehicles.
+2026-02-23 10:19:38,183 [INFO] Sim progress: t=300/6600, active_vehicles=124, wall=2.2s for +300s sim
+2026-02-23 10:19:40,326 [INFO] Sim progress: t=600/6600, active_vehicles=146, wall=2.1s for +300s sim
+2026-02-23 10:19:41,712 [INFO] Injecting traffic for Scenario 1 at t=600
+2026-02-23 10:19:41,741 [INFO] Scenario 1: Scheduled 498 vehicles.
+2026-02-23 10:19:43,853 [INFO] Sim progress: t=900/6600, active_vehicles=171, wall=3.5s for +300s sim
+2026-02-23 10:19:46,021 [INFO] Sim progress: t=1200/6600, active_vehicles=232, wall=2.2s for +300s sim
+2026-02-23 10:19:47,289 [INFO] Injecting traffic for Scenario 2 at t=1200
+2026-02-23 10:19:47,321 [INFO] Scenario 2: Scheduled 538 vehicles.
+2026-02-23 10:19:49,542 [INFO] Sim progress: t=1500/6600, active_vehicles=277, wall=3.5s for +300s sim
+2026-02-23 10:19:51,801 [INFO] Sim progress: t=1800/6600, active_vehicles=299, wall=2.3s for +300s sim
+2026-02-23 10:19:53,092 [INFO] Injecting traffic for Scenario 3 at t=1800
+2026-02-23 10:19:53,122 [INFO] Scenario 3: Scheduled 493 vehicles.
+2026-02-23 10:19:55,360 [INFO] Sim progress: t=2100/6600, active_vehicles=352, wall=3.6s for +300s sim
+2026-02-23 10:19:57,659 [INFO] Sim progress: t=2400/6600, active_vehicles=353, wall=2.3s for +300s sim
+2026-02-23 10:19:58,927 [INFO] Injecting traffic for Scenario 4 at t=2400
+2026-02-23 10:19:58,955 [INFO] Scenario 4: Scheduled 492 vehicles.
+2026-02-23 10:20:01,174 [INFO] Sim progress: t=2700/6600, active_vehicles=362, wall=3.5s for +300s sim
+2026-02-23 10:20:03,454 [INFO] Sim progress: t=3000/6600, active_vehicles=311, wall=2.3s for +300s sim
+2026-02-23 10:20:04,721 [INFO] Injecting traffic for Scenario 5 at t=3000
+2026-02-23 10:20:04,770 [INFO] Scenario 5: Scheduled 478 vehicles.
+2026-02-23 10:20:07,096 [INFO] Sim progress: t=3300/6600, active_vehicles=375, wall=3.6s for +300s sim
+2026-02-23 10:20:09,382 [INFO] Sim progress: t=3600/6600, active_vehicles=373, wall=2.3s for +300s sim
+2026-02-23 10:20:10,613 [INFO] Injecting traffic for Scenario 6 at t=3600
+2026-02-23 10:20:10,641 [INFO] Scenario 6: Scheduled 485 vehicles.
+2026-02-23 10:20:12,946 [INFO] Sim progress: t=3900/6600, active_vehicles=468, wall=3.6s for +300s sim
+2026-02-23 10:20:15,315 [INFO] Sim progress: t=4200/6600, active_vehicles=460, wall=2.4s for +300s sim
+2026-02-23 10:20:16,559 [INFO] Injecting traffic for Scenario 7 at t=4200
+2026-02-23 10:20:16,589 [INFO] Scenario 7: Scheduled 511 vehicles.
+2026-02-23 10:20:18,918 [INFO] Sim progress: t=4500/6600, active_vehicles=522, wall=3.6s for +300s sim
+2026-02-23 10:20:21,353 [INFO] Sim progress: t=4800/6600, active_vehicles=511, wall=2.4s for +300s sim
+2026-02-23 10:20:22,675 [INFO] Injecting traffic for Scenario 8 at t=4800
+2026-02-23 10:20:22,704 [INFO] Scenario 8: Scheduled 501 vehicles.
+2026-02-23 10:20:25,059 [INFO] Sim progress: t=5100/6600, active_vehicles=517, wall=3.7s for +300s sim
+2026-02-23 10:20:27,471 [INFO] Sim progress: t=5400/6600, active_vehicles=530, wall=2.4s for +300s sim
+2026-02-23 10:20:28,737 [INFO] Injecting traffic for Scenario 9 at t=5400
+2026-02-23 10:20:28,776 [INFO] Scenario 9: Scheduled 515 vehicles.
+2026-02-23 10:20:31,130 [INFO] Sim progress: t=5700/6600, active_vehicles=590, wall=3.7s for +300s sim
+2026-02-23 10:20:33,566 [INFO] Sim progress: t=6000/6600, active_vehicles=638, wall=2.4s for +300s sim
+2026-02-23 10:20:34,811 [INFO] Injecting traffic for Scenario 10 at t=6000
+2026-02-23 10:20:34,840 [INFO] Scenario 10: Scheduled 510 vehicles.
+2026-02-23 10:20:37,258 [INFO] Sim progress: t=6300/6600, active_vehicles=704, wall=3.7s for +300s sim
+2026-02-23 10:20:39,776 [INFO] Sim progress: t=6600/6600, active_vehicles=713, wall=2.5s for +300s sim
+2026-02-23 10:20:41,011 [INFO] Training: episode 30 done at global step 999600, terminating env ...
+2026-02-23 10:20:41,075 [INFO] Training: env termination finished in 0.06s
+2026-02-23 10:20:41,076 [INFO] Training: episode 30 finished in 67.29s (global step 999600, avg R -374.38)
+2026-02-23 10:20:43,246 [INFO] TraCI connection established on port 8000
+2026-02-23 10:20:43,303 [INFO] Training: episode 31 started at global step 999600
+2026-02-23 10:20:43,331 [INFO] Injecting traffic for Scenario 0 at t=0
+2026-02-23 10:20:43,380 [INFO] Scenario 0: Scheduled 473 vehicles.
+2026-02-23 10:20:45,455 [INFO] Sim progress: t=300/6600, active_vehicles=125, wall=2.2s for +300s sim
+2026-02-23 10:20:47,601 [INFO] Sim progress: t=600/6600, active_vehicles=132, wall=2.1s for +300s sim
+2026-02-23 10:20:48,956 [INFO] Injecting traffic for Scenario 1 at t=600
+2026-02-23 10:20:48,991 [INFO] Scenario 1: Scheduled 487 vehicles.
+2026-02-23 10:20:51,130 [INFO] Sim progress: t=900/6600, active_vehicles=166, wall=3.5s for +300s sim
+2026-02-23 10:20:53,293 [INFO] Sim progress: t=1200/6600, active_vehicles=207, wall=2.2s for +300s sim
+2026-02-23 10:20:54,543 [INFO] Injecting traffic for Scenario 2 at t=1200
+2026-02-23 10:20:54,574 [INFO] Scenario 2: Scheduled 492 vehicles.
+2026-02-23 10:20:56,739 [INFO] Sim progress: t=1500/6600, active_vehicles=252, wall=3.4s for +300s sim
+2026-02-23 10:20:58,928 [INFO] Sim progress: t=1800/6600, active_vehicles=278, wall=2.2s for +300s sim
+2026-02-23 10:21:00,210 [INFO] Injecting traffic for Scenario 3 at t=1800
+2026-02-23 10:21:00,243 [INFO] Scenario 3: Scheduled 495 vehicles.
+2026-02-23 10:21:01,754 [INFO] Training: global step 1000000, episode step 400,
+                                   ob: [array([0.6    , 0.6    , 0.     , 0.     , 0.     , 0.     , 0.4    ,
+       0.2    , 0.4    , 0.     , 0.     , 0.     , 1.     , 0.     ,
+       0.     , 0.     , 0.     , 0.     , 0.00125, 0.02   , 0.     ,
+       0.     , 0.     , 0.     ]), array([0.4, 0. , 0. , 0. , 0. , 0. , 0. , 1. , 0. , 0. , 0.6, 0. , 0.4,
+       0. , 0. , 0. , 0. , 0. , 1. , 0. , 0. , 0. , 0. , 0. , 0. , 0. ,
+       0. , 0. , 0. , 0. ]), array([0.6  , 0.4  , 0.   , 0.   , 0.4  , 0.   , 0.4  , 0.   , 0.   ,
+       0.   , 0.2  , 0.   , 1.4  , 0.   , 0.   , 0.2  , 1.2  , 0.   ,
+       0.4  , 0.2  , 0.4  , 0.   , 0.   , 0.   , 0.002, 0.   , 0.   ,
+       0.   , 0.   , 0.   ]), array([1.4       , 0.        , 0.        , 0.2       , 1.2       ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.8       , 0.        , 1.4       , 0.6       , 0.        ,
+       0.        , 0.4       , 0.        , 0.8       , 0.6       ,
+       0.        , 0.        , 0.        , 0.        , 0.6       ,
+       0.4       , 0.        , 0.        , 0.4       , 0.        ,
+       0.408     , 0.        , 0.        , 0.35      , 0.00333333,
+       0.        ]), array([1.4       , 0.6       , 0.        , 0.        , 0.4       ,
+       0.        , 1.4       , 0.        , 1.4       , 0.        ,
+       0.6       , 0.        , 1.        , 0.8       , 0.        ,
+       0.        , 0.6       , 0.        , 1.4       , 0.2       ,
+       0.        , 0.        , 0.        , 0.        , 1.4       ,
+       0.        , 0.        , 0.2       , 1.2       , 0.        ,
+       0.02136364, 0.09214286, 0.        , 0.        , 0.06333333,
+       0.        ]), array([1.        , 0.8       , 0.        , 0.        , 0.6       ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 1.        , 0.        ,
+       0.        , 0.6       , 0.        , 1.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 1.4       ,
+       0.6       , 0.        , 0.        , 0.4       , 0.        ,
+       0.04      , 0.06166667, 0.        , 0.        , 0.04333333,
+       0.        ]), array([0.        , 1.        , 0.        , 0.        , 0.6       ,
+       0.        , 0.4       , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.4       , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 1.        , 0.8       ,
+       0.        , 0.        , 0.6       , 0.        , 0.        ,
+       0.00714286, 0.        , 0.        , 0.18666667, 0.        ]), array([0.4 , 0.  , 0.  , 0.  , 0.2 , 0.  , 1.4 , 0.  , 0.  , 0.  , 0.2 ,
+       0.  , 0.  , 0.  , 0.  , 0.  , 0.8 , 0.  , 0.6 , 0.4 , 0.  , 0.  ,
+       0.4 , 0.  , 0.  , 0.  , 0.  , 0.  , 0.04, 0.  ]), array([0.    , 0.    , 0.    , 0.    , 0.8   , 0.    , 1.4   , 0.2   ,
+       0.    , 0.    , 0.8   , 0.    , 1.4   , 0.    , 1.4   , 0.    ,
+       0.6   , 0.    , 1.4   , 0.    , 0.    , 0.2   , 1.2   , 0.    ,
+       0.4   , 0.    , 0.    , 0.    , 0.2   , 0.    , 0.    , 0.    ,
+       0.    , 0.    , 0.0325, 0.    ]), array([1.4       , 0.        , 1.4       , 0.        , 0.6       ,
+       0.        , 1.        , 0.2       , 1.4       , 0.        ,
+       1.4       , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 1.4       , 0.6       ,
+       0.        , 0.        , 0.4       , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.8       , 0.        ,
+       0.00904762, 0.        , 0.225     , 0.        , 0.0475    ,
+       0.        ]), array([0. , 0. , 0. , 0. , 0. , 0. , 0. , 1. , 0. , 0. , 0. , 0. , 0.4,
+       0. , 0. , 0. , 0. , 0. , 1. , 0.8, 0. , 0. , 0.6, 0. , 1.4, 0. ,
+       1.4, 0. , 0.6, 0. , 0. , 0. , 0. , 0. , 0. , 0. ]), array([1.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.8       , 0.6       , 0.        , 0.        ,
+       0.        , 0.        , 1.4       , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.6       , 0.6       ,
+       0.        , 0.        , 0.        , 0.        , 0.02166667,
+       0.        , 0.        , 0.        , 0.        , 0.        ]), array([0.4  , 0.   , 0.   , 0.   , 0.   , 0.   , 1.2  , 0.   , 0.   ,
+       0.   , 0.   , 0.   , 0.   , 1.   , 0.   , 0.   , 0.6  , 0.   ,
+       0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.005, 0.   , 0.   ,
+       0.   , 0.   , 0.   ]), array([1.4  , 0.   , 0.   , 0.   , 0.2  , 0.   , 1.4  , 0.2  , 0.   ,
+       0.   , 0.8  , 0.   , 0.4  , 0.   , 0.   , 0.   , 0.2  , 0.   ,
+       0.325, 0.   , 0.   , 0.   , 0.   , 0.   ]), array([1.4   , 0.2   , 0.    , 0.    , 0.8   , 0.    , 1.    , 0.2   ,
+       1.4   , 0.    , 1.4   , 0.    , 0.    , 0.    , 0.    , 0.    ,
+       0.8   , 0.    , 1.4   , 0.    , 0.    , 0.    , 0.2   , 0.    ,
+       0.6075, 0.    , 0.    , 0.    , 0.    , 0.    ]), array([1.        , 0.2       , 1.4       , 0.        , 1.4       ,
+       0.        , 0.        , 1.        , 0.        , 0.        ,
+       0.        , 0.        , 1.4       , 0.        , 1.4       ,
+       0.        , 0.6       , 0.        , 1.4       , 0.2       ,
+       0.        , 0.        , 0.8       , 0.        , 0.        ,
+       0.        , 0.47772727, 0.        , 0.04642857, 0.        ]), array([0.   , 1.   , 0.   , 0.   , 0.   , 0.   , 1.2  , 0.   , 0.   ,
+       0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.   ,
+       1.   , 0.2  , 1.4  , 0.   , 1.4  , 0.   , 0.   , 0.005, 0.   ,
+       0.   , 0.   , 0.   ]), array([1.2  , 0.   , 0.   , 0.   , 0.   , 0.   , 0.4  , 0.   , 0.   ,
+       0.   , 0.   , 0.   , 0.   , 1.   , 0.   , 0.   , 0.   , 0.   ,
+       0.085, 0.   , 0.   , 0.   , 0.   , 0.   ]), array([1.4, 0. , 0. , 0. , 0. , 0. , 1.4, 0.2, 0. , 0. , 0. , 0. , 0.2,
+       0.2, 0. , 0. , 0. , 0. , 1. , 0. , 0. , 0. , 0. , 0. , 0.4, 0. ,
+       0. , 0. , 0. , 0. ]), array([0.2 , 0.2 , 0.  , 0.  , 0.  , 0.  , 1.  , 0.  , 0.  , 0.  , 0.  ,
+       0.  , 0.4 , 0.  , 0.  , 0.  , 0.  , 0.  , 1.4 , 0.  , 0.  , 0.  ,
+       0.  , 0.  , 0.  , 0.05, 0.  , 0.  , 0.  , 0.  ]), array([0.4 , 0.  , 0.  , 0.  , 0.  , 0.  , 0.4 , 0.  , 0.  , 0.  , 0.  ,
+       0.  , 0.2 , 0.2 , 0.  , 0.  , 0.  , 0.  , 0.18, 0.  , 0.  , 0.  ,
+       0.  , 0.  ]), array([0.4 , 0.2 , 0.4 , 0.  , 0.  , 0.  , 0.6 , 0.4 , 0.  , 0.  , 0.4 ,
+       0.  , 0.8 , 0.6 , 0.  , 0.  , 0.  , 0.  , 0.6 , 0.6 , 0.  , 0.  ,
+       0.  , 0.  , 0.  , 0.  , 0.04, 0.  , 0.  , 0.  ]), array([0.8       , 0.6       , 0.        , 0.        , 0.        ,
+       0.        , 1.4       , 0.        , 0.        , 0.2       ,
+       1.2       , 0.        , 1.4       , 0.2       , 0.        ,
+       0.        , 0.        , 0.        , 1.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.4       ,
+       0.2       , 0.4       , 0.        , 0.        , 0.        ,
+       0.075     , 0.05333333, 0.        , 0.        , 0.        ,
+       0.        ]), array([1.4       , 0.2       , 0.        , 0.        , 0.        ,
+       0.        , 1.4       , 0.6       , 0.        , 0.        ,
+       0.4       , 0.        , 1.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 1.4       , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.8       ,
+       0.6       , 0.        , 0.        , 0.        , 0.        ,
+       0.13214286, 0.04      , 0.        , 0.        , 0.        ,
+       0.        ]), array([1.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 1.        , 0.8       , 0.        , 0.        ,
+       0.6       , 0.        , 0.4       , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.2       , 0.2       ,
+       0.        , 0.        , 0.        , 0.        , 1.4       ,
+       0.2       , 0.        , 0.        , 0.        , 0.        ,
+       0.04714286, 0.        , 0.        , 0.        , 0.        ,
+       0.        ])], a: [4, 0, 3, 0, 3, 2, 0, 3, 3, 0, 2, 3, 3, 4, 0, 4, 1, 4, 0, 3, 2, 4, 4, 0, 2], pi: [array([0.27155167, 0.08770674, 0.20398664, 0.18125404, 0.25550088],
+      dtype=float32), array([0.43912104, 0.13759588, 0.17745383, 0.14151882, 0.10431044],
+      dtype=float32), array([0.25913125, 0.14523228, 0.22248077, 0.17628138, 0.19687426],
+      dtype=float32), array([0.24550845, 0.22295563, 0.13188528, 0.18759982, 0.21205087],
+      dtype=float32), array([0.38640216, 0.1334653 , 0.15869203, 0.18588658, 0.13555393],
+      dtype=float32), array([0.31454253, 0.15790413, 0.15950775, 0.16122983, 0.20681573],
+      dtype=float32), array([0.34987193, 0.11681004, 0.14697848, 0.23600522, 0.15033425],
+      dtype=float32), array([0.34264743, 0.06872036, 0.1134147 , 0.29070243, 0.18451513],
+      dtype=float32), array([0.43314055, 0.09214926, 0.08660567, 0.29116783, 0.09693673],
+      dtype=float32), array([0.39799896, 0.15054588, 0.12703857, 0.22333361, 0.10108301],
+      dtype=float32), array([0.32540053, 0.1793068 , 0.1278499 , 0.1529593 , 0.2144834 ],
+      dtype=float32), array([0.3523007 , 0.1657774 , 0.20064135, 0.1859635 , 0.09531702],
+      dtype=float32), array([0.30117702, 0.16481124, 0.12336329, 0.26659662, 0.14405175],
+      dtype=float32), array([0.18757899, 0.07412647, 0.22002965, 0.24660797, 0.27165687],
+      dtype=float32), array([0.24827896, 0.13150209, 0.23908786, 0.22233422, 0.15879689],
+      dtype=float32), array([0.23571198, 0.14022355, 0.26310405, 0.13684033, 0.22412013],
+      dtype=float32), array([0.2560503 , 0.16018364, 0.13876066, 0.20066093, 0.24434456],
+      dtype=float32), array([0.2433866 , 0.20961052, 0.19044346, 0.22769621, 0.12886319],
+      dtype=float32), array([0.36692077, 0.16319345, 0.16514194, 0.19558726, 0.10915665],
+      dtype=float32), array([0.3085783 , 0.19379798, 0.20393908, 0.17474785, 0.11893669],
+      dtype=float32), array([0.27659786, 0.16819651, 0.19467336, 0.13887389, 0.22165835],
+      dtype=float32), array([0.29737723, 0.13279518, 0.17668344, 0.21974781, 0.17339638],
+      dtype=float32), array([0.29062685, 0.23785168, 0.13416462, 0.19038163, 0.14697516],
+      dtype=float32), array([0.5176199 , 0.13475566, 0.12874523, 0.12817124, 0.09070801],
+      dtype=float32), array([0.40806812, 0.18684779, 0.16979584, 0.14059581, 0.09469249],
+      dtype=float32)], r: -236.64, train r: -236.64, done: False
+2026-02-23 10:21:02,508 [INFO] Sim progress: t=2100/6600, active_vehicles=333, wall=3.6s for +300s sim
+2026-02-23 10:21:04,756 [INFO] Sim progress: t=2400/6600, active_vehicles=312, wall=2.2s for +300s sim
+2026-02-23 10:21:06,003 [INFO] Injecting traffic for Scenario 4 at t=2400
+2026-02-23 10:21:06,032 [INFO] Scenario 4: Scheduled 524 vehicles.
+2026-02-23 10:21:08,226 [INFO] Sim progress: t=2700/6600, active_vehicles=332, wall=3.5s for +300s sim
+2026-02-23 10:21:10,531 [INFO] Sim progress: t=3000/6600, active_vehicles=309, wall=2.3s for +300s sim
+2026-02-23 10:21:11,822 [INFO] Injecting traffic for Scenario 5 at t=3000
+2026-02-23 10:21:11,867 [INFO] Scenario 5: Scheduled 474 vehicles.
+2026-02-23 10:21:14,170 [INFO] Sim progress: t=3300/6600, active_vehicles=370, wall=3.6s for +300s sim
+2026-02-23 10:21:16,633 [INFO] Sim progress: t=3600/6600, active_vehicles=321, wall=2.5s for +300s sim
+2026-02-23 10:21:17,986 [INFO] Injecting traffic for Scenario 6 at t=3600
+2026-02-23 10:21:18,018 [INFO] Scenario 6: Scheduled 547 vehicles.
+2026-02-23 10:21:20,439 [INFO] Sim progress: t=3900/6600, active_vehicles=361, wall=3.8s for +300s sim
+2026-02-23 10:21:22,875 [INFO] Sim progress: t=4200/6600, active_vehicles=392, wall=2.4s for +300s sim
+2026-02-23 10:21:24,136 [INFO] Injecting traffic for Scenario 7 at t=4200
+2026-02-23 10:21:24,166 [INFO] Scenario 7: Scheduled 506 vehicles.
+2026-02-23 10:21:26,533 [INFO] Sim progress: t=4500/6600, active_vehicles=467, wall=3.7s for +300s sim
+2026-02-23 10:21:28,884 [INFO] Sim progress: t=4800/6600, active_vehicles=487, wall=2.4s for +300s sim
+2026-02-23 10:21:30,127 [INFO] Injecting traffic for Scenario 8 at t=4800
+2026-02-23 10:21:30,154 [INFO] Scenario 8: Scheduled 499 vehicles.
+2026-02-23 10:21:32,481 [INFO] Sim progress: t=5100/6600, active_vehicles=412, wall=3.6s for +300s sim
+2026-02-23 10:21:34,805 [INFO] Sim progress: t=5400/6600, active_vehicles=327, wall=2.3s for +300s sim
+2026-02-23 10:21:36,066 [INFO] Injecting traffic for Scenario 9 at t=5400
+2026-02-23 10:21:36,103 [INFO] Scenario 9: Scheduled 510 vehicles.
+2026-02-23 10:21:38,362 [INFO] Sim progress: t=5700/6600, active_vehicles=372, wall=3.6s for +300s sim
+2026-02-23 10:21:40,665 [INFO] Sim progress: t=6000/6600, active_vehicles=362, wall=2.3s for +300s sim
+2026-02-23 10:21:41,900 [INFO] Injecting traffic for Scenario 10 at t=6000
+2026-02-23 10:21:41,929 [INFO] Scenario 10: Scheduled 537 vehicles.
+2026-02-23 10:21:44,211 [INFO] Sim progress: t=6300/6600, active_vehicles=401, wall=3.5s for +300s sim
+2026-02-23 10:21:46,616 [INFO] Sim progress: t=6600/6600, active_vehicles=455, wall=2.4s for +300s sim
+2026-02-23 10:21:48,013 [INFO] Training: episode 31 done at global step 1000920, terminating env ...
+2026-02-23 10:21:48,077 [INFO] Training: env termination finished in 0.06s
+2026-02-23 10:21:48,078 [INFO] Training: episode 31 finished in 67.00s (global step 1000920, avg R -236.01)
+2026-02-23 10:21:49,081 [INFO] Training: save final model at step 1000920 ...

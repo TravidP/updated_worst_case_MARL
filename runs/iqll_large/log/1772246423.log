@@ -1,0 +1,2 @@
+2026-02-28 03:40:23,432 [INFO] Step probe: warn_if_stage_over=15.0s, watchdog=180s poll=10s, trainer_warn=60.0s
+2026-02-28 03:40:25,435 [INFO] TraCI connection established on port 8000

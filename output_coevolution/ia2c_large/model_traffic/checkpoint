@@ -1,0 +1,6 @@
+model_checkpoint_path: "/home/sdc_joran/Journal/deeprl_signal_control/output_coevolution/ia2c_large/model_traffic/checkpoint-1515720"
+all_model_checkpoint_paths: "/home/sdc_joran/Journal/deeprl_signal_control/output_coevolution/ia2c_large/model_traffic/checkpoint-1462920"
+all_model_checkpoint_paths: "/home/sdc_joran/Journal/deeprl_signal_control/output_coevolution/ia2c_large/model_traffic/checkpoint-1476120"
+all_model_checkpoint_paths: "/home/sdc_joran/Journal/deeprl_signal_control/output_coevolution/ia2c_large/model_traffic/checkpoint-1489320"
+all_model_checkpoint_paths: "/home/sdc_joran/Journal/deeprl_signal_control/output_coevolution/ia2c_large/model_traffic/checkpoint-1502520"
+all_model_checkpoint_paths: "/home/sdc_joran/Journal/deeprl_signal_control/output_coevolution/ia2c_large/model_traffic/checkpoint-1515720"

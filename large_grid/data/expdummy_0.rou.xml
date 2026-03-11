@@ -1,3 +1,4 @@
 <routes>
   <vType id="type1" length="5" accel="5" decel="10"/>
+  <trip id="keepalive" depart="6599" from="np1_nt1" to="nt25_np11" type="type1"/>
 </routes>

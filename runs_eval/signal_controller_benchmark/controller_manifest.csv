@@ -1,0 +1,5 @@
+controller,controller_label,family,variant,checkpoint_step,model_dir,config_path
+ia2c_marl,IA2C MARL,ia2c,baseline,1000920,/home/sdc_joran/Journal/deeprl_signal_control/runs/ia2c_large/model,/home/sdc_joran/Journal/deeprl_signal_control/runs/ia2c_large/data/config_ia2c_large.ini
+ia2c_retrained,IA2C Retrained,ia2c,retrained,2320920,/home/sdc_joran/Journal/deeprl_signal_control/output_coevolution/ia2c_large/model_traffic,/home/sdc_joran/Journal/deeprl_signal_control/runs/ia2c_large/data/config_ia2c_large.ini
+ma2c_marl,MA2C MARL,ma2c,baseline,1000560,/home/sdc_joran/Journal/deeprl_signal_control/runs/ma2c_large/model,/home/sdc_joran/Journal/deeprl_signal_control/runs/ma2c_large/data/config_ma2c_large.ini
+ma2c_retrained,MA2C Retrained,ma2c,retrained,2320560,/home/sdc_joran/Journal/deeprl_signal_control/output_coevolution/ma2c_large/model_traffic,/home/sdc_joran/Journal/deeprl_signal_control/runs/ma2c_large/data/config_ma2c_large.ini

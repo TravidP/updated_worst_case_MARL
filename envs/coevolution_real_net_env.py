@@ -48,6 +48,7 @@ class CoevolutionRealNetEnv(AdversarialRealNetEnv):
         
         # Detect Agent Type
         is_iql = traffic_agent.name.startswith('iql')
+        is_ppo = traffic_agent.name == 'ppo'
         
         # Get initial traffic state
         traffic_obs = self._get_state()
@@ -92,7 +93,12 @@ class CoevolutionRealNetEnv(AdversarialRealNetEnv):
                 traffic_agent.add_transition(traffic_obs, actions, step_rewards, next_traffic_obs, done)
             else:
                 # A2C Transition: (obs, action, reward, value, done)
-                traffic_agent.add_transition(traffic_obs, actions, step_rewards, values, done)
+                if is_ppo:
+                    traffic_agent.add_transition(
+                        traffic_obs, actions, step_rewards, values, done, policies
+                    )
+                else:
+                    traffic_agent.add_transition(traffic_obs, actions, step_rewards, values, done)
             
             # Check Buffer Length
             if hasattr(traffic_agent, 'trans_buffer_ls'):

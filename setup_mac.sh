@@ -1,7 +1,5 @@
 # a better practice is to use a conda env
-sudo pip3 install tensorflow==1.12.0
-sudo pip3 install matplotlib
-sudo pip3 install seaborn
+python3 -m pip install "tensorflow<2.16" pandas matplotlib seaborn
 # sumo==1.1.0
 brew tap cts198859/sumo
 brew cask install xquartz

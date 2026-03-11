@@ -363,7 +363,7 @@ def gen_rou_file(path, peak_flow1, peak_flow2, density, seed=None, thread=None):
 #     str_config += '    <begin value="0"/>\n    <end value="3600"/>\n'
 #     str_config += '  </time>\n</configuration>\n'
 #     return str_config
-def output_config(thread=None):
+def output_config(thread=None, end=3600):
     if thread is None:
         out_file = 'expdummy.rou.xml'
     else:
@@ -373,7 +373,7 @@ def output_config(thread=None):
     str_config += '    <route-files value="%s"/>\n' % out_file
     str_config += '    <additional-files value="exp.add.xml"/>\n'
     str_config += '  </input>\n  <time>\n'
-    str_config += '    <begin value="0"/>\n    <end value="3600"/>\n'
+    str_config += '    <begin value="0"/>\n    <end value="%d"/>\n' % int(end)
     str_config += '  </time>\n</configuration>\n'
     return str_config
 
