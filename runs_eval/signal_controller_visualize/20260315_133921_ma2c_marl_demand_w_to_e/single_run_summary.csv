@@ -1,0 +1,2 @@
+controller,controller_label,family,variant,group_index,group_name,seed_index,seed_value,group_duration_sec,policy_type,gui,checkpoint_step,model_dir,config_path,queue_overall_mean,speed_overall_mean
+ma2c_marl,MA2C MARL,ma2c,baseline,2,demand_W_to_E,0,10000,3600,default,1,1000560,/home/sdc_joran/Journal/deeprl_signal_control/runs/ma2c_large/model,/home/sdc_joran/Journal/deeprl_signal_control/runs/ma2c_large/data/config_ma2c_large.ini,218.20527777777778,2.2206633758005734

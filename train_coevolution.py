@@ -194,16 +194,6 @@ ADVERSARY_REWARD_NORM = 500.0
 ADVERSARY_REWARD_CLIP = 5.0
 ADVERSARY_TARGET_BATCH_EPISODES = 4
 
-# Adaptive entropy toggle: set False to keep legacy behavior (fixed entropy=0.01).
-CHANGING_ENTROPY = True
-ADAPTIVE_ENTROPY_WINDOW_EP = 40
-ADAPTIVE_ENTROPY_MIN_EPISODES = 120
-ADAPTIVE_ENTROPY_REL_MEAN_DELTA_MAX = 0.02
-ADAPTIVE_ENTROPY_REL_STD_MAX = 0.05
-ADAPTIVE_ENTROPY_STEP = 0.001
-ADAPTIVE_ENTROPY_MAX = 0.015
-ADAPTIVE_ENTROPY_COOLDOWN_EP = 40
-
 
 def _prepare_adversary_model_config(model_config_dict, macro_steps_per_episode):
     tuned = dict(model_config_dict)
@@ -216,50 +206,6 @@ def _prepare_adversary_model_config(model_config_dict, macro_steps_per_episode):
     tuned['reward_norm'] = str(ADVERSARY_REWARD_NORM)
     tuned['reward_clip'] = str(ADVERSARY_REWARD_CLIP)
     return tuned, configured_batch, target_batch
-
-
-def _get_agent_entropy_coef(agent):
-    scheduler = getattr(agent, 'beta_scheduler', None)
-    if scheduler is None:
-        return None
-    cur_val = getattr(scheduler, 'val', None)
-    if cur_val is None:
-        return None
-    try:
-        return float(cur_val)
-    except (TypeError, ValueError):
-        return None
-
-
-def _set_agent_entropy_coef(agent, entropy_coef):
-    scheduler = getattr(agent, 'beta_scheduler', None)
-    if scheduler is None:
-        return False
-    coef = max(0.0, float(entropy_coef))
-    scheduler.val = coef
-    # While adaptive mode is active we treat entropy as externally controlled.
-    scheduler.decay = 'constant'
-    return True
-
-
-def _is_reward_stable(history, window_ep, rel_mean_delta_max, rel_std_max):
-    if len(history) < (2 * window_ep):
-        return False, {}
-    prev_window = np.array(history[-2 * window_ep:-window_ep], dtype=np.float32)
-    recent_window = np.array(history[-window_ep:], dtype=np.float32)
-    prev_mean = float(np.mean(prev_window))
-    recent_mean = float(np.mean(recent_window))
-    recent_std = float(np.std(recent_window))
-    rel_mean_delta = abs(recent_mean - prev_mean) / max(abs(prev_mean), 1.0)
-    rel_std = recent_std / max(abs(recent_mean), 1.0)
-    stable = (rel_mean_delta <= rel_mean_delta_max) and (rel_std <= rel_std_max)
-    return stable, {
-        'prev_mean': prev_mean,
-        'recent_mean': recent_mean,
-        'recent_std': recent_std,
-        'rel_mean_delta': rel_mean_delta,
-        'rel_std': rel_std
-    }
 
 def train_coevolution(args=None):
     if args is None:
@@ -602,29 +548,6 @@ def train_coevolution(args=None):
         "macro_steps_per_episode=%d wce_batch_size=%d checkpoint_interval=%d",
         start_episode, TOTAL_EPISODES, macro_steps_per_episode, batch_size, CHECKPOINT_INTERVAL_EP
     )
-    changing_entropy = bool(CHANGING_ENTROPY)
-    traffic_entropy_coef = _get_agent_entropy_coef(traffic_agent)
-    adversary_entropy_coef = _get_agent_entropy_coef(adversary)
-    entropy_bump_count = 0
-    last_entropy_bump_ep = -ADAPTIVE_ENTROPY_COOLDOWN_EP
-    traffic_reward_history = []
-    wce_reward_history = []
-    if changing_entropy:
-        logging.info(
-            "Adaptive entropy enabled: window=%d, min_episodes=%d, rel_mean_delta<=%.4f, "
-            "rel_std<=%.4f, bump_step=%.4f, max_entropy=%.4f, cooldown=%d episodes",
-            ADAPTIVE_ENTROPY_WINDOW_EP, ADAPTIVE_ENTROPY_MIN_EPISODES,
-            ADAPTIVE_ENTROPY_REL_MEAN_DELTA_MAX, ADAPTIVE_ENTROPY_REL_STD_MAX,
-            ADAPTIVE_ENTROPY_STEP, ADAPTIVE_ENTROPY_MAX, ADAPTIVE_ENTROPY_COOLDOWN_EP
-        )
-        if (traffic_entropy_coef is None) or (adversary_entropy_coef is None):
-            logging.warning(
-                "Adaptive entropy requested but a beta scheduler is missing "
-                "(traffic_entropy=%r, adversary_entropy=%r).",
-                traffic_entropy_coef, adversary_entropy_coef
-            )
-    else:
-        logging.info("Adaptive entropy disabled: using legacy fixed scheduler behavior.")
     _watchdog_touch('coev:loop_start')
 
     segment_summary_flush_every = 5
@@ -732,90 +655,9 @@ def train_coevolution(args=None):
             if adv_backward_elapsed > 60:
                 logging.warning("Slow final adversary backward: %.2fs at adv_step=%d", adv_backward_elapsed, global_adv_step)
 
-        traffic_reward_history.append(float(episode_traffic_reward))
-        wce_reward_history.append(float(episode_wce_reward))
-        traffic_stable, traffic_stability_stats = _is_reward_stable(
-            traffic_reward_history,
-            ADAPTIVE_ENTROPY_WINDOW_EP,
-            ADAPTIVE_ENTROPY_REL_MEAN_DELTA_MAX,
-            ADAPTIVE_ENTROPY_REL_STD_MAX
-        )
-        wce_stable, wce_stability_stats = _is_reward_stable(
-            wce_reward_history,
-            ADAPTIVE_ENTROPY_WINDOW_EP,
-            ADAPTIVE_ENTROPY_REL_MEAN_DELTA_MAX,
-            ADAPTIVE_ENTROPY_REL_STD_MAX
-        )
-        traffic_entropy_coef = _get_agent_entropy_coef(traffic_agent)
-        adversary_entropy_coef = _get_agent_entropy_coef(adversary)
-
-        if changing_entropy:
-            can_bump = (ep + 1) >= ADAPTIVE_ENTROPY_MIN_EPISODES
-            can_bump = can_bump and (ep - last_entropy_bump_ep) >= ADAPTIVE_ENTROPY_COOLDOWN_EP
-            can_bump = can_bump and traffic_stable and wce_stable
-            current_entropy_values = [
-                cur for cur in [traffic_entropy_coef, adversary_entropy_coef] if cur is not None
-            ]
-            if can_bump and current_entropy_values:
-                cur_entropy = max(current_entropy_values)
-                if cur_entropy < ADAPTIVE_ENTROPY_MAX:
-                    new_entropy = min(ADAPTIVE_ENTROPY_MAX, cur_entropy + ADAPTIVE_ENTROPY_STEP)
-                    changed = False
-                    changed = _set_agent_entropy_coef(traffic_agent, new_entropy) or changed
-                    changed = _set_agent_entropy_coef(adversary, new_entropy) or changed
-                    if changed:
-                        entropy_bump_count += 1
-                        last_entropy_bump_ep = ep
-                        traffic_entropy_coef = _get_agent_entropy_coef(traffic_agent)
-                        adversary_entropy_coef = _get_agent_entropy_coef(adversary)
-                        logging.info(
-                            "Adaptive entropy bump #%d at episode %d: traffic_entropy=%s, "
-                            "adversary_entropy=%s | traffic_rel_delta=%.4f, wce_rel_delta=%.4f",
-                            entropy_bump_count,
-                            ep,
-                            ("%.6f" % traffic_entropy_coef) if traffic_entropy_coef is not None else "n/a",
-                            ("%.6f" % adversary_entropy_coef) if adversary_entropy_coef is not None else "n/a",
-                            float(traffic_stability_stats.get('rel_mean_delta', -1.0)),
-                            float(wce_stability_stats.get('rel_mean_delta', -1.0))
-                        )
-
         _log_scalar('Episode/Traffic_Total_Reward', episode_traffic_reward, ep)
         _log_scalar('Episode/WCE_Total_Reward', episode_wce_reward, ep)
         _log_scalar('Episode/Macro_Steps', episode_macro_steps, ep)
-        _log_scalar('AdaptiveEntropy/Enabled', 1.0 if changing_entropy else 0.0, ep)
-        _log_scalar(
-            'AdaptiveEntropy/Traffic_Entropy_Coef',
-            float(traffic_entropy_coef) if traffic_entropy_coef is not None else -1.0,
-            ep
-        )
-        _log_scalar(
-            'AdaptiveEntropy/Adversary_Entropy_Coef',
-            float(adversary_entropy_coef) if adversary_entropy_coef is not None else -1.0,
-            ep
-        )
-        _log_scalar('AdaptiveEntropy/Traffic_Stable', 1.0 if traffic_stable else 0.0, ep)
-        _log_scalar('AdaptiveEntropy/WCE_Stable', 1.0 if wce_stable else 0.0, ep)
-        _log_scalar(
-            'AdaptiveEntropy/Traffic_RelMeanDelta',
-            float(traffic_stability_stats.get('rel_mean_delta', -1.0)),
-            ep
-        )
-        _log_scalar(
-            'AdaptiveEntropy/WCE_RelMeanDelta',
-            float(wce_stability_stats.get('rel_mean_delta', -1.0)),
-            ep
-        )
-        _log_scalar(
-            'AdaptiveEntropy/Traffic_RelStd',
-            float(traffic_stability_stats.get('rel_std', -1.0)),
-            ep
-        )
-        _log_scalar(
-            'AdaptiveEntropy/WCE_RelStd',
-            float(wce_stability_stats.get('rel_std', -1.0)),
-            ep
-        )
-        _log_scalar('AdaptiveEntropy/BumpCount', float(entropy_bump_count), ep)
         summary_writer.flush()
         segment_since_flush = 0
 

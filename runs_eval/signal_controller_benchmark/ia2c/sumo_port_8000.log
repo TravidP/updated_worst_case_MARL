@@ -35,3 +35,5 @@ Interrupt signal received, trying to exit gracefully.
 Interrupt signal received, trying to exit gracefully.
 Interrupt signal received, trying to exit gracefully.
 malloc_consolidate(): unaligned fastbin chunk detected
+Interrupt signal received, trying to exit gracefully.
+Another interrupt signal received, hard exit.

@@ -1,0 +1,2 @@
+controller,controller_label,family,variant,group_index,group_name,seed_index,seed_value,group_duration_sec,policy_type,gui,checkpoint_step,model_dir,config_path,queue_overall_mean,speed_overall_mean
+ppo_marl,PPO MARL,ppo,baseline,2,demand_W_to_E,0,10000,3600,default,1,1000560,/home/sdc_joran/Journal/deeprl_signal_control/runs/ppo_large/model,/home/sdc_joran/Journal/deeprl_signal_control/runs/ppo_large/data/config_ppo_large.ini,215.4086111111111,2.2076084204768893

@@ -49,7 +49,15 @@ DEMAND_GROUP_ORDER = [
     "demand_Periphery_to_Center",
     "demand_Center_to_Periphery",
     "demand_Uniform",
+    "demand_5x5_sparse",
 ]
+
+FAMILY_TITLE_LABELS = {
+    "ia2c": "IA2C",
+    "ma2c": "MA2C",
+    "iqll": "IQL-LR",
+    "ppo": "PPO",
+}
 
 
 @dataclass(frozen=True)
@@ -99,14 +107,22 @@ ACTIVE_CONTROLLERS: List[ControllerSpec] = [
         model_dir=os.path.join(PROJECT_ROOT, "runs", "ma2c_large", "model"),
         config_hint=os.path.join(PROJECT_ROOT, "runs", "ma2c_large", "data", "config_ma2c_large.ini"),
     ),
-    # ControllerSpec(
-    #     name="iqll_marl",
-    #     label="IQL-LR MARL",
-    #     family="iqll",
-    #     variant="baseline",
-    #     model_dir=os.path.join(PROJECT_ROOT, "runs", "iqll_large", "model"),
-    #     config_hint=os.path.join(PROJECT_ROOT, "runs", "iqll_large", "data", "config_iqll_large.ini"),
-    # ),
+    ControllerSpec(
+        name="iqll_marl",
+        label="IQL-LR MARL",
+        family="iqll",
+        variant="baseline",
+        model_dir=os.path.join(PROJECT_ROOT, "runs", "iqll_large", "model"),
+        config_hint=os.path.join(PROJECT_ROOT, "runs", "iqll_large", "data", "config_iqll_large.ini"),
+    ),
+    ControllerSpec(
+        name="ppo_marl",
+        label="PPO MARL",
+        family="ppo",
+        variant="baseline",
+        model_dir=os.path.join(PROJECT_ROOT, "runs", "ppo_large", "model"),
+        config_hint=os.path.join(PROJECT_ROOT, "runs", "ppo_large", "data", "config_ppo_large.ini"),
+    ),
     ControllerSpec(
         name="ia2c_retrained",
         label="IA2C Retrained",
@@ -123,21 +139,30 @@ ACTIVE_CONTROLLERS: List[ControllerSpec] = [
         model_dir=os.path.join(PROJECT_ROOT, "output_coevolution", "ma2c_large", "model_traffic"),
         config_hint=os.path.join(PROJECT_ROOT, "runs", "ma2c_large", "data", "config_ma2c_large.ini"),
     ),
-    # ControllerSpec(
-    #     name="iqll_retrained",
-    #     label="IQL-LR Retrained",
-    #     family="iqll",
-    #     variant="retrained",
-    #     model_dir=os.path.join(PROJECT_ROOT, "output_coevolution", "iqll_large", "model_traffic"),
-    #     config_hint=os.path.join(PROJECT_ROOT, "runs", "iqll_large", "data", "config_iqll_large.ini"),
-    # ),
+    ControllerSpec(
+        name="iqll_retrained",
+        label="IQL-LR Retrained",
+        family="iqll",
+        variant="retrained",
+        model_dir=os.path.join(PROJECT_ROOT, "output_coevolution", "iqll_large", "model_traffic"),
+        config_hint=os.path.join(PROJECT_ROOT, "runs", "iqll_large", "data", "config_iqll_large.ini"),
+    ),
+    ControllerSpec(
+        name="ppo_retrained",
+        label="PPO Retrained",
+        family="ppo",
+        variant="retrained",
+        model_dir=os.path.join(PROJECT_ROOT, "output_coevolution", "ppo_large", "model_traffic"),
+        config_hint=os.path.join(PROJECT_ROOT, "runs", "ppo_large", "data", "config_ppo_large.ini"),
+    ),
 ]
 
 
 COMPARISON_PAIRS: List[Tuple[str, str]] = [
     ("ia2c_marl", "ia2c_retrained"),
     ("ma2c_marl", "ma2c_retrained"),
-    # ("iqll_marl", "iqll_retrained"),
+    ("iqll_marl", "iqll_retrained"),
+    ("ppo_marl", "ppo_retrained"),
 ]
 
 
@@ -708,6 +733,8 @@ def save_horizon_averages_csv(
         "ma2c_retrained",
         "iqll_marl",
         "iqll_retrained",
+        "ppo_marl",
+        "ppo_retrained"
     ]
     fieldnames = [
         "controller",
@@ -975,12 +1002,13 @@ def main():
         right_group, right_stats = find_worst_group(all_stats[right_name])
 
         family_slug = slugify(left_spec.family)
+        family_title = FAMILY_TITLE_LABELS.get(left_spec.family, left_spec.family.upper())
         plot_worst_group_comparison(
             stats_left=left_stats,
             stats_right=right_stats,
             left_label="%s worst (%s)" % (left_spec.label, group_labels[left_group]),
             right_label="%s worst (%s)" % (right_spec.label, group_labels[right_group]),
-            title="%s Baseline vs Retrained - Worst Queue Groups" % left_spec.family.upper(),
+            title="%s Baseline vs Retrained - Worst Queue Groups" % family_title,
             ylabel="Total queued vehicles (veh)",
             save_path=os.path.join(family_output_dir, "%s_worst_queue.png" % family_slug),
             metric="queue",
@@ -990,7 +1018,7 @@ def main():
             stats_right=right_stats,
             left_label="%s worst (%s)" % (left_spec.label, group_labels[left_group]),
             right_label="%s worst (%s)" % (right_spec.label, group_labels[right_group]),
-            title="%s Baseline vs Retrained - Worst Speed Groups" % left_spec.family.upper(),
+            title="%s Baseline vs Retrained - Worst Speed Groups" % family_title,
             ylabel="Average speed (m/s)",
             save_path=os.path.join(family_output_dir, "%s_worst_speed.png" % family_slug),
             metric="speed",

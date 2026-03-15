@@ -1,0 +1,969 @@
+2026-03-11 22:40:37,678 [INFO] Loading Config: /home/sdc_joran/Journal/deeprl_signal_control/config/config_ppo_large.ini
+2026-03-11 22:40:37,678 [INFO] Found 11 dynamic traffic scenarios in /home/sdc_joran/Journal/deeprl_signal_control/data_traffic
+2026-03-11 22:40:37,718 [INFO] Loaded Scenario 0 from demand_Center_to_Periphery.csv
+2026-03-11 22:40:37,756 [INFO] Loaded Scenario 1 from demand_E_to_W.csv
+2026-03-11 22:40:37,795 [INFO] Loaded Scenario 2 from demand_NE_to_SW.csv
+2026-03-11 22:40:37,833 [INFO] Loaded Scenario 3 from demand_NW_to_SE.csv
+2026-03-11 22:40:37,871 [INFO] Loaded Scenario 4 from demand_N_to_S.csv
+2026-03-11 22:40:37,909 [INFO] Loaded Scenario 5 from demand_Periphery_to_Center.csv
+2026-03-11 22:40:37,946 [INFO] Loaded Scenario 6 from demand_SE_to_NW.csv
+2026-03-11 22:40:37,985 [INFO] Loaded Scenario 7 from demand_SW_to_NE.csv
+2026-03-11 22:40:38,023 [INFO] Loaded Scenario 8 from demand_S_to_N.csv
+2026-03-11 22:40:38,061 [INFO] Loaded Scenario 9 from demand_Uniform.csv
+2026-03-11 22:40:38,099 [INFO] Loaded Scenario 10 from demand_W_to_E.csv
+2026-03-11 22:40:38,099 [INFO] Using fast lane wait metric for state/reward computation.
+2026-03-11 22:40:38,099 [INFO] Simulation heartbeat enabled every 300 sim-seconds.
+2026-03-11 22:40:38,099 [INFO] Step probe: warn_if_stage_over=15.0s, watchdog=180s poll=10s, trainer_warn=60.0s
+2026-03-11 22:40:38,099 [INFO] Starting SUMO on port 8000 (log: /home/sdc_joran/Journal/deeprl_signal_control/output_coevolution/ppo_large/data/sumo_port_8000.log)
+2026-03-11 22:40:40,102 [INFO] TraCI connection established on port 8000
+2026-03-11 22:40:40,137 [INFO] Env: init 25 node information:
+nt1:
+	neigbor: ['nt6', 'nt2']
+	ilds_in: ['nt6_nt1_0', 'nt2_nt1_0', 'nt2_nt1_1', 'np1_nt1_0', 'np20_nt1_0', 'np20_nt1_1']
+nt10:
+	neigbor: ['nt15', 'nt5', 'nt9']
+	ilds_in: ['nt15_nt10_0', 'np7_nt10_0', 'np7_nt10_1', 'nt5_nt10_0', 'nt9_nt10_0', 'nt9_nt10_1']
+nt11:
+	neigbor: ['nt16', 'nt12', 'nt6']
+	ilds_in: ['nt16_nt11_0', 'nt12_nt11_0', 'nt12_nt11_1', 'nt6_nt11_0', 'np18_nt11_0', 'np18_nt11_1']
+nt12:
+	neigbor: ['nt17', 'nt13', 'nt7', 'nt11']
+	ilds_in: ['nt17_nt12_0', 'nt13_nt12_0', 'nt13_nt12_1', 'nt7_nt12_0', 'nt11_nt12_0', 'nt11_nt12_1']
+nt13:
+	neigbor: ['nt18', 'nt14', 'nt8', 'nt12']
+	ilds_in: ['nt18_nt13_0', 'nt14_nt13_0', 'nt14_nt13_1', 'nt8_nt13_0', 'nt12_nt13_0', 'nt12_nt13_1']
+nt14:
+	neigbor: ['nt19', 'nt15', 'nt9', 'nt13']
+	ilds_in: ['nt19_nt14_0', 'nt15_nt14_0', 'nt15_nt14_1', 'nt9_nt14_0', 'nt13_nt14_0', 'nt13_nt14_1']
+nt15:
+	neigbor: ['nt20', 'nt10', 'nt14']
+	ilds_in: ['nt20_nt15_0', 'np8_nt15_0', 'np8_nt15_1', 'nt10_nt15_0', 'nt14_nt15_0', 'nt14_nt15_1']
+nt16:
+	neigbor: ['nt21', 'nt17', 'nt11']
+	ilds_in: ['nt21_nt16_0', 'nt17_nt16_0', 'nt17_nt16_1', 'nt11_nt16_0', 'np17_nt16_0', 'np17_nt16_1']
+nt17:
+	neigbor: ['nt22', 'nt18', 'nt12', 'nt16']
+	ilds_in: ['nt22_nt17_0', 'nt18_nt17_0', 'nt18_nt17_1', 'nt12_nt17_0', 'nt16_nt17_0', 'nt16_nt17_1']
+nt18:
+	neigbor: ['nt23', 'nt19', 'nt13', 'nt17']
+	ilds_in: ['nt23_nt18_0', 'nt19_nt18_0', 'nt19_nt18_1', 'nt13_nt18_0', 'nt17_nt18_0', 'nt17_nt18_1']
+nt19:
+	neigbor: ['nt24', 'nt20', 'nt14', 'nt18']
+	ilds_in: ['nt24_nt19_0', 'nt20_nt19_0', 'nt20_nt19_1', 'nt14_nt19_0', 'nt18_nt19_0', 'nt18_nt19_1']
+nt2:
+	neigbor: ['nt7', 'nt3', 'nt1']
+	ilds_in: ['nt7_nt2_0', 'nt3_nt2_0', 'nt3_nt2_1', 'np2_nt2_0', 'nt1_nt2_0', 'nt1_nt2_1']
+nt20:
+	neigbor: ['nt25', 'nt15', 'nt19']
+	ilds_in: ['nt25_nt20_0', 'np9_nt20_0', 'np9_nt20_1', 'nt15_nt20_0', 'nt19_nt20_0', 'nt19_nt20_1']
+nt21:
+	neigbor: ['nt22', 'nt16']
+	ilds_in: ['np15_nt21_0', 'nt22_nt21_0', 'nt22_nt21_1', 'nt16_nt21_0', 'np16_nt21_0', 'np16_nt21_1']
+nt22:
+	neigbor: ['nt23', 'nt17', 'nt21']
+	ilds_in: ['np14_nt22_0', 'nt23_nt22_0', 'nt23_nt22_1', 'nt17_nt22_0', 'nt21_nt22_0', 'nt21_nt22_1']
+nt23:
+	neigbor: ['nt24', 'nt18', 'nt22']
+	ilds_in: ['np13_nt23_0', 'nt24_nt23_0', 'nt24_nt23_1', 'nt18_nt23_0', 'nt22_nt23_0', 'nt22_nt23_1']
+nt24:
+	neigbor: ['nt25', 'nt19', 'nt23']
+	ilds_in: ['np12_nt24_0', 'nt25_nt24_0', 'nt25_nt24_1', 'nt19_nt24_0', 'nt23_nt24_0', 'nt23_nt24_1']
+nt25:
+	neigbor: ['nt20', 'nt24']
+	ilds_in: ['np11_nt25_0', 'np10_nt25_0', 'np10_nt25_1', 'nt20_nt25_0', 'nt24_nt25_0', 'nt24_nt25_1']
+nt3:
+	neigbor: ['nt8', 'nt4', 'nt2']
+	ilds_in: ['nt8_nt3_0', 'nt4_nt3_0', 'nt4_nt3_1', 'np3_nt3_0', 'nt2_nt3_0', 'nt2_nt3_1']
+nt4:
+	neigbor: ['nt9', 'nt5', 'nt3']
+	ilds_in: ['nt9_nt4_0', 'nt5_nt4_0', 'nt5_nt4_1', 'np4_nt4_0', 'nt3_nt4_0', 'nt3_nt4_1']
+nt5:
+	neigbor: ['nt10', 'nt4']
+	ilds_in: ['nt10_nt5_0', 'np6_nt5_0', 'np6_nt5_1', 'np5_nt5_0', 'nt4_nt5_0', 'nt4_nt5_1']
+nt6:
+	neigbor: ['nt11', 'nt7', 'nt1']
+	ilds_in: ['nt11_nt6_0', 'nt7_nt6_0', 'nt7_nt6_1', 'nt1_nt6_0', 'np19_nt6_0', 'np19_nt6_1']
+nt7:
+	neigbor: ['nt12', 'nt8', 'nt2', 'nt6']
+	ilds_in: ['nt12_nt7_0', 'nt8_nt7_0', 'nt8_nt7_1', 'nt2_nt7_0', 'nt6_nt7_0', 'nt6_nt7_1']
+nt8:
+	neigbor: ['nt13', 'nt9', 'nt3', 'nt7']
+	ilds_in: ['nt13_nt8_0', 'nt9_nt8_0', 'nt9_nt8_1', 'nt3_nt8_0', 'nt7_nt8_0', 'nt7_nt8_1']
+nt9:
+	neigbor: ['nt14', 'nt10', 'nt4', 'nt8']
+	ilds_in: ['nt14_nt9_0', 'nt10_nt9_0', 'nt10_nt9_1', 'nt4_nt9_0', 'nt8_nt9_0', 'nt8_nt9_1']
+
+2026-03-11 22:40:40,142 [INFO] Loaded 11 scenarios from /home/sdc_joran/Journal/deeprl_signal_control/data_traffic.
+2026-03-11 22:40:40,142 [INFO] Updated Episode Duration: 6600 seconds (110.0 mins), T=1320
+2026-03-11 22:40:40,142 [INFO] Adversarial Group Init: Mapped 'g0_demand_Center_to_Periphery' | Total Flow: 2869.6 vph
+2026-03-11 22:40:40,142 [INFO] Adversarial Group Init: Mapped 'g1_demand_E_to_W' | Total Flow: 2984.5 vph
+2026-03-11 22:40:40,143 [INFO] Adversarial Group Init: Mapped 'g2_demand_NE_to_SW' | Total Flow: 3037.6 vph
+2026-03-11 22:40:40,143 [INFO] Adversarial Group Init: Mapped 'g3_demand_NW_to_SE' | Total Flow: 3019.2 vph
+2026-03-11 22:40:40,143 [INFO] Adversarial Group Init: Mapped 'g4_demand_N_to_S' | Total Flow: 3043.2 vph
+2026-03-11 22:40:40,144 [INFO] Adversarial Group Init: Mapped 'g5_demand_Periphery_to_Center' | Total Flow: 2912.4 vph
+2026-03-11 22:40:40,144 [INFO] Adversarial Group Init: Mapped 'g6_demand_SE_to_NW' | Total Flow: 2986.0 vph
+2026-03-11 22:40:40,144 [INFO] Adversarial Group Init: Mapped 'g7_demand_SW_to_NE' | Total Flow: 3008.2 vph
+2026-03-11 22:40:40,144 [INFO] Adversarial Group Init: Mapped 'g8_demand_S_to_N' | Total Flow: 2972.8 vph
+2026-03-11 22:40:40,145 [INFO] Adversarial Group Init: Mapped 'g9_demand_Uniform' | Total Flow: 2973.5 vph
+2026-03-11 22:40:40,145 [INFO] Adversarial Group Init: Mapped 'g10_demand_W_to_E' | Total Flow: 3046.1 vph
+2026-03-11 22:40:40,145 [INFO] Coevolution Env: 'dummy_path' passed. No frozen controller loaded (Trainable Agent Active).
+2026-03-11 22:40:40,145 [INFO] Adversary Global Observation Dim: 300
+2026-03-11 22:40:40,145 [INFO] WCE training overrides: reward_norm=500.0, reward_clip=5.0, batch_size=44 (base_config_batch=120, ~4.0 episodes/update)
+2026-03-11 22:40:40,145 [INFO] a2c TF session config: intra_op=1, inter_op=1, op_timeout_ms=600000
+2026-03-11 22:40:40,386 [WARNING] From /home/sdc_joran/.local/lib/python3.10/site-packages/tensorflow/python/training/rmsprop.py:188: calling Ones.__init__ (from tensorflow.python.ops.init_ops) with dtype is deprecated and will be removed in a future version.
+Instructions for updating:
+Call initializer instance with the dtype argument instead of passing it to the constructor
+2026-03-11 22:40:40,439 [INFO] Initializing Traffic Agent of type: ppo
+2026-03-11 22:40:40,439 [INFO] ppo TF session config: intra_op=1, inter_op=1, op_timeout_ms=600000
+2026-03-11 22:41:30,828 [INFO] >>> Loading Pre-trained Weights...
+2026-03-11 22:41:30,828 [INFO] Restoring parameters from /home/sdc_joran/Journal/deeprl_signal_control/output_adversary/ppo_large/model/checkpoint-499
+2026-03-11 22:41:30,837 [INFO] Checkpoint loaded: checkpoint-499
+2026-03-11 22:41:30,837 [INFO] Loaded Adversary.
+2026-03-11 22:41:30,837 [INFO] Restoring parameters from /home/sdc_joran/Journal/deeprl_signal_control/runs/ppo_large/model/checkpoint-1000560
+2026-03-11 22:41:31,860 [INFO] Checkpoint loaded: checkpoint-1000560
+2026-03-11 22:41:31,860 [INFO] Loaded Traffic Agent (ppo).
+2026-03-11 22:41:37,193 [INFO] Starting Co-Evolution Training: start_episode=0 total_episodes=1000 macro_steps_per_episode=11 wce_batch_size=44 checkpoint_interval=10
+2026-03-11 22:41:37,193 [INFO] Adaptive entropy disabled: using legacy fixed scheduler behavior.
+2026-03-11 22:41:37,194 [INFO] Starting SUMO on port 8000 (log: /home/sdc_joran/Journal/deeprl_signal_control/output_coevolution/ppo_large/data/sumo_port_8000.log)
+2026-03-11 22:41:39,197 [INFO] TraCI connection established on port 8000
+2026-03-11 22:41:39,211 [INFO] Episode 0 Start.
+2026-03-11 22:41:39,227 [INFO] 
+[Adversary] Injecting Traffic... (Time: 0s)
+2026-03-11 22:41:39,291 [INFO] Adversary traffic inject @t=0 (+600s): active_od=248 requested=468 scheduled=468 route_skipped=0 add_failed=0 known_routes=248
+2026-03-11 22:42:04,499 [INFO] Adversarial sim progress: t=300/6600, active_vehicles=140, wall=25.3s for +300s sim
+2026-03-11 22:42:05,637 [INFO] Adversarial sim progress: t=600/6600, active_vehicles=156, wall=1.1s for +300s sim
+2026-03-11 22:43:16,626 [INFO]    Adv Step 5490 | WCE Reward: 101.8938 | Traffic Segment Reward: -10189.38
+2026-03-11 22:43:16,627 [INFO] 
+[Adversary] Injecting Traffic... (Time: 600s)
+2026-03-11 22:43:16,699 [INFO] Adversary traffic inject @t=600 (+600s): active_od=341 requested=498 scheduled=498 route_skipped=0 add_failed=0 known_routes=483
+2026-03-11 22:43:17,820 [INFO] Adversarial sim progress: t=900/6600, active_vehicles=164, wall=72.2s for +300s sim
+2026-03-11 22:43:18,938 [INFO] Adversarial sim progress: t=1200/6600, active_vehicles=131, wall=1.1s for +300s sim
+2026-03-11 22:43:20,059 [INFO]    Adv Step 5491 | WCE Reward: 143.5704 | Traffic Segment Reward: -14357.04
+2026-03-11 22:43:20,062 [INFO] 
+[Adversary] Injecting Traffic... (Time: 1200s)
+2026-03-11 22:43:20,126 [INFO] Adversary traffic inject @t=1200 (+600s): active_od=327 requested=478 scheduled=478 route_skipped=0 add_failed=0 known_routes=658
+2026-03-11 22:43:21,257 [INFO] Adversarial sim progress: t=1500/6600, active_vehicles=153, wall=2.3s for +300s sim
+2026-03-11 22:43:22,378 [INFO] Adversarial sim progress: t=1800/6600, active_vehicles=121, wall=1.1s for +300s sim
+2026-03-11 22:43:23,507 [INFO]    Adv Step 5492 | WCE Reward: 126.2989 | Traffic Segment Reward: -12629.89
+2026-03-11 22:43:23,508 [INFO] 
+[Adversary] Injecting Traffic... (Time: 1800s)
+2026-03-11 22:43:23,568 [INFO] Adversary traffic inject @t=1800 (+600s): active_od=267 requested=501 scheduled=501 route_skipped=0 add_failed=0 known_routes=756
+2026-03-11 22:43:24,638 [INFO] Adversarial sim progress: t=2100/6600, active_vehicles=178, wall=2.3s for +300s sim
+2026-03-11 22:43:25,812 [INFO] Adversarial sim progress: t=2400/6600, active_vehicles=181, wall=1.2s for +300s sim
+2026-03-11 22:43:26,947 [INFO]    Adv Step 5493 | WCE Reward: 143.9720 | Traffic Segment Reward: -14397.20
+2026-03-11 22:43:26,948 [INFO] 
+[Adversary] Injecting Traffic... (Time: 2400s)
+2026-03-11 22:43:27,007 [INFO] Adversary traffic inject @t=2400 (+600s): active_od=279 requested=486 scheduled=486 route_skipped=0 add_failed=0 known_routes=852
+2026-03-11 22:43:28,129 [INFO] Adversarial sim progress: t=2700/6600, active_vehicles=182, wall=2.3s for +300s sim
+2026-03-11 22:43:29,256 [INFO] Adversarial sim progress: t=3000/6600, active_vehicles=140, wall=1.1s for +300s sim
+2026-03-11 22:43:30,384 [INFO]    Adv Step 5494 | WCE Reward: 144.7509 | Traffic Segment Reward: -14475.09
+2026-03-11 22:43:30,384 [INFO] 
+[Adversary] Injecting Traffic... (Time: 3000s)
+2026-03-11 22:43:30,451 [INFO] Adversary traffic inject @t=3000 (+600s): active_od=372 requested=500 scheduled=500 route_skipped=0 add_failed=0 known_routes=1006
+2026-03-11 22:43:31,571 [INFO] Adversarial sim progress: t=3300/6600, active_vehicles=161, wall=2.3s for +300s sim
+2026-03-11 22:43:32,667 [INFO] Adversarial sim progress: t=3600/6600, active_vehicles=149, wall=1.1s for +300s sim
+2026-03-11 22:43:33,789 [INFO]    Adv Step 5495 | WCE Reward: 148.9453 | Traffic Segment Reward: -14894.53
+2026-03-11 22:43:33,790 [INFO] 
+[Adversary] Injecting Traffic... (Time: 3600s)
+2026-03-11 22:43:33,849 [INFO] Adversary traffic inject @t=3600 (+600s): active_od=324 requested=485 scheduled=485 route_skipped=0 add_failed=0 known_routes=1131
+2026-03-11 22:43:34,958 [INFO] Adversarial sim progress: t=3900/6600, active_vehicles=151, wall=2.3s for +300s sim
+2026-03-11 22:43:36,129 [INFO] Adversarial sim progress: t=4200/6600, active_vehicles=154, wall=1.2s for +300s sim
+2026-03-11 22:43:37,240 [INFO]    Adv Step 5496 | WCE Reward: 129.2629 | Traffic Segment Reward: -12926.29
+2026-03-11 22:43:37,241 [INFO] 
+[Adversary] Injecting Traffic... (Time: 4200s)
+2026-03-11 22:43:37,298 [INFO] Adversary traffic inject @t=4200 (+600s): active_od=265 requested=511 scheduled=511 route_skipped=0 add_failed=0 known_routes=1199
+2026-03-11 22:43:38,396 [INFO] Adversarial sim progress: t=4500/6600, active_vehicles=170, wall=2.3s for +300s sim
+2026-03-11 22:43:39,497 [INFO] Adversarial sim progress: t=4800/6600, active_vehicles=185, wall=1.1s for +300s sim
+2026-03-11 22:43:40,633 [INFO]    Adv Step 5497 | WCE Reward: 140.6791 | Traffic Segment Reward: -14067.91
+2026-03-11 22:43:40,633 [INFO] 
+[Adversary] Injecting Traffic... (Time: 4800s)
+2026-03-11 22:43:40,692 [INFO] Adversary traffic inject @t=4800 (+600s): active_od=318 requested=489 scheduled=489 route_skipped=0 add_failed=0 known_routes=1300
+2026-03-11 22:43:41,843 [INFO] Adversarial sim progress: t=5100/6600, active_vehicles=165, wall=2.3s for +300s sim
+2026-03-11 22:43:42,960 [INFO] Adversarial sim progress: t=5400/6600, active_vehicles=190, wall=1.1s for +300s sim
+2026-03-11 22:43:44,093 [INFO]    Adv Step 5498 | WCE Reward: 167.8553 | Traffic Segment Reward: -16785.53
+2026-03-11 22:43:44,094 [INFO] 
+[Adversary] Injecting Traffic... (Time: 5400s)
+2026-03-11 22:43:44,149 [INFO] Adversary traffic inject @t=5400 (+600s): active_od=299 requested=481 scheduled=481 route_skipped=0 add_failed=0 known_routes=1372
+2026-03-11 22:43:45,344 [INFO] Adversarial sim progress: t=5700/6600, active_vehicles=190, wall=2.4s for +300s sim
+2026-03-11 22:43:46,566 [INFO] Adversarial sim progress: t=6000/6600, active_vehicles=156, wall=1.2s for +300s sim
+2026-03-11 22:43:47,815 [INFO]    Adv Step 5499 | WCE Reward: 166.3703 | Traffic Segment Reward: -16637.03
+2026-03-11 22:43:47,816 [INFO] 
+[Adversary] Injecting Traffic... (Time: 6000s)
+2026-03-11 22:43:47,874 [INFO] Adversary traffic inject @t=6000 (+600s): active_od=281 requested=485 scheduled=485 route_skipped=0 add_failed=0 known_routes=1442
+2026-03-11 22:43:49,224 [INFO] Adversarial sim progress: t=6300/6600, active_vehicles=144, wall=2.7s for +300s sim
+2026-03-11 22:43:50,601 [INFO] Adversarial sim progress: t=6600/6600, active_vehicles=153, wall=1.4s for +300s sim
+2026-03-11 22:43:51,781 [INFO]    Adv Step 5500 | WCE Reward: 128.0618 | Traffic Segment Reward: -12806.18
+2026-03-11 22:43:51,781 [INFO] Episode 0 Finished | Traffic_Total_Reward=-154166.07 | WCE_Total_Reward=1541.6607 | macro_steps=11
+2026-03-11 22:43:51,790 [INFO] Starting SUMO on port 8000 (log: /home/sdc_joran/Journal/deeprl_signal_control/output_coevolution/ppo_large/data/sumo_port_8000.log)
+2026-03-11 22:43:53,795 [INFO] TraCI connection established on port 8000
+2026-03-11 22:43:53,849 [INFO] Episode 1 Start.
+2026-03-11 22:43:53,849 [INFO] 
+[Adversary] Injecting Traffic... (Time: 0s)
+2026-03-11 22:43:53,917 [INFO] Adversary traffic inject @t=0 (+600s): active_od=306 requested=507 scheduled=507 route_skipped=0 add_failed=0 known_routes=306
+2026-03-11 22:43:54,891 [INFO] Adversarial sim progress: t=300/6600, active_vehicles=147, wall=1.1s for +300s sim
+2026-03-11 22:43:55,993 [INFO] Adversarial sim progress: t=600/6600, active_vehicles=184, wall=1.1s for +300s sim
+2026-03-11 22:43:57,090 [INFO]    Adv Step 5501 | WCE Reward: 130.8425 | Traffic Segment Reward: -13084.25
+2026-03-11 22:43:57,091 [INFO] 
+[Adversary] Injecting Traffic... (Time: 600s)
+2026-03-11 22:43:57,163 [INFO] Adversary traffic inject @t=600 (+600s): active_od=337 requested=508 scheduled=508 route_skipped=0 add_failed=0 known_routes=522
+2026-03-11 22:43:58,243 [INFO] Adversarial sim progress: t=900/6600, active_vehicles=158, wall=2.2s for +300s sim
+2026-03-11 22:43:59,313 [INFO] Adversarial sim progress: t=1200/6600, active_vehicles=173, wall=1.1s for +300s sim
+2026-03-11 22:44:00,418 [INFO]    Adv Step 5502 | WCE Reward: 158.6183 | Traffic Segment Reward: -15861.83
+2026-03-11 22:44:00,419 [INFO] 
+[Adversary] Injecting Traffic... (Time: 1200s)
+2026-03-11 22:44:00,475 [INFO] Adversary traffic inject @t=1200 (+600s): active_od=270 requested=491 scheduled=491 route_skipped=0 add_failed=0 known_routes=644
+2026-03-11 22:44:01,600 [INFO] Adversarial sim progress: t=1500/6600, active_vehicles=155, wall=2.3s for +300s sim
+2026-03-11 22:44:02,686 [INFO] Adversarial sim progress: t=1800/6600, active_vehicles=187, wall=1.1s for +300s sim
+2026-03-11 22:44:03,785 [INFO]    Adv Step 5503 | WCE Reward: 144.4157 | Traffic Segment Reward: -14441.57
+2026-03-11 22:44:03,786 [INFO] 
+[Adversary] Injecting Traffic... (Time: 1800s)
+2026-03-11 22:44:03,843 [INFO] Adversary traffic inject @t=1800 (+600s): active_od=297 requested=499 scheduled=499 route_skipped=0 add_failed=0 known_routes=783
+2026-03-11 22:44:04,949 [INFO] Adversarial sim progress: t=2100/6600, active_vehicles=193, wall=2.3s for +300s sim
+2026-03-11 22:44:06,018 [INFO] Adversarial sim progress: t=2400/6600, active_vehicles=154, wall=1.1s for +300s sim
+2026-03-11 22:44:07,126 [INFO]    Adv Step 5504 | WCE Reward: 160.1588 | Traffic Segment Reward: -16015.88
+2026-03-11 22:44:07,127 [INFO] 
+[Adversary] Injecting Traffic... (Time: 2400s)
+2026-03-11 22:44:07,188 [INFO] Adversary traffic inject @t=2400 (+600s): active_od=315 requested=510 scheduled=510 route_skipped=0 add_failed=0 known_routes=905
+2026-03-11 22:44:08,242 [INFO] Adversarial sim progress: t=2700/6600, active_vehicles=157, wall=2.2s for +300s sim
+2026-03-11 22:44:09,338 [INFO] Adversarial sim progress: t=3000/6600, active_vehicles=159, wall=1.1s for +300s sim
+2026-03-11 22:44:10,445 [INFO]    Adv Step 5505 | WCE Reward: 130.7104 | Traffic Segment Reward: -13071.04
+2026-03-11 22:44:10,447 [INFO] 
+[Adversary] Injecting Traffic... (Time: 3000s)
+2026-03-11 22:44:10,505 [INFO] Adversary traffic inject @t=3000 (+600s): active_od=302 requested=504 scheduled=504 route_skipped=0 add_failed=0 known_routes=1011
+2026-03-11 22:44:11,592 [INFO] Adversarial sim progress: t=3300/6600, active_vehicles=153, wall=2.3s for +300s sim
+2026-03-11 22:44:12,689 [INFO] Adversarial sim progress: t=3600/6600, active_vehicles=178, wall=1.1s for +300s sim
+2026-03-11 22:44:13,777 [INFO]    Adv Step 5506 | WCE Reward: 138.7301 | Traffic Segment Reward: -13873.01
+2026-03-11 22:44:13,777 [INFO] 
+[Adversary] Injecting Traffic... (Time: 3600s)
+2026-03-11 22:44:13,834 [INFO] Adversary traffic inject @t=3600 (+600s): active_od=337 requested=470 scheduled=470 route_skipped=0 add_failed=0 known_routes=1133
+2026-03-11 22:44:14,924 [INFO] Adversarial sim progress: t=3900/6600, active_vehicles=136, wall=2.2s for +300s sim
+2026-03-11 22:44:16,031 [INFO] Adversarial sim progress: t=4200/6600, active_vehicles=143, wall=1.1s for +300s sim
+2026-03-11 22:44:17,255 [INFO]    Adv Step 5507 | WCE Reward: 139.5616 | Traffic Segment Reward: -13956.16
+2026-03-11 22:44:17,255 [INFO] 
+[Adversary] Injecting Traffic... (Time: 4200s)
+2026-03-11 22:44:17,312 [INFO] Adversary traffic inject @t=4200 (+600s): active_od=268 requested=509 scheduled=509 route_skipped=0 add_failed=0 known_routes=1204
+2026-03-11 22:44:18,431 [INFO] Adversarial sim progress: t=4500/6600, active_vehicles=191, wall=2.4s for +300s sim
+2026-03-11 22:44:19,567 [INFO] Adversarial sim progress: t=4800/6600, active_vehicles=149, wall=1.1s for +300s sim
+2026-03-11 22:44:20,707 [INFO]    Adv Step 5508 | WCE Reward: 147.4626 | Traffic Segment Reward: -14746.26
+2026-03-11 22:44:20,707 [INFO] 
+[Adversary] Injecting Traffic... (Time: 4800s)
+2026-03-11 22:44:20,765 [INFO] Adversary traffic inject @t=4800 (+600s): active_od=276 requested=439 scheduled=439 route_skipped=0 add_failed=0 known_routes=1298
+2026-03-11 22:44:21,984 [INFO] Adversarial sim progress: t=5100/6600, active_vehicles=136, wall=2.4s for +300s sim
+2026-03-11 22:44:23,226 [INFO] Adversarial sim progress: t=5400/6600, active_vehicles=137, wall=1.2s for +300s sim
+2026-03-11 22:44:24,398 [INFO]    Adv Step 5509 | WCE Reward: 136.5060 | Traffic Segment Reward: -13650.60
+2026-03-11 22:44:24,399 [INFO] 
+[Adversary] Injecting Traffic... (Time: 5400s)
+2026-03-11 22:44:24,458 [INFO] Adversary traffic inject @t=5400 (+600s): active_od=270 requested=478 scheduled=478 route_skipped=0 add_failed=0 known_routes=1376
+2026-03-11 22:44:25,638 [INFO] Adversarial sim progress: t=5700/6600, active_vehicles=159, wall=2.4s for +300s sim
+2026-03-11 22:44:26,797 [INFO] Adversarial sim progress: t=6000/6600, active_vehicles=145, wall=1.2s for +300s sim
+2026-03-11 22:44:28,008 [INFO]    Adv Step 5510 | WCE Reward: 134.7566 | Traffic Segment Reward: -13475.66
+2026-03-11 22:44:28,009 [INFO] 
+[Adversary] Injecting Traffic... (Time: 6000s)
+2026-03-11 22:44:28,073 [INFO] Adversary traffic inject @t=6000 (+600s): active_od=306 requested=512 scheduled=512 route_skipped=0 add_failed=0 known_routes=1456
+2026-03-11 22:44:29,393 [INFO] Adversarial sim progress: t=6300/6600, active_vehicles=183, wall=2.6s for +300s sim
+2026-03-11 22:44:30,638 [INFO] Adversarial sim progress: t=6600/6600, active_vehicles=151, wall=1.2s for +300s sim
+2026-03-11 22:44:31,854 [INFO]    Adv Step 5511 | WCE Reward: 149.3702 | Traffic Segment Reward: -14937.02
+2026-03-11 22:44:31,855 [INFO] Episode 1 Finished | Traffic_Total_Reward=-157113.28 | WCE_Total_Reward=1571.1328 | macro_steps=11
+2026-03-11 22:44:31,863 [INFO] Starting SUMO on port 8000 (log: /home/sdc_joran/Journal/deeprl_signal_control/output_coevolution/ppo_large/data/sumo_port_8000.log)
+2026-03-11 22:44:33,867 [INFO] TraCI connection established on port 8000
+2026-03-11 22:44:33,936 [INFO] Episode 2 Start.
+2026-03-11 22:44:33,936 [INFO] 
+[Adversary] Injecting Traffic... (Time: 0s)
+2026-03-11 22:44:34,032 [INFO] Adversary traffic inject @t=0 (+600s): active_od=338 requested=468 scheduled=468 route_skipped=0 add_failed=0 known_routes=338
+2026-03-11 22:44:35,174 [INFO] Adversarial sim progress: t=300/6600, active_vehicles=126, wall=1.3s for +300s sim
+2026-03-11 22:44:36,267 [INFO] Adversarial sim progress: t=600/6600, active_vehicles=158, wall=1.1s for +300s sim
+2026-03-11 22:44:37,489 [INFO]    Adv Step 5512 | WCE Reward: 105.1819 | Traffic Segment Reward: -10518.19
+2026-03-11 22:44:37,490 [INFO] 
+[Adversary] Injecting Traffic... (Time: 600s)
+2026-03-11 22:44:37,595 [INFO] Adversary traffic inject @t=600 (+600s): active_od=320 requested=505 scheduled=505 route_skipped=0 add_failed=0 known_routes=536
+2026-03-11 22:44:38,874 [INFO] Adversarial sim progress: t=900/6600, active_vehicles=162, wall=2.6s for +300s sim
+2026-03-11 22:44:39,972 [INFO] Adversarial sim progress: t=1200/6600, active_vehicles=177, wall=1.1s for +300s sim
+2026-03-11 22:44:41,021 [INFO]    Adv Step 5513 | WCE Reward: 139.0498 | Traffic Segment Reward: -13904.98
+2026-03-11 22:44:41,022 [INFO] 
+[Adversary] Injecting Traffic... (Time: 1200s)
+2026-03-11 22:44:41,079 [INFO] Adversary traffic inject @t=1200 (+600s): active_od=290 requested=497 scheduled=497 route_skipped=0 add_failed=0 known_routes=666
+2026-03-11 22:44:42,297 [INFO] Adversarial sim progress: t=1500/6600, active_vehicles=166, wall=2.3s for +300s sim
+2026-03-11 22:44:43,730 [INFO] Adversarial sim progress: t=1800/6600, active_vehicles=159, wall=1.4s for +300s sim
+2026-03-11 22:44:44,761 [INFO]    Adv Step 5514 | WCE Reward: 149.1902 | Traffic Segment Reward: -14919.02
+2026-03-11 22:44:44,762 [INFO] 
+[Adversary] Injecting Traffic... (Time: 1800s)
+2026-03-11 22:44:44,819 [INFO] Adversary traffic inject @t=1800 (+600s): active_od=309 requested=437 scheduled=437 route_skipped=0 add_failed=0 known_routes=815
+2026-03-11 22:44:45,919 [INFO] Adversarial sim progress: t=2100/6600, active_vehicles=146, wall=2.2s for +300s sim
+2026-03-11 22:44:47,027 [INFO] Adversarial sim progress: t=2400/6600, active_vehicles=125, wall=1.1s for +300s sim
+2026-03-11 22:44:48,042 [INFO]    Adv Step 5515 | WCE Reward: 123.9468 | Traffic Segment Reward: -12394.68
+2026-03-11 22:44:48,043 [INFO] 
+[Adversary] Injecting Traffic... (Time: 2400s)
+2026-03-11 22:44:48,101 [INFO] Adversary traffic inject @t=2400 (+600s): active_od=280 requested=506 scheduled=506 route_skipped=0 add_failed=0 known_routes=911
+2026-03-11 22:44:49,236 [INFO] Adversarial sim progress: t=2700/6600, active_vehicles=164, wall=2.2s for +300s sim
+2026-03-11 22:44:50,368 [INFO] Adversarial sim progress: t=3000/6600, active_vehicles=208, wall=1.1s for +300s sim
+2026-03-11 22:44:51,429 [INFO]    Adv Step 5516 | WCE Reward: 151.6014 | Traffic Segment Reward: -15160.14
+2026-03-11 22:44:51,429 [INFO] 
+[Adversary] Injecting Traffic... (Time: 3000s)
+2026-03-11 22:44:51,481 [INFO] Adversary traffic inject @t=3000 (+600s): active_od=249 requested=469 scheduled=469 route_skipped=0 add_failed=0 known_routes=976
+2026-03-11 22:44:52,564 [INFO] Adversarial sim progress: t=3300/6600, active_vehicles=176, wall=2.2s for +300s sim
+2026-03-11 22:44:53,673 [INFO] Adversarial sim progress: t=3600/6600, active_vehicles=166, wall=1.1s for +300s sim
+2026-03-11 22:44:54,711 [INFO]    Adv Step 5517 | WCE Reward: 150.0499 | Traffic Segment Reward: -15004.99
+2026-03-11 22:44:54,712 [INFO] 
+[Adversary] Injecting Traffic... (Time: 3600s)
+2026-03-11 22:44:54,771 [INFO] Adversary traffic inject @t=3600 (+600s): active_od=282 requested=478 scheduled=478 route_skipped=0 add_failed=0 known_routes=1080
+2026-03-11 22:44:55,876 [INFO] Adversarial sim progress: t=3900/6600, active_vehicles=165, wall=2.2s for +300s sim
+2026-03-11 22:44:56,997 [INFO] Adversarial sim progress: t=4200/6600, active_vehicles=180, wall=1.1s for +300s sim
+2026-03-11 22:44:58,104 [INFO]    Adv Step 5518 | WCE Reward: 146.5531 | Traffic Segment Reward: -14655.31
+2026-03-11 22:44:58,105 [INFO] 
+[Adversary] Injecting Traffic... (Time: 4200s)
+2026-03-11 22:44:58,161 [INFO] Adversary traffic inject @t=4200 (+600s): active_od=279 requested=472 scheduled=472 route_skipped=0 add_failed=0 known_routes=1169
+2026-03-11 22:44:59,325 [INFO] Adversarial sim progress: t=4500/6600, active_vehicles=151, wall=2.3s for +300s sim
+2026-03-11 22:45:00,508 [INFO] Adversarial sim progress: t=4800/6600, active_vehicles=148, wall=1.2s for +300s sim
+2026-03-11 22:45:01,562 [INFO]    Adv Step 5519 | WCE Reward: 150.3000 | Traffic Segment Reward: -15030.00
+2026-03-11 22:45:01,563 [INFO] 
+[Adversary] Injecting Traffic... (Time: 4800s)
+2026-03-11 22:45:01,620 [INFO] Adversary traffic inject @t=4800 (+600s): active_od=306 requested=518 scheduled=518 route_skipped=0 add_failed=0 known_routes=1263
+2026-03-11 22:45:02,839 [INFO] Adversarial sim progress: t=5100/6600, active_vehicles=166, wall=2.3s for +300s sim
+2026-03-11 22:45:03,929 [INFO] Adversarial sim progress: t=5400/6600, active_vehicles=167, wall=1.1s for +300s sim
+2026-03-11 22:45:04,999 [INFO]    Adv Step 5520 | WCE Reward: 138.1808 | Traffic Segment Reward: -13818.08
+2026-03-11 22:45:05,000 [INFO] 
+[Adversary] Injecting Traffic... (Time: 5400s)
+2026-03-11 22:45:05,057 [INFO] Adversary traffic inject @t=5400 (+600s): active_od=252 requested=474 scheduled=474 route_skipped=0 add_failed=0 known_routes=1313
+2026-03-11 22:45:06,227 [INFO] Adversarial sim progress: t=5700/6600, active_vehicles=166, wall=2.3s for +300s sim
+2026-03-11 22:45:07,402 [INFO] Adversarial sim progress: t=6000/6600, active_vehicles=172, wall=1.2s for +300s sim
+2026-03-11 22:45:08,471 [INFO]    Adv Step 5521 | WCE Reward: 146.1373 | Traffic Segment Reward: -14613.73
+2026-03-11 22:45:08,472 [INFO] 
+[Adversary] Injecting Traffic... (Time: 6000s)
+2026-03-11 22:45:08,527 [INFO] Adversary traffic inject @t=6000 (+600s): active_od=292 requested=519 scheduled=519 route_skipped=0 add_failed=0 known_routes=1374
+2026-03-11 22:45:09,768 [INFO] Adversarial sim progress: t=6300/6600, active_vehicles=163, wall=2.4s for +300s sim
+2026-03-11 22:45:10,926 [INFO] Adversarial sim progress: t=6600/6600, active_vehicles=183, wall=1.2s for +300s sim
+2026-03-11 22:45:12,050 [INFO]    Adv Step 5522 | WCE Reward: 155.9221 | Traffic Segment Reward: -15592.21
+2026-03-11 22:45:12,050 [INFO] Episode 2 Finished | Traffic_Total_Reward=-155611.32 | WCE_Total_Reward=1556.1132 | macro_steps=11
+2026-03-11 22:45:12,059 [INFO] Starting SUMO on port 8000 (log: /home/sdc_joran/Journal/deeprl_signal_control/output_coevolution/ppo_large/data/sumo_port_8000.log)
+2026-03-11 22:45:14,064 [INFO] TraCI connection established on port 8000
+2026-03-11 22:45:14,089 [INFO] Episode 3 Start.
+2026-03-11 22:45:14,089 [INFO] 
+[Adversary] Injecting Traffic... (Time: 0s)
+2026-03-11 22:45:14,168 [INFO] Adversary traffic inject @t=0 (+600s): active_od=334 requested=536 scheduled=536 route_skipped=0 add_failed=0 known_routes=334
+2026-03-11 22:45:15,340 [INFO] Adversarial sim progress: t=300/6600, active_vehicles=163, wall=1.3s for +300s sim
+2026-03-11 22:45:16,604 [INFO] Adversarial sim progress: t=600/6600, active_vehicles=174, wall=1.3s for +300s sim
+2026-03-11 22:45:17,687 [INFO]    Adv Step 5523 | WCE Reward: 122.7046 | Traffic Segment Reward: -12270.46
+2026-03-11 22:45:17,688 [INFO] 
+[Adversary] Injecting Traffic... (Time: 600s)
+2026-03-11 22:45:17,748 [INFO] Adversary traffic inject @t=600 (+600s): active_od=241 requested=487 scheduled=487 route_skipped=0 add_failed=0 known_routes=447
+2026-03-11 22:45:18,877 [INFO] Adversarial sim progress: t=900/6600, active_vehicles=179, wall=2.3s for +300s sim
+2026-03-11 22:45:19,987 [INFO] Adversarial sim progress: t=1200/6600, active_vehicles=183, wall=1.1s for +300s sim
+2026-03-11 22:45:21,067 [INFO]    Adv Step 5524 | WCE Reward: 154.1795 | Traffic Segment Reward: -15417.95
+2026-03-11 22:45:21,068 [INFO] 
+[Adversary] Injecting Traffic... (Time: 1200s)
+2026-03-11 22:45:21,126 [INFO] Adversary traffic inject @t=1200 (+600s): active_od=280 requested=487 scheduled=487 route_skipped=0 add_failed=0 known_routes=569
+2026-03-11 22:45:22,220 [INFO] Adversarial sim progress: t=1500/6600, active_vehicles=136, wall=2.2s for +300s sim
+2026-03-11 22:45:23,406 [INFO] Adversarial sim progress: t=1800/6600, active_vehicles=166, wall=1.2s for +300s sim
+2026-03-11 22:45:24,477 [INFO]    Adv Step 5525 | WCE Reward: 131.0279 | Traffic Segment Reward: -13102.79
+2026-03-11 22:45:24,478 [INFO] 
+[Adversary] Injecting Traffic... (Time: 1800s)
+2026-03-11 22:45:24,543 [INFO] Adversary traffic inject @t=1800 (+600s): active_od=384 requested=507 scheduled=507 route_skipped=0 add_failed=0 known_routes=770
+2026-03-11 22:45:25,671 [INFO] Adversarial sim progress: t=2100/6600, active_vehicles=147, wall=2.3s for +300s sim
+2026-03-11 22:45:26,776 [INFO] Adversarial sim progress: t=2400/6600, active_vehicles=161, wall=1.1s for +300s sim
+2026-03-11 22:45:27,846 [INFO]    Adv Step 5526 | WCE Reward: 141.3449 | Traffic Segment Reward: -14134.49
+2026-03-11 22:45:27,847 [INFO] 
+[Adversary] Injecting Traffic... (Time: 2400s)
+2026-03-11 22:45:27,916 [INFO] Adversary traffic inject @t=2400 (+600s): active_od=303 requested=512 scheduled=512 route_skipped=0 add_failed=0 known_routes=895
+2026-03-11 22:45:29,041 [INFO] Adversarial sim progress: t=2700/6600, active_vehicles=177, wall=2.3s for +300s sim
+2026-03-11 22:45:30,165 [INFO] Adversarial sim progress: t=3000/6600, active_vehicles=170, wall=1.1s for +300s sim
+2026-03-11 22:45:31,220 [INFO]    Adv Step 5527 | WCE Reward: 154.5216 | Traffic Segment Reward: -15452.16
+2026-03-11 22:45:31,221 [INFO] 
+[Adversary] Injecting Traffic... (Time: 3000s)
+2026-03-11 22:45:31,281 [INFO] Adversary traffic inject @t=3000 (+600s): active_od=336 requested=481 scheduled=481 route_skipped=0 add_failed=0 known_routes=1034
+2026-03-11 22:45:32,341 [INFO] Adversarial sim progress: t=3300/6600, active_vehicles=128, wall=2.2s for +300s sim
+2026-03-11 22:45:33,414 [INFO] Adversarial sim progress: t=3600/6600, active_vehicles=164, wall=1.1s for +300s sim
+2026-03-11 22:45:34,468 [INFO]    Adv Step 5528 | WCE Reward: 138.5667 | Traffic Segment Reward: -13856.67
+2026-03-11 22:45:34,468 [INFO] 
+[Adversary] Injecting Traffic... (Time: 3600s)
+2026-03-11 22:45:34,522 [INFO] Adversary traffic inject @t=3600 (+600s): active_od=273 requested=476 scheduled=476 route_skipped=0 add_failed=0 known_routes=1108
+2026-03-11 22:45:35,580 [INFO] Adversarial sim progress: t=3900/6600, active_vehicles=164, wall=2.2s for +300s sim
+2026-03-11 22:45:36,649 [INFO] Adversarial sim progress: t=4200/6600, active_vehicles=154, wall=1.1s for +300s sim
+2026-03-11 22:45:37,721 [INFO]    Adv Step 5529 | WCE Reward: 126.0602 | Traffic Segment Reward: -12606.02
+2026-03-11 22:45:37,722 [INFO] 
+[Adversary] Injecting Traffic... (Time: 4200s)
+2026-03-11 22:45:37,777 [INFO] Adversary traffic inject @t=4200 (+600s): active_od=288 requested=502 scheduled=502 route_skipped=0 add_failed=0 known_routes=1192
+2026-03-11 22:45:38,860 [INFO] Adversarial sim progress: t=4500/6600, active_vehicles=175, wall=2.2s for +300s sim
+2026-03-11 22:45:39,955 [INFO] Adversarial sim progress: t=4800/6600, active_vehicles=179, wall=1.1s for +300s sim
+2026-03-11 22:45:41,015 [INFO]    Adv Step 5530 | WCE Reward: 135.4530 | Traffic Segment Reward: -13545.30
+2026-03-11 22:45:41,015 [INFO] 
+[Adversary] Injecting Traffic... (Time: 4800s)
+2026-03-11 22:45:41,072 [INFO] Adversary traffic inject @t=4800 (+600s): active_od=289 requested=526 scheduled=526 route_skipped=0 add_failed=0 known_routes=1263
+2026-03-11 22:45:42,178 [INFO] Adversarial sim progress: t=5100/6600, active_vehicles=207, wall=2.2s for +300s sim
+2026-03-11 22:45:43,329 [INFO] Adversarial sim progress: t=5400/6600, active_vehicles=186, wall=1.2s for +300s sim
+2026-03-11 22:45:44,398 [INFO]    Adv Step 5531 | WCE Reward: 165.9261 | Traffic Segment Reward: -16592.61
+2026-03-11 22:45:44,399 [INFO] 
+[Adversary] Injecting Traffic... (Time: 5400s)
+2026-03-11 22:45:44,450 [INFO] Adversary traffic inject @t=5400 (+600s): active_od=270 requested=495 scheduled=495 route_skipped=0 add_failed=0 known_routes=1323
+2026-03-11 22:45:45,526 [INFO] Adversarial sim progress: t=5700/6600, active_vehicles=175, wall=2.2s for +300s sim
+2026-03-11 22:45:46,705 [INFO] Adversarial sim progress: t=6000/6600, active_vehicles=173, wall=1.2s for +300s sim
+2026-03-11 22:45:47,818 [INFO]    Adv Step 5532 | WCE Reward: 151.3820 | Traffic Segment Reward: -15138.20
+2026-03-11 22:45:47,819 [INFO] 
+[Adversary] Injecting Traffic... (Time: 6000s)
+2026-03-11 22:45:47,872 [INFO] Adversary traffic inject @t=6000 (+600s): active_od=253 requested=502 scheduled=502 route_skipped=0 add_failed=0 known_routes=1371
+2026-03-11 22:45:48,956 [INFO] Adversarial sim progress: t=6300/6600, active_vehicles=170, wall=2.3s for +300s sim
+2026-03-11 22:45:50,092 [INFO] Adversarial sim progress: t=6600/6600, active_vehicles=184, wall=1.1s for +300s sim
+2026-03-11 22:45:51,228 [INFO]    Adv Step 5533 | WCE Reward: 144.8777 | Traffic Segment Reward: -14487.77
+2026-03-11 22:45:51,228 [INFO] Episode 3 Finished | Traffic_Total_Reward=-156604.42 | WCE_Total_Reward=1566.0442 | macro_steps=11
+2026-03-11 22:45:51,344 [INFO] Starting SUMO on port 8000 (log: /home/sdc_joran/Journal/deeprl_signal_control/output_coevolution/ppo_large/data/sumo_port_8000.log)
+2026-03-11 22:45:53,347 [INFO] TraCI connection established on port 8000
+2026-03-11 22:45:53,402 [INFO] Episode 4 Start.
+2026-03-11 22:45:53,402 [INFO] 
+[Adversary] Injecting Traffic... (Time: 0s)
+2026-03-11 22:45:53,475 [INFO] Adversary traffic inject @t=0 (+600s): active_od=279 requested=501 scheduled=501 route_skipped=0 add_failed=0 known_routes=279
+2026-03-11 22:45:54,514 [INFO] Adversarial sim progress: t=300/6600, active_vehicles=161, wall=1.2s for +300s sim
+2026-03-11 22:45:55,715 [INFO] Adversarial sim progress: t=600/6600, active_vehicles=190, wall=1.2s for +300s sim
+2026-03-11 22:45:56,817 [INFO]    Adv Step 5534 | WCE Reward: 122.6348 | Traffic Segment Reward: -12263.48
+2026-03-11 22:45:56,817 [INFO] 
+[Adversary] Injecting Traffic... (Time: 600s)
+2026-03-11 22:45:56,887 [INFO] Adversary traffic inject @t=600 (+600s): active_od=323 requested=508 scheduled=508 route_skipped=0 add_failed=0 known_routes=488
+2026-03-11 22:45:58,043 [INFO] Adversarial sim progress: t=900/6600, active_vehicles=180, wall=2.3s for +300s sim
+2026-03-11 22:45:59,157 [INFO] Adversarial sim progress: t=1200/6600, active_vehicles=186, wall=1.1s for +300s sim
+2026-03-11 22:46:00,227 [INFO]    Adv Step 5535 | WCE Reward: 155.6405 | Traffic Segment Reward: -15564.05
+2026-03-11 22:46:00,228 [INFO] 
+[Adversary] Injecting Traffic... (Time: 1200s)
+2026-03-11 22:46:00,289 [INFO] Adversary traffic inject @t=1200 (+600s): active_od=271 requested=540 scheduled=540 route_skipped=0 add_failed=0 known_routes=601
+2026-03-11 22:46:01,441 [INFO] Adversarial sim progress: t=1500/6600, active_vehicles=182, wall=2.3s for +300s sim
+2026-03-11 22:46:02,629 [INFO] Adversarial sim progress: t=1800/6600, active_vehicles=193, wall=1.2s for +300s sim
+2026-03-11 22:46:03,756 [INFO]    Adv Step 5536 | WCE Reward: 162.6296 | Traffic Segment Reward: -16262.96
+2026-03-11 22:46:03,757 [INFO] 
+[Adversary] Injecting Traffic... (Time: 1800s)
+2026-03-11 22:46:03,819 [INFO] Adversary traffic inject @t=1800 (+600s): active_od=307 requested=511 scheduled=511 route_skipped=0 add_failed=0 known_routes=745
+2026-03-11 22:46:04,933 [INFO] Adversarial sim progress: t=2100/6600, active_vehicles=189, wall=2.3s for +300s sim
+2026-03-11 22:46:06,091 [INFO] Adversarial sim progress: t=2400/6600, active_vehicles=171, wall=1.2s for +300s sim
+2026-03-11 22:46:07,186 [INFO]    Adv Step 5537 | WCE Reward: 163.7658 | Traffic Segment Reward: -16376.58
+2026-03-11 22:46:07,186 [INFO] 
+[Adversary] Injecting Traffic... (Time: 2400s)
+2026-03-11 22:46:07,247 [INFO] Adversary traffic inject @t=2400 (+600s): active_od=338 requested=487 scheduled=487 route_skipped=0 add_failed=0 known_routes=892
+2026-03-11 22:46:08,325 [INFO] Adversarial sim progress: t=2700/6600, active_vehicles=149, wall=2.2s for +300s sim
+2026-03-11 22:46:09,412 [INFO] Adversarial sim progress: t=3000/6600, active_vehicles=158, wall=1.1s for +300s sim
+2026-03-11 22:46:10,517 [INFO]    Adv Step 5538 | WCE Reward: 140.1121 | Traffic Segment Reward: -14011.21
+2026-03-11 22:46:10,518 [INFO] 
+[Adversary] Injecting Traffic... (Time: 3000s)
+2026-03-11 22:46:10,574 [INFO] Adversary traffic inject @t=3000 (+600s): active_od=258 requested=466 scheduled=466 route_skipped=0 add_failed=0 known_routes=977
+2026-03-11 22:46:11,714 [INFO] Adversarial sim progress: t=3300/6600, active_vehicles=148, wall=2.3s for +300s sim
+2026-03-11 22:46:12,815 [INFO] Adversarial sim progress: t=3600/6600, active_vehicles=144, wall=1.1s for +300s sim
+2026-03-11 22:46:13,911 [INFO]    Adv Step 5539 | WCE Reward: 127.9554 | Traffic Segment Reward: -12795.54
+2026-03-11 22:46:13,912 [INFO] 
+[Adversary] Injecting Traffic... (Time: 3600s)
+2026-03-11 22:46:13,972 [INFO] Adversary traffic inject @t=3600 (+600s): active_od=312 requested=493 scheduled=493 route_skipped=0 add_failed=0 known_routes=1086
+2026-03-11 22:46:15,095 [INFO] Adversarial sim progress: t=3900/6600, active_vehicles=160, wall=2.3s for +300s sim
+2026-03-11 22:46:16,307 [INFO] Adversarial sim progress: t=4200/6600, active_vehicles=172, wall=1.2s for +300s sim
+2026-03-11 22:46:17,404 [INFO]    Adv Step 5540 | WCE Reward: 148.9913 | Traffic Segment Reward: -14899.13
+2026-03-11 22:46:17,405 [INFO] 
+[Adversary] Injecting Traffic... (Time: 4200s)
+2026-03-11 22:46:17,469 [INFO] Adversary traffic inject @t=4200 (+600s): active_od=322 requested=494 scheduled=494 route_skipped=0 add_failed=0 known_routes=1195
+2026-03-11 22:46:18,599 [INFO] Adversarial sim progress: t=4500/6600, active_vehicles=157, wall=2.3s for +300s sim
+2026-03-11 22:46:19,752 [INFO] Adversarial sim progress: t=4800/6600, active_vehicles=173, wall=1.2s for +300s sim
+2026-03-11 22:46:20,842 [INFO]    Adv Step 5541 | WCE Reward: 145.4665 | Traffic Segment Reward: -14546.65
+2026-03-11 22:46:20,843 [INFO] 
+[Adversary] Injecting Traffic... (Time: 4800s)
+2026-03-11 22:46:20,900 [INFO] Adversary traffic inject @t=4800 (+600s): active_od=297 requested=497 scheduled=497 route_skipped=0 add_failed=0 known_routes=1273
+2026-03-11 22:46:21,988 [INFO] Adversarial sim progress: t=5100/6600, active_vehicles=197, wall=2.2s for +300s sim
+2026-03-11 22:46:23,111 [INFO] Adversarial sim progress: t=5400/6600, active_vehicles=170, wall=1.1s for +300s sim
+2026-03-11 22:46:24,210 [INFO]    Adv Step 5542 | WCE Reward: 152.6998 | Traffic Segment Reward: -15269.98
+2026-03-11 22:46:24,210 [INFO] 
+[Adversary] Injecting Traffic... (Time: 5400s)
+2026-03-11 22:46:24,268 [INFO] Adversary traffic inject @t=5400 (+600s): active_od=306 requested=512 scheduled=512 route_skipped=0 add_failed=0 known_routes=1349
+2026-03-11 22:46:25,422 [INFO] Adversarial sim progress: t=5700/6600, active_vehicles=199, wall=2.3s for +300s sim
+2026-03-11 22:46:26,548 [INFO] Adversarial sim progress: t=6000/6600, active_vehicles=193, wall=1.1s for +300s sim
+2026-03-11 22:46:27,682 [INFO]    Adv Step 5543 | WCE Reward: 152.9990 | Traffic Segment Reward: -15299.90
+2026-03-11 22:46:27,683 [INFO] 
+[Adversary] Injecting Traffic... (Time: 6000s)
+2026-03-11 22:46:27,741 [INFO] Adversary traffic inject @t=6000 (+600s): active_od=283 requested=494 scheduled=494 route_skipped=0 add_failed=0 known_routes=1410
+2026-03-11 22:46:28,934 [INFO] Adversarial sim progress: t=6300/6600, active_vehicles=195, wall=2.4s for +300s sim
+2026-03-11 22:46:30,166 [INFO] Adversarial sim progress: t=6600/6600, active_vehicles=185, wall=1.2s for +300s sim
+2026-03-11 22:46:31,257 [INFO]    Adv Step 5544 | WCE Reward: 158.9572 | Traffic Segment Reward: -15895.72
+2026-03-11 22:46:31,258 [INFO] Episode 4 Finished | Traffic_Total_Reward=-163185.19 | WCE_Total_Reward=1631.8519 | macro_steps=11
+2026-03-11 22:46:31,372 [INFO] Starting SUMO on port 8000 (log: /home/sdc_joran/Journal/deeprl_signal_control/output_coevolution/ppo_large/data/sumo_port_8000.log)
+2026-03-11 22:46:33,378 [INFO] TraCI connection established on port 8000
+2026-03-11 22:46:33,427 [INFO] Episode 5 Start.
+2026-03-11 22:46:33,428 [INFO] 
+[Adversary] Injecting Traffic... (Time: 0s)
+2026-03-11 22:46:33,505 [INFO] Adversary traffic inject @t=0 (+600s): active_od=280 requested=504 scheduled=504 route_skipped=0 add_failed=0 known_routes=280
+2026-03-11 22:46:34,590 [INFO] Adversarial sim progress: t=300/6600, active_vehicles=145, wall=1.2s for +300s sim
+2026-03-11 22:46:35,941 [INFO] Adversarial sim progress: t=600/6600, active_vehicles=168, wall=1.4s for +300s sim
+2026-03-11 22:46:37,047 [INFO]    Adv Step 5545 | WCE Reward: 108.9417 | Traffic Segment Reward: -10894.17
+2026-03-11 22:46:37,048 [INFO] 
+[Adversary] Injecting Traffic... (Time: 600s)
+2026-03-11 22:46:37,111 [INFO] Adversary traffic inject @t=600 (+600s): active_od=317 requested=508 scheduled=508 route_skipped=0 add_failed=0 known_routes=478
+2026-03-11 22:46:38,213 [INFO] Adversarial sim progress: t=900/6600, active_vehicles=151, wall=2.3s for +300s sim
+2026-03-11 22:46:39,353 [INFO] Adversarial sim progress: t=1200/6600, active_vehicles=174, wall=1.1s for +300s sim
+2026-03-11 22:46:40,459 [INFO]    Adv Step 5546 | WCE Reward: 139.9322 | Traffic Segment Reward: -13993.22
+2026-03-11 22:46:40,460 [INFO] 
+[Adversary] Injecting Traffic... (Time: 1200s)
+2026-03-11 22:46:40,519 [INFO] Adversary traffic inject @t=1200 (+600s): active_od=288 requested=492 scheduled=492 route_skipped=0 add_failed=0 known_routes=617
+2026-03-11 22:46:41,679 [INFO] Adversarial sim progress: t=1500/6600, active_vehicles=167, wall=2.3s for +300s sim
+2026-03-11 22:46:42,816 [INFO] Adversarial sim progress: t=1800/6600, active_vehicles=166, wall=1.1s for +300s sim
+2026-03-11 22:46:43,920 [INFO]    Adv Step 5547 | WCE Reward: 141.6393 | Traffic Segment Reward: -14163.93
+2026-03-11 22:46:43,920 [INFO] 
+[Adversary] Injecting Traffic... (Time: 1800s)
+2026-03-11 22:46:43,978 [INFO] Adversary traffic inject @t=1800 (+600s): active_od=266 requested=504 scheduled=504 route_skipped=0 add_failed=0 known_routes=722
+2026-03-11 22:46:45,135 [INFO] Adversarial sim progress: t=2100/6600, active_vehicles=183, wall=2.3s for +300s sim
+2026-03-11 22:46:46,464 [INFO] Adversarial sim progress: t=2400/6600, active_vehicles=183, wall=1.3s for +300s sim
+2026-03-11 22:46:47,621 [INFO]    Adv Step 5548 | WCE Reward: 162.6230 | Traffic Segment Reward: -16262.30
+2026-03-11 22:46:47,621 [INFO] 
+[Adversary] Injecting Traffic... (Time: 2400s)
+2026-03-11 22:46:47,685 [INFO] Adversary traffic inject @t=2400 (+600s): active_od=320 requested=533 scheduled=533 route_skipped=0 add_failed=0 known_routes=854
+2026-03-11 22:46:48,878 [INFO] Adversarial sim progress: t=2700/6600, active_vehicles=190, wall=2.4s for +300s sim
+2026-03-11 22:46:50,016 [INFO] Adversarial sim progress: t=3000/6600, active_vehicles=223, wall=1.1s for +300s sim
+2026-03-11 22:46:51,138 [INFO]    Adv Step 5549 | WCE Reward: 178.0898 | Traffic Segment Reward: -17808.98
+2026-03-11 22:46:51,138 [INFO] 
+[Adversary] Injecting Traffic... (Time: 3000s)
+2026-03-11 22:46:51,195 [INFO] Adversary traffic inject @t=3000 (+600s): active_od=306 requested=503 scheduled=503 route_skipped=0 add_failed=0 known_routes=966
+2026-03-11 22:46:52,369 [INFO] Adversarial sim progress: t=3300/6600, active_vehicles=201, wall=2.4s for +300s sim
+2026-03-11 22:46:53,601 [INFO] Adversarial sim progress: t=3600/6600, active_vehicles=173, wall=1.2s for +300s sim
+2026-03-11 22:46:54,766 [INFO]    Adv Step 5550 | WCE Reward: 178.1880 | Traffic Segment Reward: -17818.80
+2026-03-11 22:46:54,767 [INFO] 
+[Adversary] Injecting Traffic... (Time: 3600s)
+2026-03-11 22:46:54,829 [INFO] Adversary traffic inject @t=3600 (+600s): active_od=293 requested=503 scheduled=503 route_skipped=0 add_failed=0 known_routes=1067
+2026-03-11 22:46:55,988 [INFO] Adversarial sim progress: t=3900/6600, active_vehicles=195, wall=2.4s for +300s sim
+2026-03-11 22:46:57,177 [INFO] Adversarial sim progress: t=4200/6600, active_vehicles=182, wall=1.2s for +300s sim
+2026-03-11 22:46:58,346 [INFO]    Adv Step 5551 | WCE Reward: 148.1968 | Traffic Segment Reward: -14819.68
+2026-03-11 22:46:58,346 [INFO] 
+[Adversary] Injecting Traffic... (Time: 4200s)
+2026-03-11 22:46:58,406 [INFO] Adversary traffic inject @t=4200 (+600s): active_od=322 requested=501 scheduled=501 route_skipped=0 add_failed=0 known_routes=1161
+2026-03-11 22:46:59,691 [INFO] Adversarial sim progress: t=4500/6600, active_vehicles=198, wall=2.5s for +300s sim
+2026-03-11 22:47:00,930 [INFO] Adversarial sim progress: t=4800/6600, active_vehicles=168, wall=1.2s for +300s sim
+2026-03-11 22:47:02,099 [INFO]    Adv Step 5552 | WCE Reward: 176.7651 | Traffic Segment Reward: -17676.51
+2026-03-11 22:47:02,100 [INFO] 
+[Adversary] Injecting Traffic... (Time: 4800s)
+2026-03-11 22:47:02,166 [INFO] Adversary traffic inject @t=4800 (+600s): active_od=295 requested=508 scheduled=508 route_skipped=0 add_failed=0 known_routes=1244
+2026-03-11 22:47:03,458 [INFO] Adversarial sim progress: t=5100/6600, active_vehicles=195, wall=2.5s for +300s sim
+2026-03-11 22:47:04,764 [INFO] Adversarial sim progress: t=5400/6600, active_vehicles=183, wall=1.3s for +300s sim
+2026-03-11 22:47:05,917 [INFO]    Adv Step 5553 | WCE Reward: 148.6909 | Traffic Segment Reward: -14869.09
+2026-03-11 22:47:05,918 [INFO] 
+[Adversary] Injecting Traffic... (Time: 5400s)
+2026-03-11 22:47:05,978 [INFO] Adversary traffic inject @t=5400 (+600s): active_od=354 requested=490 scheduled=490 route_skipped=0 add_failed=0 known_routes=1358
+2026-03-11 22:47:07,167 [INFO] Adversarial sim progress: t=5700/6600, active_vehicles=169, wall=2.4s for +300s sim
+2026-03-11 22:47:08,328 [INFO] Adversarial sim progress: t=6000/6600, active_vehicles=185, wall=1.2s for +300s sim
+2026-03-11 22:47:09,420 [INFO]    Adv Step 5554 | WCE Reward: 155.6094 | Traffic Segment Reward: -15560.94
+2026-03-11 22:47:09,421 [INFO] 
+[Adversary] Injecting Traffic... (Time: 6000s)
+2026-03-11 22:47:09,475 [INFO] Adversary traffic inject @t=6000 (+600s): active_od=295 requested=477 scheduled=477 route_skipped=0 add_failed=0 known_routes=1434
+2026-03-11 22:47:10,613 [INFO] Adversarial sim progress: t=6300/6600, active_vehicles=179, wall=2.3s for +300s sim
+2026-03-11 22:47:11,747 [INFO] Adversarial sim progress: t=6600/6600, active_vehicles=166, wall=1.1s for +300s sim
+2026-03-11 22:47:12,841 [INFO]    Adv Step 5555 | WCE Reward: 151.2499 | Traffic Segment Reward: -15124.99
+2026-03-11 22:47:12,841 [INFO] Episode 5 Finished | Traffic_Total_Reward=-168992.60 | WCE_Total_Reward=1689.9260 | macro_steps=11
+2026-03-11 22:47:12,874 [INFO] Starting SUMO on port 8000 (log: /home/sdc_joran/Journal/deeprl_signal_control/output_coevolution/ppo_large/data/sumo_port_8000.log)
+2026-03-11 22:47:14,877 [INFO] TraCI connection established on port 8000
+2026-03-11 22:47:14,931 [INFO] Episode 6 Start.
+2026-03-11 22:47:14,931 [INFO] 
+[Adversary] Injecting Traffic... (Time: 0s)
+2026-03-11 22:47:15,003 [INFO] Adversary traffic inject @t=0 (+600s): active_od=256 requested=485 scheduled=485 route_skipped=0 add_failed=0 known_routes=256
+2026-03-11 22:47:16,066 [INFO] Adversarial sim progress: t=300/6600, active_vehicles=165, wall=1.2s for +300s sim
+2026-03-11 22:47:17,255 [INFO] Adversarial sim progress: t=600/6600, active_vehicles=169, wall=1.2s for +300s sim
+2026-03-11 22:47:18,326 [INFO]    Adv Step 5556 | WCE Reward: 108.2790 | Traffic Segment Reward: -10827.90
+2026-03-11 22:47:18,327 [INFO] 
+[Adversary] Injecting Traffic... (Time: 600s)
+2026-03-11 22:47:18,396 [INFO] Adversary traffic inject @t=600 (+600s): active_od=338 requested=485 scheduled=485 route_skipped=0 add_failed=0 known_routes=506
+2026-03-11 22:47:19,519 [INFO] Adversarial sim progress: t=900/6600, active_vehicles=178, wall=2.3s for +300s sim
+2026-03-11 22:47:20,621 [INFO] Adversarial sim progress: t=1200/6600, active_vehicles=127, wall=1.1s for +300s sim
+2026-03-11 22:47:21,700 [INFO]    Adv Step 5557 | WCE Reward: 155.1195 | Traffic Segment Reward: -15511.95
+2026-03-11 22:47:21,700 [INFO] 
+[Adversary] Injecting Traffic... (Time: 1200s)
+2026-03-11 22:47:21,764 [INFO] Adversary traffic inject @t=1200 (+600s): active_od=286 requested=493 scheduled=493 route_skipped=0 add_failed=0 known_routes=638
+2026-03-11 22:47:22,880 [INFO] Adversarial sim progress: t=1500/6600, active_vehicles=181, wall=2.3s for +300s sim
+2026-03-11 22:47:23,988 [INFO] Adversarial sim progress: t=1800/6600, active_vehicles=177, wall=1.1s for +300s sim
+2026-03-11 22:47:25,077 [INFO]    Adv Step 5558 | WCE Reward: 147.5325 | Traffic Segment Reward: -14753.25
+2026-03-11 22:47:25,078 [INFO] 
+[Adversary] Injecting Traffic... (Time: 1800s)
+2026-03-11 22:47:25,143 [INFO] Adversary traffic inject @t=1800 (+600s): active_od=284 requested=514 scheduled=514 route_skipped=0 add_failed=0 known_routes=748
+2026-03-11 22:47:26,298 [INFO] Adversarial sim progress: t=2100/6600, active_vehicles=188, wall=2.3s for +300s sim
+2026-03-11 22:47:27,437 [INFO] Adversarial sim progress: t=2400/6600, active_vehicles=175, wall=1.1s for +300s sim
+2026-03-11 22:47:28,587 [INFO]    Adv Step 5559 | WCE Reward: 150.2620 | Traffic Segment Reward: -15026.20
+2026-03-11 22:47:28,588 [INFO] 
+[Adversary] Injecting Traffic... (Time: 2400s)
+2026-03-11 22:47:28,645 [INFO] Adversary traffic inject @t=2400 (+600s): active_od=278 requested=480 scheduled=480 route_skipped=0 add_failed=0 known_routes=846
+2026-03-11 22:47:29,817 [INFO] Adversarial sim progress: t=2700/6600, active_vehicles=187, wall=2.4s for +300s sim
+2026-03-11 22:47:30,996 [INFO] Adversarial sim progress: t=3000/6600, active_vehicles=134, wall=1.2s for +300s sim
+2026-03-11 22:47:32,142 [INFO]    Adv Step 5560 | WCE Reward: 155.7777 | Traffic Segment Reward: -15577.77
+2026-03-11 22:47:32,143 [INFO] 
+[Adversary] Injecting Traffic... (Time: 3000s)
+2026-03-11 22:47:32,201 [INFO] Adversary traffic inject @t=3000 (+600s): active_od=284 requested=500 scheduled=500 route_skipped=0 add_failed=0 known_routes=948
+2026-03-11 22:47:33,330 [INFO] Adversarial sim progress: t=3300/6600, active_vehicles=178, wall=2.3s for +300s sim
+2026-03-11 22:47:34,524 [INFO] Adversarial sim progress: t=3600/6600, active_vehicles=158, wall=1.2s for +300s sim
+2026-03-11 22:47:35,697 [INFO]    Adv Step 5561 | WCE Reward: 136.5645 | Traffic Segment Reward: -13656.45
+2026-03-11 22:47:35,697 [INFO] 
+[Adversary] Injecting Traffic... (Time: 3600s)
+2026-03-11 22:47:35,759 [INFO] Adversary traffic inject @t=3600 (+600s): active_od=262 requested=463 scheduled=463 route_skipped=0 add_failed=0 known_routes=1031
+2026-03-11 22:47:36,884 [INFO] Adversarial sim progress: t=3900/6600, active_vehicles=164, wall=2.4s for +300s sim
+2026-03-11 22:47:38,073 [INFO] Adversarial sim progress: t=4200/6600, active_vehicles=151, wall=1.2s for +300s sim
+2026-03-11 22:47:39,192 [INFO]    Adv Step 5562 | WCE Reward: 138.8797 | Traffic Segment Reward: -13887.97
+2026-03-11 22:47:39,192 [INFO] 
+[Adversary] Injecting Traffic... (Time: 4200s)
+2026-03-11 22:47:39,253 [INFO] Adversary traffic inject @t=4200 (+600s): active_od=319 requested=490 scheduled=490 route_skipped=0 add_failed=0 known_routes=1136
+2026-03-11 22:47:40,375 [INFO] Adversarial sim progress: t=4500/6600, active_vehicles=155, wall=2.3s for +300s sim
+2026-03-11 22:47:41,467 [INFO] Adversarial sim progress: t=4800/6600, active_vehicles=156, wall=1.1s for +300s sim
+2026-03-11 22:47:42,573 [INFO]    Adv Step 5563 | WCE Reward: 138.0456 | Traffic Segment Reward: -13804.56
+2026-03-11 22:47:42,573 [INFO] 
+[Adversary] Injecting Traffic... (Time: 4800s)
+2026-03-11 22:47:42,629 [INFO] Adversary traffic inject @t=4800 (+600s): active_od=298 requested=503 scheduled=503 route_skipped=0 add_failed=0 known_routes=1223
+2026-03-11 22:47:43,699 [INFO] Adversarial sim progress: t=5100/6600, active_vehicles=171, wall=2.2s for +300s sim
+2026-03-11 22:47:44,820 [INFO] Adversarial sim progress: t=5400/6600, active_vehicles=165, wall=1.1s for +300s sim
+2026-03-11 22:47:45,940 [INFO]    Adv Step 5564 | WCE Reward: 139.8632 | Traffic Segment Reward: -13986.32
+2026-03-11 22:47:45,942 [INFO] 
+[Adversary] Injecting Traffic... (Time: 5400s)
+2026-03-11 22:47:46,009 [INFO] Adversary traffic inject @t=5400 (+600s): active_od=318 requested=504 scheduled=504 route_skipped=0 add_failed=0 known_routes=1315
+2026-03-11 22:47:47,186 [INFO] Adversarial sim progress: t=5700/6600, active_vehicles=174, wall=2.4s for +300s sim
+2026-03-11 22:47:48,300 [INFO] Adversarial sim progress: t=6000/6600, active_vehicles=166, wall=1.1s for +300s sim
+2026-03-11 22:47:49,406 [INFO]    Adv Step 5565 | WCE Reward: 134.9583 | Traffic Segment Reward: -13495.83
+2026-03-11 22:47:49,407 [INFO] 
+[Adversary] Injecting Traffic... (Time: 6000s)
+2026-03-11 22:47:49,464 [INFO] Adversary traffic inject @t=6000 (+600s): active_od=296 requested=534 scheduled=534 route_skipped=0 add_failed=0 known_routes=1385
+2026-03-11 22:47:50,654 [INFO] Adversarial sim progress: t=6300/6600, active_vehicles=157, wall=2.4s for +300s sim
+2026-03-11 22:47:51,780 [INFO] Adversarial sim progress: t=6600/6600, active_vehicles=154, wall=1.1s for +300s sim
+2026-03-11 22:47:52,876 [INFO]    Adv Step 5566 | WCE Reward: 131.7918 | Traffic Segment Reward: -13179.18
+2026-03-11 22:47:52,876 [INFO] Episode 6 Finished | Traffic_Total_Reward=-153707.39 | WCE_Total_Reward=1537.0739 | macro_steps=11
+2026-03-11 22:47:52,941 [INFO] Starting SUMO on port 8000 (log: /home/sdc_joran/Journal/deeprl_signal_control/output_coevolution/ppo_large/data/sumo_port_8000.log)
+2026-03-11 22:47:54,943 [INFO] TraCI connection established on port 8000
+2026-03-11 22:47:55,001 [INFO] Episode 7 Start.
+2026-03-11 22:47:55,002 [INFO] 
+[Adversary] Injecting Traffic... (Time: 0s)
+2026-03-11 22:47:55,079 [INFO] Adversary traffic inject @t=0 (+600s): active_od=298 requested=507 scheduled=507 route_skipped=0 add_failed=0 known_routes=298
+2026-03-11 22:47:56,262 [INFO] Adversarial sim progress: t=300/6600, active_vehicles=155, wall=1.3s for +300s sim
+2026-03-11 22:47:57,428 [INFO] Adversarial sim progress: t=600/6600, active_vehicles=186, wall=1.2s for +300s sim
+2026-03-11 22:47:58,574 [INFO]    Adv Step 5567 | WCE Reward: 114.9572 | Traffic Segment Reward: -11495.72
+2026-03-11 22:47:58,575 [INFO] 
+[Adversary] Injecting Traffic... (Time: 600s)
+2026-03-11 22:47:58,649 [INFO] Adversary traffic inject @t=600 (+600s): active_od=272 requested=485 scheduled=485 route_skipped=0 add_failed=0 known_routes=449
+2026-03-11 22:47:59,868 [INFO] Adversarial sim progress: t=900/6600, active_vehicles=165, wall=2.4s for +300s sim
+2026-03-11 22:48:01,058 [INFO] Adversarial sim progress: t=1200/6600, active_vehicles=180, wall=1.2s for +300s sim
+2026-03-11 22:48:02,155 [INFO]    Adv Step 5568 | WCE Reward: 145.1910 | Traffic Segment Reward: -14519.10
+2026-03-11 22:48:02,155 [INFO] 
+[Adversary] Injecting Traffic... (Time: 1200s)
+2026-03-11 22:48:02,221 [INFO] Adversary traffic inject @t=1200 (+600s): active_od=293 requested=442 scheduled=442 route_skipped=0 add_failed=0 known_routes=599
+2026-03-11 22:48:03,426 [INFO] Adversarial sim progress: t=1500/6600, active_vehicles=145, wall=2.4s for +300s sim
+2026-03-11 22:48:04,691 [INFO] Adversarial sim progress: t=1800/6600, active_vehicles=137, wall=1.3s for +300s sim
+2026-03-11 22:48:05,781 [INFO]    Adv Step 5569 | WCE Reward: 125.2439 | Traffic Segment Reward: -12524.39
+2026-03-11 22:48:05,781 [INFO] 
+[Adversary] Injecting Traffic... (Time: 1800s)
+2026-03-11 22:48:05,838 [INFO] Adversary traffic inject @t=1800 (+600s): active_od=270 requested=472 scheduled=472 route_skipped=0 add_failed=0 known_routes=703
+2026-03-11 22:48:07,096 [INFO] Adversarial sim progress: t=2100/6600, active_vehicles=135, wall=2.4s for +300s sim
+2026-03-11 22:48:08,289 [INFO] Adversarial sim progress: t=2400/6600, active_vehicles=186, wall=1.2s for +300s sim
+2026-03-11 22:48:09,436 [INFO]    Adv Step 5570 | WCE Reward: 123.9610 | Traffic Segment Reward: -12396.10
+2026-03-11 22:48:09,437 [INFO] 
+[Adversary] Injecting Traffic... (Time: 2400s)
+2026-03-11 22:48:09,507 [INFO] Adversary traffic inject @t=2400 (+600s): active_od=312 requested=513 scheduled=513 route_skipped=0 add_failed=0 known_routes=836
+2026-03-11 22:48:10,677 [INFO] Adversarial sim progress: t=2700/6600, active_vehicles=182, wall=2.4s for +300s sim
+2026-03-11 22:48:11,937 [INFO] Adversarial sim progress: t=3000/6600, active_vehicles=171, wall=1.3s for +300s sim
+2026-03-11 22:48:13,037 [INFO]    Adv Step 5571 | WCE Reward: 137.4812 | Traffic Segment Reward: -13748.12
+2026-03-11 22:48:13,037 [INFO] 
+[Adversary] Injecting Traffic... (Time: 3000s)
+2026-03-11 22:48:13,098 [INFO] Adversary traffic inject @t=3000 (+600s): active_od=298 requested=473 scheduled=473 route_skipped=0 add_failed=0 known_routes=955
+2026-03-11 22:48:14,321 [INFO] Adversarial sim progress: t=3300/6600, active_vehicles=178, wall=2.4s for +300s sim
+2026-03-11 22:48:15,657 [INFO] Adversarial sim progress: t=3600/6600, active_vehicles=179, wall=1.3s for +300s sim
+2026-03-11 22:48:16,804 [INFO]    Adv Step 5572 | WCE Reward: 160.1136 | Traffic Segment Reward: -16011.36
+2026-03-11 22:48:16,805 [INFO] 
+[Adversary] Injecting Traffic... (Time: 3600s)
+2026-03-11 22:48:16,868 [INFO] Adversary traffic inject @t=3600 (+600s): active_od=332 requested=507 scheduled=507 route_skipped=0 add_failed=0 known_routes=1089
+2026-03-11 22:48:18,047 [INFO] Adversarial sim progress: t=3900/6600, active_vehicles=179, wall=2.4s for +300s sim
+2026-03-11 22:48:19,291 [INFO] Adversarial sim progress: t=4200/6600, active_vehicles=198, wall=1.2s for +300s sim
+2026-03-11 22:48:20,433 [INFO]    Adv Step 5573 | WCE Reward: 165.3490 | Traffic Segment Reward: -16534.90
+2026-03-11 22:48:20,433 [INFO] 
+[Adversary] Injecting Traffic... (Time: 4200s)
+2026-03-11 22:48:20,500 [INFO] Adversary traffic inject @t=4200 (+600s): active_od=296 requested=483 scheduled=483 route_skipped=0 add_failed=0 known_routes=1172
+2026-03-11 22:48:21,701 [INFO] Adversarial sim progress: t=4500/6600, active_vehicles=186, wall=2.4s for +300s sim
+2026-03-11 22:48:22,923 [INFO] Adversarial sim progress: t=4800/6600, active_vehicles=191, wall=1.2s for +300s sim
+2026-03-11 22:48:23,946 [INFO]    Adv Step 5574 | WCE Reward: 154.5082 | Traffic Segment Reward: -15450.82
+2026-03-11 22:48:23,947 [INFO] 
+[Adversary] Injecting Traffic... (Time: 4800s)
+2026-03-11 22:48:24,001 [INFO] Adversary traffic inject @t=4800 (+600s): active_od=274 requested=506 scheduled=506 route_skipped=0 add_failed=0 known_routes=1237
+2026-03-11 22:48:25,217 [INFO] Adversarial sim progress: t=5100/6600, active_vehicles=197, wall=2.3s for +300s sim
+2026-03-11 22:48:26,466 [INFO] Adversarial sim progress: t=5400/6600, active_vehicles=215, wall=1.2s for +300s sim
+2026-03-11 22:48:27,617 [INFO]    Adv Step 5575 | WCE Reward: 193.2781 | Traffic Segment Reward: -19327.81
+2026-03-11 22:48:27,617 [INFO] 
+[Adversary] Injecting Traffic... (Time: 5400s)
+2026-03-11 22:48:27,680 [INFO] Adversary traffic inject @t=5400 (+600s): active_od=301 requested=464 scheduled=464 route_skipped=0 add_failed=0 known_routes=1331
+2026-03-11 22:48:28,840 [INFO] Adversarial sim progress: t=5700/6600, active_vehicles=177, wall=2.4s for +300s sim
+2026-03-11 22:48:30,179 [INFO] Adversarial sim progress: t=6000/6600, active_vehicles=172, wall=1.3s for +300s sim
+2026-03-11 22:48:31,278 [INFO]    Adv Step 5576 | WCE Reward: 180.4306 | Traffic Segment Reward: -18043.06
+2026-03-11 22:48:31,279 [INFO] 
+[Adversary] Injecting Traffic... (Time: 6000s)
+2026-03-11 22:48:31,334 [INFO] Adversary traffic inject @t=6000 (+600s): active_od=294 requested=487 scheduled=487 route_skipped=0 add_failed=0 known_routes=1397
+2026-03-11 22:48:32,550 [INFO] Adversarial sim progress: t=6300/6600, active_vehicles=181, wall=2.4s for +300s sim
+2026-03-11 22:48:33,905 [INFO] Adversarial sim progress: t=6600/6600, active_vehicles=186, wall=1.4s for +300s sim
+2026-03-11 22:48:35,017 [INFO]    Adv Step 5577 | WCE Reward: 158.1796 | Traffic Segment Reward: -15817.96
+2026-03-11 22:48:35,017 [INFO] Episode 7 Finished | Traffic_Total_Reward=-165869.34 | WCE_Total_Reward=1658.6934 | macro_steps=11
+2026-03-11 22:48:35,131 [INFO] Starting SUMO on port 8000 (log: /home/sdc_joran/Journal/deeprl_signal_control/output_coevolution/ppo_large/data/sumo_port_8000.log)
+2026-03-11 22:48:37,133 [INFO] TraCI connection established on port 8000
+2026-03-11 22:48:37,176 [INFO] Episode 8 Start.
+2026-03-11 22:48:37,177 [INFO] 
+[Adversary] Injecting Traffic... (Time: 0s)
+2026-03-11 22:48:37,252 [INFO] Adversary traffic inject @t=0 (+600s): active_od=278 requested=535 scheduled=535 route_skipped=0 add_failed=0 known_routes=278
+2026-03-11 22:48:38,399 [INFO] Adversarial sim progress: t=300/6600, active_vehicles=160, wall=1.3s for +300s sim
+2026-03-11 22:48:39,608 [INFO] Adversarial sim progress: t=600/6600, active_vehicles=199, wall=1.2s for +300s sim
+2026-03-11 22:48:40,739 [INFO]    Adv Step 5578 | WCE Reward: 116.2541 | Traffic Segment Reward: -11625.41
+2026-03-11 22:48:40,739 [INFO] 
+[Adversary] Injecting Traffic... (Time: 600s)
+2026-03-11 22:48:40,829 [INFO] Adversary traffic inject @t=600 (+600s): active_od=330 requested=506 scheduled=506 route_skipped=0 add_failed=0 known_routes=488
+2026-03-11 22:48:42,127 [INFO] Adversarial sim progress: t=900/6600, active_vehicles=183, wall=2.5s for +300s sim
+2026-03-11 22:48:43,391 [INFO] Adversarial sim progress: t=1200/6600, active_vehicles=160, wall=1.3s for +300s sim
+2026-03-11 22:48:44,538 [INFO]    Adv Step 5579 | WCE Reward: 150.0404 | Traffic Segment Reward: -15004.04
+2026-03-11 22:48:44,539 [INFO] 
+[Adversary] Injecting Traffic... (Time: 1200s)
+2026-03-11 22:48:44,606 [INFO] Adversary traffic inject @t=1200 (+600s): active_od=258 requested=465 scheduled=465 route_skipped=0 add_failed=0 known_routes=588
+2026-03-11 22:48:45,771 [INFO] Adversarial sim progress: t=1500/6600, active_vehicles=157, wall=2.4s for +300s sim
+2026-03-11 22:48:47,067 [INFO] Adversarial sim progress: t=1800/6600, active_vehicles=168, wall=1.3s for +300s sim
+2026-03-11 22:48:48,172 [INFO]    Adv Step 5580 | WCE Reward: 140.2796 | Traffic Segment Reward: -14027.96
+2026-03-11 22:48:48,172 [INFO] 
+[Adversary] Injecting Traffic... (Time: 1800s)
+2026-03-11 22:48:48,239 [INFO] Adversary traffic inject @t=1800 (+600s): active_od=298 requested=515 scheduled=515 route_skipped=0 add_failed=0 known_routes=711
+2026-03-11 22:48:49,448 [INFO] Adversarial sim progress: t=2100/6600, active_vehicles=183, wall=2.4s for +300s sim
+2026-03-11 22:48:50,674 [INFO] Adversarial sim progress: t=2400/6600, active_vehicles=241, wall=1.2s for +300s sim
+2026-03-11 22:48:51,810 [INFO]    Adv Step 5581 | WCE Reward: 201.5160 | Traffic Segment Reward: -20151.60
+2026-03-11 22:48:51,810 [INFO] 
+[Adversary] Injecting Traffic... (Time: 2400s)
+2026-03-11 22:48:51,876 [INFO] Adversary traffic inject @t=2400 (+600s): active_od=288 requested=524 scheduled=524 route_skipped=0 add_failed=0 known_routes=843
+2026-03-11 22:48:53,103 [INFO] Adversarial sim progress: t=2700/6600, active_vehicles=212, wall=2.4s for +300s sim
+2026-03-11 22:48:54,351 [INFO] Adversarial sim progress: t=3000/6600, active_vehicles=228, wall=1.2s for +300s sim
+2026-03-11 22:48:55,377 [INFO]    Adv Step 5582 | WCE Reward: 240.8885 | Traffic Segment Reward: -24088.85
+2026-03-11 22:48:55,378 [INFO] 
+[Adversary] Injecting Traffic... (Time: 3000s)
+2026-03-11 22:48:55,430 [INFO] Adversary traffic inject @t=3000 (+600s): active_od=291 requested=484 scheduled=484 route_skipped=0 add_failed=0 known_routes=940
+2026-03-11 22:48:56,677 [INFO] Adversarial sim progress: t=3300/6600, active_vehicles=204, wall=2.3s for +300s sim
+2026-03-11 22:48:57,923 [INFO] Adversarial sim progress: t=3600/6600, active_vehicles=226, wall=1.2s for +300s sim
+2026-03-11 22:48:59,062 [INFO]    Adv Step 5583 | WCE Reward: 289.6729 | Traffic Segment Reward: -28967.29
+2026-03-11 22:48:59,063 [INFO] 
+[Adversary] Injecting Traffic... (Time: 3600s)
+2026-03-11 22:48:59,129 [INFO] Adversary traffic inject @t=3600 (+600s): active_od=297 requested=501 scheduled=501 route_skipped=0 add_failed=0 known_routes=1039
+2026-03-11 22:49:00,325 [INFO] Adversarial sim progress: t=3900/6600, active_vehicles=249, wall=2.4s for +300s sim
+2026-03-11 22:49:01,621 [INFO] Adversarial sim progress: t=4200/6600, active_vehicles=299, wall=1.3s for +300s sim
+2026-03-11 22:49:02,717 [INFO]    Adv Step 5584 | WCE Reward: 455.6369 | Traffic Segment Reward: -45563.69
+2026-03-11 22:49:02,717 [INFO] 
+[Adversary] Injecting Traffic... (Time: 4200s)
+2026-03-11 22:49:02,778 [INFO] Adversary traffic inject @t=4200 (+600s): active_od=291 requested=522 scheduled=522 route_skipped=0 add_failed=0 known_routes=1123
+2026-03-11 22:49:04,135 [INFO] Adversarial sim progress: t=4500/6600, active_vehicles=358, wall=2.5s for +300s sim
+2026-03-11 22:49:05,538 [INFO] Adversarial sim progress: t=4800/6600, active_vehicles=366, wall=1.4s for +300s sim
+2026-03-11 22:49:06,630 [INFO]    Adv Step 5585 | WCE Reward: 382.9724 | Traffic Segment Reward: -38297.24
+2026-03-11 22:49:06,630 [INFO] 
+[Adversary] Injecting Traffic... (Time: 4800s)
+2026-03-11 22:49:06,722 [INFO] Adversary traffic inject @t=4800 (+600s): active_od=299 requested=518 scheduled=518 route_skipped=0 add_failed=0 known_routes=1203
+2026-03-11 22:49:08,155 [INFO] Adversarial sim progress: t=5100/6600, active_vehicles=407, wall=2.6s for +300s sim
+2026-03-11 22:49:09,523 [INFO] Adversarial sim progress: t=5400/6600, active_vehicles=548, wall=1.4s for +300s sim
+2026-03-11 22:49:10,661 [INFO]    Adv Step 5586 | WCE Reward: 997.3188 | Traffic Segment Reward: -99731.88
+2026-03-11 22:49:10,661 [INFO] 
+[Adversary] Injecting Traffic... (Time: 5400s)
+2026-03-11 22:49:10,722 [INFO] Adversary traffic inject @t=5400 (+600s): active_od=318 requested=498 scheduled=498 route_skipped=0 add_failed=0 known_routes=1293
+2026-03-11 22:49:12,107 [INFO] Adversarial sim progress: t=5700/6600, active_vehicles=651, wall=2.6s for +300s sim
+2026-03-11 22:49:13,610 [INFO] Adversarial sim progress: t=6000/6600, active_vehicles=743, wall=1.5s for +300s sim
+2026-03-11 22:49:14,707 [INFO]    Adv Step 5587 | WCE Reward: 1369.1760 | Traffic Segment Reward: -136917.60
+2026-03-11 22:49:14,708 [INFO] 
+[Adversary] Injecting Traffic... (Time: 6000s)
+2026-03-11 22:49:14,772 [INFO] Adversary traffic inject @t=6000 (+600s): active_od=312 requested=473 scheduled=473 route_skipped=0 add_failed=0 known_routes=1379
+2026-03-11 22:49:16,433 [INFO] Adversarial sim progress: t=6300/6600, active_vehicles=823, wall=2.8s for +300s sim
+2026-03-11 22:49:18,103 [INFO] Adversarial sim progress: t=6600/6600, active_vehicles=934, wall=1.7s for +300s sim
+2026-03-11 22:49:19,201 [INFO]    Adv Step 5588 | WCE Reward: 1610.0628 | Traffic Segment Reward: -161006.28
+2026-03-11 22:49:19,201 [INFO] Episode 8 Finished | Traffic_Total_Reward=-595381.83 | WCE_Total_Reward=5953.8183 | macro_steps=11
+2026-03-11 22:49:19,237 [INFO] Starting SUMO on port 8000 (log: /home/sdc_joran/Journal/deeprl_signal_control/output_coevolution/ppo_large/data/sumo_port_8000.log)
+2026-03-11 22:49:21,239 [INFO] TraCI connection established on port 8000
+2026-03-11 22:49:21,293 [INFO] Episode 9 Start.
+2026-03-11 22:49:21,294 [INFO] 
+[Adversary] Injecting Traffic... (Time: 0s)
+2026-03-11 22:49:21,371 [INFO] Adversary traffic inject @t=0 (+600s): active_od=289 requested=517 scheduled=517 route_skipped=0 add_failed=0 known_routes=289
+2026-03-11 22:49:22,515 [INFO] Adversarial sim progress: t=300/6600, active_vehicles=159, wall=1.3s for +300s sim
+2026-03-11 22:49:23,779 [INFO] Adversarial sim progress: t=600/6600, active_vehicles=170, wall=1.3s for +300s sim
+2026-03-11 22:49:24,882 [INFO]    Adv Step 5589 | WCE Reward: 113.0001 | Traffic Segment Reward: -11300.01
+2026-03-11 22:49:24,883 [INFO] 
+[Adversary] Injecting Traffic... (Time: 600s)
+2026-03-11 22:49:24,952 [INFO] Adversary traffic inject @t=600 (+600s): active_od=295 requested=492 scheduled=492 route_skipped=0 add_failed=0 known_routes=472
+2026-03-11 22:49:26,157 [INFO] Adversarial sim progress: t=900/6600, active_vehicles=172, wall=2.4s for +300s sim
+2026-03-11 22:49:27,237 [INFO] Adversarial sim progress: t=1200/6600, active_vehicles=172, wall=1.1s for +300s sim
+2026-03-11 22:49:28,310 [INFO]    Adv Step 5590 | WCE Reward: 157.3946 | Traffic Segment Reward: -15739.46
+2026-03-11 22:49:28,311 [INFO] 
+[Adversary] Injecting Traffic... (Time: 1200s)
+2026-03-11 22:49:28,384 [INFO] Adversary traffic inject @t=1200 (+600s): active_od=298 requested=488 scheduled=488 route_skipped=0 add_failed=0 known_routes=614
+2026-03-11 22:49:29,542 [INFO] Adversarial sim progress: t=1500/6600, active_vehicles=175, wall=2.3s for +300s sim
+2026-03-11 22:49:30,766 [INFO] Adversarial sim progress: t=1800/6600, active_vehicles=197, wall=1.2s for +300s sim
+2026-03-11 22:49:31,875 [INFO]    Adv Step 5591 | WCE Reward: 162.7353 | Traffic Segment Reward: -16273.53
+2026-03-11 22:49:31,875 [INFO] 
+[Adversary] Injecting Traffic... (Time: 1800s)
+2026-03-11 22:49:31,938 [INFO] Adversary traffic inject @t=1800 (+600s): active_od=279 requested=503 scheduled=503 route_skipped=0 add_failed=0 known_routes=737
+2026-03-11 22:49:33,174 [INFO] Adversarial sim progress: t=2100/6600, active_vehicles=239, wall=2.4s for +300s sim
+2026-03-11 22:49:34,424 [INFO] Adversarial sim progress: t=2400/6600, active_vehicles=206, wall=1.2s for +300s sim
+2026-03-11 22:49:35,566 [INFO]    Adv Step 5592 | WCE Reward: 235.8239 | Traffic Segment Reward: -23582.39
+2026-03-11 22:49:35,567 [INFO] 
+[Adversary] Injecting Traffic... (Time: 2400s)
+2026-03-11 22:49:35,630 [INFO] Adversary traffic inject @t=2400 (+600s): active_od=302 requested=514 scheduled=514 route_skipped=0 add_failed=0 known_routes=854
+2026-03-11 22:49:36,818 [INFO] Adversarial sim progress: t=2700/6600, active_vehicles=210, wall=2.4s for +300s sim
+2026-03-11 22:49:38,120 [INFO] Adversarial sim progress: t=3000/6600, active_vehicles=245, wall=1.3s for +300s sim
+2026-03-11 22:49:39,220 [INFO]    Adv Step 5593 | WCE Reward: 237.4442 | Traffic Segment Reward: -23744.42
+2026-03-11 22:49:39,220 [INFO] 
+[Adversary] Injecting Traffic... (Time: 3000s)
+2026-03-11 22:49:39,297 [INFO] Adversary traffic inject @t=3000 (+600s): active_od=337 requested=518 scheduled=518 route_skipped=0 add_failed=0 known_routes=994
+2026-03-11 22:49:40,582 [INFO] Adversarial sim progress: t=3300/6600, active_vehicles=227, wall=2.5s for +300s sim
+2026-03-11 22:49:41,883 [INFO] Adversarial sim progress: t=3600/6600, active_vehicles=246, wall=1.3s for +300s sim
+2026-03-11 22:49:42,992 [INFO]    Adv Step 5594 | WCE Reward: 242.0984 | Traffic Segment Reward: -24209.84
+2026-03-11 22:49:42,992 [INFO] 
+[Adversary] Injecting Traffic... (Time: 3600s)
+2026-03-11 22:49:43,072 [INFO] Adversary traffic inject @t=3600 (+600s): active_od=297 requested=513 scheduled=513 route_skipped=0 add_failed=0 known_routes=1088
+2026-03-11 22:49:44,377 [INFO] Adversarial sim progress: t=3900/6600, active_vehicles=262, wall=2.5s for +300s sim
+2026-03-11 22:49:45,630 [INFO] Adversarial sim progress: t=4200/6600, active_vehicles=301, wall=1.3s for +300s sim
+2026-03-11 22:49:46,795 [INFO]    Adv Step 5595 | WCE Reward: 447.6711 | Traffic Segment Reward: -44767.11
+2026-03-11 22:49:46,795 [INFO] 
+[Adversary] Injecting Traffic... (Time: 4200s)
+2026-03-11 22:49:46,858 [INFO] Adversary traffic inject @t=4200 (+600s): active_od=337 requested=529 scheduled=529 route_skipped=0 add_failed=0 known_routes=1198
+2026-03-11 22:49:48,151 [INFO] Adversarial sim progress: t=4500/6600, active_vehicles=401, wall=2.5s for +300s sim
+2026-03-11 22:49:49,519 [INFO] Adversarial sim progress: t=4800/6600, active_vehicles=457, wall=1.4s for +300s sim
+2026-03-11 22:49:50,616 [INFO]    Adv Step 5596 | WCE Reward: 946.3992 | Traffic Segment Reward: -94639.92
+2026-03-11 22:49:50,616 [INFO] 
+[Adversary] Injecting Traffic... (Time: 4800s)
+2026-03-11 22:49:50,675 [INFO] Adversary traffic inject @t=4800 (+600s): active_od=251 requested=478 scheduled=478 route_skipped=0 add_failed=0 known_routes=1258
+2026-03-11 22:49:52,073 [INFO] Adversarial sim progress: t=5100/6600, active_vehicles=540, wall=2.6s for +300s sim
+2026-03-11 22:49:53,429 [INFO] Adversarial sim progress: t=5400/6600, active_vehicles=647, wall=1.4s for +300s sim
+2026-03-11 22:49:54,568 [INFO]    Adv Step 5597 | WCE Reward: 1281.9893 | Traffic Segment Reward: -128198.93
+2026-03-11 22:49:54,568 [INFO] 
+[Adversary] Injecting Traffic... (Time: 5400s)
+2026-03-11 22:49:54,628 [INFO] Adversary traffic inject @t=5400 (+600s): active_od=312 requested=500 scheduled=500 route_skipped=0 add_failed=0 known_routes=1366
+2026-03-11 22:49:56,109 [INFO] Adversarial sim progress: t=5700/6600, active_vehicles=765, wall=2.7s for +300s sim
+2026-03-11 22:49:57,659 [INFO] Adversarial sim progress: t=6000/6600, active_vehicles=853, wall=1.6s for +300s sim
+2026-03-11 22:49:58,674 [INFO]    Adv Step 5598 | WCE Reward: 2145.8576 | Traffic Segment Reward: -214585.76
+2026-03-11 22:49:58,675 [INFO] 
+[Adversary] Injecting Traffic... (Time: 6000s)
+2026-03-11 22:49:58,730 [INFO] Adversary traffic inject @t=6000 (+600s): active_od=291 requested=506 scheduled=506 route_skipped=0 add_failed=0 known_routes=1424
+2026-03-11 22:50:00,324 [INFO] Adversarial sim progress: t=6300/6600, active_vehicles=999, wall=2.7s for +300s sim
+2026-03-11 22:50:02,103 [INFO] Adversarial sim progress: t=6600/6600, active_vehicles=1045, wall=1.8s for +300s sim
+2026-03-11 22:50:03,195 [INFO]    Adv Step 5599 | WCE Reward: 3255.4440 | Traffic Segment Reward: -325544.40
+2026-03-11 22:50:03,195 [INFO] Episode 9 Finished | Traffic_Total_Reward=-922585.79 | WCE_Total_Reward=9225.8579 | macro_steps=11
+2026-03-11 22:50:08,472 [INFO] Saved co-evolution checkpoints at episode=9 (traffic_step=1013760, adversary_step=5599)
+2026-03-11 22:50:08,536 [INFO] Starting SUMO on port 8000 (log: /home/sdc_joran/Journal/deeprl_signal_control/output_coevolution/ppo_large/data/sumo_port_8000.log)
+2026-03-11 22:50:10,540 [INFO] TraCI connection established on port 8000
+2026-03-11 22:50:10,575 [INFO] Episode 10 Start.
+2026-03-11 22:50:10,576 [INFO] 
+[Adversary] Injecting Traffic... (Time: 0s)
+2026-03-11 22:50:10,649 [INFO] Adversary traffic inject @t=0 (+600s): active_od=263 requested=499 scheduled=499 route_skipped=0 add_failed=0 known_routes=263
+2026-03-11 22:50:11,729 [INFO] Adversarial sim progress: t=300/6600, active_vehicles=148, wall=1.2s for +300s sim
+2026-03-11 22:50:13,048 [INFO] Adversarial sim progress: t=600/6600, active_vehicles=167, wall=1.3s for +300s sim
+2026-03-11 22:50:14,131 [INFO]    Adv Step 5600 | WCE Reward: 117.3486 | Traffic Segment Reward: -11734.86
+2026-03-11 22:50:14,132 [INFO] 
+[Adversary] Injecting Traffic... (Time: 600s)
+2026-03-11 22:50:14,207 [INFO] Adversary traffic inject @t=600 (+600s): active_od=317 requested=482 scheduled=482 route_skipped=0 add_failed=0 known_routes=451
+2026-03-11 22:50:15,417 [INFO] Adversarial sim progress: t=900/6600, active_vehicles=173, wall=2.4s for +300s sim
+2026-03-11 22:50:16,563 [INFO] Adversarial sim progress: t=1200/6600, active_vehicles=148, wall=1.1s for +300s sim
+2026-03-11 22:50:17,694 [INFO]    Adv Step 5601 | WCE Reward: 151.1742 | Traffic Segment Reward: -15117.42
+2026-03-11 22:50:17,694 [INFO] 
+[Adversary] Injecting Traffic... (Time: 1200s)
+2026-03-11 22:50:17,760 [INFO] Adversary traffic inject @t=1200 (+600s): active_od=261 requested=446 scheduled=446 route_skipped=0 add_failed=0 known_routes=577
+2026-03-11 22:50:18,967 [INFO] Adversarial sim progress: t=1500/6600, active_vehicles=159, wall=2.4s for +300s sim
+2026-03-11 22:50:20,092 [INFO] Adversarial sim progress: t=1800/6600, active_vehicles=175, wall=1.1s for +300s sim
+2026-03-11 22:50:21,172 [INFO]    Adv Step 5602 | WCE Reward: 141.5089 | Traffic Segment Reward: -14150.89
+2026-03-11 22:50:21,172 [INFO] 
+[Adversary] Injecting Traffic... (Time: 1800s)
+2026-03-11 22:50:21,237 [INFO] Adversary traffic inject @t=1800 (+600s): active_od=289 requested=515 scheduled=515 route_skipped=0 add_failed=0 known_routes=703
+2026-03-11 22:50:22,408 [INFO] Adversarial sim progress: t=2100/6600, active_vehicles=214, wall=2.3s for +300s sim
+2026-03-11 22:50:23,755 [INFO] Adversarial sim progress: t=2400/6600, active_vehicles=223, wall=1.3s for +300s sim
+2026-03-11 22:50:24,845 [INFO]    Adv Step 5603 | WCE Reward: 202.8474 | Traffic Segment Reward: -20284.74
+2026-03-11 22:50:24,845 [INFO] 
+[Adversary] Injecting Traffic... (Time: 2400s)
+2026-03-11 22:50:24,903 [INFO] Adversary traffic inject @t=2400 (+600s): active_od=280 requested=463 scheduled=463 route_skipped=0 add_failed=0 known_routes=816
+2026-03-11 22:50:26,160 [INFO] Adversarial sim progress: t=2700/6600, active_vehicles=190, wall=2.4s for +300s sim
+2026-03-11 22:50:27,389 [INFO] Adversarial sim progress: t=3000/6600, active_vehicles=243, wall=1.2s for +300s sim
+2026-03-11 22:50:28,521 [INFO]    Adv Step 5604 | WCE Reward: 200.1040 | Traffic Segment Reward: -20010.40
+2026-03-11 22:50:28,521 [INFO] 
+[Adversary] Injecting Traffic... (Time: 3000s)
+2026-03-11 22:50:28,581 [INFO] Adversary traffic inject @t=3000 (+600s): active_od=315 requested=478 scheduled=478 route_skipped=0 add_failed=0 known_routes=946
+2026-03-11 22:50:29,681 [INFO] Adversarial sim progress: t=3300/6600, active_vehicles=262, wall=2.3s for +300s sim
+2026-03-11 22:50:30,900 [INFO] Adversarial sim progress: t=3600/6600, active_vehicles=247, wall=1.2s for +300s sim
+2026-03-11 22:50:32,004 [INFO]    Adv Step 5605 | WCE Reward: 285.0836 | Traffic Segment Reward: -28508.36
+2026-03-11 22:50:32,005 [INFO] 
+[Adversary] Injecting Traffic... (Time: 3600s)
+2026-03-11 22:50:32,061 [INFO] Adversary traffic inject @t=3600 (+600s): active_od=247 requested=474 scheduled=474 route_skipped=0 add_failed=0 known_routes=1025
+2026-03-11 22:50:33,368 [INFO] Adversarial sim progress: t=3900/6600, active_vehicles=293, wall=2.5s for +300s sim
+2026-03-11 22:50:34,723 [INFO] Adversarial sim progress: t=4200/6600, active_vehicles=324, wall=1.4s for +300s sim
+2026-03-11 22:50:35,858 [INFO]    Adv Step 5606 | WCE Reward: 345.8774 | Traffic Segment Reward: -34587.74
+2026-03-11 22:50:35,859 [INFO] 
+[Adversary] Injecting Traffic... (Time: 4200s)
+2026-03-11 22:50:35,915 [INFO] Adversary traffic inject @t=4200 (+600s): active_od=251 requested=467 scheduled=467 route_skipped=0 add_failed=0 known_routes=1096
+2026-03-11 22:50:37,201 [INFO] Adversarial sim progress: t=4500/6600, active_vehicles=410, wall=2.5s for +300s sim
+2026-03-11 22:50:38,673 [INFO] Adversarial sim progress: t=4800/6600, active_vehicles=371, wall=1.5s for +300s sim
+2026-03-11 22:50:39,764 [INFO]    Adv Step 5607 | WCE Reward: 747.8077 | Traffic Segment Reward: -74780.77
+2026-03-11 22:50:39,764 [INFO] 
+[Adversary] Injecting Traffic... (Time: 4800s)
+2026-03-11 22:50:39,823 [INFO] Adversary traffic inject @t=4800 (+600s): active_od=296 requested=500 scheduled=500 route_skipped=0 add_failed=0 known_routes=1194
+2026-03-11 22:50:41,161 [INFO] Adversarial sim progress: t=5100/6600, active_vehicles=419, wall=2.5s for +300s sim
+2026-03-11 22:50:42,514 [INFO] Adversarial sim progress: t=5400/6600, active_vehicles=416, wall=1.4s for +300s sim
+2026-03-11 22:50:43,623 [INFO]    Adv Step 5608 | WCE Reward: 641.0813 | Traffic Segment Reward: -64108.13
+2026-03-11 22:50:43,624 [INFO] 
+[Adversary] Injecting Traffic... (Time: 5400s)
+2026-03-11 22:50:43,688 [INFO] Adversary traffic inject @t=5400 (+600s): active_od=288 requested=498 scheduled=498 route_skipped=0 add_failed=0 known_routes=1278
+2026-03-11 22:50:45,108 [INFO] Adversarial sim progress: t=5700/6600, active_vehicles=442, wall=2.6s for +300s sim
+2026-03-11 22:50:46,591 [INFO] Adversarial sim progress: t=6000/6600, active_vehicles=438, wall=1.5s for +300s sim
+2026-03-11 22:50:47,676 [INFO]    Adv Step 5609 | WCE Reward: 706.9151 | Traffic Segment Reward: -70691.51
+2026-03-11 22:50:47,677 [INFO] 
+[Adversary] Injecting Traffic... (Time: 6000s)
+2026-03-11 22:50:47,742 [INFO] Adversary traffic inject @t=6000 (+600s): active_od=242 requested=489 scheduled=489 route_skipped=0 add_failed=0 known_routes=1327
+2026-03-11 22:50:49,110 [INFO] Adversarial sim progress: t=6300/6600, active_vehicles=414, wall=2.5s for +300s sim
+2026-03-11 22:50:50,472 [INFO] Adversarial sim progress: t=6600/6600, active_vehicles=402, wall=1.4s for +300s sim
+2026-03-11 22:50:51,558 [INFO]    Adv Step 5610 | WCE Reward: 428.1741 | Traffic Segment Reward: -42817.41
+2026-03-11 22:50:51,558 [INFO] Episode 10 Finished | Traffic_Total_Reward=-396792.24 | WCE_Total_Reward=3967.9224 | macro_steps=11
+2026-03-11 22:50:51,592 [INFO] Starting SUMO on port 8000 (log: /home/sdc_joran/Journal/deeprl_signal_control/output_coevolution/ppo_large/data/sumo_port_8000.log)
+2026-03-11 22:50:53,594 [INFO] TraCI connection established on port 8000
+2026-03-11 22:50:53,651 [INFO] Episode 11 Start.
+2026-03-11 22:50:53,652 [INFO] 
+[Adversary] Injecting Traffic... (Time: 0s)
+2026-03-11 22:50:53,720 [INFO] Adversary traffic inject @t=0 (+600s): active_od=283 requested=457 scheduled=457 route_skipped=0 add_failed=0 known_routes=283
+2026-03-11 22:50:54,923 [INFO] Adversarial sim progress: t=300/6600, active_vehicles=153, wall=1.3s for +300s sim
+2026-03-11 22:50:56,129 [INFO] Adversarial sim progress: t=600/6600, active_vehicles=149, wall=1.2s for +300s sim
+2026-03-11 22:50:57,225 [INFO]    Adv Step 5611 | WCE Reward: 112.0056 | Traffic Segment Reward: -11200.56
+2026-03-11 22:50:57,226 [INFO] 
+[Adversary] Injecting Traffic... (Time: 600s)
+2026-03-11 22:50:57,332 [INFO] Adversary traffic inject @t=600 (+600s): active_od=267 requested=490 scheduled=490 route_skipped=0 add_failed=0 known_routes=450
+2026-03-11 22:50:58,546 [INFO] Adversarial sim progress: t=900/6600, active_vehicles=168, wall=2.4s for +300s sim
+2026-03-11 22:50:59,757 [INFO] Adversarial sim progress: t=1200/6600, active_vehicles=214, wall=1.2s for +300s sim
+2026-03-11 22:51:00,835 [INFO]    Adv Step 5612 | WCE Reward: 165.3137 | Traffic Segment Reward: -16531.37
+2026-03-11 22:51:00,835 [INFO] 
+[Adversary] Injecting Traffic... (Time: 1200s)
+2026-03-11 22:51:00,895 [INFO] Adversary traffic inject @t=1200 (+600s): active_od=305 requested=502 scheduled=502 route_skipped=0 add_failed=0 known_routes=609
+2026-03-11 22:51:02,029 [INFO] Adversarial sim progress: t=1500/6600, active_vehicles=210, wall=2.3s for +300s sim
+2026-03-11 22:51:03,264 [INFO] Adversarial sim progress: t=1800/6600, active_vehicles=206, wall=1.2s for +300s sim
+2026-03-11 22:51:04,354 [INFO]    Adv Step 5613 | WCE Reward: 168.1239 | Traffic Segment Reward: -16812.39
+2026-03-11 22:51:04,355 [INFO] 
+[Adversary] Injecting Traffic... (Time: 1800s)
+2026-03-11 22:51:04,419 [INFO] Adversary traffic inject @t=1800 (+600s): active_od=307 requested=549 scheduled=549 route_skipped=0 add_failed=0 known_routes=741
+2026-03-11 22:51:05,660 [INFO] Adversarial sim progress: t=2100/6600, active_vehicles=231, wall=2.4s for +300s sim
+2026-03-11 22:51:06,859 [INFO] Adversarial sim progress: t=2400/6600, active_vehicles=229, wall=1.2s for +300s sim
+2026-03-11 22:51:07,988 [INFO]    Adv Step 5614 | WCE Reward: 193.2808 | Traffic Segment Reward: -19328.08
+2026-03-11 22:51:07,989 [INFO] 
+[Adversary] Injecting Traffic... (Time: 2400s)
+2026-03-11 22:51:08,046 [INFO] Adversary traffic inject @t=2400 (+600s): active_od=279 requested=513 scheduled=513 route_skipped=0 add_failed=0 known_routes=835
+2026-03-11 22:51:09,225 [INFO] Adversarial sim progress: t=2700/6600, active_vehicles=227, wall=2.4s for +300s sim
+2026-03-11 22:51:10,558 [INFO] Adversarial sim progress: t=3000/6600, active_vehicles=207, wall=1.3s for +300s sim
+2026-03-11 22:51:11,649 [INFO]    Adv Step 5615 | WCE Reward: 185.9924 | Traffic Segment Reward: -18599.24
+2026-03-11 22:51:11,650 [INFO] 
+[Adversary] Injecting Traffic... (Time: 3000s)
+2026-03-11 22:51:11,733 [INFO] Adversary traffic inject @t=3000 (+600s): active_od=297 requested=485 scheduled=485 route_skipped=0 add_failed=0 known_routes=953
+2026-03-11 22:51:12,962 [INFO] Adversarial sim progress: t=3300/6600, active_vehicles=203, wall=2.4s for +300s sim
+2026-03-11 22:51:14,179 [INFO] Adversarial sim progress: t=3600/6600, active_vehicles=171, wall=1.2s for +300s sim
+2026-03-11 22:51:15,319 [INFO]    Adv Step 5616 | WCE Reward: 167.4459 | Traffic Segment Reward: -16744.59
+2026-03-11 22:51:15,319 [INFO] 
+[Adversary] Injecting Traffic... (Time: 3600s)
+2026-03-11 22:51:15,379 [INFO] Adversary traffic inject @t=3600 (+600s): active_od=291 requested=484 scheduled=484 route_skipped=0 add_failed=0 known_routes=1054
+2026-03-11 22:51:16,605 [INFO] Adversarial sim progress: t=3900/6600, active_vehicles=188, wall=2.4s for +300s sim
+2026-03-11 22:51:17,817 [INFO] Adversarial sim progress: t=4200/6600, active_vehicles=210, wall=1.2s for +300s sim
+2026-03-11 22:51:18,961 [INFO]    Adv Step 5617 | WCE Reward: 165.0057 | Traffic Segment Reward: -16500.57
+2026-03-11 22:51:18,962 [INFO] 
+[Adversary] Injecting Traffic... (Time: 4200s)
+2026-03-11 22:51:19,025 [INFO] Adversary traffic inject @t=4200 (+600s): active_od=308 requested=507 scheduled=507 route_skipped=0 add_failed=0 known_routes=1144
+2026-03-11 22:51:20,190 [INFO] Adversarial sim progress: t=4500/6600, active_vehicles=196, wall=2.4s for +300s sim
+2026-03-11 22:51:21,557 [INFO] Adversarial sim progress: t=4800/6600, active_vehicles=214, wall=1.4s for +300s sim
+2026-03-11 22:51:22,649 [INFO]    Adv Step 5618 | WCE Reward: 172.0998 | Traffic Segment Reward: -17209.98
+2026-03-11 22:51:22,652 [INFO] 
+[Adversary] Injecting Traffic... (Time: 4800s)
+2026-03-11 22:51:22,732 [INFO] Adversary traffic inject @t=4800 (+600s): active_od=259 requested=495 scheduled=495 route_skipped=0 add_failed=0 known_routes=1218
+2026-03-11 22:51:24,063 [INFO] Adversarial sim progress: t=5100/6600, active_vehicles=212, wall=2.5s for +300s sim
+2026-03-11 22:51:25,384 [INFO] Adversarial sim progress: t=5400/6600, active_vehicles=207, wall=1.3s for +300s sim
+2026-03-11 22:51:26,530 [INFO]    Adv Step 5619 | WCE Reward: 179.5644 | Traffic Segment Reward: -17956.44
+2026-03-11 22:51:26,531 [INFO] 
+[Adversary] Injecting Traffic... (Time: 5400s)
+2026-03-11 22:51:26,600 [INFO] Adversary traffic inject @t=5400 (+600s): active_od=303 requested=494 scheduled=494 route_skipped=0 add_failed=0 known_routes=1304
+2026-03-11 22:51:27,775 [INFO] Adversarial sim progress: t=5700/6600, active_vehicles=214, wall=2.4s for +300s sim
+2026-03-11 22:51:29,020 [INFO] Adversarial sim progress: t=6000/6600, active_vehicles=220, wall=1.2s for +300s sim
+2026-03-11 22:51:30,122 [INFO]    Adv Step 5620 | WCE Reward: 171.2230 | Traffic Segment Reward: -17122.30
+2026-03-11 22:51:30,122 [INFO] 
+[Adversary] Injecting Traffic... (Time: 6000s)
+2026-03-11 22:51:30,195 [INFO] Adversary traffic inject @t=6000 (+600s): active_od=301 requested=473 scheduled=473 route_skipped=0 add_failed=0 known_routes=1376
+2026-03-11 22:51:31,309 [INFO] Adversarial sim progress: t=6300/6600, active_vehicles=191, wall=2.3s for +300s sim
+2026-03-11 22:51:32,474 [INFO] Adversarial sim progress: t=6600/6600, active_vehicles=195, wall=1.2s for +300s sim
+2026-03-11 22:51:33,481 [INFO]    Adv Step 5621 | WCE Reward: 197.4849 | Traffic Segment Reward: -19748.49
+2026-03-11 22:51:33,482 [INFO] Episode 11 Finished | Traffic_Total_Reward=-187754.03 | WCE_Total_Reward=1877.5403 | macro_steps=11
+2026-03-11 22:51:33,490 [INFO] Starting SUMO on port 8000 (log: /home/sdc_joran/Journal/deeprl_signal_control/output_coevolution/ppo_large/data/sumo_port_8000.log)
+2026-03-11 22:51:40,497 [ERROR] Failed to connect to TraCI on port 8000: Could not connect in 6 tries
