@@ -1,0 +1,103 @@
+2026-03-16 13:55:34,770 [INFO] Visualization output dir: /home/sdc_joran/Journal/deeprl_signal_control/runs_eval/signal_controller_visualize/20260316_135534_ppo_retrained_demand_w_to_e
+2026-03-16 13:55:34,770 [INFO] Controller: ppo_retrained
+2026-03-16 13:55:34,770 [INFO] Demand group: 2 (demand_W_to_E)
+2026-03-16 13:55:34,770 [INFO] Demand CSV: /home/sdc_joran/Journal/deeprl_signal_control/data_traffic/demand_W_to_E.csv
+2026-03-16 13:55:34,770 [INFO] Group duration: 3600 sec
+2026-03-16 13:55:34,771 [INFO] Selected test seed index=0 value=10000
+2026-03-16 13:55:34,771 [INFO] Loading checkpoint 2320560 from /home/sdc_joran/Journal/deeprl_signal_control/output_coevolution/ppo_large/model_traffic
+2026-03-16 13:55:34,854 [INFO] Loaded demand subset 0 from demand_W_to_E.csv
+2026-03-16 13:55:34,934 [INFO] Loaded demand subset 1 from demand_W_to_E.csv
+2026-03-16 13:55:35,014 [INFO] Loaded demand subset 2 from demand_W_to_E.csv
+2026-03-16 13:55:35,095 [INFO] Loaded demand subset 3 from demand_W_to_E.csv
+2026-03-16 13:55:35,197 [INFO] Loaded demand subset 4 from demand_W_to_E.csv
+2026-03-16 13:55:35,276 [INFO] Loaded demand subset 5 from demand_W_to_E.csv
+2026-03-16 13:55:35,277 [INFO] Using fast lane wait metric for state/reward computation.
+2026-03-16 13:55:35,277 [INFO] Simulation heartbeat enabled every 300 sim-seconds.
+2026-03-16 13:55:35,277 [INFO] Step probe: warn_if_stage_over=15.0s, watchdog=180s poll=10s, trainer_warn=60.0s
+2026-03-16 13:55:35,277 [INFO] Starting SUMO on port 8000 (log: /home/sdc_joran/Journal/deeprl_signal_control/runs_eval/signal_controller_visualize/20260316_135534_ppo_retrained_demand_w_to_e/sumo_port_8000.log)
+2026-03-16 13:55:37,284 [INFO] TraCI connection established on port 8000
+2026-03-16 13:55:37,315 [INFO] Env: init 25 node information:
+nt1:
+	neigbor: ['nt6', 'nt2']
+	ilds_in: ['nt6_nt1_0', 'nt2_nt1_0', 'nt2_nt1_1', 'np1_nt1_0', 'np20_nt1_0', 'np20_nt1_1']
+nt10:
+	neigbor: ['nt15', 'nt5', 'nt9']
+	ilds_in: ['nt15_nt10_0', 'np7_nt10_0', 'np7_nt10_1', 'nt5_nt10_0', 'nt9_nt10_0', 'nt9_nt10_1']
+nt11:
+	neigbor: ['nt16', 'nt12', 'nt6']
+	ilds_in: ['nt16_nt11_0', 'nt12_nt11_0', 'nt12_nt11_1', 'nt6_nt11_0', 'np18_nt11_0', 'np18_nt11_1']
+nt12:
+	neigbor: ['nt17', 'nt13', 'nt7', 'nt11']
+	ilds_in: ['nt17_nt12_0', 'nt13_nt12_0', 'nt13_nt12_1', 'nt7_nt12_0', 'nt11_nt12_0', 'nt11_nt12_1']
+nt13:
+	neigbor: ['nt18', 'nt14', 'nt8', 'nt12']
+	ilds_in: ['nt18_nt13_0', 'nt14_nt13_0', 'nt14_nt13_1', 'nt8_nt13_0', 'nt12_nt13_0', 'nt12_nt13_1']
+nt14:
+	neigbor: ['nt19', 'nt15', 'nt9', 'nt13']
+	ilds_in: ['nt19_nt14_0', 'nt15_nt14_0', 'nt15_nt14_1', 'nt9_nt14_0', 'nt13_nt14_0', 'nt13_nt14_1']
+nt15:
+	neigbor: ['nt20', 'nt10', 'nt14']
+	ilds_in: ['nt20_nt15_0', 'np8_nt15_0', 'np8_nt15_1', 'nt10_nt15_0', 'nt14_nt15_0', 'nt14_nt15_1']
+nt16:
+	neigbor: ['nt21', 'nt17', 'nt11']
+	ilds_in: ['nt21_nt16_0', 'nt17_nt16_0', 'nt17_nt16_1', 'nt11_nt16_0', 'np17_nt16_0', 'np17_nt16_1']
+nt17:
+	neigbor: ['nt22', 'nt18', 'nt12', 'nt16']
+	ilds_in: ['nt22_nt17_0', 'nt18_nt17_0', 'nt18_nt17_1', 'nt12_nt17_0', 'nt16_nt17_0', 'nt16_nt17_1']
+nt18:
+	neigbor: ['nt23', 'nt19', 'nt13', 'nt17']
+	ilds_in: ['nt23_nt18_0', 'nt19_nt18_0', 'nt19_nt18_1', 'nt13_nt18_0', 'nt17_nt18_0', 'nt17_nt18_1']
+nt19:
+	neigbor: ['nt24', 'nt20', 'nt14', 'nt18']
+	ilds_in: ['nt24_nt19_0', 'nt20_nt19_0', 'nt20_nt19_1', 'nt14_nt19_0', 'nt18_nt19_0', 'nt18_nt19_1']
+nt2:
+	neigbor: ['nt7', 'nt3', 'nt1']
+	ilds_in: ['nt7_nt2_0', 'nt3_nt2_0', 'nt3_nt2_1', 'np2_nt2_0', 'nt1_nt2_0', 'nt1_nt2_1']
+nt20:
+	neigbor: ['nt25', 'nt15', 'nt19']
+	ilds_in: ['nt25_nt20_0', 'np9_nt20_0', 'np9_nt20_1', 'nt15_nt20_0', 'nt19_nt20_0', 'nt19_nt20_1']
+nt21:
+	neigbor: ['nt22', 'nt16']
+	ilds_in: ['np15_nt21_0', 'nt22_nt21_0', 'nt22_nt21_1', 'nt16_nt21_0', 'np16_nt21_0', 'np16_nt21_1']
+nt22:
+	neigbor: ['nt23', 'nt17', 'nt21']
+	ilds_in: ['np14_nt22_0', 'nt23_nt22_0', 'nt23_nt22_1', 'nt17_nt22_0', 'nt21_nt22_0', 'nt21_nt22_1']
+nt23:
+	neigbor: ['nt24', 'nt18', 'nt22']
+	ilds_in: ['np13_nt23_0', 'nt24_nt23_0', 'nt24_nt23_1', 'nt18_nt23_0', 'nt22_nt23_0', 'nt22_nt23_1']
+nt24:
+	neigbor: ['nt25', 'nt19', 'nt23']
+	ilds_in: ['np12_nt24_0', 'nt25_nt24_0', 'nt25_nt24_1', 'nt19_nt24_0', 'nt23_nt24_0', 'nt23_nt24_1']
+nt25:
+	neigbor: ['nt20', 'nt24']
+	ilds_in: ['np11_nt25_0', 'np10_nt25_0', 'np10_nt25_1', 'nt20_nt25_0', 'nt24_nt25_0', 'nt24_nt25_1']
+nt3:
+	neigbor: ['nt8', 'nt4', 'nt2']
+	ilds_in: ['nt8_nt3_0', 'nt4_nt3_0', 'nt4_nt3_1', 'np3_nt3_0', 'nt2_nt3_0', 'nt2_nt3_1']
+nt4:
+	neigbor: ['nt9', 'nt5', 'nt3']
+	ilds_in: ['nt9_nt4_0', 'nt5_nt4_0', 'nt5_nt4_1', 'np4_nt4_0', 'nt3_nt4_0', 'nt3_nt4_1']
+nt5:
+	neigbor: ['nt10', 'nt4']
+	ilds_in: ['nt10_nt5_0', 'np6_nt5_0', 'np6_nt5_1', 'np5_nt5_0', 'nt4_nt5_0', 'nt4_nt5_1']
+nt6:
+	neigbor: ['nt11', 'nt7', 'nt1']
+	ilds_in: ['nt11_nt6_0', 'nt7_nt6_0', 'nt7_nt6_1', 'nt1_nt6_0', 'np19_nt6_0', 'np19_nt6_1']
+nt7:
+	neigbor: ['nt12', 'nt8', 'nt2', 'nt6']
+	ilds_in: ['nt12_nt7_0', 'nt8_nt7_0', 'nt8_nt7_1', 'nt2_nt7_0', 'nt6_nt7_0', 'nt6_nt7_1']
+nt8:
+	neigbor: ['nt13', 'nt9', 'nt3', 'nt7']
+	ilds_in: ['nt13_nt8_0', 'nt9_nt8_0', 'nt9_nt8_1', 'nt3_nt8_0', 'nt7_nt8_0', 'nt7_nt8_1']
+nt9:
+	neigbor: ['nt14', 'nt10', 'nt4', 'nt8']
+	ilds_in: ['nt14_nt9_0', 'nt10_nt9_0', 'nt10_nt9_1', 'nt4_nt9_0', 'nt8_nt9_0', 'nt8_nt9_1']
+
+2026-03-16 13:55:37,324 [INFO] Loaded 6 scenarios from /home/sdc_joran/Journal/deeprl_signal_control/data_traffic.
+2026-03-16 13:55:37,324 [INFO] Updated Episode Duration: 3600 seconds (60.0 mins), T=720
+2026-03-16 13:55:37,324 [INFO] ppo TF session config: intra_op=1, inter_op=1, op_timeout_ms=600000
+2026-03-16 13:55:58,882 [INFO] Restoring parameters from /home/sdc_joran/Journal/deeprl_signal_control/output_coevolution/ppo_large/model_traffic/checkpoint-2320560
+2026-03-16 13:55:59,286 [INFO] Checkpoint loaded: checkpoint-2320560
+2026-03-16 13:55:59,287 [INFO] Starting SUMO on port 8000 (log: /home/sdc_joran/Journal/deeprl_signal_control/runs_eval/signal_controller_visualize/20260316_135534_ppo_retrained_demand_w_to_e/sumo_port_8000.log)
+2026-03-16 13:56:01,329 [INFO] TraCI connection established on port 8000
+2026-03-16 13:59:06,430 [WARNING] SUMO did not exit after TraCI close; terminating process.
