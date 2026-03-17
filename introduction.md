@@ -21,6 +21,8 @@ git clone https://github.com/TravidP/updated_worst_case_MARL.git
 
 ---
 
+bash setup_env.sh
+
 ### 3. Syncing: Pulling Online Changes to Local
 
 If the code on GitHub has been updated and you want to bring those changes to your computer:
@@ -69,6 +71,7 @@ Access --  you can check the password in shared google slides.
 
 ---
 Here is a polished and professional version of your Markdown. I’ve refined the technical phrasing, corrected the spelling of "Monaco" and "regional," and organized the information for better readability.
+
 
 ---
 
