@@ -9,6 +9,9 @@ from __future__ import annotations
 
 import os
 import re
+import shutil
+import subprocess
+import warnings
 from pathlib import Path
 from typing import Tuple
 
@@ -16,9 +19,60 @@ _MPLCONFIGDIR = Path("/tmp/matplotlib")
 _MPLCONFIGDIR.mkdir(parents=True, exist_ok=True)
 os.environ.setdefault("MPLCONFIGDIR", str(_MPLCONFIGDIR))
 
-import matplotlib
+import matplotlib as mpl
 
-matplotlib.use("Agg")
+mpl.use("Agg")
+
+
+def _tex_package_available(package_name: str) -> bool:
+    kpsewhich = shutil.which("kpsewhich")
+    if not kpsewhich:
+        return False
+    result = subprocess.run(
+        [kpsewhich, package_name],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.DEVNULL,
+        text=True,
+        check=False,
+    )
+    return bool(result.stdout.strip())
+
+
+def _configure_plot_style() -> None:
+    params = {
+        "text.usetex": True,
+        "text.latex.preamble": r"\usepackage{newtxtext}\usepackage{newtxmath}",
+        "font.family": "serif",
+        "font.size": 18,
+        "axes.labelsize": 18,
+        "axes.titlesize": 18,
+        "xtick.labelsize": 17,
+        "ytick.labelsize": 17,
+        "legend.fontsize": 16,
+        "figure.titlesize": 20,
+        "pdf.fonttype": 42,
+        "ps.fonttype": 42,
+    }
+
+    missing_bins = [exe for exe in ("latex", "kpsewhich", "dvipng") if shutil.which(exe) is None]
+    required_sty = ("newtxtext.sty", "newtxmath.sty", "type1ec.sty")
+    missing_sty = [sty for sty in required_sty if not _tex_package_available(sty)]
+
+    if missing_bins or missing_sty:
+        params["text.usetex"] = False
+        params.pop("text.latex.preamble", None)
+        warnings.warn(
+            "Falling back to Matplotlib text rendering because TeX dependencies are missing. "
+            "Missing executables: %s. Missing TeX packages: %s."
+            % (missing_bins or "none", missing_sty or "none"),
+            RuntimeWarning,
+        )
+
+    mpl.rcParams.update(params)
+
+
+_configure_plot_style()
+
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -33,15 +87,15 @@ OUTPUT_DIR = RUNS_EVAL_DIR / "manual_comparisons"
 
 # You can set just a filename (searched recursively inside runs_eval),
 # or a relative path under runs_eval, or an absolute path.
-Compare = "IQL-LR_worst_speed_comparison.png"
-BASELINE_CSV = "signal_controller_benchmark/iqll_marl_group07_demand_ne_to_sw_speed_raw.csv"
-RETRAINED_CSV = "signal_controller_benchmark/iqll_retrained_group06_demand_sw_to_ne_speed_raw.csv"
+Compare = "PPO_worst_queue_comparison.png"
+BASELINE_CSV = "signal_controller_benchmark/ppo_marl_group02_demand_w_to_e_queue_raw.csv"
+RETRAINED_CSV = "signal_controller_benchmark/ppo_retrained_group05_demand_se_to_nw_queue_raw.csv"
 
-BASELINE_LABEL = "Baseline Worst Group (group07)"
-RETRAINED_LABEL = "Retrained Worst Group (group06)"
+BASELINE_LABEL = "Baseline Worst Group (group02)"
+RETRAINED_LABEL = "Retrained Worst Group (group05)"
 
 # Leave empty for automatic values.
-PLOT_TITLE = "Worst-case Speed Comparison (IQL-LR)"
+PLOT_TITLE = "Worst-case Queue Comparison (PPO)"
 Y_LABEL = ""
 OUTPUT_FILENAME = Compare
 
@@ -179,12 +233,10 @@ def main() -> None:
     right_line, = plt.plot(right_t, right_mean, label=RETRAINED_LABEL)
     plt.fill_between(right_t, right_min, right_max, alpha=0.18, color=right_line.get_color())
 
-    plt.xlabel("Simulation second", fontsize=14)
-    plt.ylabel(ylabel, fontsize=14)
-    plt.title(title, fontsize=14)
-    plt.xticks(fontsize=11)
-    plt.yticks(fontsize=11)
-    plt.legend(fontsize=12)
+    plt.xlabel("Simulation second")
+    plt.ylabel(ylabel)
+    plt.title(title)
+    plt.legend()
     plt.tight_layout()
     plt.savefig(output_path)
     plt.close()

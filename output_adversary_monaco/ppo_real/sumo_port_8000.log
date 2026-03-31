@@ -1,0 +1,2 @@
+Error: tcpip::Socket::accept() @ socket: Operation not permitted
+Quitting (on error).

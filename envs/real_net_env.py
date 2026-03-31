@@ -4,23 +4,34 @@ Particular class of real traffic network
 """
 
 import configparser
+import glob
 import logging
-import numpy as np
-import matplotlib.pyplot as plt
 import os
-import seaborn as sns
+import socket
 import time
+
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+import seaborn as sns
 import traci
-import socket
 from envs.env import PhaseMap, PhaseSet, TrafficSimulator
-from real_net.data.build_file import gen_rou_file
-from real_net.data.build_file import output_config, write_file
-import glob
 
 sns.set_color_codes()
 SCENARIO_DURATION = 600  # 10 minutes per scenario
+REAL_NET_DEMAND_GROUP_ORDER = [
+    'N_to_S',
+    'S_to_N',
+    'W_to_E',
+    'E_to_W',
+    'NW_to_SE',
+    'SE_to_NW',
+    'SW_to_NE',
+    'NE_to_SW',
+    'Periphery_to_Center',
+    'Center_to_Periphery',
+    'Uniform',
+]
 
 STATE_NAMES = ['wave']
 # node: (phase key, neighbor list)
@@ -126,54 +137,109 @@ class RealNetEnv(TrafficSimulator):
         self.route_cache = set()
         self.current_scenario_idx = 0
         self.next_switch_time = 0
+        self.demand_group_dir = self._resolve_demand_group_dir()
         self.scenarios = self._load_scenarios()
         self.num_scenarios = len(self.scenarios)
-        self.episode_length_sec = self.num_scenarios * SCENARIO_DURATION
+        if self.num_scenarios:
+            self.episode_length_sec = self.num_scenarios * SCENARIO_DURATION
+        else:
+            logging.warning(
+                "No valid real-net demand groups were loaded from %s. "
+                "Keeping configured episode_length_sec=%d.",
+                self.demand_group_dir,
+                int(self.episode_length_sec),
+            )
         self.T = np.ceil(self.episode_length_sec / self.control_interval_sec)
-        logging.info(f"Loaded {len(self.scenarios)} scenarios. Episode length={self.episode_length_sec}s, T={int(self.T)}")
+        logging.info(
+            "Loaded %d real-net demand groups from %s. Episode length=%ss, T=%d",
+            len(self.scenarios),
+            self.demand_group_dir,
+            self.episode_length_sec,
+            int(self.T),
+        )
+
+    def _resolve_demand_group_dir(self):
+        if self.data_path:
+            data_root = os.path.dirname(os.path.normpath(self.data_path))
+            candidate = os.path.join(data_root, 'demand_groups')
+            if os.path.isdir(candidate):
+                return os.path.abspath(candidate)
+
+        project_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+        return os.path.join(project_dir, 'real_net_subnet', 'demand_groups')
 
     def _load_scenarios(self):
         """
-        Automatically discovers and loads traffic CSVs from ./data_traffic/
+        Load subnet demand-group CSVs in a fixed order (11 groups x 600s = 6600s).
         """
-        traffic_data_dir = "./data_traffic_real/"
-        
-        # Ensure directory exists
-        if not os.path.exists(traffic_data_dir):
-            os.makedirs(traffic_data_dir)
-            logging.warning(f"Created missing directory: {traffic_data_dir}")
+        search_path = os.path.join(self.demand_group_dir, '*.csv')
+        discovered_csv_paths = sorted(glob.glob(search_path))
 
-        # Automatic discovery using glob
-        search_path = os.path.join(traffic_data_dir, "*.csv")
-        self.csv_paths = sorted(glob.glob(search_path))
-        
         scenarios = []
-        self.loaded_filenames = []  # To track filenames corresponding to scenarios
-        
-        if not self.csv_paths:
-            logging.warning(f"No traffic scenarios found in {traffic_data_dir}. Please add .csv files.")
+        self.loaded_filenames = []
+        self.csv_paths = []
+
+        if not discovered_csv_paths:
+            logging.warning(
+                "No demand-group CSV files found in %s. Dynamic demand is disabled.",
+                self.demand_group_dir,
+            )
             return scenarios
-        else:
-            logging.info(f"Found {len(self.csv_paths)} scenario files: {[os.path.basename(p) for p in self.csv_paths]}")
-        
-        # Load each file
+
+        path_by_name = {
+            os.path.splitext(os.path.basename(path))[0]: path
+            for path in discovered_csv_paths
+        }
+
+        missing = []
+        for group_name in REAL_NET_DEMAND_GROUP_ORDER:
+            path = path_by_name.pop(group_name, None)
+            if path is None:
+                missing.append(group_name)
+                continue
+            self.csv_paths.append(path)
+
+        if missing:
+            logging.warning(
+                "Missing expected real-net demand-group CSV files: %s",
+                ', '.join(missing),
+            )
+
+        if path_by_name:
+            logging.info(
+                "Ignoring non-training demand-group CSV files: %s",
+                ', '.join(sorted(path_by_name.keys())),
+            )
+
         for file_path in self.csv_paths:
             try:
                 df = pd.read_csv(file_path)
-                # Convert DataFrame to list of dictionaries for faster iteration
+                required_cols = {'origin_edge', 'dest_edge', 'veh_per_hour'}
+                if not required_cols.issubset(df.columns):
+                    logging.warning(
+                        "Skipping %s: missing required columns %s",
+                        os.path.basename(file_path),
+                        sorted(required_cols),
+                    )
+                    continue
+
                 scenario_data = []
                 for _, row in df.iterrows():
                     scenario_data.append({
-                        'origin': row['origin_edge'],
-                        'dest': row['dest_edge'],
+                        'origin': str(row['origin_edge']),
+                        'dest': str(row['dest_edge']),
                         'rate': float(row['veh_per_hour'])
                     })
                 scenarios.append(scenario_data)
-                self.loaded_filenames.append(os.path.basename(file_path))
-                logging.info(f"Loaded scenario from {os.path.basename(file_path)}: {len(scenario_data)} flows.")
+                self.loaded_filenames.append(os.path.splitext(os.path.basename(file_path))[0])
+                logging.info(
+                    "Loaded real-net demand group %s (%d OD rows).",
+                    os.path.basename(file_path),
+                    len(scenario_data),
+                )
             except Exception as e:
-                logging.error(f"Error loading {file_path}: {e}")
-                
+                logging.error("Error loading %s: %s", file_path, e)
+
         return scenarios
 
     def _get_node_phase_id(self, node_name):
@@ -219,10 +285,12 @@ class RealNetEnv(TrafficSimulator):
             str_config += f'    <route-files value="in/{route_file_name}"/>\n' # Use shared dummy
             str_config += '    <additional-files value="in/most.add.xml"/>\n'
             str_config += '  </input>\n  <time>\n'
-            str_config += '    <begin value="0"/>\n    <end value="3600"/>\n'
+            str_config += '    <begin value="0"/>\n'
+            str_config += f'    <end value="{int(self.episode_length_sec)}"/>\n'
             str_config += '  </time>\n</configuration>\n'
-            
-            write_file(sumocfg_file, str_config)
+
+            with open(sumocfg_file, 'w') as f:
+                f.write(str_config)
             logging.info(f"Created config file: {sumocfg_file}")
             
         return sumocfg_file
@@ -371,6 +439,24 @@ class RealNetEnv(TrafficSimulator):
                     )
                     self._last_progress_sim_sec = self.cur_sec
                     self._last_progress_wall_sec = now
+
+
+    def reset(self, gui=False, test_ind=0):
+        # Route IDs exist only within the current SUMO process.
+        self.route_cache = set()
+        self.current_scenario_idx = 0
+        self.next_switch_time = 0
+        self._last_progress_sim_sec = 0
+        self._last_progress_wall_sec = time.time()
+        return super().reset(gui=gui, test_ind=test_ind)
+
+    def step(self, action):
+        next_obs, reward, done, info = super().step(action)
+        if self.cur_sec < self.episode_length_sec:
+            done = False
+        else:
+            done = True
+        return next_obs, reward, done, info
 
 
 def plot_cdf(X, c='b', label=None):

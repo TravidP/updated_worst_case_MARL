@@ -1,0 +1,162 @@
+
+=== 2026-03-26 11:35:58 stalled_for=180.4s stage=run:backward ===
+Current thread 0x000072d7b8e72640 (most recent call first):
+  File "/home/sdc_joran/Journal/deeprl_signal_control/utils.py", line 196 in _watchdog_loop
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 864 in run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 916 in _bootstrap_inner
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 884 in _bootstrap
+
+Thread 0x000072d7b9673640 (most recent call first):
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 295 in wait
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/queue.py", line 164 in get
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/summary/writer/event_file_writer.py", line 159 in run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 916 in _bootstrap_inner
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 884 in _bootstrap
+
+Thread 0x000072d90ced53c0 (most recent call first):
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1407 in _call_tf_sessionrun
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1319 in _run_fn
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1334 in _do_call
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1328 in _do_run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1152 in _run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 929 in run
+  File "/home/sdc_joran/Journal/deeprl_signal_control/agents/policies.py", line 226 in backward
+  File "/home/sdc_joran/Journal/deeprl_signal_control/agents/models.py", line 402 in backward
+  File "/home/sdc_joran/Journal/deeprl_signal_control/utils.py", line 464 in run
+  File "main.py", line 180 in train
+  File "main.py", line 303 in <module>
+
+=== 2026-03-26 11:37:28 stalled_for=270.5s stage=run:backward ===
+Current thread 0x000072d7b8e72640 (most recent call first):
+  File "/home/sdc_joran/Journal/deeprl_signal_control/utils.py", line 196 in _watchdog_loop
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 864 in run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 916 in _bootstrap_inner
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 884 in _bootstrap
+
+Thread 0x000072d7b9673640 (most recent call first):
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 295 in wait
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/queue.py", line 164 in get
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/summary/writer/event_file_writer.py", line 159 in run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 916 in _bootstrap_inner
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 884 in _bootstrap
+
+Thread 0x000072d90ced53c0 (most recent call first):
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1407 in _call_tf_sessionrun
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1319 in _run_fn
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1334 in _do_call
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1328 in _do_run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1152 in _run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 929 in run
+  File "/home/sdc_joran/Journal/deeprl_signal_control/agents/policies.py", line 226 in backward
+  File "/home/sdc_joran/Journal/deeprl_signal_control/agents/models.py", line 402 in backward
+  File "/home/sdc_joran/Journal/deeprl_signal_control/utils.py", line 464 in run
+  File "main.py", line 180 in train
+  File "main.py", line 303 in <module>
+
+=== 2026-03-26 11:59:55 stalled_for=180.2s stage=run:backward ===
+Current thread 0x00007c23321f1640 (most recent call first):
+  File "/home/sdc_joran/Journal/deeprl_signal_control/utils.py", line 196 in _watchdog_loop
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 864 in run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 916 in _bootstrap_inner
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 884 in _bootstrap
+
+Thread 0x00007c23349f3640 (most recent call first):
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 295 in wait
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/queue.py", line 164 in get
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/summary/writer/event_file_writer.py", line 159 in run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 916 in _bootstrap_inner
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 884 in _bootstrap
+
+Thread 0x00007c24882b93c0 (most recent call first):
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1407 in _call_tf_sessionrun
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1319 in _run_fn
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1334 in _do_call
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1328 in _do_run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1152 in _run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 929 in run
+  File "/home/sdc_joran/Journal/deeprl_signal_control/agents/policies.py", line 226 in backward
+  File "/home/sdc_joran/Journal/deeprl_signal_control/agents/models.py", line 402 in backward
+  File "/home/sdc_joran/Journal/deeprl_signal_control/utils.py", line 464 in run
+  File "main.py", line 180 in train
+  File "main.py", line 303 in <module>
+
+=== 2026-03-26 12:01:25 stalled_for=270.3s stage=run:backward ===
+Current thread 0x00007c23321f1640 (most recent call first):
+  File "/home/sdc_joran/Journal/deeprl_signal_control/utils.py", line 196 in _watchdog_loop
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 864 in run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 916 in _bootstrap_inner
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 884 in _bootstrap
+
+Thread 0x00007c23349f3640 (most recent call first):
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 295 in wait
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/queue.py", line 164 in get
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/summary/writer/event_file_writer.py", line 159 in run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 916 in _bootstrap_inner
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 884 in _bootstrap
+
+Thread 0x00007c24882b93c0 (most recent call first):
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1407 in _call_tf_sessionrun
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1319 in _run_fn
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1334 in _do_call
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1328 in _do_run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1152 in _run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 929 in run
+  File "/home/sdc_joran/Journal/deeprl_signal_control/agents/policies.py", line 226 in backward
+  File "/home/sdc_joran/Journal/deeprl_signal_control/agents/models.py", line 402 in backward
+  File "/home/sdc_joran/Journal/deeprl_signal_control/utils.py", line 464 in run
+  File "main.py", line 180 in train
+  File "main.py", line 303 in <module>
+
+=== 2026-03-26 12:10:32 stalled_for=188.5s stage=run:backward ===
+Current thread 0x00007fca31932640 (most recent call first):
+  File "/home/sdc_joran/Journal/deeprl_signal_control/utils.py", line 196 in _watchdog_loop
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 864 in run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 916 in _bootstrap_inner
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 884 in _bootstrap
+
+Thread 0x00007fca32133640 (most recent call first):
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 295 in wait
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/queue.py", line 164 in get
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/summary/writer/event_file_writer.py", line 159 in run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 916 in _bootstrap_inner
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 884 in _bootstrap
+
+Thread 0x00007fcb859d53c0 (most recent call first):
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1407 in _call_tf_sessionrun
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1319 in _run_fn
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1334 in _do_call
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1328 in _do_run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1152 in _run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 929 in run
+  File "/home/sdc_joran/Journal/deeprl_signal_control/agents/policies.py", line 226 in backward
+  File "/home/sdc_joran/Journal/deeprl_signal_control/agents/models.py", line 402 in backward
+  File "/home/sdc_joran/Journal/deeprl_signal_control/utils.py", line 464 in run
+  File "main.py", line 180 in train
+  File "main.py", line 303 in <module>
+
+=== 2026-03-26 14:10:25 stalled_for=183.3s stage=run:backward ===
+Current thread 0x0000760b050b1640 (most recent call first):
+  File "/home/sdc_joran/Journal/deeprl_signal_control/utils.py", line 196 in _watchdog_loop
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 864 in run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 916 in _bootstrap_inner
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 884 in _bootstrap
+
+Thread 0x0000760b078b3640 (most recent call first):
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 295 in wait
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/queue.py", line 164 in get
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/summary/writer/event_file_writer.py", line 159 in run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 916 in _bootstrap_inner
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/threading.py", line 884 in _bootstrap
+
+Thread 0x0000760c5adc33c0 (most recent call first):
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1407 in _call_tf_sessionrun
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1319 in _run_fn
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1334 in _do_call
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1328 in _do_run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1152 in _run
+  File "/home/sdc_joran/miniconda3/envs/deeprlsc/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 929 in run
+  File "/home/sdc_joran/Journal/deeprl_signal_control/agents/policies.py", line 226 in backward
+  File "/home/sdc_joran/Journal/deeprl_signal_control/agents/models.py", line 402 in backward
+  File "/home/sdc_joran/Journal/deeprl_signal_control/utils.py", line 464 in run
+  File "main.py", line 180 in train
+  File "main.py", line 303 in <module>

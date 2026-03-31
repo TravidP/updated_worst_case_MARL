@@ -145,6 +145,13 @@ class AdversarialRealNetEnv(RealNetEnv):
             return weights / total
         return np.ones_like(weights) / len(weights)
 
+    def reset(self, gui=False, test_ind=0):
+        # Route IDs exist only in the current SUMO process.
+        self.route_cache = set()
+        _ = super().reset(gui=gui, test_ind=test_ind)
+        self.cur_sec = 0
+        return self._get_adversary_state()
+
     def step(self, adversary_action):
         """
         Adversary Step (Static Agent Mode):

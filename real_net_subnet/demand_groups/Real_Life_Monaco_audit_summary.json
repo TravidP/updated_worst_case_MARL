@@ -1,0 +1,16 @@
+{
+  "crossing_flow_count": 88,
+  "exactly_one_block_count": 88,
+  "flow_count": 88,
+  "multi_block_count": 0,
+  "non_crossing_flow_count": 0,
+  "patch_edge_ids": [
+    "10180#0",
+    "10180#1"
+  ],
+  "patched_keep_edge_count": 272,
+  "problem_flow_ids": [],
+  "single_edge_crossing_count": 0,
+  "subnet_keep_edge_count": 270,
+  "total_veh_per_hour": 2383.3333319999997
+}

@@ -1,0 +1,15 @@
+Error: Found invalid logic position of a link for junction '10026' (14, max 14) -> (network error)
+Quitting (on error).
+Error: Found invalid logic position of a link for junction '8789' (4, max 4) -> (network error)
+Quitting (on error).
+Error: Found invalid logic position of a link for junction '8789' (4, max 4) -> (network error)
+Quitting (on error).
+Error: input ended before all started tags were ended; last tag started is 'net'
+ In file '/home/sdc_joran/Journal/deeprl_signal_control/real_net_subnet/data/in/most.net.xml'
+ At line/column 4453/1.
+
+Quitting (on error).
+Error: Answered with error to command 0xc4: The vehicle 'g0_134_10181#0_10053#0_53161' to add already exists.
+Error: Answered with error to command 0xc4: The vehicle 'g7_4307_10181#0_10109_27740' to add already exists.
+Error: Answered with error to command 0xc4: The vehicle 'g3_1837_gneE9_10109_74324' to add already exists.
+Error: Answered with error to command 0xc4: The vehicle 'g7_4208_10181#0_10109_30321' to add already exists.

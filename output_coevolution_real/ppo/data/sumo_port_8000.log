@@ -1,0 +1,13 @@
+Error: tcpip::Socket::accept() @ socket: Operation not permitted
+Quitting (on error).
+Error: tcpip::Socket::recvAndCheck @ recv: peer shutdown
+Quitting (on error).
+Error: tcpip::Socket::accept() @ socket: Operation not permitted
+Quitting (on error).
+Error: tcpip::Socket::recvAndCheck @ recv: peer shutdown
+Quitting (on error).
+Interrupt signal received, trying to exit gracefully.
+Error: tcpip::Socket::recvAndCheck @ recv: peer shutdown
+Quitting (on error).
+Interrupt signal received, trying to exit gracefully.
+Another interrupt signal received, hard exit.
