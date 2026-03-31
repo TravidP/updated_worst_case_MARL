@@ -1,0 +1,68 @@
+IQL-LR Real-Grid Training Handoff (project name in code: iqll)
+
+Run everything from the repo root:
+/home/sdc_joran/Journal/deeprl_signal_control
+
+==================================================
+0) Environment setup (once)
+==================================================
+1. Create and activate the conda env:
+   conda env create -f environment.yml
+   conda activate deeprlsc
+
+2. Verify SUMO is installed:
+   sumo --version
+
+3. Confirm real-grid map files exist:
+   ls ./real_net_subnet/data/most.net.xml ./real_net_subnet/data/most.sumocfg
+
+==================================================
+1) Stage I - Baseline training for IQL-LR on real grid
+==================================================
+Command:
+python3 main.py --base-dir ./runs/iqll_real train --config-dir ./config/config_iqll_real.ini --test-mode no_test
+
+Expected outputs:
+- ./runs/iqll_real/log/
+- ./runs/iqll_real/data/
+- ./runs/iqll_real/model/checkpoint*
+
+Notes:
+- In this repo, IQL-LR corresponds to ENV_CONFIG.agent=iqll.
+- Baseline config is ./config/config_iqll_real.ini (total_step=1e6 by default).
+- This config uses scenario=real_net and data_path=./real_net_subnet/data/.
+
+==================================================
+2) Stage II - Train adversary against frozen IQL-LR (real grid)
+==================================================
+Fresh run command (recommended):
+python3 train_adversary_real.py --agent iqll --frozen-config ./config/config_iqll_real.ini --frozen-model-dir ./runs/iqll_real --base-dir ./output_adversary_monaco/iqll_real --total-episodes 500 --checkpoint-interval-ep 10 --no-resume
+
+Resume command (if interrupted):
+python3 train_adversary_real.py --agent iqll --frozen-config ./config/config_iqll_real.ini --frozen-model-dir ./runs/iqll_real --base-dir ./output_adversary_monaco/iqll_real --resume-checkpoint latest
+
+Expected outputs:
+- ./output_adversary_monaco/iqll_real/train.log
+- ./output_adversary_monaco/iqll_real/model/checkpoint*
+
+==================================================
+3) Stage III - Co-evolutionary retraining on real grid
+==================================================
+Fresh run command:
+python3 train_coevolution_real.py --agent iqll --base-dir ./output_coevolution_real/iql-lr --frozen-config ./config/config_iqll_real.ini --frozen-model-dir ./runs/iqll_real --wce-dir ./output_adversary_monaco/iqll_real --total-episodes 1000 --checkpoint-interval-ep 10
+
+Manual resume-style command (continue from previous co-evolution checkpoints):
+python3 train_coevolution_real.py --agent iqll --base-dir ./output_coevolution_real/iql-lr --frozen-config ./config/config_iqll_real.ini --frozen-model-dir ./output_coevolution_real/iql-lr/model_traffic --wce-dir ./output_coevolution_real/iql-lr/model_adversary --total-episodes 1000 --checkpoint-interval-ep 10
+
+Expected outputs:
+- ./output_coevolution_real/iql-lr/log/
+- ./output_coevolution_real/iql-lr/data/
+- ./output_coevolution_real/iql-lr/model_traffic/checkpoint*   (retrained IQL-LR controller)
+- ./output_coevolution_real/iql-lr/model_adversary/checkpoint* (updated adversary)
+
+==================================================
+Execution order must be:
+1) Baseline (Stage I)
+2) Adversary (Stage II)
+3) Retraining (Stage III)
+==================================================
