@@ -1,0 +1,3 @@
+Interrupt signal received, trying to exit gracefully.
+Error: tcpip::Socket::recvAndCheck @ recv: peer shutdown
+Quitting (on error).

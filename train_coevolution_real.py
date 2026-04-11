@@ -10,7 +10,6 @@ import time
 sys.path.append(os.getcwd())
 
 from utils import init_dir, init_log
-from train_adversary import ConfigWrapper
 from envs.coevolution_real_net_env import CoevolutionRealNetEnv
 from agents.models import A2C, IA2C, MA2C, IQL, GCNA2C, PPO
 
@@ -21,6 +20,81 @@ def _script_rel(*parts):
     return os.path.join(SCRIPT_DIR, *parts)
 
 
+class ConfigWrapper:
+    """
+    Wraps a dictionary to mimic configparser behavior with safe defaults.
+    """
+    def __init__(self, config_dict):
+        self.config = config_dict
+        self.defaults = {
+            # Network structure
+            'num_lstm': 64,
+            'num_fw': 128,
+            'num_ft': 32,
+            # Learning hyperparameters
+            'batch_size': 120,
+            'gamma': 0.99,
+            'lr_init': 5e-4,
+            'lr_decay': 'constant',
+            'lr_min': 1e-5,
+            # A2C/PPO
+            'entropy_coef_init': 0.01,
+            'entropy_coef_min': 0.01,
+            'entropy_decay': 'constant',
+            'entropy_ratio': 0.5,
+            'value_coef': 0.5,
+            # Optimization
+            'max_grad_norm': 40.0,
+            'rmsp_alpha': 0.99,
+            'rmsp_epsilon': 1e-5,
+            # Rewards
+            'reward_norm': 2000.0,
+            'reward_clip': 2.0,
+        }
+
+    _MISSING = object()
+
+    def _get_val(self, key, fallback=_MISSING):
+        if key in self.config:
+            return self.config[key]
+        if key in self.defaults:
+            return self.defaults[key]
+        if fallback is not self._MISSING:
+            return fallback
+        raise KeyError("Key '%s' not found in config or defaults." % key)
+
+    def getint(self, key, fallback=_MISSING, **kwargs):
+        return int(self._get_val(key, fallback=fallback))
+
+    def getfloat(self, key, fallback=_MISSING, **kwargs):
+        return float(self._get_val(key, fallback=fallback))
+
+    def getboolean(self, key, fallback=_MISSING, **kwargs):
+        val = self._get_val(key, fallback=fallback)
+        if isinstance(val, bool):
+            return val
+        if isinstance(val, (int, float)):
+            return bool(val)
+        sval = str(val).strip().lower()
+        if sval in ('1', 'yes', 'true', 'on'):
+            return True
+        if sval in ('0', 'no', 'false', 'off'):
+            return False
+        return False
+
+    def get(self, key, fallback=_MISSING, **kwargs):
+        return self._get_val(key, fallback=fallback)
+
+    def __getitem__(self, key):
+        return self._get_val(key)
+
+    def __setitem__(self, key, value):
+        self.config[key] = value
+
+    def __contains__(self, key):
+        return key in self.config or key in self.defaults
+
+
 def _normalize_agent_name(agent):
     normalized = str(agent).strip().lower()
     if normalized in ('iql-lr', 'iql_lr', 'iqll'):
@@ -29,32 +103,57 @@ def _normalize_agent_name(agent):
 
 
 def _resolve_default_paths(agent):
+    def _prefer_checkpoint_dir(candidates):
+        for candidate in candidates:
+            if _has_model_checkpoint(candidate):
+                return candidate
+        for candidate in candidates:
+            if os.path.isdir(candidate):
+                return candidate
+        return candidates[0]
+
     if agent == 'ppo':
+        wce_dir = _prefer_checkpoint_dir([
+            _script_rel('output_adversary_monaco', 'ppo_real_fresh'),
+            _script_rel('output_adversary_monaco', 'ppo_real'),
+        ])
         return {
             'config_path': _script_rel('config', 'config_ppo_real.ini'),
             'frozen_model_dir': _script_rel('runs', 'ppo_real'),
-            'wce_dir': _script_rel('output_adversary_monaco', 'ppo_real'),
+            'wce_dir': wce_dir,
             'base_dir': _script_rel('output_coevolution_real', 'ppo'),
         }
     if agent == 'ia2c':
+        wce_dir = _prefer_checkpoint_dir([
+            _script_rel('output_adversary_monaco', 'ia2c_real_fresh'),
+            _script_rel('output_adversary_monaco', 'ia2c_real'),
+        ])
         return {
             'config_path': _script_rel('config', 'config_ia2c_real.ini'),
             'frozen_model_dir': _script_rel('runs', 'ia2c_real'),
-            'wce_dir': _script_rel('output_adversary_monaco', 'ia2c_real'),
+            'wce_dir': wce_dir,
             'base_dir': _script_rel('output_coevolution_real', 'ia2c'),
         }
     if agent == 'ma2c':
+        wce_dir = _prefer_checkpoint_dir([
+            _script_rel('output_adversary_monaco', 'ma2c_real_fresh'),
+            _script_rel('output_adversary_monaco', 'ma2c_real'),
+        ])
         return {
             'config_path': _script_rel('config', 'config_ma2c_real.ini'),
             'frozen_model_dir': _script_rel('runs', 'ma2c_real'),
-            'wce_dir': _script_rel('output_adversary_monaco', 'ma2c_real'),
+            'wce_dir': wce_dir,
             'base_dir': _script_rel('output_coevolution_real', 'ma2c'),
         }
     if agent == 'iqll':
+        wce_dir = _prefer_checkpoint_dir([
+            _script_rel('output_adversary_monaco', 'iqll_real_fresh'),
+            _script_rel('output_adversary_monaco', 'iqll_real'),
+        ])
         return {
             'config_path': _script_rel('config', 'config_iqll_real.ini'),
             'frozen_model_dir': _script_rel('runs', 'iqll_real'),
-            'wce_dir': _script_rel('output_adversary_monaco', 'iqll_real'),
+            'wce_dir': wce_dir,
             'base_dir': _script_rel('output_coevolution_real', 'iql-lr'),
         }
     raise ValueError(
@@ -121,6 +220,21 @@ def _resolve_checkpoint_dir(path):
     if os.path.isdir(os.path.join(resolved, 'model')):
         resolved = os.path.join(resolved, 'model')
     return resolved
+
+
+def _has_model_checkpoint(path):
+    run_or_model_dir = os.path.abspath(path)
+    model_dir = run_or_model_dir
+    if os.path.isdir(os.path.join(run_or_model_dir, 'model')):
+        model_dir = os.path.join(run_or_model_dir, 'model')
+    if not os.path.isdir(model_dir):
+        return False
+    if os.path.exists(os.path.join(model_dir, 'checkpoint')):
+        return True
+    for file_name in os.listdir(model_dir):
+        if file_name.startswith('checkpoint-') and file_name.endswith('.index'):
+            return True
+    return False
 
 
 def _infer_agent_from_config(config_path, fallback='ia2c'):
@@ -216,6 +330,8 @@ def train_coevolution(args=None):
     traffic_steps_per_episode = int(np.ceil(float(env.episode_length_sec) /
                                             float(env.control_interval_sec)))
     traffic_total_step = base_total_step + (total_episodes * traffic_steps_per_episode)
+    macro_steps_per_episode = int(np.ceil(float(env.episode_length_sec) /
+                                          float(env.adversary_step_duration)))
     
     # 3. Load Traffic Agent
     traffic_agent = load_traffic_agent(
@@ -262,10 +378,18 @@ def train_coevolution(args=None):
     # 5. Training Loop
     summary_writer = tf.summary.FileWriter(dirs['log'])
     loaded_adv_episode = int(getattr(adversary, 'loaded_checkpoint_step', 0)) if adversary_loaded else 0
-    start_episode = loaded_adv_episode + 1 if adversary_loaded else 0
-    global_adv_step = loaded_adv_episode
+    start_episode = 0
+    # Keep adversary LR/entropy schedulers consistent with its pre-training horizon,
+    # but do not skip co-evolution episodes.
+    global_adv_step = max(0, loaded_adv_episode * macro_steps_per_episode)
     if hasattr(adversary, 'set_train_step'):
         adversary.set_train_step(global_adv_step)
+    if adversary_loaded:
+        logging.info(
+            "Loaded pre-trained adversary checkpoint episode=%d; co-evolution starts at episode 0 "
+            "(adversary scheduler step=%d).",
+            loaded_adv_episode, global_adv_step
+        )
 
     batch_size = int(model_config.get('batch_size', fallback=120))
     
@@ -338,7 +462,7 @@ def train_coevolution(args=None):
             
         logging.info(f"Ep {ep}: Adv Reward={ep_adv_reward:.2f}, Global Steps={global_traffic_step}")
         
-        if ep > 0 and ep % checkpoint_interval_ep == 0:
+        if ((ep + 1) % checkpoint_interval_ep == 0) or (ep == total_episodes - 1):
             traffic_agent.save(dirs['model_traffic'], global_traffic_step)
             adversary.save(dirs['model_adversary'], ep)
 

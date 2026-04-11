@@ -1,0 +1,6 @@
+model_checkpoint_path: "/home/sdc_joran/Journal/deeprl_signal_control/output_coevolution_real/ma2c_real_old/model_adversary/checkpoint-649"
+all_model_checkpoint_paths: "/home/sdc_joran/Journal/deeprl_signal_control/output_coevolution_real/ma2c_real_old/model_adversary/checkpoint-609"
+all_model_checkpoint_paths: "/home/sdc_joran/Journal/deeprl_signal_control/output_coevolution_real/ma2c_real_old/model_adversary/checkpoint-619"
+all_model_checkpoint_paths: "/home/sdc_joran/Journal/deeprl_signal_control/output_coevolution_real/ma2c_real_old/model_adversary/checkpoint-629"
+all_model_checkpoint_paths: "/home/sdc_joran/Journal/deeprl_signal_control/output_coevolution_real/ma2c_real_old/model_adversary/checkpoint-639"
+all_model_checkpoint_paths: "/home/sdc_joran/Journal/deeprl_signal_control/output_coevolution_real/ma2c_real_old/model_adversary/checkpoint-649"

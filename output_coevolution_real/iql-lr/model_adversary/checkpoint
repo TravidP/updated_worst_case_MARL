@@ -1,0 +1,6 @@
+model_checkpoint_path: "/home/sayin/projects/updated_worst_case_MARL/output_coevolution_real/iql-lr/model_adversary/checkpoint-990"
+all_model_checkpoint_paths: "/home/sayin/projects/updated_worst_case_MARL/output_coevolution_real/iql-lr/model_adversary/checkpoint-950"
+all_model_checkpoint_paths: "/home/sayin/projects/updated_worst_case_MARL/output_coevolution_real/iql-lr/model_adversary/checkpoint-960"
+all_model_checkpoint_paths: "/home/sayin/projects/updated_worst_case_MARL/output_coevolution_real/iql-lr/model_adversary/checkpoint-970"
+all_model_checkpoint_paths: "/home/sayin/projects/updated_worst_case_MARL/output_coevolution_real/iql-lr/model_adversary/checkpoint-980"
+all_model_checkpoint_paths: "/home/sayin/projects/updated_worst_case_MARL/output_coevolution_real/iql-lr/model_adversary/checkpoint-990"

@@ -1,0 +1,13 @@
+group_index,group_name,csv_path
+0,N_to_S,/home/sdc_joran/Journal/deeprl_signal_control/real_net_subnet/demand_groups/N_to_S.csv
+1,S_to_N,/home/sdc_joran/Journal/deeprl_signal_control/real_net_subnet/demand_groups/S_to_N.csv
+2,W_to_E,/home/sdc_joran/Journal/deeprl_signal_control/real_net_subnet/demand_groups/W_to_E.csv
+3,E_to_W,/home/sdc_joran/Journal/deeprl_signal_control/real_net_subnet/demand_groups/E_to_W.csv
+4,NW_to_SE,/home/sdc_joran/Journal/deeprl_signal_control/real_net_subnet/demand_groups/NW_to_SE.csv
+5,SE_to_NW,/home/sdc_joran/Journal/deeprl_signal_control/real_net_subnet/demand_groups/SE_to_NW.csv
+6,SW_to_NE,/home/sdc_joran/Journal/deeprl_signal_control/real_net_subnet/demand_groups/SW_to_NE.csv
+7,NE_to_SW,/home/sdc_joran/Journal/deeprl_signal_control/real_net_subnet/demand_groups/NE_to_SW.csv
+8,Periphery_to_Center,/home/sdc_joran/Journal/deeprl_signal_control/real_net_subnet/demand_groups/Periphery_to_Center.csv
+9,Center_to_Periphery,/home/sdc_joran/Journal/deeprl_signal_control/real_net_subnet/demand_groups/Center_to_Periphery.csv
+10,Uniform,/home/sdc_joran/Journal/deeprl_signal_control/real_net_subnet/demand_groups/Uniform.csv
+11,Real_Life_Monaco,/home/sdc_joran/Journal/deeprl_signal_control/real_net_subnet/demand_groups/Real_Life_Monaco.csv

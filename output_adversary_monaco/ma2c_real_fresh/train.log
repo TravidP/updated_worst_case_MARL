@@ -1,0 +1,1119 @@
+2026-04-04 09:18:12,236 - Reading configuration from: /home/sdc_joran/Journal/deeprl_signal_control/config/config_ma2c_real.ini
+2026-04-04 09:18:12,236 - Using frozen controller run dir: /home/sdc_joran/Journal/deeprl_signal_control/runs/ma2c_real
+2026-04-04 09:18:12,236 - Adversary output dir: /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh
+2026-04-04 09:18:12,236 - Initializing Adversarial Environment...
+2026-04-04 09:18:22,662 - Initializing GCN Adversary...
+2026-04-04 09:18:22,798 - WCE real setup: scenarios=11, episode_length_sec=6600, adversary_step_duration=600, macro_steps_per_episode~11, total_episodes=500, expected_total_macro_steps~5500, batch_size=40, checkpoint_interval=10, resume=False, model_dir=/home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 09:18:22,799 - Manual stack dump enabled: `kill -USR1 1144074` -> /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/manual_signal_stacks.log
+2026-04-04 09:18:22,799 - Start Training from episode 0 ...
+2026-04-04 09:18:51,027 - Episode 0: Steps=11, Reward=30887.00
+2026-04-04 09:19:14,661 - Episode 1: Steps=11, Reward=17074.00
+2026-04-04 09:19:37,899 - Episode 2: Steps=11, Reward=18194.00
+2026-04-04 09:20:00,836 - Episode 3: Steps=11, Reward=18805.00
+2026-04-04 09:20:23,052 - Episode 4: Steps=11, Reward=13280.00
+2026-04-04 09:20:45,952 - Episode 5: Steps=11, Reward=15786.00
+2026-04-04 09:21:08,272 - Episode 6: Steps=11, Reward=18482.00
+2026-04-04 09:21:31,491 - Episode 7: Steps=11, Reward=16825.00
+2026-04-04 09:21:54,581 - Episode 8: Steps=11, Reward=14903.00
+2026-04-04 09:22:17,051 - Episode 9: Steps=11, Reward=16761.00
+2026-04-04 09:22:17,075 - Saved checkpoint at episode=9 (global_step=110) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 09:22:39,656 - Episode 10: Steps=11, Reward=17475.00
+2026-04-04 09:23:02,013 - Episode 11: Steps=11, Reward=16394.00
+2026-04-04 09:23:25,554 - Episode 12: Steps=11, Reward=26400.00
+2026-04-04 09:23:48,933 - Episode 13: Steps=11, Reward=18350.00
+2026-04-04 09:24:11,608 - Episode 14: Steps=11, Reward=15196.00
+2026-04-04 09:24:34,217 - Episode 15: Steps=11, Reward=16005.00
+2026-04-04 09:24:57,321 - Episode 16: Steps=11, Reward=20505.00
+2026-04-04 09:25:19,721 - Episode 17: Steps=11, Reward=16675.00
+2026-04-04 09:25:42,505 - Episode 18: Steps=11, Reward=18698.00
+2026-04-04 09:26:04,883 - Episode 19: Steps=11, Reward=15675.00
+2026-04-04 09:26:04,896 - Saved checkpoint at episode=19 (global_step=220) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 09:26:27,419 - Episode 20: Steps=11, Reward=16459.00
+2026-04-04 09:26:49,564 - Episode 21: Steps=11, Reward=13436.00
+2026-04-04 09:27:12,604 - Episode 22: Steps=11, Reward=18495.00
+2026-04-04 09:27:35,233 - Episode 23: Steps=11, Reward=15389.00
+2026-04-04 09:27:58,268 - Episode 24: Steps=11, Reward=30925.00
+2026-04-04 09:28:20,664 - Episode 25: Steps=11, Reward=16518.00
+2026-04-04 09:28:43,763 - Episode 26: Steps=11, Reward=17600.00
+2026-04-04 09:29:05,950 - Episode 27: Steps=11, Reward=15577.00
+2026-04-04 09:29:28,400 - Episode 28: Steps=11, Reward=14577.00
+2026-04-04 09:29:51,186 - Episode 29: Steps=11, Reward=15689.00
+2026-04-04 09:29:51,192 - Saved checkpoint at episode=29 (global_step=330) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 09:30:13,955 - Episode 30: Steps=11, Reward=14483.00
+2026-04-04 09:30:36,699 - Episode 31: Steps=11, Reward=17328.00
+2026-04-04 09:30:59,139 - Episode 32: Steps=11, Reward=13887.00
+2026-04-04 09:31:21,854 - Episode 33: Steps=11, Reward=18268.00
+2026-04-04 09:31:44,627 - Episode 34: Steps=11, Reward=18993.00
+2026-04-04 09:32:07,554 - Episode 35: Steps=11, Reward=16186.00
+2026-04-04 09:32:30,047 - Episode 36: Steps=11, Reward=15251.00
+2026-04-04 09:32:53,023 - Episode 37: Steps=11, Reward=19585.00
+2026-04-04 09:33:15,414 - Episode 38: Steps=11, Reward=15988.00
+2026-04-04 09:33:38,599 - Episode 39: Steps=11, Reward=15850.00
+2026-04-04 09:33:38,607 - Saved checkpoint at episode=39 (global_step=440) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 09:34:01,275 - Episode 40: Steps=11, Reward=15037.00
+2026-04-04 09:34:23,896 - Episode 41: Steps=11, Reward=15331.00
+2026-04-04 09:34:46,203 - Episode 42: Steps=11, Reward=15785.00
+2026-04-04 09:35:09,183 - Episode 43: Steps=11, Reward=20448.00
+2026-04-04 09:35:32,068 - Episode 44: Steps=11, Reward=18422.00
+2026-04-04 09:35:54,418 - Episode 45: Steps=11, Reward=15732.00
+2026-04-04 09:36:17,070 - Episode 46: Steps=11, Reward=16505.00
+2026-04-04 09:36:39,340 - Episode 47: Steps=11, Reward=14060.00
+2026-04-04 09:37:02,204 - Episode 48: Steps=11, Reward=14825.00
+2026-04-04 09:37:24,353 - Episode 49: Steps=11, Reward=14720.00
+2026-04-04 09:37:24,359 - Saved checkpoint at episode=49 (global_step=550) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 09:37:47,377 - Episode 50: Steps=11, Reward=15567.00
+2026-04-04 09:38:09,880 - Episode 51: Steps=11, Reward=16777.00
+2026-04-04 09:38:32,742 - Episode 52: Steps=11, Reward=17656.00
+2026-04-04 09:39:01,565 - Episode 53: Steps=11, Reward=249117.00
+2026-04-04 09:39:24,295 - Episode 54: Steps=11, Reward=17001.00
+2026-04-04 09:39:47,062 - Episode 55: Steps=11, Reward=13899.00
+2026-04-04 09:40:10,307 - Episode 56: Steps=11, Reward=25349.00
+2026-04-04 09:40:33,020 - Episode 57: Steps=11, Reward=17431.00
+2026-04-04 09:40:55,642 - Episode 58: Steps=11, Reward=14939.00
+2026-04-04 09:41:18,416 - Episode 59: Steps=11, Reward=15490.00
+2026-04-04 09:41:18,424 - Saved checkpoint at episode=59 (global_step=660) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 09:41:41,057 - Episode 60: Steps=11, Reward=16043.00
+2026-04-04 09:42:03,659 - Episode 61: Steps=11, Reward=16273.00
+2026-04-04 09:42:26,115 - Episode 62: Steps=11, Reward=17622.00
+2026-04-04 09:42:49,235 - Episode 63: Steps=11, Reward=18040.00
+2026-04-04 09:43:11,609 - Episode 64: Steps=11, Reward=16848.00
+2026-04-04 09:43:34,118 - Episode 65: Steps=11, Reward=15618.00
+2026-04-04 09:43:57,395 - Episode 66: Steps=11, Reward=17113.00
+2026-04-04 09:44:19,848 - Episode 67: Steps=11, Reward=20557.00
+2026-04-04 09:44:42,679 - Episode 68: Steps=11, Reward=17088.00
+2026-04-04 09:45:05,693 - Episode 69: Steps=11, Reward=16427.00
+2026-04-04 09:45:05,702 - Saved checkpoint at episode=69 (global_step=770) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 09:45:28,250 - Episode 70: Steps=11, Reward=13959.00
+2026-04-04 09:45:50,732 - Episode 71: Steps=11, Reward=14577.00
+2026-04-04 09:46:13,643 - Episode 72: Steps=11, Reward=18424.00
+2026-04-04 09:46:36,451 - Episode 73: Steps=11, Reward=14988.00
+2026-04-04 09:47:00,379 - Episode 74: Steps=11, Reward=18095.00
+2026-04-04 09:47:22,824 - Episode 75: Steps=11, Reward=15276.00
+2026-04-04 09:47:45,504 - Episode 76: Steps=11, Reward=17920.00
+2026-04-04 09:48:08,049 - Episode 77: Steps=11, Reward=12973.00
+2026-04-04 09:48:30,953 - Episode 78: Steps=11, Reward=13958.00
+2026-04-04 09:48:53,377 - Episode 79: Steps=11, Reward=14581.00
+2026-04-04 09:48:53,384 - Saved checkpoint at episode=79 (global_step=880) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 09:49:16,092 - Episode 80: Steps=11, Reward=14530.00
+2026-04-04 09:49:38,844 - Episode 81: Steps=11, Reward=13898.00
+2026-04-04 09:50:01,583 - Episode 82: Steps=11, Reward=18313.00
+2026-04-04 09:50:24,032 - Episode 83: Steps=11, Reward=16994.00
+2026-04-04 09:50:46,710 - Episode 84: Steps=11, Reward=17375.00
+2026-04-04 09:51:09,496 - Episode 85: Steps=11, Reward=16329.00
+2026-04-04 09:51:31,884 - Episode 86: Steps=11, Reward=14593.00
+2026-04-04 09:51:54,128 - Episode 87: Steps=11, Reward=14709.00
+2026-04-04 09:52:17,148 - Episode 88: Steps=11, Reward=20957.00
+2026-04-04 09:52:40,278 - Episode 89: Steps=11, Reward=14977.00
+2026-04-04 09:52:40,286 - Saved checkpoint at episode=89 (global_step=990) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 09:53:03,287 - Episode 90: Steps=11, Reward=17713.00
+2026-04-04 09:53:25,817 - Episode 91: Steps=11, Reward=15398.00
+2026-04-04 09:53:48,327 - Episode 92: Steps=11, Reward=13917.00
+2026-04-04 09:54:15,438 - Episode 93: Steps=11, Reward=207264.00
+2026-04-04 09:54:38,181 - Episode 94: Steps=11, Reward=17440.00
+2026-04-04 09:55:01,273 - Episode 95: Steps=11, Reward=16992.00
+2026-04-04 09:55:24,699 - Episode 96: Steps=11, Reward=21878.00
+2026-04-04 09:55:47,459 - Episode 97: Steps=11, Reward=17224.00
+2026-04-04 09:56:10,338 - Episode 98: Steps=11, Reward=17479.00
+2026-04-04 09:56:33,709 - Episode 99: Steps=11, Reward=14366.00
+2026-04-04 09:56:33,716 - Saved checkpoint at episode=99 (global_step=1100) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 09:56:56,436 - Episode 100: Steps=11, Reward=17264.00
+2026-04-04 09:57:19,244 - Episode 101: Steps=11, Reward=17055.00
+2026-04-04 09:57:41,941 - Episode 102: Steps=11, Reward=19034.00
+2026-04-04 09:58:04,591 - Episode 103: Steps=11, Reward=15851.00
+2026-04-04 09:58:27,112 - Episode 104: Steps=11, Reward=16655.00
+2026-04-04 09:58:49,607 - Episode 105: Steps=11, Reward=15363.00
+2026-04-04 09:59:12,386 - Episode 106: Steps=11, Reward=14701.00
+2026-04-04 09:59:35,334 - Episode 107: Steps=11, Reward=18644.00
+2026-04-04 09:59:58,014 - Episode 108: Steps=11, Reward=15575.00
+2026-04-04 10:00:20,765 - Episode 109: Steps=11, Reward=16785.00
+2026-04-04 10:00:20,774 - Saved checkpoint at episode=109 (global_step=1210) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 10:00:42,959 - Episode 110: Steps=11, Reward=16830.00
+2026-04-04 10:01:05,448 - Episode 111: Steps=11, Reward=16140.00
+2026-04-04 10:01:27,858 - Episode 112: Steps=11, Reward=14505.00
+2026-04-04 10:01:50,768 - Episode 113: Steps=11, Reward=16482.00
+2026-04-04 10:02:13,302 - Episode 114: Steps=11, Reward=13971.00
+2026-04-04 10:02:35,846 - Episode 115: Steps=11, Reward=16816.00
+2026-04-04 10:02:58,139 - Episode 116: Steps=11, Reward=15176.00
+2026-04-04 10:03:20,972 - Episode 117: Steps=11, Reward=14997.00
+2026-04-04 10:03:43,437 - Episode 118: Steps=11, Reward=16151.00
+2026-04-04 10:04:06,189 - Episode 119: Steps=11, Reward=14667.00
+2026-04-04 10:04:06,198 - Saved checkpoint at episode=119 (global_step=1320) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 10:04:28,757 - Episode 120: Steps=11, Reward=14824.00
+2026-04-04 10:04:51,049 - Episode 121: Steps=11, Reward=17365.00
+2026-04-04 10:05:13,912 - Episode 122: Steps=11, Reward=17203.00
+2026-04-04 10:05:36,807 - Episode 123: Steps=11, Reward=14372.00
+2026-04-04 10:05:59,484 - Episode 124: Steps=11, Reward=15929.00
+2026-04-04 10:06:22,063 - Episode 125: Steps=11, Reward=16345.00
+2026-04-04 10:06:44,653 - Episode 126: Steps=11, Reward=19022.00
+2026-04-04 10:07:07,350 - Episode 127: Steps=11, Reward=16133.00
+2026-04-04 10:07:30,324 - Episode 128: Steps=11, Reward=17347.00
+2026-04-04 10:07:56,693 - Episode 129: Steps=11, Reward=167689.00
+2026-04-04 10:07:56,702 - Saved checkpoint at episode=129 (global_step=1430) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 10:08:19,431 - Episode 130: Steps=11, Reward=16197.00
+2026-04-04 10:08:42,012 - Episode 131: Steps=11, Reward=14565.00
+2026-04-04 10:09:04,178 - Episode 132: Steps=11, Reward=14861.00
+2026-04-04 10:09:27,304 - Episode 133: Steps=11, Reward=16223.00
+2026-04-04 10:09:49,903 - Episode 134: Steps=11, Reward=16057.00
+2026-04-04 10:10:12,681 - Episode 135: Steps=11, Reward=14585.00
+2026-04-04 10:10:35,031 - Episode 136: Steps=11, Reward=15023.00
+2026-04-04 10:10:57,992 - Episode 137: Steps=11, Reward=14605.00
+2026-04-04 10:11:20,686 - Episode 138: Steps=11, Reward=15792.00
+2026-04-04 10:11:43,072 - Episode 139: Steps=11, Reward=14296.00
+2026-04-04 10:11:43,081 - Saved checkpoint at episode=139 (global_step=1540) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 10:12:05,193 - Episode 140: Steps=11, Reward=14004.00
+2026-04-04 10:12:28,197 - Episode 141: Steps=11, Reward=14946.00
+2026-04-04 10:12:50,663 - Episode 142: Steps=11, Reward=14725.00
+2026-04-04 10:13:13,963 - Episode 143: Steps=11, Reward=17955.00
+2026-04-04 10:13:36,936 - Episode 144: Steps=11, Reward=17325.00
+2026-04-04 10:13:59,636 - Episode 145: Steps=11, Reward=16355.00
+2026-04-04 10:14:23,635 - Episode 146: Steps=11, Reward=70138.00
+2026-04-04 10:14:46,209 - Episode 147: Steps=11, Reward=16261.00
+2026-04-04 10:15:08,892 - Episode 148: Steps=11, Reward=18711.00
+2026-04-04 10:15:31,733 - Episode 149: Steps=11, Reward=23593.00
+2026-04-04 10:15:31,740 - Saved checkpoint at episode=149 (global_step=1650) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 10:15:54,580 - Episode 150: Steps=11, Reward=15336.00
+2026-04-04 10:16:17,550 - Episode 151: Steps=11, Reward=18161.00
+2026-04-04 10:16:40,154 - Episode 152: Steps=11, Reward=16905.00
+2026-04-04 10:17:02,687 - Episode 153: Steps=11, Reward=17170.00
+2026-04-04 10:17:24,988 - Episode 154: Steps=11, Reward=15769.00
+2026-04-04 10:17:47,260 - Episode 155: Steps=11, Reward=15685.00
+2026-04-04 10:18:10,066 - Episode 156: Steps=11, Reward=14406.00
+2026-04-04 10:18:32,141 - Episode 157: Steps=11, Reward=13604.00
+2026-04-04 10:18:54,615 - Episode 158: Steps=11, Reward=14808.00
+2026-04-04 10:19:17,853 - Episode 159: Steps=11, Reward=16619.00
+2026-04-04 10:19:17,862 - Saved checkpoint at episode=159 (global_step=1760) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 10:19:40,386 - Episode 160: Steps=11, Reward=14799.00
+2026-04-04 10:20:02,612 - Episode 161: Steps=11, Reward=18833.00
+2026-04-04 10:20:24,724 - Episode 162: Steps=11, Reward=13668.00
+2026-04-04 10:20:47,154 - Episode 163: Steps=11, Reward=16084.00
+2026-04-04 10:21:10,011 - Episode 164: Steps=11, Reward=14583.00
+2026-04-04 10:21:32,504 - Episode 165: Steps=11, Reward=17106.00
+2026-04-04 10:21:55,903 - Episode 166: Steps=11, Reward=21527.00
+2026-04-04 10:22:18,597 - Episode 167: Steps=11, Reward=14117.00
+2026-04-04 10:22:41,137 - Episode 168: Steps=11, Reward=13653.00
+2026-04-04 10:23:04,413 - Episode 169: Steps=11, Reward=32730.00
+2026-04-04 10:23:04,420 - Saved checkpoint at episode=169 (global_step=1870) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 10:23:27,707 - Episode 170: Steps=11, Reward=13876.00
+2026-04-04 10:23:50,621 - Episode 171: Steps=11, Reward=13530.00
+2026-04-04 10:24:13,698 - Episode 172: Steps=11, Reward=18357.00
+2026-04-04 10:24:36,475 - Episode 173: Steps=11, Reward=17698.00
+2026-04-04 10:24:58,836 - Episode 174: Steps=11, Reward=14279.00
+2026-04-04 10:25:21,522 - Episode 175: Steps=11, Reward=13666.00
+2026-04-04 10:25:43,920 - Episode 176: Steps=11, Reward=15131.00
+2026-04-04 10:26:06,285 - Episode 177: Steps=11, Reward=15742.00
+2026-04-04 10:26:29,073 - Episode 178: Steps=11, Reward=16601.00
+2026-04-04 10:26:51,219 - Episode 179: Steps=11, Reward=15796.00
+2026-04-04 10:26:51,228 - Saved checkpoint at episode=179 (global_step=1980) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 10:27:14,022 - Episode 180: Steps=11, Reward=16829.00
+2026-04-04 10:27:36,350 - Episode 181: Steps=11, Reward=15193.00
+2026-04-04 10:27:58,661 - Episode 182: Steps=11, Reward=15543.00
+2026-04-04 10:28:21,228 - Episode 183: Steps=11, Reward=14331.00
+2026-04-04 10:28:43,986 - Episode 184: Steps=11, Reward=18032.00
+2026-04-04 10:29:06,156 - Episode 185: Steps=11, Reward=12729.00
+2026-04-04 10:29:28,996 - Episode 186: Steps=11, Reward=14267.00
+2026-04-04 10:29:51,790 - Episode 187: Steps=11, Reward=14298.00
+2026-04-04 10:30:14,246 - Episode 188: Steps=11, Reward=14161.00
+2026-04-04 10:30:37,040 - Episode 189: Steps=11, Reward=19130.00
+2026-04-04 10:30:37,047 - Saved checkpoint at episode=189 (global_step=2090) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 10:30:59,073 - Episode 190: Steps=11, Reward=15572.00
+2026-04-04 10:31:22,158 - Episode 191: Steps=11, Reward=20957.00
+2026-04-04 10:31:44,632 - Episode 192: Steps=11, Reward=14080.00
+2026-04-04 10:32:06,993 - Episode 193: Steps=11, Reward=13884.00
+2026-04-04 10:32:29,781 - Episode 194: Steps=11, Reward=15146.00
+2026-04-04 10:32:51,869 - Episode 195: Steps=11, Reward=15564.00
+2026-04-04 10:33:14,172 - Episode 196: Steps=11, Reward=15596.00
+2026-04-04 10:33:36,611 - Episode 197: Steps=11, Reward=16056.00
+2026-04-04 10:33:59,885 - Episode 198: Steps=11, Reward=18710.00
+2026-04-04 10:34:23,084 - Episode 199: Steps=11, Reward=15279.00
+2026-04-04 10:34:23,092 - Saved checkpoint at episode=199 (global_step=2200) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 10:34:45,523 - Episode 200: Steps=11, Reward=16279.00
+2026-04-04 10:35:09,008 - Episode 201: Steps=11, Reward=19868.00
+2026-04-04 10:35:31,836 - Episode 202: Steps=11, Reward=14120.00
+2026-04-04 10:35:54,539 - Episode 203: Steps=11, Reward=15751.00
+2026-04-04 10:36:16,985 - Episode 204: Steps=11, Reward=14805.00
+2026-04-04 10:36:39,405 - Episode 205: Steps=11, Reward=15494.00
+2026-04-04 10:37:01,740 - Episode 206: Steps=11, Reward=15774.00
+2026-04-04 10:37:23,893 - Episode 207: Steps=11, Reward=14419.00
+2026-04-04 10:37:46,331 - Episode 208: Steps=11, Reward=14423.00
+2026-04-04 10:38:09,483 - Episode 209: Steps=11, Reward=19666.00
+2026-04-04 10:38:09,490 - Saved checkpoint at episode=209 (global_step=2310) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 10:38:32,809 - Episode 210: Steps=11, Reward=18486.00
+2026-04-04 10:38:55,450 - Episode 211: Steps=11, Reward=19732.00
+2026-04-04 10:39:18,106 - Episode 212: Steps=11, Reward=16745.00
+2026-04-04 10:39:41,174 - Episode 213: Steps=11, Reward=16812.00
+2026-04-04 10:40:03,827 - Episode 214: Steps=11, Reward=19533.00
+2026-04-04 10:40:26,589 - Episode 215: Steps=11, Reward=16827.00
+2026-04-04 10:40:48,709 - Episode 216: Steps=11, Reward=14557.00
+2026-04-04 10:41:11,019 - Episode 217: Steps=11, Reward=16956.00
+2026-04-04 10:41:33,703 - Episode 218: Steps=11, Reward=14747.00
+2026-04-04 10:41:56,267 - Episode 219: Steps=11, Reward=14110.00
+2026-04-04 10:41:56,276 - Saved checkpoint at episode=219 (global_step=2420) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 10:42:18,855 - Episode 220: Steps=11, Reward=17077.00
+2026-04-04 10:42:41,431 - Episode 221: Steps=11, Reward=17289.00
+2026-04-04 10:43:04,561 - Episode 222: Steps=11, Reward=21688.00
+2026-04-04 10:43:27,156 - Episode 223: Steps=11, Reward=14510.00
+2026-04-04 10:43:49,506 - Episode 224: Steps=11, Reward=15693.00
+2026-04-04 10:44:12,722 - Episode 225: Steps=11, Reward=15293.00
+2026-04-04 10:44:35,881 - Episode 226: Steps=11, Reward=23247.00
+2026-04-04 10:44:58,710 - Episode 227: Steps=11, Reward=14682.00
+2026-04-04 10:45:21,845 - Episode 228: Steps=11, Reward=19220.00
+2026-04-04 10:45:44,454 - Episode 229: Steps=11, Reward=17984.00
+2026-04-04 10:45:44,462 - Saved checkpoint at episode=229 (global_step=2530) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 10:46:07,092 - Episode 230: Steps=11, Reward=13920.00
+2026-04-04 10:46:30,026 - Episode 231: Steps=11, Reward=20700.00
+2026-04-04 10:46:53,000 - Episode 232: Steps=11, Reward=18296.00
+2026-04-04 10:47:14,995 - Episode 233: Steps=11, Reward=15373.00
+2026-04-04 10:47:37,811 - Episode 234: Steps=11, Reward=12929.00
+2026-04-04 10:48:01,204 - Episode 235: Steps=11, Reward=14509.00
+2026-04-04 10:48:23,236 - Episode 236: Steps=11, Reward=13447.00
+2026-04-04 10:48:46,282 - Episode 237: Steps=11, Reward=16890.00
+2026-04-04 10:49:08,584 - Episode 238: Steps=11, Reward=15534.00
+2026-04-04 10:49:31,411 - Episode 239: Steps=11, Reward=16740.00
+2026-04-04 10:49:31,420 - Saved checkpoint at episode=239 (global_step=2640) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 10:49:53,666 - Episode 240: Steps=11, Reward=15767.00
+2026-04-04 10:50:16,468 - Episode 241: Steps=11, Reward=15762.00
+2026-04-04 10:50:38,882 - Episode 242: Steps=11, Reward=15728.00
+2026-04-04 10:51:00,993 - Episode 243: Steps=11, Reward=15530.00
+2026-04-04 10:51:30,150 - Episode 244: Steps=11, Reward=284228.00
+2026-04-04 10:51:52,853 - Episode 245: Steps=11, Reward=18791.00
+2026-04-04 10:52:16,000 - Episode 246: Steps=11, Reward=23530.00
+2026-04-04 10:52:38,687 - Episode 247: Steps=11, Reward=16029.00
+2026-04-04 10:53:00,841 - Episode 248: Steps=11, Reward=15242.00
+2026-04-04 10:53:23,850 - Episode 249: Steps=11, Reward=19892.00
+2026-04-04 10:53:23,858 - Saved checkpoint at episode=249 (global_step=2750) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 10:53:46,334 - Episode 250: Steps=11, Reward=15236.00
+2026-04-04 10:54:09,303 - Episode 251: Steps=11, Reward=16957.00
+2026-04-04 10:54:32,100 - Episode 252: Steps=11, Reward=15404.00
+2026-04-04 10:54:54,460 - Episode 253: Steps=11, Reward=19608.00
+2026-04-04 10:55:17,127 - Episode 254: Steps=11, Reward=13839.00
+2026-04-04 10:55:39,620 - Episode 255: Steps=11, Reward=14250.00
+2026-04-04 10:56:02,136 - Episode 256: Steps=11, Reward=15432.00
+2026-04-04 10:56:24,614 - Episode 257: Steps=11, Reward=15532.00
+2026-04-04 10:56:47,482 - Episode 258: Steps=11, Reward=18978.00
+2026-04-04 10:57:10,158 - Episode 259: Steps=11, Reward=15347.00
+2026-04-04 10:57:10,165 - Saved checkpoint at episode=259 (global_step=2860) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 10:57:33,175 - Episode 260: Steps=11, Reward=14995.00
+2026-04-04 10:57:56,481 - Episode 261: Steps=11, Reward=26209.00
+2026-04-04 10:58:19,482 - Episode 262: Steps=11, Reward=16045.00
+2026-04-04 10:58:42,555 - Episode 263: Steps=11, Reward=19607.00
+2026-04-04 10:59:05,178 - Episode 264: Steps=11, Reward=14741.00
+2026-04-04 10:59:27,863 - Episode 265: Steps=11, Reward=14874.00
+2026-04-04 10:59:49,996 - Episode 266: Steps=11, Reward=16196.00
+2026-04-04 11:00:11,763 - Episode 267: Steps=11, Reward=13259.00
+2026-04-04 11:00:34,433 - Episode 268: Steps=11, Reward=15146.00
+2026-04-04 11:00:57,086 - Episode 269: Steps=11, Reward=16270.00
+2026-04-04 11:00:57,094 - Saved checkpoint at episode=269 (global_step=2970) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 11:01:19,856 - Episode 270: Steps=11, Reward=15653.00
+2026-04-04 11:01:42,247 - Episode 271: Steps=11, Reward=15267.00
+2026-04-04 11:02:04,943 - Episode 272: Steps=11, Reward=14884.00
+2026-04-04 11:02:27,846 - Episode 273: Steps=11, Reward=15040.00
+2026-04-04 11:02:50,125 - Episode 274: Steps=11, Reward=14715.00
+2026-04-04 11:03:11,955 - Episode 275: Steps=11, Reward=13783.00
+2026-04-04 11:03:34,456 - Episode 276: Steps=11, Reward=15745.00
+2026-04-04 11:03:57,026 - Episode 277: Steps=11, Reward=14612.00
+2026-04-04 11:04:19,896 - Episode 278: Steps=11, Reward=16332.00
+2026-04-04 11:04:42,176 - Episode 279: Steps=11, Reward=14053.00
+2026-04-04 11:04:42,185 - Saved checkpoint at episode=279 (global_step=3080) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 11:05:04,564 - Episode 280: Steps=11, Reward=14962.00
+2026-04-04 11:05:26,814 - Episode 281: Steps=11, Reward=15520.00
+2026-04-04 11:05:48,984 - Episode 282: Steps=11, Reward=14580.00
+2026-04-04 11:06:12,042 - Episode 283: Steps=11, Reward=15758.00
+2026-04-04 11:06:36,548 - Episode 284: Steps=11, Reward=92522.00
+2026-04-04 11:06:58,884 - Episode 285: Steps=11, Reward=16042.00
+2026-04-04 11:07:21,558 - Episode 286: Steps=11, Reward=19332.00
+2026-04-04 11:07:44,423 - Episode 287: Steps=11, Reward=17421.00
+2026-04-04 11:08:06,816 - Episode 288: Steps=11, Reward=15251.00
+2026-04-04 11:08:30,178 - Episode 289: Steps=11, Reward=19568.00
+2026-04-04 11:08:30,186 - Saved checkpoint at episode=289 (global_step=3190) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 11:08:52,808 - Episode 290: Steps=11, Reward=15458.00
+2026-04-04 11:09:16,355 - Episode 291: Steps=11, Reward=17560.00
+2026-04-04 11:09:38,717 - Episode 292: Steps=11, Reward=13929.00
+2026-04-04 11:10:02,170 - Episode 293: Steps=11, Reward=15721.00
+2026-04-04 11:10:24,548 - Episode 294: Steps=11, Reward=14473.00
+2026-04-04 11:10:46,765 - Episode 295: Steps=11, Reward=17445.00
+2026-04-04 11:11:08,994 - Episode 296: Steps=11, Reward=17670.00
+2026-04-04 11:11:31,855 - Episode 297: Steps=11, Reward=15905.00
+2026-04-04 11:11:54,752 - Episode 298: Steps=11, Reward=14674.00
+2026-04-04 11:12:17,432 - Episode 299: Steps=11, Reward=15067.00
+2026-04-04 11:12:17,440 - Saved checkpoint at episode=299 (global_step=3300) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 11:12:40,418 - Episode 300: Steps=11, Reward=15810.00
+2026-04-04 11:13:03,571 - Episode 301: Steps=11, Reward=19565.00
+2026-04-04 11:13:26,165 - Episode 302: Steps=11, Reward=14823.00
+2026-04-04 11:13:49,137 - Episode 303: Steps=11, Reward=14571.00
+2026-04-04 11:14:11,920 - Episode 304: Steps=11, Reward=18050.00
+2026-04-04 11:14:34,870 - Episode 305: Steps=11, Reward=17631.00
+2026-04-04 11:14:57,117 - Episode 306: Steps=11, Reward=15142.00
+2026-04-04 11:15:20,252 - Episode 307: Steps=11, Reward=17297.00
+2026-04-04 11:15:43,080 - Episode 308: Steps=11, Reward=15315.00
+2026-04-04 11:16:05,899 - Episode 309: Steps=11, Reward=14600.00
+2026-04-04 11:16:05,908 - Saved checkpoint at episode=309 (global_step=3410) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 11:16:28,577 - Episode 310: Steps=11, Reward=17228.00
+2026-04-04 11:16:51,707 - Episode 311: Steps=11, Reward=14708.00
+2026-04-04 11:17:13,708 - Episode 312: Steps=11, Reward=15776.00
+2026-04-04 11:17:36,427 - Episode 313: Steps=11, Reward=16253.00
+2026-04-04 11:17:59,316 - Episode 314: Steps=11, Reward=20511.00
+2026-04-04 11:18:22,567 - Episode 315: Steps=11, Reward=17194.00
+2026-04-04 11:18:45,399 - Episode 316: Steps=11, Reward=15992.00
+2026-04-04 11:19:07,868 - Episode 317: Steps=11, Reward=13976.00
+2026-04-04 11:19:30,407 - Episode 318: Steps=11, Reward=14646.00
+2026-04-04 11:19:53,342 - Episode 319: Steps=11, Reward=16689.00
+2026-04-04 11:19:53,350 - Saved checkpoint at episode=319 (global_step=3520) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 11:20:15,755 - Episode 320: Steps=11, Reward=12712.00
+2026-04-04 11:20:38,577 - Episode 321: Steps=11, Reward=15700.00
+2026-04-04 11:21:01,125 - Episode 322: Steps=11, Reward=16575.00
+2026-04-04 11:21:24,237 - Episode 323: Steps=11, Reward=19867.00
+2026-04-04 11:21:46,681 - Episode 324: Steps=11, Reward=16299.00
+2026-04-04 11:22:09,018 - Episode 325: Steps=11, Reward=14031.00
+2026-04-04 11:22:32,371 - Episode 326: Steps=11, Reward=17029.00
+2026-04-04 11:22:54,689 - Episode 327: Steps=11, Reward=18776.00
+2026-04-04 11:23:17,288 - Episode 328: Steps=11, Reward=15407.00
+2026-04-04 11:23:40,121 - Episode 329: Steps=11, Reward=15934.00
+2026-04-04 11:23:40,129 - Saved checkpoint at episode=329 (global_step=3630) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 11:24:02,089 - Episode 330: Steps=11, Reward=16296.00
+2026-04-04 11:24:25,065 - Episode 331: Steps=11, Reward=21161.00
+2026-04-04 11:24:48,284 - Episode 332: Steps=11, Reward=15310.00
+2026-04-04 11:25:10,515 - Episode 333: Steps=11, Reward=13843.00
+2026-04-04 11:25:32,513 - Episode 334: Steps=11, Reward=14002.00
+2026-04-04 11:25:54,694 - Episode 335: Steps=11, Reward=16105.00
+2026-04-04 11:26:17,124 - Episode 336: Steps=11, Reward=14212.00
+2026-04-04 11:26:39,007 - Episode 337: Steps=11, Reward=12006.00
+2026-04-04 11:27:02,006 - Episode 338: Steps=11, Reward=14416.00
+2026-04-04 11:27:24,901 - Episode 339: Steps=11, Reward=15846.00
+2026-04-04 11:27:24,910 - Saved checkpoint at episode=339 (global_step=3740) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 11:27:46,897 - Episode 340: Steps=11, Reward=14273.00
+2026-04-04 11:28:09,377 - Episode 341: Steps=11, Reward=15087.00
+2026-04-04 11:28:31,673 - Episode 342: Steps=11, Reward=15001.00
+2026-04-04 11:28:54,320 - Episode 343: Steps=11, Reward=15674.00
+2026-04-04 11:29:17,009 - Episode 344: Steps=11, Reward=13551.00
+2026-04-04 11:29:39,260 - Episode 345: Steps=11, Reward=17402.00
+2026-04-04 11:30:01,722 - Episode 346: Steps=11, Reward=16089.00
+2026-04-04 11:30:24,055 - Episode 347: Steps=11, Reward=15199.00
+2026-04-04 11:30:45,753 - Episode 348: Steps=11, Reward=14262.00
+2026-04-04 11:31:08,059 - Episode 349: Steps=11, Reward=12867.00
+2026-04-04 11:31:08,068 - Saved checkpoint at episode=349 (global_step=3850) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 11:31:30,624 - Episode 350: Steps=11, Reward=14748.00
+2026-04-04 11:31:53,157 - Episode 351: Steps=11, Reward=15988.00
+2026-04-04 11:32:15,133 - Episode 352: Steps=11, Reward=11727.00
+2026-04-04 11:32:38,172 - Episode 353: Steps=11, Reward=13883.00
+2026-04-04 11:33:00,710 - Episode 354: Steps=11, Reward=14805.00
+2026-04-04 11:33:23,405 - Episode 355: Steps=11, Reward=13647.00
+2026-04-04 11:33:45,833 - Episode 356: Steps=11, Reward=14152.00
+2026-04-04 11:34:08,214 - Episode 357: Steps=11, Reward=12197.00
+2026-04-04 11:34:30,245 - Episode 358: Steps=11, Reward=13768.00
+2026-04-04 11:34:52,127 - Episode 359: Steps=11, Reward=13861.00
+2026-04-04 11:34:52,135 - Saved checkpoint at episode=359 (global_step=3960) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 11:35:14,466 - Episode 360: Steps=11, Reward=13007.00
+2026-04-04 11:35:36,764 - Episode 361: Steps=11, Reward=13147.00
+2026-04-04 11:35:59,321 - Episode 362: Steps=11, Reward=14705.00
+2026-04-04 11:36:22,003 - Episode 363: Steps=11, Reward=14341.00
+2026-04-04 11:36:44,871 - Episode 364: Steps=11, Reward=15006.00
+2026-04-04 11:37:07,365 - Episode 365: Steps=11, Reward=12246.00
+2026-04-04 11:37:29,675 - Episode 366: Steps=11, Reward=15191.00
+2026-04-04 11:37:52,328 - Episode 367: Steps=11, Reward=13877.00
+2026-04-04 11:38:15,262 - Episode 368: Steps=11, Reward=15706.00
+2026-04-04 11:38:37,830 - Episode 369: Steps=11, Reward=13993.00
+2026-04-04 11:38:37,837 - Saved checkpoint at episode=369 (global_step=4070) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 11:39:00,720 - Episode 370: Steps=11, Reward=13348.00
+2026-04-04 11:39:22,968 - Episode 371: Steps=11, Reward=13361.00
+2026-04-04 11:39:45,211 - Episode 372: Steps=11, Reward=15409.00
+2026-04-04 11:40:07,277 - Episode 373: Steps=11, Reward=13436.00
+2026-04-04 11:40:29,952 - Episode 374: Steps=11, Reward=13131.00
+2026-04-04 11:40:52,329 - Episode 375: Steps=11, Reward=13723.00
+2026-04-04 11:41:14,375 - Episode 376: Steps=11, Reward=14304.00
+2026-04-04 11:41:36,396 - Episode 377: Steps=11, Reward=13531.00
+2026-04-04 11:41:58,415 - Episode 378: Steps=11, Reward=12621.00
+2026-04-04 11:42:20,760 - Episode 379: Steps=11, Reward=13133.00
+2026-04-04 11:42:20,769 - Saved checkpoint at episode=379 (global_step=4180) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 11:42:43,307 - Episode 380: Steps=11, Reward=15101.00
+2026-04-04 11:43:06,049 - Episode 381: Steps=11, Reward=16299.00
+2026-04-04 11:43:28,765 - Episode 382: Steps=11, Reward=14488.00
+2026-04-04 11:43:51,152 - Episode 383: Steps=11, Reward=14111.00
+2026-04-04 11:44:13,828 - Episode 384: Steps=11, Reward=15890.00
+2026-04-04 11:44:36,925 - Episode 385: Steps=11, Reward=16779.00
+2026-04-04 11:44:59,454 - Episode 386: Steps=11, Reward=12960.00
+2026-04-04 11:45:22,150 - Episode 387: Steps=11, Reward=15429.00
+2026-04-04 11:45:44,922 - Episode 388: Steps=11, Reward=15031.00
+2026-04-04 11:46:07,412 - Episode 389: Steps=11, Reward=13427.00
+2026-04-04 11:46:07,420 - Saved checkpoint at episode=389 (global_step=4290) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 11:46:30,046 - Episode 390: Steps=11, Reward=16576.00
+2026-04-04 11:46:52,566 - Episode 391: Steps=11, Reward=13470.00
+2026-04-04 11:47:15,409 - Episode 392: Steps=11, Reward=14962.00
+2026-04-04 11:47:37,981 - Episode 393: Steps=11, Reward=15135.00
+2026-04-04 11:48:00,622 - Episode 394: Steps=11, Reward=14680.00
+2026-04-04 11:48:22,743 - Episode 395: Steps=11, Reward=14530.00
+2026-04-04 11:48:45,188 - Episode 396: Steps=11, Reward=14665.00
+2026-04-04 11:49:07,767 - Episode 397: Steps=11, Reward=17119.00
+2026-04-04 11:49:31,068 - Episode 398: Steps=11, Reward=18107.00
+2026-04-04 11:49:53,730 - Episode 399: Steps=11, Reward=14163.00
+2026-04-04 11:49:53,738 - Saved checkpoint at episode=399 (global_step=4400) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 11:50:15,908 - Episode 400: Steps=11, Reward=13549.00
+2026-04-04 11:50:38,748 - Episode 401: Steps=11, Reward=16065.00
+2026-04-04 11:51:01,241 - Episode 402: Steps=11, Reward=13909.00
+2026-04-04 11:51:23,837 - Episode 403: Steps=11, Reward=15845.00
+2026-04-04 11:51:46,518 - Episode 404: Steps=11, Reward=15143.00
+2026-04-04 11:52:09,472 - Episode 405: Steps=11, Reward=15182.00
+2026-04-04 11:52:32,260 - Episode 406: Steps=11, Reward=15685.00
+2026-04-04 11:52:54,262 - Episode 407: Steps=11, Reward=14625.00
+2026-04-04 11:53:16,517 - Episode 408: Steps=11, Reward=13961.00
+2026-04-04 11:53:39,280 - Episode 409: Steps=11, Reward=16552.00
+2026-04-04 11:53:39,288 - Saved checkpoint at episode=409 (global_step=4510) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 11:54:02,112 - Episode 410: Steps=11, Reward=15227.00
+2026-04-04 11:54:24,727 - Episode 411: Steps=11, Reward=17137.00
+2026-04-04 11:54:47,152 - Episode 412: Steps=11, Reward=14613.00
+2026-04-04 11:55:09,905 - Episode 413: Steps=11, Reward=15522.00
+2026-04-04 11:55:32,651 - Episode 414: Steps=11, Reward=16238.00
+2026-04-04 11:55:55,415 - Episode 415: Steps=11, Reward=15259.00
+2026-04-04 11:56:17,714 - Episode 416: Steps=11, Reward=14153.00
+2026-04-04 11:56:39,854 - Episode 417: Steps=11, Reward=14844.00
+2026-04-04 11:57:01,727 - Episode 418: Steps=11, Reward=14142.00
+2026-04-04 11:57:24,229 - Episode 419: Steps=11, Reward=15240.00
+2026-04-04 11:57:24,236 - Saved checkpoint at episode=419 (global_step=4620) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 11:57:46,729 - Episode 420: Steps=11, Reward=15147.00
+2026-04-04 11:58:09,028 - Episode 421: Steps=11, Reward=13845.00
+2026-04-04 11:58:31,611 - Episode 422: Steps=11, Reward=15594.00
+2026-04-04 11:58:53,702 - Episode 423: Steps=11, Reward=13924.00
+2026-04-04 11:59:15,958 - Episode 424: Steps=11, Reward=13806.00
+2026-04-04 11:59:38,315 - Episode 425: Steps=11, Reward=14993.00
+2026-04-04 12:00:00,911 - Episode 426: Steps=11, Reward=15515.00
+2026-04-04 12:00:23,585 - Episode 427: Steps=11, Reward=14112.00
+2026-04-04 12:00:46,116 - Episode 428: Steps=11, Reward=14452.00
+2026-04-04 12:01:08,557 - Episode 429: Steps=11, Reward=14538.00
+2026-04-04 12:01:08,566 - Saved checkpoint at episode=429 (global_step=4730) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 12:01:31,600 - Episode 430: Steps=11, Reward=15032.00
+2026-04-04 12:01:53,604 - Episode 431: Steps=11, Reward=13791.00
+2026-04-04 12:02:15,994 - Episode 432: Steps=11, Reward=15302.00
+2026-04-04 12:02:38,536 - Episode 433: Steps=11, Reward=14369.00
+2026-04-04 12:03:01,026 - Episode 434: Steps=11, Reward=15063.00
+2026-04-04 12:03:23,162 - Episode 435: Steps=11, Reward=14064.00
+2026-04-04 12:03:45,483 - Episode 436: Steps=11, Reward=14406.00
+2026-04-04 12:04:08,090 - Episode 437: Steps=11, Reward=15478.00
+2026-04-04 12:04:30,627 - Episode 438: Steps=11, Reward=14837.00
+2026-04-04 12:04:53,104 - Episode 439: Steps=11, Reward=13850.00
+2026-04-04 12:04:53,111 - Saved checkpoint at episode=439 (global_step=4840) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 12:05:16,195 - Episode 440: Steps=11, Reward=14034.00
+2026-04-04 12:05:38,972 - Episode 441: Steps=11, Reward=15507.00
+2026-04-04 12:06:01,919 - Episode 442: Steps=11, Reward=15125.00
+2026-04-04 12:06:24,033 - Episode 443: Steps=11, Reward=14252.00
+2026-04-04 12:06:46,444 - Episode 444: Steps=11, Reward=15144.00
+2026-04-04 12:07:08,761 - Episode 445: Steps=11, Reward=14625.00
+2026-04-04 12:07:30,918 - Episode 446: Steps=11, Reward=14855.00
+2026-04-04 12:07:53,564 - Episode 447: Steps=11, Reward=13746.00
+2026-04-04 12:08:16,414 - Episode 448: Steps=11, Reward=13966.00
+2026-04-04 12:08:38,660 - Episode 449: Steps=11, Reward=15080.00
+2026-04-04 12:08:38,669 - Saved checkpoint at episode=449 (global_step=4950) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 12:09:00,415 - Episode 450: Steps=11, Reward=14530.00
+2026-04-04 12:09:22,597 - Episode 451: Steps=11, Reward=14696.00
+2026-04-04 12:09:45,182 - Episode 452: Steps=11, Reward=15904.00
+2026-04-04 12:10:07,050 - Episode 453: Steps=11, Reward=16429.00
+2026-04-04 12:10:29,223 - Episode 454: Steps=11, Reward=14928.00
+2026-04-04 12:10:51,263 - Episode 455: Steps=11, Reward=14138.00
+2026-04-04 12:11:13,775 - Episode 456: Steps=11, Reward=14808.00
+2026-04-04 12:11:35,817 - Episode 457: Steps=11, Reward=15069.00
+2026-04-04 12:11:58,107 - Episode 458: Steps=11, Reward=14646.00
+2026-04-04 12:12:20,282 - Episode 459: Steps=11, Reward=15151.00
+2026-04-04 12:12:20,289 - Saved checkpoint at episode=459 (global_step=5060) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 12:12:42,743 - Episode 460: Steps=11, Reward=14237.00
+2026-04-04 12:13:05,482 - Episode 461: Steps=11, Reward=15006.00
+2026-04-04 12:13:28,123 - Episode 462: Steps=11, Reward=14485.00
+2026-04-04 12:13:50,641 - Episode 463: Steps=11, Reward=14158.00
+2026-04-04 12:14:13,341 - Episode 464: Steps=11, Reward=14856.00
+2026-04-04 12:14:35,769 - Episode 465: Steps=11, Reward=14110.00
+2026-04-04 12:14:57,960 - Episode 466: Steps=11, Reward=14767.00
+2026-04-04 12:15:20,363 - Episode 467: Steps=11, Reward=14380.00
+2026-04-04 12:15:43,392 - Episode 468: Steps=11, Reward=14782.00
+2026-04-04 12:16:06,262 - Episode 469: Steps=11, Reward=13876.00
+2026-04-04 12:16:06,270 - Saved checkpoint at episode=469 (global_step=5170) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 12:16:28,882 - Episode 470: Steps=11, Reward=14982.00
+2026-04-04 12:16:51,561 - Episode 471: Steps=11, Reward=14318.00
+2026-04-04 12:17:13,564 - Episode 472: Steps=11, Reward=13814.00
+2026-04-04 12:17:35,586 - Episode 473: Steps=11, Reward=14425.00
+2026-04-04 12:17:57,537 - Episode 474: Steps=11, Reward=13913.00
+2026-04-04 12:18:19,970 - Episode 475: Steps=11, Reward=14178.00
+2026-04-04 12:18:42,541 - Episode 476: Steps=11, Reward=14560.00
+2026-04-04 12:19:04,812 - Episode 477: Steps=11, Reward=14809.00
+2026-04-04 12:19:27,012 - Episode 478: Steps=11, Reward=14919.00
+2026-04-04 12:19:49,385 - Episode 479: Steps=11, Reward=13895.00
+2026-04-04 12:19:49,393 - Saved checkpoint at episode=479 (global_step=5280) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 12:20:11,808 - Episode 480: Steps=11, Reward=14185.00
+2026-04-04 12:20:34,652 - Episode 481: Steps=11, Reward=14816.00
+2026-04-04 12:20:57,285 - Episode 482: Steps=11, Reward=14499.00
+2026-04-04 12:21:19,380 - Episode 483: Steps=11, Reward=14781.00
+2026-04-04 12:21:42,088 - Episode 484: Steps=11, Reward=14746.00
+2026-04-04 12:22:04,209 - Episode 485: Steps=11, Reward=14014.00
+2026-04-04 12:22:26,688 - Episode 486: Steps=11, Reward=14236.00
+2026-04-04 12:22:49,091 - Episode 487: Steps=11, Reward=14278.00
+2026-04-04 12:23:11,213 - Episode 488: Steps=11, Reward=13388.00
+2026-04-04 12:23:33,651 - Episode 489: Steps=11, Reward=14636.00
+2026-04-04 12:23:33,660 - Saved checkpoint at episode=489 (global_step=5390) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 12:23:55,858 - Episode 490: Steps=11, Reward=13336.00
+2026-04-04 12:24:17,935 - Episode 491: Steps=11, Reward=14433.00
+2026-04-04 12:24:40,128 - Episode 492: Steps=11, Reward=14531.00
+2026-04-04 12:25:03,176 - Episode 493: Steps=11, Reward=14110.00
+2026-04-04 12:25:25,618 - Episode 494: Steps=11, Reward=15104.00
+2026-04-04 12:25:48,426 - Episode 495: Steps=11, Reward=14427.00
+2026-04-04 12:26:11,077 - Episode 496: Steps=11, Reward=14599.00
+2026-04-04 12:26:33,343 - Episode 497: Steps=11, Reward=15016.00
+2026-04-04 12:26:55,596 - Episode 498: Steps=11, Reward=14089.00
+2026-04-04 12:27:18,089 - Episode 499: Steps=11, Reward=13880.00
+2026-04-04 12:27:18,096 - Saved checkpoint at episode=499 (global_step=5500) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 12:27:19,211 - Training Finished.
+2026-04-04 16:54:12,247 - Reading configuration from: /home/sdc_joran/Journal/deeprl_signal_control/config/config_ma2c_real.ini
+2026-04-04 16:54:12,247 - Using frozen controller run dir: /home/sdc_joran/Journal/deeprl_signal_control/runs/ma2c_real
+2026-04-04 16:54:12,247 - Adversary output dir: /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh
+2026-04-04 16:54:12,247 - Initializing Adversarial Environment...
+2026-04-04 16:54:22,595 - WCE real training overrides: reward_norm=1000.0, reward_clip=5.0, batch_size=40 (base_config_batch=40, ~3.6 episodes/update), entropy_coef_init/min >= 0.02
+2026-04-04 16:54:22,595 - Initializing GCN Adversary...
+2026-04-04 16:54:22,732 - WCE real setup: scenarios=11, episode_length_sec=6600, adversary_step_duration=600, macro_steps_per_episode~11, total_episodes=500, expected_total_macro_steps~5500, batch_size=40, checkpoint_interval=10, resume=False, model_dir=/home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 16:54:22,733 - Manual stack dump enabled: `kill -USR1 1718698` -> /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/manual_signal_stacks.log
+2026-04-04 16:54:22,733 - Start Training from episode 0 ...
+2026-04-04 16:54:48,067 - Episode 0: Steps=11, Reward=14703.00, MeanMacroReward=1336.64, MeanNormReward=1.337, ClipHitRate=0.0%
+2026-04-04 16:55:10,400 - Episode 1: Steps=11, Reward=14635.00, MeanMacroReward=1330.45, MeanNormReward=1.330, ClipHitRate=0.0%
+2026-04-04 16:55:32,687 - Episode 2: Steps=11, Reward=14164.00, MeanMacroReward=1287.64, MeanNormReward=1.288, ClipHitRate=0.0%
+2026-04-04 16:55:54,795 - Episode 3: Steps=11, Reward=14613.00, MeanMacroReward=1328.45, MeanNormReward=1.328, ClipHitRate=0.0%
+2026-04-04 16:56:17,110 - Episode 4: Steps=11, Reward=14607.00, MeanMacroReward=1327.91, MeanNormReward=1.328, ClipHitRate=0.0%
+2026-04-04 16:56:38,995 - Episode 5: Steps=11, Reward=14777.00, MeanMacroReward=1343.36, MeanNormReward=1.343, ClipHitRate=0.0%
+2026-04-04 16:57:01,101 - Episode 6: Steps=11, Reward=13889.00, MeanMacroReward=1262.64, MeanNormReward=1.263, ClipHitRate=0.0%
+2026-04-04 16:57:22,916 - Episode 7: Steps=11, Reward=13180.00, MeanMacroReward=1198.18, MeanNormReward=1.198, ClipHitRate=0.0%
+2026-04-04 16:57:44,773 - Episode 8: Steps=11, Reward=13706.00, MeanMacroReward=1246.00, MeanNormReward=1.246, ClipHitRate=0.0%
+2026-04-04 16:58:06,288 - Episode 9: Steps=11, Reward=13143.00, MeanMacroReward=1194.82, MeanNormReward=1.195, ClipHitRate=0.0%
+2026-04-04 16:58:06,305 - Saved checkpoint at episode=9 (global_step=110) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 16:58:28,096 - Episode 10: Steps=11, Reward=13714.00, MeanMacroReward=1246.73, MeanNormReward=1.247, ClipHitRate=0.0%
+2026-04-04 16:58:49,868 - Episode 11: Steps=11, Reward=14301.00, MeanMacroReward=1300.09, MeanNormReward=1.300, ClipHitRate=0.0%
+2026-04-04 16:59:12,152 - Episode 12: Steps=11, Reward=14469.00, MeanMacroReward=1315.36, MeanNormReward=1.315, ClipHitRate=0.0%
+2026-04-04 16:59:34,106 - Episode 13: Steps=11, Reward=13725.00, MeanMacroReward=1247.73, MeanNormReward=1.248, ClipHitRate=0.0%
+2026-04-04 16:59:56,243 - Episode 14: Steps=11, Reward=13882.00, MeanMacroReward=1262.00, MeanNormReward=1.262, ClipHitRate=0.0%
+2026-04-04 17:00:18,390 - Episode 15: Steps=11, Reward=13970.00, MeanMacroReward=1270.00, MeanNormReward=1.270, ClipHitRate=0.0%
+2026-04-04 17:00:40,538 - Episode 16: Steps=11, Reward=14138.00, MeanMacroReward=1285.27, MeanNormReward=1.285, ClipHitRate=0.0%
+2026-04-04 17:01:02,545 - Episode 17: Steps=11, Reward=13562.00, MeanMacroReward=1232.91, MeanNormReward=1.233, ClipHitRate=0.0%
+2026-04-04 17:01:25,094 - Episode 18: Steps=11, Reward=16896.00, MeanMacroReward=1536.00, MeanNormReward=1.536, ClipHitRate=0.0%
+2026-04-04 17:01:46,845 - Episode 19: Steps=11, Reward=13919.00, MeanMacroReward=1265.36, MeanNormReward=1.265, ClipHitRate=0.0%
+2026-04-04 17:01:46,858 - Saved checkpoint at episode=19 (global_step=220) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 17:02:08,906 - Episode 20: Steps=11, Reward=14396.00, MeanMacroReward=1308.73, MeanNormReward=1.309, ClipHitRate=0.0%
+2026-04-04 17:02:31,244 - Episode 21: Steps=11, Reward=13648.00, MeanMacroReward=1240.73, MeanNormReward=1.241, ClipHitRate=0.0%
+2026-04-04 17:02:53,694 - Episode 22: Steps=11, Reward=13790.00, MeanMacroReward=1253.64, MeanNormReward=1.254, ClipHitRate=0.0%
+2026-04-04 17:03:15,640 - Episode 23: Steps=11, Reward=14215.00, MeanMacroReward=1292.27, MeanNormReward=1.292, ClipHitRate=0.0%
+2026-04-04 17:03:37,987 - Episode 24: Steps=11, Reward=15468.00, MeanMacroReward=1406.18, MeanNormReward=1.406, ClipHitRate=0.0%
+2026-04-04 17:03:59,903 - Episode 25: Steps=11, Reward=14477.00, MeanMacroReward=1316.09, MeanNormReward=1.316, ClipHitRate=0.0%
+2026-04-04 17:04:22,249 - Episode 26: Steps=11, Reward=15036.00, MeanMacroReward=1366.91, MeanNormReward=1.367, ClipHitRate=0.0%
+2026-04-04 17:04:44,843 - Episode 27: Steps=11, Reward=13925.00, MeanMacroReward=1265.91, MeanNormReward=1.266, ClipHitRate=0.0%
+2026-04-04 17:05:06,996 - Episode 28: Steps=11, Reward=14227.00, MeanMacroReward=1293.36, MeanNormReward=1.293, ClipHitRate=0.0%
+2026-04-04 17:05:28,670 - Episode 29: Steps=11, Reward=13640.00, MeanMacroReward=1240.00, MeanNormReward=1.240, ClipHitRate=0.0%
+2026-04-04 17:05:28,676 - Saved checkpoint at episode=29 (global_step=330) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 17:05:50,617 - Episode 30: Steps=11, Reward=13956.00, MeanMacroReward=1268.73, MeanNormReward=1.269, ClipHitRate=0.0%
+2026-04-04 17:06:12,518 - Episode 31: Steps=11, Reward=13490.00, MeanMacroReward=1226.36, MeanNormReward=1.226, ClipHitRate=0.0%
+2026-04-04 17:06:34,691 - Episode 32: Steps=11, Reward=13631.00, MeanMacroReward=1239.18, MeanNormReward=1.239, ClipHitRate=0.0%
+2026-04-04 17:06:56,694 - Episode 33: Steps=11, Reward=13811.00, MeanMacroReward=1255.55, MeanNormReward=1.256, ClipHitRate=0.0%
+2026-04-04 17:07:18,620 - Episode 34: Steps=11, Reward=14799.00, MeanMacroReward=1345.36, MeanNormReward=1.345, ClipHitRate=0.0%
+2026-04-04 17:07:40,305 - Episode 35: Steps=11, Reward=13770.00, MeanMacroReward=1251.82, MeanNormReward=1.252, ClipHitRate=0.0%
+2026-04-04 17:08:02,305 - Episode 36: Steps=11, Reward=14030.00, MeanMacroReward=1275.45, MeanNormReward=1.275, ClipHitRate=0.0%
+2026-04-04 17:08:24,598 - Episode 37: Steps=11, Reward=13967.00, MeanMacroReward=1269.73, MeanNormReward=1.270, ClipHitRate=0.0%
+2026-04-04 17:08:46,635 - Episode 38: Steps=11, Reward=13781.00, MeanMacroReward=1252.82, MeanNormReward=1.253, ClipHitRate=0.0%
+2026-04-04 17:09:09,356 - Episode 39: Steps=11, Reward=13557.00, MeanMacroReward=1232.45, MeanNormReward=1.232, ClipHitRate=0.0%
+2026-04-04 17:09:09,363 - Saved checkpoint at episode=39 (global_step=440) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 17:09:31,463 - Episode 40: Steps=11, Reward=13970.00, MeanMacroReward=1270.00, MeanNormReward=1.270, ClipHitRate=0.0%
+2026-04-04 17:09:54,155 - Episode 41: Steps=11, Reward=24781.00, MeanMacroReward=2252.82, MeanNormReward=1.987, ClipHitRate=9.1%
+2026-04-04 17:10:16,149 - Episode 42: Steps=11, Reward=14652.00, MeanMacroReward=1332.00, MeanNormReward=1.332, ClipHitRate=0.0%
+2026-04-04 17:10:38,250 - Episode 43: Steps=11, Reward=13373.00, MeanMacroReward=1215.73, MeanNormReward=1.216, ClipHitRate=0.0%
+2026-04-04 17:11:00,502 - Episode 44: Steps=11, Reward=13652.00, MeanMacroReward=1241.09, MeanNormReward=1.241, ClipHitRate=0.0%
+2026-04-04 17:11:22,577 - Episode 45: Steps=11, Reward=14022.00, MeanMacroReward=1274.73, MeanNormReward=1.275, ClipHitRate=0.0%
+2026-04-04 17:11:44,657 - Episode 46: Steps=11, Reward=14224.00, MeanMacroReward=1293.09, MeanNormReward=1.293, ClipHitRate=0.0%
+2026-04-04 17:12:06,832 - Episode 47: Steps=11, Reward=14012.00, MeanMacroReward=1273.82, MeanNormReward=1.274, ClipHitRate=0.0%
+2026-04-04 17:12:28,632 - Episode 48: Steps=11, Reward=13640.00, MeanMacroReward=1240.00, MeanNormReward=1.240, ClipHitRate=0.0%
+2026-04-04 17:12:50,475 - Episode 49: Steps=11, Reward=14330.00, MeanMacroReward=1302.73, MeanNormReward=1.303, ClipHitRate=0.0%
+2026-04-04 17:12:50,481 - Saved checkpoint at episode=49 (global_step=550) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 17:13:12,414 - Episode 50: Steps=11, Reward=14061.00, MeanMacroReward=1278.27, MeanNormReward=1.278, ClipHitRate=0.0%
+2026-04-04 17:13:34,896 - Episode 51: Steps=11, Reward=14582.00, MeanMacroReward=1325.64, MeanNormReward=1.326, ClipHitRate=0.0%
+2026-04-04 17:13:56,859 - Episode 52: Steps=11, Reward=14083.00, MeanMacroReward=1280.27, MeanNormReward=1.280, ClipHitRate=0.0%
+2026-04-04 17:14:18,702 - Episode 53: Steps=11, Reward=13627.00, MeanMacroReward=1238.82, MeanNormReward=1.239, ClipHitRate=0.0%
+2026-04-04 17:14:40,860 - Episode 54: Steps=11, Reward=14566.00, MeanMacroReward=1324.18, MeanNormReward=1.324, ClipHitRate=0.0%
+2026-04-04 17:15:02,732 - Episode 55: Steps=11, Reward=13591.00, MeanMacroReward=1235.55, MeanNormReward=1.236, ClipHitRate=0.0%
+2026-04-04 17:15:24,994 - Episode 56: Steps=11, Reward=15618.00, MeanMacroReward=1419.82, MeanNormReward=1.420, ClipHitRate=0.0%
+2026-04-04 17:15:47,275 - Episode 57: Steps=11, Reward=13585.00, MeanMacroReward=1235.00, MeanNormReward=1.235, ClipHitRate=0.0%
+2026-04-04 17:16:09,695 - Episode 58: Steps=11, Reward=13296.00, MeanMacroReward=1208.73, MeanNormReward=1.209, ClipHitRate=0.0%
+2026-04-04 17:16:31,374 - Episode 59: Steps=11, Reward=13796.00, MeanMacroReward=1254.18, MeanNormReward=1.254, ClipHitRate=0.0%
+2026-04-04 17:16:31,383 - Saved checkpoint at episode=59 (global_step=660) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 17:16:52,845 - Episode 60: Steps=11, Reward=13491.00, MeanMacroReward=1226.45, MeanNormReward=1.226, ClipHitRate=0.0%
+2026-04-04 17:17:14,710 - Episode 61: Steps=11, Reward=13971.00, MeanMacroReward=1270.09, MeanNormReward=1.270, ClipHitRate=0.0%
+2026-04-04 17:17:37,116 - Episode 62: Steps=11, Reward=14106.00, MeanMacroReward=1282.36, MeanNormReward=1.282, ClipHitRate=0.0%
+2026-04-04 17:17:59,006 - Episode 63: Steps=11, Reward=13994.00, MeanMacroReward=1272.18, MeanNormReward=1.272, ClipHitRate=0.0%
+2026-04-04 17:18:21,329 - Episode 64: Steps=11, Reward=14169.00, MeanMacroReward=1288.09, MeanNormReward=1.288, ClipHitRate=0.0%
+2026-04-04 17:18:43,216 - Episode 65: Steps=11, Reward=14857.00, MeanMacroReward=1350.64, MeanNormReward=1.351, ClipHitRate=0.0%
+2026-04-04 17:19:05,606 - Episode 66: Steps=11, Reward=14038.00, MeanMacroReward=1276.18, MeanNormReward=1.276, ClipHitRate=0.0%
+2026-04-04 17:19:27,229 - Episode 67: Steps=11, Reward=13594.00, MeanMacroReward=1235.82, MeanNormReward=1.236, ClipHitRate=0.0%
+2026-04-04 17:19:49,513 - Episode 68: Steps=11, Reward=14465.00, MeanMacroReward=1315.00, MeanNormReward=1.315, ClipHitRate=0.0%
+2026-04-04 17:20:11,931 - Episode 69: Steps=11, Reward=14504.00, MeanMacroReward=1318.55, MeanNormReward=1.319, ClipHitRate=0.0%
+2026-04-04 17:20:11,940 - Saved checkpoint at episode=69 (global_step=770) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 17:20:34,292 - Episode 70: Steps=11, Reward=13542.00, MeanMacroReward=1231.09, MeanNormReward=1.231, ClipHitRate=0.0%
+2026-04-04 17:20:55,911 - Episode 71: Steps=11, Reward=14407.00, MeanMacroReward=1309.73, MeanNormReward=1.310, ClipHitRate=0.0%
+2026-04-04 17:21:18,331 - Episode 72: Steps=11, Reward=14278.00, MeanMacroReward=1298.00, MeanNormReward=1.298, ClipHitRate=0.0%
+2026-04-04 17:21:40,271 - Episode 73: Steps=11, Reward=13535.00, MeanMacroReward=1230.45, MeanNormReward=1.230, ClipHitRate=0.0%
+2026-04-04 17:22:02,603 - Episode 74: Steps=11, Reward=15371.00, MeanMacroReward=1397.36, MeanNormReward=1.397, ClipHitRate=0.0%
+2026-04-04 17:22:24,266 - Episode 75: Steps=11, Reward=13573.00, MeanMacroReward=1233.91, MeanNormReward=1.234, ClipHitRate=0.0%
+2026-04-04 17:22:45,881 - Episode 76: Steps=11, Reward=13874.00, MeanMacroReward=1261.27, MeanNormReward=1.261, ClipHitRate=0.0%
+2026-04-04 17:23:08,231 - Episode 77: Steps=11, Reward=14166.00, MeanMacroReward=1287.82, MeanNormReward=1.288, ClipHitRate=0.0%
+2026-04-04 17:23:30,082 - Episode 78: Steps=11, Reward=13725.00, MeanMacroReward=1247.73, MeanNormReward=1.248, ClipHitRate=0.0%
+2026-04-04 17:23:52,029 - Episode 79: Steps=11, Reward=13194.00, MeanMacroReward=1199.45, MeanNormReward=1.199, ClipHitRate=0.0%
+2026-04-04 17:23:52,037 - Saved checkpoint at episode=79 (global_step=880) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 17:24:14,213 - Episode 80: Steps=11, Reward=14061.00, MeanMacroReward=1278.27, MeanNormReward=1.278, ClipHitRate=0.0%
+2026-04-04 17:24:36,742 - Episode 81: Steps=11, Reward=13835.00, MeanMacroReward=1257.73, MeanNormReward=1.258, ClipHitRate=0.0%
+2026-04-04 17:24:58,932 - Episode 82: Steps=11, Reward=13735.00, MeanMacroReward=1248.64, MeanNormReward=1.249, ClipHitRate=0.0%
+2026-04-04 17:25:21,091 - Episode 83: Steps=11, Reward=14143.00, MeanMacroReward=1285.73, MeanNormReward=1.286, ClipHitRate=0.0%
+2026-04-04 17:25:43,176 - Episode 84: Steps=11, Reward=14198.00, MeanMacroReward=1290.73, MeanNormReward=1.291, ClipHitRate=0.0%
+2026-04-04 17:26:05,361 - Episode 85: Steps=11, Reward=14221.00, MeanMacroReward=1292.82, MeanNormReward=1.293, ClipHitRate=0.0%
+2026-04-04 17:26:27,374 - Episode 86: Steps=11, Reward=14468.00, MeanMacroReward=1315.27, MeanNormReward=1.315, ClipHitRate=0.0%
+2026-04-04 17:26:49,227 - Episode 87: Steps=11, Reward=14011.00, MeanMacroReward=1273.73, MeanNormReward=1.274, ClipHitRate=0.0%
+2026-04-04 17:27:11,482 - Episode 88: Steps=11, Reward=14397.00, MeanMacroReward=1308.82, MeanNormReward=1.309, ClipHitRate=0.0%
+2026-04-04 17:27:33,484 - Episode 89: Steps=11, Reward=14435.00, MeanMacroReward=1312.27, MeanNormReward=1.312, ClipHitRate=0.0%
+2026-04-04 17:27:33,495 - Saved checkpoint at episode=89 (global_step=990) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 17:27:55,307 - Episode 90: Steps=11, Reward=13550.00, MeanMacroReward=1231.82, MeanNormReward=1.232, ClipHitRate=0.0%
+2026-04-04 17:28:17,247 - Episode 91: Steps=11, Reward=14302.00, MeanMacroReward=1300.18, MeanNormReward=1.300, ClipHitRate=0.0%
+2026-04-04 17:28:39,348 - Episode 92: Steps=11, Reward=13457.00, MeanMacroReward=1223.36, MeanNormReward=1.223, ClipHitRate=0.0%
+2026-04-04 17:29:01,630 - Episode 93: Steps=11, Reward=14819.00, MeanMacroReward=1347.18, MeanNormReward=1.347, ClipHitRate=0.0%
+2026-04-04 17:29:23,385 - Episode 94: Steps=11, Reward=14661.00, MeanMacroReward=1332.82, MeanNormReward=1.333, ClipHitRate=0.0%
+2026-04-04 17:29:44,792 - Episode 95: Steps=11, Reward=13557.00, MeanMacroReward=1232.45, MeanNormReward=1.232, ClipHitRate=0.0%
+2026-04-04 17:30:06,785 - Episode 96: Steps=11, Reward=14707.00, MeanMacroReward=1337.00, MeanNormReward=1.337, ClipHitRate=0.0%
+2026-04-04 17:30:29,353 - Episode 97: Steps=11, Reward=14895.00, MeanMacroReward=1354.09, MeanNormReward=1.354, ClipHitRate=0.0%
+2026-04-04 17:30:51,480 - Episode 98: Steps=11, Reward=14263.00, MeanMacroReward=1296.64, MeanNormReward=1.297, ClipHitRate=0.0%
+2026-04-04 17:31:13,524 - Episode 99: Steps=11, Reward=14541.00, MeanMacroReward=1321.91, MeanNormReward=1.322, ClipHitRate=0.0%
+2026-04-04 17:31:13,532 - Saved checkpoint at episode=99 (global_step=1100) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 17:31:35,771 - Episode 100: Steps=11, Reward=14354.00, MeanMacroReward=1304.91, MeanNormReward=1.305, ClipHitRate=0.0%
+2026-04-04 17:31:58,072 - Episode 101: Steps=11, Reward=14137.00, MeanMacroReward=1285.18, MeanNormReward=1.285, ClipHitRate=0.0%
+2026-04-04 17:32:20,167 - Episode 102: Steps=11, Reward=13576.00, MeanMacroReward=1234.18, MeanNormReward=1.234, ClipHitRate=0.0%
+2026-04-04 17:32:41,942 - Episode 103: Steps=11, Reward=13365.00, MeanMacroReward=1215.00, MeanNormReward=1.215, ClipHitRate=0.0%
+2026-04-04 17:33:04,334 - Episode 104: Steps=11, Reward=15256.00, MeanMacroReward=1386.91, MeanNormReward=1.387, ClipHitRate=0.0%
+2026-04-04 17:33:26,437 - Episode 105: Steps=11, Reward=14269.00, MeanMacroReward=1297.18, MeanNormReward=1.297, ClipHitRate=0.0%
+2026-04-04 17:33:48,170 - Episode 106: Steps=11, Reward=13888.00, MeanMacroReward=1262.55, MeanNormReward=1.263, ClipHitRate=0.0%
+2026-04-04 17:34:09,607 - Episode 107: Steps=11, Reward=14303.00, MeanMacroReward=1300.27, MeanNormReward=1.300, ClipHitRate=0.0%
+2026-04-04 17:34:31,980 - Episode 108: Steps=11, Reward=14004.00, MeanMacroReward=1273.09, MeanNormReward=1.273, ClipHitRate=0.0%
+2026-04-04 17:34:54,400 - Episode 109: Steps=11, Reward=14362.00, MeanMacroReward=1305.64, MeanNormReward=1.306, ClipHitRate=0.0%
+2026-04-04 17:34:54,409 - Saved checkpoint at episode=109 (global_step=1210) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 17:35:16,757 - Episode 110: Steps=11, Reward=14328.00, MeanMacroReward=1302.55, MeanNormReward=1.303, ClipHitRate=0.0%
+2026-04-04 17:35:38,574 - Episode 111: Steps=11, Reward=14149.00, MeanMacroReward=1286.27, MeanNormReward=1.286, ClipHitRate=0.0%
+2026-04-04 17:36:00,516 - Episode 112: Steps=11, Reward=13745.00, MeanMacroReward=1249.55, MeanNormReward=1.250, ClipHitRate=0.0%
+2026-04-04 17:36:23,043 - Episode 113: Steps=11, Reward=13872.00, MeanMacroReward=1261.09, MeanNormReward=1.261, ClipHitRate=0.0%
+2026-04-04 17:36:44,852 - Episode 114: Steps=11, Reward=13860.00, MeanMacroReward=1260.00, MeanNormReward=1.260, ClipHitRate=0.0%
+2026-04-04 17:37:07,317 - Episode 115: Steps=11, Reward=14460.00, MeanMacroReward=1314.55, MeanNormReward=1.315, ClipHitRate=0.0%
+2026-04-04 17:37:29,169 - Episode 116: Steps=11, Reward=14657.00, MeanMacroReward=1332.45, MeanNormReward=1.332, ClipHitRate=0.0%
+2026-04-04 17:37:51,709 - Episode 117: Steps=11, Reward=14258.00, MeanMacroReward=1296.18, MeanNormReward=1.296, ClipHitRate=0.0%
+2026-04-04 17:38:14,376 - Episode 118: Steps=11, Reward=14928.00, MeanMacroReward=1357.09, MeanNormReward=1.357, ClipHitRate=0.0%
+2026-04-04 17:38:35,870 - Episode 119: Steps=11, Reward=13783.00, MeanMacroReward=1253.00, MeanNormReward=1.253, ClipHitRate=0.0%
+2026-04-04 17:38:35,877 - Saved checkpoint at episode=119 (global_step=1320) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 17:38:58,299 - Episode 120: Steps=11, Reward=14421.00, MeanMacroReward=1311.00, MeanNormReward=1.311, ClipHitRate=0.0%
+2026-04-04 17:39:20,524 - Episode 121: Steps=11, Reward=13982.00, MeanMacroReward=1271.09, MeanNormReward=1.271, ClipHitRate=0.0%
+2026-04-04 17:39:42,607 - Episode 122: Steps=11, Reward=15221.00, MeanMacroReward=1383.73, MeanNormReward=1.384, ClipHitRate=0.0%
+2026-04-04 17:40:04,332 - Episode 123: Steps=11, Reward=13254.00, MeanMacroReward=1204.91, MeanNormReward=1.205, ClipHitRate=0.0%
+2026-04-04 17:40:26,419 - Episode 124: Steps=11, Reward=13737.00, MeanMacroReward=1248.82, MeanNormReward=1.249, ClipHitRate=0.0%
+2026-04-04 17:40:48,103 - Episode 125: Steps=11, Reward=13759.00, MeanMacroReward=1250.82, MeanNormReward=1.251, ClipHitRate=0.0%
+2026-04-04 17:41:10,182 - Episode 126: Steps=11, Reward=14555.00, MeanMacroReward=1323.18, MeanNormReward=1.323, ClipHitRate=0.0%
+2026-04-04 17:41:32,576 - Episode 127: Steps=11, Reward=14210.00, MeanMacroReward=1291.82, MeanNormReward=1.292, ClipHitRate=0.0%
+2026-04-04 17:41:54,907 - Episode 128: Steps=11, Reward=13932.00, MeanMacroReward=1266.55, MeanNormReward=1.267, ClipHitRate=0.0%
+2026-04-04 17:42:16,959 - Episode 129: Steps=11, Reward=14757.00, MeanMacroReward=1341.55, MeanNormReward=1.342, ClipHitRate=0.0%
+2026-04-04 17:42:16,972 - Saved checkpoint at episode=129 (global_step=1430) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 17:42:39,455 - Episode 130: Steps=11, Reward=14909.00, MeanMacroReward=1355.36, MeanNormReward=1.355, ClipHitRate=0.0%
+2026-04-04 17:43:01,269 - Episode 131: Steps=11, Reward=13274.00, MeanMacroReward=1206.73, MeanNormReward=1.207, ClipHitRate=0.0%
+2026-04-04 17:43:23,522 - Episode 132: Steps=11, Reward=13909.00, MeanMacroReward=1264.45, MeanNormReward=1.264, ClipHitRate=0.0%
+2026-04-04 17:43:45,272 - Episode 133: Steps=11, Reward=13168.00, MeanMacroReward=1197.09, MeanNormReward=1.197, ClipHitRate=0.0%
+2026-04-04 17:44:07,486 - Episode 134: Steps=11, Reward=14255.00, MeanMacroReward=1295.91, MeanNormReward=1.296, ClipHitRate=0.0%
+2026-04-04 17:44:29,404 - Episode 135: Steps=11, Reward=13848.00, MeanMacroReward=1258.91, MeanNormReward=1.259, ClipHitRate=0.0%
+2026-04-04 17:44:51,536 - Episode 136: Steps=11, Reward=14328.00, MeanMacroReward=1302.55, MeanNormReward=1.303, ClipHitRate=0.0%
+2026-04-04 17:45:13,467 - Episode 137: Steps=11, Reward=14158.00, MeanMacroReward=1287.09, MeanNormReward=1.287, ClipHitRate=0.0%
+2026-04-04 17:45:35,671 - Episode 138: Steps=11, Reward=13888.00, MeanMacroReward=1262.55, MeanNormReward=1.263, ClipHitRate=0.0%
+2026-04-04 17:45:57,797 - Episode 139: Steps=11, Reward=14421.00, MeanMacroReward=1311.00, MeanNormReward=1.311, ClipHitRate=0.0%
+2026-04-04 17:45:57,807 - Saved checkpoint at episode=139 (global_step=1540) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 17:46:19,888 - Episode 140: Steps=11, Reward=14159.00, MeanMacroReward=1287.18, MeanNormReward=1.287, ClipHitRate=0.0%
+2026-04-04 17:46:42,035 - Episode 141: Steps=11, Reward=13546.00, MeanMacroReward=1231.45, MeanNormReward=1.231, ClipHitRate=0.0%
+2026-04-04 17:47:04,038 - Episode 142: Steps=11, Reward=13296.00, MeanMacroReward=1208.73, MeanNormReward=1.209, ClipHitRate=0.0%
+2026-04-04 17:47:26,047 - Episode 143: Steps=11, Reward=15039.00, MeanMacroReward=1367.18, MeanNormReward=1.367, ClipHitRate=0.0%
+2026-04-04 17:47:48,357 - Episode 144: Steps=11, Reward=14590.00, MeanMacroReward=1326.36, MeanNormReward=1.326, ClipHitRate=0.0%
+2026-04-04 17:48:10,341 - Episode 145: Steps=11, Reward=13596.00, MeanMacroReward=1236.00, MeanNormReward=1.236, ClipHitRate=0.0%
+2026-04-04 17:48:32,376 - Episode 146: Steps=11, Reward=14115.00, MeanMacroReward=1283.18, MeanNormReward=1.283, ClipHitRate=0.0%
+2026-04-04 17:48:54,849 - Episode 147: Steps=11, Reward=14075.00, MeanMacroReward=1279.55, MeanNormReward=1.280, ClipHitRate=0.0%
+2026-04-04 17:49:17,199 - Episode 148: Steps=11, Reward=13829.00, MeanMacroReward=1257.18, MeanNormReward=1.257, ClipHitRate=0.0%
+2026-04-04 17:49:39,140 - Episode 149: Steps=11, Reward=16379.00, MeanMacroReward=1489.00, MeanNormReward=1.489, ClipHitRate=0.0%
+2026-04-04 17:49:39,148 - Saved checkpoint at episode=149 (global_step=1650) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 17:50:01,135 - Episode 150: Steps=11, Reward=13528.00, MeanMacroReward=1229.82, MeanNormReward=1.230, ClipHitRate=0.0%
+2026-04-04 17:50:22,801 - Episode 151: Steps=11, Reward=13977.00, MeanMacroReward=1270.64, MeanNormReward=1.271, ClipHitRate=0.0%
+2026-04-04 17:50:44,742 - Episode 152: Steps=11, Reward=13532.00, MeanMacroReward=1230.18, MeanNormReward=1.230, ClipHitRate=0.0%
+2026-04-04 17:51:06,844 - Episode 153: Steps=11, Reward=15356.00, MeanMacroReward=1396.00, MeanNormReward=1.396, ClipHitRate=0.0%
+2026-04-04 17:51:29,182 - Episode 154: Steps=11, Reward=13908.00, MeanMacroReward=1264.36, MeanNormReward=1.264, ClipHitRate=0.0%
+2026-04-04 17:51:51,542 - Episode 155: Steps=11, Reward=13982.00, MeanMacroReward=1271.09, MeanNormReward=1.271, ClipHitRate=0.0%
+2026-04-04 17:52:13,324 - Episode 156: Steps=11, Reward=14411.00, MeanMacroReward=1310.09, MeanNormReward=1.310, ClipHitRate=0.0%
+2026-04-04 17:52:35,418 - Episode 157: Steps=11, Reward=13784.00, MeanMacroReward=1253.09, MeanNormReward=1.253, ClipHitRate=0.0%
+2026-04-04 17:52:57,360 - Episode 158: Steps=11, Reward=15177.00, MeanMacroReward=1379.73, MeanNormReward=1.380, ClipHitRate=0.0%
+2026-04-04 17:53:19,541 - Episode 159: Steps=11, Reward=14069.00, MeanMacroReward=1279.00, MeanNormReward=1.279, ClipHitRate=0.0%
+2026-04-04 17:53:19,549 - Saved checkpoint at episode=159 (global_step=1760) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 17:53:40,884 - Episode 160: Steps=11, Reward=14490.00, MeanMacroReward=1317.27, MeanNormReward=1.317, ClipHitRate=0.0%
+2026-04-04 17:54:03,127 - Episode 161: Steps=11, Reward=14473.00, MeanMacroReward=1315.73, MeanNormReward=1.316, ClipHitRate=0.0%
+2026-04-04 17:54:24,712 - Episode 162: Steps=11, Reward=13950.00, MeanMacroReward=1268.18, MeanNormReward=1.268, ClipHitRate=0.0%
+2026-04-04 17:54:46,664 - Episode 163: Steps=11, Reward=14107.00, MeanMacroReward=1282.45, MeanNormReward=1.282, ClipHitRate=0.0%
+2026-04-04 17:55:08,870 - Episode 164: Steps=11, Reward=13048.00, MeanMacroReward=1186.18, MeanNormReward=1.186, ClipHitRate=0.0%
+2026-04-04 17:55:30,984 - Episode 165: Steps=11, Reward=14625.00, MeanMacroReward=1329.55, MeanNormReward=1.330, ClipHitRate=0.0%
+2026-04-04 17:55:53,329 - Episode 166: Steps=11, Reward=15877.00, MeanMacroReward=1443.36, MeanNormReward=1.443, ClipHitRate=0.0%
+2026-04-04 17:56:15,468 - Episode 167: Steps=11, Reward=14110.00, MeanMacroReward=1282.73, MeanNormReward=1.283, ClipHitRate=0.0%
+2026-04-04 17:56:37,241 - Episode 168: Steps=11, Reward=13741.00, MeanMacroReward=1249.18, MeanNormReward=1.249, ClipHitRate=0.0%
+2026-04-04 17:56:59,134 - Episode 169: Steps=11, Reward=15080.00, MeanMacroReward=1370.91, MeanNormReward=1.371, ClipHitRate=0.0%
+2026-04-04 17:56:59,143 - Saved checkpoint at episode=169 (global_step=1870) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 17:57:20,928 - Episode 170: Steps=11, Reward=13939.00, MeanMacroReward=1267.18, MeanNormReward=1.267, ClipHitRate=0.0%
+2026-04-04 17:57:42,337 - Episode 171: Steps=11, Reward=12966.00, MeanMacroReward=1178.73, MeanNormReward=1.179, ClipHitRate=0.0%
+2026-04-04 17:58:04,691 - Episode 172: Steps=11, Reward=14065.00, MeanMacroReward=1278.64, MeanNormReward=1.279, ClipHitRate=0.0%
+2026-04-04 17:58:26,669 - Episode 173: Steps=11, Reward=15220.00, MeanMacroReward=1383.64, MeanNormReward=1.384, ClipHitRate=0.0%
+2026-04-04 17:58:48,869 - Episode 174: Steps=11, Reward=14434.00, MeanMacroReward=1312.18, MeanNormReward=1.312, ClipHitRate=0.0%
+2026-04-04 17:59:11,030 - Episode 175: Steps=11, Reward=14238.00, MeanMacroReward=1294.36, MeanNormReward=1.294, ClipHitRate=0.0%
+2026-04-04 17:59:32,807 - Episode 176: Steps=11, Reward=13447.00, MeanMacroReward=1222.45, MeanNormReward=1.222, ClipHitRate=0.0%
+2026-04-04 17:59:54,759 - Episode 177: Steps=11, Reward=14485.00, MeanMacroReward=1316.82, MeanNormReward=1.317, ClipHitRate=0.0%
+2026-04-04 18:00:17,277 - Episode 178: Steps=11, Reward=13960.00, MeanMacroReward=1269.09, MeanNormReward=1.269, ClipHitRate=0.0%
+2026-04-04 18:00:39,180 - Episode 179: Steps=11, Reward=13938.00, MeanMacroReward=1267.09, MeanNormReward=1.267, ClipHitRate=0.0%
+2026-04-04 18:00:39,189 - Saved checkpoint at episode=179 (global_step=1980) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 18:01:01,103 - Episode 180: Steps=11, Reward=15088.00, MeanMacroReward=1371.64, MeanNormReward=1.372, ClipHitRate=0.0%
+2026-04-04 18:01:23,414 - Episode 181: Steps=11, Reward=14316.00, MeanMacroReward=1301.45, MeanNormReward=1.301, ClipHitRate=0.0%
+2026-04-04 18:01:45,288 - Episode 182: Steps=11, Reward=14075.00, MeanMacroReward=1279.55, MeanNormReward=1.280, ClipHitRate=0.0%
+2026-04-04 18:02:07,546 - Episode 183: Steps=11, Reward=13719.00, MeanMacroReward=1247.18, MeanNormReward=1.247, ClipHitRate=0.0%
+2026-04-04 18:02:29,744 - Episode 184: Steps=11, Reward=14066.00, MeanMacroReward=1278.73, MeanNormReward=1.279, ClipHitRate=0.0%
+2026-04-04 18:02:51,568 - Episode 185: Steps=11, Reward=13902.00, MeanMacroReward=1263.82, MeanNormReward=1.264, ClipHitRate=0.0%
+2026-04-04 18:03:13,525 - Episode 186: Steps=11, Reward=13498.00, MeanMacroReward=1227.09, MeanNormReward=1.227, ClipHitRate=0.0%
+2026-04-04 18:03:35,564 - Episode 187: Steps=11, Reward=14519.00, MeanMacroReward=1319.91, MeanNormReward=1.320, ClipHitRate=0.0%
+2026-04-04 18:03:57,410 - Episode 188: Steps=11, Reward=14012.00, MeanMacroReward=1273.82, MeanNormReward=1.274, ClipHitRate=0.0%
+2026-04-04 18:04:19,779 - Episode 189: Steps=11, Reward=14290.00, MeanMacroReward=1299.09, MeanNormReward=1.299, ClipHitRate=0.0%
+2026-04-04 18:04:19,787 - Saved checkpoint at episode=189 (global_step=2090) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 18:04:41,744 - Episode 190: Steps=11, Reward=14754.00, MeanMacroReward=1341.27, MeanNormReward=1.341, ClipHitRate=0.0%
+2026-04-04 18:05:04,027 - Episode 191: Steps=11, Reward=13822.00, MeanMacroReward=1256.55, MeanNormReward=1.257, ClipHitRate=0.0%
+2026-04-04 18:05:25,700 - Episode 192: Steps=11, Reward=13844.00, MeanMacroReward=1258.55, MeanNormReward=1.259, ClipHitRate=0.0%
+2026-04-04 18:05:47,994 - Episode 193: Steps=11, Reward=13662.00, MeanMacroReward=1242.00, MeanNormReward=1.242, ClipHitRate=0.0%
+2026-04-04 18:06:10,078 - Episode 194: Steps=11, Reward=14282.00, MeanMacroReward=1298.36, MeanNormReward=1.298, ClipHitRate=0.0%
+2026-04-04 18:06:31,877 - Episode 195: Steps=11, Reward=13652.00, MeanMacroReward=1241.09, MeanNormReward=1.241, ClipHitRate=0.0%
+2026-04-04 18:06:53,808 - Episode 196: Steps=11, Reward=13719.00, MeanMacroReward=1247.18, MeanNormReward=1.247, ClipHitRate=0.0%
+2026-04-04 18:07:16,024 - Episode 197: Steps=11, Reward=15545.00, MeanMacroReward=1413.18, MeanNormReward=1.413, ClipHitRate=0.0%
+2026-04-04 18:07:38,006 - Episode 198: Steps=11, Reward=14444.00, MeanMacroReward=1313.09, MeanNormReward=1.313, ClipHitRate=0.0%
+2026-04-04 18:08:00,189 - Episode 199: Steps=11, Reward=14514.00, MeanMacroReward=1319.45, MeanNormReward=1.319, ClipHitRate=0.0%
+2026-04-04 18:08:00,197 - Saved checkpoint at episode=199 (global_step=2200) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 18:08:21,862 - Episode 200: Steps=11, Reward=14892.00, MeanMacroReward=1353.82, MeanNormReward=1.354, ClipHitRate=0.0%
+2026-04-04 18:08:44,300 - Episode 201: Steps=11, Reward=17307.00, MeanMacroReward=1573.36, MeanNormReward=1.573, ClipHitRate=0.0%
+2026-04-04 18:09:06,564 - Episode 202: Steps=11, Reward=14417.00, MeanMacroReward=1310.64, MeanNormReward=1.311, ClipHitRate=0.0%
+2026-04-04 18:09:28,561 - Episode 203: Steps=11, Reward=13822.00, MeanMacroReward=1256.55, MeanNormReward=1.257, ClipHitRate=0.0%
+2026-04-04 18:09:50,917 - Episode 204: Steps=11, Reward=15164.00, MeanMacroReward=1378.55, MeanNormReward=1.379, ClipHitRate=0.0%
+2026-04-04 18:10:13,022 - Episode 205: Steps=11, Reward=14231.00, MeanMacroReward=1293.73, MeanNormReward=1.294, ClipHitRate=0.0%
+2026-04-04 18:10:34,581 - Episode 206: Steps=11, Reward=13908.00, MeanMacroReward=1264.36, MeanNormReward=1.264, ClipHitRate=0.0%
+2026-04-04 18:10:56,704 - Episode 207: Steps=11, Reward=14363.00, MeanMacroReward=1305.73, MeanNormReward=1.306, ClipHitRate=0.0%
+2026-04-04 18:11:18,988 - Episode 208: Steps=11, Reward=13431.00, MeanMacroReward=1221.00, MeanNormReward=1.221, ClipHitRate=0.0%
+2026-04-04 18:11:41,083 - Episode 209: Steps=11, Reward=14426.00, MeanMacroReward=1311.45, MeanNormReward=1.311, ClipHitRate=0.0%
+2026-04-04 18:11:41,091 - Saved checkpoint at episode=209 (global_step=2310) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 18:12:03,259 - Episode 210: Steps=11, Reward=14716.00, MeanMacroReward=1337.82, MeanNormReward=1.338, ClipHitRate=0.0%
+2026-04-04 18:12:25,386 - Episode 211: Steps=11, Reward=14608.00, MeanMacroReward=1328.00, MeanNormReward=1.328, ClipHitRate=0.0%
+2026-04-04 18:12:47,005 - Episode 212: Steps=11, Reward=13697.00, MeanMacroReward=1245.18, MeanNormReward=1.245, ClipHitRate=0.0%
+2026-04-04 18:13:08,814 - Episode 213: Steps=11, Reward=13489.00, MeanMacroReward=1226.27, MeanNormReward=1.226, ClipHitRate=0.0%
+2026-04-04 18:13:31,012 - Episode 214: Steps=11, Reward=14991.00, MeanMacroReward=1362.82, MeanNormReward=1.363, ClipHitRate=0.0%
+2026-04-04 18:13:53,316 - Episode 215: Steps=11, Reward=13680.00, MeanMacroReward=1243.64, MeanNormReward=1.244, ClipHitRate=0.0%
+2026-04-04 18:14:15,063 - Episode 216: Steps=11, Reward=13622.00, MeanMacroReward=1238.36, MeanNormReward=1.238, ClipHitRate=0.0%
+2026-04-04 18:14:37,048 - Episode 217: Steps=11, Reward=13653.00, MeanMacroReward=1241.18, MeanNormReward=1.241, ClipHitRate=0.0%
+2026-04-04 18:14:59,276 - Episode 218: Steps=11, Reward=14359.00, MeanMacroReward=1305.36, MeanNormReward=1.305, ClipHitRate=0.0%
+2026-04-04 18:15:21,203 - Episode 219: Steps=11, Reward=13822.00, MeanMacroReward=1256.55, MeanNormReward=1.257, ClipHitRate=0.0%
+2026-04-04 18:15:21,211 - Saved checkpoint at episode=219 (global_step=2420) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 18:15:43,483 - Episode 220: Steps=11, Reward=14327.00, MeanMacroReward=1302.45, MeanNormReward=1.302, ClipHitRate=0.0%
+2026-04-04 18:16:05,603 - Episode 221: Steps=11, Reward=13769.00, MeanMacroReward=1251.73, MeanNormReward=1.252, ClipHitRate=0.0%
+2026-04-04 18:16:27,914 - Episode 222: Steps=11, Reward=13497.00, MeanMacroReward=1227.00, MeanNormReward=1.227, ClipHitRate=0.0%
+2026-04-04 18:16:49,808 - Episode 223: Steps=11, Reward=14838.00, MeanMacroReward=1348.91, MeanNormReward=1.349, ClipHitRate=0.0%
+2026-04-04 18:17:12,340 - Episode 224: Steps=11, Reward=14492.00, MeanMacroReward=1317.45, MeanNormReward=1.317, ClipHitRate=0.0%
+2026-04-04 18:17:34,197 - Episode 225: Steps=11, Reward=15025.00, MeanMacroReward=1365.91, MeanNormReward=1.366, ClipHitRate=0.0%
+2026-04-04 18:17:56,258 - Episode 226: Steps=11, Reward=14112.00, MeanMacroReward=1282.91, MeanNormReward=1.283, ClipHitRate=0.0%
+2026-04-04 18:18:18,476 - Episode 227: Steps=11, Reward=13879.00, MeanMacroReward=1261.73, MeanNormReward=1.262, ClipHitRate=0.0%
+2026-04-04 18:18:39,988 - Episode 228: Steps=11, Reward=14257.00, MeanMacroReward=1296.09, MeanNormReward=1.296, ClipHitRate=0.0%
+2026-04-04 18:19:01,777 - Episode 229: Steps=11, Reward=14552.00, MeanMacroReward=1322.91, MeanNormReward=1.323, ClipHitRate=0.0%
+2026-04-04 18:19:01,784 - Saved checkpoint at episode=229 (global_step=2530) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 18:19:23,586 - Episode 230: Steps=11, Reward=14157.00, MeanMacroReward=1287.00, MeanNormReward=1.287, ClipHitRate=0.0%
+2026-04-04 18:19:45,564 - Episode 231: Steps=11, Reward=13896.00, MeanMacroReward=1263.27, MeanNormReward=1.263, ClipHitRate=0.0%
+2026-04-04 18:20:07,701 - Episode 232: Steps=11, Reward=13443.00, MeanMacroReward=1222.09, MeanNormReward=1.222, ClipHitRate=0.0%
+2026-04-04 18:20:29,688 - Episode 233: Steps=11, Reward=14014.00, MeanMacroReward=1274.00, MeanNormReward=1.274, ClipHitRate=0.0%
+2026-04-04 18:20:52,171 - Episode 234: Steps=11, Reward=13707.00, MeanMacroReward=1246.09, MeanNormReward=1.246, ClipHitRate=0.0%
+2026-04-04 18:21:14,249 - Episode 235: Steps=11, Reward=13400.00, MeanMacroReward=1218.18, MeanNormReward=1.218, ClipHitRate=0.0%
+2026-04-04 18:21:36,640 - Episode 236: Steps=11, Reward=13577.00, MeanMacroReward=1234.27, MeanNormReward=1.234, ClipHitRate=0.0%
+2026-04-04 18:21:59,111 - Episode 237: Steps=11, Reward=14441.00, MeanMacroReward=1312.82, MeanNormReward=1.313, ClipHitRate=0.0%
+2026-04-04 18:22:21,554 - Episode 238: Steps=11, Reward=14683.00, MeanMacroReward=1334.82, MeanNormReward=1.335, ClipHitRate=0.0%
+2026-04-04 18:22:43,099 - Episode 239: Steps=11, Reward=13373.00, MeanMacroReward=1215.73, MeanNormReward=1.216, ClipHitRate=0.0%
+2026-04-04 18:22:43,107 - Saved checkpoint at episode=239 (global_step=2640) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 18:23:05,094 - Episode 240: Steps=11, Reward=14351.00, MeanMacroReward=1304.64, MeanNormReward=1.305, ClipHitRate=0.0%
+2026-04-04 18:23:26,994 - Episode 241: Steps=11, Reward=13766.00, MeanMacroReward=1251.45, MeanNormReward=1.251, ClipHitRate=0.0%
+2026-04-04 18:23:49,148 - Episode 242: Steps=11, Reward=14227.00, MeanMacroReward=1293.36, MeanNormReward=1.293, ClipHitRate=0.0%
+2026-04-04 18:24:11,464 - Episode 243: Steps=11, Reward=14126.00, MeanMacroReward=1284.18, MeanNormReward=1.284, ClipHitRate=0.0%
+2026-04-04 18:24:33,415 - Episode 244: Steps=11, Reward=13763.00, MeanMacroReward=1251.18, MeanNormReward=1.251, ClipHitRate=0.0%
+2026-04-04 18:24:56,014 - Episode 245: Steps=11, Reward=20043.00, MeanMacroReward=1822.09, MeanNormReward=1.822, ClipHitRate=0.0%
+2026-04-04 18:25:18,500 - Episode 246: Steps=11, Reward=14782.00, MeanMacroReward=1343.82, MeanNormReward=1.344, ClipHitRate=0.0%
+2026-04-04 18:25:40,341 - Episode 247: Steps=11, Reward=13895.00, MeanMacroReward=1263.18, MeanNormReward=1.263, ClipHitRate=0.0%
+2026-04-04 18:26:02,169 - Episode 248: Steps=11, Reward=14284.00, MeanMacroReward=1298.55, MeanNormReward=1.299, ClipHitRate=0.0%
+2026-04-04 18:26:23,967 - Episode 249: Steps=11, Reward=14908.00, MeanMacroReward=1355.27, MeanNormReward=1.355, ClipHitRate=0.0%
+2026-04-04 18:26:23,975 - Saved checkpoint at episode=249 (global_step=2750) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 18:26:45,925 - Episode 250: Steps=11, Reward=14147.00, MeanMacroReward=1286.09, MeanNormReward=1.286, ClipHitRate=0.0%
+2026-04-04 18:27:08,090 - Episode 251: Steps=11, Reward=13974.00, MeanMacroReward=1270.36, MeanNormReward=1.270, ClipHitRate=0.0%
+2026-04-04 18:27:30,131 - Episode 252: Steps=11, Reward=14522.00, MeanMacroReward=1320.18, MeanNormReward=1.320, ClipHitRate=0.0%
+2026-04-04 18:27:51,549 - Episode 253: Steps=11, Reward=14041.00, MeanMacroReward=1276.45, MeanNormReward=1.276, ClipHitRate=0.0%
+2026-04-04 18:28:13,855 - Episode 254: Steps=11, Reward=13772.00, MeanMacroReward=1252.00, MeanNormReward=1.252, ClipHitRate=0.0%
+2026-04-04 18:28:35,905 - Episode 255: Steps=11, Reward=13287.00, MeanMacroReward=1207.91, MeanNormReward=1.208, ClipHitRate=0.0%
+2026-04-04 18:28:58,067 - Episode 256: Steps=11, Reward=14307.00, MeanMacroReward=1300.64, MeanNormReward=1.301, ClipHitRate=0.0%
+2026-04-04 18:29:20,406 - Episode 257: Steps=11, Reward=13444.00, MeanMacroReward=1222.18, MeanNormReward=1.222, ClipHitRate=0.0%
+2026-04-04 18:29:42,410 - Episode 258: Steps=11, Reward=14650.00, MeanMacroReward=1331.82, MeanNormReward=1.332, ClipHitRate=0.0%
+2026-04-04 18:30:04,659 - Episode 259: Steps=11, Reward=14784.00, MeanMacroReward=1344.00, MeanNormReward=1.344, ClipHitRate=0.0%
+2026-04-04 18:30:04,667 - Saved checkpoint at episode=259 (global_step=2860) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 18:30:26,657 - Episode 260: Steps=11, Reward=13814.00, MeanMacroReward=1255.82, MeanNormReward=1.256, ClipHitRate=0.0%
+2026-04-04 18:30:48,609 - Episode 261: Steps=11, Reward=14609.00, MeanMacroReward=1328.09, MeanNormReward=1.328, ClipHitRate=0.0%
+2026-04-04 18:31:10,340 - Episode 262: Steps=11, Reward=13913.00, MeanMacroReward=1264.82, MeanNormReward=1.265, ClipHitRate=0.0%
+2026-04-04 18:31:32,228 - Episode 263: Steps=11, Reward=14573.00, MeanMacroReward=1324.82, MeanNormReward=1.325, ClipHitRate=0.0%
+2026-04-04 18:31:54,175 - Episode 264: Steps=11, Reward=13633.00, MeanMacroReward=1239.36, MeanNormReward=1.239, ClipHitRate=0.0%
+2026-04-04 18:32:16,274 - Episode 265: Steps=11, Reward=14350.00, MeanMacroReward=1304.55, MeanNormReward=1.305, ClipHitRate=0.0%
+2026-04-04 18:32:38,302 - Episode 266: Steps=11, Reward=14407.00, MeanMacroReward=1309.73, MeanNormReward=1.310, ClipHitRate=0.0%
+2026-04-04 18:33:00,252 - Episode 267: Steps=11, Reward=14041.00, MeanMacroReward=1276.45, MeanNormReward=1.276, ClipHitRate=0.0%
+2026-04-04 18:33:22,656 - Episode 268: Steps=11, Reward=14391.00, MeanMacroReward=1308.27, MeanNormReward=1.308, ClipHitRate=0.0%
+2026-04-04 18:33:44,392 - Episode 269: Steps=11, Reward=14173.00, MeanMacroReward=1288.45, MeanNormReward=1.288, ClipHitRate=0.0%
+2026-04-04 18:33:44,401 - Saved checkpoint at episode=269 (global_step=2970) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 18:34:06,330 - Episode 270: Steps=11, Reward=14352.00, MeanMacroReward=1304.73, MeanNormReward=1.305, ClipHitRate=0.0%
+2026-04-04 18:34:28,093 - Episode 271: Steps=11, Reward=13720.00, MeanMacroReward=1247.27, MeanNormReward=1.247, ClipHitRate=0.0%
+2026-04-04 18:34:49,921 - Episode 272: Steps=11, Reward=13292.00, MeanMacroReward=1208.36, MeanNormReward=1.208, ClipHitRate=0.0%
+2026-04-04 18:35:12,216 - Episode 273: Steps=11, Reward=14373.00, MeanMacroReward=1306.64, MeanNormReward=1.307, ClipHitRate=0.0%
+2026-04-04 18:35:34,302 - Episode 274: Steps=11, Reward=14675.00, MeanMacroReward=1334.09, MeanNormReward=1.334, ClipHitRate=0.0%
+2026-04-04 18:35:56,010 - Episode 275: Steps=11, Reward=14701.00, MeanMacroReward=1336.45, MeanNormReward=1.336, ClipHitRate=0.0%
+2026-04-04 18:36:18,559 - Episode 276: Steps=11, Reward=14496.00, MeanMacroReward=1317.82, MeanNormReward=1.318, ClipHitRate=0.0%
+2026-04-04 18:36:40,733 - Episode 277: Steps=11, Reward=13980.00, MeanMacroReward=1270.91, MeanNormReward=1.271, ClipHitRate=0.0%
+2026-04-04 18:37:02,584 - Episode 278: Steps=11, Reward=14942.00, MeanMacroReward=1358.36, MeanNormReward=1.358, ClipHitRate=0.0%
+2026-04-04 18:37:24,695 - Episode 279: Steps=11, Reward=14403.00, MeanMacroReward=1309.36, MeanNormReward=1.309, ClipHitRate=0.0%
+2026-04-04 18:37:24,703 - Saved checkpoint at episode=279 (global_step=3080) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 18:37:46,358 - Episode 280: Steps=11, Reward=13933.00, MeanMacroReward=1266.64, MeanNormReward=1.267, ClipHitRate=0.0%
+2026-04-04 18:38:08,282 - Episode 281: Steps=11, Reward=14877.00, MeanMacroReward=1352.45, MeanNormReward=1.352, ClipHitRate=0.0%
+2026-04-04 18:38:31,266 - Episode 282: Steps=11, Reward=13476.00, MeanMacroReward=1225.09, MeanNormReward=1.225, ClipHitRate=0.0%
+2026-04-04 18:38:53,640 - Episode 283: Steps=11, Reward=14150.00, MeanMacroReward=1286.36, MeanNormReward=1.286, ClipHitRate=0.0%
+2026-04-04 18:39:15,886 - Episode 284: Steps=11, Reward=15042.00, MeanMacroReward=1367.45, MeanNormReward=1.367, ClipHitRate=0.0%
+2026-04-04 18:39:37,988 - Episode 285: Steps=11, Reward=14471.00, MeanMacroReward=1315.55, MeanNormReward=1.316, ClipHitRate=0.0%
+2026-04-04 18:39:59,264 - Episode 286: Steps=11, Reward=13742.00, MeanMacroReward=1249.27, MeanNormReward=1.249, ClipHitRate=0.0%
+2026-04-04 18:40:21,087 - Episode 287: Steps=11, Reward=14930.00, MeanMacroReward=1357.27, MeanNormReward=1.357, ClipHitRate=0.0%
+2026-04-04 18:40:42,459 - Episode 288: Steps=11, Reward=13277.00, MeanMacroReward=1207.00, MeanNormReward=1.207, ClipHitRate=0.0%
+2026-04-04 18:41:04,044 - Episode 289: Steps=11, Reward=14240.00, MeanMacroReward=1294.55, MeanNormReward=1.295, ClipHitRate=0.0%
+2026-04-04 18:41:04,053 - Saved checkpoint at episode=289 (global_step=3190) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 18:41:25,607 - Episode 290: Steps=11, Reward=14455.00, MeanMacroReward=1314.09, MeanNormReward=1.314, ClipHitRate=0.0%
+2026-04-04 18:41:47,276 - Episode 291: Steps=11, Reward=14983.00, MeanMacroReward=1362.09, MeanNormReward=1.362, ClipHitRate=0.0%
+2026-04-04 18:42:09,307 - Episode 292: Steps=11, Reward=14315.00, MeanMacroReward=1301.36, MeanNormReward=1.301, ClipHitRate=0.0%
+2026-04-04 18:42:31,051 - Episode 293: Steps=11, Reward=14248.00, MeanMacroReward=1295.27, MeanNormReward=1.295, ClipHitRate=0.0%
+2026-04-04 18:42:52,390 - Episode 294: Steps=11, Reward=13040.00, MeanMacroReward=1185.45, MeanNormReward=1.185, ClipHitRate=0.0%
+2026-04-04 18:43:13,478 - Episode 295: Steps=11, Reward=13353.00, MeanMacroReward=1213.91, MeanNormReward=1.214, ClipHitRate=0.0%
+2026-04-04 18:43:35,085 - Episode 296: Steps=11, Reward=14845.00, MeanMacroReward=1349.55, MeanNormReward=1.350, ClipHitRate=0.0%
+2026-04-04 18:43:56,753 - Episode 297: Steps=11, Reward=13537.00, MeanMacroReward=1230.64, MeanNormReward=1.231, ClipHitRate=0.0%
+2026-04-04 18:44:18,263 - Episode 298: Steps=11, Reward=14296.00, MeanMacroReward=1299.64, MeanNormReward=1.300, ClipHitRate=0.0%
+2026-04-04 18:44:39,304 - Episode 299: Steps=11, Reward=13590.00, MeanMacroReward=1235.45, MeanNormReward=1.235, ClipHitRate=0.0%
+2026-04-04 18:44:39,315 - Saved checkpoint at episode=299 (global_step=3300) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 18:45:00,835 - Episode 300: Steps=11, Reward=14313.00, MeanMacroReward=1301.18, MeanNormReward=1.301, ClipHitRate=0.0%
+2026-04-04 18:45:22,693 - Episode 301: Steps=11, Reward=15022.00, MeanMacroReward=1365.64, MeanNormReward=1.366, ClipHitRate=0.0%
+2026-04-04 18:45:44,208 - Episode 302: Steps=11, Reward=13488.00, MeanMacroReward=1226.18, MeanNormReward=1.226, ClipHitRate=0.0%
+2026-04-04 18:46:05,398 - Episode 303: Steps=11, Reward=13635.00, MeanMacroReward=1239.55, MeanNormReward=1.240, ClipHitRate=0.0%
+2026-04-04 18:46:27,138 - Episode 304: Steps=11, Reward=14641.00, MeanMacroReward=1331.00, MeanNormReward=1.331, ClipHitRate=0.0%
+2026-04-04 18:46:48,987 - Episode 305: Steps=11, Reward=14026.00, MeanMacroReward=1275.09, MeanNormReward=1.275, ClipHitRate=0.0%
+2026-04-04 18:47:10,497 - Episode 306: Steps=11, Reward=13977.00, MeanMacroReward=1270.64, MeanNormReward=1.271, ClipHitRate=0.0%
+2026-04-04 18:47:32,187 - Episode 307: Steps=11, Reward=13718.00, MeanMacroReward=1247.09, MeanNormReward=1.247, ClipHitRate=0.0%
+2026-04-04 18:47:53,899 - Episode 308: Steps=11, Reward=13835.00, MeanMacroReward=1257.73, MeanNormReward=1.258, ClipHitRate=0.0%
+2026-04-04 18:48:15,170 - Episode 309: Steps=11, Reward=14425.00, MeanMacroReward=1311.36, MeanNormReward=1.311, ClipHitRate=0.0%
+2026-04-04 18:48:15,178 - Saved checkpoint at episode=309 (global_step=3410) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 18:48:36,448 - Episode 310: Steps=11, Reward=13978.00, MeanMacroReward=1270.73, MeanNormReward=1.271, ClipHitRate=0.0%
+2026-04-04 18:48:58,575 - Episode 311: Steps=11, Reward=13531.00, MeanMacroReward=1230.09, MeanNormReward=1.230, ClipHitRate=0.0%
+2026-04-04 18:49:19,966 - Episode 312: Steps=11, Reward=14275.00, MeanMacroReward=1297.73, MeanNormReward=1.298, ClipHitRate=0.0%
+2026-04-04 18:49:41,495 - Episode 313: Steps=11, Reward=14853.00, MeanMacroReward=1350.27, MeanNormReward=1.350, ClipHitRate=0.0%
+2026-04-04 18:50:03,457 - Episode 314: Steps=11, Reward=14559.00, MeanMacroReward=1323.55, MeanNormReward=1.324, ClipHitRate=0.0%
+2026-04-04 18:50:24,939 - Episode 315: Steps=11, Reward=14009.00, MeanMacroReward=1273.55, MeanNormReward=1.274, ClipHitRate=0.0%
+2026-04-04 18:50:45,898 - Episode 316: Steps=11, Reward=13788.00, MeanMacroReward=1253.45, MeanNormReward=1.253, ClipHitRate=0.0%
+2026-04-04 18:51:07,389 - Episode 317: Steps=11, Reward=14160.00, MeanMacroReward=1287.27, MeanNormReward=1.287, ClipHitRate=0.0%
+2026-04-04 18:51:29,362 - Episode 318: Steps=11, Reward=14150.00, MeanMacroReward=1286.36, MeanNormReward=1.286, ClipHitRate=0.0%
+2026-04-04 18:51:51,081 - Episode 319: Steps=11, Reward=14282.00, MeanMacroReward=1298.36, MeanNormReward=1.298, ClipHitRate=0.0%
+2026-04-04 18:51:51,088 - Saved checkpoint at episode=319 (global_step=3520) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 18:52:12,145 - Episode 320: Steps=11, Reward=13544.00, MeanMacroReward=1231.27, MeanNormReward=1.231, ClipHitRate=0.0%
+2026-04-04 18:52:33,416 - Episode 321: Steps=11, Reward=13205.00, MeanMacroReward=1200.45, MeanNormReward=1.200, ClipHitRate=0.0%
+2026-04-04 18:52:55,141 - Episode 322: Steps=11, Reward=13542.00, MeanMacroReward=1231.09, MeanNormReward=1.231, ClipHitRate=0.0%
+2026-04-04 18:53:16,862 - Episode 323: Steps=11, Reward=15061.00, MeanMacroReward=1369.18, MeanNormReward=1.369, ClipHitRate=0.0%
+2026-04-04 18:53:38,136 - Episode 324: Steps=11, Reward=14030.00, MeanMacroReward=1275.45, MeanNormReward=1.275, ClipHitRate=0.0%
+2026-04-04 18:53:59,605 - Episode 325: Steps=11, Reward=13802.00, MeanMacroReward=1254.73, MeanNormReward=1.255, ClipHitRate=0.0%
+2026-04-04 18:54:21,128 - Episode 326: Steps=11, Reward=14109.00, MeanMacroReward=1282.64, MeanNormReward=1.283, ClipHitRate=0.0%
+2026-04-04 18:54:42,691 - Episode 327: Steps=11, Reward=13282.00, MeanMacroReward=1207.45, MeanNormReward=1.207, ClipHitRate=0.0%
+2026-04-04 18:55:04,380 - Episode 328: Steps=11, Reward=14946.00, MeanMacroReward=1358.73, MeanNormReward=1.359, ClipHitRate=0.0%
+2026-04-04 18:55:25,785 - Episode 329: Steps=11, Reward=14702.00, MeanMacroReward=1336.55, MeanNormReward=1.337, ClipHitRate=0.0%
+2026-04-04 18:55:25,794 - Saved checkpoint at episode=329 (global_step=3630) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 18:55:47,057 - Episode 330: Steps=11, Reward=14901.00, MeanMacroReward=1354.64, MeanNormReward=1.355, ClipHitRate=0.0%
+2026-04-04 18:56:08,433 - Episode 331: Steps=11, Reward=14906.00, MeanMacroReward=1355.09, MeanNormReward=1.355, ClipHitRate=0.0%
+2026-04-04 18:56:29,709 - Episode 332: Steps=11, Reward=14327.00, MeanMacroReward=1302.45, MeanNormReward=1.302, ClipHitRate=0.0%
+2026-04-04 18:56:51,266 - Episode 333: Steps=11, Reward=13771.00, MeanMacroReward=1251.91, MeanNormReward=1.252, ClipHitRate=0.0%
+2026-04-04 18:57:12,629 - Episode 334: Steps=11, Reward=14733.00, MeanMacroReward=1339.36, MeanNormReward=1.339, ClipHitRate=0.0%
+2026-04-04 18:57:34,454 - Episode 335: Steps=11, Reward=14941.00, MeanMacroReward=1358.27, MeanNormReward=1.358, ClipHitRate=0.0%
+2026-04-04 18:57:56,248 - Episode 336: Steps=11, Reward=13964.00, MeanMacroReward=1269.45, MeanNormReward=1.269, ClipHitRate=0.0%
+2026-04-04 18:58:17,646 - Episode 337: Steps=11, Reward=13654.00, MeanMacroReward=1241.27, MeanNormReward=1.241, ClipHitRate=0.0%
+2026-04-04 18:58:38,881 - Episode 338: Steps=11, Reward=13613.00, MeanMacroReward=1237.55, MeanNormReward=1.238, ClipHitRate=0.0%
+2026-04-04 18:59:00,103 - Episode 339: Steps=11, Reward=13487.00, MeanMacroReward=1226.09, MeanNormReward=1.226, ClipHitRate=0.0%
+2026-04-04 18:59:00,110 - Saved checkpoint at episode=339 (global_step=3740) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 18:59:22,057 - Episode 340: Steps=11, Reward=14109.00, MeanMacroReward=1282.64, MeanNormReward=1.283, ClipHitRate=0.0%
+2026-04-04 18:59:43,370 - Episode 341: Steps=11, Reward=14014.00, MeanMacroReward=1274.00, MeanNormReward=1.274, ClipHitRate=0.0%
+2026-04-04 19:00:04,977 - Episode 342: Steps=11, Reward=14173.00, MeanMacroReward=1288.45, MeanNormReward=1.288, ClipHitRate=0.0%
+2026-04-04 19:00:26,581 - Episode 343: Steps=11, Reward=14547.00, MeanMacroReward=1322.45, MeanNormReward=1.322, ClipHitRate=0.0%
+2026-04-04 19:00:48,113 - Episode 344: Steps=11, Reward=14059.00, MeanMacroReward=1278.09, MeanNormReward=1.278, ClipHitRate=0.0%
+2026-04-04 19:01:09,740 - Episode 345: Steps=11, Reward=13774.00, MeanMacroReward=1252.18, MeanNormReward=1.252, ClipHitRate=0.0%
+2026-04-04 19:01:31,554 - Episode 346: Steps=11, Reward=13812.00, MeanMacroReward=1255.64, MeanNormReward=1.256, ClipHitRate=0.0%
+2026-04-04 19:01:53,301 - Episode 347: Steps=11, Reward=14720.00, MeanMacroReward=1338.18, MeanNormReward=1.338, ClipHitRate=0.0%
+2026-04-04 19:02:14,751 - Episode 348: Steps=11, Reward=15489.00, MeanMacroReward=1408.09, MeanNormReward=1.408, ClipHitRate=0.0%
+2026-04-04 19:02:36,340 - Episode 349: Steps=11, Reward=13126.00, MeanMacroReward=1193.27, MeanNormReward=1.193, ClipHitRate=0.0%
+2026-04-04 19:02:36,348 - Saved checkpoint at episode=349 (global_step=3850) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 19:02:57,722 - Episode 350: Steps=11, Reward=13322.00, MeanMacroReward=1211.09, MeanNormReward=1.211, ClipHitRate=0.0%
+2026-04-04 19:03:19,330 - Episode 351: Steps=11, Reward=14571.00, MeanMacroReward=1324.64, MeanNormReward=1.325, ClipHitRate=0.0%
+2026-04-04 19:03:40,510 - Episode 352: Steps=11, Reward=13539.00, MeanMacroReward=1230.82, MeanNormReward=1.231, ClipHitRate=0.0%
+2026-04-04 19:04:01,573 - Episode 353: Steps=11, Reward=13874.00, MeanMacroReward=1261.27, MeanNormReward=1.261, ClipHitRate=0.0%
+2026-04-04 19:04:22,310 - Episode 354: Steps=11, Reward=13505.00, MeanMacroReward=1227.73, MeanNormReward=1.228, ClipHitRate=0.0%
+2026-04-04 19:04:43,714 - Episode 355: Steps=11, Reward=13765.00, MeanMacroReward=1251.36, MeanNormReward=1.251, ClipHitRate=0.0%
+2026-04-04 19:05:05,091 - Episode 356: Steps=11, Reward=13318.00, MeanMacroReward=1210.73, MeanNormReward=1.211, ClipHitRate=0.0%
+2026-04-04 19:05:26,895 - Episode 357: Steps=11, Reward=14172.00, MeanMacroReward=1288.36, MeanNormReward=1.288, ClipHitRate=0.0%
+2026-04-04 19:05:47,908 - Episode 358: Steps=11, Reward=13270.00, MeanMacroReward=1206.36, MeanNormReward=1.206, ClipHitRate=0.0%
+2026-04-04 19:06:09,225 - Episode 359: Steps=11, Reward=14785.00, MeanMacroReward=1344.09, MeanNormReward=1.344, ClipHitRate=0.0%
+2026-04-04 19:06:09,234 - Saved checkpoint at episode=359 (global_step=3960) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 19:06:30,920 - Episode 360: Steps=11, Reward=13384.00, MeanMacroReward=1216.73, MeanNormReward=1.217, ClipHitRate=0.0%
+2026-04-04 19:06:52,427 - Episode 361: Steps=11, Reward=14283.00, MeanMacroReward=1298.45, MeanNormReward=1.298, ClipHitRate=0.0%
+2026-04-04 19:07:14,009 - Episode 362: Steps=11, Reward=13643.00, MeanMacroReward=1240.27, MeanNormReward=1.240, ClipHitRate=0.0%
+2026-04-04 19:07:35,708 - Episode 363: Steps=11, Reward=13595.00, MeanMacroReward=1235.91, MeanNormReward=1.236, ClipHitRate=0.0%
+2026-04-04 19:07:57,096 - Episode 364: Steps=11, Reward=13869.00, MeanMacroReward=1260.82, MeanNormReward=1.261, ClipHitRate=0.0%
+2026-04-04 19:08:18,290 - Episode 365: Steps=11, Reward=14199.00, MeanMacroReward=1290.82, MeanNormReward=1.291, ClipHitRate=0.0%
+2026-04-04 19:08:39,377 - Episode 366: Steps=11, Reward=14080.00, MeanMacroReward=1280.00, MeanNormReward=1.280, ClipHitRate=0.0%
+2026-04-04 19:09:00,284 - Episode 367: Steps=11, Reward=13423.00, MeanMacroReward=1220.27, MeanNormReward=1.220, ClipHitRate=0.0%
+2026-04-04 19:09:21,881 - Episode 368: Steps=11, Reward=13649.00, MeanMacroReward=1240.82, MeanNormReward=1.241, ClipHitRate=0.0%
+2026-04-04 19:09:43,373 - Episode 369: Steps=11, Reward=14156.00, MeanMacroReward=1286.91, MeanNormReward=1.287, ClipHitRate=0.0%
+2026-04-04 19:09:43,385 - Saved checkpoint at episode=369 (global_step=4070) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 19:10:04,685 - Episode 370: Steps=11, Reward=13838.00, MeanMacroReward=1258.00, MeanNormReward=1.258, ClipHitRate=0.0%
+2026-04-04 19:10:26,636 - Episode 371: Steps=11, Reward=13606.00, MeanMacroReward=1236.91, MeanNormReward=1.237, ClipHitRate=0.0%
+2026-04-04 19:10:48,289 - Episode 372: Steps=11, Reward=14443.00, MeanMacroReward=1313.00, MeanNormReward=1.313, ClipHitRate=0.0%
+2026-04-04 19:11:09,379 - Episode 373: Steps=11, Reward=13876.00, MeanMacroReward=1261.45, MeanNormReward=1.261, ClipHitRate=0.0%
+2026-04-04 19:11:31,152 - Episode 374: Steps=11, Reward=14212.00, MeanMacroReward=1292.00, MeanNormReward=1.292, ClipHitRate=0.0%
+2026-04-04 19:11:52,107 - Episode 375: Steps=11, Reward=14425.00, MeanMacroReward=1311.36, MeanNormReward=1.311, ClipHitRate=0.0%
+2026-04-04 19:12:13,642 - Episode 376: Steps=11, Reward=13272.00, MeanMacroReward=1206.55, MeanNormReward=1.207, ClipHitRate=0.0%
+2026-04-04 19:12:35,112 - Episode 377: Steps=11, Reward=13656.00, MeanMacroReward=1241.45, MeanNormReward=1.241, ClipHitRate=0.0%
+2026-04-04 19:12:57,085 - Episode 378: Steps=11, Reward=13460.00, MeanMacroReward=1223.64, MeanNormReward=1.224, ClipHitRate=0.0%
+2026-04-04 19:13:18,493 - Episode 379: Steps=11, Reward=13911.00, MeanMacroReward=1264.64, MeanNormReward=1.265, ClipHitRate=0.0%
+2026-04-04 19:13:18,502 - Saved checkpoint at episode=379 (global_step=4180) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 19:13:39,680 - Episode 380: Steps=11, Reward=13776.00, MeanMacroReward=1252.36, MeanNormReward=1.252, ClipHitRate=0.0%
+2026-04-04 19:14:01,180 - Episode 381: Steps=11, Reward=12841.00, MeanMacroReward=1167.36, MeanNormReward=1.167, ClipHitRate=0.0%
+2026-04-04 19:14:22,472 - Episode 382: Steps=11, Reward=13658.00, MeanMacroReward=1241.64, MeanNormReward=1.242, ClipHitRate=0.0%
+2026-04-04 19:14:43,925 - Episode 383: Steps=11, Reward=13917.00, MeanMacroReward=1265.18, MeanNormReward=1.265, ClipHitRate=0.0%
+2026-04-04 19:15:05,473 - Episode 384: Steps=11, Reward=13789.00, MeanMacroReward=1253.55, MeanNormReward=1.254, ClipHitRate=0.0%
+2026-04-04 19:15:26,819 - Episode 385: Steps=11, Reward=14262.00, MeanMacroReward=1296.55, MeanNormReward=1.297, ClipHitRate=0.0%
+2026-04-04 19:15:48,251 - Episode 386: Steps=11, Reward=13185.00, MeanMacroReward=1198.64, MeanNormReward=1.199, ClipHitRate=0.0%
+2026-04-04 19:16:09,466 - Episode 387: Steps=11, Reward=13925.00, MeanMacroReward=1265.91, MeanNormReward=1.266, ClipHitRate=0.0%
+2026-04-04 19:16:30,850 - Episode 388: Steps=11, Reward=14567.00, MeanMacroReward=1324.27, MeanNormReward=1.324, ClipHitRate=0.0%
+2026-04-04 19:16:51,940 - Episode 389: Steps=11, Reward=13847.00, MeanMacroReward=1258.82, MeanNormReward=1.259, ClipHitRate=0.0%
+2026-04-04 19:16:51,948 - Saved checkpoint at episode=389 (global_step=4290) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 19:17:13,712 - Episode 390: Steps=11, Reward=14884.00, MeanMacroReward=1353.09, MeanNormReward=1.353, ClipHitRate=0.0%
+2026-04-04 19:17:35,110 - Episode 391: Steps=11, Reward=13522.00, MeanMacroReward=1229.27, MeanNormReward=1.229, ClipHitRate=0.0%
+2026-04-04 19:17:56,182 - Episode 392: Steps=11, Reward=14361.00, MeanMacroReward=1305.55, MeanNormReward=1.306, ClipHitRate=0.0%
+2026-04-04 19:18:17,619 - Episode 393: Steps=11, Reward=14398.00, MeanMacroReward=1308.91, MeanNormReward=1.309, ClipHitRate=0.0%
+2026-04-04 19:18:38,862 - Episode 394: Steps=11, Reward=14061.00, MeanMacroReward=1278.27, MeanNormReward=1.278, ClipHitRate=0.0%
+2026-04-04 19:18:59,885 - Episode 395: Steps=11, Reward=14328.00, MeanMacroReward=1302.55, MeanNormReward=1.303, ClipHitRate=0.0%
+2026-04-04 19:19:21,144 - Episode 396: Steps=11, Reward=14237.00, MeanMacroReward=1294.27, MeanNormReward=1.294, ClipHitRate=0.0%
+2026-04-04 19:19:42,676 - Episode 397: Steps=11, Reward=14756.00, MeanMacroReward=1341.45, MeanNormReward=1.341, ClipHitRate=0.0%
+2026-04-04 19:20:04,452 - Episode 398: Steps=11, Reward=13676.00, MeanMacroReward=1243.27, MeanNormReward=1.243, ClipHitRate=0.0%
+2026-04-04 19:20:25,902 - Episode 399: Steps=11, Reward=13307.00, MeanMacroReward=1209.73, MeanNormReward=1.210, ClipHitRate=0.0%
+2026-04-04 19:20:25,912 - Saved checkpoint at episode=399 (global_step=4400) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 19:20:46,675 - Episode 400: Steps=11, Reward=13841.00, MeanMacroReward=1258.27, MeanNormReward=1.258, ClipHitRate=0.0%
+2026-04-04 19:21:08,261 - Episode 401: Steps=11, Reward=14182.00, MeanMacroReward=1289.27, MeanNormReward=1.289, ClipHitRate=0.0%
+2026-04-04 19:21:29,722 - Episode 402: Steps=11, Reward=14276.00, MeanMacroReward=1297.82, MeanNormReward=1.298, ClipHitRate=0.0%
+2026-04-04 19:21:51,181 - Episode 403: Steps=11, Reward=13939.00, MeanMacroReward=1267.18, MeanNormReward=1.267, ClipHitRate=0.0%
+2026-04-04 19:22:12,907 - Episode 404: Steps=11, Reward=14370.00, MeanMacroReward=1306.36, MeanNormReward=1.306, ClipHitRate=0.0%
+2026-04-04 19:22:34,029 - Episode 405: Steps=11, Reward=14318.00, MeanMacroReward=1301.64, MeanNormReward=1.302, ClipHitRate=0.0%
+2026-04-04 19:22:55,463 - Episode 406: Steps=11, Reward=14105.00, MeanMacroReward=1282.27, MeanNormReward=1.282, ClipHitRate=0.0%
+2026-04-04 19:23:16,436 - Episode 407: Steps=11, Reward=15395.00, MeanMacroReward=1399.55, MeanNormReward=1.400, ClipHitRate=0.0%
+2026-04-04 19:23:37,700 - Episode 408: Steps=11, Reward=14222.00, MeanMacroReward=1292.91, MeanNormReward=1.293, ClipHitRate=0.0%
+2026-04-04 19:23:59,135 - Episode 409: Steps=11, Reward=13745.00, MeanMacroReward=1249.55, MeanNormReward=1.250, ClipHitRate=0.0%
+2026-04-04 19:23:59,143 - Saved checkpoint at episode=409 (global_step=4510) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 19:24:20,597 - Episode 410: Steps=11, Reward=13756.00, MeanMacroReward=1250.55, MeanNormReward=1.251, ClipHitRate=0.0%
+2026-04-04 19:24:42,067 - Episode 411: Steps=11, Reward=15730.00, MeanMacroReward=1430.00, MeanNormReward=1.430, ClipHitRate=0.0%
+2026-04-04 19:25:03,676 - Episode 412: Steps=11, Reward=14184.00, MeanMacroReward=1289.45, MeanNormReward=1.289, ClipHitRate=0.0%
+2026-04-04 19:25:24,760 - Episode 413: Steps=11, Reward=13790.00, MeanMacroReward=1253.64, MeanNormReward=1.254, ClipHitRate=0.0%
+2026-04-04 19:25:46,217 - Episode 414: Steps=11, Reward=15206.00, MeanMacroReward=1382.36, MeanNormReward=1.382, ClipHitRate=0.0%
+2026-04-04 19:26:07,489 - Episode 415: Steps=11, Reward=13773.00, MeanMacroReward=1252.09, MeanNormReward=1.252, ClipHitRate=0.0%
+2026-04-04 19:26:29,365 - Episode 416: Steps=11, Reward=14223.00, MeanMacroReward=1293.00, MeanNormReward=1.293, ClipHitRate=0.0%
+2026-04-04 19:26:51,161 - Episode 417: Steps=11, Reward=14254.00, MeanMacroReward=1295.82, MeanNormReward=1.296, ClipHitRate=0.0%
+2026-04-04 19:27:12,903 - Episode 418: Steps=11, Reward=14447.00, MeanMacroReward=1313.36, MeanNormReward=1.313, ClipHitRate=0.0%
+2026-04-04 19:27:34,663 - Episode 419: Steps=11, Reward=14014.00, MeanMacroReward=1274.00, MeanNormReward=1.274, ClipHitRate=0.0%
+2026-04-04 19:27:34,671 - Saved checkpoint at episode=419 (global_step=4620) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 19:27:56,774 - Episode 420: Steps=11, Reward=14873.00, MeanMacroReward=1352.09, MeanNormReward=1.352, ClipHitRate=0.0%
+2026-04-04 19:28:17,638 - Episode 421: Steps=11, Reward=14184.00, MeanMacroReward=1289.45, MeanNormReward=1.289, ClipHitRate=0.0%
+2026-04-04 19:28:39,914 - Episode 422: Steps=11, Reward=14650.00, MeanMacroReward=1331.82, MeanNormReward=1.332, ClipHitRate=0.0%
+2026-04-04 19:29:01,422 - Episode 423: Steps=11, Reward=14184.00, MeanMacroReward=1289.45, MeanNormReward=1.289, ClipHitRate=0.0%
+2026-04-04 19:29:22,373 - Episode 424: Steps=11, Reward=13621.00, MeanMacroReward=1238.27, MeanNormReward=1.238, ClipHitRate=0.0%
+2026-04-04 19:29:43,995 - Episode 425: Steps=11, Reward=15228.00, MeanMacroReward=1384.36, MeanNormReward=1.384, ClipHitRate=0.0%
+2026-04-04 19:30:05,629 - Episode 426: Steps=11, Reward=13850.00, MeanMacroReward=1259.09, MeanNormReward=1.259, ClipHitRate=0.0%
+2026-04-04 19:30:27,178 - Episode 427: Steps=11, Reward=14749.00, MeanMacroReward=1340.82, MeanNormReward=1.341, ClipHitRate=0.0%
+2026-04-04 19:30:48,315 - Episode 428: Steps=11, Reward=13776.00, MeanMacroReward=1252.36, MeanNormReward=1.252, ClipHitRate=0.0%
+2026-04-04 19:31:10,035 - Episode 429: Steps=11, Reward=13881.00, MeanMacroReward=1261.91, MeanNormReward=1.262, ClipHitRate=0.0%
+2026-04-04 19:31:10,043 - Saved checkpoint at episode=429 (global_step=4730) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 19:31:31,202 - Episode 430: Steps=11, Reward=14305.00, MeanMacroReward=1300.45, MeanNormReward=1.300, ClipHitRate=0.0%
+2026-04-04 19:31:53,100 - Episode 431: Steps=11, Reward=13859.00, MeanMacroReward=1259.91, MeanNormReward=1.260, ClipHitRate=0.0%
+2026-04-04 19:32:14,528 - Episode 432: Steps=11, Reward=14483.00, MeanMacroReward=1316.64, MeanNormReward=1.317, ClipHitRate=0.0%
+2026-04-04 19:32:36,084 - Episode 433: Steps=11, Reward=15206.00, MeanMacroReward=1382.36, MeanNormReward=1.382, ClipHitRate=0.0%
+2026-04-04 19:32:57,834 - Episode 434: Steps=11, Reward=14341.00, MeanMacroReward=1303.73, MeanNormReward=1.304, ClipHitRate=0.0%
+2026-04-04 19:33:19,554 - Episode 435: Steps=11, Reward=13770.00, MeanMacroReward=1251.82, MeanNormReward=1.252, ClipHitRate=0.0%
+2026-04-04 19:33:40,848 - Episode 436: Steps=11, Reward=14164.00, MeanMacroReward=1287.64, MeanNormReward=1.288, ClipHitRate=0.0%
+2026-04-04 19:34:02,097 - Episode 437: Steps=11, Reward=14239.00, MeanMacroReward=1294.45, MeanNormReward=1.294, ClipHitRate=0.0%
+2026-04-04 19:34:23,643 - Episode 438: Steps=11, Reward=14283.00, MeanMacroReward=1298.45, MeanNormReward=1.298, ClipHitRate=0.0%
+2026-04-04 19:34:44,766 - Episode 439: Steps=11, Reward=14180.00, MeanMacroReward=1289.09, MeanNormReward=1.289, ClipHitRate=0.0%
+2026-04-04 19:34:44,774 - Saved checkpoint at episode=439 (global_step=4840) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 19:35:06,235 - Episode 440: Steps=11, Reward=14826.00, MeanMacroReward=1347.82, MeanNormReward=1.348, ClipHitRate=0.0%
+2026-04-04 19:35:28,094 - Episode 441: Steps=11, Reward=16288.00, MeanMacroReward=1480.73, MeanNormReward=1.481, ClipHitRate=0.0%
+2026-04-04 19:35:49,373 - Episode 442: Steps=11, Reward=13269.00, MeanMacroReward=1206.27, MeanNormReward=1.206, ClipHitRate=0.0%
+2026-04-04 19:36:10,772 - Episode 443: Steps=11, Reward=14327.00, MeanMacroReward=1302.45, MeanNormReward=1.302, ClipHitRate=0.0%
+2026-04-04 19:36:32,361 - Episode 444: Steps=11, Reward=16006.00, MeanMacroReward=1455.09, MeanNormReward=1.455, ClipHitRate=0.0%
+2026-04-04 19:36:53,892 - Episode 445: Steps=11, Reward=14136.00, MeanMacroReward=1285.09, MeanNormReward=1.285, ClipHitRate=0.0%
+2026-04-04 19:37:15,363 - Episode 446: Steps=11, Reward=14706.00, MeanMacroReward=1336.91, MeanNormReward=1.337, ClipHitRate=0.0%
+2026-04-04 19:37:37,406 - Episode 447: Steps=11, Reward=18229.00, MeanMacroReward=1657.18, MeanNormReward=1.657, ClipHitRate=0.0%
+2026-04-04 19:37:59,041 - Episode 448: Steps=11, Reward=15102.00, MeanMacroReward=1372.91, MeanNormReward=1.373, ClipHitRate=0.0%
+2026-04-04 19:38:20,918 - Episode 449: Steps=11, Reward=17287.00, MeanMacroReward=1571.55, MeanNormReward=1.572, ClipHitRate=0.0%
+2026-04-04 19:38:20,926 - Saved checkpoint at episode=449 (global_step=4950) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 19:38:42,415 - Episode 450: Steps=11, Reward=15021.00, MeanMacroReward=1365.55, MeanNormReward=1.366, ClipHitRate=0.0%
+2026-04-04 19:39:04,431 - Episode 451: Steps=11, Reward=17333.00, MeanMacroReward=1575.73, MeanNormReward=1.576, ClipHitRate=0.0%
+2026-04-04 19:39:27,029 - Episode 452: Steps=11, Reward=20939.00, MeanMacroReward=1903.55, MeanNormReward=1.904, ClipHitRate=0.0%
+2026-04-04 19:39:48,755 - Episode 453: Steps=11, Reward=17924.00, MeanMacroReward=1629.45, MeanNormReward=1.629, ClipHitRate=0.0%
+2026-04-04 19:40:10,126 - Episode 454: Steps=11, Reward=15317.00, MeanMacroReward=1392.45, MeanNormReward=1.392, ClipHitRate=0.0%
+2026-04-04 19:40:31,498 - Episode 455: Steps=11, Reward=14741.00, MeanMacroReward=1340.09, MeanNormReward=1.340, ClipHitRate=0.0%
+2026-04-04 19:40:52,542 - Episode 456: Steps=11, Reward=16194.00, MeanMacroReward=1472.18, MeanNormReward=1.472, ClipHitRate=0.0%
+2026-04-04 19:41:14,518 - Episode 457: Steps=11, Reward=17987.00, MeanMacroReward=1635.18, MeanNormReward=1.635, ClipHitRate=0.0%
+2026-04-04 19:41:36,248 - Episode 458: Steps=11, Reward=14070.00, MeanMacroReward=1279.09, MeanNormReward=1.279, ClipHitRate=0.0%
+2026-04-04 19:41:58,403 - Episode 459: Steps=11, Reward=15936.00, MeanMacroReward=1448.73, MeanNormReward=1.449, ClipHitRate=0.0%
+2026-04-04 19:41:58,411 - Saved checkpoint at episode=459 (global_step=5060) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 19:42:20,334 - Episode 460: Steps=11, Reward=19855.00, MeanMacroReward=1805.00, MeanNormReward=1.805, ClipHitRate=0.0%
+2026-04-04 19:42:42,138 - Episode 461: Steps=11, Reward=18304.00, MeanMacroReward=1664.00, MeanNormReward=1.664, ClipHitRate=0.0%
+2026-04-04 19:43:04,277 - Episode 462: Steps=11, Reward=19424.00, MeanMacroReward=1765.82, MeanNormReward=1.766, ClipHitRate=0.0%
+2026-04-04 19:43:26,178 - Episode 463: Steps=11, Reward=16298.00, MeanMacroReward=1481.64, MeanNormReward=1.482, ClipHitRate=0.0%
+2026-04-04 19:43:48,150 - Episode 464: Steps=11, Reward=17208.00, MeanMacroReward=1564.36, MeanNormReward=1.564, ClipHitRate=0.0%
+2026-04-04 19:44:10,079 - Episode 465: Steps=11, Reward=16621.00, MeanMacroReward=1511.00, MeanNormReward=1.511, ClipHitRate=0.0%
+2026-04-04 19:44:31,771 - Episode 466: Steps=11, Reward=15792.00, MeanMacroReward=1435.64, MeanNormReward=1.436, ClipHitRate=0.0%
+2026-04-04 19:44:53,282 - Episode 467: Steps=11, Reward=19719.00, MeanMacroReward=1792.64, MeanNormReward=1.793, ClipHitRate=0.0%
+2026-04-04 19:45:15,470 - Episode 468: Steps=11, Reward=20579.00, MeanMacroReward=1870.82, MeanNormReward=1.871, ClipHitRate=0.0%
+2026-04-04 19:45:37,349 - Episode 469: Steps=11, Reward=18777.00, MeanMacroReward=1707.00, MeanNormReward=1.707, ClipHitRate=0.0%
+2026-04-04 19:45:37,357 - Saved checkpoint at episode=469 (global_step=5170) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 19:45:58,885 - Episode 470: Steps=11, Reward=14843.00, MeanMacroReward=1349.36, MeanNormReward=1.349, ClipHitRate=0.0%
+2026-04-04 19:46:20,528 - Episode 471: Steps=11, Reward=15732.00, MeanMacroReward=1430.18, MeanNormReward=1.430, ClipHitRate=0.0%
+2026-04-04 19:46:42,713 - Episode 472: Steps=11, Reward=20389.00, MeanMacroReward=1853.55, MeanNormReward=1.854, ClipHitRate=0.0%
+2026-04-04 19:47:04,729 - Episode 473: Steps=11, Reward=17870.00, MeanMacroReward=1624.55, MeanNormReward=1.625, ClipHitRate=0.0%
+2026-04-04 19:47:26,766 - Episode 474: Steps=11, Reward=19459.00, MeanMacroReward=1769.00, MeanNormReward=1.769, ClipHitRate=0.0%
+2026-04-04 19:47:48,652 - Episode 475: Steps=11, Reward=19494.00, MeanMacroReward=1772.18, MeanNormReward=1.772, ClipHitRate=0.0%
+2026-04-04 19:48:10,541 - Episode 476: Steps=11, Reward=19140.00, MeanMacroReward=1740.00, MeanNormReward=1.740, ClipHitRate=0.0%
+2026-04-04 19:48:32,169 - Episode 477: Steps=11, Reward=19286.00, MeanMacroReward=1753.27, MeanNormReward=1.753, ClipHitRate=0.0%
+2026-04-04 19:48:54,046 - Episode 478: Steps=11, Reward=18223.00, MeanMacroReward=1656.64, MeanNormReward=1.657, ClipHitRate=0.0%
+2026-04-04 19:49:15,790 - Episode 479: Steps=11, Reward=18531.00, MeanMacroReward=1684.64, MeanNormReward=1.685, ClipHitRate=0.0%
+2026-04-04 19:49:15,797 - Saved checkpoint at episode=479 (global_step=5280) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 19:49:37,854 - Episode 480: Steps=11, Reward=18117.00, MeanMacroReward=1647.00, MeanNormReward=1.647, ClipHitRate=0.0%
+2026-04-04 19:49:59,692 - Episode 481: Steps=11, Reward=16342.00, MeanMacroReward=1485.64, MeanNormReward=1.486, ClipHitRate=0.0%
+2026-04-04 19:50:20,946 - Episode 482: Steps=11, Reward=14865.00, MeanMacroReward=1351.36, MeanNormReward=1.351, ClipHitRate=0.0%
+2026-04-04 19:50:42,632 - Episode 483: Steps=11, Reward=14523.00, MeanMacroReward=1320.27, MeanNormReward=1.320, ClipHitRate=0.0%
+2026-04-04 19:51:04,514 - Episode 484: Steps=11, Reward=18917.00, MeanMacroReward=1719.73, MeanNormReward=1.720, ClipHitRate=0.0%
+2026-04-04 19:51:26,214 - Episode 485: Steps=11, Reward=17600.00, MeanMacroReward=1600.00, MeanNormReward=1.600, ClipHitRate=0.0%
+2026-04-04 19:51:47,832 - Episode 486: Steps=11, Reward=16792.00, MeanMacroReward=1526.55, MeanNormReward=1.527, ClipHitRate=0.0%
+2026-04-04 19:52:09,731 - Episode 487: Steps=11, Reward=16015.00, MeanMacroReward=1455.91, MeanNormReward=1.456, ClipHitRate=0.0%
+2026-04-04 19:52:31,379 - Episode 488: Steps=11, Reward=16471.00, MeanMacroReward=1497.36, MeanNormReward=1.497, ClipHitRate=0.0%
+2026-04-04 19:52:53,349 - Episode 489: Steps=11, Reward=14069.00, MeanMacroReward=1279.00, MeanNormReward=1.279, ClipHitRate=0.0%
+2026-04-04 19:52:53,358 - Saved checkpoint at episode=489 (global_step=5390) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 19:53:16,069 - Episode 490: Steps=11, Reward=21901.00, MeanMacroReward=1991.00, MeanNormReward=1.991, ClipHitRate=0.0%
+2026-04-04 19:53:37,540 - Episode 491: Steps=11, Reward=17040.00, MeanMacroReward=1549.09, MeanNormReward=1.549, ClipHitRate=0.0%
+2026-04-04 19:53:59,338 - Episode 492: Steps=11, Reward=17398.00, MeanMacroReward=1581.64, MeanNormReward=1.582, ClipHitRate=0.0%
+2026-04-04 19:54:21,208 - Episode 493: Steps=11, Reward=18231.00, MeanMacroReward=1657.36, MeanNormReward=1.657, ClipHitRate=0.0%
+2026-04-04 19:54:42,944 - Episode 494: Steps=11, Reward=16287.00, MeanMacroReward=1480.64, MeanNormReward=1.481, ClipHitRate=0.0%
+2026-04-04 19:55:04,874 - Episode 495: Steps=11, Reward=18437.00, MeanMacroReward=1676.09, MeanNormReward=1.676, ClipHitRate=0.0%
+2026-04-04 19:55:26,812 - Episode 496: Steps=11, Reward=19025.00, MeanMacroReward=1729.55, MeanNormReward=1.730, ClipHitRate=0.0%
+2026-04-04 19:55:48,973 - Episode 497: Steps=11, Reward=21487.00, MeanMacroReward=1953.36, MeanNormReward=1.953, ClipHitRate=0.0%
+2026-04-04 19:56:10,892 - Episode 498: Steps=11, Reward=16602.00, MeanMacroReward=1509.27, MeanNormReward=1.509, ClipHitRate=0.0%
+2026-04-04 19:56:32,502 - Episode 499: Steps=11, Reward=16919.00, MeanMacroReward=1538.09, MeanNormReward=1.538, ClipHitRate=0.0%
+2026-04-04 19:56:32,510 - Saved checkpoint at episode=499 (global_step=5500) to /home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model
+2026-04-04 19:56:33,149 - Training Finished.

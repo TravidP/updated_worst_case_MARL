@@ -1,0 +1,620 @@
+2026-04-02 12:42:55,100 - Reading configuration from: /home/sayin/projects/updated_worst_case_MARL/config/config_iqll_real.ini
+2026-04-02 12:42:55,100 - Using frozen controller run dir: /home/sayin/projects/updated_worst_case_MARL/runs/iqll_real
+2026-04-02 12:42:55,100 - Adversary output dir: /home/sayin/projects/updated_worst_case_MARL/output_adversary_monaco/iqll_real
+2026-04-02 12:42:55,101 - Initializing Adversarial Environment...
+2026-04-02 12:42:58,327 - Initializing GCN Adversary...
+2026-04-02 12:42:58,665 - Start Training...
+2026-04-02 12:43:01,019 - Training Finished.
+2026-04-02 12:44:32,167 - Reading configuration from: /home/sayin/projects/updated_worst_case_MARL/config/config_iqll_real.ini
+2026-04-02 12:44:32,167 - Using frozen controller run dir: /home/sayin/projects/updated_worst_case_MARL/runs/iqll_real
+2026-04-02 12:44:32,167 - Adversary output dir: /home/sayin/projects/updated_worst_case_MARL/output_adversary_monaco/iqll_real
+2026-04-02 12:44:32,168 - Initializing Adversarial Environment...
+2026-04-02 12:44:35,373 - Initializing GCN Adversary...
+2026-04-02 12:44:35,741 - Start Training...
+2026-04-02 12:44:38,261 - Training Finished.
+2026-04-02 12:47:10,331 - Reading configuration from: /home/sayin/projects/updated_worst_case_MARL/config/config_iqll_real.ini
+2026-04-02 12:47:10,331 - Using frozen controller run dir: /home/sayin/projects/updated_worst_case_MARL/runs/iqll_real
+2026-04-02 12:47:10,331 - Adversary output dir: /home/sayin/projects/updated_worst_case_MARL/output_adversary_monaco/iqll_real
+2026-04-02 12:47:10,332 - Initializing Adversarial Environment...
+2026-04-02 12:47:13,546 - Initializing GCN Adversary...
+2026-04-02 12:47:13,786 - Start Training...
+2026-04-02 12:47:16,164 - Training Finished.
+2026-04-02 12:54:14,973 - Reading configuration from: /home/sayin/projects/updated_worst_case_MARL/config/config_iqll_real.ini
+2026-04-02 12:54:14,973 - Using frozen controller run dir: /home/sayin/projects/updated_worst_case_MARL/runs/iqll_real
+2026-04-02 12:54:14,973 - Adversary output dir: /home/sayin/projects/updated_worst_case_MARL/output_adversary_monaco/iqll_real
+2026-04-02 12:54:14,973 - Initializing Adversarial Environment...
+2026-04-02 12:54:18,654 - Initializing GCN Adversary...
+2026-04-02 12:54:18,885 - Start Training...
+2026-04-02 12:54:21,244 - Training Finished.
+2026-04-02 12:54:41,080 - Reading configuration from: /home/sayin/projects/updated_worst_case_MARL/config/config_iqll_real.ini
+2026-04-02 12:54:41,080 - Using frozen controller run dir: /home/sayin/projects/updated_worst_case_MARL/runs/iqll_real
+2026-04-02 12:54:41,080 - Adversary output dir: /home/sayin/projects/updated_worst_case_MARL/output_adversary_monaco/iqll_real
+2026-04-02 12:54:41,081 - Initializing Adversarial Environment...
+2026-04-02 12:54:45,018 - Initializing GCN Adversary...
+2026-04-02 12:54:45,287 - Start Training...
+2026-04-02 12:54:47,652 - Training Finished.
+2026-04-02 12:56:37,140 - Reading configuration from: /home/sayin/projects/updated_worst_case_MARL/config/config_iqll_real.ini
+2026-04-02 12:56:37,140 - Using frozen controller run dir: /home/sayin/projects/updated_worst_case_MARL/runs/iqll_real
+2026-04-02 12:56:37,140 - Adversary output dir: /home/sayin/projects/updated_worst_case_MARL/output_adversary_monaco/iqll_real
+2026-04-02 12:56:37,141 - Initializing Adversarial Environment...
+2026-04-02 12:56:40,486 - Initializing GCN Adversary...
+2026-04-02 12:56:40,856 - Start Training...
+2026-04-02 12:56:43,369 - Training Finished.
+2026-04-02 12:59:06,429 - Reading configuration from: /home/sayin/projects/updated_worst_case_MARL/config/config_iqll_real.ini
+2026-04-02 12:59:06,429 - Using frozen controller run dir: /home/sayin/projects/updated_worst_case_MARL/runs/iqll_real
+2026-04-02 12:59:06,429 - Adversary output dir: /home/sayin/projects/updated_worst_case_MARL/output_adversary_monaco/iqll_real
+2026-04-02 12:59:06,429 - Initializing Adversarial Environment...
+2026-04-02 12:59:09,640 - Initializing GCN Adversary...
+2026-04-02 12:59:10,006 - Start Training...
+2026-04-02 12:59:12,477 - Training Finished.
+2026-04-02 13:01:08,244 - Reading configuration from: /home/sayin/projects/updated_worst_case_MARL/config/config_iqll_real.ini
+2026-04-02 13:01:08,244 - Using frozen controller run dir: /home/sayin/projects/updated_worst_case_MARL/runs/iqll_real
+2026-04-02 13:01:08,244 - Adversary output dir: /home/sayin/projects/updated_worst_case_MARL/output_adversary_monaco/iqll_real
+2026-04-02 13:01:08,244 - Initializing Adversarial Environment...
+2026-04-02 13:01:12,140 - Initializing GCN Adversary...
+2026-04-02 13:01:12,498 - Start Training...
+2026-04-02 13:01:14,871 - Training Finished.
+2026-04-02 13:03:03,143 - Reading configuration from: /home/sayin/projects/updated_worst_case_MARL/config/config_iqll_real.ini
+2026-04-02 13:03:03,143 - Using frozen controller run dir: /home/sayin/projects/updated_worst_case_MARL/runs/iqll_real
+2026-04-02 13:03:03,143 - Adversary output dir: /home/sayin/projects/updated_worst_case_MARL/output_adversary_monaco/iqll_real
+2026-04-02 13:03:03,143 - Initializing Adversarial Environment...
+2026-04-02 13:03:06,372 - Initializing GCN Adversary...
+2026-04-02 13:03:06,736 - Start Training...
+2026-04-02 13:03:09,232 - Training Finished.
+2026-04-02 13:05:58,129 - Reading configuration from: /home/sayin/projects/updated_worst_case_MARL/config/config_iqll_real.ini
+2026-04-02 13:05:58,129 - Using frozen controller run dir: /home/sayin/projects/updated_worst_case_MARL/runs/iqll_real
+2026-04-02 13:05:58,129 - Adversary output dir: /home/sayin/projects/updated_worst_case_MARL/output_adversary_monaco/iqll_real
+2026-04-02 13:05:58,130 - Initializing Adversarial Environment...
+2026-04-02 13:06:01,359 - Initializing GCN Adversary...
+2026-04-02 13:06:01,605 - Start Training...
+2026-04-02 13:06:40,154 - Episode 0: Steps=11, Reward=347192.00
+2026-04-02 13:07:16,784 - Episode 1: Steps=11, Reward=261810.00
+2026-04-02 13:07:54,462 - Episode 2: Steps=11, Reward=291182.00
+2026-04-02 13:08:28,504 - Episode 3: Steps=11, Reward=183386.00
+2026-04-02 13:09:04,254 - Episode 4: Steps=11, Reward=262059.00
+2026-04-02 13:09:41,037 - Episode 5: Steps=11, Reward=318233.00
+2026-04-02 13:10:19,108 - Episode 6: Steps=11, Reward=322827.00
+2026-04-02 13:10:55,089 - Episode 7: Steps=11, Reward=250019.00
+2026-04-02 13:11:32,870 - Episode 8: Steps=11, Reward=322795.00
+2026-04-02 13:12:06,379 - Episode 9: Steps=11, Reward=218869.00
+2026-04-02 13:12:06,405 - Saved checkpoint at episode=9 to /home/sayin/projects/updated_worst_case_MARL/output_adversary_monaco/iqll_real/model
+2026-04-02 13:12:45,228 - Episode 10: Steps=11, Reward=344900.00
+2026-04-02 13:13:22,107 - Episode 11: Steps=11, Reward=291629.00
+2026-04-02 13:13:57,064 - Episode 12: Steps=11, Reward=230100.00
+2026-04-02 13:14:31,223 - Episode 13: Steps=11, Reward=214593.00
+2026-04-02 13:15:05,527 - Episode 14: Steps=11, Reward=199102.00
+2026-04-02 13:15:40,551 - Episode 15: Steps=11, Reward=232835.00
+2026-04-02 13:16:19,683 - Episode 16: Steps=11, Reward=355710.00
+2026-04-02 13:16:57,438 - Episode 17: Steps=11, Reward=308011.00
+2026-04-02 13:17:32,335 - Episode 18: Steps=11, Reward=226412.00
+2026-04-02 13:18:06,907 - Episode 19: Steps=11, Reward=210675.00
+2026-04-02 13:18:06,925 - Saved checkpoint at episode=19 to /home/sayin/projects/updated_worst_case_MARL/output_adversary_monaco/iqll_real/model
+2026-04-02 13:18:45,229 - Episode 20: Steps=11, Reward=318556.00
+2026-04-02 13:19:23,952 - Episode 21: Steps=11, Reward=317331.00
+2026-04-02 13:20:00,019 - Episode 22: Steps=11, Reward=234372.00
+2026-04-02 13:20:33,095 - Episode 23: Steps=11, Reward=309809.00
+2026-04-02 13:21:05,484 - Episode 24: Steps=11, Reward=331045.00
+2026-04-02 13:21:38,235 - Episode 25: Steps=11, Reward=329846.00
+2026-04-02 13:22:09,161 - Episode 26: Steps=11, Reward=293129.00
+2026-04-02 13:22:41,860 - Episode 27: Steps=11, Reward=280314.00
+2026-04-02 13:23:15,686 - Episode 28: Steps=11, Reward=251602.00
+2026-04-02 13:23:48,135 - Episode 29: Steps=11, Reward=259735.00
+2026-04-02 13:23:48,153 - Saved checkpoint at episode=29 to /home/sayin/projects/updated_worst_case_MARL/output_adversary_monaco/iqll_real/model
+2026-04-02 13:24:23,578 - Episode 30: Steps=11, Reward=307705.00
+2026-04-02 13:25:01,502 - Episode 31: Steps=11, Reward=312968.00
+2026-04-02 13:25:38,222 - Episode 32: Steps=11, Reward=266857.00
+2026-04-02 13:26:14,194 - Episode 33: Steps=11, Reward=264948.00
+2026-04-02 13:26:50,521 - Episode 34: Steps=11, Reward=269839.00
+2026-04-02 13:27:19,475 - Episode 35: Steps=11, Reward=123608.00
+2026-04-02 13:27:50,678 - Episode 36: Steps=11, Reward=232449.00
+2026-04-02 13:28:19,866 - Episode 37: Steps=11, Reward=193089.00
+2026-04-02 13:28:49,882 - Episode 38: Steps=11, Reward=236327.00
+2026-04-02 13:29:27,098 - Episode 39: Steps=11, Reward=296085.00
+2026-04-02 13:29:27,117 - Saved checkpoint at episode=39 to /home/sayin/projects/updated_worst_case_MARL/output_adversary_monaco/iqll_real/model
+2026-04-02 13:30:02,462 - Episode 40: Steps=11, Reward=232797.00
+2026-04-02 13:30:38,817 - Episode 41: Steps=11, Reward=267956.00
+2026-04-02 13:31:16,003 - Episode 42: Steps=11, Reward=301970.00
+2026-04-02 13:31:50,634 - Episode 43: Steps=11, Reward=207732.00
+2026-04-02 13:32:28,157 - Episode 44: Steps=11, Reward=301193.00
+2026-04-02 13:33:04,069 - Episode 45: Steps=11, Reward=245951.00
+2026-04-02 13:33:41,621 - Episode 46: Steps=11, Reward=300504.00
+2026-04-02 13:34:15,665 - Episode 47: Steps=11, Reward=201013.00
+2026-04-02 13:34:48,544 - Episode 48: Steps=11, Reward=171623.00
+2026-04-02 13:35:25,972 - Episode 49: Steps=11, Reward=296834.00
+2026-04-02 13:35:25,989 - Saved checkpoint at episode=49 to /home/sayin/projects/updated_worst_case_MARL/output_adversary_monaco/iqll_real/model
+2026-04-02 13:36:03,135 - Episode 50: Steps=11, Reward=289990.00
+2026-04-02 13:36:37,264 - Episode 51: Steps=11, Reward=278282.00
+2026-04-02 13:37:14,546 - Episode 52: Steps=11, Reward=297510.00
+2026-04-02 13:37:48,271 - Episode 53: Steps=11, Reward=220411.00
+2026-04-02 13:38:25,970 - Episode 54: Steps=11, Reward=300161.00
+2026-04-02 13:38:58,607 - Episode 55: Steps=11, Reward=274017.00
+2026-04-02 13:39:31,848 - Episode 56: Steps=11, Reward=244551.00
+2026-04-02 13:40:04,336 - Episode 57: Steps=11, Reward=290570.00
+2026-04-02 13:40:34,870 - Episode 58: Steps=11, Reward=187507.00
+2026-04-02 13:41:05,113 - Episode 59: Steps=11, Reward=248276.00
+2026-04-02 13:41:05,133 - Saved checkpoint at episode=59 to /home/sayin/projects/updated_worst_case_MARL/output_adversary_monaco/iqll_real/model
+2026-04-02 13:41:33,290 - Episode 60: Steps=11, Reward=176211.00
+2026-04-02 13:42:03,946 - Episode 61: Steps=11, Reward=282437.00
+2026-04-02 13:42:34,244 - Episode 62: Steps=11, Reward=235127.00
+2026-04-02 13:43:06,070 - Episode 63: Steps=11, Reward=256772.00
+2026-04-02 13:43:39,116 - Episode 64: Steps=11, Reward=289177.00
+2026-04-02 13:44:16,016 - Episode 65: Steps=11, Reward=287453.00
+2026-04-02 13:44:54,633 - Episode 66: Steps=11, Reward=344540.00
+2026-04-02 13:45:27,628 - Episode 67: Steps=11, Reward=174311.00
+2026-04-02 13:46:04,296 - Episode 68: Steps=11, Reward=286624.00
+2026-04-02 13:46:38,444 - Episode 69: Steps=11, Reward=201150.00
+2026-04-02 13:46:38,464 - Saved checkpoint at episode=69 to /home/sayin/projects/updated_worst_case_MARL/output_adversary_monaco/iqll_real/model
+2026-04-02 13:47:15,579 - Episode 70: Steps=11, Reward=288597.00
+2026-04-02 13:47:53,977 - Episode 71: Steps=11, Reward=319164.00
+2026-04-02 13:48:29,492 - Episode 72: Steps=11, Reward=236953.00
+2026-04-02 13:49:05,381 - Episode 73: Steps=11, Reward=257537.00
+2026-04-02 13:49:41,040 - Episode 74: Steps=11, Reward=228102.00
+2026-04-02 13:50:17,672 - Episode 75: Steps=11, Reward=280953.00
+2026-04-02 13:50:54,265 - Episode 76: Steps=11, Reward=274575.00
+2026-04-02 13:51:28,119 - Episode 77: Steps=11, Reward=210375.00
+2026-04-02 13:52:04,349 - Episode 78: Steps=11, Reward=272689.00
+2026-04-02 13:52:34,253 - Episode 79: Steps=11, Reward=182461.00
+2026-04-02 13:52:34,274 - Saved checkpoint at episode=79 to /home/sayin/projects/updated_worst_case_MARL/output_adversary_monaco/iqll_real/model
+2026-04-02 13:53:10,015 - Episode 80: Steps=11, Reward=320758.00
+2026-04-02 13:53:47,864 - Episode 81: Steps=11, Reward=319443.00
+2026-04-02 13:54:23,550 - Episode 82: Steps=11, Reward=255437.00
+2026-04-02 13:55:01,265 - Episode 83: Steps=11, Reward=316340.00
+2026-04-02 13:55:33,318 - Episode 84: Steps=11, Reward=254685.00
+2026-04-02 13:56:10,180 - Episode 85: Steps=11, Reward=341252.00
+2026-04-02 13:56:42,336 - Episode 86: Steps=11, Reward=257109.00
+2026-04-02 13:57:11,077 - Episode 87: Steps=11, Reward=100818.00
+2026-04-02 13:57:42,607 - Episode 88: Steps=11, Reward=208707.00
+2026-04-02 13:58:15,344 - Episode 89: Steps=11, Reward=243021.00
+2026-04-02 13:58:15,364 - Saved checkpoint at episode=89 to /home/sayin/projects/updated_worst_case_MARL/output_adversary_monaco/iqll_real/model
+2026-04-02 13:58:45,815 - Episode 90: Steps=11, Reward=270960.00
+2026-04-02 13:59:22,366 - Episode 91: Steps=11, Reward=369157.00
+2026-04-02 13:59:57,231 - Episode 92: Steps=11, Reward=316652.00
+2026-04-02 14:00:28,055 - Episode 93: Steps=11, Reward=189304.00
+2026-04-02 14:01:00,355 - Episode 94: Steps=11, Reward=246765.00
+2026-04-02 14:01:33,027 - Episode 95: Steps=11, Reward=230727.00
+2026-04-02 14:02:06,791 - Episode 96: Steps=11, Reward=280787.00
+2026-04-02 14:02:42,183 - Episode 97: Steps=11, Reward=329355.00
+2026-04-02 14:03:13,464 - Episode 98: Steps=11, Reward=239731.00
+2026-04-02 14:03:46,218 - Episode 99: Steps=11, Reward=225912.00
+2026-04-02 14:03:46,237 - Saved checkpoint at episode=99 to /home/sayin/projects/updated_worst_case_MARL/output_adversary_monaco/iqll_real/model
+2026-04-02 14:04:21,838 - Episode 100: Steps=11, Reward=230889.00
+2026-04-02 14:04:54,020 - Episode 101: Steps=11, Reward=237605.00
+2026-04-02 14:05:25,513 - Episode 102: Steps=11, Reward=243629.00
+2026-04-02 14:05:57,625 - Episode 103: Steps=11, Reward=216958.00
+2026-04-02 14:06:32,383 - Episode 104: Steps=11, Reward=298698.00
+2026-04-02 14:07:04,825 - Episode 105: Steps=11, Reward=261805.00
+2026-04-02 14:07:39,613 - Episode 106: Steps=11, Reward=232856.00
+2026-04-02 14:08:12,440 - Episode 107: Steps=11, Reward=183374.00
+2026-04-02 14:08:47,700 - Episode 108: Steps=11, Reward=306273.00
+2026-04-02 14:09:19,912 - Episode 109: Steps=11, Reward=234314.00
+2026-04-02 14:09:19,933 - Saved checkpoint at episode=109 to /home/sayin/projects/updated_worst_case_MARL/output_adversary_monaco/iqll_real/model
+2026-04-02 14:09:51,500 - Episode 110: Steps=11, Reward=191865.00
+2026-04-02 14:10:24,294 - Episode 111: Steps=11, Reward=251284.00
+2026-04-02 14:10:56,844 - Episode 112: Steps=11, Reward=283664.00
+2026-04-02 14:11:26,934 - Episode 113: Steps=11, Reward=199551.00
+2026-04-02 14:12:00,120 - Episode 114: Steps=11, Reward=263077.00
+2026-04-02 14:12:38,013 - Episode 115: Steps=11, Reward=298825.00
+2026-04-02 14:13:11,333 - Episode 116: Steps=11, Reward=166293.00
+2026-04-02 14:13:45,487 - Episode 117: Steps=11, Reward=212411.00
+2026-04-02 14:14:18,663 - Episode 118: Steps=11, Reward=272864.00
+2026-04-02 14:14:49,204 - Episode 119: Steps=11, Reward=145508.00
+2026-04-02 14:14:49,223 - Saved checkpoint at episode=119 to /home/sayin/projects/updated_worst_case_MARL/output_adversary_monaco/iqll_real/model
+2026-04-02 14:15:26,628 - Episode 120: Steps=11, Reward=327863.00
+2026-04-02 14:15:59,488 - Episode 121: Steps=11, Reward=288786.00
+2026-04-02 14:16:29,178 - Episode 122: Steps=11, Reward=237855.00
+2026-04-02 14:17:02,711 - Episode 123: Steps=11, Reward=272809.00
+2026-04-02 14:17:34,584 - Episode 124: Steps=11, Reward=234474.00
+2026-04-02 14:18:06,858 - Episode 125: Steps=11, Reward=205919.00
+2026-04-02 14:18:37,887 - Episode 126: Steps=11, Reward=191305.00
+2026-04-02 14:19:14,584 - Episode 127: Steps=11, Reward=276569.00
+2026-04-02 14:19:51,980 - Episode 128: Steps=11, Reward=291598.00
+2026-04-02 14:20:25,040 - Episode 129: Steps=11, Reward=254056.00
+2026-04-02 14:20:25,061 - Saved checkpoint at episode=129 to /home/sayin/projects/updated_worst_case_MARL/output_adversary_monaco/iqll_real/model
+2026-04-02 14:21:00,107 - Episode 130: Steps=11, Reward=306728.00
+2026-04-02 14:21:31,187 - Episode 131: Steps=11, Reward=244359.00
+2026-04-02 14:22:04,003 - Episode 132: Steps=11, Reward=226566.00
+2026-04-02 14:22:39,026 - Episode 133: Steps=11, Reward=227901.00
+2026-04-02 14:23:17,592 - Episode 134: Steps=11, Reward=320375.00
+2026-04-02 14:23:54,471 - Episode 135: Steps=11, Reward=270442.00
+2026-04-02 14:24:27,138 - Episode 136: Steps=11, Reward=169999.00
+2026-04-02 14:25:01,382 - Episode 137: Steps=11, Reward=214366.00
+2026-04-02 14:25:37,881 - Episode 138: Steps=11, Reward=299210.00
+2026-04-02 14:26:09,555 - Episode 139: Steps=11, Reward=259559.00
+2026-04-02 14:26:09,575 - Saved checkpoint at episode=139 to /home/sayin/projects/updated_worst_case_MARL/output_adversary_monaco/iqll_real/model
+2026-04-02 14:26:43,214 - Episode 140: Steps=11, Reward=246919.00
+2026-04-02 14:27:13,035 - Episode 141: Steps=11, Reward=179675.00
+2026-04-02 14:27:44,186 - Episode 142: Steps=11, Reward=227306.00
+2026-04-02 14:28:14,386 - Episode 143: Steps=11, Reward=159364.00
+2026-04-02 14:28:46,237 - Episode 144: Steps=11, Reward=213488.00
+2026-04-02 14:29:17,873 - Episode 145: Steps=11, Reward=263388.00
+2026-04-02 14:29:51,976 - Episode 146: Steps=11, Reward=269216.00
+2026-04-02 14:30:22,546 - Episode 147: Steps=11, Reward=185429.00
+2026-04-02 14:30:55,704 - Episode 148: Steps=11, Reward=276762.00
+2026-04-02 14:31:30,074 - Episode 149: Steps=11, Reward=269174.00
+2026-04-02 14:31:30,094 - Saved checkpoint at episode=149 to /home/sayin/projects/updated_worst_case_MARL/output_adversary_monaco/iqll_real/model
+2026-04-02 14:32:04,153 - Episode 150: Steps=11, Reward=300064.00
+2026-04-02 14:32:36,950 - Episode 151: Steps=11, Reward=270333.00
+2026-04-02 14:33:09,272 - Episode 152: Steps=11, Reward=288186.00
+2026-04-02 14:33:47,513 - Episode 153: Steps=11, Reward=322019.00
+2026-04-02 14:34:20,733 - Episode 154: Steps=11, Reward=198176.00
+2026-04-02 14:34:57,078 - Episode 155: Steps=11, Reward=286337.00
+2026-04-02 14:35:27,359 - Episode 156: Steps=11, Reward=231226.00
+2026-04-02 14:35:57,299 - Episode 157: Steps=11, Reward=134890.00
+2026-04-02 14:36:25,935 - Episode 158: Steps=11, Reward=156561.00
+2026-04-02 14:37:01,852 - Episode 159: Steps=11, Reward=360919.00
+2026-04-02 14:37:01,872 - Saved checkpoint at episode=159 to /home/sayin/projects/updated_worst_case_MARL/output_adversary_monaco/iqll_real/model
+2026-04-02 14:37:35,004 - Episode 160: Steps=11, Reward=283058.00
+2026-04-02 14:38:05,418 - Episode 161: Steps=11, Reward=133834.00
+2026-04-02 14:38:37,109 - Episode 162: Steps=11, Reward=228296.00
+2026-04-02 14:39:10,270 - Episode 163: Steps=11, Reward=294090.00
+2026-04-02 14:39:45,283 - Episode 164: Steps=11, Reward=262736.00
+2026-04-02 14:40:14,344 - Episode 165: Steps=11, Reward=141621.00
+2026-04-02 14:40:46,799 - Episode 166: Steps=11, Reward=278740.00
+2026-04-02 14:41:19,798 - Episode 167: Steps=11, Reward=278208.00
+2026-04-02 14:41:51,367 - Episode 168: Steps=11, Reward=208156.00
+2026-04-02 14:42:25,984 - Episode 169: Steps=11, Reward=221267.00
+2026-04-02 14:42:26,005 - Saved checkpoint at episode=169 to /home/sayin/projects/updated_worst_case_MARL/output_adversary_monaco/iqll_real/model
+2026-04-02 14:43:00,592 - Episode 170: Steps=11, Reward=216232.00
+2026-04-02 14:43:36,052 - Episode 171: Steps=11, Reward=238536.00
+2026-04-02 14:44:11,252 - Episode 172: Steps=11, Reward=212420.00
+2026-04-02 14:44:45,647 - Episode 173: Steps=11, Reward=220801.00
+2026-04-02 14:45:20,611 - Episode 174: Steps=11, Reward=223621.00
+2026-04-02 14:45:53,128 - Episode 175: Steps=11, Reward=224992.00
+2026-04-02 14:46:26,844 - Episode 176: Steps=11, Reward=317714.00
+2026-04-02 14:46:57,781 - Episode 177: Steps=11, Reward=188495.00
+2026-04-02 14:47:30,759 - Episode 178: Steps=11, Reward=234718.00
+2026-04-02 14:48:04,191 - Episode 179: Steps=11, Reward=338231.00
+2026-04-02 14:48:04,211 - Saved checkpoint at episode=179 to /home/sayin/projects/updated_worst_case_MARL/output_adversary_monaco/iqll_real/model
+2026-04-02 14:48:36,978 - Episode 180: Steps=11, Reward=229160.00
+2026-04-02 14:49:11,983 - Episode 181: Steps=11, Reward=314016.00
+2026-04-02 14:49:47,627 - Episode 182: Steps=11, Reward=269194.00
+2026-04-02 14:50:17,354 - Episode 183: Steps=11, Reward=203385.00
+2026-04-02 14:50:53,077 - Episode 184: Steps=11, Reward=270302.00
+2026-04-02 14:51:25,182 - Episode 185: Steps=11, Reward=235486.00
+2026-04-02 14:51:58,182 - Episode 186: Steps=11, Reward=291208.00
+2026-04-02 14:52:30,553 - Episode 187: Steps=11, Reward=253618.00
+2026-04-02 14:53:03,170 - Episode 188: Steps=11, Reward=258637.00
+2026-04-02 14:53:38,047 - Episode 189: Steps=11, Reward=318522.00
+2026-04-02 14:53:38,068 - Saved checkpoint at episode=189 to /home/sayin/projects/updated_worst_case_MARL/output_adversary_monaco/iqll_real/model
+2026-04-02 14:54:11,477 - Episode 190: Steps=11, Reward=274006.00
+2026-04-02 14:54:46,282 - Episode 191: Steps=11, Reward=234999.00
+2026-04-02 14:55:17,969 - Episode 192: Steps=11, Reward=145125.00
+2026-04-02 14:55:51,266 - Episode 193: Steps=11, Reward=177215.00
+2026-04-02 14:56:24,478 - Episode 194: Steps=11, Reward=170077.00
+2026-04-02 14:57:01,336 - Episode 195: Steps=11, Reward=267044.00
+2026-04-02 14:57:38,987 - Episode 196: Steps=11, Reward=299417.00
+2026-04-02 14:58:10,772 - Episode 197: Steps=11, Reward=147187.00
+2026-04-02 14:58:45,519 - Episode 198: Steps=11, Reward=222416.00
+2026-04-02 14:59:18,511 - Episode 199: Steps=11, Reward=173208.00
+2026-04-02 14:59:18,530 - Saved checkpoint at episode=199 to /home/sayin/projects/updated_worst_case_MARL/output_adversary_monaco/iqll_real/model
+2026-04-02 14:59:52,834 - Episode 200: Steps=11, Reward=218007.00
+2026-04-02 15:00:30,036 - Episode 201: Steps=11, Reward=306993.00
+2026-04-02 15:01:05,110 - Episode 202: Steps=11, Reward=238909.00
+2026-04-02 15:01:41,011 - Episode 203: Steps=11, Reward=233855.00
+2026-04-02 15:02:15,394 - Episode 204: Steps=11, Reward=220581.00
+2026-04-02 15:02:47,216 - Episode 205: Steps=11, Reward=137484.00
+2026-04-02 15:03:21,957 - Episode 206: Steps=11, Reward=219570.00
+2026-04-02 15:03:59,202 - Episode 207: Steps=11, Reward=278544.00
+2026-04-02 15:04:36,758 - Episode 208: Steps=11, Reward=285678.00
+2026-04-02 15:05:11,458 - Episode 209: Steps=11, Reward=220612.00
+2026-04-02 15:05:11,478 - Saved checkpoint at episode=209 to /home/sayin/projects/updated_worst_case_MARL/output_adversary_monaco/iqll_real/model
+2026-04-02 15:05:41,369 - Episode 210: Steps=11, Reward=122844.00
+2026-04-02 15:06:16,321 - Episode 211: Steps=11, Reward=219665.00
+2026-04-02 15:06:52,931 - Episode 212: Steps=11, Reward=325471.00
+2026-04-02 15:07:26,185 - Episode 213: Steps=11, Reward=253473.00
+2026-04-02 15:08:01,663 - Episode 214: Steps=11, Reward=254312.00
+2026-04-02 15:08:35,739 - Episode 215: Steps=11, Reward=208092.00
+2026-04-02 15:09:13,015 - Episode 216: Steps=11, Reward=290005.00
+2026-04-02 15:09:50,201 - Episode 217: Steps=11, Reward=311067.00
+2026-04-02 15:10:24,150 - Episode 218: Steps=11, Reward=233055.00
+2026-04-02 15:10:54,916 - Episode 219: Steps=11, Reward=201661.00
+2026-04-02 15:10:54,936 - Saved checkpoint at episode=219 to /home/sayin/projects/updated_worst_case_MARL/output_adversary_monaco/iqll_real/model
+2026-04-02 15:11:29,155 - Episode 220: Steps=11, Reward=203221.00
+2026-04-02 15:12:08,449 - Episode 221: Steps=11, Reward=345619.00
+2026-04-02 15:12:44,222 - Episode 222: Steps=11, Reward=259248.00
+2026-04-02 15:13:22,919 - Episode 223: Steps=11, Reward=333456.00
+2026-04-02 15:13:58,826 - Episode 224: Steps=11, Reward=274253.00
+2026-04-02 15:14:37,811 - Episode 225: Steps=11, Reward=342753.00
+2026-04-02 15:15:13,362 - Episode 226: Steps=11, Reward=237972.00
+2026-04-02 15:15:49,179 - Episode 227: Steps=11, Reward=265553.00
+2026-04-02 15:16:21,383 - Episode 228: Steps=11, Reward=141001.00
+2026-04-02 15:16:55,536 - Episode 229: Steps=11, Reward=203856.00
+2026-04-02 15:16:55,556 - Saved checkpoint at episode=229 to /home/sayin/projects/updated_worst_case_MARL/output_adversary_monaco/iqll_real/model
+2026-04-02 15:17:33,921 - Episode 230: Steps=11, Reward=327932.00
+2026-04-02 15:18:05,839 - Episode 231: Steps=11, Reward=154159.00
+2026-04-02 15:18:39,887 - Episode 232: Steps=11, Reward=199402.00
+2026-04-02 15:19:16,217 - Episode 233: Steps=11, Reward=268226.00
+2026-04-02 15:19:48,393 - Episode 234: Steps=11, Reward=167397.00
+2026-04-02 15:20:22,550 - Episode 235: Steps=11, Reward=196296.00
+2026-04-02 15:21:00,022 - Episode 236: Steps=11, Reward=291993.00
+2026-04-02 15:21:36,943 - Episode 237: Steps=11, Reward=275277.00
+2026-04-02 15:22:10,457 - Episode 238: Steps=11, Reward=190097.00
+2026-04-02 15:22:48,143 - Episode 239: Steps=11, Reward=303987.00
+2026-04-02 15:22:48,162 - Saved checkpoint at episode=239 to /home/sayin/projects/updated_worst_case_MARL/output_adversary_monaco/iqll_real/model
+2026-04-02 15:23:23,993 - Episode 240: Steps=11, Reward=250201.00
+2026-04-02 15:23:58,282 - Episode 241: Steps=11, Reward=200858.00
+2026-04-02 15:24:35,790 - Episode 242: Steps=11, Reward=286570.00
+2026-04-02 15:25:12,634 - Episode 243: Steps=11, Reward=270576.00
+2026-04-02 15:25:47,847 - Episode 244: Steps=11, Reward=235534.00
+2026-04-02 15:26:25,900 - Episode 245: Steps=11, Reward=308431.00
+2026-04-02 15:27:01,703 - Episode 246: Steps=11, Reward=255136.00
+2026-04-02 15:27:38,248 - Episode 247: Steps=11, Reward=262956.00
+2026-04-02 15:28:12,435 - Episode 248: Steps=11, Reward=192025.00
+2026-04-02 15:28:47,745 - Episode 249: Steps=11, Reward=295975.00
+2026-04-02 15:28:47,766 - Saved checkpoint at episode=249 to /home/sayin/projects/updated_worst_case_MARL/output_adversary_monaco/iqll_real/model
+2026-04-02 15:29:17,757 - Episode 250: Steps=11, Reward=176043.00
+2026-04-02 15:29:50,256 - Episode 251: Steps=11, Reward=233570.00
+2026-04-02 15:30:20,587 - Episode 252: Steps=11, Reward=189374.00
+2026-04-02 15:30:52,788 - Episode 253: Steps=11, Reward=224203.00
+2026-04-02 15:31:27,131 - Episode 254: Steps=11, Reward=263410.00
+2026-04-02 15:31:58,869 - Episode 255: Steps=11, Reward=200247.00
+2026-04-02 15:32:32,815 - Episode 256: Steps=11, Reward=278989.00
+2026-04-02 15:33:05,479 - Episode 257: Steps=11, Reward=238325.00
+2026-04-02 15:33:36,465 - Episode 258: Steps=11, Reward=213067.00
+2026-04-02 15:34:10,938 - Episode 259: Steps=11, Reward=330334.00
+2026-04-02 15:34:10,958 - Saved checkpoint at episode=259 to /home/sayin/projects/updated_worst_case_MARL/output_adversary_monaco/iqll_real/model
+2026-04-02 15:34:40,597 - Episode 260: Steps=11, Reward=158995.00
+2026-04-02 15:35:14,926 - Episode 261: Steps=11, Reward=285556.00
+2026-04-02 15:35:47,237 - Episode 262: Steps=11, Reward=231280.00
+2026-04-02 15:36:18,684 - Episode 263: Steps=11, Reward=242416.00
+2026-04-02 15:36:51,764 - Episode 264: Steps=11, Reward=224274.00
+2026-04-02 15:37:27,190 - Episode 265: Steps=11, Reward=254519.00
+2026-04-02 15:38:03,602 - Episode 266: Steps=11, Reward=258645.00
+2026-04-02 15:38:38,902 - Episode 267: Steps=11, Reward=237425.00
+2026-04-02 15:39:14,414 - Episode 268: Steps=11, Reward=274055.00
+2026-04-02 15:39:46,447 - Episode 269: Steps=11, Reward=232776.00
+2026-04-02 15:39:46,468 - Saved checkpoint at episode=269 to /home/sayin/projects/updated_worst_case_MARL/output_adversary_monaco/iqll_real/model
+2026-04-02 15:40:19,754 - Episode 270: Steps=11, Reward=274683.00
+2026-04-02 15:40:54,049 - Episode 271: Steps=11, Reward=275036.00
+2026-04-02 15:41:26,253 - Episode 272: Steps=11, Reward=221240.00
+2026-04-02 15:41:57,956 - Episode 273: Steps=11, Reward=209543.00
+2026-04-02 15:42:27,676 - Episode 274: Steps=11, Reward=134545.00
+2026-04-02 15:43:02,339 - Episode 275: Steps=11, Reward=221878.00
+2026-04-02 15:43:36,590 - Episode 276: Steps=11, Reward=213604.00
+2026-04-02 15:44:13,188 - Episode 277: Steps=11, Reward=271165.00
+2026-04-02 15:44:47,190 - Episode 278: Steps=11, Reward=205070.00
+2026-04-02 15:45:21,069 - Episode 279: Steps=11, Reward=201464.00
+2026-04-02 15:45:21,090 - Saved checkpoint at episode=279 to /home/sayin/projects/updated_worst_case_MARL/output_adversary_monaco/iqll_real/model
+2026-04-02 15:45:52,852 - Episode 280: Steps=11, Reward=177588.00
+2026-04-02 15:46:23,862 - Episode 281: Steps=11, Reward=217731.00
+2026-04-02 15:46:56,616 - Episode 282: Steps=11, Reward=261019.00
+2026-04-02 15:47:27,109 - Episode 283: Steps=11, Reward=265041.00
+2026-04-02 15:47:59,260 - Episode 284: Steps=11, Reward=293416.00
+2026-04-02 15:48:29,713 - Episode 285: Steps=11, Reward=246161.00
+2026-04-02 15:49:01,509 - Episode 286: Steps=11, Reward=173350.00
+2026-04-02 15:49:33,404 - Episode 287: Steps=11, Reward=141750.00
+2026-04-02 15:50:08,569 - Episode 288: Steps=11, Reward=243787.00
+2026-04-02 15:50:44,267 - Episode 289: Steps=11, Reward=227790.00
+2026-04-02 15:50:44,288 - Saved checkpoint at episode=289 to /home/sayin/projects/updated_worst_case_MARL/output_adversary_monaco/iqll_real/model
+2026-04-02 15:51:21,981 - Episode 290: Steps=11, Reward=300641.00
+2026-04-02 15:51:59,471 - Episode 291: Steps=11, Reward=289253.00
+2026-04-02 15:52:34,836 - Episode 292: Steps=11, Reward=269523.00
+2026-04-02 15:53:05,497 - Episode 293: Steps=11, Reward=182716.00
+2026-04-02 15:53:41,231 - Episode 294: Steps=11, Reward=242790.00
+2026-04-02 15:54:15,825 - Episode 295: Steps=11, Reward=211826.00
+2026-04-02 15:54:53,253 - Episode 296: Steps=11, Reward=285903.00
+2026-04-02 15:55:25,964 - Episode 297: Steps=11, Reward=161345.00
+2026-04-02 15:55:59,371 - Episode 298: Steps=11, Reward=234058.00
+2026-04-02 15:56:31,422 - Episode 299: Steps=11, Reward=280991.00
+2026-04-02 15:56:31,443 - Saved checkpoint at episode=299 to /home/sayin/projects/updated_worst_case_MARL/output_adversary_monaco/iqll_real/model
+2026-04-02 15:57:02,210 - Episode 300: Steps=11, Reward=223115.00
+2026-04-02 15:57:35,031 - Episode 301: Steps=11, Reward=274269.00
+2026-04-02 15:58:07,219 - Episode 302: Steps=11, Reward=158772.00
+2026-04-02 15:58:43,232 - Episode 303: Steps=11, Reward=255170.00
+2026-04-02 15:59:19,601 - Episode 304: Steps=11, Reward=277457.00
+2026-04-02 15:59:54,066 - Episode 305: Steps=11, Reward=215646.00
+2026-04-02 16:00:30,984 - Episode 306: Steps=11, Reward=271877.00
+2026-04-02 16:01:08,406 - Episode 307: Steps=11, Reward=289651.00
+2026-04-02 16:01:41,375 - Episode 308: Steps=11, Reward=232921.00
+2026-04-02 16:02:13,888 - Episode 309: Steps=11, Reward=173358.00
+2026-04-02 16:02:13,908 - Saved checkpoint at episode=309 to /home/sayin/projects/updated_worst_case_MARL/output_adversary_monaco/iqll_real/model
+2026-04-02 16:02:43,594 - Episode 310: Steps=11, Reward=154324.00
+2026-04-02 16:03:14,876 - Episode 311: Steps=11, Reward=238737.00
+2026-04-02 16:03:51,160 - Episode 312: Steps=11, Reward=294848.00
+2026-04-02 16:04:29,217 - Episode 313: Steps=11, Reward=311512.00
+2026-04-02 16:05:06,986 - Episode 314: Steps=11, Reward=306697.00
+2026-04-02 16:05:40,515 - Episode 315: Steps=11, Reward=180643.00
+2026-04-02 16:06:14,679 - Episode 316: Steps=11, Reward=204064.00
+2026-04-02 16:06:48,050 - Episode 317: Steps=11, Reward=255473.00
+2026-04-02 16:07:22,233 - Episode 318: Steps=11, Reward=199437.00
+2026-04-02 16:07:52,744 - Episode 319: Steps=11, Reward=116557.00
+2026-04-02 16:07:52,764 - Saved checkpoint at episode=319 to /home/sayin/projects/updated_worst_case_MARL/output_adversary_monaco/iqll_real/model
+2026-04-02 16:08:29,118 - Episode 320: Steps=11, Reward=254179.00
+2026-04-02 16:09:07,749 - Episode 321: Steps=11, Reward=362668.00
+2026-04-02 16:09:42,031 - Episode 322: Steps=11, Reward=205026.00
+2026-04-02 16:10:15,881 - Episode 323: Steps=11, Reward=201681.00
+2026-04-02 16:10:50,283 - Episode 324: Steps=11, Reward=293234.00
+2026-04-02 16:11:17,478 - Episode 325: Steps=11, Reward=137477.00
+2026-04-02 16:11:46,741 - Episode 326: Steps=11, Reward=224406.00
+2026-04-02 16:12:15,091 - Episode 327: Steps=11, Reward=158872.00
+2026-04-02 16:12:48,691 - Episode 328: Steps=11, Reward=272628.00
+2026-04-02 16:13:23,412 - Episode 329: Steps=11, Reward=260961.00
+2026-04-02 16:13:23,432 - Saved checkpoint at episode=329 to /home/sayin/projects/updated_worst_case_MARL/output_adversary_monaco/iqll_real/model
+2026-04-02 16:13:56,530 - Episode 330: Steps=11, Reward=166758.00
+2026-04-02 16:14:29,872 - Episode 331: Steps=11, Reward=177900.00
+2026-04-02 16:15:03,574 - Episode 332: Steps=11, Reward=189535.00
+2026-04-02 16:15:36,175 - Episode 333: Steps=11, Reward=255076.00
+2026-04-02 16:16:09,521 - Episode 334: Steps=11, Reward=259121.00
+2026-04-02 16:16:42,258 - Episode 335: Steps=11, Reward=245623.00
+2026-04-02 16:17:14,609 - Episode 336: Steps=11, Reward=234116.00
+2026-04-02 16:17:45,655 - Episode 337: Steps=11, Reward=214043.00
+2026-04-02 16:18:18,074 - Episode 338: Steps=11, Reward=271987.00
+2026-04-02 16:18:50,603 - Episode 339: Steps=11, Reward=173324.00
+2026-04-02 16:18:50,623 - Saved checkpoint at episode=339 to /home/sayin/projects/updated_worst_case_MARL/output_adversary_monaco/iqll_real/model
+2026-04-02 16:19:26,390 - Episode 340: Steps=11, Reward=252897.00
+2026-04-02 16:20:03,891 - Episode 341: Steps=11, Reward=277008.00
+2026-04-02 16:20:38,678 - Episode 342: Steps=11, Reward=232343.00
+2026-04-02 16:21:10,377 - Episode 343: Steps=11, Reward=215484.00
+2026-04-02 16:21:44,217 - Episode 344: Steps=11, Reward=284618.00
+2026-04-02 16:22:18,490 - Episode 345: Steps=11, Reward=340346.00
+2026-04-02 16:22:49,275 - Episode 346: Steps=11, Reward=176333.00
+2026-04-02 16:23:23,627 - Episode 347: Steps=11, Reward=206967.00
+2026-04-02 16:23:57,209 - Episode 348: Steps=11, Reward=240995.00
+2026-04-02 16:24:26,180 - Episode 349: Steps=11, Reward=119673.00
+2026-04-02 16:24:26,201 - Saved checkpoint at episode=349 to /home/sayin/projects/updated_worst_case_MARL/output_adversary_monaco/iqll_real/model
+2026-04-02 16:24:58,555 - Episode 350: Steps=11, Reward=271674.00
+2026-04-02 16:25:28,916 - Episode 351: Steps=11, Reward=184997.00
+2026-04-02 16:26:00,648 - Episode 352: Steps=11, Reward=241417.00
+2026-04-02 16:26:32,960 - Episode 353: Steps=11, Reward=249907.00
+2026-04-02 16:27:07,669 - Episode 354: Steps=11, Reward=257808.00
+2026-04-02 16:27:44,103 - Episode 355: Steps=11, Reward=266043.00
+2026-04-02 16:28:18,042 - Episode 356: Steps=11, Reward=199741.00
+2026-04-02 16:28:55,996 - Episode 357: Steps=11, Reward=304636.00
+2026-04-02 16:29:30,596 - Episode 358: Steps=11, Reward=217179.00
+2026-04-02 16:30:06,130 - Episode 359: Steps=11, Reward=245906.00
+2026-04-02 16:30:06,150 - Saved checkpoint at episode=359 to /home/sayin/projects/updated_worst_case_MARL/output_adversary_monaco/iqll_real/model
+2026-04-02 16:30:44,409 - Episode 360: Steps=11, Reward=328380.00
+2026-04-02 16:31:23,466 - Episode 361: Steps=11, Reward=342786.00
+2026-04-02 16:31:56,892 - Episode 362: Steps=11, Reward=187729.00
+2026-04-02 16:32:30,322 - Episode 363: Steps=11, Reward=238553.00
+2026-04-02 16:33:01,787 - Episode 364: Steps=11, Reward=190301.00
+2026-04-02 16:33:37,176 - Episode 365: Steps=11, Reward=240714.00
+2026-04-02 16:34:12,756 - Episode 366: Steps=11, Reward=251093.00
+2026-04-02 16:34:47,762 - Episode 367: Steps=11, Reward=212273.00
+2026-04-02 16:35:23,517 - Episode 368: Steps=11, Reward=232658.00
+2026-04-02 16:35:59,649 - Episode 369: Steps=11, Reward=279654.00
+2026-04-02 16:35:59,669 - Saved checkpoint at episode=369 to /home/sayin/projects/updated_worst_case_MARL/output_adversary_monaco/iqll_real/model
+2026-04-02 16:36:35,087 - Episode 370: Steps=11, Reward=253329.00
+2026-04-02 16:37:12,342 - Episode 371: Steps=11, Reward=307415.00
+2026-04-02 16:37:45,647 - Episode 372: Steps=11, Reward=172379.00
+2026-04-02 16:38:17,129 - Episode 373: Steps=11, Reward=137168.00
+2026-04-02 16:38:56,378 - Episode 374: Steps=11, Reward=333121.00
+2026-04-02 16:39:33,775 - Episode 375: Steps=11, Reward=282454.00
+2026-04-02 16:40:09,222 - Episode 376: Steps=11, Reward=249565.00
+2026-04-02 16:40:45,070 - Episode 377: Steps=11, Reward=256715.00
+2026-04-02 16:41:19,540 - Episode 378: Steps=11, Reward=219945.00
+2026-04-02 16:41:55,605 - Episode 379: Steps=11, Reward=267079.00
+2026-04-02 16:41:55,626 - Saved checkpoint at episode=379 to /home/sayin/projects/updated_worst_case_MARL/output_adversary_monaco/iqll_real/model
+2026-04-02 16:42:32,843 - Episode 380: Steps=11, Reward=332801.00
+2026-04-02 16:43:05,796 - Episode 381: Steps=11, Reward=239763.00
+2026-04-02 16:43:39,860 - Episode 382: Steps=11, Reward=206754.00
+2026-04-02 16:44:15,814 - Episode 383: Steps=11, Reward=247581.00
+2026-04-02 16:44:47,708 - Episode 384: Steps=11, Reward=140837.00
+2026-04-02 16:45:21,117 - Episode 385: Steps=11, Reward=220202.00
+2026-04-02 16:45:53,421 - Episode 386: Steps=11, Reward=236433.00
+2026-04-02 16:46:26,097 - Episode 387: Steps=11, Reward=236800.00
+2026-04-02 16:47:04,330 - Episode 388: Steps=11, Reward=328384.00
+2026-04-02 16:47:38,429 - Episode 389: Steps=11, Reward=201300.00
+2026-04-02 16:47:38,448 - Saved checkpoint at episode=389 to /home/sayin/projects/updated_worst_case_MARL/output_adversary_monaco/iqll_real/model
+2026-04-02 16:48:15,041 - Episode 390: Steps=11, Reward=261430.00
+2026-04-02 16:48:50,266 - Episode 391: Steps=11, Reward=259157.00
+2026-04-02 16:49:23,758 - Episode 392: Steps=11, Reward=256152.00
+2026-04-02 16:49:54,640 - Episode 393: Steps=11, Reward=164563.00
+2026-04-02 16:50:29,069 - Episode 394: Steps=11, Reward=308171.00
+2026-04-02 16:51:04,577 - Episode 395: Steps=11, Reward=355609.00
+2026-04-02 16:51:36,696 - Episode 396: Steps=11, Reward=197194.00
+2026-04-02 16:52:09,565 - Episode 397: Steps=11, Reward=272438.00
+2026-04-02 16:52:39,693 - Episode 398: Steps=11, Reward=223335.00
+2026-04-02 16:53:09,318 - Episode 399: Steps=11, Reward=147979.00
+2026-04-02 16:53:09,338 - Saved checkpoint at episode=399 to /home/sayin/projects/updated_worst_case_MARL/output_adversary_monaco/iqll_real/model
+2026-04-02 16:53:44,512 - Episode 400: Steps=11, Reward=237209.00
+2026-04-02 16:54:21,400 - Episode 401: Steps=11, Reward=272216.00
+2026-04-02 16:54:57,890 - Episode 402: Steps=11, Reward=273358.00
+2026-04-02 16:55:32,614 - Episode 403: Steps=11, Reward=227037.00
+2026-04-02 16:56:10,431 - Episode 404: Steps=11, Reward=333619.00
+2026-04-02 16:56:43,423 - Episode 405: Steps=11, Reward=173277.00
+2026-04-02 16:57:21,614 - Episode 406: Steps=11, Reward=310383.00
+2026-04-02 16:57:59,603 - Episode 407: Steps=11, Reward=320118.00
+2026-04-02 16:58:30,378 - Episode 408: Steps=11, Reward=139419.00
+2026-04-02 16:59:06,603 - Episode 409: Steps=11, Reward=268567.00
+2026-04-02 16:59:06,622 - Saved checkpoint at episode=409 to /home/sayin/projects/updated_worst_case_MARL/output_adversary_monaco/iqll_real/model
+2026-04-02 16:59:42,321 - Episode 410: Steps=11, Reward=238268.00
+2026-04-02 17:00:17,256 - Episode 411: Steps=11, Reward=226610.00
+2026-04-02 17:00:53,976 - Episode 412: Steps=11, Reward=266166.00
+2026-04-02 17:01:31,459 - Episode 413: Steps=11, Reward=288048.00
+2026-04-02 17:02:09,141 - Episode 414: Steps=11, Reward=301200.00
+2026-04-02 17:02:42,527 - Episode 415: Steps=11, Reward=168374.00
+2026-04-02 17:03:18,466 - Episode 416: Steps=11, Reward=251984.00
+2026-04-02 17:03:55,628 - Episode 417: Steps=11, Reward=294065.00
+2026-04-02 17:04:28,262 - Episode 418: Steps=11, Reward=238655.00
+2026-04-02 17:05:02,306 - Episode 419: Steps=11, Reward=205851.00
+2026-04-02 17:05:02,326 - Saved checkpoint at episode=419 to /home/sayin/projects/updated_worst_case_MARL/output_adversary_monaco/iqll_real/model
+2026-04-02 17:05:41,045 - Episode 420: Steps=11, Reward=334220.00
+2026-04-02 17:06:15,341 - Episode 421: Steps=11, Reward=209191.00
+2026-04-02 17:06:53,125 - Episode 422: Steps=11, Reward=287799.00
+2026-04-02 17:07:31,080 - Episode 423: Steps=11, Reward=322218.00
+2026-04-02 17:08:08,313 - Episode 424: Steps=11, Reward=288694.00
+2026-04-02 17:08:44,388 - Episode 425: Steps=11, Reward=316100.00
+2026-04-02 17:09:16,019 - Episode 426: Steps=11, Reward=197547.00
+2026-04-02 17:09:49,930 - Episode 427: Steps=11, Reward=270952.00
+2026-04-02 17:10:20,402 - Episode 428: Steps=11, Reward=181075.00
+2026-04-02 17:10:52,536 - Episode 429: Steps=11, Reward=266309.00
+2026-04-02 17:10:52,556 - Saved checkpoint at episode=429 to /home/sayin/projects/updated_worst_case_MARL/output_adversary_monaco/iqll_real/model
+2026-04-02 17:11:26,800 - Episode 430: Steps=11, Reward=294822.00
+2026-04-02 17:12:00,964 - Episode 431: Steps=11, Reward=278707.00
+2026-04-02 17:12:30,962 - Episode 432: Steps=11, Reward=227017.00
+2026-04-02 17:13:00,473 - Episode 433: Steps=11, Reward=222249.00
+2026-04-02 17:13:30,820 - Episode 434: Steps=11, Reward=251695.00
+2026-04-02 17:14:01,851 - Episode 435: Steps=11, Reward=310540.00
+2026-04-02 17:14:33,263 - Episode 436: Steps=11, Reward=306399.00
+2026-04-02 17:15:03,362 - Episode 437: Steps=11, Reward=234115.00
+2026-04-02 17:15:34,839 - Episode 438: Steps=11, Reward=306689.00
+2026-04-02 17:16:09,898 - Episode 439: Steps=11, Reward=218620.00
+2026-04-02 17:16:09,919 - Saved checkpoint at episode=439 to /home/sayin/projects/updated_worst_case_MARL/output_adversary_monaco/iqll_real/model
+2026-04-02 17:16:47,759 - Episode 440: Steps=11, Reward=309476.00
+2026-04-02 17:17:21,557 - Episode 441: Steps=11, Reward=215399.00
+2026-04-02 17:17:58,242 - Episode 442: Steps=11, Reward=289200.00
+2026-04-02 17:18:34,475 - Episode 443: Steps=11, Reward=249773.00
+2026-04-02 17:19:11,480 - Episode 444: Steps=11, Reward=291027.00
+2026-04-02 17:19:45,303 - Episode 445: Steps=11, Reward=240720.00
+2026-04-02 17:20:24,323 - Episode 446: Steps=11, Reward=329873.00
+2026-04-02 17:20:59,173 - Episode 447: Steps=11, Reward=254507.00
+2026-04-02 17:21:28,541 - Episode 448: Steps=11, Reward=173236.00
+2026-04-02 17:22:04,341 - Episode 449: Steps=11, Reward=331479.00
+2026-04-02 17:22:04,361 - Saved checkpoint at episode=449 to /home/sayin/projects/updated_worst_case_MARL/output_adversary_monaco/iqll_real/model
+2026-04-02 17:22:39,688 - Episode 450: Steps=11, Reward=229185.00
+2026-04-02 17:23:14,115 - Episode 451: Steps=11, Reward=213494.00
+2026-04-02 17:23:51,524 - Episode 452: Steps=11, Reward=308070.00
+2026-04-02 17:24:26,220 - Episode 453: Steps=11, Reward=205431.00
+2026-04-02 17:25:03,198 - Episode 454: Steps=11, Reward=275787.00
+2026-04-02 17:25:37,452 - Episode 455: Steps=11, Reward=193692.00
+2026-04-02 17:26:13,152 - Episode 456: Steps=11, Reward=249639.00
+2026-04-02 17:26:46,766 - Episode 457: Steps=11, Reward=172857.00
+2026-04-02 17:27:19,887 - Episode 458: Steps=11, Reward=166410.00
+2026-04-02 17:27:53,982 - Episode 459: Steps=11, Reward=240547.00
+2026-04-02 17:27:54,002 - Saved checkpoint at episode=459 to /home/sayin/projects/updated_worst_case_MARL/output_adversary_monaco/iqll_real/model
+2026-04-02 17:28:30,239 - Episode 460: Steps=11, Reward=268456.00
+2026-04-02 17:29:04,605 - Episode 461: Steps=11, Reward=215050.00
+2026-04-02 17:29:38,522 - Episode 462: Steps=11, Reward=205084.00
+2026-04-02 17:30:12,055 - Episode 463: Steps=11, Reward=247685.00
+2026-04-02 17:30:44,078 - Episode 464: Steps=11, Reward=148750.00
+2026-04-02 17:31:17,606 - Episode 465: Steps=11, Reward=181190.00
+2026-04-02 17:31:54,713 - Episode 466: Steps=11, Reward=293063.00
+2026-04-02 17:32:29,164 - Episode 467: Steps=11, Reward=203595.00
+2026-04-02 17:33:05,926 - Episode 468: Steps=11, Reward=273311.00
+2026-04-02 17:33:40,662 - Episode 469: Steps=11, Reward=213602.00
+2026-04-02 17:33:40,683 - Saved checkpoint at episode=469 to /home/sayin/projects/updated_worst_case_MARL/output_adversary_monaco/iqll_real/model
+2026-04-02 17:34:13,664 - Episode 470: Steps=11, Reward=171218.00
+2026-04-02 17:34:45,548 - Episode 471: Steps=11, Reward=171450.00
+2026-04-02 17:35:24,237 - Episode 472: Steps=11, Reward=330921.00
+2026-04-02 17:36:01,210 - Episode 473: Steps=11, Reward=267176.00
+2026-04-02 17:36:33,724 - Episode 474: Steps=11, Reward=155355.00
+2026-04-02 17:37:07,982 - Episode 475: Steps=11, Reward=197111.00
+2026-04-02 17:37:42,934 - Episode 476: Steps=11, Reward=209413.00
+2026-04-02 17:38:16,902 - Episode 477: Steps=11, Reward=265993.00
+2026-04-02 17:38:48,301 - Episode 478: Steps=11, Reward=187370.00
+2026-04-02 17:39:24,664 - Episode 479: Steps=11, Reward=290546.00
+2026-04-02 17:39:24,684 - Saved checkpoint at episode=479 to /home/sayin/projects/updated_worst_case_MARL/output_adversary_monaco/iqll_real/model
+2026-04-02 17:39:58,388 - Episode 480: Steps=11, Reward=186203.00
+2026-04-02 17:40:34,154 - Episode 481: Steps=11, Reward=252414.00
+2026-04-02 17:41:12,172 - Episode 482: Steps=11, Reward=307675.00
+2026-04-02 17:41:49,727 - Episode 483: Steps=11, Reward=294043.00
+2026-04-02 17:42:26,975 - Episode 484: Steps=11, Reward=284251.00
+2026-04-02 17:43:04,889 - Episode 485: Steps=11, Reward=293895.00
+2026-04-02 17:43:38,837 - Episode 486: Steps=11, Reward=244473.00
+2026-04-02 17:44:11,682 - Episode 487: Steps=11, Reward=234003.00
+2026-04-02 17:44:44,059 - Episode 488: Steps=11, Reward=245782.00
+2026-04-02 17:45:18,593 - Episode 489: Steps=11, Reward=273864.00
+2026-04-02 17:45:18,613 - Saved checkpoint at episode=489 to /home/sayin/projects/updated_worst_case_MARL/output_adversary_monaco/iqll_real/model
+2026-04-02 17:45:49,257 - Episode 490: Steps=11, Reward=174253.00
+2026-04-02 17:46:21,203 - Episode 491: Steps=11, Reward=260955.00
+2026-04-02 17:46:52,242 - Episode 492: Steps=11, Reward=203697.00
+2026-04-02 17:47:27,123 - Episode 493: Steps=11, Reward=331219.00
+2026-04-02 17:47:57,319 - Episode 494: Steps=11, Reward=216351.00
+2026-04-02 17:48:29,847 - Episode 495: Steps=11, Reward=272272.00
+2026-04-02 17:48:59,958 - Episode 496: Steps=11, Reward=159401.00
+2026-04-02 17:49:32,960 - Episode 497: Steps=11, Reward=244568.00
+2026-04-02 17:50:03,760 - Episode 498: Steps=11, Reward=239711.00
+2026-04-02 17:50:38,921 - Episode 499: Steps=11, Reward=287110.00
+2026-04-02 17:50:38,942 - Saved checkpoint at episode=499 to /home/sayin/projects/updated_worst_case_MARL/output_adversary_monaco/iqll_real/model
+2026-04-02 17:50:38,975 - Training Finished.

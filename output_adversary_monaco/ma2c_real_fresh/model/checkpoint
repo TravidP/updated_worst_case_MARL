@@ -1,0 +1,6 @@
+model_checkpoint_path: "/home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model/checkpoint-499"
+all_model_checkpoint_paths: "/home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model/checkpoint-459"
+all_model_checkpoint_paths: "/home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model/checkpoint-469"
+all_model_checkpoint_paths: "/home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model/checkpoint-479"
+all_model_checkpoint_paths: "/home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model/checkpoint-489"
+all_model_checkpoint_paths: "/home/sdc_joran/Journal/deeprl_signal_control/output_adversary_monaco/ma2c_real_fresh/model/checkpoint-499"

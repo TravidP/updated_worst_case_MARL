@@ -1,0 +1,6 @@
+model_checkpoint_path: "/home/sdc_joran/Journal/deeprl_signal_control/output_coevolution_real/ma2c_real_old/model_traffic/checkpoint-1858560"
+all_model_checkpoint_paths: "/home/sdc_joran/Journal/deeprl_signal_control/output_coevolution_real/ma2c_real_old/model_traffic/checkpoint-1805760"
+all_model_checkpoint_paths: "/home/sdc_joran/Journal/deeprl_signal_control/output_coevolution_real/ma2c_real_old/model_traffic/checkpoint-1818960"
+all_model_checkpoint_paths: "/home/sdc_joran/Journal/deeprl_signal_control/output_coevolution_real/ma2c_real_old/model_traffic/checkpoint-1832160"
+all_model_checkpoint_paths: "/home/sdc_joran/Journal/deeprl_signal_control/output_coevolution_real/ma2c_real_old/model_traffic/checkpoint-1845360"
+all_model_checkpoint_paths: "/home/sdc_joran/Journal/deeprl_signal_control/output_coevolution_real/ma2c_real_old/model_traffic/checkpoint-1858560"
