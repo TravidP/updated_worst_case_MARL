@@ -19,18 +19,21 @@ from typing import Dict, Tuple
 
 
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
-DEFAULT_BENCHMARK_DIR = os.path.join(PROJECT_ROOT, "runs_eval", "signal_controller_benchmark")
+DEFAULT_BENCHMARK_DIR = os.path.join(PROJECT_ROOT, "runs_eval", "signal_controller_benchmark_real")
 DEFAULT_OUTPUT_NAME = "horizon_averages_from_raw.csv"
 CONTROLLER_ORDER = [
-    "ia2c_marl",
+    "ia2c_real",
     "ia2c_retrained",
-    "ma2c_marl",
+    "ma2c_real",
     "ma2c_retrained",
-    "iqll_marl",
+    "iqll_real",
     "iqll_retrained",
+    "ppo_real",
+    "ppo_retrained"
+
 ]
 RAW_FILE_RE = re.compile(
-    r"^(?P<controller>(?:ia2c|ma2c|iqll)_(?:marl|retrained))_"
+    r"^(?P<controller>(?:ia2c|ma2c|iqll|ppo)_(?:real|retrained))_"
     r"group(?P<group_index>\d{2})_"
     r"(?P<group_slug>.+)_"
     r"(?P<metric>queue|speed)_raw\.csv$"
@@ -110,7 +113,7 @@ def collect_horizon_averages(benchmark_dir: str):
     group_names = load_group_names(benchmark_dir)
     summaries = defaultdict(dict)
 
-    for family in ("ia2c", "ma2c", "iqll"):
+    for family in ("ia2c", "ma2c", "iqll", "ppo"):
         family_dir = os.path.join(benchmark_dir, family)
         if not os.path.isdir(family_dir):
             continue

@@ -91,8 +91,8 @@ Compare = "PPO_worst_queue_comparison_real.png"
 BASELINE_CSV = "signal_controller_benchmark_real/ppo_real_group10_uniform_queue_raw.csv"
 RETRAINED_CSV = "signal_controller_benchmark_real/ppo_retrained_group01_s_to_n_queue_raw.csv"
 
-BASELINE_LABEL = "Baseline Worst Group (group10)"
-RETRAINED_LABEL = "Retrained Worst Group (group01)"
+BASELINE_LABEL = "Baseline MARL Worst Group (group10)"
+RETRAINED_LABEL = "Retrained MARL Worst Group (group01)"
 
 # Leave empty for automatic values.
 PLOT_TITLE = "Worst-case Queue Comparison (PPO)"
