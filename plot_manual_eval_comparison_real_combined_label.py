@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Manually compare four existing raw eval CSVs from runs_eval.
 Automatically extracts group names for the legend.
+Generates all configuration plots in a single run.
 """
 
 from __future__ import annotations
@@ -77,140 +78,141 @@ import pandas as pd
 
 
 # ===========================
-# Manual configuration block
+# Configuration blocks
 # ===========================
 PROJECT_ROOT = Path(__file__).resolve().parent
 RUNS_EVAL_DIR = PROJECT_ROOT / "runs_eval"
-# OUTPUT_DIR = RUNS_EVAL_DIR / "manual_comparisons_real"
 
-# OUTPUT_FILENAME = "All_Algorithms_Queue_Comparison_real.png"
-# PLOT_TITLE = "Worst-case Queue Comparison (All Algorithms) in Monaco City"
-# Y_LABEL = "Total queued vehicles (veh)"
-
-# DATA_PAIRS = [
-#     {
-#         "algo_name": "IA2C",
-#         "baseline_csv": "signal_controller_benchmark_real/ia2c_real_group10_uniform_queue_raw.csv",
-#         "retrained_csv": "signal_controller_benchmark_real/ia2c_retrained_group01_s_to_n_queue_raw.csv",
-#         "color": "#1f77b4" # Matplotlib tab:blue
-#     },
-#     {
-#         "algo_name": "MA2C",
-#         "baseline_csv": "signal_controller_benchmark_real/ma2c_real_group01_s_to_n_queue_raw.csv",
-#         "retrained_csv": "signal_controller_benchmark_real/ma2c_retrained_group01_s_to_n_queue_raw.csv",
-#         "color": "#ff7f0e" # Matplotlib tab:orange
-#     },
-#     {
-#         "algo_name": "IQL-LR",
-#         "baseline_csv": "signal_controller_benchmark_real/iqll_real_group10_uniform_queue_raw.csv",
-#         "retrained_csv": "signal_controller_benchmark_real/iqll_retrained_group05_se_to_nw_queue_raw.csv",
-#         "color": "#2ca02c" # Matplotlib tab:green
-#     },
-#     {
-#         "algo_name": "PPO",
-#         "baseline_csv": "signal_controller_benchmark_real/ppo_real_group10_uniform_queue_raw.csv",
-#         "retrained_csv": "signal_controller_benchmark_real/ppo_retrained_group01_s_to_n_queue_raw.csv",
-#         "color": "#d62728" # Matplotlib tab:red
-#     }
-# ]
-
-OUTPUT_DIR = RUNS_EVAL_DIR / "manual_comparisons_real"
-
-OUTPUT_FILENAME = "All_Algorithms_Speed_Comparison_real.png"
-PLOT_TITLE = "Worst-case Speed Comparison (All Algorithms) in Monaco City"
-Y_LABEL = "Average vehicle speed (km/h)"
-
-DATA_PAIRS = [
+PLOT_CONFIGS = [
     {
-        "algo_name": "IA2C",
-        "baseline_csv": "signal_controller_benchmark_real/ia2c_real_group10_uniform_speed_raw.csv",
-        "retrained_csv": "signal_controller_benchmark_real/ia2c_retrained_group01_s_to_n_speed_raw.csv",
-        "color": "#1f77b4" # Matplotlib tab:blue
+        "output_dir": "manual_comparisons_real",
+        "output_filename": "All_Algorithms_Queue_Comparison_real.png",
+        "plot_title": "Worst-case Queue Comparison (All Algorithms) in Monaco City",
+        "y_label": "Total queued vehicles (veh)",
+        "data_pairs": [
+            {
+                "algo_name": "IA2C",
+                "baseline_csv": "signal_controller_benchmark_real/ia2c_real_group10_uniform_queue_raw.csv",
+                "retrained_csv": "signal_controller_benchmark_real/ia2c_retrained_group01_s_to_n_queue_raw.csv",
+                "color": "#1f77b4"
+            },
+            {
+                "algo_name": "MA2C",
+                "baseline_csv": "signal_controller_benchmark_real/ma2c_real_group01_s_to_n_queue_raw.csv",
+                "retrained_csv": "signal_controller_benchmark_real/ma2c_retrained_group01_s_to_n_queue_raw.csv",
+                "color": "#ff7f0e"
+            },
+            {
+                "algo_name": "IQL-LR",
+                "baseline_csv": "signal_controller_benchmark_real/iqll_real_group10_uniform_queue_raw.csv",
+                "retrained_csv": "signal_controller_benchmark_real/iqll_retrained_group05_se_to_nw_queue_raw.csv",
+                "color": "#2ca02c"
+            },
+            {
+                "algo_name": "PPO",
+                "baseline_csv": "signal_controller_benchmark_real/ppo_real_group10_uniform_queue_raw.csv",
+                "retrained_csv": "signal_controller_benchmark_real/ppo_retrained_group01_s_to_n_queue_raw.csv",
+                "color": "#d62728"
+            }
+        ]
     },
     {
-        "algo_name": "MA2C",
-        "baseline_csv": "signal_controller_benchmark_real/ma2c_real_group01_s_to_n_speed_raw.csv",
-        "retrained_csv": "signal_controller_benchmark_real/ma2c_retrained_group01_s_to_n_speed_raw.csv",
-        "color": "#ff7f0e" # Matplotlib tab:orange
+        "output_dir": "manual_comparisons_real",
+        "output_filename": "All_Algorithms_Speed_Comparison_real.png",
+        "plot_title": "Worst-case Speed Comparison (All Algorithms) in Monaco City",
+        "y_label": "Average vehicle speed (km/h)",
+        "data_pairs": [
+            {
+                "algo_name": "IA2C",
+                "baseline_csv": "signal_controller_benchmark_real/ia2c_real_group10_uniform_speed_raw.csv",
+                "retrained_csv": "signal_controller_benchmark_real/ia2c_retrained_group01_s_to_n_speed_raw.csv",
+                "color": "#1f77b4"
+            },
+            {
+                "algo_name": "MA2C",
+                "baseline_csv": "signal_controller_benchmark_real/ma2c_real_group01_s_to_n_speed_raw.csv",
+                "retrained_csv": "signal_controller_benchmark_real/ma2c_retrained_group01_s_to_n_speed_raw.csv",
+                "color": "#ff7f0e"
+            },
+            {
+                "algo_name": "IQL-LR",
+                "baseline_csv": "signal_controller_benchmark_real/iqll_real_group10_uniform_speed_raw.csv",
+                "retrained_csv": "signal_controller_benchmark_real/iqll_retrained_group05_se_to_nw_speed_raw.csv",
+                "color": "#2ca02c"
+            },
+            {
+                "algo_name": "PPO",
+                "baseline_csv": "signal_controller_benchmark_real/ppo_real_group10_uniform_speed_raw.csv",
+                "retrained_csv": "signal_controller_benchmark_real/ppo_retrained_group01_s_to_n_speed_raw.csv",
+                "color": "#d62728"
+            }
+        ]
     },
     {
-        "algo_name": "IQL-LR",
-        "baseline_csv": "signal_controller_benchmark_real/iqll_real_group10_uniform_speed_raw.csv",
-        "retrained_csv": "signal_controller_benchmark_real/iqll_retrained_group05_se_to_nw_speed_raw.csv",
-        "color": "#2ca02c" # Matplotlib tab:green
+        "output_dir": "manual_comparisons",
+        "output_filename": "All_Algorithms_Speed_Comparison.png",
+        "plot_title": "Worst-case Speed Comparison (All Algorithms) in 5x5 Grid",
+        "y_label": "Average vehicle speed (km/h)",
+        "data_pairs": [
+            {
+                "algo_name": "IA2C",
+                "baseline_csv": "signal_controller_benchmark/ia2c_marl_group02_demand_w_to_e_speed_raw.csv",
+                "retrained_csv": "signal_controller_benchmark/ia2c_retrained_group06_demand_sw_to_ne_speed_raw.csv",
+                "color": "#1f77b4"
+            },
+            {
+                "algo_name": "MA2C",
+                "baseline_csv": "signal_controller_benchmark/ma2c_marl_group06_demand_sw_to_ne_speed_raw.csv",
+                "retrained_csv": "signal_controller_benchmark/ma2c_retrained_group06_demand_sw_to_ne_speed_raw.csv",
+                "color": "#ff7f0e"
+            },
+            {
+                "algo_name": "IQL-LR",
+                "baseline_csv": "signal_controller_benchmark/iqll_marl_group07_demand_ne_to_sw_speed_raw.csv",
+                "retrained_csv": "signal_controller_benchmark/iqll_retrained_group06_demand_sw_to_ne_speed_raw.csv",
+                "color": "#2ca02c"
+            },
+            {
+                "algo_name": "PPO",
+                "baseline_csv": "signal_controller_benchmark/ppo_marl_group02_demand_w_to_e_speed_raw.csv",
+                "retrained_csv": "signal_controller_benchmark/ppo_retrained_group05_demand_se_to_nw_speed_raw.csv",
+                "color": "#d62728"
+            }
+        ]
     },
     {
-        "algo_name": "PPO",
-        "baseline_csv": "signal_controller_benchmark_real/ppo_real_group10_uniform_speed_raw.csv",
-        "retrained_csv": "signal_controller_benchmark_real/ppo_retrained_group01_s_to_n_speed_raw.csv",
-        "color": "#d62728" # Matplotlib tab:red
+        "output_dir": "manual_comparisons",
+        "output_filename": "All_Algorithms_Queue_Comparison.png",
+        "plot_title": "Worst-case Queue Comparison (All Algorithms) in 5x5 Grid",
+        "y_label": "Average vehicle queue length (vehicles)",
+        "data_pairs": [
+            {
+                "algo_name": "IA2C",
+                "baseline_csv": "signal_controller_benchmark/ia2c_marl_group02_demand_w_to_e_queue_raw.csv",
+                "retrained_csv": "signal_controller_benchmark/ia2c_retrained_group02_demand_w_to_e_queue_raw.csv",
+                "color": "#1f77b4"
+            },
+            {
+                "algo_name": "MA2C",
+                "baseline_csv": "signal_controller_benchmark/ma2c_marl_group02_demand_w_to_e_queue_raw.csv",
+                "retrained_csv": "signal_controller_benchmark/ma2c_retrained_group06_demand_sw_to_ne_queue_raw.csv",
+                "color": "#ff7f0e"
+            },
+            {
+                "algo_name": "IQL-LR",
+                "baseline_csv": "signal_controller_benchmark/iqll_marl_group02_demand_w_to_e_queue_raw.csv",
+                "retrained_csv": "signal_controller_benchmark/iqll_retrained_group02_demand_w_to_e_queue_raw.csv",
+                "color": "#2ca02c"
+            },
+            {
+                "algo_name": "PPO",
+                "baseline_csv": "signal_controller_benchmark/ppo_marl_group02_demand_w_to_e_queue_raw.csv",
+                "retrained_csv": "signal_controller_benchmark/ppo_retrained_group05_demand_se_to_nw_queue_raw.csv",
+                "color": "#d62728"
+            }
+        ]
     }
 ]
-
-# OUTPUT_DIR = RUNS_EVAL_DIR / "manual_comparisons"
-
-# OUTPUT_FILENAME = "All_Algorithms_Speed_Comparison.png"
-# PLOT_TITLE = "Worst-case Speed Comparison (All Algorithms) in 5x5 Grid"
-# Y_LABEL = "Average vehicle speed (km/h)"
-
-# DATA_PAIRS = [
-#     {
-#         "algo_name": "IA2C",
-#         "baseline_csv": "signal_controller_benchmark/ia2c_marl_group02_demand_w_to_e_speed_raw.csv",
-#         "retrained_csv": "signal_controller_benchmark/ia2c_retrained_group06_demand_sw_to_ne_speed_raw.csv",
-#         "color": "#1f77b4" # Matplotlib tab:blue
-#     },
-#     {
-#         "algo_name": "MA2C",
-#         "baseline_csv": "signal_controller_benchmark/ma2c_marl_group06_demand_sw_to_ne_speed_raw.csv",
-#         "retrained_csv": "signal_controller_benchmark/ma2c_retrained_group06_demand_sw_to_ne_speed_raw.csv",
-#         "color": "#ff7f0e" # Matplotlib tab:orange
-#     },
-#     {
-#         "algo_name": "IQL-LR",
-#         "baseline_csv": "signal_controller_benchmark/iqll_marl_group07_demand_ne_to_sw_speed_raw.csv",
-#         "retrained_csv": "signal_controller_benchmark/iqll_retrained_group06_demand_sw_to_ne_speed_raw.csv",
-#         "color": "#2ca02c" # Matplotlib tab:green
-#     },
-#     {
-#         "algo_name": "PPO",
-#         "baseline_csv": "signal_controller_benchmark/ppo_marl_group02_demand_w_to_e_speed_raw.csv",
-#         "retrained_csv": "signal_controller_benchmark/ppo_retrained_group05_demand_se_to_nw_speed_raw.csv",
-#         "color": "#d62728" # Matplotlib tab:red
-#     }
-# ]
-# OUTPUT_DIR = RUNS_EVAL_DIR / "manual_comparisons"
-
-# OUTPUT_FILENAME = "All_Algorithms_Queue_Comparison.png"
-# PLOT_TITLE = "Worst-case Queue Comparison (All Algorithms) in 5x5 Grid"
-# Y_LABEL = "Average vehicle queue length (vehicles)"
-
-# DATA_PAIRS = [
-#     {
-#         "algo_name": "IA2C",
-#         "baseline_csv": "signal_controller_benchmark/ia2c_marl_group02_demand_w_to_e_queue_raw.csv",
-#         "retrained_csv": "signal_controller_benchmark/ia2c_retrained_group02_demand_w_to_e_queue_raw.csv",
-#         "color": "#1f77b4" # Matplotlib tab:blue
-#     },
-#     {
-#         "algo_name": "MA2C",
-#         "baseline_csv": "signal_controller_benchmark/ma2c_marl_group02_demand_w_to_e_queue_raw.csv",
-#         "retrained_csv": "signal_controller_benchmark/ma2c_retrained_group06_demand_sw_to_ne_queue_raw.csv",
-#         "color": "#ff7f0e" # Matplotlib tab:orange
-#     },
-#     {
-#         "algo_name": "IQL-LR",
-#         "baseline_csv": "signal_controller_benchmark/iqll_marl_group02_demand_w_to_e_queue_raw.csv",
-#         "retrained_csv": "signal_controller_benchmark/iqll_retrained_group02_demand_w_to_e_queue_raw.csv",
-#         "color": "#2ca02c" # Matplotlib tab:green
-#     },
-#     {
-#         "algo_name": "PPO",
-#         "baseline_csv": "signal_controller_benchmark/ppo_marl_group02_demand_w_to_e_queue_raw.csv",
-#         "retrained_csv": "signal_controller_benchmark/ppo_retrained_group05_demand_se_to_nw_queue_raw.csv",
-#         "color": "#d62728" # Matplotlib tab:red
-#     }
-# ]
 
 
 def _slugify(text: str) -> str:
@@ -284,72 +286,75 @@ def _load_raw_stats(csv_path: Path) -> Tuple[np.ndarray, np.ndarray, np.ndarray,
 
 
 def main() -> None:
-    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-    output_path = OUTPUT_DIR / OUTPUT_FILENAME
+    for config in PLOT_CONFIGS:
+        out_dir = RUNS_EVAL_DIR / config["output_dir"]
+        out_dir.mkdir(parents=True, exist_ok=True)
+        output_path = out_dir / config["output_filename"]
 
-    plt.figure(figsize=(14, 8))
+        plt.figure(figsize=(14, 8))
 
-    for pair in DATA_PAIRS:
-        algo = pair["algo_name"]
-        color = pair["color"]
-        base_csv_str = pair["baseline_csv"]
-        retrain_csv_str = pair["retrained_csv"]
+        for pair in config["data_pairs"]:
+            algo = pair["algo_name"]
+            color = pair["color"]
+            base_csv_str = pair["baseline_csv"]
+            retrain_csv_str = pair["retrained_csv"]
+            
+            # 使用正则表达式动态提取 group 名称 (例如 "group10")
+            base_group_match = re.search(r'(group\d+)', base_csv_str)
+            retrain_group_match = re.search(r'(group\d+)', retrain_csv_str)
+            
+            base_group = base_group_match.group(1) if base_group_match else "unknown"
+            retrain_group = retrain_group_match.group(1) if retrain_group_match else "unknown"
+
+            # 构造你想要的图例标签，自动注入算法名和组名
+            base_label = f"Baseline {algo} Worst Group ({base_group})"
+            retrain_label = f"Retrained {algo} Worst Group ({retrain_group})"
+            
+            base_path = _resolve_csv(base_csv_str)
+            retrain_path = _resolve_csv(retrain_csv_str)
+
+            b_t, b_mean, b_min, b_max = _load_raw_stats(base_path)
+            r_t, r_mean, r_min, r_max = _load_raw_stats(retrain_path)
+
+            # Baseline 画图
+            plt.plot(
+                b_t, b_mean, 
+                label=base_label, 
+                color=color, 
+                linestyle='--', 
+                linewidth=1.5, 
+                alpha=0.6
+            )
+            plt.fill_between(b_t, b_min, b_max, color=color, alpha=0.1)
+
+            # Retrained 画图
+            plt.plot(
+                r_t, r_mean, 
+                label=retrain_label, 
+                color=color, 
+                linestyle='-', 
+                linewidth=2.5, 
+                alpha=1.0
+            )
+            plt.fill_between(r_t, r_min, r_max, color=color, alpha=0.15)
+            
+            print(f"Processed {algo}: Baseline({base_group}) vs Retrained({retrain_group})")
+
+        plt.xlabel("Simulation second")
+        plt.ylabel(config["y_label"])
+        plt.title(config["plot_title"])
         
-        # 使用正则表达式动态提取 group 名称 (例如 "group10")
-        base_group_match = re.search(r'(group\d+)', base_csv_str)
-        retrain_group_match = re.search(r'(group\d+)', retrain_csv_str)
+        # 因为图例变长了，可以放在图外或通过缩小字体来适应
+        plt.legend(ncol=2, loc="upper left")
         
-        base_group = base_group_match.group(1) if base_group_match else "unknown"
-        retrain_group = retrain_group_match.group(1) if retrain_group_match else "unknown"
+        plt.grid(True, linestyle=':', alpha=0.6)
+        plt.tight_layout()
+        plt.savefig(output_path, dpi=300)
+        plt.close()
 
-        # 构造你想要的图例标签，自动注入算法名和组名
-        base_label = f"Baseline {algo} Worst Group ({base_group})"
-        retrain_label = f"Retrained {algo} Worst Group ({retrain_group})"
-        
-        base_path = _resolve_csv(base_csv_str)
-        retrain_path = _resolve_csv(retrain_csv_str)
-
-        b_t, b_mean, b_min, b_max = _load_raw_stats(base_path)
-        r_t, r_mean, r_min, r_max = _load_raw_stats(retrain_path)
-
-        # Baseline 画图
-        plt.plot(
-            b_t, b_mean, 
-            label=base_label, 
-            color=color, 
-            linestyle='--', 
-            linewidth=1.5, 
-            alpha=0.6
-        )
-        plt.fill_between(b_t, b_min, b_max, color=color, alpha=0.1)
-
-        # Retrained 画图
-        plt.plot(
-            r_t, r_mean, 
-            label=retrain_label, 
-            color=color, 
-            linestyle='-', 
-            linewidth=2.5, 
-            alpha=1.0
-        )
-        plt.fill_between(r_t, r_min, r_max, color=color, alpha=0.15)
-        
-        print(f"Processed {algo}: Baseline({base_group}) vs Retrained({retrain_group})")
-
-    plt.xlabel("Simulation second")
-    plt.ylabel(Y_LABEL)
-    plt.title(PLOT_TITLE)
-    
-    # 因为图例变长了，可以放在图外或通过缩小字体来适应
-    plt.legend(ncol=2, loc="upper left")
-    
-    plt.grid(True, linestyle=':', alpha=0.6)
-    plt.tight_layout()
-    plt.savefig(output_path, dpi=300)
-    plt.close()
-
-    print("========================================")
-    print("Saved combined plot to:", output_path)
+        print("========================================")
+        print("Saved combined plot to:", output_path)
+        print("\n")
 
 
 if __name__ == "__main__":
