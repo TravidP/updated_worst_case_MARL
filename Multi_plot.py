@@ -210,7 +210,7 @@ def main():
 
     for scenario in PAIRED_SCENARIOS:
         # 增加总高度至 4.8，为底部的多行图例留出充足空间
-        fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(9, 4.2))
+        fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(9, 4.5))
         
         # 添加共享的主标题，位置稍微靠上
         fig.suptitle(scenario["suptitle"], y=0.96, fontweight='bold')
