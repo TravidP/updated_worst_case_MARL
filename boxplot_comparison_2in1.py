@@ -73,8 +73,8 @@ DATA_PAIRS = [
     {"algo_name": "PPO",    "color": "#d62728"}  
 ]
 
-OUTPUT_DIR = Path("runs_eval/manual_comparisons_real")
-# OUTPUT_DIR = Path("runs_eval/manual_comparisons")
+# OUTPUT_DIR = Path("runs_eval/manual_comparisons_real")
+OUTPUT_DIR = Path("runs_eval/manual_comparisons")
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 def plot_boxplot_metric_on_ax(ax, df, metric_name, col_marl, col_drmarl):
@@ -175,16 +175,16 @@ def plot_boxplot_metric_on_ax(ax, df, metric_name, col_marl, col_drmarl):
                                    linestyle='-', linewidth=1.5, label='Retrain')
 
     # 图例改为1列，节省空间
-    # ax.legend(handles=[baseline_patch, retrain_patch], loc='upper left', ncol=1, fontsize=9)
-    ax.legend(handles=[baseline_patch, retrain_patch], loc='best', ncol=1, fontsize=9)
+    ax.legend(handles=[baseline_patch, retrain_patch], loc='upper left', ncol=1, fontsize=9)
+    # ax.legend(handles=[baseline_patch, retrain_patch], loc='best', ncol=1, fontsize=9)
     ax.spines['top'].set_visible(False)
     ax.spines['right'].set_visible(False)
 
 def main():
     _configure_plot_style()
 
-    # file_path = Path('runs_eval') / 'signal_controller_benchmark' / 'full_performance_comparison.xlsx'
-    file_path = Path('runs_eval') / 'signal_controller_benchmark_real' / 'full_performance_comparison_real.xlsx'
+    file_path = Path('runs_eval') / 'signal_controller_benchmark' / 'full_performance_comparison.xlsx'
+    # file_path = Path('runs_eval') / 'signal_controller_benchmark_real' / 'full_performance_comparison_real.xlsx'
     if not Path(file_path).exists():
         print(f"Error: 找不到数据文件 {file_path}")
         return
@@ -207,13 +207,13 @@ def main():
                               col_drmarl=[5, 11, 17, 23])
 
     # 整体大标题字号稍微缩减
-    # fig.suptitle('Algorithm Controller Performance Retrain Comparison in 5x5 Grid', fontsize=14, fontweight='bold', y=0.95)
-    fig.suptitle('Algorithm Controller Performance Retrain Comparison in Monaco City', fontsize=14, fontweight='bold', y=0.95)
+    fig.suptitle('Algorithm Controller Performance Retrain Comparison in 5x5 Grid', fontsize=14, fontweight='bold', y=0.95)
+    # fig.suptitle('Algorithm Controller Performance Retrain Comparison in Monaco City', fontsize=14, fontweight='bold', y=0.95)
     plt.tight_layout()
     
     # 保存为一张总图
-    # output_path = OUTPUT_DIR / 'Combined_Performance_Comparison.png'
-    output_path = OUTPUT_DIR / 'Combined_Performance_Comparison_real.png'
+    output_path = OUTPUT_DIR / 'Combined_Performance_Comparison.png'
+    # output_path = OUTPUT_DIR / 'Combined_Performance_Comparison_real.png'
     plt.savefig(output_path, dpi=300, bbox_inches='tight')
     plt.close()
     
