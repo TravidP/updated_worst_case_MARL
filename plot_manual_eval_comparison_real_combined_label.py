@@ -124,7 +124,7 @@ PLOT_CONFIGS = [
         "data_pairs": [
             {
                 "algo_name": "IA2C",
-                "baseline_csv": "signal_controller_benchmark_real/ia2c_real_group10_uniform_speed_raw.csv",
+                "baseline_csv": "signal_controller_benchmark_real/ia2c_real_group05_se_to_nw_speed_raw.csv",
                 "retrained_csv": "signal_controller_benchmark_real/ia2c_retrained_group01_s_to_n_speed_raw.csv",
                 "color": "#1f77b4"
             },

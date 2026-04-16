@@ -94,7 +94,7 @@ PLOT_CONFIGS = [
         "plot_title": "Average Speed",
         "y_label": "Average vehicle speed (km/h)",
         "data_pairs": [
-            {"algo_name": "IA2C", "baseline_csv": "signal_controller_benchmark_real/ia2c_real_group10_uniform_speed_raw.csv", "retrained_csv": "signal_controller_benchmark_real/ia2c_retrained_group01_s_to_n_speed_raw.csv", "color": "#1f77b4"},
+            {"algo_name": "IA2C", "baseline_csv": "signal_controller_benchmark_real/ia2c_real_group05_se_to_nw_speed_raw.csv", "retrained_csv": "signal_controller_benchmark_real/ia2c_retrained_group01_s_to_n_speed_raw.csv", "color": "#1f77b4"},
             {"algo_name": "MA2C", "baseline_csv": "signal_controller_benchmark_real/ma2c_real_group01_s_to_n_speed_raw.csv", "retrained_csv": "signal_controller_benchmark_real/ma2c_retrained_group01_s_to_n_speed_raw.csv", "color": "#ff7f0e"},
             {"algo_name": "IQL-LR", "baseline_csv": "signal_controller_benchmark_real/iqll_real_group10_uniform_speed_raw.csv", "retrained_csv": "signal_controller_benchmark_real/iqll_retrained_group05_se_to_nw_speed_raw.csv", "color": "#2ca02c"},
             {"algo_name": "PPO", "baseline_csv": "signal_controller_benchmark_real/ppo_real_group10_uniform_speed_raw.csv", "retrained_csv": "signal_controller_benchmark_real/ppo_retrained_group01_s_to_n_speed_raw.csv", "color": "#d62728"}
