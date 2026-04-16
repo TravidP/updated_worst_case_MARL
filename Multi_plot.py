@@ -50,7 +50,7 @@ def _configure_plot_style() -> None:
         "xtick.labelsize": 8,
         "ytick.labelsize": 7,
         "legend.fontsize": 7,       # 略微调大一点，因为我们增加了图片高度
-        "figure.titlesize": 10,     # 共享大标题加大
+        "figure.titlesize": 9,     # 共享大标题加大
         "pdf.fonttype": 42,
         "ps.fonttype": 42,
     }
@@ -210,7 +210,7 @@ def main():
 
     for scenario in PAIRED_SCENARIOS:
         # 增加总高度至 4.8，为底部的多行图例留出充足空间
-        fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(8.5, 4.8))
+        fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(9, 4.2))
         
         # 添加共享的主标题，位置稍微靠上
         fig.suptitle(scenario["suptitle"], y=0.96, fontweight='bold')
