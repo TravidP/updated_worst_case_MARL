@@ -196,19 +196,19 @@ def main():
 
     # 画左侧 Queue Length
     plot_boxplot_metric_on_ax(ax1, df, 
-                              metric_name='Queue Length', 
+                              metric_name='Queue Length (veh)', 
                               col_marl=[1, 7, 13, 19], 
                               col_drmarl=[2, 8, 14, 20])
 
     # 画右侧 Average Speed
     plot_boxplot_metric_on_ax(ax2, df, 
-                              metric_name='Average Speed', 
+                              metric_name='Average Speed (m/s)', 
                               col_marl=[4, 10, 16, 22], 
                               col_drmarl=[5, 11, 17, 23])
 
     # 整体大标题字号稍微缩减
-    # fig.suptitle('Algorithm Controller Performance Retrain Comparison in 5x5 Grid', fontsize=14, fontweight='bold', y=1.02)
-    fig.suptitle('Algorithm Controller Performance Retrain Comparison in Monaco City', fontsize=14, fontweight='bold', y=1.02)
+    # fig.suptitle('Algorithm Controller Performance Retrain Comparison in 5x5 Grid', fontsize=14, fontweight='bold', y=0.95)
+    fig.suptitle('Algorithm Controller Performance Retrain Comparison in Monaco City', fontsize=14, fontweight='bold', y=0.95)
     plt.tight_layout()
     
     # 保存为一张总图
