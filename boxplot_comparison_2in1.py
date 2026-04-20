@@ -77,7 +77,7 @@ DATA_PAIRS = [
 OUTPUT_DIR = Path("runs_eval/manual_comparisons")
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
-def plot_boxplot_metric_on_ax(ax, df, metric_name, col_marl, col_drmarl):
+def plot_boxplot_metric_on_ax(ax, df, metric_name, col_marl, col_drmarl, legend_loc='best'):
     """在一个指定的 ax (子图) 上绘制箱线图，并标注平均值和变化幅度"""
     
     # data_marl = [df.iloc[2:, c].dropna().astype(float) for c in col_marl]
@@ -175,50 +175,64 @@ def plot_boxplot_metric_on_ax(ax, df, metric_name, col_marl, col_drmarl):
                                    linestyle='-', linewidth=1.5, label='Retrain')
 
     # 图例改为1列，节省空间
-    ax.legend(handles=[baseline_patch, retrain_patch], loc='upper left', ncol=1, fontsize=9)
-    # ax.legend(handles=[baseline_patch, retrain_patch], loc='best', ncol=1, fontsize=9)
+    ax.legend(handles=[baseline_patch, retrain_patch], loc=legend_loc, ncol=1, fontsize=9)
     ax.spines['top'].set_visible(False)
     ax.spines['right'].set_visible(False)
 
 def main():
     _configure_plot_style()
 
-    file_path = Path('runs_eval') / 'signal_controller_benchmark' / 'full_performance_comparison.xlsx'
-    # file_path = Path('runs_eval') / 'signal_controller_benchmark_real' / 'full_performance_comparison_real.xlsx'
-    if not Path(file_path).exists():
-        print(f"Error: 找不到数据文件 {file_path}")
-        return
+    configs = [
+        {
+            "file_path": Path('runs_eval') / 'signal_controller_benchmark' / 'full_performance_comparison.xlsx',
+            "title": 'Algorithm Controller Performance Retrain Comparison in 5x5 Grid',
+            "output_path": OUTPUT_DIR / 'Combined_Performance_Comparison.png',
+            "legend_loc": "upper left"
+        },
+        {
+            "file_path": Path('runs_eval') / 'signal_controller_benchmark_real' / 'full_performance_comparison_real.xlsx',
+            "title": 'Algorithm Controller Performance Retrain Comparison in Monaco City',
+            "output_path": OUTPUT_DIR / 'Combined_Performance_Comparison_real.png',
+            "legend_loc": "upper right"
+        }
+    ]
+
+    for config in configs:
+        file_path = config["file_path"]
+        if not file_path.exists():
+            print(f"Error: 找不到数据文件 {file_path}")
+            continue
+            
+        df = pd.read_excel(file_path, header=None)
+
+        # --- 尺寸修改为 10x6 ---
+        fig, (ax1, ax2) = plt.subplots(nrows=1, ncols=2, figsize=(10, 6), dpi=150)
+
+        # 画左侧 Queue Length
+        plot_boxplot_metric_on_ax(ax1, df, 
+                                  metric_name='Queue Length (veh)', 
+                                  col_marl=[1, 7, 13, 19], 
+                                  col_drmarl=[2, 8, 14, 20],
+                                  legend_loc=config["legend_loc"])
+
+        # 画右侧 Average Speed
+        plot_boxplot_metric_on_ax(ax2, df, 
+                                  metric_name='Average Speed (m/s)', 
+                                  col_marl=[4, 10, 16, 22], 
+                                  col_drmarl=[5, 11, 17, 23],
+                                  legend_loc=config["legend_loc"])
+
+        # 整体大标题字号稍微缩减
+        fig.suptitle(config["title"], fontsize=14, fontweight='bold', y=0.95)
+        plt.tight_layout()
         
-    df = pd.read_excel(file_path, header=None)
-
-    # --- 尺寸修改为 10x6 ---
-    fig, (ax1, ax2) = plt.subplots(nrows=1, ncols=2, figsize=(10, 6), dpi=150)
-
-    # 画左侧 Queue Length
-    plot_boxplot_metric_on_ax(ax1, df, 
-                              metric_name='Queue Length (veh)', 
-                              col_marl=[1, 7, 13, 19], 
-                              col_drmarl=[2, 8, 14, 20])
-
-    # 画右侧 Average Speed
-    plot_boxplot_metric_on_ax(ax2, df, 
-                              metric_name='Average Speed (m/s)', 
-                              col_marl=[4, 10, 16, 22], 
-                              col_drmarl=[5, 11, 17, 23])
-
-    # 整体大标题字号稍微缩减
-    fig.suptitle('Algorithm Controller Performance Retrain Comparison in 5x5 Grid', fontsize=14, fontweight='bold', y=0.95)
-    # fig.suptitle('Algorithm Controller Performance Retrain Comparison in Monaco City', fontsize=14, fontweight='bold', y=0.95)
-    plt.tight_layout()
-    
-    # 保存为一张总图
-    output_path = OUTPUT_DIR / 'Combined_Performance_Comparison.png'
-    # output_path = OUTPUT_DIR / 'Combined_Performance_Comparison_real.png'
-    plt.savefig(output_path, dpi=300, bbox_inches='tight')
-    plt.close()
-    
-    print(f"========================================")
-    print(f"Saved combined plot to: {output_path}")
+        # 保存为一张总图
+        output_path = config["output_path"]
+        plt.savefig(output_path, dpi=300, bbox_inches='tight')
+        plt.close()
+        
+        print(f"========================================")
+        print(f"Saved combined plot to: {output_path}")
 
 if __name__ == "__main__":
     main()
