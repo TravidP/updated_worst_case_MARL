@@ -74,7 +74,7 @@ DATA_PAIRS = [
 ]
 
 # OUTPUT_DIR = Path("runs_eval/manual_comparisons_real")
-OUTPUT_DIR = Path("runs_eval/manual_comparisons")
+OUTPUT_DIR = Path("runs_eval")
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 def plot_boxplot_metric_on_ax(ax, df, metric_name, col_marl, col_drmarl, legend_loc='best'):
@@ -186,13 +186,13 @@ def main():
         {
             "file_path": Path('runs_eval') / 'signal_controller_benchmark' / 'full_performance_comparison.xlsx',
             "title": 'Algorithm Controller Performance Retrain Comparison in 5x5 Grid',
-            "output_path": OUTPUT_DIR / 'Combined_Performance_Comparison.png',
+            "output_path": OUTPUT_DIR/'manual_comparisons' / 'Combined_Performance_Comparison.png',
             "legend_loc": "upper left"
         },
         {
             "file_path": Path('runs_eval') / 'signal_controller_benchmark_real' / 'full_performance_comparison_real.xlsx',
             "title": 'Algorithm Controller Performance Retrain Comparison in Monaco City',
-            "output_path": OUTPUT_DIR / 'Combined_Performance_Comparison_real.png',
+            "output_path": OUTPUT_DIR/'manual_comparisons_real' / 'Combined_Performance_Comparison_real.png',
             "legend_loc": "upper right"
         }
     ]
