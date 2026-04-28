@@ -92,7 +92,7 @@ PLOT_CONFIGS = [
         "output_dir": "manual_comparisons_real",
         "output_filename": "All_Algorithms_Speed_Comparison_real.png",
         "plot_title": "Average Speed",
-        "y_label": "Average vehicle speed (km/h)",
+        "y_label": "Average vehicle speed (m/s)",
         "data_pairs": [
             {"algo_name": "IA2C", "baseline_csv": "signal_controller_benchmark_real/ia2c_real_group05_se_to_nw_speed_raw.csv", "retrained_csv": "signal_controller_benchmark_real/ia2c_retrained_group01_s_to_n_speed_raw.csv", "color": "#1f77b4"},
             {"algo_name": "MA2C", "baseline_csv": "signal_controller_benchmark_real/ma2c_real_group01_s_to_n_speed_raw.csv", "retrained_csv": "signal_controller_benchmark_real/ma2c_retrained_group01_s_to_n_speed_raw.csv", "color": "#ff7f0e"},
@@ -104,7 +104,7 @@ PLOT_CONFIGS = [
         "output_dir": "manual_comparisons",
         "output_filename": "All_Algorithms_Speed_Comparison.png",
         "plot_title": "Average Speed",
-        "y_label": "Average vehicle speed (km/h)",
+        "y_label": "Average vehicle speed (m/s)",
         "data_pairs": [
             {"algo_name": "IA2C", "baseline_csv": "signal_controller_benchmark/ia2c_marl_group02_demand_w_to_e_speed_raw.csv", "retrained_csv": "signal_controller_benchmark/ia2c_retrained_group06_demand_sw_to_ne_speed_raw.csv", "color": "#1f77b4"},
             {"algo_name": "MA2C", "baseline_csv": "signal_controller_benchmark/ma2c_marl_group06_demand_sw_to_ne_speed_raw.csv", "retrained_csv": "signal_controller_benchmark/ma2c_retrained_group06_demand_sw_to_ne_speed_raw.csv", "color": "#ff7f0e"},
@@ -172,10 +172,10 @@ def plot_single_axis(ax, config):
         bt, b_mean, b_min, b_max = _load_raw_stats(base_path)
         rt, r_mean, r_min, r_max = _load_raw_stats(retrain_path)
 
-        bg_match = re.search(r'(group\d+)', pair["baseline_csv"])
-        rg_match = re.search(r'(group\d+)', pair["retrained_csv"])
-        bg = bg_match.group(1) if bg_match else "unk"
-        rg = rg_match.group(1) if rg_match else "unk"
+        bg_match = re.search(r'group(\d+)', pair["baseline_csv"])
+        rg_match = re.search(r'group(\d+)', pair["retrained_csv"])
+        bg = f'group{int(bg_match.group(1)) + 1:02d}' if bg_match else "unk"
+        rg = f'group{int(rg_match.group(1)) + 1:02d}' if rg_match else "unk"
 
         base_label = f"Base {algo} ({bg})"
         retrain_label = f"Retrained {algo} ({rg})"

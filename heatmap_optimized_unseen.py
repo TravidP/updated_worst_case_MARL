@@ -103,14 +103,9 @@ def process_scenario(config: dict) -> None:
     for alg in ALGORITHMS:
         col_names.extend([f"{alg}\nMARL", f"{alg}\nRetrained"])
         
-    # Group labels: Add a specific note to the Y-axis for Group 11
-    group_labels = [f"Group {i}" for i in range(11)]
-    group_labels.append("Group 11\n(Unseen)")
-    # group_labels.append(
-    #     r"Group 11" + "\n" + 
-    #     r"{\small (Unseen)}"
-    # )
-    # group_labels.append("Group 11")
+    # Group labels: Add a specific note to the Y-axis for Group 12
+    group_labels = [f"Group {i}" for i in range(1, 12)]
+    group_labels.append("Group 12\n(Unseen)")
 
     queue_cols = [1, 2, 7, 8, 13, 14, 19, 20]
     queue_data = df.iloc[2:-1, queue_cols].dropna().astype(float)
@@ -142,7 +137,7 @@ def process_scenario(config: dict) -> None:
         for x_pos in [2, 4, 6]:
             ax.axvline(x=x_pos, color='gray', linewidth=1.5, linestyle='--', alpha=0.7)
             
-        # Add a prominent bounding box around Group 11 (which is at index 11)
+        # Add a prominent bounding box around Group 12 (which is at index 11)
         # The coordinates are (x, y) where x=0 and y=11. Width spans all columns, height is 1 row.
         rect = patches.Rectangle((0, 11), len(col_names), 1, linewidth=2.5, 
                                  edgecolor='#e74c3c', facecolor='none', zorder=10)
