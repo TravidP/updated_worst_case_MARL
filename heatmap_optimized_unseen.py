@@ -1,14 +1,10 @@
 #!/usr/bin/env python3
 """Manually generate Absolute Value Heatmaps from raw eval CSVs.
 Generates combined 1x2 heatmap plots for both Monaco City and 5x5 Grid scenarios.
-Optimized for a 10x6 figure size with Group 11 highlighted.
+Optimized for speed and 10x6 figure size with Group 11 highlighted.
 """
 
-from __future__ import annotations
-
 import os
-import shutil
-import subprocess
 from pathlib import Path
 
 import pandas as pd
@@ -24,59 +20,37 @@ os.environ.setdefault("MPLCONFIGDIR", str(_MPLCONFIGDIR))
 import matplotlib as mpl
 mpl.use("Agg")
 
-# 2. 字体和排版配置 (针对 10x6 尺寸，全面下调了字号以防止文字重叠)
-def _tex_package_available(package_name: str) -> bool:
-    kpsewhich = shutil.which("kpsewhich")
-    if not kpsewhich:
-        return False
-    result = subprocess.run(
-        [kpsewhich, package_name],
-        stdout=subprocess.PIPE,
-        stderr=subprocess.DEVNULL,
-        text=True,
-        check=False,
-    )
-    return bool(result.stdout.strip())
-
+# 2. 字体和排版配置 (禁用外部 LaTeX 渲染以大幅提升速度，但保留学术字体风格)
 def _configure_plot_style() -> None:
     params = {
-        "text.usetex": True,
-        "text.latex.preamble": r"\usepackage{newtxtext}\usepackage{newtxmath}",
+        "text.usetex": False,  # 核心加速点：禁用外部 LaTeX，使用内置渲染
         "font.family": "serif",
+        "font.serif": ["Times New Roman", "DejaVu Serif"], # 替代 newtxtext
+        "mathtext.fontset": "stix", # 替代 newtxmath 的数学字体
         "font.size": 10,
         "axes.labelsize": 11,
         "axes.titlesize": 12,
         "xtick.labelsize": 6,
         "ytick.labelsize": 10,
-        "figure.titlesize": 14,
+        "figure.titlesize": 10,
         "pdf.fonttype": 42,
         "ps.fonttype": 42,
     }
-
-    missing_bins = [exe for exe in ("latex", "kpsewhich", "dvipng") if shutil.which(exe) is None]
-    required_sty = ("newtxtext.sty", "newtxmath.sty", "type1ec.sty")
-    missing_sty = [sty for sty in required_sty if not _tex_package_available(sty)]
-
-    if missing_bins or missing_sty:
-        params["text.usetex"] = False
-        params.pop("text.latex.preamble", None)
-
     mpl.rcParams.update(params)
 
 ALGORITHMS = ["IA2C", "MA2C", "IQL-LR", "PPO"]
 
-# Configuration for plotting both scenarios sequentially
 PLOT_CONFIGS = [
     {
         "file_path": Path('runs_eval/signal_controller_benchmark_real/full_performance_comparison_real.xlsx'),
-        "fallback_csv": "full_performance_comparison_real.xlsx - Sheet1.csv",
+        "fallback_csv": Path('runs_eval/signal_controller_benchmark_real/full_performance_comparison_real.xlsx - Sheet1.csv'),
         "output_dir": Path("runs_eval/manual_comparisons_real"),
         "title": 'Horizon- and Rollout-averaged Performance Comparison by Groups: MARL vs. DR-MARL in Monaco City',
         "out_name": 'Absolute_Heatmap_Comparison_real_optimized.png'
     },
     {
         "file_path": Path('runs_eval/signal_controller_benchmark/full_performance_comparison.xlsx'),
-        "fallback_csv": "full_performance_comparison.xlsx - Sheet1.csv",
+        "fallback_csv": Path('runs_eval/signal_controller_benchmark/full_performance_comparison.xlsx - Sheet1.csv'),
         "output_dir": Path("runs_eval/manual_comparisons"),
         "title": 'Horizon- and Rollout-averaged Performance Comparison by Groups: MARL vs. DR-MARL in 5x5 Grid',
         "out_name": 'Absolute_Heatmap_Comparison_optimized.png'
@@ -85,25 +59,26 @@ PLOT_CONFIGS = [
 
 def process_scenario(config: dict) -> None:
     file_path = config["file_path"]
+    fallback = config["fallback_csv"]
     output_dir = config["output_dir"]
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    # Check file existence and fallbacks
-    if not file_path.exists():
-        fallback = Path(config["fallback_csv"])
-        if fallback.exists():
-            file_path = fallback
+    # 核心加速点：优先读取读取速度极快的 CSV，如果没有 CSV 才尝试读取慢速的 Excel
+    if fallback.exists():
+        df = pd.read_csv(fallback, header=None)
+    elif file_path.exists():
+        if str(file_path).endswith('.xlsx'):
+            df = pd.read_excel(file_path, header=None, engine='openpyxl')
         else:
-            print(f"Error: Data file not found for {config['out_name']}. Checked {file_path} and {fallback}")
-            return
-        
-    df = pd.read_excel(file_path, header=None) if str(file_path).endswith('.xlsx') else pd.read_csv(file_path, header=None)
+            df = pd.read_csv(file_path, header=None)
+    else:
+        print(f"Error: Data file not found for {config['out_name']}. Checked {file_path} and {fallback}")
+        return
 
     col_names = []
     for alg in ALGORITHMS:
         col_names.extend([f"{alg}\nMARL", f"{alg}\nRetrained"])
         
-    # Group labels: Add a specific note to the Y-axis for Group 12
     group_labels = [f"Group {i}" for i in range(1, 12)]
     group_labels.append("Group 12\n(Unseen)")
 
@@ -117,39 +92,39 @@ def process_scenario(config: dict) -> None:
     speed_data.columns = col_names
     speed_data.index = group_labels
 
-    fig, (ax1, ax2) = plt.subplots(nrows=1, ncols=2, figsize=(10, 6), dpi=150)
+    fig, (ax1, ax2) = plt.subplots(nrows=2, ncols=1, figsize=(4.3, 7.5), dpi=150)
 
+    # 使用内置字体渲染，速度会非常快
     sns.heatmap(queue_data, annot=True, fmt=".1f", cmap="OrRd", ax=ax1, 
                 cbar_kws={'label': 'Queue Length (veh)'}, annot_kws={"size": 7.5}, 
                 linewidths=0.5, linecolor='white')
     
-    ax1.set_title('Absolute Queue Length\n(Lower is Better)', pad=10)
+    ax1.set_title('Absolute Queue Length (Lower is Better)', fontsize=10, pad=5)
     ax1.set_ylabel('Demand Groups')
+    ax1.set_xticklabels([])
+    ax1.set_xlabel('')
 
     sns.heatmap(speed_data, annot=True, fmt=".2f", cmap="YlGnBu", ax=ax2, 
                 cbar_kws={'label': 'Average Speed (m/s)'}, annot_kws={"size": 7.5}, 
                 linewidths=0.5, linecolor='white')
-    ax2.set_title('Absolute Average Speed\n(Higher is Better)', pad=10)
-
-    fig.suptitle(config["title"], fontsize=12, fontweight='bold', y=0.98) 
+    ax2.set_title('Absolute Average Speed (Higher is Better)', fontsize=10, pad=5)
+    ax2.set_ylabel('Demand Groups')
 
     for ax in [ax1, ax2]:
         for x_pos in [2, 4, 6]:
             ax.axvline(x=x_pos, color='gray', linewidth=1.5, linestyle='--', alpha=0.7)
             
-        # Add a prominent bounding box around Group 12 (which is at index 11)
-        # The coordinates are (x, y) where x=0 and y=11. Width spans all columns, height is 1 row.
         rect = patches.Rectangle((0, 11), len(col_names), 1, linewidth=2.5, 
                                  edgecolor='#e74c3c', facecolor='none', zorder=10)
         ax.add_patch(rect)
         
-        ax.tick_params(axis='x', rotation=0)
+    ax2.tick_params(axis='x', rotation=0)
             
     plt.tight_layout()
 
     output_path = output_dir / config["out_name"]
     plt.savefig(output_path, dpi=300, bbox_inches='tight')
-    plt.close()
+    plt.close(fig) # 显式传入 fig 以确保资源正确释放
     
     print(f"Saved optimized 10x6 heatmap to: {output_path}")
 
