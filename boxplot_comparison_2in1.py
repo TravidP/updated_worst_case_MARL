@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Manually compare Box Plots from raw eval CSVs.
-Generates a combined 1x2 plot for Queue Length and Average Speed.
+Generates a combined 2x1 plot for Queue Length and Average Speed.
 Annotates mean values and percentage change.
 """
 
@@ -25,7 +25,7 @@ os.environ.setdefault("MPLCONFIGDIR", str(_MPLCONFIGDIR))
 import matplotlib as mpl
 mpl.use("Agg")
 
-# 2. 字体和排版配置 (为了适应10x6，稍微减小了字号)
+# 2. 字体和排版配置 (为了适应 IEEE 单栏，减小字号)
 def _tex_package_available(package_name: str) -> bool:
     kpsewhich = shutil.which("kpsewhich")
     if not kpsewhich:
@@ -41,16 +41,16 @@ def _tex_package_available(package_name: str) -> bool:
 
 def _configure_plot_style() -> None:
     params = {
-        "text.usetex": True,
+        "text.usetex": False,
         "text.latex.preamble": r"\usepackage{newtxtext}\usepackage{newtxmath}",
         "font.family": "serif",
-        "font.size": 13,
-        "axes.labelsize": 13,
-        "axes.titlesize": 14,
-        "xtick.labelsize": 12,
-        "ytick.labelsize": 12,
-        "legend.fontsize": 10,
-        "figure.titlesize": 16,
+        "font.size": 9,
+        "axes.labelsize": 9,
+        "axes.titlesize": 9,
+        "xtick.labelsize": 8,
+        "ytick.labelsize": 8,
+        "legend.fontsize": 7,
+        "figure.titlesize": 10,
         "pdf.fonttype": 42,
         "ps.fonttype": 42,
     }
@@ -77,7 +77,7 @@ DATA_PAIRS = [
 OUTPUT_DIR = Path("runs_eval")
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
-def plot_boxplot_metric_on_ax(ax, df, metric_name, col_marl, col_drmarl, legend_loc='best'):
+def plot_boxplot_metric_on_ax(ax, df, metric_name, col_marl, col_drmarl, legend_loc='best', show_legend=True, show_xticklabels=True):
     """在一个指定的 ax (子图) 上绘制箱线图，并标注平均值和变化幅度"""
     
     # data_marl = [df.iloc[2:, c].dropna().astype(float) for c in col_marl]
@@ -125,7 +125,7 @@ def plot_boxplot_metric_on_ax(ax, df, metric_name, col_marl, col_drmarl, legend_
 
         # 标注 Baseline 平均数值
         ax.text(positions_marl[i], mean_marl, f'{mean_marl:.2f}', 
-                ha='center', va='center', fontsize=8, color='black',
+                ha='center', va='center', fontsize=6, color='black',
                 bbox=dict(facecolor='white', edgecolor='none', alpha=0.7, boxstyle='round,pad=0.2'))
 
         # --- Retrain (drmarl) ---
@@ -144,19 +144,22 @@ def plot_boxplot_metric_on_ax(ax, df, metric_name, col_marl, col_drmarl, legend_
                                
         # 标注 Retrain 平均数值
         ax.text(positions_drmarl[i], mean_drmarl, f'{mean_drmarl:.2f}', 
-                ha='center', va='center', fontsize=8, color='white', fontweight='bold',
+                ha='center', va='center', fontsize=6, color='white', fontweight='bold',
                 bbox=dict(facecolor=color, edgecolor='none', alpha=0.6, boxstyle='round,pad=0.2'))
 
         # --- 标注变化比例 ---
         ax.text((positions_marl[i] + positions_drmarl[i]) / 2, text_y_pos, 
                 f'{sign}{pct_change:.1f}%', 
-                ha='center', va='bottom', fontsize=9, fontweight='bold', color='#333333',
+                ha='center', va='bottom', fontsize=6.5, fontweight='bold', color='#333333',
                 bbox=dict(facecolor='#f0f0f0', edgecolor='gray', alpha=0.8, boxstyle='round,pad=0.3'))
 
     ax.set_xticks([1.5, 4.5, 7.5, 10.5])
-    ax.set_xticklabels([item["algo_name"] for item in DATA_PAIRS], fontsize=11)
+    if show_xticklabels:
+        ax.set_xticklabels([item["algo_name"] for item in DATA_PAIRS], fontsize=8)
+    else:
+        ax.set_xticklabels([])
     ax.set_ylabel(metric_name)
-    ax.set_title(f'{metric_name} Comparison', pad=15)
+    # ax.set_title(f'{metric_name} Comparison', pad=15) # 去掉子图标题
     ax.grid(axis='y', linestyle=':', alpha=0.7)
 
     # === 新增：添加垂直虚线区分不同的算法 ===
@@ -175,7 +178,9 @@ def plot_boxplot_metric_on_ax(ax, df, metric_name, col_marl, col_drmarl, legend_
                                    linestyle='-', linewidth=1.5, label='Retrain')
 
     # 图例改为1列，节省空间
-    ax.legend(handles=[baseline_patch, retrain_patch], loc=legend_loc, ncol=1, fontsize=9)
+    if show_legend:
+        ax.legend(handles=[baseline_patch, retrain_patch], loc=legend_loc, ncol=1, fontsize=7)
+    
     ax.spines['top'].set_visible(False)
     ax.spines['right'].set_visible(False)
 
@@ -205,26 +210,30 @@ def main():
             
         df = pd.read_excel(file_path, header=None)
 
-        # --- 尺寸修改为 10x6 ---
-        fig, (ax1, ax2) = plt.subplots(nrows=1, ncols=2, figsize=(10, 6), dpi=150)
+        # --- 尺寸修改为适合 IEEE 单栏 (3.5x6) ---
+        fig, (ax1, ax2) = plt.subplots(nrows=2, ncols=1, figsize=(3.9, 4.5), dpi=150)
 
-        # 画左侧 Queue Length
+        # 画上方 Queue Length
         plot_boxplot_metric_on_ax(ax1, df, 
                                   metric_name='Queue Length (veh)', 
                                   col_marl=[1, 7, 13, 19], 
                                   col_drmarl=[2, 8, 14, 20],
-                                  legend_loc=config["legend_loc"])
+                                  legend_loc=config["legend_loc"],
+                                  show_legend=True,
+                                  show_xticklabels=False)
 
-        # 画右侧 Average Speed
+        # 画下方 Average Speed
         plot_boxplot_metric_on_ax(ax2, df, 
                                   metric_name='Average Speed (m/s)', 
                                   col_marl=[4, 10, 16, 22], 
                                   col_drmarl=[5, 11, 17, 23],
-                                  legend_loc=config["legend_loc"])
+                                  legend_loc=config["legend_loc"],
+                                  show_legend=False,
+                                  show_xticklabels=True)
 
-        # 整体大标题字号稍微缩减
-        fig.suptitle(config["title"], fontsize=14, fontweight='bold', y=0.95)
-        plt.tight_layout()
+        # 整体大标题字号稍微缩减 / 根据要求去掉整体大标题以紧凑排版
+        # fig.suptitle(config["title"], fontsize=14, fontweight='bold', y=0.95)
+        plt.tight_layout(h_pad=0.2)
         
         # 保存为一张总图
         output_path = config["output_path"]

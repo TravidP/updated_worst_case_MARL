@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-为 IEEE 论文设计的双栏并排绘图脚本。
-优化了标题重叠、图例拥挤问题，并将中心虚线延伸至图例底部。
+为 IEEE 论文设计的单栏竖排绘图脚本。
+优化了图像尺寸（适应 3.5 英寸单栏宽度）、移除了大标题，并调整了垂直间距以容纳图例。
 """
 
 from __future__ import annotations
@@ -41,16 +41,15 @@ def _tex_package_available(package_name: str) -> bool:
 
 def _configure_plot_style() -> None:
     params = {
-        "text.usetex": True,
+        "text.usetex": False,
         "text.latex.preamble": r"\usepackage{newtxtext}\usepackage{newtxmath}",
         "font.family": "serif",
-        "font.size": 8,             
-        "axes.labelsize": 9,        
-        "axes.titlesize": 9,       
-        "xtick.labelsize": 8,
-        "ytick.labelsize": 7,
-        "legend.fontsize": 7,       # 略微调大一点，因为我们增加了图片高度
-        "figure.titlesize": 9,     # 共享大标题加大
+        "font.size": 7,             
+        "axes.labelsize": 7,        # 单栏较窄，稍微调小一点字号
+        "axes.titlesize": 7,       
+        "xtick.labelsize": 6,
+        "ytick.labelsize": 6,
+        "legend.fontsize": 6,       # 图例字号调小，确保双列能放进单栏
         "pdf.fonttype": 42,
         "ps.fonttype": 42,
     }
@@ -74,7 +73,6 @@ _configure_plot_style()
 PROJECT_ROOT = Path(__file__).resolve().parent
 RUNS_EVAL_DIR = PROJECT_ROOT / "runs_eval"
 
-# 将子图标题缩短，避免左右重叠。具体的场景名称会由 suptitle 统一接管。
 PLOT_CONFIGS = [
     {
         "output_dir": "manual_comparisons_real",
@@ -116,7 +114,7 @@ PLOT_CONFIGS = [
         "output_dir": "manual_comparisons",
         "output_filename": "All_Algorithms_Queue_Comparison.png",
         "plot_title": "Queue Length",
-        "y_label": "Average vehicle queue length (vehicles)",
+        "y_label": "Average queue length (veh)",
         "data_pairs": [
             {"algo_name": "IA2C", "baseline_csv": "signal_controller_benchmark/ia2c_marl_group02_demand_w_to_e_queue_raw.csv", "retrained_csv": "signal_controller_benchmark/ia2c_retrained_group02_demand_w_to_e_queue_raw.csv", "color": "#1f77b4"},
             {"algo_name": "MA2C", "baseline_csv": "signal_controller_benchmark/ma2c_marl_group02_demand_w_to_e_queue_raw.csv", "retrained_csv": "signal_controller_benchmark/ma2c_retrained_group06_demand_sw_to_ne_queue_raw.csv", "color": "#ff7f0e"},
@@ -126,17 +124,15 @@ PLOT_CONFIGS = [
     }
 ]
 
-# 组合场景并定义全局大标题
+# 配置统一按上下堆叠输出
 PAIRED_SCENARIOS = [
     {
-        "suptitle": "Worst-case Performance Comparison in Monaco City",
-        "out_name": "Monaco_City_SideBySide.png",
+        "out_name": "Monaco_City_Stacked.png",
         "queue_cfg": PLOT_CONFIGS[0],
         "speed_cfg": PLOT_CONFIGS[1]
     },
     {
-        "suptitle": "Worst-case Performance Comparison in 5x5 Grid",
-        "out_name": "5x5_Grid_SideBySide.png",
+        "out_name": "5x5_Grid_Stacked.png",
         "queue_cfg": PLOT_CONFIGS[3],
         "speed_cfg": PLOT_CONFIGS[2]
     }
@@ -188,57 +184,40 @@ def plot_single_axis(ax, config):
         ax.plot(rt, r_mean, color=color, linestyle='-', linewidth=1.5, alpha=1.0, label=retrain_label)
         ax.fill_between(rt, r_min, r_max, color=color, alpha=0.15)
         
-    ax.set_title(config["plot_title"], pad=8)
+    ax.set_title(config["plot_title"], pad=6)
     ax.set_ylabel(config["y_label"])
     ax.set_xlabel("Simulation second (s)")
     ax.grid(True, linestyle=':', alpha=0.6)
     
-    # 强制在当前子图下方绘制独立的图例 (2列排列)
-    # 进一步下移 bbox_to_anchor 以免挡住 X 轴标签，增加 columnspacing 让排版不拥挤
+    # 图例配置：为了适应单栏宽度 (3.5 inch)，调整了位置、列距和标记长度
     ax.legend(
         ncol=2, 
         loc="upper center", 
-        bbox_to_anchor=(0.5, -0.18),
+        bbox_to_anchor=(0.5, -0.22), # 往下移以免挡住 X 轴标签
         frameon=False,
-        handlelength=1.5,
-        columnspacing=1.0 
+        handlelength=1.2,
+        columnspacing=0.8
     )
 
 def main():
-    output_dir = RUNS_EVAL_DIR / "ieee_comparisons_paired"
+    output_dir = RUNS_EVAL_DIR / "ieee_comparisons_stacked"
     output_dir.mkdir(parents=True, exist_ok=True)
 
     for scenario in PAIRED_SCENARIOS:
-        # 增加总高度至 4.8，为底部的多行图例留出充足空间
-        fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(9, 4.5))
+        # IEEE 单栏宽度通常为 3.5 英寸。采用 3.5 x 7.0 竖排确保紧凑且符合标准版面
+        fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(3.5, 5))
         
-        # 添加共享的主标题，位置稍微靠上
-        fig.suptitle(scenario["suptitle"], y=0.96, fontweight='bold')
-
-        # 绘制左右子图
+        # 绘制上下子图
         plot_single_axis(ax1, scenario["queue_cfg"])
         plot_single_axis(ax2, scenario["speed_cfg"])
 
-        # 在两个子图正中间绘制延伸的虚线分隔线
-        # Y的范围拉伸到从图例最底端(0.02) 到 主标题下方(0.9)
-        separator_line = lines.Line2D(
-            [0.5, 0.5], [0.25, 0.90], 
-            transform=fig.transFigure, 
-            color="black", 
-            linestyle="--", 
-            linewidth=1.0, 
-            alpha=0.3
-        )
-        fig.add_artist(separator_line)
-
-        # 调整布局比例
-        # bottom 设为 0.45 给下方的图例让出近一半的空间，wspace=0.3 让左右两图隔开一点以免互相侵占空间
-        plt.subplots_adjust(bottom=0.35, top=0.88, wspace=0.3)
+        # 调整布局比例：取消 wspace，增大 hspace（为上方图例留出足够垂直空间）
+        plt.subplots_adjust(bottom=0.12, top=0.95, hspace=0.75)
         
         out_path = output_dir / scenario["out_name"]
         plt.savefig(out_path, dpi=600, bbox_inches='tight')
         plt.close()
-        print(f"Generated paired plot: {out_path}")
+        print(f"Generated stacked plot: {out_path}")
 
 if __name__ == "__main__":
     main()
