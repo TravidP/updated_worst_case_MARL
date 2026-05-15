@@ -7,6 +7,7 @@
 
 <p align="center">
   <a href="#project-video">🎬 Video</a> ·
+  <a href="paper/A%20Distributionally%20Robust%20Multiagent%20Reinforcement%20Learning%20Framework%20for%20Intelligent%20Intersection%20Control.pdf">📄 Paper</a> ·
   <a href="#method-summary">🧠 Method</a> ·
   <a href="#results">📊 Results</a> ·
   <a href="#installation">⚙️ Installation</a> ·
@@ -24,7 +25,8 @@
 This repository contains the implementation, experiments, figures, and paper
 artifacts for:
 
-**A Distributionally Robust Multi-agent Reinforcement Learning Framework for Intelligent Intersection Control**
+**[A Distributionally Robust Multiagent Reinforcement Learning Framework for Intelligent Intersection Control](paper/A%20Distributionally%20Robust%20Multiagent%20Reinforcement%20Learning%20Framework%20for%20Intelligent%20Intersection%20Control.pdf)**
+
 
 The project studies how multi-agent reinforcement learning (MARL) traffic
 signal controllers fail under demand shifts, and how a Contextual-Bandit
@@ -248,7 +250,7 @@ Reported 5x5 improvements:
 </p>
 
 <p align="center">
-  <sub>5x5 grid: temporal evolution of worst-case queue length and speed over a 3600 s evaluation horizon. Groups 1-11 are training groups; Group 12 is unseen.</sub>
+  <sub>5x5 grid: temporal evolution of worst-case queue length and speed over a 3600 s evaluation horizon. Groups 1-11 are training groups, and Group 12 is unseen.</sub>
 </p>
 
 ### 🏙️ Monaco City Results
@@ -352,7 +354,7 @@ output_adversary_monaco/        Monaco adversary checkpoints and logs
 output_coevolution/             5x5 robust retraining outputs
 output_coevolution_real/        Monaco robust retraining outputs
 output_result/                  Miscellaneous baseline outputs and examples
-paper/                          IEEE paper source and publication figures
+paper/                          Paper PDF, LaTeX source, and publication figures
 real_net/                       Original Monaco SUMO network files
 real_net_experimental_data/     Historical Monaco training/evaluation CSVs
 real_net_subnet/                Monaco subnet network and demand groups
@@ -603,11 +605,12 @@ controllers and demand groups.
 
 ## 📚 Citation
 
-If you use this code or reproduce the results, please cite the associated work:
+If you use this code or reproduce the results, please cite the associated
+[paper](paper/A%20Distributionally%20Robust%20Multiagent%20Reinforcement%20Learning%20Framework%20for%20Intelligent%20Intersection%20Control.pdf):
 
 ```bibtex
 @article{pei2026drmarltraffic,
-  title  = {A Distributionally Robust Multi-agent Reinforcement Learning Framework for Intelligent Intersection Control},
+  title  = {A Distributionally Robust Multiagent Reinforcement Learning Framework for Intelligent Intersection Control},
   author = {Pei, Shuwei and Borger, Joran and Kosay, Arda and Jayawardhana, Bayu and Sayin, Muhammed O. and Ahmed, Saeed},
   year   = {2026}
 }
