@@ -1,0 +1,112 @@
+[
+  {
+    "name": "Center_to_Periphery",
+    "original_total": 2869.5499999999997,
+    "prepared": "data_traffic/revised/train/Center_to_Periphery.csv",
+    "prepared_hash": "268678e9aacb14ec73f260c620a0cd937b286b2dcf33bd39d1433528d6aa2648",
+    "rows": null,
+    "scale": 1.045460089561081,
+    "source": "/home/sdc_joran/Journal/deeprl_signal_control/data_traffic/demand_Center_to_Periphery.csv",
+    "source_hash": "8069012eabfd753e323ee8d9f32e851c550728b1f5513e6c71f1135390a2afff"
+  },
+  {
+    "name": "E_to_W",
+    "original_total": 2984.4656000000004,
+    "prepared": "data_traffic/revised/train/E_to_W.csv",
+    "prepared_hash": "bf391298367e83726853fd5186a40d18df70a5666c728deadb63087f1a9d9c81",
+    "rows": null,
+    "scale": 1.0052050859624582,
+    "source": "/home/sdc_joran/Journal/deeprl_signal_control/data_traffic/demand_E_to_W.csv",
+    "source_hash": "7d34fae0a0f8594a0f70f7feb1daf70bd874ffe01968cf27fda3c01b0b9c5d66"
+  },
+  {
+    "name": "NE_to_SW",
+    "original_total": 3037.5793000000003,
+    "prepared": "data_traffic/revised/train/NE_to_SW.csv",
+    "prepared_hash": "316dd4a8da7c9962e4eafcbb9d8f5ee70a96f22209d0fb73838de234b79bb73d",
+    "rows": null,
+    "scale": 0.9876285369735037,
+    "source": "/home/sdc_joran/Journal/deeprl_signal_control/data_traffic/demand_NE_to_SW.csv",
+    "source_hash": "a0a04146b8a43714d8c5b0210d68cb47457a338cf4135b2cbaa1cd4f18929e5d"
+  },
+  {
+    "name": "NW_to_SE",
+    "original_total": 3019.2094,
+    "prepared": "data_traffic/revised/train/NW_to_SE.csv",
+    "prepared_hash": "0766a4cc4928e2b7b74e21b36e410adc2d2ab287ac0b697c9432aa5efdc858df",
+    "rows": null,
+    "scale": 0.9936376059242529,
+    "source": "/home/sdc_joran/Journal/deeprl_signal_control/data_traffic/demand_NW_to_SE.csv",
+    "source_hash": "401303d0beef8d7f52fc80fcb2fdbb085455a742b45b459d4f6cc6b7c5c2b574"
+  },
+  {
+    "name": "N_to_S",
+    "original_total": 3043.1540999999997,
+    "prepared": "data_traffic/revised/train/N_to_S.csv",
+    "prepared_hash": "e880bd24ac0c2dd538a89632ec99eb5127a352917ccc915d2c79348db32797c0",
+    "rows": null,
+    "scale": 0.9858192853263659,
+    "source": "/home/sdc_joran/Journal/deeprl_signal_control/data_traffic/demand_N_to_S.csv",
+    "source_hash": "8f4546858657b46230cd0f6cbc521985ba10727c5716fdeee7fac714479176db"
+  },
+  {
+    "name": "Periphery_to_Center",
+    "original_total": 2912.4181000000003,
+    "prepared": "data_traffic/revised/train/Periphery_to_Center.csv",
+    "prepared_hash": "b11cef2aedcb627b0fbb3f7491495271bf38dd89a09ed82df9eafee382f65322",
+    "rows": null,
+    "scale": 1.030071884253157,
+    "source": "/home/sdc_joran/Journal/deeprl_signal_control/data_traffic/demand_Periphery_to_Center.csv",
+    "source_hash": "734ea32b252f21abaf240b69265e1ba2340e1e85e097da7f49875256c226988b"
+  },
+  {
+    "name": "SE_to_NW",
+    "original_total": 2986.0239,
+    "prepared": "data_traffic/revised/train/SE_to_NW.csv",
+    "prepared_hash": "4dbc527eb6784aca3c1d9c5592da03c49e5eee5bdd22da8a818e6af0e09a063d",
+    "rows": null,
+    "scale": 1.0046805050689647,
+    "source": "/home/sdc_joran/Journal/deeprl_signal_control/data_traffic/demand_SE_to_NW.csv",
+    "source_hash": "d73a8e3e4cd06224b5a19ad250562f441df76f7daa51b6209ce18ee519b1ecfa"
+  },
+  {
+    "name": "SW_to_NE",
+    "original_total": 3008.1973000000003,
+    "prepared": "data_traffic/revised/train/SW_to_NE.csv",
+    "prepared_hash": "454e7580d10236033f95624486df2e054fe5294035da92d158423ad475999d1c",
+    "rows": null,
+    "scale": 0.9972750125133081,
+    "source": "/home/sdc_joran/Journal/deeprl_signal_control/data_traffic/demand_SW_to_NE.csv",
+    "source_hash": "8da0781a404de4192104d743434ce89ede239e6f0ab5b6e87f820707d7df9ff8"
+  },
+  {
+    "name": "S_to_N",
+    "original_total": 2972.8361,
+    "prepared": "data_traffic/revised/train/S_to_N.csv",
+    "prepared_hash": "a833ecdac4c56e4804056ff0090e96931a0d5a0607198a3b81db7897af347943",
+    "rows": null,
+    "scale": 1.0091373688579737,
+    "source": "/home/sdc_joran/Journal/deeprl_signal_control/data_traffic/demand_S_to_N.csv",
+    "source_hash": "9d4d6d02cacf3462e3dcd800b8008b81b32f4acfd206a2152a4605b4354dc910"
+  },
+  {
+    "name": "Uniform",
+    "original_total": 2973.5358,
+    "prepared": "data_traffic/revised/train/Uniform.csv",
+    "prepared_hash": "83b6f5dd6d93990cb6fdea5310b801ec8c1cdac2881ebba4a211572373e12b72",
+    "rows": null,
+    "scale": 1.008899909663102,
+    "source": "/home/sdc_joran/Journal/deeprl_signal_control/data_traffic/demand_Uniform.csv",
+    "source_hash": "3ce8746a136cae7fba89e928253d51bb63bb646178ec1f6096e021334735a761"
+  },
+  {
+    "name": "W_to_E",
+    "original_total": 3046.1047000000003,
+    "prepared": "data_traffic/revised/train/W_to_E.csv",
+    "prepared_hash": "c84551a01fad0936ef83c67fa2e4c97a7e40f56c94ae15d139f25d0bb64b9eed",
+    "rows": null,
+    "scale": 0.9848643744911327,
+    "source": "/home/sdc_joran/Journal/deeprl_signal_control/data_traffic/demand_W_to_E.csv",
+    "source_hash": "91b069e7df7787b6d82d452e2754f25dcb6e131f1db268648039cad36e70bf55"
+  }
+]

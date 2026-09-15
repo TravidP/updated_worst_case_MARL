@@ -1,0 +1,166 @@
+[
+  {
+    "blocks": [
+      {
+        "duration": 3600,
+        "profile": "Uniform",
+        "sigma": 0.35,
+        "start": 0
+      }
+    ],
+    "family": "redistribution",
+    "generation_seed": 31001,
+    "horizon": 3600,
+    "id": "redistribution_0.35",
+    "network": "grid",
+    "split": "validation"
+  },
+  {
+    "blocks": [
+      {
+        "duration": 3600,
+        "profile": "Uniform",
+        "sigma": 0.65,
+        "start": 0
+      }
+    ],
+    "family": "redistribution",
+    "generation_seed": 31002,
+    "horizon": 3600,
+    "id": "redistribution_0.65",
+    "network": "grid",
+    "split": "validation"
+  },
+  {
+    "blocks": [
+      {
+        "duration": 3600,
+        "profile": "Uniform",
+        "start": 0,
+        "weights": [
+          0.033136771844926124,
+          0.2157388945671392,
+          0.006099662735506981,
+          0.06041322852555812,
+          0.016146361451475966,
+          0.1000847235089063,
+          0.04032502231914232,
+          0.07873381841093618,
+          0.12019470014163602,
+          0.06121061421921183,
+          0.267916202275561
+        ]
+      }
+    ],
+    "family": "mixture",
+    "generation_seed": 31003,
+    "horizon": 3600,
+    "id": "mixture_1",
+    "network": "grid",
+    "split": "validation"
+  },
+  {
+    "blocks": [
+      {
+        "duration": 3600,
+        "profile": "Uniform",
+        "start": 0,
+        "weights": [
+          0.1661835059326046,
+          0.12634361013605874,
+          0.11624707622821867,
+          0.02015253974438807,
+          0.14742486840583674,
+          0.06389301673131029,
+          0.14800742042799583,
+          0.06678408515058944,
+          0.050575836452868984,
+          0.046821607244173,
+          0.04756643354595569
+        ]
+      }
+    ],
+    "family": "mixture",
+    "generation_seed": 31004,
+    "horizon": 3600,
+    "id": "mixture_2",
+    "network": "grid",
+    "split": "validation"
+  },
+  {
+    "blocks": [
+      {
+        "duration": 450,
+        "profile": "N_to_S",
+        "start": 0
+      },
+      {
+        "duration": 450,
+        "profile": "W_to_E",
+        "start": 450
+      },
+      {
+        "duration": 450,
+        "profile": "N_to_S",
+        "start": 900
+      },
+      {
+        "duration": 450,
+        "profile": "W_to_E",
+        "start": 1350
+      },
+      {
+        "duration": 450,
+        "profile": "N_to_S",
+        "start": 1800
+      },
+      {
+        "duration": 450,
+        "profile": "W_to_E",
+        "start": 2250
+      },
+      {
+        "duration": 450,
+        "profile": "N_to_S",
+        "start": 2700
+      },
+      {
+        "duration": 450,
+        "profile": "W_to_E",
+        "start": 3150
+      }
+    ],
+    "family": "temporal",
+    "generation_seed": 31005,
+    "horizon": 3600,
+    "id": "switch_450",
+    "network": "grid",
+    "split": "validation"
+  },
+  {
+    "blocks": [
+      {
+        "duration": 1200,
+        "profile": "Uniform",
+        "start": 0
+      },
+      {
+        "duration": 1200,
+        "multiplier": 1.15,
+        "profile": "Uniform",
+        "start": 1200
+      },
+      {
+        "duration": 1200,
+        "profile": "Uniform",
+        "start": 2400
+      }
+    ],
+    "family": "peak",
+    "generation_seed": 31006,
+    "horizon": 3600,
+    "id": "peak_1.15",
+    "network": "grid",
+    "split": "validation"
+  }
+]

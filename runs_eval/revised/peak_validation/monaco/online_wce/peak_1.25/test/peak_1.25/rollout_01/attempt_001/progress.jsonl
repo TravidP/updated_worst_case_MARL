@@ -1,0 +1,6 @@
+{"stage": "evaluate", "episode": 1, "simulation_steps": 120, "learning_steps": 2800, "goal": 720, "mean_queue": 139.80833333333334, "wce_updates": 0, "wall_seconds": 8.302721348998602}
+{"stage": "evaluate", "episode": 1, "simulation_steps": 240, "learning_steps": 2800, "goal": 720, "mean_queue": 320.375, "wce_updates": 0, "wall_seconds": 12.684871355999348}
+{"stage": "evaluate", "episode": 1, "simulation_steps": 360, "learning_steps": 2800, "goal": 720, "mean_queue": 398.5833333333333, "wce_updates": 0, "wall_seconds": 17.963756286000716}
+{"stage": "evaluate", "episode": 1, "simulation_steps": 480, "learning_steps": 2800, "goal": 720, "mean_queue": 446.3983333333333, "wce_updates": 0, "wall_seconds": 24.593191970998305}
+{"stage": "evaluate", "episode": 1, "simulation_steps": 600, "learning_steps": 2800, "goal": 720, "mean_queue": 480.83, "wce_updates": 0, "wall_seconds": 31.563627851999627}
+{"stage": "evaluate", "episode": 1, "simulation_steps": 720, "learning_steps": 2800, "goal": 720, "mean_queue": 495.25666666666666, "wce_updates": 0, "wall_seconds": 38.58303074899959}

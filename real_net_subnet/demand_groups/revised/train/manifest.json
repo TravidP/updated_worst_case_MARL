@@ -1,0 +1,112 @@
+[
+  {
+    "name": "N_to_S",
+    "original_total": 2383.332864,
+    "prepared": "real_net_subnet/demand_groups/revised/train/N_to_S.csv",
+    "prepared_hash": "aff8d9fbbf41c754914484bbf779cf69af2d0347d435a038862c802519b7af38",
+    "rows": null,
+    "scale": 1.0000001829370988,
+    "source": "/home/sdc_joran/Journal/deeprl_signal_control/real_net_subnet/demand_groups/N_to_S.csv",
+    "source_hash": "39bac1db49a7eedeec831ca4b57948bdf2d975254192d74c0863c7865f1cdd73"
+  },
+  {
+    "name": "S_to_N",
+    "original_total": 2383.3339560000004,
+    "prepared": "real_net_subnet/demand_groups/revised/train/S_to_N.csv",
+    "prepared_hash": "cc30a75776d8e59c6d726acd662ab82310b9411728924b489894daa89732511f",
+    "rows": null,
+    "scale": 0.9999997247553164,
+    "source": "/home/sdc_joran/Journal/deeprl_signal_control/real_net_subnet/demand_groups/S_to_N.csv",
+    "source_hash": "20ea142447137a7d44c208be76517c2304dd96985377562a4aa2484dc2db011e"
+  },
+  {
+    "name": "W_to_E",
+    "original_total": 2383.3327320000003,
+    "prepared": "real_net_subnet/demand_groups/revised/train/W_to_E.csv",
+    "prepared_hash": "b62459c48796beda0b6184fb713b18a2fc9bb76c84b4c767ab326bc29a569d61",
+    "rows": null,
+    "scale": 1.0000002383217381,
+    "source": "/home/sdc_joran/Journal/deeprl_signal_control/real_net_subnet/demand_groups/W_to_E.csv",
+    "source_hash": "fd73dbe6b3fde3633243af0ae654f5712fe020b5989495470c0727f545aab6fb"
+  },
+  {
+    "name": "E_to_W",
+    "original_total": 2383.3339560000004,
+    "prepared": "real_net_subnet/demand_groups/revised/train/E_to_W.csv",
+    "prepared_hash": "d91e2c5709b914f9a26dab4b4237946fec5c6cc3d137686ce8c06d54f198dbd9",
+    "rows": null,
+    "scale": 0.9999997247553164,
+    "source": "/home/sdc_joran/Journal/deeprl_signal_control/real_net_subnet/demand_groups/E_to_W.csv",
+    "source_hash": "0d2a06e4c97113ffb8149f6f5c3dc521fcbf3a8db0d7eb22aad5319b6c7d57c0"
+  },
+  {
+    "name": "NW_to_SE",
+    "original_total": 2383.3339560000004,
+    "prepared": "real_net_subnet/demand_groups/revised/train/NW_to_SE.csv",
+    "prepared_hash": "29b0b01c52e27e7bf2a5974dc2b0bb899bef0698a412feb8effe7d215e9add57",
+    "rows": null,
+    "scale": 0.9999997247553164,
+    "source": "/home/sdc_joran/Journal/deeprl_signal_control/real_net_subnet/demand_groups/NW_to_SE.csv",
+    "source_hash": "bf7bc57a937b74cf388ef16a393abf8a720173b10afad9ad80694b2a3af4536a"
+  },
+  {
+    "name": "SE_to_NW",
+    "original_total": 2383.332864000001,
+    "prepared": "real_net_subnet/demand_groups/revised/train/SE_to_NW.csv",
+    "prepared_hash": "7a15db96eeef768b60dbde378728ada73e51f366e901374c35a8429a1c57e085",
+    "rows": null,
+    "scale": 1.0000001829370986,
+    "source": "/home/sdc_joran/Journal/deeprl_signal_control/real_net_subnet/demand_groups/SE_to_NW.csv",
+    "source_hash": "8c070a700206fd455783c5bf469e33673c95f985da628e5c86c8cb3cd6d5682a"
+  },
+  {
+    "name": "SW_to_NE",
+    "original_total": 2383.3326720000005,
+    "prepared": "real_net_subnet/demand_groups/revised/train/SW_to_NE.csv",
+    "prepared_hash": "bb5c6463449bc0c58514cf0e4310d33c3080a546308f5287b0f26c078062c4bd",
+    "rows": null,
+    "scale": 1.0000002634965763,
+    "source": "/home/sdc_joran/Journal/deeprl_signal_control/real_net_subnet/demand_groups/SW_to_NE.csv",
+    "source_hash": "0e74acf9002981d51f08eb467a96d3c5630982096bb9bc7da8f0c4a470627774"
+  },
+  {
+    "name": "NE_to_SW",
+    "original_total": 2383.3332809999993,
+    "prepared": "real_net_subnet/demand_groups/revised/train/NE_to_SW.csv",
+    "prepared_hash": "62157e1680481d310f731cb1f1722a18d694642c915d4b098e12f787c15fd7bb",
+    "rows": null,
+    "scale": 1.0000000079720284,
+    "source": "/home/sdc_joran/Journal/deeprl_signal_control/real_net_subnet/demand_groups/NE_to_SW.csv",
+    "source_hash": "422bb2725393abbad4aa0eb56f24a03fb9cabd72b70215ffbec7d448e48145e5"
+  },
+  {
+    "name": "Periphery_to_Center",
+    "original_total": 2383.332993,
+    "prepared": "real_net_subnet/demand_groups/revised/train/Periphery_to_Center.csv",
+    "prepared_hash": "10c8fee00d565f7e2c2119efdf10ca6f4ef78466cf0034224ce2adb15deee1ee",
+    "rows": null,
+    "scale": 1.000000128811207,
+    "source": "/home/sdc_joran/Journal/deeprl_signal_control/real_net_subnet/demand_groups/Periphery_to_Center.csv",
+    "source_hash": "8fe05498f68072c62d3ff92743293cb433455870ab78a88c945a2b1253a021a4"
+  },
+  {
+    "name": "Center_to_Periphery",
+    "original_total": 2383.332939,
+    "prepared": "real_net_subnet/demand_groups/revised/train/Center_to_Periphery.csv",
+    "prepared_hash": "d6fdfa8548da0ebc6b9644f26699673be829245dcd7fa81be16e4c0b9f89e2b2",
+    "rows": null,
+    "scale": 1.0000001514685566,
+    "source": "/home/sdc_joran/Journal/deeprl_signal_control/real_net_subnet/demand_groups/Center_to_Periphery.csv",
+    "source_hash": "87c9511124e6037381411f43f9a53e22e9438bd41cefdd414032678c552face8"
+  },
+  {
+    "name": "Uniform",
+    "original_total": 2383.3334049999994,
+    "prepared": "real_net_subnet/demand_groups/revised/train/Uniform.csv",
+    "prepared_hash": "1a6a463562a1f9a05f2b1d9acac105d8061b2c4d52b2eae40f842748388d98b1",
+    "rows": null,
+    "scale": 0.9999999559440574,
+    "source": "/home/sdc_joran/Journal/deeprl_signal_control/real_net_subnet/demand_groups/Uniform.csv",
+    "source_hash": "ab8d3a5ca175be1293d35c97b147373f03b212ea699e3e369c132976611a9cbc"
+  }
+]

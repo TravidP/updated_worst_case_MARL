@@ -1,0 +1,136 @@
+{
+  "en": {
+    "title": "CB-WCE: Training for changing traffic",
+    "panels": [
+      {
+        "heading": "1 · Traffic changes",
+        "text": [
+          "Can a signal policy handle changing demand?"
+        ]
+      },
+      {
+        "heading": "2 · Shared parent",
+        "text": [
+          "Train once: 1,000,000 learning steps",
+          "Parent controller",
+          "1,000,000 learning steps"
+        ]
+      },
+      {
+        "heading": "3 · Learn demand mixtures",
+        "text": [
+          "Freeze parent; train WCE for 500 episodes",
+          "Parent controller",
+          "WCE",
+          "Demand scenarios",
+          "Fixed parameters ≠ fixed mixture weights",
+          "Weights can vary with state."
+        ]
+      },
+      {
+        "heading": "4 · Five branches",
+        "text": [
+          "Parent controller",
+          "baseline",
+          "random_group",
+          "domain_randomization",
+          "fixed_wce",
+          "online_wce",
+          "fixed_wce: parameters frozen; weights may vary."
+        ]
+      },
+      {
+        "heading": "5 · Equal learning budget",
+        "text": [
+          "baseline",
+          "+1,320,000 learning steps",
+          "random_group",
+          "+1,320,000 learning steps",
+          "domain_randomization",
+          "+1,320,000 learning steps",
+          "fixed_wce",
+          "+1,320,000 learning steps",
+          "online_wce",
+          "+1,320,000 learning steps",
+          "Total: 2,320,000 per branch"
+        ]
+      },
+      {
+        "heading": "6 · Test unseen demand",
+        "text": [
+          "Measure queues and uncertainty",
+          "More robust? A hypothesis to test.",
+          "Unseen demand"
+        ]
+      }
+    ],
+    "footer": "Networks: 5×5 grid • Monaco subnet | Agents: IA2C • MA2C • IQL-LR • PPO"
+  },
+  "zh": {
+    "title": "CB-WCE：学习应对变化的交通",
+    "panels": [
+      {
+        "heading": "1 · 交通需求会变化",
+        "text": [
+          "信号控制策略能应对变化的需求吗？"
+        ]
+      },
+      {
+        "heading": "2 · 共享父策略",
+        "text": [
+          "统一训练：1,000,000 学习步",
+          "父控制器",
+          "1,000,000 学习步"
+        ]
+      },
+      {
+        "heading": "3 · 学习需求混合",
+        "text": [
+          "冻结父策略；训练 WCE 500 回合",
+          "父控制器",
+          "WCE",
+          "需求场景",
+          "固定参数 ≠ 固定混合权重",
+          "权重可随状态变化"
+        ]
+      },
+      {
+        "heading": "4 · 五条训练分支",
+        "text": [
+          "父控制器",
+          "baseline",
+          "random_group",
+          "domain_randomization",
+          "fixed_wce",
+          "online_wce",
+          "fixed_wce：参数冻结；权重仍可变化"
+        ]
+      },
+      {
+        "heading": "5 · 相同学习预算",
+        "text": [
+          "baseline",
+          "+1,320,000 学习步",
+          "random_group",
+          "+1,320,000 学习步",
+          "domain_randomization",
+          "+1,320,000 学习步",
+          "fixed_wce",
+          "+1,320,000 学习步",
+          "online_wce",
+          "+1,320,000 学习步",
+          "每条分支共 2,320,000 学习步"
+        ]
+      },
+      {
+        "heading": "6 · 测试未见需求",
+        "text": [
+          "评估排队与不确定性",
+          "更稳健？这是待检验的假设。",
+          "未见需求"
+        ]
+      }
+    ],
+    "footer": "路网：5×5 网格 • 摩纳哥子网 | 算法：IA2C • MA2C • IQL-LR • PPO"
+  }
+}

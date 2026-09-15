@@ -1,0 +1,31 @@
+{
+  "checkpoint": {
+    "hash": "87c091c10f8698b9cc719aad082c9dc5d393eb3d7f5197c1dd290a70b12bfb5f",
+    "path": "/home/sdc_joran/Journal/deeprl_signal_control/revision/verification/corrections_20260914_v2/grid_iqll/online_wce/checkpoint_000002640"
+  },
+  "collisions": 0,
+  "completed": 251,
+  "completed_trip_denominator": 251,
+  "component_seconds": {},
+  "demand_hash": "b95c64565bb2c500baa014b87b5893e05242ad479eb81408dc9645e57c32da3e",
+  "effective_sumo_seed": 61001,
+  "horizon": 3600,
+  "inserted": 1273,
+  "integrated_queue": 2433707.0,
+  "manifest_hash": "5973b3f1bddd56bc5784cd7c1eca51a45a5484d6a8f73165e6ac45e8651acf07",
+  "mean_completed_departure_delay": 50.81390438247011,
+  "mean_completed_time_loss": 830.4011553784859,
+  "mean_completed_travel_time": 879.3027888446215,
+  "mean_completed_waiting_time": 811.7330677290837,
+  "mean_queue": 676.0297222222222,
+  "mean_speed": 0.18171142866297493,
+  "peak_queue": 1017.0,
+  "pending": 2293,
+  "remaining": 1017,
+  "sample_count": 3600,
+  "scheduled": 3567,
+  "speed_denominator_vehicle_seconds": 2502380,
+  "status": "complete",
+  "teleports": 351,
+  "wall_seconds": 51.0589375640011
+}

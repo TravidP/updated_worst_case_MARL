@@ -1,0 +1,90 @@
+{
+  "date": "2026-09-14",
+  "status": "passed",
+  "gate": "runs_eval/revised/verification/final_integration_20260914/gate.json",
+  "corrections": [
+    "C01",
+    "C02",
+    "C03",
+    "C04",
+    "C05",
+    "C06",
+    "C07",
+    "C08",
+    "C09",
+    "C10"
+  ],
+  "cases": [
+    {
+      "network": "monaco",
+      "controller": "iqll",
+      "status": "passed",
+      "final_steps": 2800,
+      "methods": 5,
+      "evaluation_rollouts": 8
+    },
+    {
+      "network": "grid",
+      "controller": "iqll",
+      "status": "passed",
+      "final_steps": 2800,
+      "methods": 5,
+      "evaluation_rollouts": 8
+    },
+    {
+      "network": "monaco",
+      "controller": "ia2c",
+      "status": "passed",
+      "final_steps": 2800,
+      "methods": 5,
+      "evaluation_rollouts": 8
+    },
+    {
+      "network": "monaco",
+      "controller": "ma2c",
+      "status": "passed",
+      "final_steps": 2800,
+      "methods": 5,
+      "evaluation_rollouts": 8
+    },
+    {
+      "network": "grid",
+      "controller": "ia2c",
+      "status": "passed",
+      "final_steps": 2800,
+      "methods": 5,
+      "evaluation_rollouts": 8
+    },
+    {
+      "network": "monaco",
+      "controller": "ppo",
+      "status": "passed",
+      "final_steps": 2800,
+      "methods": 5,
+      "evaluation_rollouts": 8
+    },
+    {
+      "network": "grid",
+      "controller": "ma2c",
+      "status": "passed",
+      "final_steps": 2800,
+      "methods": 5,
+      "evaluation_rollouts": 8
+    },
+    {
+      "network": "grid",
+      "controller": "ppo",
+      "status": "passed",
+      "final_steps": 2800,
+      "methods": 5,
+      "evaluation_rollouts": 8
+    }
+  ],
+  "unit_tests": 18,
+  "full_pilot_evaluations": 64,
+  "additional_evaluations": 1,
+  "peak_evaluations": 20,
+  "traffic_artifacts": 580,
+  "scope": "Eight integrated SUMO cases plus focused final identity, suite-label, timer and reporting checks. Learning code unchanged after the full pilots.",
+  "publication_started": false
+}

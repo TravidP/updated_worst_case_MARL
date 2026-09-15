@@ -1,666 +1,950 @@
-# Reviewer revision plan: repository audit and experimental procedure
+# CB-WCE training and evaluation procedure
 
-**Repository:** `/home/sdc_joran/Journal/deeprl_signal_control`  
-**Review date:** 14 September 2026  
-**Document:** `reviewer_revision_plan.md` in the repository root.
+[简体中文版](reviewer_revision_plan_zh.md) · [Historical repository audit](reviewer_revision_audit_2026-09-14.md)
 
-**Status:** Documentation only. This file records the repository audit and the approved experimental procedure. Existing code, configurations, datasets, checkpoints, and results have not been changed. No training or SUMO simulations were launched. The implementation and experiments described below are future work; unchecked acceptance criteria are not claims of completed validation.
+**Protocol version:** 3
 
-## 1. Summary and agreed experimental scope
+**Date:** 15 September 2026
 
-The repository already implements the three stages needed for your framework:
+**Repository:** `/home/sdc_joran/Journal/deeprl_signal_control`
 
-1. Train a traffic signal controller under a predefined demand schedule.
-2. Train CB-WCE against that frozen controller.
-3. Retrain the controller while updating CB-WCE.
+**Implementation status:** This guide defines the revised study. The corrected implementation is integrated into `agents/`, `envs/`, and `experiments/`. Use `python main.py experiment ...`; see the [project guide](README.md). Historical C01–C10 pilot checks are recorded for that path; the visualization source change requires fresh publication verification. Existing legacy entrypoints remain unchanged. The full publication training and evaluation matrix has not been launched.
 
-Your revision should retain this structure, but rebuild the comparisons around a common experimental protocol. Several current implementation differences affect fairness beyond the additional training budget.
+**Documentation history:** The earlier 15 September 2026 guide revision was documentation-only. The subsequent visualization update adds CLI/local-workspace display selection; its focused verification is documented in [the visualization report](docs/VISUALIZATION.md). Exact prior guides and their [SHA-256 index](docs/history/reviewer_guides_20260915T085603Z/checksums.sha256) are preserved in [the dated archive](docs/history/reviewer_guides_20260915T085603Z/).
 
-The agreed revised study will use:
+## 1 Experiment overview
 
-- **Networks:** the synthetic 5×5 grid and the active Monaco subnet.
-- **Controllers:** IA2C, MA2C, IQL-LR (`iqll` in the code), and PPO.
-- **Objective:** queue-based controller training, CB-WCE reward, and primary evaluation.
-- **Replication:** five independently trained starting controllers per network/controller family, with ten evaluation rollouts per test scenario.
-- **Comparisons:** seven training methods, including fixed and updated CB-WCE, random demand groups, domain randomization, and a RARL-style comparator.
-- **Preservation:** existing source files, checkpoints, datasets, and results remain historical records. Any later implementation should use separate revision code, configurations, datasets, and output directories.
+We will compare one baseline with four demand-training strategies on the 5×5 grid and the Monaco subnet. Each strategy is applied to IA2C, MA2C, IQL-LR (`iqll`), and PPO, using five independent training seeds.
 
-The evidence below comes from source inspection, configuration files, network XML, checkpoint metadata, and evaluation artifacts. All **45 Python source files passed syntax parsing** during the audit. This establishes syntax validity, not runtime correctness or reproducibility of previous results.
-
-## 2. Current repository organization and protocol
-
-### 2.1 Folder and entrypoint map
-
-| Location | Current purpose |
-|---|---|
-| `agents/` | Controller models, policies, replay buffers, and CNN/GCN adversary implementations. |
-| `envs/` | Shared SUMO environment, grid/Monaco environments, adversarial environments, and coevolution environments. |
-| `config/` | Controller hyperparameters, network settings, training budgets, and some resume settings. |
-| `main.py`, `utils.py` | Standard controller training and the original evaluation workflow. |
-| `train_adversary.py`, `train_adversary_real.py` | CB-WCE training against frozen grid and Monaco controllers. |
-| `train_coevolution.py`, `train_coevolution_real.py` | Controller and CB-WCE retraining. |
-| `eval_signal_controllers.py`, `eval_signal_controllers_real.py` | Per-demand-group benchmark evaluation of original and retrained controllers. |
-| `eval_signal_controller_visualize.py` | Individual SUMO GUI rollouts and queue/speed exports. |
-| Root plotting and aggregation scripts | TensorBoard extraction, horizon averages, and comparison figures. |
-| `large_grid/` | Active 5×5 network, SUMO assets, builders, and generated runtime files. |
-| `real_net_subnet/` | Active Monaco subnet, training demand groups, and demand metadata. |
-| `data_traffic/` | Active grid demand directory, currently containing twelve valid CSV profiles. |
-| `runs/` | Baseline controller checkpoints, copied configurations, and logs. |
-| `output_adversary/`, `output_adversary_monaco/` | Grid and Monaco CB-WCE checkpoints and logs. |
-| `output_coevolution/`, `output_coevolution_real/` | Retrained controllers and updated adversaries. |
-| `runs_eval/` | Benchmark results, raw rollout data, manifests, plots, and later partial reruns. |
-| `real_net/`, `small_grid/` | Legacy/full Monaco assets and the older six-signal benchmark. |
-| `demand_5x5_noisy/` | Much heavier grid demand variants; these are not mild-noise test profiles. |
-| `data_traffic/data_traffic/` | A separate nested demand variant that the active loader does not load recursively. |
-| `data_traffic_real/` | A placeholder directory; it is not the active Monaco demand source. |
-| `output_result/`, `real_net_experimental_data/`, `figs/` | Older results, tables, and figures. |
-| `deeprl_signal_control/` | A nested output log, not another active codebase. |
-| README, introduction, handoff note, PDF | Documentation of different ages. The PDF is the original 2019 MA2C paper, not the revised CB-WCE manuscript. |
-
-The README contains unresolved merge markers, and parts of `introduction.md` describe older settings. For the revised paper, executable settings and frozen run manifests should be the source of truth.
-
-### 2.2 Networks and demand settings
-
-| Property | 5×5 grid | Active Monaco subnet |
-|---|---:|---:|
-| Signal controllers | 25 | 28 |
-| Physical signalized junctions | 25 | 30 |
-| Noninternal road edges | 120 | 270 |
-| Noninternal road lanes | 180 | 513 |
-| Unique controlled incoming lanes | 150 | 116 |
-| Controller interval | 5 seconds | 5 seconds |
-| Configured yellow interval | 2 seconds | 2 seconds |
-| Demand-block duration | 600 seconds | 600 seconds |
-| Current loaded training groups | **12** | **11** |
-| Current effective training horizon | **7,200 seconds** | **6,600 seconds** |
-| Joint controller transitions per full episode | **1,440** | **1,320** |
-
-The distinction between current files and historical experiments is important:
-
-- Grid configurations specify a 3,600-second horizon, but the environment replaces it with `loaded_groups × 600`.
-- Historical grid CB-WCE logs record **eleven groups**, giving 6,600-second episodes.
-- The current grid directory also contains `demand_5x5_sparse.csv`. Its schema is valid, so the current loader includes it and expands the adversary action dimension to twelve.
-- Monaco explicitly loads eleven named groups and excludes additional profiles.
-
-This behavior is visible in [the grid loader](envs/large_grid_env.py) around line 73 and [the Monaco loader](envs/real_net_env.py) around line 171.
-
-The eleven established profiles cover eight directional patterns, periphery-to-center, center-to-periphery, and uniform demand. Their current total rates are approximately:
-
-- **Grid:** 2,869.55–3,046.10 vehicles/hour.
-- **Monaco:** 2,383.33 vehicles/hour per group.
-
-Baseline training follows a fixed sequence of groups. Vehicle realizations remain stochastic through Poisson counts, sampled departure times, and other injection randomness.
-
-### 2.3 Current training stages
-
-A **controller step** currently means one joint network action followed by five simulated seconds. It does not mean one junction action, one second, or one optimizer update.
-
-| Stage | Current intended setting | Evidence and qualification |
+| Method ID | Demand during each 600-second block | WCE parameter learning |
 |---|---|---|
-| Baseline controller training | `total_step = 1e6` | Stopping is checked at episode boundaries, so saved counts can exceed one million. |
-| Offline CB-WCE training | 500 episodes | Historical eleven-group runs record 5,500 adversary decisions and 660,000 frozen-controller transitions. |
-| Coevolution | 1,000 episodes | Historical eleven-group grid runs add 1,320,000 controller transitions. |
-| Demand action | Every 600 simulated seconds | This is the action frequency; adversary gradient updates depend on the buffer and episode handling. |
-
-Grid CB-WCE uses a **CNN-A2C** policy. Monaco CB-WCE uses **GCN-A2C**. The adversary constructs mixtures of demand groups, rather than simply choosing one group.
-
-The action transformation differs between networks:
-
-- Grid: Gaussian outputs become mixture weights through softmax.
-- Monaco: negative outputs are clipped to zero and the remainder normalized, with a uniform fallback.
-
-### 2.4 Current controller hyperparameters
-
-| Controller | Learning rate | Grid batch/rollout length | Monaco batch/rollout length |
-|---|---:|---:|---:|
-| IA2C | 0.0005 | 120 | 40 |
-| MA2C | 0.0005 | 120 | 40 |
-| PPO | 0.0003 | 120 | 120 |
-| IQL-LR | 0.0001 | 20 | 20 |
-
-Other current settings include:
-
-- Controller discount factor: 0.99.
-- IA2C/MA2C LSTM size: 64.
-- MA2C neighborhood discount: 0.9.
-- PPO clipping ratio: 0.2; four optimization epochs.
-- IQL-LR replay capacity: 1,000; ten minibatch updates per backward call.
-- IQL exploration: epsilon decreases from 1 to 0.01 over half the configured training horizon.
-
-These settings should be copied into the revision manifest. Changes to reward construction, normalization, and experiment control must be documented separately.
-
-### 2.5 What the saved benchmark manifests show
-
-The following are the checkpoint steps referenced by existing benchmark manifests, not a claim that they are the latest checkpoints anywhere in the repository.
-
-| Network | Controller | Baseline | Retrained | Additional steps |
-|---|---|---:|---:|---:|
-| Grid | IA2C | 1,000,920 | 2,320,920 | 1,320,000 |
-| Grid | MA2C | 1,000,560 | 2,320,560 | 1,320,000 |
-| Grid | IQL-LR | 1,000,560 | 2,320,560 | 1,320,000 |
-| Grid | PPO | 1,000,560 | 2,320,560 | 1,320,000 |
-| Monaco | IA2C | 1,001,040 | 2,321,040 | 1,320,000 |
-| Monaco | MA2C | 1,000,560 | 1,858,560 | 858,000 |
-| Monaco | IQL-LR | 1,000,560 | 1,648,680 | 648,120 |
-| Monaco | PPO | 1,000,920 | 2,309,040 | 1,308,120 |
-
-Other Monaco branches contain different checkpoints, including a later MA2C checkpoint at 2,320,560. Selecting “latest” from a folder is therefore insufficient to establish which experiment produced a paper result.
-
-### 2.6 Current evaluation
-
-The newer benchmark scripts generally evaluate:
-
-- Four controller families, each with original and retrained checkpoints.
-- Twelve demand profiles.
-- Ten rollouts per controller/profile.
-- A 3,600-second horizon.
-- One profile repeated across six 600-second blocks.
-- Stochastic IA2C/MA2C/PPO actions and greedy IQL actions under the default policy mode.
-- Queue and speed recorded every second.
-
-Both benchmark directories contain 192 primary raw queue/speed CSVs, corresponding to eight controllers × twelve profiles × two metrics. However, partial reruns have mixed different sessions in the same directories.
-
-The original `main.py evaluate` workflow is different: it evaluates the environment’s sequential demand program. The manuscript should identify which evaluation workflow was used.
-
-## 3. Reviewer checklist and required corrections
-
-| Reviewer requirement | Current position | Revised procedure |
-|---|---|---|
-| Record training wall time and CB-WCE overhead | Diagnostic timings exist, but no complete structured cost ledger was found. | Record stage totals, component times, simulation interactions, and hardware. |
-| Match controller-training steps | Original/retrained comparisons use unequal budgets. | Give every continuation method exactly the same additional controller transitions. |
-| Fixed versus online CB-WCE | No explicit controlled ablation exists. | Branch from the same controller and CB-WCE checkpoints; vary adversary updating only. |
-| Random groups and literature baselines | Existing experiments do not provide the complete comparison. | Add categorical random groups, mixture domain randomization, fixed demand, and RARL-style training. |
-| Additional unseen demand groups | Current grid loader can ingest newly added CSVs automatically. | Use explicit train/validation/test manifests and physically separate datasets. |
-| Align CB-WCE reward and primary metric | Queue definitions, sampling, clipping, and scaling differ. | Use one canonical queue measurement and aggregation. |
-| Rollout metrics and uncertainty | Repeated data exist, but summaries mainly report point estimates; bands are min–max. | Export rollout-level outcomes and distinguish rollout variability from training variability. |
-| Network heatmaps | Existing GUI and temporal plots do not implement quantitative spatial comparisons. | Record lane/edge measurements and draw maps using common scenarios, windows, and scales. |
-
-### Corrections that must precede long revised experiments
-
-1. **Evaluation seeds are not currently applied as intended.**  
-   The two benchmark scripts initialize test seeds but do not set `env.train_mode = False`. Environment resets consequently select training seeds. See [seed selection during reset](envs/env.py) around line 659.
-
-2. **Demand and controller actions share NumPy randomness.**  
-   Identical SUMO seeds alone do not produce identical exogenous traffic across controllers. Evaluation must freeze complete demand realizations and separate demand, policy, and simulator random streams.
-
-3. **Coevolution changes controller reward handling.**  
-   The standard environment constructs shared or neighborhood-weighted rewards. Coevolution bypasses this path and supplies raw local rewards. Demand selection is therefore not the only difference between current baseline and robust training. See [standard reward handling](envs/env.py) around line 805.
-
-4. **MA2C fingerprints are not updated consistently.**  
-   Standard training updates them; the adversarial/co-evolution loops omit equivalent updates.
-
-5. **IQL learning frequency differs.**  
-   Standard training updates after a block of twenty transitions. Grid coevolution can update after every transition once replay is populated. Matching environment steps without matching optimizer cadence would leave a substantial confound.
-
-6. **Monaco IQL has incompatible calls in the current source.**  
-   Frozen-controller inference uses an actor-critic calling convention, and coevolution assumes replay-buffer attributes that IQL does not expose.
-
-7. **Reward and metric definitions differ.**  
-   Grid training uses queue plus waiting time. Monaco training caps lane queues at ten. Evaluation uses uncapped lane halting counts. Monaco offline and online CB-WCE also use different reward scales. See [current reward measurement](envs/env.py) around line 394.
-
-8. **Resume is not complete state restoration.**  
-   Existing checkpoints do not establish restoration of optimizer slots, replay state, random streams, and all counters. Some Monaco load failures can fall through to random initialization.
-
-9. **Incomplete evaluations can be hidden by padding.**  
-   Short trajectories are padded with their final value; empty trajectories can become zeros. Revised results must flag incomplete rollouts instead.
-
-10. **Output provenance is mixed.**  
-    The real benchmark’s current demand manifest lists only `Real_Life_Monaco`, while its summary contains the earlier full comparison. Revised runs need unique directories and immutable manifests.
-
-These are proposed corrections. None has been applied during this review or the creation of this document.
-
-## 4. Revised common experimental contract
-
-### 4.1 Canonical queue metric
-
-Use the **time-averaged total number of stopped vehicles on controlled incoming lanes**.
-
-Let \(L\) be the globally deduplicated set of controlled incoming lanes:
-
-\[
-Q(t)=\sum_{\ell\in L}q_\ell(t),
-\qquad
-J_Q=\frac{1}{H}\sum_{t=1}^{H}Q(t).
-\]
-
-Definitions:
-
-- \(q_\ell(t)\): uncapped lane halting count, sampled every simulated second.
-- \(H\): the fixed evaluation horizon in seconds.
-- \(J_Q\): mean total queue, in vehicles.
-- Lower \(J_Q\) is better.
-
-SUMO defines a halted vehicle using speed below 0.1 m/s. [SUMO lane-value documentation](https://sumo.dlr.de/docs/TraCI/Lane_Value_Retrieval.html)
-
-The primary monitored domain contains 150 grid lanes and 116 Monaco lanes in the current network files. Record the exact lane lists and hashes.
-
-Use the manuscript label **“mean total queue on controlled approaches.”** This avoids implying that the metric measures every road lane or directly measures travel delay.
-
-### 4.2 Controller and CB-WCE rewards
-
-For controller training:
-
-1. Accumulate lane queues over all five seconds of each controller transition.
-2. Form each junction’s negative mean local queue.
-3. Apply the controller family’s established shared/global or MA2C neighborhood reward construction consistently across every training method.
-4. Use a fixed reward normalization of 100 and disable reward clipping in the revised configuration.
-5. Retain the controller discount of 0.99 and the existing architecture settings.
-
-For a 600-second CB-WCE action block:
-
-\[
-r_{\mathrm{WCE},k}
-=
-\frac{1}{100}
-\left[
-\frac{1}{600}
-\sum_{t\in k}Q(t)
-\right].
-\]
-
-CB-WCE maximizes this reward. Evaluation minimizes the same unscaled queue measure.
-
-Use adversary discount **1.0** for the finite, eleven-block episode. With equal-duration blocks, maximizing their summed mean queues is equivalent to maximizing the episode’s mean queue. Apply no additional adversary reward normalization or clipping.
-
-The MA2C neighborhood reward remains a learning construction. CB-WCE reward must be calculated directly from canonical measurements, not by summing already transformed controller rewards.
-
-### 4.3 Fixed data and timing definitions
-
-For the revision:
-
-- Explicitly allowlist the original **eleven training groups** on each network.
-- Normalize each grid training profile to **3,000 vehicles/hour**.
-- Normalize each Monaco training profile to **2,383.3333 vehicles/hour**.
-- Preserve within-profile OD proportions.
-- Use 600-second demand blocks and 6,600-second training episodes.
-- Keep 5-second controller actions and the existing yellow-phase behavior.
-- Exclude sparse and additional profiles from the new training manifest.
-
-Normalization is a deliberate revision to the input data. Store the revised copies separately and retain the original CSVs unchanged.
-
-### 4.4 Shared training machinery
-
-All seven methods must use the same controller interaction and update path. Only the demand-selection strategy and whether the adversary learns may differ.
-
-Required behavior includes:
-
-- Correct MA2C fingerprint updates.
-- Correct recurrent-state resets.
-- Identical reward transformations within a controller family.
-- IQL backward calls every twenty newly collected controller transitions.
-- Identical PPO epochs and actor-critic update cadence across methods.
-- Exact transition counting and partial-batch handling.
-- Explicit failure on missing or incompatible checkpoints.
-- No silent route dropping or random-model fallback.
-
-For revised CB-WCE, use the same architecture and observation construction across fixed, online, and RARL-style methods:
-
-- Grid: existing CNN structure with consistently ordered local wave/wait features.
-- Monaco: GCN with local normalized lane-wave features, fixed padding/masks, and fixed network adjacency; exclude controller-specific fingerprints from adversary inputs.
-- Both: eleven Gaussian outputs transformed by softmax into mixture weights.
-- Adversary learning rate: 0.0005.
-- Adversary update batch: eleven macro transitions, one full episode.
-
-Thus the **updated CB-WCE selects demand every 600 seconds and updates parameters between training episodes**.
-
-### 4.5 Proposed interfaces and records
-
-A later implementation should add a separate revision runner accepting an experiment manifest with:
-
-- Network and controller family.
-- Training method and stage.
-- Ordered demand manifest.
-- Training seed and independent RNG stream identifiers.
-- Exact parent controller/adversary checkpoint paths.
-- Required controller and adversary transition budgets.
-- Reward definition, scale, and monitored lane set.
-- Output directory and checkpoint interval.
-
-Checkpoint metadata must record actual counters rather than reconstructing them from filenames or episode indices.
-
-New revision checkpoints should include model parameters, optimizer state, schedules, IQL replay state, and recoverable RNG state. Save regular resumable checkpoints at episode boundaries; an interrupted episode restarts from the last complete checkpoint, with discarded work recorded in the timing ledger. Also save the exact-budget final checkpoint at a declared stage truncation boundary, even when the budget ends mid-episode. Flush pending on-policy samples with the correct bootstrap before saving; all continuation methods then begin a fresh episode with reset environment and recurrent state.
-
-## 5. Detailed training procedure
-
-### Step 1 — Freeze the experiment inputs
-
-Create a new revision workspace containing copies or references with hashes for:
-
-- Source revision and any working-tree changes.
-- Network assets.
-- Eleven normalized training profiles.
-- Controller and CB-WCE configurations.
-- Validation/test manifests.
-- Runtime and hardware information.
-
-Use the existing `deeprlsc` environment as the starting runtime. It contains Python 3.6.13 and the legacy TensorFlow stack. Record the actual installed versions and SUMO build; the current system reports `1_26_0+0455-77b9dbc222e`.
-
-Do not launch experiments using the default shell’s Python 3.13 environment.
-
-### Step 2 — Validate the revised runner
-
-Before full training, run short correctness checks for all eight network/controller combinations.
-
-These checks must establish:
-
-- Valid route generation.
-- Correct queue/reward equality.
-- Working MA2C and IQL paths.
-- Correct optimizer cadence.
-- Exact stopping.
-- Checkpoint restoration.
-- Reproducible demand and policy streams.
-
-Use pilot seeds outside the publication seed sets. Pilot results are debugging evidence and do not enter the reported comparison.
-
-### Step 3 — Train independent baseline parents
-
-Use five master training seeds:
-
-`101, 202, 303, 404, 505`.
-
-For each network/controller/seed combination:
-
-1. Initialize a fresh controller.
-2. Train using the original sequential demand-group scheme, with the revised queue reward and explicit eleven-profile manifest.
-3. Stop at exactly **1,000,000 joint controller transitions**.
-4. Flush a final partial on-policy batch with correct truncation bootstrapping.
-5. Save the complete parent training state.
-
-This produces **40 independent baseline parents**.
-
-For IQL, retain the Stage-I exploration schedule: epsilon reaches 0.01 by 500,000 controller transitions and remains there during continuation.
-
-### Step 4 — Train CB-WCE against each frozen parent
-
-For each parent:
-
-1. Freeze controller parameters and disable all controller learning.
-2. Reset recurrent state at every episode.
-3. Train one CB-WCE for **5,500 macro transitions**: 500 episodes × eleven demand actions.
-4. Count the associated **660,000 frozen-controller transitions** separately.
-5. Save the final adversary state and its parent-controller identity.
-
-This produces **40 pretrained CB-WCE models**.
-
-Use the same pretrained adversary as the starting point for fixed CB-WCE, updated CB-WCE, and RARL-style continuation.
-
-### Step 5 — Branch into seven methods
-
-Every method starts from the same parent controller state for its network/controller/seed combination.
-
-Each receives exactly:
-
-\[
-B_{\mathrm{additional}}=1{,}320{,}000
-\]
-
-controller-learning transitions, giving:
-
-\[
-B_{\mathrm{total}}=2{,}320{,}000.
-\]
-
-| Method ID | Demand during continuation | Adversary learning |
-|---|---|---|
-| `nominal_continue` | Original fixed sequential schedule of eleven groups. | None. |
-| `fixed_profile` | The normalized Uniform profile throughout every episode. | None. |
-| `random_group` | Uniformly sample one of eleven groups every 600 seconds; use one-hot weights. | None. |
-| `domain_randomization` | Sample weights from `Dirichlet(1,…,1)` every 600 seconds. | None. |
-| `fixed_wce` | Pretrained CB-WCE generates state-dependent mixtures. | Parameters remain frozen. |
-| `online_wce` | CB-WCE generates mixtures while the controller learns. | Update after each eleven-block controller-training episode. |
-| `rarl_style` | Alternate controller-learning and adversary-learning episodes. | Update only in the adversary-learning episodes. |
-
-**Fixed CB-WCE means fixed parameters, not fixed actions.** Its demand choices can still respond to traffic state. This distinguishes it from the fixed-demand-profile baseline.
-
-The domain-randomization method is a traffic-demand adaptation of simulator randomization. Its randomized variables are mixture weights, rather than physical parameters. [Peng et al., dynamics randomization](https://arxiv.org/abs/1710.06537)
-
-For `rarl_style`, repeat:
-
-1. One 6,600-second episode with the controller learning and adversary parameters frozen.
-2. One 6,600-second episode with the controller frozen and the adversary learning.
-
-Run 1,000 such pairs. During frozen-controller episodes, disable optimizer calls, replay insertion, and scheduler advancement. Count the final adversary episode consistently, even though it does not change the evaluated controller.
-
-This is **RARL-style alternating adversarial-demand training**, an adaptation rather than a reproduction of the original disturbance-force experiments. [Pinto et al., Robust Adversarial Reinforcement Learning](https://proceedings.mlr.press/v70/pinto17a.html)
-
-### Step 6 — Enforce comparison fairness
-
-Within each controller family, verify that all seven methods have:
-
-- Identical parent controller state.
-- Identical additional controller-learning transitions.
-- Identical controller optimizer-call schedule and PPO epochs.
-- Identical reward handling.
-- Identical checkpoint cadence.
-- Identical training horizon and allowed demand-group set.
-
-Fixed and updated CB-WCE also share the same initial adversary, observation structure, action transformation, and sampling rule.
-
-RARL-style training has additional frozen-controller simulation. Report it explicitly; equal controller-training budgets do not imply equal total simulation or wall-clock budgets.
-
-### Step 7 — Record computation cost
-
-Use a monotonic timer and structured records for:
-
-- Baseline pretraining.
-- Offline CB-WCE training.
-- Controller continuation.
-- Adversary-only simulation.
-- Environment startup/reset.
-- Controller and adversary inference.
-- Controller and adversary optimization.
-- Checkpoint/logging overhead.
-- Failed or discarded attempts.
-
-Report both stage times and total pipeline time:
-
-\[
-T_{\mathrm{method}}
-=
-T_{\mathrm{baseline}}
-+
-T_{\mathrm{offline\ WCE,\ if\ used}}
-+
-T_{\mathrm{continuation}}.
-\]
-
-Charge offline CB-WCE training to every method that requires it when reporting standalone method cost, even when the actual experiment shares that checkpoint.
-
-Report hardware, thread counts, concurrent workload, and simulation interactions alongside wall time. No reliable full-run hour estimate can be derived from the current logs alone.
-
-The agreed matrix contains **40 baseline runs, 40 offline CB-WCE runs, and 280 continuation runs**.
-
-## 6. Unseen-demand generation and evaluation procedure
-
-### 6.1 Separate three evaluation categories
-
-Maintain distinct results for:
-
-1. **Seen profiles, new realizations:** the eleven training demand profiles with held-out arrival and simulator seeds.
-2. **New demand profiles/schedules:** a frozen twelve-scenario test suite.
-3. **Supplementary historical profiles:** existing sparse/noisy/reconstructed profiles whose provenance or severity needs separate explanation.
-
-Never place validation or test CSVs in the current automatically loaded training directory.
-
-### 6.2 Default twelve-scenario test suite per network
-
-Use four families, three scenarios each:
-
-| Family | Prespecified construction | Interpretation |
-|---|---|---|
-| OD-rate redistribution | Multiply positive rates of the Uniform profile by seeded lognormal factors with log-space standard deviations 0.25, 0.50, and 0.75; renormalize to reference demand. | New spatial rate allocations at fixed total load. |
-| Convex mixtures | Generate three fixed `Dirichlet(1,…,1)` weight vectors using held-out generation seeds. | Compositional generalization within the mixture family. |
-| Temporal changes | Alternate N→S and W→E demand every 300, 900, or 1,200 seconds across the 3,600-second horizon. | Generalization to new switching schedules. |
-| Peak intensity | Apply multipliers 1.10, 1.25, or 1.50 to Uniform demand during seconds 1,200–2,400; use reference demand outside that interval. | Intensity extrapolation beyond the training rate. |
-
-Use test generation seeds `41001–41012`, assigned in table order.
-
-Convex mixtures are already within the demand family accessible to CB-WCE. Describe them as compositional tests, not automatically as out-of-distribution demand. Likewise, new rate allocations do not necessarily introduce new OD pairs.
-
-Create six separate validation scenarios using generation seeds `31001–31006`: two rate redistributions, two mixtures, one temporal switch scenario, and one 1.15× peak scenario. Validation and final-test artifacts must have distinct hashes.
-
-### 6.3 Demand validation and provenance
-
-For every generated scenario:
-
-1. Validate finite, nonnegative rates.
-2. Check edge existence and vehicle-class-compatible route connectivity.
-3. Record requested total demand and its temporal schedule.
-4. Store the generation parameters and seed.
-5. Materialize vehicle counts, departure times, OD pairs, route edge sequences, and speed factors.
-6. Hash the completed artifact.
-
-Keep the same complete exogenous realization across all methods. Realized insertion may differ because congestion differs; record that difference rather than changing the requested traffic.
-
-Do not discard a valid high-demand test because it produces congestion or gridlock.
-
-The current `Real_Life_Monaco` profile should remain outside the main test suite. Its audit refers to a 272-edge patched network, while the active subnet contains 270 edges. A static connectivity check also identified an unreachable positive-demand OD pair. Resolve this provenance mismatch before any supplementary use; do not silently drop the affected flow.
-
-The existing `demand_5x5_noisy` profiles total approximately 13,787–17,379 vehicles/hour. Treat them as extreme-load scenarios, not ordinary noise robustness tests.
-
-### 6.4 Evaluation execution
-
-For each final controller checkpoint:
-
-- Evaluate all eleven seen profiles and twelve new scenarios.
-- Use ten paired rollout realizations per scenario.
-- Keep the horizon at **3,600 seconds**.
-- Start from an empty network.
-- Include startup in the primary average.
-- Use no drainage extension in the primary metric.
-- Retain sampled IA2C/MA2C/PPO actions and greedy IQL actions.
-
-Use separate seed namespaces for demand generation, arrival realizations, SUMO, and policy sampling. For example, reserve `51001–51010` for arrival realizations, `61001–61010` for SUMO, and a documented training-seed/rollout-derived policy stream.
-
-Explicitly set evaluation mode and record the effective SUMO seed.
-
-Evaluate the checkpoint saved at the exact final budget. Do not select a checkpoint using final-test performance.
-
-The primary seven-method matrix requires **64,400 evaluation rollouts** across the two networks: 2 networks × 4 controller families × 5 training seeds × 7 continuation methods × 23 scenarios × 10 rollouts. This count covers final continuation checkpoints; the one-million-step parent checkpoints are not an additional evaluated method. Report seen and new-scenario outcomes separately.
-
-### 6.5 Required rollout outputs
-
-Write one summary row per rollout containing:
-
-- Network, controller, method, training seed, and exact checkpoint hash.
-- Scenario, split, demand hash, and all RNG identifiers.
-- Intended and completed horizon.
-- Mean queue, integrated queue, and peak queue.
-- Mean speed, with its aggregation definition.
-- Scheduled, inserted, and completed vehicle counts.
-- Pending departures and vehicles remaining at the horizon.
-- Teleports, collisions, and execution failures.
-- Completed-trip travel time, waiting time, time loss, and departure delay, with denominators.
-- Evaluation wall time.
-
-Retain underlying time series and trip records.
-
-For speed, use a vehicle-time-weighted mean; an entirely empty rollout has an unavailable speed metric rather than an invented zero-speed observation.
-
-A valid rollout must contain the expected horizon. Do not pad truncated records into apparently complete results.
-
-### 6.6 Statistical reporting
-
-For each training seed and scenario:
-
-1. Calculate \(J_Q\) separately for each of ten rollouts.
-2. Report the mean and **sample standard deviation** of those ten outcomes.
-
-For each controller family, method, and network separately:
-
-1. Average the scenario estimates within each training seed, giving equal weight to the twelve new scenarios.
-2. Obtain five seed-level values.
-3. Report their mean, sample SD, and 95% t-interval:
-
-\[
-\bar J \pm 2.776\,\frac{s}{\sqrt{5}}.
-\]
-
-For method comparisons, first form differences between matched training-seed results, then calculate the interval over the five paired differences.
-
-This separates rollout variability from independent-training variability. Time samples within a rollout are not independent experimental replicates. Interval reporting is supported by the RL evaluation recommendations of [Agarwal et al.](https://arxiv.org/abs/2108.13264)
-
-Also report:
-
-- All five training-seed points.
-- Separate results for each demand family.
-- Seen-profile performance.
-- The exploratory **worst tested scenario mean**, defined as the maximum scenario mean after averaging over training seeds and rollouts.
-
-Keep grid and Monaco results separate. The confidence interval is conditional on the specified test suite; it is not a guarantee over all possible traffic demands.
-
-### 6.7 Heatmaps
-
-For the predefined 1.25× and 1.50× peak scenarios:
-
-1. Record per-lane queue measurements during every rollout.
-2. Aggregate over the common peak window **1,200–2,400 seconds**.
-3. Map monitored lanes onto the SUMO network geometry.
-4. Produce absolute queue maps for all methods.
-5. Produce `online_wce − comparator` difference maps.
-
-Use:
-
-- One shared absolute color scale within each network/scenario.
-- A symmetric, zero-centered difference scale.
-- Consistent spatial extent, labels, and units.
-- Gray for unmonitored roads.
-- Means across the same training seeds and rollout realizations.
-
-Caption these as queue maps of controlled approaches across the network. Negative difference values indicate lower queues under updated CB-WCE.
-
-Do not choose a different peak time or demand scenario for each controller.
-
-## 7. Deliverables and acceptance criteria
-
-### Planned document and experiment outputs
-
-Use a separate revision structure when implementation is undertaken. Only the Markdown document has been created at this stage:
+| `baseline` | Follow the original fixed sequential order of eleven training profiles. | Not applicable |
+| `random_group` | Select one profile uniformly; use one-hot mixture weights. | Not applicable |
+| `domain_randomization` | Sample a mixture from `Dirichlet(1,…,1)`. | Not applicable |
+| `fixed_wce` | Let the pretrained WCE select a state-dependent mixture. | Disabled |
+| `online_wce` | Let the same pretrained WCE select a state-dependent mixture. | Enabled after each full episode |
+
+The baseline uses the original sequential training scheme throughout. There is no separate Uniform-only baseline or RARL comparison. There are **five methods and four controller families**; these are different dimensions of the experiment.
+
+Every final controller receives **2,320,000 controller-learning steps**: a common 1,000,000-step parent followed by 1,320,000 additional steps. A controller-learning step is one joint network decision followed by five simulated seconds, collected for controller learning. Frozen-controller simulation and optimizer updates are counted separately. Equal step budgets do not imply equal wall-clock time.
 
 ```text
-reviewer_revision_plan.md
-revision/
-  configs/
-  datasets/
-    train/
-    validation/
-    test/
-  manifests/
-  runs/
-  evaluation/
-  figures/
-  tables/
+Stage 0  Set up inputs and pass C01–C10 verification
+    |
+Stage I  Train a common controller parent for 1,000,000 steps
+    |                                      |
+    |                              Stage II  Freeze a copy
+    |                                        Train and save WCE
+    |                                             |
+Stage III  Continue controller copies for 1,320,000 steps each
+    +-- baseline                                  |
+    +-- random_group                              |
+    +-- domain_randomization                      |
+    +-- fixed_wce <--------- same pretrained WCE --+
+    +-- online_wce <-------- same pretrained WCE --+
+    |
+Stage IV  Evaluate all five final controllers on paired demand
 ```
 
-The reporting package should contain:
+The WCE is trained against the **1,000,000-step parent**, not the final extended baseline. All five continuation methods inherit the same controller state for a given network, controller family, and training seed.
 
-- Current-versus-revised settings table.
-- Eight-item reviewer response matrix.
-- Exact training budgets and computation-cost table.
-- Seven-method comparison tables.
-- Fixed-versus-updated CB-WCE ablation.
-- Seen/new-demand results with both uncertainty levels.
-- Peak-demand heatmaps and paired difference maps.
-- Frozen run, checkpoint, network, and demand manifests.
+## 2 Environment and dataset setup
 
-### Acceptance tests before publication runs
+### Runtime and input records
 
-- [ ] Every method stops at exactly the prescribed controller-learning budget.
-- [ ] Controller optimizer cadence is identical across methods within each family.
-- [ ] CB-WCE reward can be reconstructed from the recorded per-second queue measurements.
-- [ ] Queue lanes are counted once, without the existing Monaco cap.
-- [ ] Fixed CB-WCE weights remain unchanged; updated CB-WCE weights change.
-- [ ] Frozen-controller stages do not update weights, replay, or schedules.
-- [ ] MA2C fingerprints and recurrent-state resets behave correctly.
-- [ ] Both Monaco IQL paths execute correctly.
-- [ ] Repeated seeded evaluation reproduces the same demand realization and policy sampling.
-- [ ] Changing the controller does not change scheduled demand.
-- [ ] Missing checkpoints, invalid routes, and incomplete rollouts fail visibly.
-- [ ] Training manifests contain no validation/test profiles.
-- [ ] Checkpoint restoration preserves the state required for continuation.
-- [ ] Statistical summaries use rollout and training-seed units correctly.
-- [ ] Heatmap totals reconcile with the primary metric over the same lanes and window.
-- [ ] Every output directory’s manifest matches the results actually stored there.
+1. Work from the repository root on the `revision` branch and record the exact source commit and any uncommitted changes used for experiments.
+2. Use the existing `deeprlsc` environment as the starting runtime. The audit identified Python 3.6.13 and a legacy TensorFlow stack; the default shell Python 3.13 environment is not the established training runtime.
+3. Record actual Python, TensorFlow, NumPy, TraCI, SUMO, OS, hardware, thread, and concurrent-workload settings. The audited SUMO build was `1_26_0+0455-77b9dbc222e`.
+4. Record hashes of network assets, controller configurations, the monitored lane set, and ordered demand manifests.
+5. Create dedicated revision datasets and output locations. Preserve existing networks, original CSVs, checkpoints, and historical results.
 
-The existing results remain useful historical evidence and may support qualified descriptive summaries. The revised matched-budget and generalization claims should come from the new, controlled experiment set described above.
+These existing commands inspect the starting setup; they do not launch training:
+
+```bash
+cd /home/sdc_joran/Journal/deeprl_signal_control
+conda activate deeprlsc
+python --version
+sumo --version
+git branch --show-current
+git rev-parse HEAD
+git status --short
+```
+
+Historical entrypoints retain legacy behavior. The corrected stage runner is available through `python main.py experiment ...`; see README.md for executable commands.
+
+### Executable setup and shared shell variables
+
+**Purpose and inputs.** Activate the existing environment from the repository root using the commands above. The established runtime is Python 3.6.13, TensorFlow 1.12.0 and NumPy 1.19.5. The following variables define a worked Grid/IA2C example. For Monaco, set `CBWCE_NETWORK=monaco` and `CBWCE_DATASET_ROOT=real_net_subnet/demand_groups/revised`. Controller IDs are `ia2c`, `ma2c`, `iqll`, `ppo`; use each of the five publication seeds in separate runs. Pilot seed 9001 is never a publication replicate.
+
+**Pilot/publication setup commands.** Input preparation is shared by both modes. `prepare` creates the normalized CSVs, scenario definitions and effective INIs, or checks that existing copies agree. It refuses to overwrite differing prepared files. `--materialize` starts short SUMO route-resolution sessions and creates complete traffic artifacts; it does not train a controller. The two materialization commands are not read-only readiness checks.
+
+```bash
+export PYTHONDONTWRITEBYTECODE=1
+export OPENBLAS_NUM_THREADS=1
+export OMP_NUM_THREADS=1
+export TF_CPP_MIN_LOG_LEVEL=2
+export CBWCE_NETWORK=grid
+export CBWCE_CONTROLLER=ia2c
+export CBWCE_SEED=101
+export CBWCE_PILOT_SEED=9001
+export CBWCE_DATASET_ROOT=data_traffic/revised
+export CBWCE_GATE=runs_eval/revised/verification/final_integration_20260914/gate.json
+
+python main.py experiment prepare
+python main.py experiment check --gate "$CBWCE_GATE"
+python main.py experiment prepare --materialize --network grid
+python main.py experiment prepare --materialize --network monaco
+```
+
+**Implementation.** [CLI](experiments/cli.py) dispatches to [preparation](experiments/prepare.py), [demand loading](experiments/demand.py), [scenario generation](experiments/scenarios.py) and [SUMO environment](envs/experiment_env.py).
+
+**Outputs and checks.** Each network has eleven training CSVs, eleven seen definitions, twelve test definitions and six validation definitions. Ten realizations per definition produce 290 artifacts per network, 580 total, including validation. Source CSVs remain unchanged. Inspect `check`'s `inputs`, `modules`, `gate` and `ready` fields: `ready=true` alone does not mean the gate passed, and the command can return normally while reporting a failed gate. Revalidate the named gate before publication. A missing prepared manifest/configuration currently falls back to original inputs; always run `prepare` and confirm `prepared=true` for this study.
+
+### Optional SUMO visualization
+
+**Interactive pilots:** the parent, frozen-WCE, continuation, evaluation and resume examples below include `--visualization`. The workspace defaults to visualization **On for pilots** and **Off for publication** when you choose the run type. You can select Off for a manual pilot; saved display choices are retained when reopening the page or switching language. To apply the new pilot default to an older saved form, select Publication and then Pilot again, or choose On directly. Automated `verify` runs stay headless. The CLI itself still defaults to headless when neither display flag is supplied.
+
+Add `--visualization` to `parent`, `wce`, `continue` or `evaluate` to show a separate local SUMO window. Use `--no-visualization`, or omit both flags, to keep it off. The flags are mutually exclusive; do not pass `--visualization false`. These options belong after `python main.py experiment <stage>` and are also available through the `revision.runner` compatibility wrapper.
+
+```bash
+# SUMO window on
+python main.py experiment parent --network grid --controller ia2c \
+  --seed 9001 --pilot --steps 160 --visualization
+
+# SUMO window off (also the default when neither flag is supplied)
+python main.py experiment parent --network grid --controller ia2c \
+  --seed 9001 --pilot --steps 160 --no-visualization
+```
+
+Choose one command, not both for the same intended run. Both are short pilots; publication budgets and learning parameters are unchanged. On the local workspace, select **SUMO visualization → On / Off** before clicking **Check & preview**. The selection persists when switching language and appears in the generated command and job request. It opens on the training computer, not inside the browser. Restart an already-running dashboard server to load the updated backend, then refresh the page; do not interrupt an active training job merely to refresh the interface.
+
+| Effective value | Meaning | Implementation/configuration source | Configurable? |
+|---|---|---|---|
+| CLI default `false`; workspace pilot default `true` | Headless SUMO; `true` opens `sumo-gui` and auto-starts playback | CLI `--visualization` / `--no-visualization`; `experiments/runner.py`, `envs/experiment_env.py`, `experiments/dashboard.py` | Per invocation / local workspace; not an INI field |
+
+A working `sumo-gui` executable and graphical desktop are required. On Linux, `DISPLAY` must identify an accessible X display; a Wayland-only variable does not provide an X display for SUMO. `check` reports `sumo_gui` and `display`, while GUI launch/preflight rejects missing prerequisites. A stale or inaccessible display can still fail at SUMO startup. Background preparation/route-materialization sessions remain headless. Each selected training/evaluation episode opens a GUI session with `--start --quit-on-end`; use SUMO's View Settings for colors/zoom and its Delay control for playback speed.
+
+The option applies at job start, not as a live switch. On resume, choose either display mode for the new attempt; checkpoint compatibility and original learning budget are unchanged. Keep visualization **off for timed publication comparisons** because rendering and playback delay add wall-clock overhead. The selected boolean is in `<run>/manifest.json` as `visualization`; each `runtime/startup_*.json` records its actual `visualization` and SUMO command. Constructor/bootstrap and suite route-preparation sessions can be headless even for a visualized job. Queue NPZ, traffic JSONL, checkpoints and result paths keep the formats described below.
+
+**Verification status after this change:** the 14 September gates remain historical evidence. Their source hashes no longer match the visualization implementation. Run `python main.py experiment verify --workers 4` and select its new passing gate before publication training. The focused visualization checks do not replace the full eight-case gate.
+
+### Networks and training profiles
+
+| Setting | Grid | Monaco |
+|---|---:|---:|
+| Signal controllers | 25 | 28 |
+| Unique controlled incoming lanes | 150 | 116 |
+| Explicit training profiles | 11 | 11 |
+| Reference demand per profile | 3,000 veh/hour | 2,383.3333 veh/hour |
+| Controller interval | 5 seconds | 5 seconds |
+| Yellow interval | 2 seconds | 2 seconds |
+| Demand-selection interval | 600 seconds | 600 seconds |
+| Training episode | 6,600 seconds | 6,600 seconds |
+| Controller-learning steps per full episode | 1,320 | 1,320 |
+
+Use the grid network under `large_grid/data/` and the Monaco network under `real_net_subnet/data/`. Confirm the actual network files referenced by each SUMO configuration before recording their hashes.
+
+Create normalized copies of the eleven established directional, center/periphery, and Uniform training profiles. Preserve OD proportions and store the original total and normalization factor. Initial training and baseline continuation use the original profile order: the grid's established eleven-profile alphabetical order and Monaco's explicit eleven-profile sequence. Record the filenames in order; do not infer them anew on each run.
+
+The legacy grid loader discovers **twelve** valid profiles, including `demand_5x5_sparse.csv`. An explicit eleven-profile training manifest is required so adding a test CSV cannot alter episode duration or WCE output dimension. Monaco also uses an explicit eleven-profile manifest in the revision.
+
+### Dataset validation and output organization
+
+Keep training, validation, and test datasets separate. Validate finite nonnegative rates, edge existence, and vehicle-class-compatible route connectivity. Failed routes must not silently disappear from the requested traffic.
+
+Use unique run and attempt identifiers. The integrated project uses these locations; historical files remain in place:
+
+```text
+config/revised/
+data_traffic/revised/{train,validation,test}/
+real_net_subnet/demand_groups/revised/{train,validation,test}/
+runs/revised/<network>/<controller>/seed_<seed>/<stage>/<run_id>/
+output_adversary/revised/                 # grid WCE
+output_adversary_monaco/revised/          # Monaco WCE
+output_coevolution/revised/               # grid continuations
+output_coevolution_real/revised/          # Monaco continuations
+runs_eval/revised/                       # evaluation and verification
+output_result/revised/                   # tables and report exports
+figs/revised/                            # scientific plots
+```
+
+Each run manifest records its method, stage, network, controller, seed streams, input hashes, exact parent checkpoints, step budgets, reward definition, and output location. Outputs record the effective values actually used.
+
+### Stage-to-output map
+
+| Root | Contents |
+|---|---|
+| `runs/revised/` | Both networks: parents and `baseline` continuations |
+| `output_adversary/revised/` | Grid offline WCE |
+| `output_adversary_monaco/revised/` | Monaco offline WCE |
+| `output_coevolution/revised/` | Grid four comparison continuations |
+| `output_coevolution_real/revised/` | Monaco four comparison continuations |
+| `runs_eval/revised/` | Evaluation; `verification/`, `preparation/`, `jobs/` records |
+| `output_result/revised/` | Report directories: CSV, JSON, PNG, SVG |
+| `figs/revised/` | Separately retained figure copies; not a second automatic report destination |
+
+The stage runner selects paths through [experiments/protocol.py](experiments/protocol.py): `<stage-root>/<network>/<controller>/seed_<seed>/<stage-or-method>/<run_id>/`. The stage component is `parent`, `wce`, or `evaluate`; continuations use the method ID. Generated run IDs contain `pilot_` or `publication_`, a UTC timestamp, and a random suffix. An explicit `--output` must name a new directory. A report with no `--output` currently gets a `pilot_`-prefixed directory even when reading publication data: classify observations by their manifests, not that report-directory prefix.
+
+## 3 Mandatory corrections and verification
+
+**All ten corrections must be implemented and verified before the full publication training matrix starts.** Each acceptance check below is an ongoing requirement; observed results and their exact validation scope are linked in Stage 0. Save its result and evidence under the verification run identifier. Historical source locations and observations are retained in the [archived audit](reviewer_revision_audit_2026-09-14.md).
+
+### C01 Apply evaluation seeds correctly
+
+**Required behavior.** Set `env.train_mode = False` before evaluation resets. Pass the intended rollout index and record the effective SUMO seed used by each simulation.
+
+**Acceptance check.** Request two different evaluation seeds and verify that the simulator receives them. Repeating a seeded evaluation must reproduce its exogenous demand realization.
+
+### C02 Separate demand and controller randomness
+
+**Required behavior.** Establish independent random streams for demand generation, controller action sampling, WCE sampling, replay sampling, and SUMO. For evaluation, materialize vehicle counts, departure times, OD pairs, route edge sequences, and speed factors before comparing controllers. Reuse the same complete artifact across methods.
+
+**Acceptance check.** Changing the controller or its action-sampling seed must not change the scheduled traffic artifact. Record actual vehicle insertion separately because congestion can delay entry. Training methods intentionally select different demand; the identical-artifact requirement applies to paired evaluation.
+
+### C03 Unify controller reward handling
+
+**Required behavior.** Use one controller reward-construction path for initial training and all five continuation methods. IA2C, PPO, and IQL-LR receive the prescribed shared network reward; MA2C receives the prescribed neighborhood-weighted reward. Apply the Section 4 normalization once and remove additional legacy normalization from the revised path, including unintended extra Monaco scaling.
+
+**Acceptance check.** Identical local queue measurements must yield identical learner reward vectors across methods for the same network/controller family.
+
+### C04 Update MA2C fingerprints consistently
+
+**Required behavior.** Update fingerprints in initial training, all continuation methods, frozen-controller WCE training, and evaluation. Reset fingerprints and recurrent states at episode boundaries. A frozen controller continues to update inference state and fingerprints while its learned parameters remain fixed.
+
+**Acceptance check.** Check that fingerprints reflect current policy outputs and reset correctly between episodes. Verify that frozen-controller model parameters do not change.
+
+### C05 Match IQL learning frequency
+
+**Required behavior.** Trigger IQL backward calls after every twenty newly collected controller-learning transitions once replay contains sufficient samples. Preserve replay capacity, sampling rules, and ten minibatch updates per agent per backward call. Frozen-controller simulation must not add replay samples or advance learning counters.
+
+**Acceptance check.** Compare controller-learning transitions, backward calls, and minibatch updates across equal-length runs of all five methods. Counts must match within each network/controller combination.
+
+### C06 Correct Monaco IQL interfaces
+
+**Required behavior.** Use the IQL inference interface rather than the actor-critic interface. Read replay through supported attributes rather than assuming an `.obs` field. Use greedy IQL inference for evaluation and offline WCE training, and the established exploration schedule during controller learning.
+
+**Acceptance check.** Run short Monaco IQL checks covering frozen-controller WCE training, continuation, checkpoint loading, and evaluation without signature or buffer-attribute errors.
+
+### C07 Align queue measurements and reward scaling
+
+**Required behavior.** Measure uncapped halting counts every second over globally deduplicated controlled incoming lanes. Use that measurement source for controller local costs, offline and online WCE rewards, and primary evaluation. Remove the revised path's grid queue-plus-wait objective and Monaco queue cap. Apply the formulas in Section 4.
+
+**Acceptance check.** Recompute controller costs and WCE rewards from saved lane measurements. They must agree with logged values after only the specified aggregation and scaling. Include a lane queue above ten vehicles in this check.
+
+### C08 Restore complete training state and reject failed loads
+
+**Required behavior.** Save model parameters, optimizer state, schedules, relevant buffers, recoverable random state, counters, and parent identifiers. Construct the checkpoint saver after optimizer variables exist. Missing or incompatible required checkpoints must stop the run; do not silently initialize a random model.
+
+Save regular resumable checkpoints at episode boundaries. At the exact-budget parent cutoff, flush pending on-policy samples with the correct bootstrap and save a declared stage-boundary checkpoint even if the episode is incomplete. All continuation methods then begin a fresh episode from that same saved training state. An interrupted episode restarts from the last complete checkpoint, with discarded computation recorded.
+
+**Acceptance check.** Verify restored parameters, optimizer variables, replay contents, schedules, random state, and counters. Compare the next learning update under controlled randomness. Confirm that missing and incompatible checkpoints fail explicitly.
+
+### C09 Reject incomplete evaluation rollouts
+
+**Required behavior.** Remove last-value and zero padding from the revised evaluation path. Validate timestamps, sample count, and the full 3,600-second horizon. Save failed or incomplete attempts with an explicit status and exclude them from performance summaries; do not convert them to zero-queue outcomes.
+
+**Acceptance check.** Deliberately interrupt a rollout and confirm it is flagged and excluded. A congested simulation that completes the full horizon is still valid. If an infrastructure failure is rerun, retain the failed attempt and reuse the prescribed checkpoint, demand, and seeds.
+
+### C10 Keep output provenance consistent
+
+**Required behavior.** Use a unique output directory and immutable input manifest for every run, recording network, demand, configuration, checkpoint, and seed identifiers. Partial reruns create separate attempt records and must not overwrite a full-run manifest or mix unrelated checkpoints.
+
+**Acceptance check.** Resolve every result to its actual inputs and checkpoint. Check expected versus completed rollout counts, and reject duplicate identifiers or incompatible manifests.
+
+## 4 Effective controller and WCE parameters
+
+The settings below describe the current corrected implementation. Read `MODEL_CONFIG` from `config/revised/config_<controller>_<large|real>.ini`, with `large` meaning Grid. [Controller adapter](agents/controller.py), [WCE adapter](agents/wce.py), [policy classes](agents/policies.py) and [measurement/reward code](experiments/core.py) determine the effective behavior. A JSON or INI field is not necessarily a live tuning switch: several publication constants are also enforced in code. Do not change a field and assume the whole protocol changed.
+
+### Controller settings and their meanings
+
+| Effective value | Meaning | Implementation/configuration source | Configurable? |
+|---|---|---|---|
+| IA2C/MA2C LR `0.0005`; PPO `0.0003`; IQL `0.0001` | Constant step size; no learning-rate decay is applied | `MODEL_CONFIG.lr_init`; `agents/controller.py` | INI; new configuration requires verification |
+| IA2C/MA2C batches: Grid `120`, Monaco `40`; PPO `120`; IQL `20` | On-policy sequence length for actor-critic/PPO; replay minibatch size for IQL | `MODEL_CONFIG.batch_size`; `Controller.observe/flush` | INI; cadence also has fixed rules below |
+| Actor-critic/PPO: wave FC `128`, wait FC `32`, LSTM `64`; MA2C fingerprint FC `64` | Compact recurrent policies; IQL uses a linear Q policy, without LSTM | `num_fw`, `num_ft`, `num_lstm`, `num_fp`; `agents/recurrent.py`, `agents/policies.py` | Widths: INI; architecture: code |
+| IA2C/MA2C: RMSProp; PPO/IQL: Adam | RMSProp decay `0.99`; actor-critic/PPO epsilon `1e-5`; IQL uses Adam defaults | `masked_loss`; `LRQPolicy.prepare_loss`; `rmsp_alpha`, `rmsp_epsilon` | Optimizer choice: code; named RMS fields: INI |
+| Controller discount `0.99` | Return/TD discount; separate from MA2C spatial weighting | `Controller.flush`; IQL `prepare_loss(..., .99)` | Fixed in code; changing INI `gamma` alone has no effect here |
+| Gradient norm limit `40` | Clips gradient global norm, not queue rewards | `MODEL_CONFIG.max_grad_norm`; controller loss code | INI |
+| Entropy coefficient `0.01`; value coefficient `0.5` | Recurrent loss is actor loss + `0.5 * value_coef * masked MSE` − entropy term: effective MSE multiplier `0.25`. IQL uses TD MSE only | `entropy_coef_init`, `value_coef`; `masked_loss` | INI coefficients; no entropy schedule in corrected adapter |
+| PPO clip `0.2`; epochs `4`; advantage normalization `true` | Ratio bounded to `[0.8,1.2]`; four passes reuse the same starting recurrent state | `masked_loss`, `Controller.flush`; `ppo_adv_norm` | Clip/epochs: code; advantage normalization: INI |
+| MA2C neighborhood weight `0.9` | Negative local queue plus weighted immediate-neighbor queues | `experiments/core.py: QueueMetric.rewards` | Fixed in code |
+| IQL replay `1000`; learn every `20`; `10` minibatches per agent | Ring-buffer replacement; sample without replacement; replay readiness is an additional condition | `Controller.observe/_update_iql` | Capacity/cadence/update count: code; minibatch size: INI |
+| IQL epsilon `max(0.01, 1 − scheduler_steps / 500000)` | Counter advances only during learning, before action selection; reaches floor at `495000`, remains `0.01` in continuation | `Controller.epsilon/act` | Fixed in code; legacy epsilon INI schedule is not used |
+| CPU only; TF intra/inter threads `1/1` | Both controller and WCE sessions disable GPU; BLAS/OMP variables control their own libraries | `Controller.__init__`, `WCE.__init__`; setup shell variables | TF/GPU: code; BLAS/OMP: environment |
+
+Batch meanings differ: IA2C/MA2C collect an on-policy sequence; PPO reuses that sequence for four epochs; IQL samples replay minibatches independently of its twenty-transition collection clock. Differences between algorithms or networks are permitted. All five methods within one network/controller combination must retain the same values and cadence.
+
+**Exploration clarification.** Earlier prose described a decay over the first 500,000 steps. The implemented formula reaches 0.01 at 495,000, and the first sampled learning action uses the already-incremented counter. This guide records that distinction; no schedule has been changed. Frozen WCE-training/evaluation controllers use greedy IQL actions and do not advance the schedule.
+
+**Retained legacy fields.** `reward_norm`, `reward_clip`, `TRAIN_CONFIG.total_step`, `test_interval`, `log_interval`, automatic `resume/resume_step`, learning-rate/entropy-decay fields and IQL epsilon/buffer settings in old INIs do not supply those controls to the corrected loop. PPO clip/epoch INI values currently match the constants but do not drive them. Explicit CLI checkpoint arguments control loading. Model INI contents still participate in checkpoint signatures, so even changing an unused field can invalidate compatibility.
+
+### Timing, budgets and normalization
+
+| Effective value | Meaning | Implementation/configuration source | Configurable? |
+|---|---|---|---|
+| Controller `5 s` = yellow `2 s` + green `3 s` | One joint decision; queue is measured after every simulated second, including yellow | `envs/experiment_env.py: step/_simulate` | Fixed in corrected code |
+| Training `6600 s`; `11 × 600 s`; `1320` joint transitions | Episode and demand-block clocks; evaluation uses `3600 s` / `720` transitions | `experiments/runner.py`; `experiment_env.py` | Protocol records these values; loops also contain constants |
+| Queue scale `100`; clipping disabled | Divide learner rewards and WCE block cost exactly once; evaluation remains in vehicles | `experiments/core.py: QueueMetric` | Fixed in code; not legacy `reward_norm/reward_clip` |
+| Parent `1000000`; continuation `1320000`; offline WCE `500` episodes | Budgets count real learning transitions; WCE adds frozen simulation only | `config/revised/protocol.json`; runner goal selection | Protocol budgets; pilot-only `--steps/--episodes`; publication checks also enforce fixed totals |
+
+### Queue metric and controller reward
+
+Let $L$ be the fixed unique set of controlled incoming lanes, and let $q_\ell(t)$ be its uncapped halting count sampled every second. Define:
+
+$$
+Q(t)=\sum_{\ell\in L}q_\ell(t),\qquad
+J_Q=\frac{1}{H}\sum_{t=1}^{H}Q(t).
+$$
+
+Report $J_Q$ as **mean total queue on controlled approaches**, in vehicles; lower is better. The audited lane counts are 150 for the grid and 116 for Monaco. Store and validate the exact lane lists. SUMO's lane halting count uses speed below 0.1 m/s. [SUMO lane-value documentation](https://sumo.dlr.de/docs/TraCI/Lane_Value_Retrieval.html)
+
+For each five-second controller transition, average each junction's local queue over all five seconds. For IA2C, PPO, and IQL-LR, supply the negative mean network queue to each agent. For MA2C, supply the negative local mean queue plus the negative neighboring local means weighted by 0.9. Divide the resulting learner reward by 100 **once** and disable reward clipping. Do not retain an additional Monaco-specific divisor in this revised reward path.
+
+### WCE settings and update behavior
+
+| Effective value | Meaning | Implementation/configuration source | Configurable? |
+|---|---|---|---|
+| Grid CNN: conv `32/64`, FC `128`; Monaco GCN: two `64`-wide layers | Grid uses ordered wave/wait features; Monaco uses normalized lane-wave features without controller fingerprints | `agents/wce.py`; active Gaussian policy classes in `agents/policies.py`; `wce_observation` | Architecture/features: code |
+| Action dimension `11`; Gaussian logits → softmax | Dedicated recoverable WCE RNG draws noise; demand-mixture weights are nonnegative and sum to one | `WCE.act`; `Streams` | Fixed in code and eleven-profile contract |
+| WCE LR `0.0005`; RMSProp decay `0.99`, epsilon `1e-5` | Optimizer settings; the `0.99` argument in WCE `prepare_loss` is RMSProp decay, not return discount | `WCE.__init__/observe`; Gaussian policy loss | Fixed in code |
+| WCE entropy `0.01`; value coefficient `0.5`; gradient norm `40` | Gaussian actor-critic loss and gradient control | `WCE` and Gaussian policy `prepare_loss/backward` | Fixed in code |
+| WCE discount `1.0`; batch `11` macro transitions | Reverse cumulative sum of eleven block rewards; one update after a full episode when learning is enabled | `WCE.observe` | Fixed in code; not read from controller INI gamma |
+| Actions every `600` seconds; no extra reward scaling/clipping | Fixed WCE parameters do not imply fixed demand-mixture weights; online and fixed use the same sampling rule | `experiments/runner.py`; `QueueMetric.wce` | Fixed in code |
+
+Compute the WCE reward directly from canonical queue measurements, not by summing transformed controller rewards:
+
+$$
+r_{\mathrm{WCE},k}=\frac{1}{100}\frac{1}{600}\sum_{t\in k}Q(t).
+$$
+
+WCE maximizes positive queue cost; controllers learn from negative queue rewards. Evaluation uses unscaled $J_Q$. With eleven equal-duration blocks and WCE discount 1.0, the summed WCE rewards are proportional to the episode's mean queue.
+
+Fixed and online WCE must share the same initial checkpoint, architecture, observations, and action-sampling rule. Demand-mixture weights may change every 600 seconds in both methods. Only online WCE updates model parameters between episodes.
+
+## 5 Initial baseline training
+
+### Stage 0 Set up and verify
+
+**Prerequisites:** Section 2 inputs and C01–C10.
+
+The integrated runner implements the corrections. After integration, run fresh checks for all eight network/controller combinations. Exercise the five continuation methods and the frozen-controller WCE path. Use pilot seeds outside publication seed sets, record the evidence for each correction, and resolve failures before full training. Pilot results are debugging evidence, not publication observations.
+
+**Output:** Validated input manifests and a verification record showing that every required check has passed. The current [integration report](docs/INTEGRATION_REPORT.md) links the accepted pilot evidence and source-specific gate. Revalidate the gate whenever implementation or experiment inputs change.
+
+### Stage 0 command reference and accepted evidence
+
+**Purpose/prerequisites:** Establish the source-specific C01–C10 gate after preparing inputs. **Input:** current source and dataset/configuration hashes; no parent checkpoint is required. **Pilot command:** the verifier runs all eight network/controller combinations with pilot budgets. **Publication prerequisite command:** `check --gate` validates the selected evidence without starting training.
+
+The final gate from 14 September is linked below. Reuse it only if `check` reports `gate: passed`. Run `verify` again when the gate is stale or new verification is needed, then replace the placeholder with its printed gate path. Do not run the verification matrix merely to read this guide.
+
+```bash
+python main.py experiment check --gate "$CBWCE_GATE"
+python main.py experiment verify --workers 4
+
+export CBWCE_GATE='REPLACE_WITH_THE_NEW_VERIFICATION_GATE_JSON'
+python main.py experiment check --gate "$CBWCE_GATE"
+```
+
+**Scripts:** [experiments/verify.py](experiments/verify.py), [correction tests](tests/test_corrections.py), [workflow tests](tests/test_workflow.py), using the same corrected runner. **Output:** `runs_eval/revised/verification/<run_id>/gate.json`, test logs and one case directory per network/controller. **Completion:** all eight cases and all tests pass, and the selected gate matches source, input and evidence hashes.
+
+**Existing evidence:** [integration report](docs/INTEGRATION_REPORT.md), [eight-case gate](runs_eval/revised/verification/integrated_20260914/gate.json), [accepted final gate](runs_eval/revised/verification/final_integration_20260914/gate.json), and [focused validation scope](runs_eval/revised/verification/final_integration_20260914/validation_scope.json). The eight-case pilots include 40 continuations, eight resume checks, 64 complete evaluations and eight deliberate interruptions. Subsequent identity/suite-label/timer/report fixes passed 18 tests, seven HTTP checks and one additional complete evaluation. The full eight-case matrix was not rerun after those focused interface fixes; learner/environment/configuration logic did not change. These are recorded results, not new tests performed by this documentation update.
+
+### Stage I Train common parent controllers
+
+**Required checks:** C02–C08 and C10 must remain active during training.
+
+Use master training seeds `101, 202, 303, 404, 505`. For each network/controller/seed combination:
+
+1. Initialize a fresh controller with the revised queue reward and fixed configuration.
+2. Train under the original sequential schedule of eleven normalized demand profiles.
+3. Stop at exactly **1,000,000 controller-learning steps**, including a partial final episode if necessary.
+4. Flush the final partial on-policy batch with correct bootstrapping. Save after that update; preserve IQL replay and schedule state as applicable.
+5. Save the full common parent checkpoint, cumulative counters, input hashes, seed streams, and stage timing.
+
+**Output:** 40 independent parent checkpoints. Five continuations from one trained parent cannot substitute for five independently trained parents.
+
+This parent is not the final baseline result. The baseline continues to the same final budget as the four comparison methods in Stage III.
+
+### Stage I commands, scripts and saved state
+
+**Purpose and required inputs:** Train a fresh common parent using the ordered eleven-profile manifest and effective INI. No `--parent`, `--wce` or `--resume` is supplied. Confirm C02–C08/C10 and the selected network/controller/seed.
+
+**Pilot command:** 160 real learning transitions. A 120-step rollout uses one full batch plus 40 real entries in a masked partial batch. The pilot is a mechanics check, not a trained publication parent.
+
+```bash
+python main.py experiment parent --network "$CBWCE_NETWORK" \
+  --controller "$CBWCE_CONTROLLER" --seed "$CBWCE_PILOT_SEED" \
+  --pilot --visualization --steps 160 --checkpoint-every 1
+```
+
+**Publication command:** exactly 1,000,000 learning transitions; do not pass `--steps` or `--episodes`.
+
+```bash
+python main.py experiment parent --network "$CBWCE_NETWORK" \
+  --controller "$CBWCE_CONTROLLER" --seed "$CBWCE_SEED" --gate "$CBWCE_GATE"
+```
+
+**Scripts:** `main.py` → [experiments/cli.py](experiments/cli.py) → [experiments/runner.py](experiments/runner.py); learning in [agents/controller.py](agents/controller.py), measurements in [envs/experiment_env.py](envs/experiment_env.py).
+
+**Output:** `runs/revised/<network>/<controller>/seed_<seed>/parent/<run_id>/`. The final checkpoint is `checkpoint_000000160` for this pilot or `checkpoint_001000000` for publication. Inspect the run's `result.json`: require `status=complete`, the expected `learning_steps`, and its explicit `checkpoint` field. The CLI also prints the returned checkpoint path. Copy that exact path into the relevant variable below; `REPLACE_...` strings are deliberately non-executable placeholders, not checkpoint names. Set only the mode you have actually trained.
+
+```bash
+export CBWCE_PARENT_PILOT='REPLACE_WITH_COMPLETED_PILOT_PARENT_CHECKPOINT'
+export CBWCE_PARENT='REPLACE_WITH_COMPLETED_PUBLICATION_PARENT_CHECKPOINT'
+python main.py experiment check --checkpoint "$CBWCE_PARENT"
+```
+
+**Completion:** the parent contains model and optimizer variables, buffers, counters and RNG state. Never substitute a historical weight-only checkpoint or treat five continuations from one seed as five independent parents.
+
+## 6 WCE training against frozen controllers
+
+### Stage II Train and save the common WCE
+
+**Required checks:** C02–C04, C06–C08, and C10. C05 counters must confirm that frozen-controller learning remains disabled.
+
+For each Stage I parent:
+
+1. Load the exact **1,000,000-step parent checkpoint** and freeze learned controller parameters.
+2. Disable controller optimization, replay insertion, and learning-schedule advancement. Continue correct inference-state and MA2C fingerprint updates, resetting state between episodes.
+3. Use sampled policy actions for IA2C/MA2C/PPO and greedy IQL actions while generating WCE training experience.
+4. Train WCE for **500 episodes**, giving **5,500 macro transitions**. Each macro transition includes a 600-second block, or 120 frozen-controller simulation steps.
+5. Save the final WCE checkpoint, its exact parent identity, counters, and timing. Verify that controller parameters remained unchanged.
+
+**Output:** 40 pretrained WCE checkpoints. Each WCE run adds **660,000 frozen-controller simulation steps**; none is counted toward the controller-learning budget.
+
+Use the same saved WCE as the initial model for `fixed_wce` and `online_wce`. The other three methods do not require WCE training for their standalone operation.
+
+### Stage II commands, scripts and saved state
+
+**Purpose and inputs:** Learn challenging mixtures against the corresponding frozen parent. The selected parent must match network, controller and training seed. Publication WCE must start from the one-million-step parent; the pilot below starts from its 160-step test parent. Disable controller optimization, replay insertion and learning-schedule advancement while retaining inference-state/fingerprint updates.
+
+**Pilot command:** two episodes, 22 macro transitions and 2,640 frozen-controller simulation steps.
+
+```bash
+python main.py experiment wce --network "$CBWCE_NETWORK" \
+  --controller "$CBWCE_CONTROLLER" --seed "$CBWCE_PILOT_SEED" \
+  --parent "$CBWCE_PARENT_PILOT" --pilot --visualization --episodes 2 --checkpoint-every 1
+```
+
+**Publication command:** 500 episodes, 5,500 macro transitions and 660,000 frozen-controller simulation steps.
+
+```bash
+python main.py experiment wce --network "$CBWCE_NETWORK" \
+  --controller "$CBWCE_CONTROLLER" --seed "$CBWCE_SEED" \
+  --parent "$CBWCE_PARENT" --gate "$CBWCE_GATE"
+```
+
+**Scripts:** shared `experiments/runner.py`, [agents/wce.py](agents/wce.py), shared controller and environment adapters. **Output:** Grid `output_adversary/revised/<network>/<controller>/seed_<seed>/wce/<run_id>/`; Monaco uses `output_adversary_monaco/revised/`. Final checkpoint suffix is `000002640` for this pilot or `000660000` for publication. The WCE bundle also contains the frozen controller; its controller-learning count remains 160 or 1,000,000 respectively.
+
+Select the exact checkpoint from the completed run's `result.json`, then set:
+
+```bash
+export CBWCE_WCE_PILOT='REPLACE_WITH_COMPLETED_PILOT_WCE_CHECKPOINT'
+export CBWCE_WCE='REPLACE_WITH_COMPLETED_PUBLICATION_WCE_CHECKPOINT'
+```
+
+**Completion:** controller parameters/counters unchanged, WCE update count two or 500, and checkpoint parent hash identifies the exact controller used. Both fixed and online continuation must use this same pretrained WCE for the corresponding parent.
+
+## 7 Baseline continuation and comparison training
+
+### Stage III Train the five continuation methods
+
+**Required checks:** C02–C08 and C10; use the same controller interaction/update path across methods.
+
+1. Create five controller copies from the identical Stage I model, optimizer, schedule, replay, and recorded training state for each network/controller/seed combination. Begin a fresh episode and reset recurrent state consistently.
+2. Apply the demand rule from Section 1 for the chosen method.
+3. Collect exactly **1,320,000 additional controller-learning steps**, equivalent to 1,000 full revised episodes. Stop at **2,320,000 cumulative steps**.
+4. Keep controller reward construction, batch schedules, IQL update frequency, PPO epochs, checkpoint policy, and failure handling equal across methods within that network/controller combination.
+5. Save each exact final-budget checkpoint and its parent identity. Record controller-learning steps, optimizer calls, minibatch updates, WCE decisions/updates, and wall-clock components.
+
+**Method behavior:** `baseline` continues the original sequential schedule. `random_group` selects one of eleven profiles with equal probability and uses a one-hot vector. `domain_randomization` samples nonnegative mixture weights summing to one; it combines OD rates from all profiles using `Dirichlet(1,…,1)` weights. Because training profiles share the same total demand, both methods preserve the expected total rate while changing its spatial allocation.
+
+`fixed_wce` performs state-dependent inference but stores no WCE learning transitions and makes no WCE optimizer updates. `online_wce` records WCE transitions and updates after eleven macro transitions at the episode boundary. Its continuation includes 11,000 WCE learning transitions and 1,000 episode updates.
+
+**Output:** 200 final controller checkpoints: 40 extended baselines and 160 controllers across the four comparison methods. The one-million-step parents are not an additional comparison method.
+
+### Stage III commands for all five methods
+
+**Purpose/inputs:** Fork five complete controller states from the same selected parent. Fixed/online methods additionally require the same WCE, whose recorded parent hash must match. Other methods must not load WCE. A method's demand choices may differ, but its controller architecture, reward path and update cadence must not.
+
+**Pilot commands:** choose one command at a time. Each adds 2,640 learning steps, reaching 2,800 from the 160-step parent. The fixed/online pilots span two full episodes, allowing the frozen/updated distinction to be checked.
+
+```bash
+python main.py experiment continue --network "$CBWCE_NETWORK" \
+  --controller "$CBWCE_CONTROLLER" --seed "$CBWCE_PILOT_SEED" \
+  --method baseline --parent "$CBWCE_PARENT_PILOT" \
+  --pilot --visualization --steps 2640 --checkpoint-every 1
+
+python main.py experiment continue --network "$CBWCE_NETWORK" \
+  --controller "$CBWCE_CONTROLLER" --seed "$CBWCE_PILOT_SEED" \
+  --method random_group --parent "$CBWCE_PARENT_PILOT" \
+  --pilot --visualization --steps 2640 --checkpoint-every 1
+
+python main.py experiment continue --network "$CBWCE_NETWORK" \
+  --controller "$CBWCE_CONTROLLER" --seed "$CBWCE_PILOT_SEED" \
+  --method domain_randomization --parent "$CBWCE_PARENT_PILOT" \
+  --pilot --visualization --steps 2640 --checkpoint-every 1
+
+python main.py experiment continue --network "$CBWCE_NETWORK" \
+  --controller "$CBWCE_CONTROLLER" --seed "$CBWCE_PILOT_SEED" \
+  --method fixed_wce --parent "$CBWCE_PARENT_PILOT" \
+  --pilot --visualization --steps 2640 --checkpoint-every 1 --wce "$CBWCE_WCE_PILOT"
+
+python main.py experiment continue --network "$CBWCE_NETWORK" \
+  --controller "$CBWCE_CONTROLLER" --seed "$CBWCE_PILOT_SEED" \
+  --method online_wce --parent "$CBWCE_PARENT_PILOT" \
+  --pilot --visualization --steps 2640 --checkpoint-every 1 --wce "$CBWCE_WCE_PILOT"
+```
+
+**Publication commands:** choose one command at a time. Each adds exactly 1,320,000 learning steps and finishes at 2,320,000. These commands do not form an automatic campaign queue.
+
+```bash
+python main.py experiment continue --network "$CBWCE_NETWORK" \
+  --controller "$CBWCE_CONTROLLER" --seed "$CBWCE_SEED" \
+  --method baseline --parent "$CBWCE_PARENT" \
+  --gate "$CBWCE_GATE"
+
+python main.py experiment continue --network "$CBWCE_NETWORK" \
+  --controller "$CBWCE_CONTROLLER" --seed "$CBWCE_SEED" \
+  --method random_group --parent "$CBWCE_PARENT" \
+  --gate "$CBWCE_GATE"
+
+python main.py experiment continue --network "$CBWCE_NETWORK" \
+  --controller "$CBWCE_CONTROLLER" --seed "$CBWCE_SEED" \
+  --method domain_randomization --parent "$CBWCE_PARENT" \
+  --gate "$CBWCE_GATE"
+
+python main.py experiment continue --network "$CBWCE_NETWORK" \
+  --controller "$CBWCE_CONTROLLER" --seed "$CBWCE_SEED" \
+  --method fixed_wce --parent "$CBWCE_PARENT" \
+  --gate "$CBWCE_GATE" --wce "$CBWCE_WCE"
+
+python main.py experiment continue --network "$CBWCE_NETWORK" \
+  --controller "$CBWCE_CONTROLLER" --seed "$CBWCE_SEED" \
+  --method online_wce --parent "$CBWCE_PARENT" \
+  --gate "$CBWCE_GATE" --wce "$CBWCE_WCE"
+```
+
+**Scripts:** all commands share `experiments/runner.py` and `agents/controller.py`; only demand selection and WCE updating vary. **Output:** baseline goes to `runs/revised/`; the other four go to `output_coevolution/revised/` (Grid) or `output_coevolution_real/revised/` (Monaco), followed by `<network>/<controller>/seed_<seed>/<method>/<run_id>/`.
+
+**Completion:** `result.json` records the expected cumulative learning count and `stage_simulation_steps`. Fixed WCE has unchanged parameters; online WCE gains 1,000 updates over publication continuation, from 500 pretrained to 1,500 total. `checkpoint_001320000` counts additional stage steps, not total learning. Choose each method's exact final controller for evaluation; do not evaluate the parent as the equal-budget baseline.
+
+### Checkpoint selection, stopping and resume
+
+The default `--checkpoint-every 10` saves every ten complete episodes and at stage completion. `--checkpoint-every 1` saves every full episode. A parent also saves at its exact-budget cutoff after correctly bootstrapping/masking a partial on-policy batch. A 1,000,000-step parent contains 757 complete 1,320-step episodes plus 760 transitions; a 120-step batch leaves 40 real samples at the cutoff. Padding contributes no learner loss and adds no environment transitions.
+
+Read counters from checkpoint state and `result.json`, not filenames alone. Preserve the originating run's `manifest.json` in the parent directory of `checkpoint_*`; moving only a checkpoint directory loses the origin identity required by the current loader. Keep the complete bundle, not just its TensorFlow weights. Use only trusted locally produced pickle state.
+
+Stopping retains the interrupted attempt and closes its owned SUMO connection. Resume starts a fresh episode in a new output directory, restoring the last complete checkpoint. Work after that checkpoint is discarded but its attempt/timing records remain. There is no mid-SUMO-state resume. If no complete checkpoint exists, restart that stage. The stage, method, network, controller, seed, goal and parent/WCE identities must agree; the original total stage budget is not an extra budget added after resume.
+
+**Pilot and publication online-WCE resume examples:**
+
+```bash
+export CBWCE_RESUME_PILOT='REPLACE_WITH_COMPLETE_SAME_STAGE_PILOT_CHECKPOINT'
+python main.py experiment continue --network "$CBWCE_NETWORK" \
+  --controller "$CBWCE_CONTROLLER" --seed "$CBWCE_PILOT_SEED" \
+  --method online_wce --parent "$CBWCE_PARENT_PILOT" --wce "$CBWCE_WCE_PILOT" \
+  --pilot --visualization --steps 2640 --checkpoint-every 1 --resume "$CBWCE_RESUME_PILOT"
+
+export CBWCE_RESUME='REPLACE_WITH_COMPLETE_SAME_STAGE_PUBLICATION_CHECKPOINT'
+python main.py experiment continue --network "$CBWCE_NETWORK" \
+  --controller "$CBWCE_CONTROLLER" --seed "$CBWCE_SEED" \
+  --method online_wce --parent "$CBWCE_PARENT" --wce "$CBWCE_WCE" \
+  --gate "$CBWCE_GATE" --resume "$CBWCE_RESUME"
+```
+
+For parent resume use `parent --resume ...` without parent/WCE arguments; for offline WCE resume use `wce --parent ... --resume ...` without a pretrained `--wce`. Retain the original pilot `--steps` or `--episodes` when applicable. Do not reuse `--output` from the interrupted run. Select the complete checkpoint explicitly; the dashboard's “last checkpoint” refers to that selected job, not a global latest-file search.
+
+## 8 Evaluation timing and completion checks
+
+### Stage IV Freeze evaluation inputs
+
+**Required checks:** C01, C02, C04, C06–C10. Controller and WCE parameter learning is disabled during evaluation.
+
+Evaluate the exact 2,320,000-step controller checkpoints on eleven seen profiles and twelve new scenarios per network. Use ten paired rollouts per scenario, a 3,600-second horizon, an empty initial network, and no drainage extension. Include startup in the primary average. Sample IA2C/MA2C/PPO actions and use greedy IQL actions, resetting the independent policy stream for every rollout.
+
+Materialize complete demand artifacts before evaluation. Reuse a given scenario/arrival realization across all methods and controller seeds, together with its prescribed SUMO seed. Retain actual insertion, pending departures, and residual traffic as outcomes. WCE does not adapt the held-out test demand during this common evaluation.
+
+### Stage IV commands, scripts and output nesting
+
+**Purpose/prerequisites:** Evaluate one explicitly selected final controller against frozen traffic artifacts. C01/C02/C09/C10 apply to every rollout. Use the completed continuation's `result.json.checkpoint`; keep network/controller/training seed consistent. Set only the applicable variable:
+
+```bash
+export CBWCE_FINAL_PILOT='REPLACE_WITH_SELECTED_COMPLETED_PILOT_CONTINUATION_CHECKPOINT'
+export CBWCE_FINAL='REPLACE_WITH_SELECTED_COMPLETED_PUBLICATION_CONTINUATION_CHECKPOINT'
+```
+
+**Pilot command:** one complete 3,600-second realization of the 1.25× peak; the model can have pilot learning counts.
+
+```bash
+python main.py experiment evaluate --network "$CBWCE_NETWORK" \
+  --controller "$CBWCE_CONTROLLER" --seed "$CBWCE_PILOT_SEED" \
+  --parent "$CBWCE_FINAL_PILOT" --pilot --visualization --suite test --scenario peak_1.25 --rollouts 1
+```
+
+**Publication command:** the controller must have exactly 2,320,000 learning steps; each scenario receives ten realizations. This evaluates one controller, not the whole study. The CLI evaluator checks checkpoint identity/budget but does not itself require/validate `--gate` as training stages do, so run the explicit gate check first. The local launcher requires a valid gate for publication evaluation too.
+
+```bash
+python main.py experiment check --gate "$CBWCE_GATE"
+python main.py experiment evaluate --network "$CBWCE_NETWORK" \
+  --controller "$CBWCE_CONTROLLER" --seed "$CBWCE_SEED" \
+  --parent "$CBWCE_FINAL" --gate "$CBWCE_GATE" --suite all --rollouts 10
+```
+
+**Suite selectors:** `--suite seen` = eleven seen profiles; `--suite test` = twelve new scenarios; `--suite validation` = six independent validation scenarios; `--suite all` = seen + test only. `--scenario` selects an exact ID within that suite, for example `peak_1.25` or `peak_1.5`. `--rollouts` accepts 1–10 for pilots; non-pilot suite evaluation requires ten. Validation example:
+
+```bash
+python main.py experiment evaluate --network "$CBWCE_NETWORK" \
+  --controller "$CBWCE_CONTROLLER" --seed "$CBWCE_PILOT_SEED" \
+  --parent "$CBWCE_FINAL_PILOT" --pilot --visualization --suite validation --rollouts 1
+```
+
+**Single-artifact pilot/retry:** omit `--suite`, explicitly supply the complete artifact and its paired simulator/policy seeds. Below reproduces suite rollout index 0 (arrival 51001, SUMO 61001). For other repetitions use the original artifact, seeds and checkpoint from that attempt's manifest. The direct evaluator's default policy seed `71001` is not the suite-derived policy seed, so do not rely on it for paired retries.
+
+```bash
+export CBWCE_ARTIFACT="$CBWCE_DATASET_ROOT/test/artifacts/peak_1.25_51001.json"
+export CBWCE_POLICY_SEED="$(python -c 'import os; from experiments.core import digest; print(int(digest(["evaluation-policy", int(os.environ["CBWCE_PILOT_SEED"]), 0])[:8], 16))')"
+python main.py experiment evaluate --network "$CBWCE_NETWORK" \
+  --controller "$CBWCE_CONTROLLER" --seed "$CBWCE_PILOT_SEED" \
+  --parent "$CBWCE_FINAL_PILOT" --pilot --visualization --artifact "$CBWCE_ARTIFACT" \
+  --sumo-seed 61001 --policy-seed "$CBWCE_POLICY_SEED"
+```
+
+**Scripts:** [experiments/cli.py](experiments/cli.py) enumerates suites and generates/reuses artifacts through [experiments/scenarios.py](experiments/scenarios.py). [experiments/runner.py](experiments/runner.py) runs the frozen controller, exports measurements and trip summaries; [experiments/core.py](experiments/core.py) validates the exact timestamps. The selected continuation's method is inferred from its origin manifest; evaluating `online_wce` therefore labels its results correctly even without an explicit `--method`.
+
+**Output and completion:**
+
+```text
+runs_eval/revised/<network>/<controller>/seed_<seed>/evaluate/<run_id>/
+  suite.json
+  suite_result.json                         # written only on complete suite
+  demand_runtime/                           # route-resolution startup/trips
+  <seen|test|validation>/<scenario>/rollout_01/attempt_001/
+    manifest.json
+    environment.json
+    progress.jsonl
+    rollout.npz
+    rollout.jsonl
+    rollout.controls.jsonl
+    rollout_summary.json
+    result.json
+    runtime/
+```
+
+One selected `all` suite has 230 completed rollouts. Require each rollout's `status=complete`, `sample_count=3600`, exact timestamps 1…3600, correct checkpoint/demand hashes and effective seed. A standalone artifact evaluation writes the rollout files directly in its run directory, without the suite nesting. Failed attempts retain `result.json` and, if measurements exist, `incomplete_attempt.*`; they do not yield valid summary rows.
+
+Training `--resume` is not a suite-skip/resume feature. A new suite attempt starts its chosen scenarios/rollouts from the beginning. To rerun only a particular failed realization, use its single artifact and exact paired seeds in a new `--output` directory under the evaluation root. Never overwrite `attempt_001` or report duplicate valid attempts as extra replicates.
+
+### New scenarios and seed assignments
+
+<a id="traffic-generation"></a>
+
+#### 1. Start from each network's eleven OD profiles
+
+Validation and test traffic are **synthetic scenarios derived from the existing OD-rate profiles**, not new measured traffic recordings and not scenarios produced by the trained WCE. An OD row specifies an origin road edge, a destination road edge, and a requested rate in vehicles/hour. The same generation procedure is applied separately to the two networks:
+
+| Network | Original profile source | Prepared dataset root | Reference total rate |
+|---|---|---|---:|
+| Grid | `data_traffic/demand_<name>.csv` | `data_traffic/revised/` | 3,000 veh/hour |
+| Monaco | `real_net_subnet/demand_groups/<name>.csv` | `real_net_subnet/demand_groups/revised/` | 2,383.3333 veh/hour |
+
+For each source profile, [original_profiles](experiments/demand.py) multiplies every OD rate by `reference_total / original_total`. This preserves its OD proportions while giving all eleven profiles the same total within a network. [prepare](experiments/prepare.py) writes separate normalized training CSVs and an ordered hash manifest; original CSVs remain unchanged. The active road networks are `large_grid/data/exp.net.xml` and `real_net_subnet/data/in/most.net.xml`.
+
+**Ordering matters:** Grid uses alphabetical order of the eleven profile names; Monaco uses `ORDER` in `experiments/demand.py`: `N_to_S`, `S_to_N`, `W_to_E`, `E_to_W`, `NW_to_SE`, `SE_to_NW`, `SW_to_NE`, `NE_to_SW`, `Periphery_to_Center`, `Center_to_Periphery`, `Uniform`. Read each `train/manifest.json` when interpreting an eleven-element mixture vector. Reusing a numeric seed across networks does not imply identical OD allocations, routes or vehicle schedules.
+
+#### 2. Build fixed 3,600-second scenario definitions
+
+[definitions](experiments/scenarios.py) creates the schedule; [block_rows](experiments/scenarios.py) turns each block into OD rates. Every scenario covers seconds `[0,3600)` without gaps. The evaluation block lengths below can differ from the 600-second WCE training blocks.
+
+| Family | Test scenarios / generation seeds | Validation scenarios / generation seeds | Construction and purpose |
+|---|---|---|---|
+| OD redistribution | `redistribution_0.25`, `redistribution_0.5`, `redistribution_0.75` / `41001–41003` | `redistribution_0.35`, `redistribution_0.65` / `31001–31002` | Multiply Uniform-profile OD rates by lognormal factors with the named log-space SD; renormalize to reference total. Test new spatial allocations at fixed load. |
+| Convex mixtures | `mixture_1`, `mixture_2`, `mixture_3` / `41004–41006` | `mixture_1`, `mixture_2` / `31003–31004` | Draw one `Dirichlet(1,…,1)` vector per scenario and combine eleven profiles. Keep that mixture fixed for all 3,600 seconds. |
+| Temporal switching | `switch_300`, `switch_900`, `switch_1200` / `41007–41009` | `switch_450` / `31005` | Start with `N_to_S`, alternate with `W_to_E` at the named interval, and stop at 3,600 seconds. Test new demand timing at fixed total rate. |
+| Peak intensity | `peak_1.1`, `peak_1.25`, `peak_1.5` / `41010–41012` | `peak_1.15` / `31006` | Uniform demand at reference rate for `[0,1200)`, multiplied by the named factor for `[1200,2400)`, then reference rate for `[2400,3600)`. Test higher intensity. |
+
+For OD redistribution, with normalized Uniform rates $u_i$ and network reference rate $R$:
+
+$$
+z_i\sim\operatorname{Lognormal}(0,\sigma),\qquad
+r_i=R\frac{u_i z_i}{\sum_j u_j z_j}.
+$$
+
+Zero rates remain zero; this does not create new OD connections. Here, sigma is the standard deviation of the underlying normal distribution, not the coefficient of variation of traffic counts. For mixtures, the rate of OD pair $i$ is $r_i=\sum_{g=1}^{11}w_g r_{g,i}$; missing OD entries contribute zero, repeated pairs are summed, and $\sum_g w_g=1$. Mixtures are within the demand family accessible to WCE: describe them as compositional generalization, not automatically out-of-distribution demand.
+
+The temporal and peak schedules are deterministic: their `generation_seed` is a recorded identifier, not a random draw used to choose the switch/peak settings. The redistribution and mixture families actually use that seed for their random factors/weights. Test settings are currently specified in `experiments/scenarios.py`; validation settings and seed lists are recorded in [protocol.json](config/revised/protocol.json). Keep the generated definitions frozen before training/tuning.
+
+#### 3. Turn rates into complete vehicle schedules
+
+A scenario definition is not yet a list of vehicles. [artifact_for](experiments/scenarios.py) creates a fresh `RandomState(arrival_seed)` and passes it through all blocks in order. For every positive-rate OD pair in a block starting at $s$, of duration $d$ seconds, [materialize](experiments/demand.py) does the following:
+
+1. Resolve a route in that network through SUMO `findRoute(..., vType='type1')` and store its ordered road edges. Reject an unavailable or endpoint-inconsistent route, even if the sampled vehicle count would be zero. The environment caches routes for repeated OD pairs; controllers do not choose the routes.
+2. Draw the count from $N\sim\operatorname{Poisson}(r\,d/3600)$. A rate is an expectation, not an exact number of vehicles.
+3. Draw departure times uniformly within the block, add normal jitter with mean 0 and SD **2 seconds**, clip to `[s+0.01, s+d−0.01]`, and round to two decimal places. The resulting departure distribution includes this jitter/clipping; it is not simply an untouched uniform sample.
+4. Draw each vehicle's `speed_factor` from a normal distribution with mean **1.0** and SD **0.1**, redrawing nonpositive values. This is a dimensionless factor, not a target speed in m/s.
+5. Save a unique block-prefixed ID, departure time, OD endpoints, full route and speed factor; sort vehicles by departure time and ID.
+
+For example, Grid `peak_1.25` requests 3,000 → 3,750 → 3,000 veh/hour across three 20-minute blocks. Its expected one-hour count is **3,250**, but the existing `peak_1.25_51001.json` schedules **3,335** vehicles. Monaco uses approximately 2,383.3333 → 2,979.1666 → 2,383.3333 veh/hour, with an expected count of **2,581.9444** and **2,632** vehicles in its corresponding saved artifact. These are counts in the existing inputs, not performance outcomes or guaranteed realized insertions.
+
+#### 4. Separate seed roles and reuse paired artifacts
+
+| Seed role | Values | Effect |
+|---|---|---|
+| Scenario generation | Test `41001–41012`; validation `31001–31006` | Spatial factors/mixture weights, or identifiers for deterministic schedules |
+| Arrival realization | `51001–51010` for every scenario on each network | Poisson counts, departure jitter and speed factors; ten complete artifacts per scenario |
+| SUMO evaluation | `61001–61010`, paired by rollout index | Simulator randomness after scheduled traffic is fixed; materialization uses an empty route-resolution session with seed `61001` |
+| Controller policy | Derived from training seed and rollout index by `experiments/cli.py` | Action sampling only; does not regenerate the traffic artifact |
+
+The arrival seed list is reused across scenarios, splits and networks; the current implementation does **not** assign wholly disjoint RNG streams to validation and test arrivals. Their scenario definitions/parameters and artifacts are separate. The same seed can produce different schedules when OD rows or rates change. For fair comparisons, reuse the exact artifact hash for the same network/scenario/arrival realization across all methods and controller seeds. Congestion can change actual insertion and completion even when the scheduled traffic is identical.
+
+Validation is for development and parameter choices; final test results must not choose parameters or checkpoints. Test mixtures `mixture_1` and `mixture_2` are different from their same-named validation counterparts because seeds and split-specific paths differ. Do not put validation/test files into training inputs. The eleven `seen` scenarios repeat each normalized training profile for one hour with held-out arrival realizations; `--suite all` means eleven seen plus twelve test scenarios, excluding validation.
+
+#### 5. Generate, locate and inspect the saved files
+
+These commands prepare inputs; materialization starts SUMO for route resolution but does not train a controller. They are instructions, not commands executed during this documentation update:
+
+```bash
+python main.py experiment prepare
+python main.py experiment prepare --materialize --network grid
+python main.py experiment prepare --materialize --network monaco
+```
+
+Under either prepared dataset root:
+
+```text
+train/<profile>.csv
+train/manifest.json
+validation/validation_scenarios.json
+validation/artifacts/<scenario>_<arrival_seed>.json
+test/test_scenarios.json
+test/seen_scenarios.json
+test/artifacts/<scenario>_<arrival_seed>.json
+```
+
+There are **60 validation + 120 test + 110 seen = 290 traffic artifacts per network**, **580 total**. Seen artifacts are physically under `test/artifacts/`, but carry `scenario.split = seen`. A generation attempt also writes its artifact index under `runs_eval/revised/preparation/<run_id>/manifest.json`. No controller family/method is embedded in the dataset path because these are shared exogenous inputs.
+
+Scenario JSON contains `id`, `network`, `split`, `family`, `generation_seed`, `horizon` and `blocks`. Each traffic JSON additionally contains the network/profile/scenario hashes, `arrival_seed`, `vehicles`, and its own content `hash`; each vehicle has `id`, `depart`, `origin`, `destination`, `edges` and `speed_factor`. These are full vehicle schedules in JSON, not one new CSV per test scenario. At evaluation, `envs/experiment_env.py` inserts the saved routes and vehicles through TraCI.
+
+`prepare` refuses conflicting prepared content. An existing artifact is reused only after its hash, unique vehicle IDs and expected metadata match. These reuse checks do not rerun every possible route/schema validation; route resolution and schedule checks occur during generation. If inputs change, preserve the old artifacts and version the protocol/output location rather than overwrite or silently reuse them. During this documentation update, all **580 existing artifacts** passed read-only content-hash/ID checks and matched their current scenario definitions; no artifacts were regenerated and no SUMO simulation was launched.
+
+Exclude `Real_Life_Monaco` from the main suite until its network/routing provenance is resolved: the audit describes 272 edges, while the active subnet has 270 and a positive-demand OD pair failed a static connectivity check. Do not silently drop that flow. Existing `demand_5x5_noisy` profiles total approximately 13,787–17,379 veh/hour and belong in a separate extreme-load analysis. Do not discard valid test scenarios because they produce congestion.
+
+### Per-rollout records and uncertainty
+
+Export one summary per complete rollout with its network, controller, method, training seed, scenario/split, checkpoint hash, demand hash, all seeds, policy mode, horizon, sample count, and wall time. Retain queue and traffic time series, lane measurements, and trip records.
+
+Record mean/integrated/peak queue; vehicle-time-weighted mean speed; scheduled, inserted, completed, pending, and remaining vehicle counts; teleports, collisions, failures; and completed-trip travel time, waiting time, time loss, and departure delay with their denominators. An entirely empty rollout has unavailable mean speed, not an invented zero-speed observation. Incomplete attempts remain separately identifiable under C09–C10.
+
+For each training seed and scenario, calculate $J_Q$ for each of ten valid rollouts, then report their mean and sample SD. For each network/controller/method combination, average the twelve new-scenario estimates with equal scenario weights within each training seed. Report the five resulting values, their mean, sample SD, and 95% t-interval:
+
+$$
+\bar J\pm 2.776\,\frac{s}{\sqrt{5}}.
+$$
+
+For comparisons, form the five matched training-seed differences first, then calculate their interval. Do not count individual seconds as independent replicates or pool different controller families/networks into the five-seed estimate. Report seen-profile performance and the four new-demand families separately. Define the exploratory worst tested scenario mean as the maximum scenario mean after averaging over training seeds and rollouts. Intervals describe uncertainty conditional on the fixed test suite. [Agarwal et al. on RL evaluation](https://arxiv.org/abs/2108.13264)
+
+### Peak-demand heatmaps
+
+For the predefined 1.25× and 1.50× peaks, aggregate lane queues over the same `[1200, 2400)`-second window. Produce absolute maps for the five methods and `online_wce − comparator` maps, averaged over matched training seeds and rollout realizations.
+
+Use a shared absolute scale within each network/scenario, a symmetric zero-centered difference scale, common geometry/extent, and explicit units. Show unmonitored roads in gray. Negative differences mean lower queue under online WCE. Label the monitored domain as controlled approaches and reconcile map aggregates with the same queue measurements. Do not select different peak windows or demand scenarios for different controllers.
+
+### Training time and experiment counts
+
+Use a monotonic clock to measure initial controller training, offline WCE training, continuation, setup/reset, inference, controller/WCE optimization, checkpoint/logging overhead, and failed or discarded work. Keep component timing nonoverlapping when summing it; report stage totals separately from the component breakdown. Record hardware, thread counts, and competing workload.
+
+For `baseline`, `random_group`, and `domain_randomization`, standalone training cost includes parent training plus continuation. For `fixed_wce` and `online_wce`, also include offline WCE training, even if the experimental campaign reused one pretrained WCE for both. Do not claim equal wall time from equal controller-learning steps.
+
+| Work item | Count |
+|---|---:|
+| Common parent training runs | 40 |
+| Offline WCE training runs | 40 |
+| Continuation runs including baseline | 200 |
+| Final evaluation rollouts | 46,000 |
+
+The evaluation count is `2 × 4 × 5 × 5 × 23 × 10 = 46,000`: networks × controller families × training seeds × methods × scenarios × rollouts. Pilot, validation, and failed attempts are additional and must be recorded separately.
+
+### Stage V reports and local dashboard
+
+**Purpose/prerequisites:** Convert explicitly selected complete records into scientific tables/figures. Use the valid manifests, raw lane measurements and original traffic artifacts; report generation verifies their provenance. No controller learns during reporting.
+
+**Pilot command:** the following uses existing pilot evidence and creates a new report. Run it only if the example destination does not already exist; otherwise choose another new name.
+
+```bash
+python main.py experiment report \
+  --input runs_eval/revised/peak_validation \
+  --input runs_eval/revised/verification/integrated_20260914/grid_iqll/baseline \
+  --input runs_eval/revised/verification/integrated_20260914/monaco_iqll/baseline \
+  --output output_result/revised/pilot_report_20260915_example
+```
+
+**Publication command template:** use selected publication attempt directories. Repeat `--input` for additional methods, training seeds, parents or WCE runs. The reporter classifies each row using its manifest, so no `--pilot` flag is accepted by `report`. Do not point it at a broad directory containing alternate valid reruns of the same comparison cell.
+
+```bash
+export CBWCE_EVAL_RUN='REPLACE_WITH_ONE_SELECTED_EVALUATION_SUITE_OR_ATTEMPT_DIRECTORY'
+export CBWCE_TRAIN_RUN='REPLACE_WITH_SELECTED_COMPLETED_CONTINUATION_RUN_DIRECTORY'
+export CBWCE_REPORT_DIR='output_result/revised/REPLACE_WITH_NEW_REPORT_ID'
+python main.py experiment report --input "$CBWCE_EVAL_RUN" \
+  --input "$CBWCE_TRAIN_RUN" --output "$CBWCE_REPORT_DIR"
+```
+
+**Scripts:** [experiments/reporting.py](experiments/reporting.py) collects records, checks pairing, computes summaries, exports queue curves and peak maps. **Output:** all report CSV/JSON/PNG/SVG files go inside the selected report directory. It must be new. Duplicate/unpaired observations cause an explicit failure with `rejected.json`; other rejected summaries are listed separately. Attempts without a rollout summary remain in their original failure records and may not appear in that rejected-summary table.
+
+**Completion:** verify valid rollout counts, expected/missing study cells, paired demand/SUMO/policy seeds, and heatmap lane totals. Five complete prescribed training seeds are needed for a publication 95% interval. Available subset means are not full-study estimates. Heatmaps use the common intersection of available `(seed, arrival_seed)` pairs across all five methods; check the reported pair count and completeness before publication. Figure copies in `figs/revised/` are separate retained copies, not an automatic second output from `report`.
+
+**Existing pilot outputs:** [pilot tables and exports](output_result/revised/pilot_integrated_final_report/), [dashboard JSON](output_result/revised/pilot_integrated_final_report/dashboard.json), [figure copies](figs/revised/pilot_integrated_final_report/). They contain 20 peak rollouts, not a completed publication study. Training curves are sampled progress, not smoothed episode statistics or evaluation performance curves.
+
+**Dashboard command:** choose one of these ports, not both for a single workspace:
+
+```bash
+python main.py experiment dashboard
+python main.py experiment dashboard --port 8766
+```
+
+Open [English](http://127.0.0.1:8765/) or [中文](http://127.0.0.1:8765/zh.html), using the selected port. [experiments/dashboard.py](experiments/dashboard.py) launches jobs with the active Python executable, one at a time. Select the stage, pilot/publication mode, network, controller, seed, method and explicit compatible checkpoints; inspect preflight before starting. Stop preserves the interrupted attempt; resume creates another attempt. Server restarts do not silently restart training. Job request/start/finish/recovery JSON and `console.log` are under `runs_eval/revised/jobs/<job_id>/`; ordinary CLI commands write console output to your terminal unless you capture it.
+
+For plots, open Results, choose “Load local result export” and select the generated `dashboard.json`. Filter network/controller/pilot status; choose a training record or peak map explicitly. The [English HTML](docs/site/dist/index.html), [Chinese HTML](docs/site/dist/zh.html) and [private Sites guide](https://cb-wce-training-workspace.loyal-bowl-4834.chatgpt.site) provide instructions and exported results. Only the local service can launch training; importing a report locally does not automatically republish the private site.
+
+### Publication completion checklist
+
+- [ ] C01–C10 each have a passing verification record and supporting evidence.
+- [ ] Five independent parents exist per network/controller family, with complete saved state.
+- [ ] Every WCE points to the correct frozen 1,000,000-step parent.
+- [ ] All five continuation methods finish at 2,320,000 controller-learning steps with matched controller update cadence.
+- [ ] Frozen controllers and fixed WCE parameters remain unchanged; online WCE model parameters change during learning and its intended updates are recorded.
+- [ ] Test demand artifacts and seeds match across paired comparisons; training/test separation is verified.
+- [ ] Only complete rollouts enter summaries; all failed attempts remain visible.
+- [ ] Queue rewards, evaluation metrics, and heatmaps reconcile under the declared lane set and scales.
+- [ ] Rollout variability and training-seed uncertainty are reported separately for each network/controller/method.
+- [ ] Run counts, checkpoint identities, immutable manifests, and timing records agree.
+
+### Bilingual terminology
+
+| English | Simplified Chinese |
+|---|---|
+| Baseline training | 基线训练 |
+| Controller-learning step | 控制器训练步 |
+| Frozen-controller simulation step | 冻结控制器仿真步 |
+| Training episode | 训练回合 |
+| Demand group | 交通需求组 |
+| Demand-mixture weights | 需求混合权重 |
+| Model parameters | 模型参数 |
+| Domain randomization | 域随机化 |
+| Checkpoint | 检查点 |
+
+The English and Chinese guides define the same procedure. Keep method IDs, configuration keys, paths, numerical values, correction identifiers, and equations synchronized when updating either version.
+
+## 9 Linked implementation index and artifact dictionary
+
+| Script | Responsibility |
+|---|---|
+| [main.py](main.py) → [experiments/cli.py](experiments/cli.py) | Public `experiment` commands, argument parsing, suite orchestration |
+| [experiments/protocol.py](experiments/protocol.py) / [protocol.json](config/revised/protocol.json) | Shared settings and default output roots; effective INIs are in `config/revised/` |
+| [experiments/prepare.py](experiments/prepare.py) / [experiments/demand.py](experiments/demand.py) | Explicit training order, normalized profiles, hashes and traffic materialization |
+| [experiments/scenarios.py](experiments/scenarios.py) | Seen/test/validation definitions and paired artifacts |
+| [experiments/runner.py](experiments/runner.py) | Single parent/WCE/continuation/evaluation interaction loop |
+| [agents/controller.py](agents/controller.py) / [agents/recurrent.py](agents/recurrent.py) | Policy actions, fingerprints, masked batches, update cadence and recurrent state |
+| [agents/wce.py](agents/wce.py) / [agents/policies.py](agents/policies.py) | WCE adapter and existing policy architectures |
+| [envs/experiment_env.py](envs/experiment_env.py) / [experiments/core.py](experiments/core.py) | SUMO stepping, queue/reward measurement, RNG and run records |
+| [experiments/checkpoint.py](experiments/checkpoint.py) | Complete bundles, integrity, restoration and originating-run identity |
+| [experiments/reporting.py](experiments/reporting.py) | Scientific collection, statistics, training curves, peak maps and exports |
+| [experiments/dashboard.py](experiments/dashboard.py) | Local preflight, launch/status/stop, run catalog and reports |
+| [experiments/verify.py](experiments/verify.py) / [tests/test_corrections.py](tests/test_corrections.py) / [tests/test_workflow.py](tests/test_workflow.py) / [tests/test_visualization.py](tests/test_visualization.py) | Integration gates and deterministic correctness tests |
+
+Historical `main.py train/evaluate`, adversary/coevolution scripts and benchmark scripts retain their previous paths and behavior. `revision.*` modules are compatibility wrappers, not a second corrected implementation. Use the `experiment` interface above for this study.
+
+### Input, training and evaluation records
+
+`<dataset>` means `data_traffic/revised` for Grid or `real_net_subnet/demand_groups/revised` for Monaco. `<run>` is the stage directory and `<attempt>` is a single evaluation directory. JSONL contains one complete JSON object per line; JSON is a complete document. CSV uses a header row; nested report values such as cost components are JSON-encoded inside CSV cells.
+
+| Artifact / producer | Location / format | Fields and units | Use |
+|---|---|---|---|
+| Training CSV / `prepare` | `<dataset>/train/<profile>.csv` · CSV | `origin_edge`, `dest_edge`, `veh_per_hour`; rates in veh/hour; one OD per row | Controller/WCE demand input |
+| Training manifest / `prepare` | `<dataset>/train/manifest.json` · JSON list | Ordered entries: `name`, `source`, `source_hash`, `original_total`, `scale`, `prepared`, `prepared_hash`; `rows` is null in this index | Check original rates, normalization factor, order and input integrity |
+| Scenario definitions / `prepare` | `<dataset>/test/{seen,test}_scenarios.json`; `<dataset>/validation/validation_scenarios.json` · JSON lists | `id`, `network`, `split`, `family`, `generation_seed`, `horizon`, `blocks`; seconds and dimensionless multipliers/weights | Freeze spatial/temporal scenario construction |
+| Traffic artifact / scenario materializer | `<dataset>/<test\|validation>/artifacts/<scenario>_<arrival_seed>.json` · JSON | Network/profile/scenario hashes, `horizon`, `arrival_seed`, `scenario`, `vehicles`, `hash`; vehicle keys `id`, `depart`, `origin`, `destination`, `edges`, `speed_factor` | Complete scheduled traffic; count = length of `vehicles`; departures in seconds, speed factor dimensionless; seen artifacts also live under test |
+| Run identity / `RunRecord` | `<run>/manifest.json` · JSON | Stage/method/seed, CLI inputs including `visualization`, parent paths/hashes, training profiles, configuration/source hashes, runtime information, `manifest_hash` | Immutable actual inputs; joins results to their provenance |
+| Environment identity / runner | `<run>/environment.json` · JSON | `assets`, `lanes`, `nodes`, `node_lanes`, `neighbors`, `configuration` | Lane order and geometry/network identity; contains copied settings, including legacy fields |
+| Completion / `RunRecord.finish` | `<run>/result.json` · JSON | `status`, `manifest_hash`, `wall_seconds`, `component_seconds`; training adds `checkpoint`, `learning_steps`, `stage_simulation_steps`, `backward_calls`, `minibatch_updates_per_agent`, `wce_updates`; failures include error/completed counters | Authoritative completion/cost record; elapsed values in real seconds |
+| Progress / runner | `<run>/progress.jsonl` · JSONL | `stage`, `episode`, `simulation_steps`, `learning_steps`, `goal`, `mean_queue`, `wce_updates`, `wall_seconds` | One record every 120 joint transitions; mean queue over the most recent 600 simulated seconds; not one record per optimizer update or an episode mean |
+| Demand decisions / runner | `<run>/demand_decisions.jsonl` · JSONL | `episode`, `block`, eleven `weights`, `wce_reward`, `completed_seconds`, `scheduled_vehicles`, `traffic_hash` | One block record; zero-based episode/block indexes; partial final parent block has null WCE reward; training records hashes/counts rather than complete vehicle artifacts |
+| Lane arrays / `export_episode` | `<run>/episode_0001.npz` or `<attempt>/rollout.npz` · compressed NumPy archive | `time`: shape `(T,)`, seconds 1…T; `lanes`: shape `(L,)`, ordered lane IDs; `queue`: shape `(T,L)`, stopped vehicles per lane | Full training episode T=6600; evaluation T=3600; L=150 Grid / 116 Monaco; partial parent/incomplete records can be shorter |
+| Traffic series / `export_episode` | Same episode/rollout stem + `.jsonl` · JSONL | `time`, `queue`, `active`, `speed_sum`, `inserted`, `completed`, `pending`, `teleports`, `collisions` | Every simulated second; counts in vehicles, `speed_sum` sums active-vehicle speeds in m/s |
+| Learner reward series / `export_episode` | Same episode/rollout stem + `.controls.jsonl` · JSONL | `time`, `learner_rewards` vector in controller-node order | Every five simulated seconds; already family-transformed and divided by 100 |
+| Rollout outcome / evaluator | `<attempt>/rollout_summary.json` · JSON | Queue metrics, speed and denominator, scheduled/inserted/completed/remaining/pending, events, completed-trip metrics, demand hash, effective SUMO seed, checkpoint identity | Queue in vehicles; integrated queue in vehicle-seconds; speed m/s; travel/wait/time-loss/departure-delay in seconds. Join manifest for method/training/policy seed |
+| Runtime records / environment | `<run>/runtime/startup_<attempt>.json`, `trips_<attempt>.xml`, SUMO assets | Startup command, actual `visualization`, seed/version provenance; SUMO `tripinfo` vehicle records | Use the startup command to identify the matching trip file. Completed-trip averages exclude unfinished trips and state their denominator |
+
+`simulation_steps` means five-second joint transitions, not seconds. Progress `episode` is one-based, while demand-decision `episode` is zero-based; NPZ filenames start with `episode_0001`. A final partial episode can finish between progress writes, so use `result.json` and the checkpoint counters for completion. An offline WCE progress curve has constant controller-learning steps while simulation steps and WCE updates grow.
+
+Complete evaluation demand persists all vehicle routes/departures/speed factors. Requested demand is paired across methods; congestion can change actual insertion, pending departures and completed trips. Training demand is generated block by block with its dedicated RNG and recorded hash; a hash is not itself a saved vehicle schedule.
+
+### Checkpoint bundle and numbering
+
+| Publication stage | Final directory | Controller-learning count |
+|---|---|---|
+| Parent | `checkpoint_001000000` | 1,000,000 |
+| Offline WCE | `checkpoint_000660000` | Still 1,000,000 |
+| Continuation | `checkpoint_001320000` | 2,320,000 |
+
+```text
+<run>/manifest.json
+<run>/checkpoint_<nine-digit-stage-steps>/
+  manifest.json
+  runner.pkl
+  controller/
+    variables.index
+    variables.data-00000-of-00001
+    checkpoint
+    state.pkl
+  wce/                         # present only when WCE is part of the stage
+    variables.index
+    variables.data-00000-of-00001
+    checkpoint
+    state.pkl
+```
+
+The checkpoint manifest records `version`, model `signatures`, file hashes, `parents` and bundle `hash`; it is written last to mark completeness. TensorFlow files contain model and optimizer variables. Controller `state.pkl` stores real learning/schedule/update counters, pending/replay data, replay cursor, RNG and recurrent states; WCE state stores pending macro transitions, macro/update counters and RNG. `runner.pkl` stores stage/method, goal, stage steps, episode, initial learning count and runner RNG. These pickle files are Python-specific state, not interchange CSVs. Load through the checkpoint manager rather than reconstructing a model from filenames.
+
+### Report outputs and timing interpretation
+
+| Filename inside report directory | Meaning |
+|---|---|
+| `rollouts.csv` | One valid observation per method/training seed/scenario/arrival realization; metrics and provenance |
+| `scenarios.csv` | Ten-rollout mean/sample SD and completeness per training seed/scenario; pilot rows remain marked |
+| `seeds.csv` | Equal-scenario mean for each prescribed publication training seed, separately for seen/test |
+| `comparison.csv`, `paired_differences.csv` | Five-seed mean/SD/95% interval and paired online-minus-comparator differences; missing intervals remain unavailable |
+| `demand_family_summary.csv`, `worst_tested_scenario.csv` | Family-level publication summaries and worst tested scenario only with the required complete records |
+| `computation_costs.csv`, `standalone_pipeline_costs.csv` | Recorded stage cost and parent + continuation + required offline-WCE cost; unavailable parent records leave pipeline total unavailable |
+| `rejected.csv`; `rejected.json` on duplicate/pairing failure | Rejected existing summaries; inspect original attempt records too for failures that never produced a summary |
+| `dashboard.json` | Rollouts, scenario/seed comparisons, curves, maps, families, worst cases and costs; local HTML import format |
+| `training_<index>.png/.svg` | Saved progress queue vs controller-learning steps; includes frozen WCE stages if selected, where controller steps stay constant |
+| `<network>_<controller>_<scenario>_<pilot\|publication>_<method>.png/.svg` | Absolute peak maps; difference names use `online_minus_<comparator>` |
+
+`wall_seconds` is the monotonic elapsed time for the attempt; it is the stage total. Current `component_seconds` keys include `reset`, `demand_selection` (including WCE inference), `demand_generation_insertion`, `controller_inference`, `simulation_measurement`, `controller_learning`, `wce_learning`, and `checkpoint` when exercised. They are measured portions, not an exhaustive partition: final flush/logging and other overhead are not all separately timed. Do not claim a separate complete logging or WCE-inference ledger, or replace wall time with the component sum. Report failed/interrupted attempts and shared offline-WCE cost separately as specified above.
+
+### Read an existing rollout without training
+
+This read-only example uses a recorded Grid/IQL pilot. NPZ times mark the end of each one-second interval; selecting `time > 1200` and `time <= 2400` corresponds to the physical window `[1200,2400)`. No new experiment is required.
+```python
+import json
+from pathlib import Path
+import numpy as np
+
+attempt = Path("runs_eval/revised/verification/integrated_20260914/grid_iqll/eval_baseline")
+with np.load(str(attempt / "rollout.npz"), allow_pickle=False) as data:
+    lane_ids = data["lanes"]
+    time = data["time"]
+    queue = data["queue"]
+    assert len(time) == 3600
+    mean_total_queue = float(queue.sum(axis=1).mean())
+    peak_window = (time > 1200) & (time <= 2400)
+    mean_peak_lane_queue = queue[peak_window].mean(axis=0)
+with (attempt / "rollout.jsonl").open() as stream:
+    rows = [json.loads(line) for line in stream if line.strip()]
+summary = json.loads((attempt / "rollout_summary.json").read_text())
+assert np.isclose(mean_total_queue, summary["mean_queue"])
+vehicle_seconds = sum(row["active"] for row in rows)
+mean_speed = (sum(row["speed_sum"] for row in rows) / vehicle_seconds
+              if vehicle_seconds else None)
+print(queue.shape, mean_total_queue, mean_speed)
+```

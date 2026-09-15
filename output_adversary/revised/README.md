@@ -1,0 +1,5 @@
+# output_adversary/revised
+
+Grid WCE training against frozen parents.
+
+New runs use unique identifiers and preserve previous attempts. / 新运行使用唯一标识，并保留历史尝试。

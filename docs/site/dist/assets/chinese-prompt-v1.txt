@@ -1,0 +1,31 @@
+Use case: text-localization
+Asset type: Simplified Chinese version of an existing six-panel educational research comic.
+Input image: edit target. Preserve the exact six-panel composition, friendly researcher character, traffic scenes, model diagram layout, palettes, dimensions, readable style and scientific meaning. Change the English text into fluent accurate Simplified Chinese using the exact translations below. Do not redraw or rearrange the underlying comic. Keep the five experiment identifiers and four agent acronyms in Latin characters.
+Title: "CB-WCE：学习应对变化的交通"
+Panel 1 heading: "1 · 交通需求会变化"
+Panel 1 caption: "信号控制策略能应对变化的需求吗？"
+Panel 2 heading: "2 · 共享父策略"
+Panel 2 top caption: "统一训练：1,000,000 学习步"
+Model block: "父控制器"
+Arrow label: "1,000,000 学习步"
+Panel 3 heading: "3 · 学习需求混合"
+Caption: "冻结父策略；训练 WCE 500 回合"
+Model block: "父控制器"
+Keep "WCE".
+Small diagram label: "需求场景"
+Blue note: "固定参数 ≠ 固定混合权重"
+Amber note: "权重可随状态变化"
+Panel 4 heading: "4 · 五条训练分支"
+Parent model label: "父控制器"
+Keep these exact five branch labels: "baseline", "random_group", "domain_randomization", "fixed_wce", "online_wce"
+Bottom note: "fixed_wce：参数冻结；权重仍可变化"
+Panel 5 heading: "5 · 相同学习预算"
+Keep the same five branch labels in the same order.
+Each of five budget labels exactly: "+1,320,000 学习步"
+Bottom total exactly: "每条分支共 2,320,000 学习步"
+Panel 6 heading: "6 · 测试未见需求"
+Caption: "评估排队与不确定性"
+Speech bubble: "更稳健？这是待检验的假设。"
+Road sign: "未见需求"
+Footer: "路网：5×5 网格 • 摩纳哥子网 | 算法：IA2C • MA2C • IQL-LR • PPO"
+Constraints: Legible precise Simplified Chinese text with all characters rendered correctly. Exactly six panels in 2 rows and 3 columns. All 1,000,000, 1,320,000, 2,320,000, 500 figures must remain exact. No fabricated performance results or success claim, no measured results charts. Crucial scientific distinction: frozen WCE model parameters are distinct from state-dependent mixture weights which may still change. Do not introduce other wording. Preserve artwork, layout and characters.

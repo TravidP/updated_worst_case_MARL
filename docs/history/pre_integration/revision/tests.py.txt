@@ -1,0 +1,277 @@
+"""Fast deterministic correction checks, including fresh-process resume."""
+import argparse
+import configparser
+import copy
+import json
+import pickle
+import subprocess
+import sys
+import tempfile
+import unittest
+from pathlib import Path
+import numpy as np
+from revision.core import ROOT, METHODS, QueueMetric, Streams, digest, validate_rollout, RunRecord
+from revision.checkpoint import save_checkpoint, load_checkpoint
+
+
+class FixtureEnv:
+    def __init__(self, network='grid', family='ia2c'):
+        self.network = network
+        self.config = configparser.ConfigParser()
+        self.config.read(str(ROOT / 'config' / ('config_{}_{}.ini'.format(family, 'large' if network == 'grid' else 'real'))))
+        self.n_s_ls, self.n_a_ls = [4, 4], [2, 2]
+        self.n_w_ls = [1, 1] if network == 'grid' else [0, 0]
+        self.n_f_ls = [1, 1] if family == 'ma2c' else [0, 0]
+        self.metric = QueueMetric({'a': ['x'], 'b': ['y']}, {'a': ['b'], 'b': ['a']})
+        self.asset_hashes = {'fixture': 'v1'}
+        self.fingerprints = None
+
+    def update_fingerprint(self, policies):
+        self.fingerprints = [np.asarray(p)[:-1] for p in policies]
+
+
+def advance(model, env, steps, learning=True):
+    for i in range(steps):
+        obs = [np.ones(4, dtype=np.float32) * (i % 7 + 1) / 10. for _ in range(2)]
+        decision = model.act(obs, env, learning)
+        model.observe(obs, decision, np.array([-.15, -.15]), obs, False, learning)
+    return obs
+
+
+def arrays_equal(a, b):
+    if isinstance(a, np.ndarray):
+        np.testing.assert_array_equal(a, b)
+    elif isinstance(a, dict):
+        assert set(a) == set(b)
+        for k in a:
+            arrays_equal(a[k], b[k])
+    elif isinstance(a, (tuple, list)):
+        assert len(a) == len(b)
+        for x, y in zip(a, b):
+            arrays_equal(x, y)
+    else:
+        assert a == b, (a, b)
+
+
+class Corrections(unittest.TestCase):
+    def test_C08_C10_checkpoint_retention(self):
+        from revision.learning import Controller, WCE
+        from revision.checkpoint import inspect_checkpoint
+        env = FixtureEnv('grid', 'iqll')
+        env.wce_nodes = ['nt{}'.format(i) for i in range(1, 26)]
+        env.feature_width = 6
+        env.wce_observation = lambda: np.zeros(300, dtype=np.float32)
+        env.adjacency = lambda: np.eye(25, dtype=np.float32)
+        controller = Controller(env, 'iqll', 9001)
+        wce = WCE(env, 9001)
+        with tempfile.TemporaryDirectory() as temporary:
+            paths = []
+            for i in range(7):
+                path = Path(temporary) / str(i)
+                save_checkpoint(path, {'controller': controller, 'wce': wce}, {'iteration': i})
+                paths.append(path)
+            for path in paths:
+                inspect_checkpoint(path)
+            state = load_checkpoint(paths[0], {'controller': controller, 'wce': wce})
+            self.assertEqual(state['iteration'], 0)
+        controller.close()
+        wce.close()
+
+    def test_batched_inference_matches_per_agent(self):
+        from revision.learning import Controller
+        for family in ('ia2c', 'ma2c', 'ppo'):
+            env = FixtureEnv('grid', family)
+            model = Controller(env, family, 9001)
+            obs = [np.arange(4, dtype=np.float32) / 10.] * 2
+            state = model.state()
+            expected = [p.forward(model.sess, o, True, 'pv') for p, o in zip(model.policies, obs)]
+            hidden = [p.states_fw.copy() for p in model.policies]
+            model.restore_state(state)
+            _, values, probabilities = model.act(obs, env, False)
+            for i, p in enumerate(model.policies):
+                np.testing.assert_array_equal(expected[i][0], probabilities[i])
+                np.testing.assert_array_equal(expected[i][1], values[i])
+                np.testing.assert_array_equal(hidden[i], p.states_fw)
+            model.close()
+
+    def test_recurrent_equations_and_gradients_match_legacy(self):
+        from tf_compat import tf
+        from agents.utils import lstm
+        from revision.recurrent import compact_lstm
+        graph = tf.Graph()
+        with graph.as_default():
+            tf.set_random_seed(77)
+            x = tf.placeholder(tf.float32, [5, 3])
+            done = tf.placeholder(tf.float32, [5])
+            state = tf.placeholder(tf.float32, [8])
+            with tf.variable_scope('comparison'):
+                old, old_state = lstm(x, done, state, 'cell')
+            with tf.variable_scope('comparison', reuse=True):
+                new, new_state = compact_lstm(x, done, state, 'cell')
+            old_grad = tf.gradients(tf.reduce_sum(old), [x, state] + tf.trainable_variables())
+            new_grad = tf.gradients(tf.reduce_sum(new), [x, state] + tf.trainable_variables())
+            with tf.Session(config=tf.ConfigProto(intra_op_parallelism_threads=1, inter_op_parallelism_threads=1)) as sess:
+                sess.run(tf.global_variables_initializer())
+                rng = np.random.RandomState(77)
+                values = sess.run([old, old_state, old_grad, new, new_state, new_grad],
+                                 {x: rng.randn(5, 3), done: [0, 0, 1, 0, 0], state: rng.randn(8)})
+                for a, b in zip([values[0], values[1]] + values[2], [values[3], values[4]] + values[5]):
+                    np.testing.assert_allclose(a, b, rtol=1e-6, atol=1e-7)
+
+    def test_C03_C07_queue_arithmetic(self):
+        m = FixtureEnv().metric
+        samples = np.tile([12., 3.], (600, 1))
+        for family in ('ia2c', 'ppo', 'iqll'):
+            for method in METHODS:
+                np.testing.assert_allclose(m.rewards(samples[:5], family), [-.15, -.15])
+        np.testing.assert_allclose(m.rewards(samples[:5], 'ma2c'), [-.147, -.138])
+        self.assertAlmostEqual(m.wce(samples), .15)
+        variable = [[0, 0], [10, 0], [20, 0], [30, 0], [40, 0]]
+        np.testing.assert_allclose(m.rewards(variable, 'ia2c'), [-.2, -.2])
+        dedup = QueueMetric({'a': ['x', 'x'], 'b': ['y']}, {'a': ['b'], 'b': ['a']})
+        self.assertEqual(dedup.lanes, ['x', 'y'])
+
+    def test_C02_streams_and_demand(self):
+        from revision.demand import materialize
+        a, b = Streams(9001), Streams(9001)
+        b['policy'].normal(size=1000)
+        b['replay'].normal(size=1000)
+        rows = [('o', 'd', 3000.)]
+        route = lambda o, d: [o, d]
+        x = materialize(rows, 0, 600, a['demand'], route, 'p')
+        y = materialize(rows, 0, 600, b['demand'], route, 'p')
+        self.assertEqual(digest(x), digest(y))
+        state = a.state()
+        expected = a['wce'].normal(size=11)
+        a.restore(state)
+        np.testing.assert_array_equal(expected, a['wce'].normal(size=11))
+
+    def test_C05_C06_iql_cadence_and_frozen(self):
+        from revision.learning import Controller
+        for network in ('grid', 'monaco'):
+            env = FixtureEnv(network, 'iqll')
+            model = Controller(env, 'iqll', 9001)
+            with tempfile.TemporaryDirectory() as temporary:
+                checkpoint = Path(temporary) / 'initial'
+                save_checkpoint(checkpoint, {'controller': model}, {})
+                for method in METHODS:
+                    load_checkpoint(checkpoint, {'controller': model})
+                    advance(model, env, 200)
+                    self.assertEqual(model.backward_calls, 10)
+                    self.assertEqual(model.minibatch_updates, 100)
+                    before = model.state()
+                    weights = model.sess.run(model.variables)
+                    advance(model, env, 200, learning=False)
+                    after = model.state()
+                    before.pop('previous_done'); after.pop('previous_done')
+                    arrays_equal(before, after)
+                    arrays_equal(weights, model.sess.run(model.variables))
+            model.close()
+
+    def test_C04_C08_partial_batch_and_restore(self):
+        from revision.learning import Controller
+        for network in ('grid', 'monaco'):
+            for family in ('ia2c', 'ma2c', 'ppo'):
+                env = FixtureEnv(network, family)
+                model = Controller(env, family, 9001)
+                obs = advance(model, env, 160)
+                model.flush(obs)
+                expected = [120, 40] if model.batch == 120 else [40] * 4
+                self.assertEqual(model.batch_lengths, expected)
+                self.assertEqual(model.learning_steps, 160)
+                self.assertEqual(model.scheduler_steps, 160)
+                if family == 'ma2c':
+                    self.assertIsNotNone(env.fingerprints)
+                    self.assertTrue(any(np.any(p.states_fw) for p in model.policies))
+                model.reset()
+                self.assertTrue(all(not np.any(p.states_fw) for p in model.policies))
+                model.close()
+
+    def test_C08_fresh_process_next_update(self):
+        from revision.learning import Controller
+        for family in ('ia2c', 'ma2c', 'ppo', 'iqll'):
+            env = FixtureEnv('grid', family)
+            model = Controller(env, family, 9001)
+            with tempfile.TemporaryDirectory() as temporary:
+                directory = Path(temporary)
+                obs = advance(model, env, 160)
+                model.flush(obs)
+                save_checkpoint(directory / 'checkpoint', {'controller': model}, {'test': True})
+                obs = advance(model, env, model.batch)
+                model.flush(obs)
+                np.savez(str(directory / 'expected.npz'), *model.sess.run(model.variables))
+                with (directory / 'expected.pkl').open('wb') as f:
+                    pickle.dump(model.state(), f, protocol=4)
+                subprocess.check_call([sys.executable, '-m', 'revision.tests', '--restore-worker', temporary, '--family', family])
+                with self.assertRaises((FileNotFoundError, ValueError)):
+                    load_checkpoint(directory / 'missing', {'controller': model})
+                saved = model.signature
+                model.signature = dict(saved, family='incompatible')
+                with self.assertRaises(ValueError):
+                    load_checkpoint(directory / 'checkpoint', {'controller': model})
+                model.signature = saved
+            model.close()
+
+    def test_C08_masked_padding(self):
+        from revision.learning import Controller
+        from tf_compat import tf
+        for family in ('ia2c', 'ma2c', 'ppo'):
+            model = Controller(FixtureEnv('grid', family), family, 9001)
+            p = model.policies[0]
+            rng = np.random.RandomState(88)
+            feed = {p.ob_bw: rng.normal(size=(120, 4)), p.done_bw: np.zeros(120),
+                    p.states: p.states_bw, p.A: np.zeros(120, dtype=int), p.R: np.ones(120),
+                    p.ADV: np.ones(120), p.old_logp: np.zeros(120), p.lr: model.lr,
+                    p.mask: np.r_[np.ones(40), np.zeros(80)]}
+            with model.graph.as_default():
+                gradients = tf.gradients(p.loss, tf.trainable_variables(scope=p.name))
+            before = model.sess.run([p.loss] + gradients, feed)
+            feed[p.ob_bw][40:] = rng.normal(size=(80, 4)) * 100
+            feed[p.R][40:] = 999.
+            after = model.sess.run([p.loss] + gradients, feed)
+            for a, b in zip(before, after):
+                np.testing.assert_allclose(a, b, rtol=1e-6, atol=1e-7)
+            model.close()
+
+    def test_C09_C10_failures(self):
+        row = {'time': 1, 'queue': 12., 'active': 1, 'speed_sum': 0., 'inserted': 0,
+               'completed': 0, 'pending': 10, 'teleports': 0, 'collisions': 0}
+        rows = [dict(row, time=t) for t in range(1, 3601)]
+        self.assertEqual(validate_rollout(rows)['mean_queue'], 12.)
+        for bad in ([], rows[:-1], rows + [rows[-1]]):
+            with self.assertRaises(ValueError):
+                validate_rollout(bad)
+        empty = [dict(row, time=t, active=0, queue=0., pending=0) for t in range(1, 3601)]
+        self.assertIsNone(validate_rollout(empty)['mean_speed'])
+        with tempfile.TemporaryDirectory() as temporary:
+            path = Path(temporary) / 'run'
+            record = RunRecord(path, {'test': True})
+            record.finish('failed', reason='deliberate interruption')
+            with self.assertRaises(FileExistsError):
+                RunRecord(path, {'test': False})
+
+
+def worker(directory, family):
+    from revision.learning import Controller
+    directory = Path(directory)
+    env = FixtureEnv('grid', family)
+    model = Controller(env, family, 9999)
+    load_checkpoint(directory / 'checkpoint', {'controller': model})
+    obs = advance(model, env, model.batch)
+    model.flush(obs)
+    expected = np.load(str(directory / 'expected.npz'))
+    for i, observed in enumerate(model.sess.run(model.variables)):
+        np.testing.assert_allclose(observed, expected['arr_{}'.format(i)], rtol=1e-6, atol=1e-7)
+    with (directory / 'expected.pkl').open('rb') as f:
+        arrays_equal(pickle.load(f), model.state())
+    model.close()
+
+
+if __name__ == '__main__':
+    if '--restore-worker' in sys.argv:
+        p = argparse.ArgumentParser()
+        p.add_argument('--restore-worker'); p.add_argument('--family')
+        args = p.parse_args()
+        worker(args.restore_worker, args.family)
+    else:
+        unittest.main(verbosity=2)

@@ -1,0 +1,31 @@
+{
+  "checkpoint": {
+    "hash": "54ccaa398187efb988b76c0b360577370a3bdcbb6f6e62d9e40ca1fb0b6b79f1",
+    "path": "/home/sdc_joran/Journal/deeprl_signal_control/revision/verification/monaco_parallel_20260914/iqll/domain_randomization/checkpoint_000002640"
+  },
+  "collisions": 0,
+  "completed": 306,
+  "completed_trip_denominator": 306,
+  "component_seconds": {},
+  "demand_hash": "9ececc05f89349ea143f84be50c59f2a03cedc0ddc99fb9fcd65c71f7e634620",
+  "effective_sumo_seed": 61001,
+  "horizon": 3600,
+  "inserted": 1034,
+  "integrated_queue": 1358714.0,
+  "manifest_hash": "3d5565b42c168c0f7ecc1047399b9bc711007e88cb14ad20b1fa5716795520c1",
+  "mean_completed_departure_delay": 56.874673202614346,
+  "mean_completed_time_loss": 1360.7220915032683,
+  "mean_completed_travel_time": 1458.5980392156862,
+  "mean_completed_waiting_time": 1334.8169934640523,
+  "mean_queue": 377.42055555555555,
+  "mean_speed": 0.10679566184697568,
+  "peak_queue": 505.0,
+  "pending": 1787,
+  "remaining": 716,
+  "sample_count": 3600,
+  "scheduled": 2822,
+  "speed_denominator_vehicle_seconds": 1901742,
+  "status": "complete",
+  "teleports": 697,
+  "wall_seconds": 40.09339915500095
+}

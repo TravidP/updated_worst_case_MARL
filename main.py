@@ -298,6 +298,12 @@ def evaluate(args):
 
 
 if __name__ == '__main__':
+    import sys
+    if len(sys.argv) > 1 and sys.argv[1] == 'experiment':
+        from experiments.cli import main as experiment_main
+        experiment_main(sys.argv[2:])
+        sys.exit(0)
+    print('Legacy workflow. For the corrected CB-WCE protocol use: python main.py experiment --help', file=sys.stderr)
     args = parse_args()
     if args.option == 'train':
         train(args)

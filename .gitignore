@@ -8,3 +8,14 @@
 # Ignore Python cache
 __pycache__/
 *.py[cod]
+
+# Integrated experiment artifacts; retain directory guides and prepared inputs.
+**/revised/**/checkpoint_*/
+**/revised/**/runtime/
+**/revised/**/demand_runtime/
+**/revised/**/artifacts/
+**/revised/**/pilot_*/
+**/revised/**/publication_*/
+runs_eval/revised/verification/*/
+runs_eval/revised/jobs/*/
+docs/site/.local/
