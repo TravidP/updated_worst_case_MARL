@@ -1,0 +1,385 @@
+{
+  "$id": "selection.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "continuations": {
+      "items": {
+        "additionalProperties": true,
+        "properties": {
+          "checkpoint_absolute_path": {
+            "pattern": "^/",
+            "type": "string"
+          },
+          "checkpoint_hash": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "checkpoint_path": {
+            "type": "string"
+          },
+          "controller": {
+            "enum": [
+              "ia2c",
+              "ma2c",
+              "iqll",
+              "ppo"
+            ]
+          },
+          "id": {
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "parent",
+              "offline_wce",
+              "continuation"
+            ]
+          },
+          "learning_steps": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "manifest_file_sha256": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "manifest_hash": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "manifest_path": {
+            "type": "string"
+          },
+          "method": {
+            "type": "string"
+          },
+          "network": {
+            "enum": [
+              "grid",
+              "monaco"
+            ]
+          },
+          "result_path": {
+            "type": "string"
+          },
+          "runtime": {
+            "type": "object"
+          },
+          "runtime_compatibility": {
+            "type": "string"
+          },
+          "stage_simulation_steps": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "status": {
+            "const": "complete"
+          },
+          "training_seed": {
+            "const": 101
+          }
+        },
+        "required": [
+          "id",
+          "kind",
+          "network",
+          "controller",
+          "method",
+          "training_seed",
+          "status",
+          "result_path",
+          "manifest_path",
+          "checkpoint_path",
+          "checkpoint_absolute_path",
+          "checkpoint_hash",
+          "manifest_hash",
+          "runtime",
+          "runtime_compatibility"
+        ],
+        "type": "object"
+      },
+      "maxItems": 40,
+      "minItems": 40,
+      "type": "array"
+    },
+    "counts": {
+      "type": "object"
+    },
+    "evaluation_suites": {
+      "items": {
+        "type": "object"
+      },
+      "maxItems": 40,
+      "minItems": 40,
+      "type": "array"
+    },
+    "formal_evaluation_status": {
+      "type": "object"
+    },
+    "generated_at": {
+      "type": "string"
+    },
+    "implemented_protocol_version": {
+      "type": "integer"
+    },
+    "known_limitations": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "offline_wce": {
+      "items": {
+        "additionalProperties": true,
+        "properties": {
+          "checkpoint_absolute_path": {
+            "pattern": "^/",
+            "type": "string"
+          },
+          "checkpoint_hash": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "checkpoint_path": {
+            "type": "string"
+          },
+          "controller": {
+            "enum": [
+              "ia2c",
+              "ma2c",
+              "iqll",
+              "ppo"
+            ]
+          },
+          "id": {
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "parent",
+              "offline_wce",
+              "continuation"
+            ]
+          },
+          "learning_steps": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "manifest_file_sha256": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "manifest_hash": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "manifest_path": {
+            "type": "string"
+          },
+          "method": {
+            "type": "string"
+          },
+          "network": {
+            "enum": [
+              "grid",
+              "monaco"
+            ]
+          },
+          "result_path": {
+            "type": "string"
+          },
+          "runtime": {
+            "type": "object"
+          },
+          "runtime_compatibility": {
+            "type": "string"
+          },
+          "stage_simulation_steps": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "status": {
+            "const": "complete"
+          },
+          "training_seed": {
+            "const": 101
+          }
+        },
+        "required": [
+          "id",
+          "kind",
+          "network",
+          "controller",
+          "method",
+          "training_seed",
+          "status",
+          "result_path",
+          "manifest_path",
+          "checkpoint_path",
+          "checkpoint_absolute_path",
+          "checkpoint_hash",
+          "manifest_hash",
+          "runtime",
+          "runtime_compatibility"
+        ],
+        "type": "object"
+      },
+      "maxItems": 8,
+      "minItems": 8,
+      "type": "array"
+    },
+    "parents": {
+      "items": {
+        "additionalProperties": true,
+        "properties": {
+          "checkpoint_absolute_path": {
+            "pattern": "^/",
+            "type": "string"
+          },
+          "checkpoint_hash": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "checkpoint_path": {
+            "type": "string"
+          },
+          "controller": {
+            "enum": [
+              "ia2c",
+              "ma2c",
+              "iqll",
+              "ppo"
+            ]
+          },
+          "id": {
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "parent",
+              "offline_wce",
+              "continuation"
+            ]
+          },
+          "learning_steps": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "manifest_file_sha256": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "manifest_hash": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "manifest_path": {
+            "type": "string"
+          },
+          "method": {
+            "type": "string"
+          },
+          "network": {
+            "enum": [
+              "grid",
+              "monaco"
+            ]
+          },
+          "result_path": {
+            "type": "string"
+          },
+          "runtime": {
+            "type": "object"
+          },
+          "runtime_compatibility": {
+            "type": "string"
+          },
+          "stage_simulation_steps": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "status": {
+            "const": "complete"
+          },
+          "training_seed": {
+            "const": 101
+          }
+        },
+        "required": [
+          "id",
+          "kind",
+          "network",
+          "controller",
+          "method",
+          "training_seed",
+          "status",
+          "result_path",
+          "manifest_path",
+          "checkpoint_path",
+          "checkpoint_absolute_path",
+          "checkpoint_hash",
+          "manifest_hash",
+          "runtime",
+          "runtime_compatibility"
+        ],
+        "type": "object"
+      },
+      "maxItems": 8,
+      "minItems": 8,
+      "type": "array"
+    },
+    "protocol_file": {
+      "type": "string"
+    },
+    "protocol_file_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "repository_root": {
+      "type": "string"
+    },
+    "required_evaluation_protocol_version": {
+      "const": 7
+    },
+    "schema_version": {
+      "const": 1
+    },
+    "selection_id": {
+      "const": "final_evaluation_seed101"
+    },
+    "training_seed": {
+      "const": 101
+    }
+  },
+  "required": [
+    "schema_version",
+    "selection_id",
+    "training_seed",
+    "implemented_protocol_version",
+    "required_evaluation_protocol_version",
+    "formal_evaluation_status",
+    "counts",
+    "parents",
+    "offline_wce",
+    "continuations",
+    "evaluation_suites"
+  ],
+  "title": "CB-WCE frozen model selection",
+  "type": "object"
+}

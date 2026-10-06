@@ -1,0 +1,69 @@
+\chapter{Metrics, Reward Alignment, and Statistical Analysis}
+
+\section{Common traffic quantity}
+On the globally deduplicated controlled incoming-lane set $L_{\mathrm{controlled}}$, define
+\[
+Q(t)=\sum_{l\in L_{\mathrm{controlled}}}q_l(t),\qquad
+J_Q=\frac{1}{3600}\sum_{t=1}^{3600}Q(t).
+\]
+Grid contains 150 and Monaco 116 controlled incoming lanes. $J_Q$ is measured in vehicles and is a \textbf{network-total mean queue}; \lowerbetter. It is not a per-intersection metric.
+
+At each 5-second control endpoint, controllers receive raw negative queue reward. MA2C uses local plus $0.9$ neighbor-weighted queue, whereas IA2C, IQLL, and PPO receive replicated network-total negative queue. The learner uses
+\[
+r_{\mathrm{ctrl}}=\operatorname{clip}(r_{\mathrm{raw}}/d_c,-2,2),
+\]
+with $d_c$ read from the selected run manifest.
+
+For any interval define
+\[
+C_{[a,b)}=\frac{1}{b-a}\sum_{t=a+1}^{b}Q(t).
+\]
+CB-WCE maximizes each 600-second cost $C_k=C_{[600k,600(k+1))}$ and learns from
+\[
+r_{\mathrm{WCE}}=\operatorname{clip}(C_k/d_w,-2,2),
+\quad d_w=3000\;(\mathrm{Grid}),\;1000\;(\mathrm{Monaco}).
+\]
+Evaluation always reports raw, unscaled, unclipped $J_Q$. Positive scaling preserves direction, but clipping can break strict monotonic equivalence. Controller and WCE clipping fractions must be computed for every selected training run. Strict alignment may be claimed only when the fraction is zero; otherwise the observed fraction and limitation must be reported.
+
+\section{Rollout metric registry}
+\begin{longtable}{@{}p{0.22\textwidth}p{0.14\textwidth}p{0.11\textwidth}p{0.45\textwidth}@{}}
+\toprule
+Field & Unit & Direction & Definition and denominator \\
+\midrule
+mean\_total\_queue & vehicles & lower & $3600^{-1}\sum_tQ(t)$; primary outcome.\\
+integrated\_queue & vehicle-seconds & lower & $\sum_tQ(t)$.\\
+peak / p95 queue & vehicles & lower & Maximum and 95th percentile of per-second network-total queue.\\
+window queue/AUC & vehicles, vehicle-seconds & lower & Separate summaries for three 1,200-second windows.\\
+last\_600\_s\_slope & vehicles/second & lower & Preregistered linear slope over the last 600 queue samples; descriptive stability indicator.\\
+mean\_speed & m/s & higher & $\sum_t\mathrm{speed\_sum}_t/\sum_t\mathrm{active}_t$ with denominator stored.\\
+scheduled/inserted/completed & vehicles & context & Artifact vehicles, departed vehicles, and arrived vehicles.\\
+pending/remaining & vehicles & lower & Not departed and still active at 3,600 seconds.\\
+completion\_rate & ratio & higher & completed/inserted; null when inserted is zero.\\
+completed trip means & seconds & lower & Travel, waiting, time loss, and departure delay for completed vehicles only; denominator and unfinished counts are mandatory.\\
+teleports/collisions & count & lower & Reliability indicators. Different network teleport thresholds prohibit direct cross-network ranking.\\
+wall\_seconds & seconds & lower & Monotonic-clock evaluation duration.\\
+\bottomrule
+\end{longtable}
+
+\section{Preregistered paired comparisons}
+The four primary comparisons subtract baseline, random group, domain randomization, and fixed WCE from online WCE. For scenario $s$ and rollout pair $r$:
+\[
+d_{s,r}=J_{\mathrm{online},s,r}-J_{\mathrm{comparator},s,r}.
+\]
+A negative queue difference favors online WCE. For each scenario report the mean, sample SD (\code{ddof=1}), and deterministic 10,000-resample paired percentile-bootstrap 95\% CI for $n=10$ pairs. The bootstrap seed is a digest of a fixed analysis label, network, controller, comparator, scope, and scenario.
+
+For a family or the full fixed test suite, first average the registered scenario differences within each rollout index,
+\[
+D_r=|S|^{-1}\sum_{s\in S}d_{s,r},
+\]
+then bootstrap the ten $D_r$ blocks. Per-second values, lane observations, and 120 cross-scenario rollouts must not be treated as independent IID observations. Intervals describe simulation/policy variation conditional on the fixed checkpoints and fixed suite; they are not training-seed uncertainty. A single training seed cannot establish algorithm-wide statistical superiority. Apply Holm correction if multiplicity-adjusted hypothesis tests are added.
+
+Queue percent improvement, $(J_{\mathrm{comp}}-J_{\mathrm{online}})/J_{\mathrm{comp}}\times100\%$, is supplemental to the absolute effect and is omitted for near-zero denominators. Speed uses the reverse direction, with absolute m/s differences primary.
+
+\section{Robustness and worst cases}
+Report the equal-weight 12-scenario mean, maximum scenario mean, worst-three average/CVaR, and across-scenario SD. Different methods may have different worst scenarios; one method's selected worst-case curve must not be presented as a common paired worst case. Queue-worst and speed-worst selections are separate.
+
+\section{Training and evaluation wall time}
+Trace the \code{resume} chain from each selected final manifest and sum parent, offline-WCE, continuation, evaluation, and abandoned/duplicate attempt time. Use \code{result.json.wall_seconds} for completed attempts. If an earlier attempt lacks a result, use the final \code{progress.jsonl.wall_seconds} as a lower bound and label the total \code{exact} or \code{lower_bound}.
+
+Standalone cost charges offline WCE to fixed and online WCE; deduplicated campaign cost counts shared parents and WCE once. Component times are not a complete decomposition and cannot replace total wall time. Cost tables include OS, CPU/RAM when available, Python, TensorFlow, thread and concurrency settings, and source hashes. The baseline runtime mismatch is a mandatory table note.

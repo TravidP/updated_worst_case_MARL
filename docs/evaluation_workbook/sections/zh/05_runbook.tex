@@ -1,0 +1,53 @@
+\chapter{执行工作簿与签字流程}
+
+\section{Phase 0：正式运行前必须完成}
+\begin{enumerate}
+  \item 实现 protocol v7：三个 temporal 场景按冻结 seed 从 11 个 seen profiles 中随机切换、相邻区块不得重复，并重新生成/哈希全部 60 个对应 artifacts。
+  \item 实现或明确降级 network-wide heatmap 采集；若不实现，锁定 controlled-approach 表述。
+  \item 重新运行环境 gate，验证 deeprlsc、SUMO、TraCI、TensorFlow、两个网络和 11 profiles。
+  \item 重新检查磁盘阈值与所有 40 个 checkpoint hash；确认输出目录不存在。
+  \item 独立复核 selection registry 和命令目录的一一对应关系。
+\end{enumerate}
+
+\section{现有可用命令}
+\begin{Verbatim}[fontsize=\small,breaklines=true]
+cd /home/sdc_joran/Journal/deeprl_signal_control
+export CBWCE_GATE=/absolute/path/to/protocol_v7/gate.json
+
+./docs/evaluation_workbook/generated/publication_workflow.sh --status
+./docs/evaluation_workbook/generated/publication_workflow.sh --preflight
+./docs/evaluation_workbook/generated/publication_workflow.sh --list
+
+CONFIRM_PUBLICATION=RUN_9200 CBWCE_EVALUATION_WORKERS=4 \
+  ./docs/evaluation_workbook/generated/publication_workflow.sh --execute
+\end{Verbatim}
+\code{publication_workflow.sh} 默认只显示计划，不启动仿真。正式执行需要显式确认变量、protocol v7、至少 60 GiB 可用空间、与四 worker 匹配的有效 gate、已物化的 demand artifacts 和不存在的输出根目录。通过后，调度器默认并行运行四个 suites；每个 suite 内的 230 个 rollouts 仍顺序执行。任一 suite 失败后停止派发新任务，不自动重试或覆盖输出。
+
+\section{下一阶段待实现命令}
+以下接口是规格，不是当前可用功能：
+\begin{Verbatim}[fontsize=\small,breaklines=true]
+python main.py experiment report --selection <selection.json> --output <release>
+python main.py experiment validate-report --report <release> \
+  --require-publication-complete
+python main.py experiment export-site --report <release> \
+  --output docs/site/dist/data/publication
+\end{Verbatim}
+
+\section{故障、恢复与防止重复样本}
+失败后不得把新的 attempt 当成额外随机重复。恢复必须沿 manifest 的 \code{resume} 链进行，最终报告仅接受 selection 指定的成功 attempt；失败、interrupted 和重复 attempt 单独进入成本审计。需求 artifact、seeds、checkpoint 或 scenario hash 任一变化都必须创建新 protocol/release ID，禁止覆盖历史目录。
+
+\section{审稿意见映射}
+\begin{longtable}{@{}p{0.07\textwidth}p{0.43\textwidth}p{0.43\textwidth}@{}}
+\toprule
+编号 & 要求 & 本手册中的证据 \\
+\midrule
+1 & 记录各 setup wall-clock 与 CB-WCE 增量成本 & Resume-chain 审计、standalone/campaign 双口径、runtime matrix。\\
+2 & 生成与训练分离的未见需求组 & 12 个冻结 test、6 个 validation 与 11 seen 的分离；解释 interpolation/OOD 边界。\\
+3 & Reward 与主指标使用同一交通量、聚合和方向 & 统一 $Q(t)$、$C_{[a,b)}$、$J_Q$，披露 normalization/clipping 与 adversary 的最大化方向。\\
+4 & 每 rollout 指标及重复实验不确定性 & 完整 metric registry、10 对 seeds、sample SD 和 paired bootstrap CI。\\
+5 & Peak-demand network heatmaps & 所有 non-internal lanes 的窗口聚合前置要求、absolute/difference 公共色标方案。\\
+\bottomrule
+\end{longtable}
+
+\section{最终验收}
+PDF 必须通过字体嵌入、文本提取和逐页渲染检查；LaTeX 不得含未解析引用或占位标记。Selection 必须有 8 parent、8 WCE、40 continuation、40 planned suites；Schema 示例必须验证；40 条命令不得重复且必须与 selection checkpoint hash 对应。正式结果验收则另要求 accepted=9,200、rejected=0，并完成公开 bundle 的隐私审查。

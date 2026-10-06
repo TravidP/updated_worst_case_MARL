@@ -1,0 +1,53 @@
+\chapter{Objective, Current State, and Frozen Evaluation Protocol}
+
+\section{Purpose}
+This workbook is the operational source of truth for publication evaluation, validation, statistical analysis, site export, and paper presentation. It does not turn planned experiments into results. Complete checkpoints exist for all 40 continuation combinations, but the formal publication campaign remains at \status{0/9,200}. Data under \code{runs_eval/revised/peak_validation} are pilots only. Numbers in the current paper belong to an older baseline-versus-retrained protocol and must not be mixed with the revised five-method study.
+
+The primary question is whether online WCE reduces network-total queue under seen and frozen held-out demand, across two networks, four controller families, and five equal-budget continuation methods, without unacceptable changes in speed, completion, reliability, or computational cost.
+
+\section{Model matrix and comparability boundary}
+The methods are \code{baseline}, \code{random_group}, \code{domain_randomization}, \code{fixed_wce}, and \code{online_wce}. Controllers are IA2C, MA2C, IQLL, and PPO; networks are Grid and Monaco. Every final controller must have 2,320,000 cumulative learning steps: a 1,000,000-step parent plus a 1,320,000-step continuation.
+
+The current baselines are retained by decision. Audit evidence shows that baseline continuations used Python 3.10.12 / TensorFlow 2.15.1, while most other continuations used Python 3.6.13 / TensorFlow 1.12.0, with a different \code{envs/experiment_env.py} source hash. Consequently:
+\begin{itemize}
+  \item performance claims are conditional on the frozen checkpoints and training seed 101;
+  \item wall-clock results are descriptive rather than strict fair-runtime rankings;
+  \item the paper must not claim that CB-WCE accelerates training or report a strict time-to-threshold advantage;
+  \item the release must contain a runtime/source compatibility matrix.
+\end{itemize}
+
+\section{Campaign size}
+\input{generated/protocol_snapshot}
+The formal matrix is
+\[
+2\;\text{networks}\times4\;\text{controllers}\times5\;\text{methods}\times23\;\text{scenarios}\times10\;\text{pairs}=9{,}200.
+\]
+Each final model receives 230 rollouts and each network 4,600. The campaign represents 9,200 simulated hours, 33.12 million simulated seconds, and 6.624 million control decisions.
+
+\section{Simulation defaults}
+Every evaluation starts from an empty network and covers $[0,3600)$ seconds, with no warm-up and no post-horizon drain. SUMO is sampled every second. The controller acts every 5 seconds using 2 seconds of yellow followed by 3 seconds of green. Base total demand is 3,000 veh/h for Grid and 2,383.3333 veh/h for Monaco. Training episodes last 6,600 seconds; WCE receives eleven 600-second costs.
+
+Arrival seeds are 51001--51010 and SUMO seeds are 61001--61010, paired by rollout index. For a fixed network/scenario/index, the frozen demand artifact, scenario definition, and SUMO seed are reused across every controller and method. The policy seed is produced by the protocol's deterministic digest.
+
+\section{Eleven seen and twelve test scenarios}
+The seen split contains the eleven normalized training profiles, each held constant for the full hour. The test split contains three scenarios in each of four families:
+
+\begin{longtable}{@{}p{0.19\textwidth}p{0.23\textwidth}p{0.50\textwidth}@{}}
+\toprule
+Family & Scenarios & Exact definition \\
+\midrule
+OD redistribution & $\sigma=0.25,0.50,0.75$ & Multiply positive Uniform-profile ODs by independent LogNormal$(0,\sigma)$ factors and renormalize to the base total. Zero-support ODs remain zero.\\
+Demand mixture & mixture 1, 2, 3 & Fixed Dirichlet$(1,\ldots,1)$ weights from the registered generation seeds form convex combinations of the eleven normalized profiles; the mixture is constant for one hour.\\
+Temporal switching & 300, 900, 1200 s & At each block boundary, select the next profile from all eleven seen profiles using the frozen generation seed, with no adjacent repeat. The 300-second case is the fast-switching stress test; the 900- and 1200-second cases test longer dwell times.\\
+Peak demand & $1.10,1.25,1.50$ & Base demand in $[0,1200)$, multiplied demand in $[1200,2400)$, and base demand again in $[2400,3600)$.\\
+\bottomrule
+\end{longtable}
+
+The code now implements protocol v7: every temporal scenario selects from all eleven seen profiles using its frozen generation seed, with no adjacent repeat. Versioned v7 artifacts remain to be materialized and audited before formal evaluation; protocol-v6 artifacts must not enter the v7 release.
+
+Mixtures are held-out compositions/interpolations, not strict OOD samples. Peaks are demand-intensity extrapolations; redistributions alter mass within the Uniform OD support; switches are frozen random temporal rearrangements of all eleven seen spatial profiles. The six validation scenarios are tuning-only. The frozen test suite is evaluated once after decisions are final.
+
+Expected one-hour vehicle counts for peaks are 3,100 / 3,250 / 3,500 on Grid and approximately 2,462.78 / 2,581.94 / 2,780.56 on Monaco. Final mean/min/max counts must be regenerated from the v7 artifacts, rather than copied from a pre-amendment table.
+
+\section{Demand materialization}
+For every OD in each block, $N\sim\mathrm{Poisson}(r\,d/3600)$. Departure time is sampled uniformly inside the block, perturbed by $\mathcal{N}(0,2\,\mathrm{s})$, clipped inside the block, and rounded to two decimals. Speed factor is sampled from $\mathcal{N}(1,0.1)$ with nonpositive values resampled. Routes are resolved on the current SUMO network and frozen in the artifact. Every artifact stores network, profile, scenario, and content hashes.

@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Grid Results · Protocol v7</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main" data-i18n="skip">跳到主要内容</a>
+  <header class="masthead">
+    <div class="masthead-copy">
+      <p class="eyebrow" data-i18n="eyebrow">CBWCE 评估工作簿</p>
+      <h1 id="site-title">Grid 临时结果 · Protocol v7 · 训练种子 101</h1>
+      <p id="site-subtitle" class="subtitle">4,600 条已完成 rollout 的只读快照；不包含 Monaco。</p>
+    </div>
+    <div class="language-switch" role="group" aria-label="语言 / Language">
+      <button type="button" data-lang="zh" aria-pressed="true">中文</button>
+      <span aria-hidden="true">|</span>
+      <button type="button" data-lang="en" aria-pressed="false">English</button>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="control-panel" aria-labelledby="filters-title">
+      <div class="section-heading compact">
+        <div><p class="section-index">01</p><h2 id="filters-title" data-i18n="filtersTitle">结果筛选</h2></div>
+        <p id="dataset-status" class="status-chip" aria-live="polite" data-i18n="loading">正在读取数据…</p>
+      </div>
+      <div class="filters">
+        <label><span data-i18n="network">路网</span><select id="network-select"></select></label>
+        <fieldset class="controller-field"><legend data-i18n="controller">Controller</legend><div id="controller-select"></div></fieldset>
+        <label><span data-i18n="split">数据划分</span><select id="split-select"></select></label>
+        <label class="scenario-filter"><span data-i18n="scenario">场景</span><select id="scenario-select"></select></label>
+      </div>
+      <div class="selection-note" id="selection-note"></div>
+    </section>
+
+    <section aria-labelledby="overview-title">
+      <div class="section-heading">
+        <div><p class="section-index">02</p><h2 id="overview-title" data-i18n="overviewTitle">多算法平均排队总览</h2></div>
+        <div class="download-actions">
+          <button id="download-current" type="button" class="secondary-button" data-i18n="downloadCurrent">下载当前筛选 CSV</button>
+          <a id="download-summary" class="secondary-button" href="data/metrics_summary.csv" download data-i18n="downloadSummary">下载汇总 CSV</a>
+        </div>
+      </div>
+      <p class="section-description" data-i18n="overviewDescription">选择需要比较的方法；每条线是 10 次运行的逐秒平均全网 queue。</p>
+      <div class="analysis-controls">
+        <div class="smoothing-control">
+          <label for="smoothing-range"><span data-i18n="smoothing">曲线平滑强度</span><output id="smoothing-value" for="smoothing-range">0.00</output></label>
+          <input id="smoothing-range" type="range" min="0" max="0.95" step="0.05" value="0">
+          <small data-i18n="smoothingHelp">0 为原始曲线；数值越大越平滑。</small>
+        </div>
+        <div class="method-selector" role="group" aria-labelledby="method-selector-label">
+          <span id="method-selector-label" class="control-label" data-i18n="visibleMethods">总览显示方法</span>
+          <div id="legend" class="legend"></div>
+        </div>
+      </div>
+      <div class="axis-control"><label for="axis-mode" data-i18n="axisMode">纵轴比例</label><select id="axis-mode"><option value="zero" data-i18n="axisZero">自动范围（从 0 开始）</option><option value="detail" data-i18n="axisDetail">细节模式（贴合可见数据）</option></select><p data-i18n="axisHelp">总览按所选均值线定标；双窗口共用所选阴影范围。缩放后自动更新。细节模式纵轴可能不从 0 开始。</p></div>
+      <div id="curve-legend" class="legend"></div>
+      <div class="chart-shell overview-shell" data-chart-shell="overview">
+        <div class="chart-toolbar" data-chart-toolbar="overview"></div>
+        <canvas id="overview-canvas" role="img"></canvas>
+        <div class="tooltip" id="overview-tooltip" hidden></div>
+      </div>
+      <p class="interaction-hint" data-i18n="chartHint">滚轮或按钮缩放，按住曲线左右拖拽；所有图共享时间视窗。</p>
+    </section>
+
+    <section aria-labelledby="table-title">
+      <div class="section-heading">
+        <div><p class="section-index">03</p><h2 id="table-title" data-i18n="tableTitle">所选算法的完整指标对比</h2></div>
+        <div class="direction-key">
+          <span><i class="key-dot best"></i><span data-i18n="bestValue">算法内最佳均值（并列均标注）</span></span>
+          <span data-i18n="tenRunStats">单元格：平均值［最小–最大］± 标准差</span>
+        </div>
+      </div>
+      <p class="section-description" data-i18n="tableScope">每个所选 Controller 展示全部五种方法，独立比较最佳值；不受总览方法勾选影响。</p>
+      <div class="table-wrap" tabindex="0" data-i18n-aria="tableScroll"><table id="metrics-table"></table></div>
+    </section>
+
+    <section aria-labelledby="band-title">
+      <div class="section-heading"><div><p class="section-index">04</p><h2 id="band-title" data-i18n="bandTitle">双窗口自定义对比</h2></div></div>
+      <p class="section-description" data-i18n="bandDescription">阴影为 10 次运行的最小值–最大值，实线为平均值；五图共享 X/Y 范围和平滑强度。</p>
+      <div id="method-grid" class="method-grid"></div>
+    </section>
+
+    <section class="methodology" aria-labelledby="method-title">
+      <div class="section-heading"><div><p class="section-index">05</p><h2 id="method-title" data-i18n="methodTitle">口径与完整性</h2></div></div>
+      <div class="methodology-grid">
+        <article><h3 data-i18n="queueDefinitionTitle">Queue 定义</h3><p data-i18n="queueDefinition">每秒对所有受监控 lane 的 queue 求和，单位为车辆数。</p></article>
+        <article><h3 data-i18n="coverageTitle">数据覆盖</h3><p id="coverage-copy">4 controllers × 5 methods × 23 scenarios × 10 runs，共 4,600 条 rollout。</p></article>
+        <article><h3 data-i18n="provisionalTitle">结果状态</h3><p id="provisional-copy">这是完整 Grid 快照，但仍是临时结果；正式 Phase F 需等待全部 9,200 条结果。</p></article>
+        <article class="import-card"><h3 data-i18n="monacoImportTitle">Monaco 导入接口</h3><p data-i18n="monacoImport">Monaco 完整后运行只读导入命令，页面会自动启用 Monaco 数据源。</p><code>python3 docs/evaluation_workbook/grid_results_site/export_network_data.py --network monaco</code></article>
+      </div>
+      <details><summary data-i18n="metricGlossary">查看指标说明</summary><div id="metric-glossary" class="glossary"></div></details>
+    </section>
+  </main>
+
+  <footer><p id="footer-copy">本地只读可视化 · 数据来自 publication_seed101_v1/grid</p></footer>
+  <div id="fatal-error" class="fatal-error" role="alert" hidden></div>
+</body>
+</html>

@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "networks": [
+    {
+      "id": "grid",
+      "label": {
+        "zh": "Grid 路网",
+        "en": "Grid network"
+      },
+      "base": "data",
+      "available": true,
+      "expectedRollouts": 4600
+    },
+    {
+      "id": "monaco",
+      "label": {
+        "zh": "Monaco 城市路网",
+        "en": "Monaco city network"
+      },
+      "base": "data/networks/monaco",
+      "available": true,
+      "expectedRollouts": 4600
+    }
+  ]
+}

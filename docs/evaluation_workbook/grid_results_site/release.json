@@ -1,0 +1,18 @@
+{
+  "version": "20261006",
+  "protocol": 7,
+  "trainingSeed": 101,
+  "publicationStatus": "local-unpublished",
+  "filename": "CBWCE_Grid_Monaco_Portable_20261006.zip",
+  "archiveRoot": "CBWCE_Grid_Monaco_Portable_20261006",
+  "bytes": 23119634,
+  "sha256": "d11afd135a9b43c9774bed707ba7616e7449bf4943d26f031375f45f1095235b",
+  "networks": [
+    "grid",
+    "monaco"
+  ],
+  "seriesCsvFiles": 920,
+  "stepsPerSeries": 3600,
+  "summaryRows": 920,
+  "rollouts": 9200
+}

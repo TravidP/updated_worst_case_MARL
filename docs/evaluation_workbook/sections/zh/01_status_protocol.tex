@@ -1,0 +1,53 @@
+\chapter{目标、现状与冻结评估协议}
+
+\section{本手册的作用}
+本手册是正式评估、数据验证、统计分析、网站导出和论文呈现的唯一操作说明。它不替代论文，也不把尚未运行的结果写成事实。当前 40 个最终续训组合均存在完整 checkpoint，但正式 publication evaluation 仍为 \status{0/9,200}。\code{runs_eval/revised/peak_validation} 仅为 pilot，旧论文中的 baseline/retrained 数字也属于另一套协议，二者均不得进入新版主结果。
+
+本轮核心问题是：在两个路网、四个控制器和五种等预算续训方法上，online WCE 是否能在已见需求和冻结的未见需求套件中降低网络总排队，同时保持速度、通行完成率、可靠性和计算成本处于可解释范围。
+
+\section{模型矩阵与公平性边界}
+五种方法为 \code{baseline}、\code{random_group}、\code{domain_randomization}、\code{fixed_wce} 和 \code{online_wce}。四种控制器为 IA2C、MA2C、IQLL 和 PPO；路网为 Grid 与 Monaco。所有最终控制器的累计学习步数必须为 2,320,000，其中 parent 为 1,000,000，continuation 为 1,320,000。
+
+用户决定保留当前 baseline。审计发现 baseline continuation 使用 Python 3.10.12 / TensorFlow 2.15.1，其他多数 continuation 使用 Python 3.6.13 / TensorFlow 1.12.0，且 \code{envs/experiment_env.py} 的源码哈希不同。因此：
+\begin{itemize}
+  \item 性能结论必须写成“对冻结 checkpoint 与 seed 101 的条件性结果”；
+  \item wall-clock 只能作为描述性数据，不用于严格公平的训练速度排序；
+  \item 不声称 CB-WCE accelerates training，不给出无同环境证据的 time-to-threshold 结论；
+  \item 最终 release 必须包含 runtime/source compatibility matrix。
+\end{itemize}
+
+\section{实验规模}
+\input{generated/protocol_snapshot}
+正式矩阵为
+\[
+2\;\text{networks}\times4\;\text{controllers}\times5\;\text{methods}\times23\;\text{scenarios}\times10\;\text{pairs}=9{,}200.
+\]
+每个最终模型运行 230 条 rollout，每个网络 4,600 条。总仿真时间为 9,200 小时，即 33.12 million simulated seconds；每条 rollout 720 次控制决策，总计 6.624 million decisions。
+
+\section{通用仿真默认值}
+每次评估从空路网开始，时间区间为 $[0,3600)$ 秒，无 warm-up，也不在 3600 秒后排空。SUMO 每秒采样一次；控制周期 5 秒，由 2 秒 yellow 和 3 秒 green 组成。Grid 基准需求为 3,000 veh/h，Monaco 为 2,383.3333 veh/h。训练 episode 为 6,600 秒，WCE 每 600 秒接收一次成本，共 11 个等长窗口。
+
+Arrival seeds 固定为 51001--51010，SUMO seeds 固定为 61001--61010，并按 rollout index 一一配对。相同 network/scenario/index 的 demand artifact、SUMO seed 和场景定义必须跨所有 controller/method 复用；policy seed 使用协议规定的确定性摘要生成。
+
+\section{11 个 seen 场景与 12 个 test 场景}
+Seen split 是 11 个归一化训练 profile，每个 profile 在完整 3,600 秒内保持不变。Test split 包含四个场景族，每族三个场景：
+
+\begin{longtable}{@{}p{0.19\textwidth}p{0.23\textwidth}p{0.50\textwidth}@{}}
+\toprule
+场景族 & 场景 & 精确定义 \\
+\midrule
+OD redistribution & $\sigma=0.25,0.50,0.75$ & 以 Uniform 的正 OD 为 support，乘独立 LogNormal$(0,\sigma)$ 因子后重新归一化到基准总率。零 OD 保持为零。\\
+Demand mixture & mixture 1, 2, 3 & 由固定 generation seed 产生的 Dirichlet$(1,\ldots,1)$ 权重，对 11 个归一化 profile 作凸组合；整小时固定，总率不变。\\
+Temporal switching & 300, 900, 1200 s & 每个区块从完整的 11 个 seen profiles 中按冻结 generation seed 随机选择下一个 profile，并禁止相邻区块重复。300 秒场景用于快速切换压力测试；900 和 1200 秒场景用于检验更长驻留时间。\\
+Peak demand & $1.10,1.25,1.50$ & $[0,1200)$ 基准，$[1200,2400)$ 乘 peak multiplier，$[2400,3600)$ 恢复基准。\\
+\bottomrule
+\end{longtable}
+
+当前代码已实现 protocol v7：三个 temporal 场景均从完整的 11 个 seen profiles 中按冻结 generation seed 随机选择，并禁止相邻区块重复。v7 artifacts 尚待物化；正式运行前必须在独立的版本化目录中生成并审计它们，旧 v6 artifacts 不得进入 v7 release。
+
+Mixture 是 held-out composition/interpolation，不称为严格 OOD；peak 是强度外推；redistribution 是固定 OD support 内重分配；switch 是 11 个已见空间 profile 的冻结随机时间重排。Validation 六场景只用于调参，test 冻结后只评估一次。
+
+Peak 的期望一小时车辆量为：Grid 3,100 / 3,250 / 3,500；Monaco 约 2,462.78 / 2,581.94 / 2,780.56。最终实际 mean/min/max 必须从 v7 冻结 artifact 自动计算，不能从旧表手工抄写。
+
+\section{需求物化规则}
+每个 block 对每个 OD 采样 $N\sim\mathrm{Poisson}(r\,d/3600)$；departure time 在 block 内均匀采样并加 $\mathcal{N}(0,2\,\mathrm{s})$ jitter，再裁剪到 block 边界内并保留两位小数。Speed factor 采样自 $\mathcal{N}(1,0.1)$，非正值重新采样。路线由当前 SUMO network 解析并冻结在 artifact 中。Artifact 必须保存 network、profiles、scenario 和自身 hash。

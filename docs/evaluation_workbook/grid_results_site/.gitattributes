@@ -1,0 +1,2 @@
+# Preserve snapshot bytes so ZIP checksums also work on Windows clones.
+dist/data/** -text

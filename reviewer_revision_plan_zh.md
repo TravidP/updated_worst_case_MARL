@@ -1,20 +1,24 @@
 # CB-WCE 训练与评估工作指南
 
+> **9 月 16 日实现更新：** 控制器采用不缩放的终点排队奖励；Monaco IA2C/MA2C 批量为 120；新增原生 TensorBoard，以及学习前、每 50 个完整回合和最终预算时的独立 Uniform 监测。详见[监测与重新训练指南](docs/TRAINING_MONITORING_zh.md)。历史 gate 与检查点不能证明本方案已通过验证。当前完整重新训练仅启动八个父模型。
+
+> 当前研究：每个路网／控制器组合只执行一次独立父模型训练，种子 `101`。共 8 个父模型、8 次离线 WCE 训练、40 次续训和 9,200 次评估轨迹。每个场景仍评估十次，但不报告训练种子置信区间。
+
 [English version](reviewer_revision_plan.md) · [历史仓库审查记录](reviewer_revision_audit_2026-09-14.md)
 
-**方案版本：** 3
+**方案版本：** 5
 
-**日期：** 2026 年 9 月 15 日
+**日期：** 2026 年 9 月 16 日
 
 **仓库：** `/home/sdc_joran/Journal/deeprl_signal_control`
 
-**实施状态：** 本文规定修订实验的工作流程。修正实现已集成到 `agents/`、`envs/` 与 `experiments/`，统一入口为 `python main.py experiment ...`。该实现保留报告中记录的历史 C01–C10 试运行证据；可视化源代码修改后需要重新完成论文实验准入验证。原有代码入口保持不变，完整的论文训练与评估矩阵尚未启动。
+**实施状态：** 修正实现已集成到 `agents/`、`envs/` 与 `experiments/`。方案 5 已重新通过全部八种路网／控制器组合验证，包括 C01–C10 与监测检查。准入记录及父模型训练状态见[实现报告](docs/ENDPOINT_MONITORING_REPORT.md)。历史入口和输出仍保留。
 
 **文档历史：** 2026 年 9 月 15 日早先的指南修订仅涉及文档。后续可视化更新增加命令行／本地工作台的显示选项；其定向验证见[可视化报告](docs/VISUALIZATION.md)。两份原指南及其 [SHA-256 校验索引](docs/history/reviewer_guides_20260915T085603Z/checksums.sha256) 保存在[带日期的归档目录](docs/history/reviewer_guides_20260915T085603Z/)中。
 
 ## 1 实验概览
 
-在 5×5 网格路网和 Monaco 子路网上，比较一项基线与四种需求训练策略。每种策略均应用于 IA2C、MA2C、IQL-LR（`iqll`）和 PPO，并使用五个独立训练种子。
+在 5×5 网格路网和 Monaco 子路网上，比较一项基线与四种需求训练策略。每种策略均应用于 IA2C、MA2C、IQL-LR（`iqll`）和 PPO，每个组合仅执行一次独立训练（种子 `101`）。
 
 | 方法 ID | 每个 600 秒区间内的需求规则 | WCE 模型参数学习 |
 |---|---|---|
@@ -74,7 +78,7 @@ git status --short
 
 ### 可执行准备命令与共用 Shell 变量
 
-**目的与输入。** 先按上方命令从仓库根目录激活已有环境。已建立的运行环境为 Python 3.6.13、TensorFlow 1.12.0 和 NumPy 1.19.5。以下变量构成 Grid/IA2C 的完整示例。使用 Monaco 时，将 `CBWCE_NETWORK=monaco`，并将 `CBWCE_DATASET_ROOT=real_net_subnet/demand_groups/revised`。控制器 ID 为 `ia2c`、`ma2c`、`iqll`、`ppo`；五个论文训练种子分别运行。试运行种子 9001 不计为论文实验重复。
+**目的与输入。** 先按上方命令从仓库根目录激活已有环境。已建立的运行环境为 Python 3.6.13、TensorFlow 1.12.0 和 NumPy 1.19.5。以下变量构成 Grid/IA2C 的完整示例。使用 Monaco 时，将 `CBWCE_NETWORK=monaco`，并将 `CBWCE_DATASET_ROOT=real_net_subnet/demand_groups/revised`。控制器 ID 为 `ia2c`、`ma2c`、`iqll`、`ppo`；一个论文训练种子分别运行。试运行种子 9001 不计为论文实验重复。
 
 **试运行／论文实验准备命令。** 两种模式共用输入准备流程。`prepare` 创建归一化 CSV、场景定义和生效 INI，或检查现有副本是否一致；不会覆盖内容不同的已准备文件。`--materialize` 启动短时 SUMO 路径解析会话，创建完整交通文件，不训练控制器。因此下面两条物化命令不是只读准备检查。
 
@@ -88,7 +92,7 @@ export CBWCE_CONTROLLER=ia2c
 export CBWCE_SEED=101
 export CBWCE_PILOT_SEED=9001
 export CBWCE_DATASET_ROOT=data_traffic/revised
-export CBWCE_GATE=runs_eval/revised/verification/final_integration_20260914/gate.json
+export CBWCE_GATE="runs_eval/revised/verification/endpoint_monitoring_20260916_v1/gate.json"
 
 python main.py experiment prepare
 python main.py experiment check --gate "$CBWCE_GATE"
@@ -124,7 +128,7 @@ python main.py experiment parent --network grid --controller ia2c \
 
 此选项在任务启动时生效，不是在运行中切换。恢复时可以为新尝试选择任一显示模式；检查点兼容性和原有学习预算不变。**论文计时比较应关闭可视化**，因为渲染和播放延迟会增加实际耗时。所选布尔值以 `visualization` 保存到 `<run>/manifest.json`；每个 `runtime/startup_*.json` 保存实际 `visualization` 和 SUMO 启动命令。即使任务开启可视化，构造器／初始化及评估套件路径准备会话仍可能无窗口运行。排队 NPZ、交通 JSONL、检查点及结果路径保持下文描述的格式。
 
-**本次修改后的验证状态：** 9 月 14 日的准入文件保留为历史证据，其源代码哈希已不再匹配可视化实现。论文训练前请运行 `python main.py experiment verify --workers 4`，并选择其新生成的通过记录。定向可视化检查不能代替完整八组准入验证。
+**验证状态：** [9 月 16 日 gate](runs_eval/revised/verification/endpoint_monitoring_20260916_v1/gate.json) 已通过终点奖励、120 步批量及监测功能的完整八组验证。旧 gate 仅作为历史记录。仅当 `check --gate` 报告 `passed` 时复用新 gate；代码／配置变更后需要重新验证。
 
 ### 路网与训练需求配置
 
@@ -201,7 +205,7 @@ figs/revised/                            # scientific plots
 
 ### C03 统一控制器奖励处理
 
-**必需行为。** 初始训练与全部五种续训方法使用同一条控制器奖励构造路径。IA2C、PPO 和 IQL-LR 接收规定的共享路网奖励；MA2C 接收规定的邻域加权奖励。第 4 节定义的归一化仅应用一次，移除修订路径中额外的旧版归一化，包括 Monaco 非预期的额外缩放。
+**必需行为。** 初始训练与全部五种续训方法使用同一条控制器奖励构造路径。IA2C、PPO 和 IQL-LR 接收规定的共享路网奖励；MA2C 接收规定的邻域加权奖励。采用第 4 节定义的不缩放终点排队奖励，移除修订路径中全部旧版奖励归一化。
 
 **验收检查。** 对于相同的路网和控制器类型，给定相同的局部排队测量，各方法必须产生相同的学习奖励向量。
 
@@ -258,7 +262,7 @@ figs/revised/                            # scientific plots
 | 实际生效值 | 含义 | 实现／配置来源 | 是否可配置 |
 |---|---|---|---|
 | IA2C/MA2C 学习率 `0.0005`；PPO `0.0003`；IQL `0.0001` | 恒定学习率；未应用学习率衰减 | `MODEL_CONFIG.lr_init`; `agents/controller.py` | INI；配置改变后需重新验证 |
-| IA2C/MA2C 批量：Grid `120`，Monaco `40`；PPO `120`；IQL `20` | actor-critic/PPO 为 on-policy 序列长度；IQL 为回放小批量大小 | `MODEL_CONFIG.batch_size`; `Controller.observe/flush` | INI；更新时机还受下方固定规则控制 |
+| IA2C/MA2C 批量：Grid `120`，Monaco `120`；PPO `120`；IQL `20` | actor-critic/PPO 为 on-policy 序列长度；IQL 为回放小批量大小 | `MODEL_CONFIG.batch_size`; `Controller.observe/flush` | INI；更新时机还受下方固定规则控制 |
 | Actor-critic/PPO：wave 全连接层 `128`、wait 全连接层 `32`、LSTM `64`；MA2C 指纹全连接层 `64` | 紧凑循环策略；IQL 使用线性 Q 策略，不使用 LSTM | `num_fw`, `num_ft`, `num_lstm`, `num_fp`; `agents/recurrent.py`, `agents/policies.py` | 宽度：INI；架构：代码 |
 | IA2C/MA2C：RMSProp；PPO/IQL：Adam | RMSProp 衰减 `0.99`；actor-critic/PPO epsilon 为 `1e-5`；IQL 使用 Adam 默认值 | `masked_loss`; `LRQPolicy.prepare_loss`; `rmsp_alpha`, `rmsp_epsilon` | 优化器选择：代码；所列 RMS 字段：INI |
 | 控制器折扣因子 `0.99` | 回报／TD 折扣，与 MA2C 空间邻域权重不同 | `Controller.flush`; IQL `prepare_loss(..., .99)` | 代码固定；只改 INI `gamma` 对此处无效 |
@@ -282,7 +286,7 @@ figs/revised/                            # scientific plots
 |---|---|---|---|
 | 控制器周期 `5 s` = 黄灯 `2 s` + 绿灯 `3 s` | 一次联合决策；每秒仿真后测量排队，包括黄灯期间 | `envs/experiment_env.py: step/_simulate` | 修正代码固定 |
 | 训练回合 `6600 s`；`11 × 600 s`；`1320` 次联合转移 | 回合与需求区间时钟；评估为 `3600 s`／`720` 次转移 | `experiments/runner.py`; `experiment_env.py` | 方案记录这些值，循环中也有固定常量 |
-| 排队奖励缩放除数 `100`；禁用裁剪 | 学习奖励与 WCE 区间代价仅除以一次；评估保留车辆单位 | `experiments/core.py: QueueMetric` | 代码固定；不读取旧 `reward_norm/reward_clip` |
+| 控制器除数 `1`；WCE 除数 `100`；禁用裁剪 | 控制器采用终点排队，不归一化；WCE 为 600 秒均值除以 100；评估保留车辆单位 | `experiments/core.py: QueueMetric` | 代码固定；不读取旧 `reward_norm/reward_clip` |
 | 父模型 `1000000` 步；续训 `1320000` 步；离线 WCE `500` 回合 | 预算统计真实学习转移；WCE 阶段仅增加冻结仿真 | `config/revised/protocol.json`; runner goal selection | 方案预算；试运行可用 `--steps/--episodes`；论文检查还固定校验总量 |
 
 ### 排队指标与控制器奖励
@@ -296,7 +300,7 @@ $$
 
 将 $J_Q$ 报告为**受控进口车道平均总排队车辆数**，单位为辆，越低越好。审查记录中的车道数为网格路网 150 条、Monaco 116 条。保存并验证准确的车道清单。SUMO 的车道停止车辆数以速度低于 0.1 m/s 为判据。[SUMO 车道数值文档](https://sumo.dlr.de/docs/TraCI/Lane_Value_Retrieval.html)
 
-对于每个五秒的控制器转移，对每个路口的局部排队在全部五秒内取平均。IA2C、PPO 和 IQL-LR 的每个智能体接收负的全路网平均排队值。MA2C 接收负的局部平均排队值，加上以 0.9 加权的负邻居局部平均排队值。将所得学习奖励除以 100，**仅执行一次**，并禁用奖励裁剪。在修订奖励路径中不得保留额外的 Monaco 专用除数。
+每个五秒控制器转移使用最后一秒测量的排队值。IA2C、PPO 和 IQL-LR 接收 `r = -Q(t+5)`；MA2C 接收终点负局部排队加上 0.9 加权的终点负邻居排队。**控制器奖励不除以 100，也不裁剪。** WCE 仍使用独立的 600 秒平均排队除以 100；评估仍对每秒测量取平均。因此三条路径使用相同测量，但时间聚合与缩放有意不同。
 
 ### WCE 参数与更新行为
 
@@ -319,7 +323,55 @@ WCE 最大化正的排队成本；控制器通过负排队奖励进行学习。�
 
 固定 WCE 与在线 WCE 必须共享相同的初始检查点、架构、观测和动作采样规则。两种方法的需求混合权重均可每 600 秒改变。只有在线 WCE 在回合之间更新模型参数。
 
+### 原生 TensorBoard 与定期监测（方案 5）
+
+运行器将原生事件写入 `<run>/tensorboard/`。运行 `tensorboard --logdir runs/revised --host 127.0.0.1 --port 6007` 查看。
+
+| 图表 | 横轴 | 解释 |
+|---|---|---|
+| `train/reward_by_learning_step` | 控制器累计学习步 | 每个转移的实际奖励；越大／越接近零越好。MA2C 使用各智能体邻域奖励均值，单独奖励保留在原始记录中。 |
+| `train/episode/mean_total_queue` | 回合结束时学习步 | 完整 6,600 秒回合均值；越低越好。 |
+| `train/partial_episode/*` | 学习步 | 最终截断回合按实际时长单独标识。 |
+| `learner/*/{mean,min,max}` | 学习步 | 实际损失、熵、价值／目标／优势、梯度范数与裁剪；PPO 裁剪比例；IQL TD／Q／epsilon／回放统计。 |
+| `monitor/mean_total_queue` 与 `monitor/mean_current_wait_seconds` | 学习步 | 固定 Uniform 监测均值；`_sd` 为重复轨迹的样本标准差。 |
+| `monitor/queue_by_second` 与 `monitor/current_wait_by_second` | 仿真秒 1–600 | 每轮详细事件位于 `monitoring/round_*/tensorboard/`。 |
+| `monitor/queue_waiting` | 学习步 | Images 页签，测试内曲线与变化范围。 |
+
+父模型及全部五种续训方法在学习前、每 50 个完整回合后及最终预算时监测。每轮三条配对的 600 秒 Uniform 轨迹，从空路网开始，无预热；Grid 为 3,000 辆／小时，Monaco 为 2,383.3333 辆／小时。种子：到达 53001–53003、SUMO 63001–63003、策略 73001–73003。这些是监测数据，不是最终测试集。冻结控制器 WCE 阶段不增加控制器学习奖励点。
+
+默认 `--monitor-every 50 --monitor-rollouts 3`，论文模式强制执行。试运行可使用 `--monitor-every 1 --monitor-rollouts 1` 快速检查调度。恢复保持相同设置，复用已完成轮次，在新尝试中重试失败监测。监测使用独立模型／环境，不得改变训练状态。
+
+`episode_metrics.jsonl` 记录完整／部分时长、排队／奖励汇总、交通计数与耗时；`learner_metrics.jsonl` 保留逐智能体／小批量诊断。`monitoring/round_<episode>/` 保存准确检查点引用、`summary.json`、PNG/SVG 图、`rollout_01..03/timeseries.csv`（600 行）、原始 JSONL 与逐车道 NPZ。当前等待时间指仍位于监测车道车辆的连续等待，不是已完成行程等待。排队积分为累计停车车辆秒数。测试失败时先保留训练检查点，再停止任务；不允许补齐伪造结果。
+
+实现：[事件日志](experiments/telemetry.py)、[独立监测](experiments/monitoring.py)、[验证测试](tests/test_monitoring.py)。单位、路径和命令详见[双语监测指南](docs/TRAINING_MONITORING_zh.md)。保留原始值；TensorBoard 的显示平滑／降采样不改变训练奖励。
+
 ## 5 初始基线训练
+
+### 分阶段 Shell 启动脚本
+
+`scripts/training/` 中的可执行文件调用相同的修正 CLI。脚本先打印双语阶段标题、路网／控制器／种子、方法、预算、准确命令和输出路径，再交给无缓冲 Python 运行器；不建立第二套学习实现，也不自动启动完整矩阵。全部试运行／论文命令、检查点选择和恢复说明见[英文指南](scripts/training/README.md)与[中文指南](scripts/training/README_zh.md)。
+
+| 阶段 | 脚本 | 用途 |
+|---|---|---|
+| I | [01_parent.sh](scripts/training/01_parent.sh) | 初始共同父模型 |
+| II | [02_wce.sh](scripts/training/02_wce.sh) | 针对冻结父模型训练 WCE |
+| III-1 | [03_baseline.sh](scripts/training/03_baseline.sh) | 基线续训 |
+| III-2 | [04_random_group.sh](scripts/training/04_random_group.sh) | 随机需求组续训 |
+| III-3 | [05_domain_randomization.sh](scripts/training/05_domain_randomization.sh) | 域随机化续训 |
+| III-4 | [06_fixed_wce.sh](scripts/training/06_fixed_wce.sh) | 固定 WCE 续训 |
+| III-5 | [07_online_wce.sh](scripts/training/07_online_wce.sh) | 在线 WCE 续训 |
+
+仅在命令选项和已有 `CBWCE_*` 变量未覆盖时，启动器默认试运行、Grid/IA2C、种子 9001。试运行默认可视化，论文命令默认无窗口。在现有指南示例之间切换时应明确指定模式和种子。以下预览不会改变当前 shell 的论文种子：
+
+```bash
+bash scripts/training/01_parent.sh --mode pilot --network "$CBWCE_NETWORK" \
+  --controller "$CBWCE_CONTROLLER" --seed "$CBWCE_PILOT_SEED" --dry-run
+```
+
+移除 `--dry-run` 即执行该阶段。预览不创建输出目录，不校验检查点内容、gate 或显示可访问性；临时运行 ID 与后续真实运行不同。五种续训均复用同一个选定共同父模型，固定／在线 WCE 还复用同一个预训练 WCE。路径应来自完成运行的 `result.json`。脚本使用 `CBWCE_PARENT`、`CBWCE_WCE`，也可直接传 `--parent`／`--wce`。将 `CBWCE_MODE` 从试运行切换至论文模式前请阅读脚本指南；不能将试运行父模型用作论文父模型。
+
+阶段标题留在终端，之后显示已有回合进度；`progress.jsonl`、科学输出和检查点约定保持下文定义。Ctrl+C 传给已有 Python／SUMO 清理路径。打印了预期检查点路径不代表已完成，应核对 `result.json`。
+
 
 ### 阶段 0 准备与验证
 
@@ -333,7 +385,7 @@ WCE 最大化正的排队成本；控制器通过负排队奖励进行学习。�
 
 **目的／前提：** 输入准备后建立与源代码对应的 C01–C10 准入记录。**输入：** 当前代码及数据／配置哈希，不需要父模型检查点。**试运行命令：** verifier 以试运行预算检查八个路网／控制器组合。**论文实验前提命令：** `check --gate` 检查所选证据，不启动训练。
 
-下方链接给出 9 月 14 日的最终 gate；仅当 `check` 报告 `gate: passed` 时复用。gate 失效或需要重新验证时运行 `verify`，然后用输出的 gate 路径替换占位值。仅阅读本指南不需要重跑验证矩阵。
+本实现使用 [9 月 16 日 gate](runs_eval/revised/verification/endpoint_monitoring_20260916_v1/gate.json)，并先用 `check` 确认 `passed`。下方旧 gate 为历史证据。仅在 gate 失效或需要新验证时重跑 `verify`；验证期间不要编辑代码／配置。
 
 ```bash
 python main.py experiment check --gate "$CBWCE_GATE"
@@ -345,13 +397,15 @@ python main.py experiment check --gate "$CBWCE_GATE"
 
 **脚本：** [experiments/verify.py](experiments/verify.py)、[修正测试](tests/test_corrections.py)、[工作流测试](tests/test_workflow.py)，使用同一个修正运行器。**输出：** `runs_eval/revised/verification/<run_id>/gate.json`、测试日志及每个路网／控制器的案例目录。**完成条件：** 八组案例和全部测试通过，所选 gate 与源代码、输入及证据哈希一致。
 
-**已有证据：** [集成报告](docs/INTEGRATION_REPORT.md)、[八组案例 gate](runs_eval/revised/verification/integrated_20260914/gate.json)、[已接受最终 gate](runs_eval/revised/verification/final_integration_20260914/gate.json)及[定向验证范围](runs_eval/revised/verification/final_integration_20260914/validation_scope.json)。八组试运行包含 40 次续训、八次恢复检查、64 条完整评估和八次故意中断。随后的身份／套件方法标识／计时／报告修正通过 18 项测试、七项 HTTP 检查及一条附加完整评估。定向界面修正后没有再次重跑整个八组矩阵，学习器／环境／配置逻辑未改变。这些是已有记录，不是本次文档更新新执行的测试。
+**历史证据（9 月 14 日）：** [集成报告](docs/INTEGRATION_REPORT.md)、[八组案例 gate](runs_eval/revised/verification/integrated_20260914/gate.json)、[历史最终 gate](runs_eval/revised/verification/final_integration_20260914/gate.json)及[定向验证范围](runs_eval/revised/verification/final_integration_20260914/validation_scope.json)。八组试运行包含 40 次续训、八次恢复检查、64 条完整评估和八次故意中断。随后的身份／套件方法标识／计时／报告修正通过 18 项测试、七项 HTTP 检查及一条附加完整评估。定向界面修正后没有再次重跑整个八组矩阵，学习器／环境／配置逻辑未改变。这些是已有记录，不是本次文档更新新执行的测试。
+
+**本次通过证据：** 完整八组准入验证重新运行并通过；覆盖五种续训方法、冻结 WCE、完整状态恢复、监测前后训练一致性和 TensorBoard 原始值核对。另有 Monaco 三次配对实现检查监测均值与样本标准差。这些均为验证试运行，不是论文性能结论。见[详细报告](docs/ENDPOINT_MONITORING_REPORT.md)。
 
 ### 阶段 I 训练共同父控制器
 
 **必须持续执行的检查：** 训练期间保持 C02–C08 和 C10 生效。
 
-使用主训练种子 `101, 202, 303, 404, 505`。对每个路网、控制器和种子组合：
+使用主训练种子 `101`。对每个路网、控制器和种子组合：
 
 1. 使用修订后的排队奖励和固定配置，初始化全新控制器。
 2. 按原有顺序依次使用十一种归一化需求配置进行训练。
@@ -359,7 +413,7 @@ python main.py experiment check --gate "$CBWCE_GATE"
 4. 使用正确的 bootstrap 值处理最后一个未满的 on-policy 批次。在该次更新之后保存；按算法需要保留 IQL 经验回放和调度状态。
 5. 保存完整共同父检查点、累计计数器、输入哈希、随机种子流和阶段耗时。
 
-**输出：** 40 个独立父检查点。由同一个训练父模型派生五次续训，不能替代五个独立训练的父模型。
+**输出：** 8 个独立父检查点，每个路网／控制器组合仅训练一次。五种续训是比较方法，不是独立训练重复。
 
 此父模型不是最终基线结果。在阶段 III 中，基线将继续训练至与四种对比方法相同的最终预算。
 
@@ -372,7 +426,7 @@ python main.py experiment check --gate "$CBWCE_GATE"
 ```bash
 python main.py experiment parent --network "$CBWCE_NETWORK" \
   --controller "$CBWCE_CONTROLLER" --seed "$CBWCE_PILOT_SEED" \
-  --pilot --steps 160 --checkpoint-every 1
+  --pilot --visualization --steps 160 --checkpoint-every 1
 ```
 
 **论文实验命令：** 精确运行 1,000,000 个学习转移；不传入 `--steps` 或 `--episodes`。
@@ -408,7 +462,7 @@ python main.py experiment check --checkpoint "$CBWCE_PARENT"
 4. 训练 WCE **500 个回合**，共 **5,500 个宏观转移**。每个宏观转移包含一个 600 秒区间，即 120 个冻结控制器仿真步。
 5. 保存最终 WCE 检查点、准确的父模型标识、计数器和耗时。验证控制器模型参数始终不变。
 
-**输出：** 40 个预训练 WCE 检查点。每次 WCE 训练增加 **660,000 个冻结控制器仿真步**，这些步数均不计入控制器训练预算。
+**输出：** 8 个预训练 WCE 检查点。每次 WCE 训练增加 **660,000 个冻结控制器仿真步**，这些步数均不计入控制器训练预算。
 
 `fixed_wce` 和 `online_wce` 使用同一个已保存的 WCE 作为初始模型。其余三种方法独立运行时不需要训练 WCE。
 
@@ -421,7 +475,7 @@ python main.py experiment check --checkpoint "$CBWCE_PARENT"
 ```bash
 python main.py experiment wce --network "$CBWCE_NETWORK" \
   --controller "$CBWCE_CONTROLLER" --seed "$CBWCE_PILOT_SEED" \
-  --parent "$CBWCE_PARENT_PILOT" --pilot --episodes 2 --checkpoint-every 1
+  --parent "$CBWCE_PARENT_PILOT" --pilot --visualization --episodes 2 --checkpoint-every 1
 ```
 
 **论文实验命令：** 500 回合、5,500 个宏转移、660,000 个冻结控制器仿真步。
@@ -459,7 +513,7 @@ export CBWCE_WCE='REPLACE_WITH_COMPLETED_PUBLICATION_WCE_CHECKPOINT'
 
 `fixed_wce` 根据状态进行推理，但不存储 WCE 学习转移，也不执行 WCE 优化器更新。`online_wce` 记录 WCE 转移，并在回合边界收集满十一个宏观转移后更新。其续训阶段包含 11,000 个 WCE 学习转移和 1,000 次回合更新。
 
-**输出：** 200 个最终控制器检查点：40 个延长训练后的基线，以及四种对比方法合计 160 个控制器。训练一百万步的父模型不作为额外对比方法。
+**输出：** 40 个最终控制器检查点：8 个延长训练后的基线，以及四种对比方法合计 32 个控制器。训练一百万步的父模型不作为额外对比方法。
 
 ### 阶段 III 五种方法的命令
 
@@ -471,27 +525,27 @@ export CBWCE_WCE='REPLACE_WITH_COMPLETED_PUBLICATION_WCE_CHECKPOINT'
 python main.py experiment continue --network "$CBWCE_NETWORK" \
   --controller "$CBWCE_CONTROLLER" --seed "$CBWCE_PILOT_SEED" \
   --method baseline --parent "$CBWCE_PARENT_PILOT" \
-  --pilot --steps 2640 --checkpoint-every 1
+  --pilot --visualization --steps 2640 --checkpoint-every 1
 
 python main.py experiment continue --network "$CBWCE_NETWORK" \
   --controller "$CBWCE_CONTROLLER" --seed "$CBWCE_PILOT_SEED" \
   --method random_group --parent "$CBWCE_PARENT_PILOT" \
-  --pilot --steps 2640 --checkpoint-every 1
+  --pilot --visualization --steps 2640 --checkpoint-every 1
 
 python main.py experiment continue --network "$CBWCE_NETWORK" \
   --controller "$CBWCE_CONTROLLER" --seed "$CBWCE_PILOT_SEED" \
   --method domain_randomization --parent "$CBWCE_PARENT_PILOT" \
-  --pilot --steps 2640 --checkpoint-every 1
+  --pilot --visualization --steps 2640 --checkpoint-every 1
 
 python main.py experiment continue --network "$CBWCE_NETWORK" \
   --controller "$CBWCE_CONTROLLER" --seed "$CBWCE_PILOT_SEED" \
   --method fixed_wce --parent "$CBWCE_PARENT_PILOT" \
-  --pilot --steps 2640 --checkpoint-every 1 --wce "$CBWCE_WCE_PILOT"
+  --pilot --visualization --steps 2640 --checkpoint-every 1 --wce "$CBWCE_WCE_PILOT"
 
 python main.py experiment continue --network "$CBWCE_NETWORK" \
   --controller "$CBWCE_CONTROLLER" --seed "$CBWCE_PILOT_SEED" \
   --method online_wce --parent "$CBWCE_PARENT_PILOT" \
-  --pilot --steps 2640 --checkpoint-every 1 --wce "$CBWCE_WCE_PILOT"
+  --pilot --visualization --steps 2640 --checkpoint-every 1 --wce "$CBWCE_WCE_PILOT"
 ```
 
 **论文实验命令：** 每次选择一条。每条精确增加 1,320,000 个学习步，最终达到 2,320,000 步。这些命令不是自动实验队列。
@@ -542,7 +596,7 @@ export CBWCE_RESUME_PILOT='REPLACE_WITH_COMPLETE_SAME_STAGE_PILOT_CHECKPOINT'
 python main.py experiment continue --network "$CBWCE_NETWORK" \
   --controller "$CBWCE_CONTROLLER" --seed "$CBWCE_PILOT_SEED" \
   --method online_wce --parent "$CBWCE_PARENT_PILOT" --wce "$CBWCE_WCE_PILOT" \
-  --pilot --steps 2640 --checkpoint-every 1 --resume "$CBWCE_RESUME_PILOT"
+  --pilot --visualization --steps 2640 --checkpoint-every 1 --resume "$CBWCE_RESUME_PILOT"
 
 export CBWCE_RESUME='REPLACE_WITH_COMPLETE_SAME_STAGE_PUBLICATION_CHECKPOINT'
 python main.py experiment continue --network "$CBWCE_NETWORK" \
@@ -577,7 +631,7 @@ export CBWCE_FINAL='REPLACE_WITH_SELECTED_COMPLETED_PUBLICATION_CONTINUATION_CHE
 ```bash
 python main.py experiment evaluate --network "$CBWCE_NETWORK" \
   --controller "$CBWCE_CONTROLLER" --seed "$CBWCE_PILOT_SEED" \
-  --parent "$CBWCE_FINAL_PILOT" --pilot --suite test --scenario peak_1.25 --rollouts 1
+  --parent "$CBWCE_FINAL_PILOT" --pilot --visualization --suite test --scenario peak_1.25 --rollouts 1
 ```
 
 **论文实验命令：** 控制器必须精确具有 2,320,000 个学习步，每场景十次实现。该命令评估一个控制器，不是整个研究。CLI 评估会检查检查点身份／预算，但不像训练阶段一样强制要求／校验 `--gate`，因此先执行显式 gate 检查。本地启动器也要求论文评估具有有效 gate。
@@ -594,7 +648,7 @@ python main.py experiment evaluate --network "$CBWCE_NETWORK" \
 ```bash
 python main.py experiment evaluate --network "$CBWCE_NETWORK" \
   --controller "$CBWCE_CONTROLLER" --seed "$CBWCE_PILOT_SEED" \
-  --parent "$CBWCE_FINAL_PILOT" --pilot --suite validation --rollouts 1
+  --parent "$CBWCE_FINAL_PILOT" --pilot --visualization --suite validation --rollouts 1
 ```
 
 **单交通文件试运行／重试：** 不传 `--suite`，显式提供完整交通文件及对应的配对仿真／策略种子。下例对应套件 rollout 索引 0（到达种子 51001、SUMO 种子 61001）。其他重复应使用原尝试清单中的交通文件、种子和检查点。直接评估器默认策略种子 `71001` 不等于套件派生策略种子，因此配对重试不能依赖该默认值。
@@ -604,7 +658,7 @@ export CBWCE_ARTIFACT="$CBWCE_DATASET_ROOT/test/artifacts/peak_1.25_51001.json"
 export CBWCE_POLICY_SEED="$(python -c 'import os; from experiments.core import digest; print(int(digest(["evaluation-policy", int(os.environ["CBWCE_PILOT_SEED"]), 0])[:8], 16))')"
 python main.py experiment evaluate --network "$CBWCE_NETWORK" \
   --controller "$CBWCE_CONTROLLER" --seed "$CBWCE_PILOT_SEED" \
-  --parent "$CBWCE_FINAL_PILOT" --pilot --artifact "$CBWCE_ARTIFACT" \
+  --parent "$CBWCE_FINAL_PILOT" --pilot --visualization --artifact "$CBWCE_ARTIFACT" \
   --sumo-seed 61001 --policy-seed "$CBWCE_POLICY_SEED"
 ```
 
@@ -733,17 +787,20 @@ test/artifacts/<scenario>_<arrival_seed>.json
 
 记录平均排队、排队积分和峰值排队；按车辆时间加权的平均速度；预定、已插入、已完成、待发和剩余车辆数；车辆传送、碰撞及执行失败；以及已完成行程的旅行时间、等待时间、时间损失和发车延迟，并明确各指标的统计分母。完全没有车辆的 rollout，其平均速度应标记为不可用，不能人为赋值为零。不完整尝试按照 C09–C10 单独保留并可识别。
 
-对于每个训练种子和场景，分别计算十个有效 rollout 的 $J_Q$，然后报告均值和样本标准差。对于每个路网、控制器和方法组合，在每个训练种子内，以相等场景权重平均十二个新场景的估计值。报告得到的五个种子级数值、均值、样本标准差和 95% t 置信区间：
+对于每个场景和单次训练模型（种子 `101`），分别计算十次有效配对评估轨迹的 $J_Q$，报告均值和样本标准差：
 
 $$
-\bar J\pm 2.776\,\frac{s}{\sqrt{5}}.
+\bar J_Q=\frac{1}{10}\sum_{r=1}^{10}J_{Q,r},\qquad
+s_Q=\sqrt{\frac{1}{9}\sum_{r=1}^{10}(J_{Q,r}-\bar J_Q)^2}.
 $$
 
-进行方法比较时，先计算五个匹配训练种子的差值，再计算差值的区间。不得将逐秒样本视为独立重复，也不得将不同控制器类型或路网混入同一个五种子估计。分别报告已见配置表现和四类新需求场景结果。探索性的“已测试最差场景均值”定义为：先对训练种子与 rollout 求平均，再取各场景均值的最大值。区间描述的是给定固定测试套件条件下的不确定性。[Agarwal 等关于 RL 评估的研究](https://arxiv.org/abs/2108.13264)
+对每个路网／控制器／方法组合，将十二个新场景的均值等权平均。单独报告已见需求组及四类新需求结果。各方法使用同一父模型和配对交通实现；`paired_differences.csv` 报告完整等权场景套件均值之差。探索性的“已测试最差场景均值”是十二个场景均值的最大值。
+
+每个方法／路网／控制器组合只有一个独立训练模型。因此，即使单种子研究完整完成，训练种子标准差及训练种子置信区间仍不可用（`null`）。十次评估轨迹反映给定模型的轨迹波动，不等于十次独立训练。不得将逐秒样本或不同场景作为独立训练重复；结论仅描述该训练种子及规定测试套件。
 
 ### 高峰需求热力图
 
-对于预先指定的 1.25× 和 1.50× 高峰，在相同的 `[1200, 2400)` 秒窗口内聚合车道排队。生成五种方法的绝对值地图，以及 `online_wce − comparator` 差值地图，并对匹配的训练种子和 rollout 实现取平均。
+对于预先指定的 1.25× 和 1.50× 高峰，在相同的 `[1200, 2400)` 秒窗口内聚合车道排队。生成五种方法的绝对值地图，以及 `online_wce − comparator` 差值地图，并对种子 `101` 下匹配的 rollout 实现取平均。
 
 同一路网与场景内使用统一的绝对值色标；差值色标以零为中心且对称。保持相同几何形状和空间范围，明确单位，未监测道路用灰色表示。负差值表示在线 WCE 的排队更低。将监测范围标注为受控进口车道，并核对地图聚合值与相同排队测量的一致性。不得为不同控制器选择不同高峰窗口或需求场景。
 
@@ -755,12 +812,12 @@ $$
 
 | 工作项 | 数量 |
 |---|---:|
-| 共同父模型训练运行 | 40 |
-| 离线 WCE 训练运行 | 40 |
-| 包含基线的续训运行 | 200 |
-| 最终评估 rollout | 46,000 |
+| 共同父模型训练运行 | 8 |
+| 离线 WCE 训练运行 | 8 |
+| 包含基线的续训运行 | 40 |
+| 最终评估 rollout | 9,200 |
 
-评估数量为 `2 × 4 × 5 × 5 × 23 × 10 = 46,000`：路网数 × 控制器类型数 × 训练种子数 × 方法数 × 场景数 × rollout 次数。试运行、验证运行和失败尝试另计，并单独记录。
+评估数量为 `2 × 4 × 1 × 5 × 23 × 10 = 9,200`：路网数 × 控制器类型数 × 训练种子数 × 方法数 × 场景数 × rollout 次数。试运行、验证运行和失败尝试另计，并单独记录。
 
 ### 阶段 V 报告与本地工作台
 
@@ -776,7 +833,7 @@ python main.py experiment report \
   --output output_result/revised/pilot_report_20260915_example
 ```
 
-**论文实验命令模板：** 采用选定的论文实验尝试目录。为其他方法、训练种子、父模型或 WCE 运行重复添加 `--input`。报告器按各行来源清单分类，`report` 不接受 `--pilot`。不要选择包含同一比较单元的多个有效重试的大范围目录。
+**论文实验命令模板：** 采用选定的论文实验尝试目录。为其他方法、父模型或 WCE 运行重复添加 `--input`。报告器按各行来源清单分类，`report` 不接受 `--pilot`。不要选择包含同一比较单元的多个有效重试的大范围目录。
 
 ```bash
 export CBWCE_EVAL_RUN='REPLACE_WITH_ONE_SELECTED_EVALUATION_SUITE_OR_ATTEMPT_DIRECTORY'
@@ -788,7 +845,7 @@ python main.py experiment report --input "$CBWCE_EVAL_RUN" \
 
 **脚本：** [experiments/reporting.py](experiments/reporting.py) 收集记录、检查配对、统计摘要并导出排队曲线和高峰图。**输出：** 全部报告 CSV／JSON／PNG／SVG 位于选定报告目录，该目录必须是新的。重复／未配对观测将显式失败并写出 `rejected.json`；其他被拒绝摘要另列表。没有轨迹摘要的失败尝试保留在原失败记录中，不一定出现在被拒绝摘要表中。
 
-**完成条件：** 检查有效轨迹数、预期／缺失单元、配对需求／SUMO／策略种子，以及热力图车道总量。论文 95% 区间需要五个规定训练种子均完整；现有子集均值不是完整研究估计。热力图使用五种方法共同拥有的 `(seed, arrival_seed)` 配对交集；论文使用前必须检查配对数和完整性。`figs/revised/` 是另行保留的图表副本，不是 `report` 自动写入的第二个目录。
+**完成条件：** 检查有效轨迹数、预期／缺失单元、配对需求／SUMO／策略种子，以及热力图车道总量。要求规定的单个训练种子（`101`）完整完成；训练种子标准差及 95% 置信区间不可用，但所有规定场景和每个场景十次轨迹仍须完整。热力图使用五种方法共同拥有的 `(seed, arrival_seed)` 配对交集；论文使用前必须检查配对数和完整性。`figs/revised/` 是另行保留的图表副本，不是 `report` 自动写入的第二个目录。
 
 **已有试运行输出：** [试运行表格与导出](output_result/revised/pilot_integrated_final_report/)、[dashboard JSON](output_result/revised/pilot_integrated_final_report/dashboard.json)、[图表副本](figs/revised/pilot_integrated_final_report/)。其中包含 20 条高峰轨迹，不是完整论文实验。训练曲线来自抽样进度，不是平滑回合统计或评估性能曲线。
 
@@ -806,14 +863,14 @@ python main.py experiment dashboard --port 8766
 ### 论文实验完成检查表
 
 - [ ] C01–C10 每项均有通过的验证记录及支持证据。
-- [ ] 每个路网与控制器类型均有五个独立父模型，并保存完整状态。
+- [ ] 每个路网与控制器类型均有一个独立父模型，并保存完整状态。
 - [ ] 每个 WCE 均指向正确的冻结 1,000,000 步父模型。
 - [ ] 五种续训方法均在 2,320,000 个控制器训练步完成，且控制器更新频率一致。
 - [ ] 冻结控制器与固定 WCE 的模型参数保持不变；在线 WCE 的模型参数在学习过程中发生变化，并记录了规定的更新。
 - [ ] 配对比较使用匹配的测试需求文件和种子，并已验证训练与测试分离。
 - [ ] 只有完整 rollout 进入汇总，所有失败尝试均可查。
 - [ ] 在规定车道集合与缩放下，排队奖励、评估指标和热力图一致。
-- [ ] 对每个路网、控制器和方法分别报告 rollout 变异性与训练种子不确定性。
+- [ ] 对每个路网、控制器和方法报告 rollout 样本标准差，并将训练种子不确定性明确标为不可用。
 - [ ] 运行数量、检查点标识、不可变清单和计时记录相互一致。
 
 ### 双语术语
@@ -836,6 +893,7 @@ python main.py experiment dashboard --port 8766
 
 | 脚本 | 职责 |
 |---|---|
+| [scripts/training/](scripts/training/) | 七个编号阶段启动器；共用 `_launch.sh`；双语说明 |
 | [main.py](main.py) → [experiments/cli.py](experiments/cli.py) | 公共 `experiment` 命令、参数解析与套件调度 |
 | [experiments/protocol.py](experiments/protocol.py) / [protocol.json](config/revised/protocol.json) | 共用设置与默认输出根目录；生效 INI 位于 `config/revised/` |
 | [experiments/prepare.py](experiments/prepare.py) / [experiments/demand.py](experiments/demand.py) | 明确训练顺序、归一化配置、哈希与交通实现 |
@@ -865,10 +923,10 @@ Grid 的 `<dataset>` 为 `data_traffic/revised`，Monaco 为 `real_net_subnet/de
 | 环境身份／运行器 | `<run>/environment.json` · JSON | `assets`、`lanes`、`nodes`、`node_lanes`、`neighbors`、`configuration` | 车道顺序与路网身份；包含复制设置及历史字段 |
 | 完成记录／`RunRecord.finish` | `<run>/result.json` · JSON | `status`、`manifest_hash`、`wall_seconds`、`component_seconds`；训练另含 `checkpoint`、`learning_steps`、`stage_simulation_steps`、`backward_calls`、`minibatch_updates_per_agent`、`wce_updates`；失败含错误／已完成计数 | 权威完成／成本记录；耗时单位为实际秒 |
 | 进度／运行器 | `<run>/progress.jsonl` · JSONL | `stage`、`episode`、`simulation_steps`、`learning_steps`、`goal`、`mean_queue`、`wce_updates`、`wall_seconds` | 每 120 个联合转移一条；排队均值覆盖最近 600 秒仿真；不是每次优化一条，也不是回合均值 |
-| 需求决策／运行器 | `<run>/demand_decisions.jsonl` · JSONL | `episode`、`block`、十一项 `weights`、`wce_reward`、`completed_seconds`、`scheduled_vehicles`、`traffic_hash` | 每区间一条；episode／block 从零编号；父模型最后不完整区间的 WCE 奖励为 null；训练记录哈希／数量，而不是完整车辆文件 |
+| 需求决策／运行器 | `<run>/demand_decisions.jsonl` · JSONL | `episode`、`block`、十一项 `weights`、`wce_raw_reward`、`completed_seconds`、`scheduled_vehicles`、`traffic_hash` | 每区间一条；episode／block 从零编号；父模型最后不完整区间的 WCE 奖励为 null；缩放后的 WCE learner 奖励另行记录；训练记录哈希／数量，而不是完整车辆文件 |
 | 车道数组／`export_episode` | `<run>/episode_0001.npz` or `<attempt>/rollout.npz` · compressed NumPy archive | `time`：形状 `(T,)`，秒 1…T；`lanes`：形状 `(L,)`，有序车道 ID；`queue`：形状 `(T,L)`，各车道停车数 | 完整训练回合 T=6600；评估 T=3600；Grid L=150／Monaco L=116；部分父模型回合／不完整记录可更短 |
 | 交通序列／`export_episode` | Same episode/rollout stem + `.jsonl` · JSONL | `time`、`queue`、`active`、`speed_sum`、`inserted`、`completed`、`pending`、`teleports`、`collisions` | 每秒仿真一条；数量为车辆数，`speed_sum` 为活动车辆速度之和，速度单位 m/s |
-| 学习奖励序列／`export_episode` | Same episode/rollout stem + `.controls.jsonl` · JSONL | `time`、按控制器节点顺序排列的 `learner_rewards` 向量 | 每五秒仿真一条；已按控制器类型转换并除以 100 |
+| 学习奖励序列／`export_episode` | Same episode/rollout stem + `.controls.jsonl` · JSONL | `time`、按控制器节点顺序排列的 `learner_rewards` 向量 | 每五秒仿真一条；已按控制器类型转换，不缩放；训练记录另含 learning_steps、stage_simulation_steps、learning |
 | 轨迹结果／评估器 | `<attempt>/rollout_summary.json` · JSON | 排队指标、速度及分母、计划／插入／完成／剩余／待出发车辆、事件、已完成行程指标、需求哈希、实际 SUMO 种子、检查点身份 | 排队单位车辆；积分排队为车辆·秒；速度 m/s；行程／等待／时间损失／出发延误为秒。方法／训练／策略种子关联 manifest 读取 |
 | 运行时记录／环境 | `<run>/runtime/startup_<attempt>.json`, `trips_<attempt>.xml`, SUMO assets | 启动命令、实际 `visualization`、种子／版本来源；SUMO `tripinfo` 车辆记录 | 从启动命令确定匹配行程文件；已完成行程均值排除未完成行程并给出分母 |
 
@@ -910,7 +968,7 @@ Grid 的 `<dataset>` 为 `data_traffic/revised`，Monaco 为 `real_net_subnet/de
 | `rollouts.csv` | 每方法／训练种子／场景／到达实现一条有效观测；含指标与来源 |
 | `scenarios.csv` | 每训练种子／场景的十轨迹均值、样本标准差及完整性；试运行行保留标识 |
 | `seeds.csv` | 每个规定论文训练种子的等权场景均值，seen／test 分开 |
-| `comparison.csv`, `paired_differences.csv` | 五种子均值／标准差／95% 区间，以及在线减比较方法的配对差值；缺失区间保持不可用 |
+| `comparison.csv`, `paired_differences.csv` | 单种子均值及在线减比较方法的配对差值；训练种子标准差和 95% 区间不可用 |
 | `demand_family_summary.csv`, `worst_tested_scenario.csv` | 满足规定完整记录后才生成论文需求家族统计与最差测试场景 |
 | `computation_costs.csv`, `standalone_pipeline_costs.csv` | 阶段耗时，以及父模型 + 续训 + 必需离线 WCE 成本；父记录不可用时流程总耗时不可用 |
 | `rejected.csv`; `rejected.json` on duplicate/pairing failure | 被拒绝的现有摘要；未生成摘要的失败还需检查原尝试记录 |

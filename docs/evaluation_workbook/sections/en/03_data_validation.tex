@@ -1,0 +1,42 @@
+\chapter{Data Storage Contract and Release Validation}
+
+\section{Three data layers}
+\begin{enumerate}
+  \item \textbf{Authoritative raw}: \code{runs_eval/revised/publication_seed101_v1/<network>/<controller>/<method>/}, containing immutable manifests, environments, summaries, results, compressed per-second records, and NPZ arrays.
+  \item \textbf{Validated release}: \code{output_result/revised/publication_seed101_v1/}, containing release/validation manifests, CSV, figures, paired-bootstrap outputs, and a compatible dashboard JSON.
+  \item \textbf{Sanitized site bundle}: \code{docs/site/dist/data/publication/}, containing only allowlisted aggregates and de-identified rollout fields.
+\end{enumerate}
+
+JSON is authoritative and CSV is a human-readable export. JSON forbids NaN and Infinity. Missing or inapplicable values use \code{null}, with reason, unit, direction, and denominator documented in the metric registry. Raw data are never copied into the hosted site.
+
+\section{Selection registry and primary key}
+\code{runs_eval/revised/selections/final_evaluation_seed101.json} freezes eight parents, eight offline WCE models, forty final continuations, and forty planned evaluation suites. Each item stores repo-relative and absolute execution paths, checkpoint step, aggregate directory SHA-256, manifest hash, manifest-file SHA-256, runtime/source compatibility, and planned output directory. Selection by mtime, latest directory, or broad scan is prohibited.
+
+The rollout primary key is
+\begin{Verbatim}[fontsize=\small,breaklines=true]
+network/controller/method/training_seed/split/scenario/
+generation_seed/arrival_seed/sumo_seed/policy_seed/attempt
+\end{Verbatim}
+The public rollout ID is a digest of stable fields and never contains an absolute path.
+
+\section{Publication-complete gate}
+\code{publication_complete=true} requires every condition below:
+\begin{itemize}
+  \item exactly 9,200 accepted and zero rejected, missing, duplicate, or extra records;
+  \item all forty checkpoints are allowlisted and contain 2,320,000 controller learning steps;
+  \item every record has \code{pilot=false}, \code{status=complete}, and \code{horizon=sample_count=3600};
+  \item arrival seeds 51001--51010 map exactly to SUMO seeds 61001--61010;
+  \item demand hash and SUMO seed match across all twenty controller-method combinations for a fixed network/scenario/index;
+  \item protocol, scenario, profile, network, artifact, checkpoint, and manifest hashes match frozen inputs;
+  \item timestamps are exactly 1--3600 and queues are nonnegative and finite;
+  \item integrated queue agrees with $3600\times$ mean queue and peak is not below mean;
+  \item scheduled = inserted + pending, completed $\le$ inserted, and completed-trip denominator = completed;
+  \item the NPZ lane sum agrees with the JSONL network total;
+  \item the public bundle contains no absolute paths, credentials, checkpoint payloads, raw logs, pilots, or historical records.
+\end{itemize}
+
+\section{Disk and compression gate}
+The root filesystem had approximately 69 GiB free on 2026-09-29, above the 60-GiB launch threshold, but space must be checked immediately before every campaign. The current pilot layout projects to more than 33 GB for 9,200 rollouts. Launch requires at least 60 GiB free and at least 20 GiB projected reserve after completion. Otherwise implement suite-level shared provenance, smaller per-rollout manifests, gzip JSONL, and compressed NPZ, then remeasure with a pilot. Unknown user data must never be deleted to create space.
+
+\section{Reward and environment validation}
+Release validation computes controller/WCE clipping fractions and emits a source/config/runtime compatibility matrix. The retained baseline mismatch does not block the user-selected release, but it sets \code{strict_runtime_comparability=false} and prohibits strong claims about training speed or strict runtime fairness.

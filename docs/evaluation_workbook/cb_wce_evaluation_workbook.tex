@@ -1,0 +1,89 @@
+\documentclass[11pt,a4paper,openany,UTF8]{ctexbook}
+\usepackage[a4paper,margin=22mm,headheight=15pt]{geometry}
+\usepackage{amsmath,amssymb,booktabs,longtable,array,tabularx,multirow}
+\usepackage{pdflscape,xcolor,hyperref,xurl,fvextra,enumitem,fancyhdr}
+\definecolor{cbblue}{HTML}{174A7E}
+\definecolor{cbcyan}{HTML}{0E7490}
+\definecolor{cbgray}{HTML}{4B5563}
+\hypersetup{colorlinks=true,linkcolor=cbblue,urlcolor=cbcyan,pdftitle={CB-WCE Evaluation and Data Validation Workbook},pdfauthor={CB-WCE Project}}
+\setlist{nosep,leftmargin=2em}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.45em}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\newcommand{\code}[1]{\texttt{\detokenize{#1}}}
+\newcommand{\status}[1]{\textcolor{cbblue}{\textbf{#1}}}
+\newcommand{\lowerbetter}{\textcolor{cbcyan}{lower is better}}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{CB-WCE Evaluation Workbook}
+\fancyhead[R]{Protocol v7 specification}
+\fancyfoot[C]{\thepage}
+\begin{document}
+\frontmatter
+\begin{titlepage}
+  \centering
+  \vspace*{22mm}
+  {\Huge\bfseries CB-WCE 测试与数据验证工作手册\par}
+  \vspace{5mm}
+  {\LARGE CB-WCE Evaluation and Data Validation Workbook\par}
+  \vspace{14mm}
+  {\large Chinese Part I / English Part II / Shared generated appendices\par}
+  \vfill
+  \begin{tabular}{rl}
+  Workbook release & 1.0 \\
+  Operational protocol & v7 implemented; versioned artifacts pending \\
+  Training seed & 101 \\
+  Publication evaluation status & 0 / 9,200 formal rollouts \\
+  Snapshot date & 2026-09-29 \\
+  \end{tabular}
+  \vfill
+  {\small This workbook is independent from \code{paper/main.tex}. Pilot and historical results are not publication evidence.\par}
+\end{titlepage}
+\tableofcontents
+
+\mainmatter
+\part{中文测试与数据验证手册}
+\input{sections/zh/01_status_protocol}
+\input{sections/zh/02_metrics_statistics}
+\input{sections/zh/03_data_validation}
+\input{sections/zh/04_site_visualization}
+\input{sections/zh/05_runbook}
+
+\part{English Evaluation and Data Validation Workbook}
+\input{sections/en/01_status_protocol}
+\input{sections/en/02_metrics_statistics}
+\input{sections/en/03_data_validation}
+\input{sections/en/04_site_visualization}
+\input{sections/en/05_runbook}
+
+\appendix
+\part{Shared Generated Appendices / 共享自动生成附录}
+\chapter{Frozen Protocol Snapshot / 冻结协议快照}
+\input{generated/protocol_snapshot}
+\input{generated/mixture_weights}
+\input{generated/scenario_counts}
+
+\chapter{Selected Models / 最终模型清单}
+\begin{landscape}
+\input{generated/checkpoint_manifest}
+\end{landscape}
+
+\chapter{Command Catalogue / 命令目录}
+\input{generated/command_catalog}
+\VerbatimInput[fontsize=\scriptsize,breaklines=true,breakanywhere=true]{generated/evaluate_publication_seed101.sh}
+
+\chapter{Machine-readable Contracts / 机器可读协议}
+The authoritative JSON Schemas are stored in \code{docs/evaluation_workbook/schemas/}.  The selection registry is \code{runs_eval/revised/selections/final_evaluation_seed101.json}.  JSON is authoritative; CSV is a human-readable export only.
+
+\backmatter
+\chapter*{Release sign-off / 发布签字页}
+\begin{tabularx}{\textwidth}{@{}lY@{}}
+Protocol v7 implemented and hashed & \hrulefill \\
+Storage gate rechecked immediately before launch & \hrulefill \\
+40 checkpoints and commands independently reviewed & \hrulefill \\
+9,200 accepted, zero rejected & \hrulefill \\
+Public export privacy review & \hrulefill \\
+Paper figures and wording review & \hrulefill \\
+Reviewer / date & \hrulefill \\
+\end{tabularx}
+\end{document}

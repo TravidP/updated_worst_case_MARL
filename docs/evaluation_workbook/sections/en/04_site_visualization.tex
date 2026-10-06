@@ -1,0 +1,39 @@
+\chapter{Local/Static Site Contract and Paper Visualizations}
+
+\section{Hybrid data architecture}
+The existing \code{docs/site/.openai/hosting.json} describes a static Sites project; its architecture and project ID are preserved. This delivery does not edit or publish the site. A hosted browser cannot scan the experiment machine. “Automatic reading” therefore means that a local dashboard/API discovers allowlisted releases, validates them, and produces a sanitized static snapshot; the hosted site fetches only relative published JSON.
+
+The next-stage local API specification is:
+\begin{Verbatim}[fontsize=\small,breaklines=true]
+GET /api/releases
+GET /api/releases/<id>/manifest
+GET /api/releases/<id>/overview
+GET /api/releases/<id>/rollouts?network=&controller=&method=&split=&scenario=
+\end{Verbatim}
+
+The public bundle contains \code{manifest.json}, \code{overview.json}, eight network-controller rollout shards (1,150 records each), twenty-four network-controller-peak heatmap shards, optional curve shards, and \code{checksums.json}. The old \code{results.js} contains pilot schema-v1 data and is not a publication source.
+
+The first viewport exposes 9,200/9,200 completeness, rejected=0, protocol hash, release time, the primary metric, and network/controller/method/scenario filters. Further views provide paired intervals, method-scenario heatmaps, time series, flow/reliability, computational cost, JSON/CSV downloads, and Chinese/English labels.
+
+\section{Paper figures and supplements}
+\begin{enumerate}
+  \item \textbf{Paired-effect forest plot}: absolute online-WCE-minus-comparator queue effects with conditional 95\% CIs, a zero reference, and “negative is better.”
+  \item \textbf{Method $\times$ scenario heatmap}: twelve test scenarios with absolute $J_Q$ and relative-to-baseline modes; seen and test remain separate.
+  \item \textbf{Robustness frontier}: suite average versus worst-three CVaR.
+  \item \textbf{Peak response}: preregistered peak-1.25 and peak-1.50 $Q(t)$ means and intervals in the main paper with $[1200,2400)$ shaded; peak 1.10 in the supplement.
+  \item \textbf{Network heatmaps}: five absolute method maps and online-minus-comparator difference maps; common absolute scales within network/metric and zero-centered symmetric difference scales.
+  \item \textbf{Training cost}: stacked parent/offline-WCE/continuation bars showing standalone and deduplicated campaign cost, with exact/lower-bound markers.
+  \item \textbf{Flow/reliability}: completed, remaining, pending, teleports, and collisions; completed-trip metrics always show their denominator.
+  \item \textbf{Mechanism}: WCE mixture weights and entropy in supplementary material.
+\end{enumerate}
+
+A true network-wide heatmap requires online aggregation for all non-internal lanes in pre-peak, peak, and post-peak windows before formal evaluation. Current data cover controlled incoming lanes only. Without that extension the figure must be named “network-spanning controlled-approach heatmap,” not an all-lane network heatmap.
+
+\section{Paper wording checklist}
+\begin{itemize}
+  \item Replace “per intersection” with “network-total mean queue.”
+  \item Replace “unbounded growth” with “sustained growth within the 3,600-s horizon.”
+  \item Replace “algorithm-agnostic confirmed” with “consistent trend across four architectures for training seed 101.”
+  \item Remove “accelerates training” without common-runtime time-to-threshold evidence.
+  \item Lead with absolute effects and keep percentages supplemental; select queue-worst and speed-worst scenarios separately.
+\end{itemize}

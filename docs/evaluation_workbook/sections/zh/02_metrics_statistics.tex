@@ -1,0 +1,69 @@
+\chapter{指标、奖励一致性与统计分析}
+
+\section{统一的底层交通量}
+在全局去重的受控进口车道集合 $L_{\mathrm{controlled}}$ 上定义
+\[
+Q(t)=\sum_{l\in L_{\mathrm{controlled}}}q_l(t),\qquad
+J_Q=\frac{1}{3600}\sum_{t=1}^{3600}Q(t).
+\]
+Grid 有 150 条、Monaco 有 116 条受控进口车道。$J_Q$ 的单位为 vehicles，是 \textbf{network-total mean queue}，\lowerbetter；不得写成 per-intersection queue。
+
+Controller 在每个 5 秒控制端点接收 raw negative queue reward。除 MA2C 使用本地加 $0.9$ 邻居加权外，IA2C、IQLL、PPO 的 raw reward 是 $-Q$ 的网络复制。Learner 实际使用
+\[
+r_{\mathrm{ctrl}}=\operatorname{clip}(r_{\mathrm{raw}}/d_c,-2,2),
+\]
+其中 $d_c$ 必须从每个最终 manifest 的 \code{reward_norm} 读取。
+
+对任意区间定义
+\[
+C_{[a,b)}=\frac{1}{b-a}\sum_{t=a+1}^{b}Q(t).
+\]
+CB-WCE 每 600 秒最大化 $C_k=C_{[600k,600(k+1))}$，learner 使用
+\[
+r_{\mathrm{WCE}}=\operatorname{clip}(C_k/d_w,-2,2),
+\quad d_w=3000\;(\mathrm{Grid}),\;1000\;(\mathrm{Monaco}).
+\]
+主评价始终使用未缩放、未裁剪的 $J_Q$。正比例缩放不改变方向，但 clipping 会破坏严格单调等价。必须从选定训练日志计算 controller/WCE clipping fraction；只有它为零时才能写“严格一致”，否则报告实际比例并限制论文表述。
+
+\section{Rollout 级指标字典}
+\begin{longtable}{@{}p{0.22\textwidth}p{0.14\textwidth}p{0.11\textwidth}p{0.45\textwidth}@{}}
+\toprule
+字段 & 单位 & 方向 & 定义与分母 \\
+\midrule
+mean\_total\_queue & vehicles & lower & $3600^{-1}\sum_t Q(t)$，主指标。\\
+integrated\_queue & vehicle-seconds & lower & $\sum_tQ(t)$。\\
+peak / p95 queue & vehicles & lower & 每秒 network-total queue 的最大值和 95th percentile。\\
+window queue/AUC & vehicles, vehicle-seconds & lower & 三个 1,200 秒窗口分别汇总；用于 peak response。\\
+last\_600\_s\_slope & vehicles/second & lower & 对最后 600 个 $Q(t)$ 样本作预注册线性斜率，仅作稳定性描述。\\
+mean\_speed & m/s & higher & $\sum_t\mathrm{speed\_sum}_t/\sum_t\mathrm{active}_t$；分母单独保存。\\
+scheduled/inserted/completed & vehicles & context & Artifact 车辆数、实际出发数、到达数。\\
+pending/remaining & vehicles & lower & 3600 秒尚未出发、仍在路网中的车辆。\\
+completion\_rate & ratio & higher & completed/inserted；inserted=0 时为 null。\\
+completed trip means & seconds & lower & travel/waiting/time-loss/departure-delay；仅对 completed vehicles，必须显示分母和 unfinished counts。\\
+teleports/collisions & count & lower & 可靠性指标。两个路网 teleport threshold 不同，不跨网直接排名。\\
+wall\_seconds & seconds & lower & 单条评估的单调时钟耗时。\\
+\bottomrule
+\end{longtable}
+
+\section{预注册配对比较}
+主要比较固定为 online WCE 分别减 baseline、random group、domain randomization、fixed WCE。对场景 $s$ 和 rollout pair $r$：
+\[
+d_{s,r}=J_{\mathrm{online},s,r}-J_{\mathrm{comparator},s,r}.
+\]
+Queue 的负差值表示 online WCE 更好。每场景报告 $n=10$ 的 mean、sample SD（\code{ddof=1}）和确定性 10,000 次 paired percentile bootstrap 95\% CI。Bootstrap seed 由固定标签、network、controller、comparator、scope 和 scenario 的摘要生成。
+
+Family 或完整 test suite 先对相同 rollout index 跨预注册场景等权平均：
+\[
+D_r=|S|^{-1}\sum_{s\in S}d_{s,r},
+\]
+再对十个 $D_r$ 做 bootstrap。不得把逐秒数据、车道数据或 120 条跨场景 rollout 当作独立 IID 样本。CI 只反映固定 checkpoint、固定测试套件下的仿真/策略波动，不是训练 seed 不确定性；单训练 seed 不能支持算法总体显著性声明。若增加多场景假设检验，使用 Holm correction。
+
+Queue 百分比改善可补充报告为 $(J_{\mathrm{comp}}-J_{\mathrm{online}})/J_{\mathrm{comp}}\times100\%$，但绝对差必须优先；接近零分母时不报告百分比。速度使用相反方向，且不以夸张的 $>100\%$ 百分比代替绝对 m/s 差。
+
+\section{稳健性与最差场景}
+Test split 同时报告 12 场景等权平均、各场景均值的最大值、worst-3 average/CVaR 和场景间 SD。不同方法可能有不同 worst scenario，因此不得把一个方法的 worst 场景曲线冒充所有方法的共同 worst。Queue-worst 与 speed-worst 必须分别选择。
+
+\section{训练和评估耗时}
+从最终 manifest 的 \code{resume} 递归追踪所有 attempt，汇总 parent、offline WCE、continuation、evaluation 和 abandoned/duplicate work。成功 attempt 使用 \code{result.json.wall_seconds}；无 result 的前序 attempt 使用最后一条 \code{progress.jsonl.wall_seconds} 作为 lower bound，并标记 \code{exact} 或 \code{lower_bound}。
+
+Standalone cost 对 fixed/online 分别计入一次 offline WCE；deduplicated campaign cost 对共享 parent/WCE 只计一次。Component seconds 不是完备分解，不能替代总 wall time。所有耗时表同时给出 OS、CPU/RAM（可得时）、Python、TensorFlow、线程数、并发数和源码哈希；baseline 环境差异必须作为表注。

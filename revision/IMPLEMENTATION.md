@@ -1,5 +1,9 @@
 # Implementation and verification report
 
+> Historical implementation report: the divided-by-100 controller reward below is superseded by protocol 5. Current behavior and monitoring are documented in [the monitoring guide](../docs/TRAINING_MONITORING.md). The old evidence remains historical.
+
+> Active protocol update (15 September 2026): one training seed (`101`), 8 parents, 8 WCE runs, 40 continuations and 9,200 evaluations. Evidence below describes historical verification, including checks of the earlier statistical design; it does not certify the updated code/protocol.
+
 > Historical pre-integration report. The source subsequently moved into `agents/`, `envs/`, and `experiments/`; the old gate below no longer certifies current code. See the root project guide for the integrated workflow. This report and its original evidence are preserved for provenance.
 
 **Date:** 14 September 2026  
@@ -69,7 +73,7 @@ Monaco pilots were run in a parallel shard while Grid pilots finished. Redundant
 
 ## Remaining publication work
 
-The five-method matrix and publication budgets remain unchanged: 40 parents, 40 offline WCE runs, 200 continuations, and 46,000 final evaluation rollouts. None of that publication matrix has been launched.
+The five-method matrix and publication budgets remain unchanged: 8 parents, 8 offline WCE runs, 40 continuations, and 9,200 final evaluation rollouts. None of that publication matrix has been launched.
 
 The corrected runner supports materialized Uniform demand and explicit mixture/switching schedules. The complete twelve-scenario manuscript generator, final statistical tables, and peak-demand heatmap campaign remain tasks for the publication workflow. Passing these checks establishes the tested experimental mechanics; it does not establish comparative performance or guarantee behavior for every future input.
 

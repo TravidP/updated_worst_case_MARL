@@ -1,0 +1,23 @@
+{
+  "date": "2026-10-06",
+  "lightweightLauncherTests": 16,
+  "restoreUnitTests": 3,
+  "pythonSyntaxFiles": 61,
+  "shellAndJavascriptSyntax": "passed",
+  "archiveRestore": "passed",
+  "seriesCsvFiles": 920,
+  "rowsPerSeries": 3600,
+  "timeRange": [
+    1,
+    3600
+  ],
+  "summaryRows": 920,
+  "rolloutMetricRows": 9200,
+  "finiteNonnegativeMinMeanMax": true,
+  "allSeriesN": 10,
+  "gridMonacoHttp": "passed",
+  "untrackedArtifactsHashVerified": 1590,
+  "trainingSumoFormalEvaluationStarted": false,
+  "pairedFiveMethodsVerified": true,
+  "pairedDemandProvenanceRows": 1840
+}

@@ -1,0 +1,53 @@
+\chapter{Execution Workbook and Sign-off}
+
+\section{Phase 0 prerequisites}
+\begin{enumerate}
+  \item Implement protocol v7 so all three temporal scenarios switch among the eleven seen profiles using frozen seeds with no adjacent repeat, then regenerate and hash all sixty affected artifacts.
+  \item Implement all-non-internal-lane heatmap aggregation or formally lock the controlled-approach wording.
+  \item Rerun the environment gate for deeprlsc, SUMO, TraCI, TensorFlow, both networks, and all eleven profiles.
+  \item Recheck disk thresholds and all forty checkpoint hashes; require every output directory to be absent.
+  \item Independently review the one-to-one selection-registry and command-catalogue mapping.
+\end{enumerate}
+
+\section{Commands available now}
+\begin{Verbatim}[fontsize=\small,breaklines=true]
+cd /home/sdc_joran/Journal/deeprl_signal_control
+export CBWCE_GATE=/absolute/path/to/protocol_v7/gate.json
+
+./docs/evaluation_workbook/generated/publication_workflow.sh --status
+./docs/evaluation_workbook/generated/publication_workflow.sh --preflight
+./docs/evaluation_workbook/generated/publication_workflow.sh --list
+
+CONFIRM_PUBLICATION=RUN_9200 CBWCE_EVALUATION_WORKERS=4 \
+  ./docs/evaluation_workbook/generated/publication_workflow.sh --execute
+\end{Verbatim}
+\code{publication_workflow.sh} prints the plan by default and does not start simulation. Formal execution requires an explicit confirmation token, protocol v7, at least 60 GiB free, a valid gate recorded with four workers, pre-materialized demand artifacts, and an absent output root. The scheduler then runs four suites in parallel by default; the 230 rollouts inside each suite remain sequential. A suite failure stops new dispatch, with no automatic retry or overwrite.
+
+\section{Next-stage commands to implement}
+These are interface specifications, not current capabilities:
+\begin{Verbatim}[fontsize=\small,breaklines=true]
+python main.py experiment report --selection <selection.json> --output <release>
+python main.py experiment validate-report --report <release> \
+  --require-publication-complete
+python main.py experiment export-site --report <release> \
+  --output docs/site/dist/data/publication
+\end{Verbatim}
+
+\section{Failure, resume, and duplicate prevention}
+A retried attempt is not an additional random replicate. Resume follows the manifest's \code{resume} chain. The final report accepts only the selected successful attempt; failed, interrupted, and duplicate attempts enter a separate cost audit. Any change to demand artifacts, seeds, checkpoints, or scenario hashes requires a new protocol/release ID and must not overwrite history.
+
+\section{Reviewer-response matrix}
+\begin{longtable}{@{}p{0.07\textwidth}p{0.43\textwidth}p{0.43\textwidth}@{}}
+\toprule
+No. & Request & Evidence produced by this workbook \\
+\midrule
+1 & Record setup wall-clock and CB-WCE overhead & Resume-chain audit, standalone/campaign accounting, and runtime matrix.\\
+2 & Generate unseen groups separate from training & Frozen 12-test/6-validation/11-seen separation with interpolation/OOD classification.\\
+3 & Align reward and primary traffic metric & Common $Q(t)$, $C_{[a,b)}$, and $J_Q$ definitions with normalization, clipping, and adversarial direction disclosed.\\
+4 & Record rollout metrics and uncertainty & Complete registry, ten paired seeds, sample SD, and paired bootstrap CI.\\
+5 & Produce peak-demand network heatmaps & Prerequisite all-non-internal-lane window aggregation and common-scale absolute/difference map specification.\\
+\bottomrule
+\end{longtable}
+
+\section{Acceptance}
+The PDF must pass embedded-font, text-extraction, and page-render review; LaTeX must contain no unresolved references or placeholder markers. The selection must contain eight parents, eight WCE models, forty continuations, and forty planned suites. Schema examples must validate. The forty commands must be unique and agree with selected checkpoint hashes. Result acceptance later additionally requires 9,200 accepted, zero rejected, and a privacy review of the public bundle.

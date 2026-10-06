@@ -1,0 +1,10 @@
+\section*{Command status / 命令状态}
+The environment check, evaluation, current report, and dashboard commands exist now. The proposed selection-driven report, validate-report, and export-site interfaces are specifications only and are not represented as current capabilities.
+
+The exact command catalogue is \path{docs/evaluation_workbook/generated/evaluate_publication_seed101.sh}; it retains forty explicit invocations and a sequential fallback. The primary entry point is \path{docs/evaluation_workbook/generated/publication_workflow.sh}. It is safe by default and uses \path{docs/evaluation_workbook/run_publication_parallel.py} to run four suites concurrently only after protocol, gate, storage, selection, artifact, and output-root checks pass. Rollouts remain sequential within each suite, and failures stop new dispatch without automatic retry.
+
+\begin{Verbatim}[fontsize=\small,breaklines=true]
+./docs/evaluation_workbook/generated/evaluate_publication_seed101.sh --preflight
+./docs/evaluation_workbook/generated/evaluate_publication_seed101.sh --list
+./docs/evaluation_workbook/generated/evaluate_publication_seed101.sh --execute
+\end{Verbatim}

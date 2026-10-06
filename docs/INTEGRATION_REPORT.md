@@ -1,5 +1,7 @@
 # Integrated CB-WCE workspace — 14 September 2026
 
+> Active protocol update (15 September 2026): one training seed (`101`), 8 parents, 8 WCE runs, 40 continuations and 9,200 evaluations. Evidence below describes historical verification, including checks of the earlier statistical design; it does not certify the updated code/protocol.
+
 The corrected implementation now lives in the existing project structure. `main.py experiment` is the public entrypoint; `revision.*` imports the same implementation through compatibility wrappers. Historical training entrypoints retain their previous behavior.
 
 ## What changed
@@ -57,7 +59,7 @@ The main research repository was not committed or pushed. Sites publishing used 
 
 The final pilot report is `output_result/revised/pilot_integrated_final_report/`; figure copies are under `figs/revised/pilot_integrated_final_report/`. The earlier report remains preserved. Raw measurements remain the scientific source of truth. Pilot data are not a comparison of trained publication controllers; full-study intervals remain unavailable until all required replicates exist.
 
-The publication matrix has **not** run: 40 parents, 40 offline WCE runs, 200 continuations and 46,000 evaluations remain for explicit launches. Gate checks certify the recorded source and input hashes; later changes require renewed verification. Historical scripts were preserved, not universally certified as bug-free.
+The publication matrix has **not** run: 8 parents, 8 offline WCE runs, 40 continuations and 9,200 evaluations remain for explicit launches. Gate checks certify the recorded source and input hashes; later changes require renewed verification. Historical scripts were preserved, not universally certified as bug-free.
 
 Optional WebMCP helpers are registered in the page, but their invocation was not tested because the available browser connection did not expose a supported WebMCP execution tool. The ordinary local interface was exercised directly.
 

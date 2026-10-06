@@ -1,0 +1,61 @@
+{
+  "version": 1,
+  "runs": [
+    {
+      "network": "grid",
+      "controller": "ia2c",
+      "seed": 101,
+      "parent_result": "runs/revised/grid/ia2c/seed_101/parent/publication_20260917T163857_9068b691/result.json",
+      "wce_result": "output_adversary/revised/grid/ia2c/seed_101/wce/publication_20260918T192222_8d09d236/result.json"
+    },
+    {
+      "network": "grid",
+      "controller": "ma2c",
+      "seed": 101,
+      "parent_result": "runs/revised/grid/ma2c/seed_101/parent/publication_20260917T163857_74df8a9c/result.json",
+      "wce_result": "output_adversary/revised/grid/ma2c/seed_101/wce/publication_20260918T192222_8336fd70/result.json"
+    },
+    {
+      "network": "grid",
+      "controller": "iqll",
+      "seed": 101,
+      "parent_result": "runs/revised/grid/iqll/seed_101/parent/publication_20260917T163857_6987d164/result.json",
+      "wce_result": "output_adversary/revised/grid/iqll/seed_101/wce/publication_20260918T192222_2645abc9/result.json"
+    },
+    {
+      "network": "grid",
+      "controller": "ppo",
+      "seed": 101,
+      "parent_result": "runs/revised/grid/ppo/seed_101/parent/publication_20260917T163857_65b5f55e/result.json",
+      "wce_result": "output_adversary/revised/grid/ppo/seed_101/wce/publication_20260918T192222_282c40aa/result.json"
+    },
+    {
+      "network": "monaco",
+      "controller": "ia2c",
+      "seed": 101,
+      "parent_result": "runs/revised/monaco/ia2c/seed_101/parent/publication_20260918T113143_ec086fed/result.json",
+      "wce_result": "output_adversary_monaco/revised/monaco/ia2c/seed_101/wce/publication_20260919T110336_64312bde/result.json"
+    },
+    {
+      "network": "monaco",
+      "controller": "ma2c",
+      "seed": 101,
+      "parent_result": "runs/revised/monaco/ma2c/seed_101/parent/publication_20260918T192930_8362f84f/result.json",
+      "wce_result": "output_adversary_monaco/revised/monaco/ma2c/seed_101/wce/publication_20260919T110336_ff68fed8/result.json"
+    },
+    {
+      "network": "monaco",
+      "controller": "iqll",
+      "seed": 101,
+      "parent_result": "runs/revised/monaco/iqll/seed_101/parent/publication_20260918T113221_6fa5eb2e/result.json",
+      "wce_result": "output_adversary_monaco/revised/monaco/iqll/seed_101/wce/publication_20260919T110336_4819b424/result.json"
+    },
+    {
+      "network": "monaco",
+      "controller": "ppo",
+      "seed": 101,
+      "parent_result": "runs/revised/monaco/ppo/seed_101/parent/publication_20260918T113241_241592fd/result.json",
+      "wce_result": "output_adversary_monaco/revised/monaco/ppo/seed_101/wce/publication_20260919T110336_7060c9dc/result.json"
+    }
+  ]
+}

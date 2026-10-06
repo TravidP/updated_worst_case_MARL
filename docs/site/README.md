@@ -1,5 +1,17 @@
 # Bilingual CB-WCE workspace
 
+## Endpoint rewards and native TensorBoard (protocol 5)
+
+Controller rewards use negative queue at the five-second endpoint, without division by 100; MA2C retains 0.9 neighborhood weighting. Monaco IA2C/MA2C batches are now 120. Training episodes remain 6,600 seconds. `train/reward_by_learning_step` records every actual learner reward; `train/episode/mean_total_queue` summarizes a full episode. Before learning, every 50 complete episodes and at final budget, three paired 600-second Uniform tests save per-second CSV, NPZ and TensorBoard curves.
+
+See [settings, commands, metric definitions and output locations](../TRAINING_MONITORING.md). Defaults are `--monitor-every 50 --monitor-rollouts 3`; pilots may shorten the interval. Start fresh parents and generate a new gate for this reward protocol; historical checkpoints remain preserved. The immediate full campaign launches eight parents only. Exact originals and checksums are archived under `docs/history/endpoint_monitoring_20260916T095506Z/`.
+
+```bash
+tensorboard --logdir runs/revised --host 127.0.0.1 --port 6007
+```
+
+Active protocol: one independent training run per network/controller combination (seed `101`), 8 parents, 8 offline WCE runs, 40 continuations and 9,200 evaluations. 当前方案：每个路网／控制器组合只训练一次，种子 `101`。Ten paired evaluation rollouts per scenario remain. No training-seed confidence interval is reported. `data/protocol.js` mirrors `config/revised/protocol.json`; historical bundled pilot records remain unchanged. Restart the local dashboard after code changes and refresh either language page.
+
 Authored static pages are in `dist/index.html` and `dist/zh.html`. Shared JavaScript and CSS implement the same controls and translated content. Run `python main.py experiment dashboard` from the repository root to enable local training APIs.
 
 The hosted Sites copy contains only these static assets and selected report exports. It cannot launch local training. Publishing uses a separate temporary Git checkout; the main research repository is not committed or pushed.

@@ -1,0 +1,85 @@
+{
+  "$id": "site_publication.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "checksums": {
+      "pattern": "^(?!/)(?!.*\\.\\.).+$",
+      "type": "string"
+    },
+    "counts": {
+      "type": "object"
+    },
+    "generated_at": {
+      "type": "string"
+    },
+    "metric_registry": {
+      "items": {
+        "required": [
+          "id",
+          "unit",
+          "direction",
+          "denominator",
+          "null_semantics"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "publication_complete": {
+      "const": true
+    },
+    "release_id": {
+      "type": "string"
+    },
+    "schema_version": {
+      "const": 3
+    },
+    "shards": {
+      "items": {
+        "properties": {
+          "kind": {
+            "enum": [
+              "overview",
+              "rollouts",
+              "heatmap",
+              "curve"
+            ]
+          },
+          "path": {
+            "pattern": "^(?!/)(?!.*\\.\\.).+$",
+            "type": "string"
+          },
+          "records": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "sha256": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          }
+        },
+        "required": [
+          "kind",
+          "path",
+          "records",
+          "sha256"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "schema_version",
+    "release_id",
+    "generated_at",
+    "publication_complete",
+    "counts",
+    "metric_registry",
+    "shards",
+    "checksums"
+  ],
+  "title": "Sanitized static-site publication manifest",
+  "type": "object"
+}

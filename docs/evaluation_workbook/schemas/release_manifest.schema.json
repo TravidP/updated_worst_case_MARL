@@ -1,0 +1,116 @@
+{
+  "$id": "release_manifest.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "counts": {
+      "properties": {
+        "accepted": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "duplicate": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "expected": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "extra": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "missing": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "rejected": {
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "expected",
+        "accepted",
+        "rejected",
+        "missing",
+        "duplicate",
+        "extra"
+      ],
+      "type": "object"
+    },
+    "generated_at": {
+      "type": "string"
+    },
+    "outputs": {
+      "items": {
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "sha256": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          }
+        },
+        "required": [
+          "path",
+          "sha256"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "protocol_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "protocol_version": {
+      "const": 7
+    },
+    "publication_complete": {
+      "type": "boolean"
+    },
+    "release_id": {
+      "type": "string"
+    },
+    "schema_version": {
+      "const": 3
+    },
+    "selected_checkpoint_hashes": {
+      "items": {
+        "pattern": "^[0-9a-f]{64}$",
+        "type": "string"
+      },
+      "maxItems": 40,
+      "minItems": 40,
+      "type": "array"
+    },
+    "selection_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "source_commit": {
+      "type": "string"
+    },
+    "strict_runtime_comparability": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "schema_version",
+    "release_id",
+    "generated_at",
+    "protocol_version",
+    "protocol_hash",
+    "source_commit",
+    "counts",
+    "publication_complete",
+    "selection_hash",
+    "selected_checkpoint_hashes",
+    "outputs"
+  ],
+  "title": "Validated publication release",
+  "type": "object"
+}

@@ -1,0 +1,39 @@
+\chapter{本地/静态网站契约与论文可视化}
+
+\section{混合读取架构}
+现有 \code{docs/site/.openai/hosting.json} 是静态 Sites 项目，应保留其架构与 project ID。本轮不改站点代码，也不发布。托管浏览器不能扫描实验机目录；“自动读取”定义为：本地 dashboard/API 从 selection allowlist 发现和验证 release，随后导出脱敏静态快照；托管站点只 \code{fetch} 已发布的相对 JSON。
+
+下一阶段接口规格：
+\begin{Verbatim}[fontsize=\small,breaklines=true]
+GET /api/releases
+GET /api/releases/<id>/manifest
+GET /api/releases/<id>/overview
+GET /api/releases/<id>/rollouts?network=&controller=&method=&split=&scenario=
+\end{Verbatim}
+
+建议公开分片为 \code{manifest.json}、\code{overview.json}、8 个 network-controller rollout shards（每个 1,150 条）、24 个 network-controller-peak heatmap shards、可选 curve shards 和 \code{checksums.json}。旧 \code{results.js} 是 pilot schema v1 数据，不得作为正式发布源。
+
+首屏必须立即显示 9,200/9,200、rejected=0、protocol hash、release 时间、主要 metric 和 network/controller/method/scenario filters。页面还应提供 paired-effect interval、method-scenario heatmap、time series、flow/reliability、cost、下载 JSON/CSV 和中英文切换。
+
+\section{论文主图与补充材料}
+\begin{enumerate}
+  \item \textbf{Paired-effect forest plot}: online WCE 对四个 comparator 的绝对 queue 差与条件 95\% CI，零线和“negative is better”明确标注。
+  \item \textbf{Method $\times$ scenario heatmap}: 12 test 场景，支持 absolute $J_Q$ 与 relative-to-baseline；seen/test 分开。
+  \item \textbf{Robustness frontier}: suite average 对 worst-3 CVaR，避免只展示平均值。
+  \item \textbf{Peak response}: 主文预注册 peak 1.25 与 1.50 的 $Q(t)$ mean 与区间，阴影标注 $[1200,2400)$；1.10 放补充材料。
+  \item \textbf{Network heatmaps}: 五方法 absolute maps 与 online-minus-comparator maps；同 network/metric 使用固定公共绝对色标，差值图用以 0 对称的公共色标。
+  \item \textbf{Training cost}: parent/offline WCE/continuation 堆叠条，同时展示 standalone 和 deduplicated campaign cost，并标 exact/lower-bound。
+  \item \textbf{Flow/reliability}: completed、remaining、pending、teleports、collisions；completed-trip 指标必须带分母。
+  \item \textbf{Mechanism}: WCE mixture weights 与 entropy 放补充材料。
+\end{enumerate}
+
+若要满足“network-wide heatmap”，正式评估前必须新增所有 non-internal lanes 在峰前、峰中、峰后三窗口的在线聚合。当前数据仅覆盖受控进口车道；若未扩展，图名必须是“network-spanning controlled-approach heatmap”，不能写全路网全部车道。
+
+\section{论文措辞检查表}
+\begin{itemize}
+  \item “per intersection” 改为 “network-total mean queue”。
+  \item “unbounded growth” 改为 “sustained growth within the 3,600-s horizon”。
+  \item “algorithm-agnostic confirmed” 改为 “consistent trend across four architectures for training seed 101”。
+  \item 无统一环境和 time-to-threshold 证据时删除 “accelerates training”。
+  \item 绝对差作为主结果，百分比仅补充；queue-worst 与 speed-worst 分开选择。
+\end{itemize}

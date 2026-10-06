@@ -1,0 +1,281 @@
+{
+  "$id": "rollout.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "arrival_seed": {
+      "enum": [
+        51001,
+        51002,
+        51003,
+        51004,
+        51005,
+        51006,
+        51007,
+        51008,
+        51009,
+        51010
+      ]
+    },
+    "checkpoint_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "controller": {
+      "enum": [
+        "ia2c",
+        "ma2c",
+        "iqll",
+        "ppo"
+      ]
+    },
+    "demand_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "family": {
+      "type": "string"
+    },
+    "generation_seed": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "horizon_seconds": {
+      "const": 3600
+    },
+    "manifest_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "method": {
+      "enum": [
+        "baseline",
+        "random_group",
+        "domain_randomization",
+        "fixed_wce",
+        "online_wce"
+      ]
+    },
+    "metrics": {
+      "additionalProperties": true,
+      "properties": {
+        "collisions": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "completed": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "completed_trip_denominator": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "completion_rate": {
+          "maximum": 1,
+          "minimum": 0,
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "inserted": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "integrated_queue_vehicle_seconds": {
+          "minimum": 0,
+          "type": "number"
+        },
+        "mean_completed_departure_delay_seconds": {
+          "minimum": 0,
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "mean_completed_time_loss_seconds": {
+          "minimum": 0,
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "mean_completed_travel_time_seconds": {
+          "minimum": 0,
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "mean_completed_waiting_time_seconds": {
+          "minimum": 0,
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "mean_speed_vehicle_time_weighted": {
+          "minimum": 0,
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "mean_total_queue": {
+          "minimum": 0,
+          "type": "number"
+        },
+        "p95_total_queue": {
+          "minimum": 0,
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "peak_total_queue": {
+          "minimum": 0,
+          "type": "number"
+        },
+        "pending": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "remaining": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "scheduled": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "speed_denominator_vehicle_seconds": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "teleports": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "wall_seconds": {
+          "minimum": 0,
+          "type": "number"
+        }
+      },
+      "required": [
+        "mean_total_queue",
+        "integrated_queue_vehicle_seconds",
+        "peak_total_queue",
+        "scheduled",
+        "inserted",
+        "completed",
+        "remaining",
+        "pending",
+        "completed_trip_denominator",
+        "teleports",
+        "collisions",
+        "wall_seconds"
+      ],
+      "type": "object"
+    },
+    "network": {
+      "enum": [
+        "grid",
+        "monaco"
+      ]
+    },
+    "pilot": {
+      "const": false
+    },
+    "policy_seed": {
+      "type": "integer"
+    },
+    "protocol_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "rollout_id": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "rollout_index": {
+      "maximum": 10,
+      "minimum": 1,
+      "type": "integer"
+    },
+    "sample_count": {
+      "const": 3600
+    },
+    "scenario_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "scenario_id": {
+      "type": "string"
+    },
+    "schema_version": {
+      "const": 3
+    },
+    "source_commit": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "split": {
+      "enum": [
+        "seen",
+        "test"
+      ]
+    },
+    "status": {
+      "const": "complete"
+    },
+    "sumo_seed": {
+      "enum": [
+        61001,
+        61002,
+        61003,
+        61004,
+        61005,
+        61006,
+        61007,
+        61008,
+        61009,
+        61010
+      ]
+    },
+    "training_seed": {
+      "const": 101
+    }
+  },
+  "required": [
+    "schema_version",
+    "rollout_id",
+    "network",
+    "controller",
+    "method",
+    "training_seed",
+    "split",
+    "family",
+    "scenario_id",
+    "rollout_index",
+    "arrival_seed",
+    "sumo_seed",
+    "policy_seed",
+    "protocol_hash",
+    "scenario_hash",
+    "demand_hash",
+    "checkpoint_hash",
+    "manifest_hash",
+    "pilot",
+    "status",
+    "horizon_seconds",
+    "sample_count",
+    "metrics"
+  ],
+  "title": "Validated CB-WCE rollout",
+  "type": "object"
+}

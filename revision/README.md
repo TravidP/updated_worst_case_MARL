@@ -1,5 +1,15 @@
 # Compatibility commands and historical verification
 
+## Endpoint rewards and native TensorBoard (protocol 5)
+
+Controller rewards use negative queue at the five-second endpoint, without division by 100; MA2C retains 0.9 neighborhood weighting. Monaco IA2C/MA2C batches are now 120. Training episodes remain 6,600 seconds. `train/reward_by_learning_step` records every actual learner reward; `train/episode/mean_total_queue` summarizes a full episode. Before learning, every 50 complete episodes and at final budget, three paired 600-second Uniform tests save per-second CSV, NPZ and TensorBoard curves.
+
+See [settings, commands, metric definitions and output locations](../docs/TRAINING_MONITORING.md). Defaults are `--monitor-every 50 --monitor-rollouts 3`; pilots may shorten the interval. Start fresh parents and generate a new gate for this reward protocol; historical checkpoints remain preserved. The immediate full campaign launches eight parents only. Exact originals and checksums are archived under `docs/history/endpoint_monitoring_20260916T095506Z/`.
+
+```bash
+tensorboard --logdir runs/revised --host 127.0.0.1 --port 6007
+```
+
 The corrected implementation now lives in `agents/`, `envs/`, and `experiments/`. This package provides compatibility wrappers, so existing `python -m revision.runner` commands use the integrated implementation. Start new work with [the project README](../README.md) and `python main.py experiment ...`. The working protocol is [the English guide](../reviewer_revision_plan.md), with a [Chinese translation](../reviewer_revision_plan_zh.md).
 
 Publication-scale experiments have not been launched. A passing verification gate is required before the runner permits publication training. Pilot results are correctness evidence, not performance results for the paper.
@@ -41,7 +51,7 @@ This produces eight pilot cases, 40 continuations, 64 complete evaluations, and 
 
 The stage runner has one controller loop. Its five method IDs are `baseline`, `random_group`, `domain_randomization`, `fixed_wce`, and `online_wce`.
 
-The following publication examples require a passing gate. Repeat them for the prescribed seeds `101, 202, 303, 404, 505`, networks `grid` and `monaco`, and controllers `ia2c`, `ma2c`, `iqll`, and `ppo`.
+The following publication examples require a passing gate. Repeat them for the prescribed seeds `101`, networks `grid` and `monaco`, and controllers `ia2c`, `ma2c`, `iqll`, and `ppo`.
 
 ```bash
 python -m revision.runner --stage parent --network grid --controller ia2c \

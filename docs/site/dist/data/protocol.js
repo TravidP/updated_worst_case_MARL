@@ -1,1 +1,94 @@
-window.CBWCE_PROTOCOL = {"version":3,"networks":["grid","monaco"],"controllers":["ia2c","ma2c","iqll","ppo"],"methods":["baseline","random_group","domain_randomization","fixed_wce","online_wce"],"training_seeds":[101,202,303,404,505],"pilot_seed":9001,"parent_steps":1000000,"continuation_steps":1320000,"offline_episodes":500,"training_seconds":6600,"evaluation_seconds":3600,"control_seconds":5,"demand_seconds":600,"queue_scale":100,"profiles":11,"arrival_seeds":[51001,51002,51003,51004,51005,51006,51007,51008,51009,51010],"sumo_seeds":[61001,61002,61003,61004,61005,61006,61007,61008,61009,61010],"test_generation_seeds":[41001,41002,41003,41004,41005,41006,41007,41008,41009,41010,41011,41012],"validation_generation_seeds":[31001,31002,31003,31004,31005,31006],"validation_redistribution_sigma":[0.35,0.65],"validation_switch_seconds":450,"validation_peak":1.15,"counts":{"parents":40,"offline_wce":40,"continuations":200,"evaluation_rollouts":46000}};
+window.CBWCE_PROTOCOL = {
+  "version": 6,
+  "networks": [
+    "grid",
+    "monaco"
+  ],
+  "controllers": [
+    "ia2c",
+    "ma2c",
+    "iqll",
+    "ppo"
+  ],
+  "methods": [
+    "baseline",
+    "random_group",
+    "domain_randomization",
+    "fixed_wce",
+    "online_wce"
+  ],
+  "training_seeds": [
+    101
+  ],
+  "pilot_seed": 9001,
+  "parent_steps": 1000000,
+  "continuation_steps": 1320000,
+  "offline_episodes": 500,
+  "training_seconds": 6600,
+  "evaluation_seconds": 3600,
+  "control_seconds": 5,
+  "demand_seconds": 600,
+  "profiles": 11,
+  "arrival_seeds": [
+    51001,
+    51002,
+    51003,
+    51004,
+    51005,
+    51006,
+    51007,
+    51008,
+    51009,
+    51010
+  ],
+  "sumo_seeds": [
+    61001,
+    61002,
+    61003,
+    61004,
+    61005,
+    61006,
+    61007,
+    61008,
+    61009,
+    61010
+  ],
+  "test_generation_seeds": [
+    41001,
+    41002,
+    41003,
+    41004,
+    41005,
+    41006,
+    41007,
+    41008,
+    41009,
+    41010,
+    41011,
+    41012
+  ],
+  "validation_generation_seeds": [
+    31001,
+    31002,
+    31003,
+    31004,
+    31005,
+    31006
+  ],
+  "validation_redistribution_sigma": [
+    0.35,
+    0.65
+  ],
+  "validation_switch_seconds": 450,
+  "validation_peak": 1.15,
+  "counts": {
+    "parents": 8,
+    "offline_wce": 8,
+    "continuations": 40,
+    "evaluation_rollouts": 9200
+  },
+  "controller_reward": "learner_boundary_scaled_v3",
+  "monitor_every": 50,
+  "monitor_rollouts": 3,
+  "monitor_seconds": 600
+};

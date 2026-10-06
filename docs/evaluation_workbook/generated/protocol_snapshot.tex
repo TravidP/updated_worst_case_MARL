@@ -1,0 +1,19 @@
+\begin{center}
+\begin{tabular}{@{}ll@{}}
+\toprule
+Item / 项目 & Frozen value / 冻结值 \\
+\midrule
+Networks & Grid, Monaco \\
+Controllers & IA2C, MA2C, IQLL, PPO \\
+Methods & baseline, random group, domain randomization, fixed WCE, online WCE \\
+Training seed & 101 \\
+Final controller steps & 2,320,000 (1,000,000 parent + 1,320,000 continuation) \\
+Evaluation horizon & 3,600 s; empty start; no warm-up; no drain \\
+SUMO / control step & 1 s / 5 s (2 s yellow + 3 s green) \\
+Scenarios & 11 seen + 12 test = 23 \\
+Paired seeds & arrival 51001--51010 / SUMO 61001--61010 \\
+Formal rollouts & 9,200 (current accepted: 0) \\
+Implemented / required protocol & v7 / v7 \\
+\bottomrule
+\end{tabular}
+\end{center}

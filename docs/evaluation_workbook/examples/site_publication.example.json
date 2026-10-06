@@ -1,0 +1,29 @@
+{
+  "checksums": "checksums.json",
+  "counts": {
+    "accepted": 9200,
+    "expected": 9200,
+    "rejected": 0
+  },
+  "generated_at": "2026-09-29T12:00:00+00:00",
+  "metric_registry": [
+    {
+      "denominator": "3600 per-second samples",
+      "direction": "lower",
+      "id": "mean_total_queue",
+      "null_semantics": "never null for complete rollout",
+      "unit": "vehicles"
+    }
+  ],
+  "publication_complete": true,
+  "release_id": "publication_seed101_v1",
+  "schema_version": 3,
+  "shards": [
+    {
+      "kind": "overview",
+      "path": "overview.json",
+      "records": 1,
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+    }
+  ]
+}
