@@ -200,3 +200,11 @@ python main.py experiment report --input '/replace/with/selected/run'
 ## 仓库与便携结果
 
 仓库保留源码、输入、配置和 Grid/Monaco 精简结果。训练输出、checkpoint、生成的冻结需求和完整时序仅保留本地。见[数据管理说明](docs/REPOSITORY_DATA_POLICY.md)和[便携包恢复步骤](docs/evaluation_workbook/grid_results_site/RESTORE.md)。网站使用 Python 3.10+，与旧版训练环境分开。模型和原始数据目前尚无公开 Release。
+## 最终模型（Git LFS）
+
+`runs_eval/revised/selections/final_evaluation_seed101.json` 指定的 56 个 checkpoint
+已纳入 Git LFS：8 个父模型、8 个离线 WCE、40 个最终评估模型，去重前约 1.73 GiB。
+路径保持为 selection 的 `checkpoint_path`，并保留来源 run 的 manifest 与结果摘要。
+克隆并切换到 `revision` 后，执行 `git lfs install` 和 `git lfs pull` 下载模型。
+历史中间 checkpoint 与生成的需求文件仍被排除。模型含 pickle 状态，只加载可信来源。
+本地提交需成功推送后，其他用户才能下载本次新增模型。

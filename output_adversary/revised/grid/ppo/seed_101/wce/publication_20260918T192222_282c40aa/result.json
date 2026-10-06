@@ -1,0 +1,21 @@
+{
+  "backward_calls": 8334,
+  "checkpoint": "/home/sdc_joran/Journal/deeprl_signal_control/output_adversary/revised/grid/ppo/seed_101/wce/publication_20260918T192222_282c40aa/checkpoint_000660000",
+  "component_seconds": {
+    "checkpoint": 3.434402077749837,
+    "controller_inference": 3021.6237972707604,
+    "controller_learning": 9.694168179994449,
+    "demand_generation_insertion": 297.9103193776682,
+    "demand_selection": 44.55346358421957,
+    "reset": 518.3737906566239,
+    "simulation_measurement": 12585.707420479856,
+    "wce_learning": 2.1423937001964077
+  },
+  "learning_steps": 1000000,
+  "manifest_hash": "8fa1fc6b1009e1229b15e7c4ef8ff24ae6db0df5b6fece33423593858f1dd0e9",
+  "minibatch_updates_per_agent": 33336,
+  "stage_simulation_steps": 660000,
+  "status": "complete",
+  "wall_seconds": 16580.566367712978,
+  "wce_updates": 500
+}

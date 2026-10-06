@@ -2,11 +2,15 @@
 
 This repository keeps research source, network inputs, configuration, tests,
 reproduction instructions, final selection provenance, and compact website results.
-Training checkpoints, runtime output, frozen generated demand and full time series
-remain local. Removing files from the Git index does not delete their disk copies.
+Historical training checkpoints, runtime output, frozen generated demand and full
+time series remain local. The 56 checkpoints explicitly named by the final
+selection are the exception: they are versioned through Git LFS, with their
+originating run manifests and result summaries. Removing files from the Git index
+does not delete their disk copies.
 
 仓库保留研究源码、路网输入、配置、测试、复现说明、最终 selection 溯源信息和
-精简网站结果。训练 checkpoint、运行输出、生成的冻结需求和完整时序保留在本地。
+精简网站结果。最终 selection 指定的 56 个 checkpoint 通过 Git LFS 管理；
+历史中间 checkpoint、运行输出、生成的冻结需求和完整时序仅保留本地。
 取消 Git 跟踪不会删除磁盘文件。
 
 ## Retain / 保留
@@ -20,8 +24,8 @@ remain local. Removing files from the Git index does not delete their disk copie
 
 ## Local only / 仅本地保留
 
-- Checkpoints, TensorBoard events, logs, runtime rollout files, old documentation snapshots.
-- Generated demand artifacts and final model bundles referenced by the selections.
+- Historical/unselected checkpoints, TensorBoard events, logs, runtime rollout files, old documentation snapshots.
+- Generated demand artifacts (not included in the final-model LFS selection).
 - Website per-second CSVs and per-rollout metric tables; portable ZIP packages.
 - Local editor/session markers and notebook checkpoints.
 - Unreviewed `paper/` drafts: pending author/publication clearance, not staged.

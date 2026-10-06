@@ -1,5 +1,16 @@
 # CB-WCE: multi-agent signal control under changing traffic demand
 
+## Final models (Git LFS)
+
+The 56 checkpoints listed in `runs_eval/revised/selections/final_evaluation_seed101.json`
+are tracked using Git LFS at their original `checkpoint_path`: 8 parents, 8 offline
+WCE bundles and 40 final evaluation bundles (about 1.73 GiB before deduplication).
+After cloning/checking out `revision`, run `git lfs install` then `git lfs pull`.
+Origin run manifests and result summaries accompany the selected models. Historical
+checkpoints and generated demand remain excluded. Only load trusted checkpoints:
+these bundles include Python pickle state. Local commits must be pushed before
+the newly tracked models become available to other users.
+
 ## Endpoint rewards and native TensorBoard (protocol 5)
 
 Controller rewards use negative queue at the five-second endpoint, without division by 100; MA2C retains 0.9 neighborhood weighting. Monaco IA2C/MA2C batches are now 120. Training episodes remain 6,600 seconds. `train/reward_by_learning_step` records every actual learner reward; `train/episode/mean_total_queue` summarizes a full episode. Before learning, every 50 complete episodes and at final budget, three paired 600-second Uniform tests save per-second CSV, NPZ and TensorBoard curves.

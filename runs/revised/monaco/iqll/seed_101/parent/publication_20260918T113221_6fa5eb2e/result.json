@@ -1,0 +1,21 @@
+{
+  "backward_calls": 50000,
+  "checkpoint": "/home/sdc_joran/Journal/deeprl_signal_control/runs/revised/monaco/iqll/seed_101/parent/publication_20260918T113221_6fa5eb2e/checkpoint_001000000",
+  "component_seconds": {
+    "checkpoint": 11.62654888513498,
+    "controller_inference": 1332.8398657502257,
+    "controller_learning": 5651.2793586463085,
+    "demand_generation_insertion": 373.74001917266287,
+    "demand_selection": 0.08696023182710633,
+    "monitoring": 182.65967498184182,
+    "reset": 617.9127622310189,
+    "simulation_measurement": 18927.444480164268
+  },
+  "learning_steps": 1000000,
+  "manifest_hash": "155d21ebc9c5e9560a78201c7b3458c56af4eabdab28727dbef59a7d2b4c84da",
+  "minibatch_updates_per_agent": 500000,
+  "stage_simulation_steps": 1000000,
+  "status": "complete",
+  "wall_seconds": 27343.43701082596,
+  "wce_updates": 0
+}
