@@ -1,5 +1,0 @@
-model_checkpoint_path: "ia2c_largecheckpoint-40"
-all_model_checkpoint_paths: "ia2c_largecheckpoint-10"
-all_model_checkpoint_paths: "ia2c_largecheckpoint-20"
-all_model_checkpoint_paths: "ia2c_largecheckpoint-30"
-all_model_checkpoint_paths: "ia2c_largecheckpoint-40"
