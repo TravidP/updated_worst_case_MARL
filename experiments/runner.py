@@ -7,6 +7,8 @@ import argparse
 import json
 import time
 import signal
+import pickle
+import hashlib
 import xml.etree.ElementTree as ET
 from pathlib import Path
 import numpy as np
@@ -27,6 +29,7 @@ def parser():
     p.add_argument('--wce', help='Exact pretrained WCE checkpoint directory')
     p.add_argument('--resume', help='Exact same-stage revision checkpoint; new attempt directory required')
     p.add_argument('--pilot', action='store_true')
+    p.add_argument('--config', help='Pilot-only isolated controller INI override')
     display = p.add_mutually_exclusive_group()
     display.add_argument('--visualization', action='store_true',
                          help='Show a local SUMO GUI window during each episode (default: off)')
@@ -36,6 +39,8 @@ def parser():
     p.add_argument('--steps', type=int, help='Pilot parent/continuation learning budget')
     p.add_argument('--episodes', type=int, help='Pilot offline WCE episode count')
     p.add_argument('--checkpoint-every', type=int, default=10)
+    p.add_argument('--monitor-every', type=int, default=50)
+    p.add_argument('--monitor-rollouts', type=int, default=3)
     p.add_argument('--gate', help='Passing verification gate for publication training')
     p.add_argument('--artifact', help='Materialized evaluation traffic JSON')
     p.add_argument('--sumo-seed', type=int, default=61001)
@@ -84,17 +89,23 @@ def run(args):
                 if (pm['network'], pm['controller'], pm['seed']) != (args.network, args.controller, args.seed):
                     raise ValueError('Evaluation identity does not match trained controller')
                 args.method = pm['method']
+    if args.monitor_every < 1 or not 1 <= args.monitor_rollouts <= 3:
+        raise ValueError('Monitoring interval must be positive; rollouts must be 1..3')
+    if not args.pilot and (args.monitor_every, args.monitor_rollouts) != (50, 3):
+        raise ValueError('Publication monitoring requires every 50 episodes and three rollouts')
     if args.checkpoint_every < 1:
         raise ValueError('checkpoint-every must be positive')
     if args.fail_after_steps is not None and (not args.pilot or args.stage != 'evaluate'):
         raise ValueError('Fault injection is only available for pilot evaluation')
+    if args.config and not args.pilot:
+        raise ValueError('--config is pilot-only; publication runs require tracked revised INIs')
     if args.pilot:
-        if args.seed in [101, 202, 303, 404, 505]:
+        if args.seed in protocol['training_seeds']:
             raise ValueError('Pilot seeds must not overlap publication training seeds')
     elif args.stage in ('parent', 'wce', 'continue'):
         require_gate(args.gate)
-        if args.seed not in [101, 202, 303, 404, 505]:
-            raise ValueError('Use one of the five prescribed publication training seeds')
+        if args.seed not in protocol['training_seeds']:
+            raise ValueError('Use the prescribed publication training seed: 101')
         if args.steps is not None or args.episodes is not None:
             raise ValueError('Publication budgets cannot be overridden')
     goal = (args.steps if args.steps is not None else (protocol['parent_steps'] if args.stage == 'parent' else protocol['continuation_steps']))
@@ -104,12 +115,19 @@ def run(args):
         raise ValueError('WCE/continuation budgets must contain full 1320-step episodes')
     parents = {name: {'path': str(Path(path).resolve()), 'hash': inspect_checkpoint(path)['hash']}
                for name, path in [('controller', args.parent), ('wce', args.wce), ('resume', args.resume)] if path}
-    suffix = 'large' if args.network == 'grid' else 'real'
-    from experiments.protocol import config_path as effective_config_path
-    config_path = effective_config_path(args.network, args.controller)
+    from experiments.configuration import (effective_dict, load_controller_config,
+                                           load_wce_config)
+    controller_config, config_path = load_controller_config(
+        args.network, args.controller, args.config, args.seed)
+    wce_config, selected_wce_path = load_wce_config(args.network)
     inputs = dict(vars(args), parents=parents, training_profiles=profiles(args.network),
                   controller_config_hash=file_hash(config_path),
-                  revision_overrides={'objective': 'queue', 'scale': 100, 'clip': False,
+                  controller_config_path=str(config_path),
+                  controller_effective_config=effective_dict(controller_config),
+                  wce_config_path=str(selected_wce_path),
+                  wce_config_hash=file_hash(selected_wce_path),
+                  wce_effective_config=effective_dict(wce_config),
+                  revision_overrides={'objective': 'queue', 'controller_reward': 'learner_boundary_scaled_v3',
                                       'episode_seconds': 3600 if args.stage in ('demand', 'evaluate') else 6600,
                                       'control_seconds': 5})
     if args.artifact:
@@ -118,13 +136,13 @@ def run(args):
         inputs['schedule_file_hash'] = file_hash(args.schedule)
     record = RunRecord(args.output, inputs)
     record.started = stage_started
-    env = controller = wce = None
+    env = controller = wce = telemetry = None
     models = {}
     stage_steps, episode = 0, 0
     streams = Streams(args.seed)
     try:
         env = make_environment(args.network, args.controller, record.path / 'runtime', args.seed,
-                               visualization=args.visualization)
+                               visualization=args.visualization, config_path=args.config)
         obs = env.reset_episode(args.sumo_seed)
         env.prepare_routes()
         write_json(record.path / 'environment.json', {'assets': env.asset_hashes, 'lanes': env.metric.lanes,
@@ -191,7 +209,11 @@ def run(args):
             for index in range(720):
                 decision = controller.act(obs, env, False)
                 nxt, rewards, done = env.step(decision[0])
-                controller.observe(obs, decision, rewards, nxt, done, False)
+                learner_rewards, clipped = controller.observe(
+                    obs, decision, rewards, nxt, done, False)
+                env.controller_rows[-1].update(
+                    learner_rewards=learner_rewards.tolist(),
+                    reward_clipped=clipped.astype(int).tolist())
                 obs = nxt
                 if (index + 1) % 120 == 0:
                     with (record.path / 'progress.jsonl').open('a') as f:
@@ -216,8 +238,55 @@ def run(args):
             write_json(record.path / 'rollout_summary.json', summary)
             record.finish('complete', **{k: v for k, v in summary.items() if k != 'status'})
             return str(record.path / 'rollout_summary.json')
+        from experiments.telemetry import Telemetry
+        from experiments.monitoring import run_monitor
+        telemetry = Telemetry(record.path)
         checkpoint = Path(args.resume) if args.resume else None
+        monitored_steps = set(state.get('monitored_steps', [])) if args.resume else set()
+
+        def save_current():
+            controller.assert_finite()
+            target = record.path / ('checkpoint_{:09}'.format(stage_steps))
+            if not target.exists():
+                snapshot = {'stage':args.stage, 'method':args.method, 'goal':goal, 'stage_steps':stage_steps,
+                    'episode':episode, 'initial_steps':initial_steps, 'streams':streams.state(),
+                    'monitored_steps':sorted(monitored_steps), 'monitor_every':args.monitor_every,
+                    'monitor_rollouts':args.monitor_rollouts}
+                save_checkpoint(target, models, snapshot, parents)
+            return target
+
+        def monitor():
+            nonlocal checkpoint
+            if stage_steps in monitored_steps:
+                return
+            checkpoint = save_current()
+            # A completed round in a previous attempt can be reused; failures are retried in this attempt.
+            previous = Path(args.resume).parent/'monitoring'/('round_%06d' % episode)/'summary.json' if args.resume else None
+            if previous and previous.exists():
+                result = json.loads(previous.read_text())
+                if result.get('status') == 'complete' and result.get('stage_simulation_steps') == stage_steps:
+                    reuse = record.path/'monitoring'/('round_%06d' % episode)
+                    reuse.mkdir(parents=True, exist_ok=True)
+                    write_json(reuse/'summary.json',dict(result,reused_from=str(previous)))
+                    monitored_steps.add(stage_steps)
+                    return result
+            t = time.monotonic()
+            before_monitor = hashlib.sha256(pickle.dumps((controller.state(), streams.state()), protocol=4)).hexdigest()
+            result = run_monitor(args,record.path,checkpoint,episode,stage_steps,telemetry)
+            after_monitor = hashlib.sha256(pickle.dumps((controller.state(), streams.state()), protocol=4)).hexdigest()
+            if before_monitor != after_monitor:
+                raise AssertionError('Monitoring changed training state')
+            monitored_steps.add(stage_steps)
+            record.add_time('monitoring', time.monotonic()-t)
+            return result
+
+        if args.resume and (state.get('monitor_every'),state.get('monitor_rollouts')) != (args.monitor_every,args.monitor_rollouts):
+            raise ValueError('Resume monitoring settings mismatch')
+        if args.stage in ('parent','continue') and (not args.resume or stage_steps == goal or episode % args.monitor_every == 0):
+            monitor()
         while stage_steps < goal:
+            episode_started = time.monotonic()
+            updates_before = controller.backward_calls
             reset_start = time.monotonic()
             obs = env.reset_episode(streams['sumo'].randint(1, 2147483647))
             controller.reset()
@@ -250,39 +319,64 @@ def run(args):
                     nxt, rewards, done = env.step(decision[0])
                     record.add_time('simulation_measurement', time.monotonic() - t)
                     t = time.monotonic()
-                    controller.observe(obs, decision, rewards, nxt, done, learning)
+                    learner_rewards, reward_clipped = controller.observe(
+                        obs, decision, rewards, nxt, done, learning)
                     record.add_time('controller_learning', time.monotonic() - t)
                     obs = nxt
+                    env.controller_rows[-1].update(learning_steps=controller.learning_steps,
+                        stage_simulation_steps=stage_steps+1, learning=learning,
+                        learner_rewards=learner_rewards.tolist(),
+                        reward_clipped=reward_clipped.astype(int).tolist())
+                    if learning:
+                        telemetry.scalars({
+                            'train/raw_reward_by_learning_step': float(np.mean(rewards)),
+                            'train/learner_reward_by_learning_step': float(np.mean(learner_rewards)),
+                            'train/reward_by_learning_step': float(np.mean(learner_rewards)),
+                            'train/reward_clip_fraction_by_learning_step': float(np.mean(reward_clipped)),
+                        }, controller.learning_steps)
+                    telemetry.updates(controller)
                     stage_steps += 1
                     if stage_steps % 120 == 0:
                         progress = {'stage': args.stage, 'episode': episode + 1, 'simulation_steps': stage_steps,
                             'learning_steps': controller.learning_steps, 'goal': goal,
                             'mean_queue': float(np.mean([r['queue'] for r in env.rows[-600:]])),
                             'wce_updates': wce.updates if wce else 0, 'wall_seconds': time.monotonic() - stage_started}
+                        telemetry.scalars({'block/mean_total_queue_recent_600_seconds':progress['mean_queue']}, controller.learning_steps if learning else stage_steps//120)
                         with (record.path / 'progress.jsonl').open('a') as f:
                             f.write(json.dumps(progress) + '\n')
                 block_samples = env.lane_rows[block_start:]
                 block_reward = env.metric.wce(block_samples) if len(block_samples) == 600 else None
                 with (record.path / 'demand_decisions.jsonl').open('a') as stream:
                     stream.write(json.dumps({'episode': episode, 'block': block, 'weights': weights.tolist(),
-                        'wce_reward': block_reward, 'completed_seconds': len(block_samples),
+                        'wce_raw_reward': block_reward, 'completed_seconds': len(block_samples),
                         'scheduled_vehicles': len(vehicles), 'traffic_hash': digest(vehicles)}) + '\n')
                 if use_wce and (args.stage == 'wce' or args.method == 'online_wce'):
                     t = time.monotonic()
-                    wce.observe(wobs, logits, value, block_reward)
+                    wce_learner_reward, wce_clipped = wce.observe(
+                        wobs, logits, value, block_reward)
+                    with (record.path / 'wce_rewards.jsonl').open('a') as stream:
+                        stream.write(json.dumps({
+                            'episode': episode, 'block': block,
+                            'raw_reward': block_reward,
+                            'learner_reward': wce_learner_reward,
+                            'clipped': bool(wce_clipped),
+                        }) + '\n')
+                    telemetry.updates(wce, 'wce')
                     record.add_time('wce_learning', time.monotonic() - t)
                 if stage_steps == goal:
                     break
             controller.flush(obs, env.cur_sec == 6600)
+            telemetry.updates(controller)
+            controller.assert_finite()
             episode += 1
+            telemetry.episode(env,controller,args.stage,episode,stage_steps,time.monotonic()-episode_started,updates_before)
             env.export_episode(record.path / ('episode_{:04}'.format(episode)))
             if episode % args.checkpoint_every == 0 or stage_steps == goal:
                 t = time.monotonic()
-                state = {'stage': args.stage, 'method': args.method, 'goal': goal, 'stage_steps': stage_steps,
-                         'episode': episode, 'initial_steps': initial_steps, 'streams': streams.state()}
-                checkpoint = record.path / ('checkpoint_{:09}'.format(stage_steps))
-                save_checkpoint(checkpoint, models, state, parents)
-                record.add_time('checkpoint', time.monotonic() - t)
+                checkpoint = save_current()
+                record.add_time('checkpoint',time.monotonic()-t)
+            if args.stage in ('parent','continue') and (episode % args.monitor_every == 0 or stage_steps == goal):
+                monitor()
             print('{} {} {} episode={} simulation_steps={} learning_steps={}'.format(
                 args.network, args.controller, args.stage, episode, stage_steps, controller.learning_steps), flush=True)
         expected = initial_steps + (0 if args.stage == 'wce' else goal)
@@ -296,9 +390,13 @@ def run(args):
     except BaseException as exc:
         if env is not None and env.rows:
             env.export_episode(record.path / 'incomplete_attempt')
-        record.finish('interrupted' if isinstance(exc, KeyboardInterrupt) else 'failed', error=repr(exc), completed_stage_steps=stage_steps, completed_episodes=episode)
+        status = 'interrupted' if isinstance(exc, KeyboardInterrupt) else 'failed'
+        record.finish(status, error=repr(exc), completed_stage_steps=stage_steps,
+                      completed_episodes=episode)
         raise
     finally:
+        if telemetry is not None:
+            telemetry.close()
         for model in models.values():
             model.close()
         if env is not None:

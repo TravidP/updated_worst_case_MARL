@@ -3,14 +3,16 @@ import json
 import numpy as np
 from experiments.core import ROOT, digest, write_json
 from experiments.demand import original_profiles, profiles, mixture, materialize, save_artifact, check_artifact
-from experiments.protocol import settings, dataset_root
+from experiments.protocol import settings, scenario_root
 
 
 def definitions(network, split):
     names = [g['name'] for g in original_profiles(network)]
-    def scenario(name, family, seed, blocks):
+    protocol_version = settings()['version']
+    def scenario(name, family, seed, blocks, **metadata):
         return {'id': name, 'network': network, 'split': split, 'family': family,
-                'generation_seed': seed, 'horizon': 3600, 'blocks': blocks}
+                'generation_seed': seed, 'protocol_version': protocol_version,
+                'horizon': 3600, 'blocks': blocks, **metadata}
     def block(start, duration, profile='Uniform', **extra):
         return dict(start=start, duration=duration, profile=profile, **extra)
     if split == 'seen':
@@ -32,9 +34,15 @@ def definitions(network, split):
                                [block(0,3600,weights=weights)]))
     for interval in ([settings()['validation_switch_seconds']] if validation else [300,900,1200]):
         seed = next(seeds)
-        blocks = [block(start,min(interval,3600-start),'N_to_S' if i%2==0 else 'W_to_E')
-                  for i,start in enumerate(range(0,3600,interval))]
-        result.append(scenario('switch_' + str(interval), 'temporal', seed, blocks))
+        rng = np.random.RandomState(seed)
+        selected = []
+        for _ in range(len(range(0, 3600, interval))):
+            choices = [name for name in names if not selected or name != selected[-1]]
+            selected.append(choices[int(rng.randint(len(choices)))])
+        blocks = [block(start, min(interval, 3600-start), profile)
+                  for start, profile in zip(range(0, 3600, interval), selected)]
+        result.append(scenario('switch_' + str(interval), 'temporal', seed, blocks,
+                               temporal_policy='seeded_random_seen_profiles'))
     for peak in ([settings()['validation_peak']] if validation else [1.1,1.25,1.5]):
         seed = next(seeds)
         result.append(scenario('peak_' + str(peak), 'peak', seed,
@@ -58,10 +66,11 @@ def block_rows(groups, definition, block):
 
 
 def artifact_for(network, definition, arrival_seed, env):
-    directory = dataset_root(network) / ('test' if definition['split']=='seen' else definition['split']) / 'artifacts'
+    directory = scenario_root(network, definition['split']) / 'artifacts'
     directory.mkdir(parents=True,exist_ok=True)
     groups = profiles(network)
-    metadata = dict(network=network, network_hash=env.asset_hashes['network'], horizon=3600,
+    metadata = dict(network=network, protocol_version=settings()['version'],
+                    network_hash=env.asset_hashes['network'], horizon=3600,
                     arrival_seed=arrival_seed, scenario=definition,
                     profiles_hash=digest(groups), scenario_hash=digest(definition))
     path = directory / ('{}_{}.json'.format(definition['id'],arrival_seed))

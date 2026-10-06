@@ -1,0 +1,352 @@
+[
+  {
+    "blocks": [
+      {
+        "duration": 3600,
+        "profile": "Uniform",
+        "sigma": 0.25,
+        "start": 0
+      }
+    ],
+    "family": "redistribution",
+    "generation_seed": 41001,
+    "horizon": 3600,
+    "id": "redistribution_0.25",
+    "network": "monaco",
+    "protocol_version": 7,
+    "split": "test"
+  },
+  {
+    "blocks": [
+      {
+        "duration": 3600,
+        "profile": "Uniform",
+        "sigma": 0.5,
+        "start": 0
+      }
+    ],
+    "family": "redistribution",
+    "generation_seed": 41002,
+    "horizon": 3600,
+    "id": "redistribution_0.5",
+    "network": "monaco",
+    "protocol_version": 7,
+    "split": "test"
+  },
+  {
+    "blocks": [
+      {
+        "duration": 3600,
+        "profile": "Uniform",
+        "sigma": 0.75,
+        "start": 0
+      }
+    ],
+    "family": "redistribution",
+    "generation_seed": 41003,
+    "horizon": 3600,
+    "id": "redistribution_0.75",
+    "network": "monaco",
+    "protocol_version": 7,
+    "split": "test"
+  },
+  {
+    "blocks": [
+      {
+        "duration": 3600,
+        "profile": "Uniform",
+        "start": 0,
+        "weights": [
+          0.003033506260584952,
+          0.14641772723792484,
+          0.05214749608765789,
+          0.08404349981890313,
+          0.29973994931333814,
+          0.061484199318152626,
+          0.005641641101025717,
+          0.012238742127300613,
+          0.08550934457007851,
+          0.02704240509121478,
+          0.22270148907381884
+        ]
+      }
+    ],
+    "family": "mixture",
+    "generation_seed": 41004,
+    "horizon": 3600,
+    "id": "mixture_1",
+    "network": "monaco",
+    "protocol_version": 7,
+    "split": "test"
+  },
+  {
+    "blocks": [
+      {
+        "duration": 3600,
+        "profile": "Uniform",
+        "start": 0,
+        "weights": [
+          0.09247486708883589,
+          0.11975093513249499,
+          0.025368038156277584,
+          0.018755110888997683,
+          0.03927396453094604,
+          0.1304472775429252,
+          0.04555564275277369,
+          0.17157662421673484,
+          0.12475830049846211,
+          0.1923966674439201,
+          0.039642571747631916
+        ]
+      }
+    ],
+    "family": "mixture",
+    "generation_seed": 41005,
+    "horizon": 3600,
+    "id": "mixture_2",
+    "network": "monaco",
+    "protocol_version": 7,
+    "split": "test"
+  },
+  {
+    "blocks": [
+      {
+        "duration": 3600,
+        "profile": "Uniform",
+        "start": 0,
+        "weights": [
+          0.10716126364679551,
+          0.07578721496467175,
+          0.0034913978026351574,
+          0.033028229881205955,
+          0.1262108106420837,
+          0.03016531441050701,
+          0.3937949389595221,
+          0.1606530947589866,
+          0.054454339153479,
+          0.00980048629702024,
+          0.005452909483092785
+        ]
+      }
+    ],
+    "family": "mixture",
+    "generation_seed": 41006,
+    "horizon": 3600,
+    "id": "mixture_3",
+    "network": "monaco",
+    "protocol_version": 7,
+    "split": "test"
+  },
+  {
+    "blocks": [
+      {
+        "duration": 300,
+        "profile": "Center_to_Periphery",
+        "start": 0
+      },
+      {
+        "duration": 300,
+        "profile": "SW_to_NE",
+        "start": 300
+      },
+      {
+        "duration": 300,
+        "profile": "NW_to_SE",
+        "start": 600
+      },
+      {
+        "duration": 300,
+        "profile": "N_to_S",
+        "start": 900
+      },
+      {
+        "duration": 300,
+        "profile": "NW_to_SE",
+        "start": 1200
+      },
+      {
+        "duration": 300,
+        "profile": "E_to_W",
+        "start": 1500
+      },
+      {
+        "duration": 300,
+        "profile": "W_to_E",
+        "start": 1800
+      },
+      {
+        "duration": 300,
+        "profile": "Periphery_to_Center",
+        "start": 2100
+      },
+      {
+        "duration": 300,
+        "profile": "S_to_N",
+        "start": 2400
+      },
+      {
+        "duration": 300,
+        "profile": "NE_to_SW",
+        "start": 2700
+      },
+      {
+        "duration": 300,
+        "profile": "SE_to_NW",
+        "start": 3000
+      },
+      {
+        "duration": 300,
+        "profile": "W_to_E",
+        "start": 3300
+      }
+    ],
+    "family": "temporal",
+    "generation_seed": 41007,
+    "horizon": 3600,
+    "id": "switch_300",
+    "network": "monaco",
+    "protocol_version": 7,
+    "split": "test",
+    "temporal_policy": "seeded_random_seen_profiles"
+  },
+  {
+    "blocks": [
+      {
+        "duration": 900,
+        "profile": "Center_to_Periphery",
+        "start": 0
+      },
+      {
+        "duration": 900,
+        "profile": "SE_to_NW",
+        "start": 900
+      },
+      {
+        "duration": 900,
+        "profile": "NW_to_SE",
+        "start": 1800
+      },
+      {
+        "duration": 900,
+        "profile": "NE_to_SW",
+        "start": 2700
+      }
+    ],
+    "family": "temporal",
+    "generation_seed": 41008,
+    "horizon": 3600,
+    "id": "switch_900",
+    "network": "monaco",
+    "protocol_version": 7,
+    "split": "test",
+    "temporal_policy": "seeded_random_seen_profiles"
+  },
+  {
+    "blocks": [
+      {
+        "duration": 1200,
+        "profile": "Uniform",
+        "start": 0
+      },
+      {
+        "duration": 1200,
+        "profile": "N_to_S",
+        "start": 1200
+      },
+      {
+        "duration": 1200,
+        "profile": "Periphery_to_Center",
+        "start": 2400
+      }
+    ],
+    "family": "temporal",
+    "generation_seed": 41009,
+    "horizon": 3600,
+    "id": "switch_1200",
+    "network": "monaco",
+    "protocol_version": 7,
+    "split": "test",
+    "temporal_policy": "seeded_random_seen_profiles"
+  },
+  {
+    "blocks": [
+      {
+        "duration": 1200,
+        "profile": "Uniform",
+        "start": 0
+      },
+      {
+        "duration": 1200,
+        "multiplier": 1.1,
+        "profile": "Uniform",
+        "start": 1200
+      },
+      {
+        "duration": 1200,
+        "profile": "Uniform",
+        "start": 2400
+      }
+    ],
+    "family": "peak",
+    "generation_seed": 41010,
+    "horizon": 3600,
+    "id": "peak_1.1",
+    "network": "monaco",
+    "protocol_version": 7,
+    "split": "test"
+  },
+  {
+    "blocks": [
+      {
+        "duration": 1200,
+        "profile": "Uniform",
+        "start": 0
+      },
+      {
+        "duration": 1200,
+        "multiplier": 1.25,
+        "profile": "Uniform",
+        "start": 1200
+      },
+      {
+        "duration": 1200,
+        "profile": "Uniform",
+        "start": 2400
+      }
+    ],
+    "family": "peak",
+    "generation_seed": 41011,
+    "horizon": 3600,
+    "id": "peak_1.25",
+    "network": "monaco",
+    "protocol_version": 7,
+    "split": "test"
+  },
+  {
+    "blocks": [
+      {
+        "duration": 1200,
+        "profile": "Uniform",
+        "start": 0
+      },
+      {
+        "duration": 1200,
+        "multiplier": 1.5,
+        "profile": "Uniform",
+        "start": 1200
+      },
+      {
+        "duration": 1200,
+        "profile": "Uniform",
+        "start": 2400
+      }
+    ],
+    "family": "peak",
+    "generation_seed": 41012,
+    "horizon": 3600,
+    "id": "peak_1.5",
+    "network": "monaco",
+    "protocol_version": 7,
+    "split": "test"
+  }
+]

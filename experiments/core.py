@@ -79,20 +79,20 @@ class QueueMetric:
             raise ValueError('Invalid queue sample dimensions')
         if not np.all(np.isfinite(samples)) or np.any(samples < 0):
             raise ValueError('Invalid queue values')
-        local = np.array([samples[:, self.indices[n]].sum(axis=1).mean() for n in self.nodes])
+        local = np.array([samples[-1, self.indices[n]].sum() for n in self.nodes])
         if family == 'ma2c':
             reward = [-local[i] - .9 * sum(local[self.nodes.index(k)] for k in self.neighbors[n])
                       for i, n in enumerate(self.nodes)]
         else:
             reward = np.repeat(-local.sum(), len(local))
-        return np.asarray(reward) / 100.
+        return np.asarray(reward)
 
     @staticmethod
     def wce(samples):
         samples = np.asarray(samples, dtype=float)
         if len(samples) != 600:
             raise ValueError('WCE requires exactly 600 per-second measurements')
-        return float(samples.sum(axis=1).mean() / 100.)
+        return float(samples.sum(axis=1).mean())
 
 
 def validate_rollout(rows, horizon=3600):
@@ -132,7 +132,9 @@ class RunRecord:
                                  'tensorflow_threads': 1, 'logical_cpus': os.cpu_count(),
                                  'blas_threads': os.environ.get('OPENBLAS_NUM_THREADS', 'unspecified'),
                                  'omp_threads': os.environ.get('OMP_NUM_THREADS', 'unspecified'),
-                                 'concurrent_workers': os.environ.get('REVISION_VERIFICATION_WORKERS', 'unspecified')}
+                                 'concurrent_workers': os.environ.get(
+                                     'CBWCE_CONCURRENT_WORKERS',
+                                     os.environ.get('REVISION_VERIFICATION_WORKERS', 'unspecified'))}
         self.hash = digest(self.inputs)
         write_json(self.path / 'manifest.json', dict(self.inputs, manifest_hash=self.hash))
 

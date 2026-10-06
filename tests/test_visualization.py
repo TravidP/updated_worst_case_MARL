@@ -1,13 +1,31 @@
 """Display selection must not change experiment arguments or reset seeds."""
 import os
+import tempfile
 import unittest
 from unittest.mock import patch
 
 from experiments.runner import parser
-from envs.experiment_env import RevisedMixin, validate_visualization
+from envs.experiment_env import RevisedMixin, start_traci_locked, validate_visualization
 
 
 class Visualization(unittest.TestCase):
+    def test_traci_start_uses_locked_automatic_port_and_releases_after_failure(self):
+        with tempfile.TemporaryDirectory() as directory, \
+             patch('envs.experiment_env.TRACI_START_LOCK',
+                   __import__('pathlib').Path(directory) / 'traci.lock'), \
+             patch('envs.experiment_env.socket.socket') as socket_factory, \
+             patch('envs.experiment_env.traci.start', side_effect=[RuntimeError('failed'), 'ok']) as start:
+            socket_factory.return_value.__enter__.return_value.getsockname.side_effect = [
+                ('127.0.0.1', 10001), ('127.0.0.1', 10002)]
+            with self.assertRaisesRegex(RuntimeError, 'failed'):
+                start_traci_locked(['sumo'], 'first', None)
+            self.assertEqual(start_traci_locked(['sumo'], 'second', None), 'ok')
+            self.assertIsInstance(start.call_args_list[0][1]['port'], int)
+            self.assertEqual(start.call_args_list[0][1]['numRetries'], 10)
+            self.assertIsInstance(start.call_args_list[1][1]['port'], int)
+            self.assertNotEqual(start.call_args_list[0][1]['port'],
+                                start.call_args_list[1][1]['port'])
+
     def test_cli_default_on_off_and_conflict(self):
         base=['--stage','parent','--network','grid','--controller','iqll','--output','unused']
         self.assertFalse(parser().parse_args(base).visualization)

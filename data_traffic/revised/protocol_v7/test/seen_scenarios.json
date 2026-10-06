@@ -1,0 +1,178 @@
+[
+  {
+    "blocks": [
+      {
+        "duration": 3600,
+        "profile": "Center_to_Periphery",
+        "start": 0
+      }
+    ],
+    "family": "seen",
+    "generation_seed": null,
+    "horizon": 3600,
+    "id": "seen_Center_to_Periphery",
+    "network": "grid",
+    "protocol_version": 7,
+    "split": "seen"
+  },
+  {
+    "blocks": [
+      {
+        "duration": 3600,
+        "profile": "E_to_W",
+        "start": 0
+      }
+    ],
+    "family": "seen",
+    "generation_seed": null,
+    "horizon": 3600,
+    "id": "seen_E_to_W",
+    "network": "grid",
+    "protocol_version": 7,
+    "split": "seen"
+  },
+  {
+    "blocks": [
+      {
+        "duration": 3600,
+        "profile": "NE_to_SW",
+        "start": 0
+      }
+    ],
+    "family": "seen",
+    "generation_seed": null,
+    "horizon": 3600,
+    "id": "seen_NE_to_SW",
+    "network": "grid",
+    "protocol_version": 7,
+    "split": "seen"
+  },
+  {
+    "blocks": [
+      {
+        "duration": 3600,
+        "profile": "NW_to_SE",
+        "start": 0
+      }
+    ],
+    "family": "seen",
+    "generation_seed": null,
+    "horizon": 3600,
+    "id": "seen_NW_to_SE",
+    "network": "grid",
+    "protocol_version": 7,
+    "split": "seen"
+  },
+  {
+    "blocks": [
+      {
+        "duration": 3600,
+        "profile": "N_to_S",
+        "start": 0
+      }
+    ],
+    "family": "seen",
+    "generation_seed": null,
+    "horizon": 3600,
+    "id": "seen_N_to_S",
+    "network": "grid",
+    "protocol_version": 7,
+    "split": "seen"
+  },
+  {
+    "blocks": [
+      {
+        "duration": 3600,
+        "profile": "Periphery_to_Center",
+        "start": 0
+      }
+    ],
+    "family": "seen",
+    "generation_seed": null,
+    "horizon": 3600,
+    "id": "seen_Periphery_to_Center",
+    "network": "grid",
+    "protocol_version": 7,
+    "split": "seen"
+  },
+  {
+    "blocks": [
+      {
+        "duration": 3600,
+        "profile": "SE_to_NW",
+        "start": 0
+      }
+    ],
+    "family": "seen",
+    "generation_seed": null,
+    "horizon": 3600,
+    "id": "seen_SE_to_NW",
+    "network": "grid",
+    "protocol_version": 7,
+    "split": "seen"
+  },
+  {
+    "blocks": [
+      {
+        "duration": 3600,
+        "profile": "SW_to_NE",
+        "start": 0
+      }
+    ],
+    "family": "seen",
+    "generation_seed": null,
+    "horizon": 3600,
+    "id": "seen_SW_to_NE",
+    "network": "grid",
+    "protocol_version": 7,
+    "split": "seen"
+  },
+  {
+    "blocks": [
+      {
+        "duration": 3600,
+        "profile": "S_to_N",
+        "start": 0
+      }
+    ],
+    "family": "seen",
+    "generation_seed": null,
+    "horizon": 3600,
+    "id": "seen_S_to_N",
+    "network": "grid",
+    "protocol_version": 7,
+    "split": "seen"
+  },
+  {
+    "blocks": [
+      {
+        "duration": 3600,
+        "profile": "Uniform",
+        "start": 0
+      }
+    ],
+    "family": "seen",
+    "generation_seed": null,
+    "horizon": 3600,
+    "id": "seen_Uniform",
+    "network": "grid",
+    "protocol_version": 7,
+    "split": "seen"
+  },
+  {
+    "blocks": [
+      {
+        "duration": 3600,
+        "profile": "W_to_E",
+        "start": 0
+      }
+    ],
+    "family": "seen",
+    "generation_seed": null,
+    "horizon": 3600,
+    "id": "seen_W_to_E",
+    "network": "grid",
+    "protocol_version": 7,
+    "split": "seen"
+  }
+]

@@ -34,7 +34,7 @@ def worker(path, network, family):
     from experiments.runner import parser, run
     base = Path(path)
     base.mkdir(parents=True, exist_ok=False)
-    common = ['--network', network, '--controller', family, '--seed', '9001', '--pilot', '--checkpoint-every', '1']
+    common = ['--network', network, '--controller', family, '--seed', '9001', '--pilot', '--checkpoint-every', '1', '--monitor-every', '1', '--monitor-rollouts', '1']
 
     def execute(name, options):
         try:
@@ -74,15 +74,44 @@ def worker(path, network, family):
         identity = json.loads((base / method / 'environment.json').read_text())
         node_lanes = {n: identity['node_lanes'][n] for n in identity['nodes']}
         metric = QueueMetric(node_lanes, identity['neighbors'])
+        reward_norm = float(identity['configuration']['MODEL_CONFIG']['reward_norm'])
+        reward_clip = float(identity['configuration']['MODEL_CONFIG']['reward_clip'])
         decisions = [json.loads(line) for line in (base / method / 'demand_decisions.jsonl').read_text().splitlines()]
         for ep in (1, 2):
             queues = np.load(str(base / method / ('episode_{:04}.npz'.format(ep))))['queue']
             controls = [json.loads(line) for line in (base / method / ('episode_{:04}.controls.jsonl'.format(ep))).read_text().splitlines()]
             assert len(controls) == 1320
             for index, control in enumerate(controls):
-                np.testing.assert_allclose(control['learner_rewards'], metric.rewards(queues[index * 5:(index + 1) * 5], family))
+                raw = metric.rewards(queues[index * 5:(index + 1) * 5], family)
+                np.testing.assert_allclose(control['raw_rewards'], raw)
+                # Controller.transform_rewards crosses the learner boundary in
+                # float32.  Compare in that same representation instead of
+                # recomputing in float64, which can exceed NumPy's default
+                # relative tolerance for small MA2C rewards.
+                expected_learner = np.clip(
+                    np.asarray(raw, dtype=np.float32) / reward_norm,
+                    -reward_clip, reward_clip)
+                np.testing.assert_array_equal(
+                    np.asarray(control['learner_rewards'], dtype=np.float32),
+                    expected_learner)
             for block in range(11):
-                np.testing.assert_allclose(decisions[(ep - 1) * 11 + block]['wce_reward'], metric.wce(queues[block * 600:(block + 1) * 600]))
+                np.testing.assert_allclose(
+                    decisions[(ep - 1) * 11 + block]['wce_raw_reward'],
+                    metric.wce(queues[block * 600:(block + 1) * 600]))
+    from unittest.mock import patch
+    # This comparison intentionally skips the SUMO monitoring rollouts while
+    # preserving the runner's ordinary monitor bookkeeping.
+    monitor_result = {
+        'metrics': {'mean_total_queue': 0.0, 'completed': 0},
+    }
+    with patch('experiments.monitoring.run_monitor',
+               new=lambda *_args, **_kwargs: monitor_result):
+        no_monitor = execute('baseline_without_monitor', ['--stage','continue','--steps','2640',
+                            '--method','baseline','--parent',parent])
+    assert tensor_hash(no_monitor,'controller') == tensor_hash(final['baseline'],'controller')
+    from tests.test_monitoring import audit_run
+    for name in ['parent','offline_wce']+list(METHODS):
+        audit_run(base/name)
     states = {method: checkpoint_state(checkpoint, 'controller') for method, checkpoint in final.items()}
     for state in states.values():
         assert state['learning_steps'] == 2800
@@ -95,6 +124,8 @@ def worker(path, network, family):
                       '--parent', parent, '--wce', offline, '--resume', str(base / 'online_wce' / 'checkpoint_000001320')])
     for role in ('controller', 'wce'):
         assert tensor_hash(resumed, role) == tensor_hash(final['online_wce'], role)
+    audit_run(base/'resumed_online')
+    assert json.loads((base/'resumed_online/monitoring/round_000001/summary.json').read_text()).get('reused_from')
     artifact = execute('demand', ['--stage', 'demand'])
     demand = json.loads(Path(artifact).read_text())
     evaluations = []
@@ -130,7 +161,8 @@ def worker(path, network, family):
             'demand_hash': demand['hash'], 'evaluation_rollouts': 8,
             'frozen_controller_equal': True, 'fixed_wce_equal': True, 'online_wce_changed': True,
             'resumed_next_episode_equal': True, 'paired_repeat_equal': True,
-            'interrupted_rollout_excluded': True,
+            'interrupted_rollout_excluded': True, 'native_tensorboard_and_monitoring': True,
+            'monitoring_does_not_change_training': True, 'monitoring_resume_reuses_completed_round': True,
             'backward_calls': {m: s['backward_calls'] for m, s in states.items()},
             'minibatch_updates_per_agent': {m: s['minibatch_updates'] for m, s in states.items()}}
     write_json(base / 'checks.json', case)
@@ -178,7 +210,9 @@ def main():
         raise RuntimeError('Unit verification failed: ' + str(root / 'unit.log'))
     with (root / 'workflow.log').open('x') as log:
         workflow = subprocess.run([sys.executable, '-m', 'unittest', 'tests.test_workflow',
-                                   'tests.test_visualization'], stdout=log, stderr=subprocess.STDOUT)
+                                   'tests.test_visualization', 'tests.test_monitoring',
+                                   'tests.test_training_launchers', 'tests.test_followup_launchers',
+                                   'tests.test_remaining_campaign'], stdout=log, stderr=subprocess.STDOUT)
     if workflow.returncode:
         raise RuntimeError('Workflow verification failed: ' + str(root / 'workflow.log'))
     print('PASS deterministic verification suite', flush=True)

@@ -15,6 +15,14 @@ def dataset_root(network):
     return ROOT / ('data_traffic/revised' if network == 'grid' else 'real_net_subnet/demand_groups/revised')
 
 
+def scenario_root(network, split):
+    """Versioned scenario/artifact root; training profiles remain shared inputs."""
+    if split not in ('seen', 'validation', 'test'):
+        raise ValueError('Unknown split: ' + str(split))
+    split_directory = 'test' if split == 'seen' else split
+    return dataset_root(network) / ('protocol_v{}'.format(settings()['version'])) / split_directory
+
+
 def config_path(network, controller):
     name = 'config_{}_{}.ini'.format(controller, 'large' if network == 'grid' else 'real')
     prepared = ROOT / 'config/revised' / name

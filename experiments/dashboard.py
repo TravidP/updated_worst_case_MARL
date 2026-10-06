@@ -63,7 +63,7 @@ def preflight(spec):
     from experiments.cli import stage_args
     from experiments.runner import require_gate
     from experiments.checkpoint import inspect_checkpoint
-    allowed={'stage','network','controller','method','seed','pilot','visualization','parent','wce','resume','gate','steps','episodes','suite','scenario','rollouts','artifact','checkpoint_every'}
+    allowed={'stage','network','controller','method','seed','pilot','visualization','parent','wce','resume','gate','steps','episodes','suite','scenario','rollouts','artifact','checkpoint_every','monitor_every','monitor_rollouts'}
     if not isinstance(spec,dict) or set(spec)-allowed:raise ValueError('Unknown job fields')
     stage=spec.get('stage','parent');p=settings()
     if stage not in ('parent','wce','continue','evaluate'):raise ValueError('Unsupported launch stage')
@@ -91,6 +91,8 @@ def preflight(spec):
                 manifest=inspect_checkpoint(path);checkpoints[field]=manifest
                 role='wce' if field=='wce' else 'controller'
                 signature=manifest['signatures'].get(role,{})
+                if role == 'controller' and signature.get('reward') != 'learner_boundary_scaled_v3':raise ValueError('Historical reward protocol: start a fresh parent')
+                if role == 'wce' and signature.get('protocol_version') != 6:raise ValueError('Historical WCE protocol: retrain against the new parent')
                 if signature.get('network')!=network or (role=='controller' and signature.get('family')!=controller):
                     raise ValueError('Checkpoint network/controller mismatch')
     if stage!='parent' and 'parent' not in checkpoints:raise ValueError('Select an explicit controller checkpoint')
@@ -120,7 +122,10 @@ def preflight(spec):
     if stage=='evaluate' and not spec.get('artifact'):
         tokens+=['--suite',spec.get('suite','all'),'--rollouts',str(int(spec.get('rollouts',10)))]
         if spec.get('scenario'):tokens+=['--scenario',spec['scenario']]
+    tokens+=['--monitor-every',str(int(spec.get('monitor_every',50))),'--monitor-rollouts',str(int(spec.get('monitor_rollouts',3)))]
     args=stage_args(stage,tokens)
+    if args.monitor_every < 1 or not 1 <= args.monitor_rollouts <= 3:raise ValueError('Invalid monitoring settings')
+    if not pilot and (args.monitor_every,args.monitor_rollouts)!=(50,3):raise ValueError('Publication monitoring requires 50 episodes and three rollouts')
     if args.checkpoint_every<1:raise ValueError('Checkpoint interval must be positive')
     if args.steps is not None and (args.steps<=0 or (stage=='continue' and args.steps%1320)):raise ValueError('Invalid pilot step budget')
     if args.episodes is not None and args.episodes<=0:raise ValueError('Invalid episode budget')

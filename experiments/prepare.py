@@ -1,10 +1,9 @@
 """Prepare explicit normalized datasets without replacing existing inputs."""
-import configparser
 import csv
 import json
 import io
 from experiments.core import ROOT, file_hash, write_json
-from experiments.protocol import dataset_root, settings
+from experiments.protocol import dataset_root, scenario_root, settings
 
 
 def immutable_text(path, content):
@@ -33,16 +32,13 @@ def prepare():
             manifest.append(dict(group, rows=None, prepared=str(path.relative_to(ROOT)), prepared_hash=file_hash(path)))
         immutable_text(root / 'train/manifest.json', json.dumps(manifest, indent=2, sort_keys=True) + '\n')
         for split in ('seen', 'validation', 'test'):
-            directory = root / ('test' if split == 'seen' else split)
+            directory = scenario_root(network, split)
             immutable_text(directory / (split + '_scenarios.json'), json.dumps(definitions(network, split), indent=2, sort_keys=True) + '\n')
+        # Revised INIs are authoritative, independently tuned inputs. Preparation
+        # validates them but must never regenerate them from legacy config files.
+        from experiments.configuration import load_controller_config, load_wce_config
         for family in settings()['controllers']:
-            name = 'config_{}_{}.ini'.format(family, 'large' if network == 'grid' else 'real')
-            cfg = configparser.ConfigParser()
-            cfg.read(str(ROOT / 'config' / name))
-            cfg['ENV_CONFIG']['objective'] = 'queue'
-            cfg['ENV_CONFIG']['coef_wait'] = '0'
-            cfg['ENV_CONFIG']['episode_length_sec'] = '6600'
-            out = io.StringIO(); cfg.write(out)
-            immutable_text(ROOT / 'config/revised' / name, out.getvalue())
+            load_controller_config(network, family)
+        load_wce_config(network)
     return {'status': 'prepared', 'networks': settings()['networks'], 'training_profiles_per_network': 11,
             'validation_scenarios': 6, 'test_scenarios': 12, 'seen_scenarios': 11}

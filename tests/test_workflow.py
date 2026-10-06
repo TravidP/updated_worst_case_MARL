@@ -4,13 +4,21 @@ import tempfile
 import unittest
 from pathlib import Path
 import numpy as np
-from experiments.protocol import settings, output_path, allowed_output
+from experiments.protocol import settings, scenario_root, output_path, allowed_output
 from experiments.scenarios import definitions, block_rows
 from experiments.demand import profiles
 from experiments.reporting import statistics, seed_interval, summarize, lane_window
 
 
 class Workflow(unittest.TestCase):
+    def test_single_seed_study_counts(self):
+        p=settings()
+        self.assertEqual(p['training_seeds'],[101])
+        parents=len(p['networks'])*len(p['controllers'])*len(p['training_seeds'])
+        self.assertEqual(parents,8)
+        self.assertEqual(p['counts'],dict(parents=8,offline_wce=8,continuations=40,evaluation_rollouts=9200))
+        self.assertEqual(parents*len(p['methods'])*23*len(p['arrival_seeds']),9200)
+
     def test_compatibility(self):
         from revision.runner import run as old
         from experiments.runner import run
@@ -19,6 +27,7 @@ class Workflow(unittest.TestCase):
         self.assertIs(old,run);self.assertIs(a,b)
 
     def test_scenario_counts_and_rates(self):
+        self.assertEqual(settings()['version'], 7)
         for network,total in [('grid',3000),('monaco',2383.3333)]:
             groups=profiles(network)
             for split,count in [('seen',11),('validation',6),('test',12)]:
@@ -32,8 +41,25 @@ class Workflow(unittest.TestCase):
                     self.assertEqual(cursor,3600)
             self.assertEqual([s['generation_seed'] for s in definitions(network,'test')],list(range(41001,41013)))
 
+    def test_v7_temporal_scenarios_are_frozen_random_seen_profiles(self):
+        for network in settings()['networks']:
+            seen = {group['name'] for group in profiles(network)}
+            first = [s for s in definitions(network, 'test') if s['family'] == 'temporal']
+            second = [s for s in definitions(network, 'test') if s['family'] == 'temporal']
+            self.assertEqual(first, second)
+            self.assertEqual([s['id'] for s in first], ['switch_300', 'switch_900', 'switch_1200'])
+            self.assertEqual([len(s['blocks']) for s in first], [12, 4, 3])
+            for scenario in first:
+                self.assertEqual(scenario['protocol_version'], 7)
+                self.assertEqual(scenario['temporal_policy'], 'seeded_random_seen_profiles')
+                selected = [block['profile'] for block in scenario['blocks']]
+                self.assertTrue(set(selected) <= seen)
+                self.assertTrue(all(a != b for a, b in zip(selected, selected[1:])))
+            self.assertIn('protocol_v7', str(scenario_root(network, 'test')))
+
     def test_statistics_and_missing_cells(self):
-        s=seed_interval([1,2,3,4,5]);self.assertAlmostEqual(s['mean'],3);self.assertAlmostEqual(s['ci95'],2.776/np.sqrt(2))
+        s=seed_interval([3]);self.assertEqual(s['mean'],3);self.assertIsNone(s['ci95']);self.assertIsNone(s['sd']);self.assertTrue(s['complete'])
+        self.assertFalse(seed_interval([])['complete'])
         self.assertIsNone(seed_interval([1,2])['ci95'])
         rows=[]
         for method,offset in [('baseline',2),('online_wce',0)]:
@@ -44,7 +70,7 @@ class Workflow(unittest.TestCase):
                                          scenario=str(scenario),family='fixture',pilot=False,arrival_seed=arrival,mean_queue=seed/101+offset))
         _,seeds,agg,paired=summarize(rows)
         result=next(r for r in paired if r['network']=='grid' and r['controller']=='ia2c' and r['comparator']=='baseline' and r['split']=='test')
-        self.assertEqual(result['mean'],-2);self.assertEqual(result['ci95'],0)
+        self.assertEqual(result['mean'],-2);self.assertIsNone(result['ci95']);self.assertIsNone(result['sd']);self.assertTrue(result['complete'])
         self.assertFalse(next(r for r in agg if r['method']=='fixed_wce')['complete'])
 
     def test_heatmap_window(self):
@@ -60,7 +86,7 @@ class Workflow(unittest.TestCase):
         self.assertFalse(allowed_output(Path('/tmp/arbitrary')))
         good=dict(stage='parent',network='grid',controller='iqll',seed=9001,pilot=True,steps=160)
         self.assertIn('experiment',preflight(good)['argv'])
-        for bad in [dict(good,command='rm'),dict(good,seed=101),dict(good,steps=-1),dict(good,pilot=False,seed=101),dict(good,network='fake')]:
+        for bad in [dict(good,command='rm'),dict(good,seed=101),dict(good,steps=-1),dict(good,pilot=False,seed=101),dict(good,pilot=False,seed=202),dict(good,network='fake')]:
             with self.assertRaises((ValueError,SystemExit)):preflight(bad)
 
     def test_checkpoint_origin_identity(self):

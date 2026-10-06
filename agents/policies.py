@@ -53,6 +53,9 @@ class ACPolicy:
 
         wts = tf.trainable_variables(scope=self.name)
         grads = tf.gradients(self.loss, wts)
+        raw_grad_norm = tf.global_norm(grads)
+        actor_grad_norm = tf.global_norm(tf.gradients(policy_loss, wts))
+        critic_grad_norm = tf.global_norm(tf.gradients(value_loss, wts))
         if max_grad_norm > 0:
             grads, self.grad_norm = tf.clip_by_global_norm(grads, max_grad_norm)
         self.lr = tf.placeholder(tf.float32, [])
@@ -371,7 +374,7 @@ class QPolicy:
     def _build_net(self):
         raise NotImplementedError()
 
-    def prepare_loss(self, max_grad_norm, gamma):
+    def prepare_loss(self, max_grad_norm, gamma, adam_epsilon=1e-8):
         self.A = tf.placeholder(tf.int32, [self.n_step])
         self.S1 = tf.placeholder(tf.float32, [self.n_step, self.n_s + self.n_w])
         self.R = tf.placeholder(tf.float32, [self.n_step])
@@ -393,8 +396,19 @@ class QPolicy:
         if max_grad_norm > 0:
             grads, self.grad_norm = tf.clip_by_global_norm(grads, max_grad_norm)
         self.lr = tf.placeholder(tf.float32, [])
-        self.optimizer = tf.train.AdamOptimizer(learning_rate=self.lr)
-        self._train = self.optimizer.apply_gradients(list(zip(grads, wts)))
+        self.optimizer = tf.train.AdamOptimizer(learning_rate=self.lr,
+                                                epsilon=adam_epsilon)
+        raw_norm = tf.global_norm(tf.gradients(self.loss, wts))
+        self.metrics = dict(
+            td_loss=self.loss,
+            predicted_q=tf.reduce_mean(q0),
+            target_q=tf.reduce_mean(tq),
+            grad_norm=raw_norm,
+            clipping_factor=tf.minimum(
+                1., max_grad_norm / tf.maximum(raw_norm, 1e-12)),
+        )
+        with tf.control_dependencies(list(self.metrics.values())):
+            self._train = self.optimizer.apply_gradients(list(zip(grads, wts)))
         # monitor training
         if self.name.endswith('_0a'):
             summaries = []
@@ -703,6 +717,9 @@ class GaussianCNNACPolicy(ACPolicy):
         # 6. Optimization & Gradient Norm
         wts = tf.trainable_variables(scope=self.name)
         grads = tf.gradients(self.loss, wts)
+        raw_grad_norm = tf.global_norm(grads)
+        actor_grad_norm = tf.global_norm(tf.gradients(policy_loss, wts))
+        critic_grad_norm = tf.global_norm(tf.gradients(value_loss, wts))
         if max_grad_norm > 0:
             grads, self.grad_norm = tf.clip_by_global_norm(grads, max_grad_norm)
         else:
@@ -711,6 +728,14 @@ class GaussianCNNACPolicy(ACPolicy):
         self.lr = tf.placeholder(tf.float32, [])
         self.optimizer = tf.train.RMSPropOptimizer(learning_rate=self.lr, decay=alpha, epsilon=epsilon)
         self._train = self.optimizer.apply_gradients(list(zip(grads, wts)))
+        self.metrics = {
+            'actor_loss': policy_loss, 'value_loss': value_loss,
+            'entropy': entropy, 'actor_grad_norm': actor_grad_norm,
+            'critic_grad_norm': critic_grad_norm, 'grad_norm': raw_grad_norm,
+            'clipping_factor': tf.minimum(
+                1., max_grad_norm / tf.maximum(raw_grad_norm, 1e-12)),
+            'loss': self.loss,
+        }
         
         # 7. TensorBoard Summaries
         self.summary = tf.summary.merge([
@@ -842,6 +867,9 @@ class GaussianGCNACPolicy(ACPolicy):
         # 6. Optimization & Gradient Norm
         wts = tf.trainable_variables(scope=self.name)
         grads = tf.gradients(self.loss, wts)
+        raw_grad_norm = tf.global_norm(grads)
+        actor_grad_norm = tf.global_norm(tf.gradients(policy_loss, wts))
+        critic_grad_norm = tf.global_norm(tf.gradients(value_loss, wts))
         if max_grad_norm > 0:
             grads, self.grad_norm = tf.clip_by_global_norm(grads, max_grad_norm)
         else:
@@ -850,6 +878,14 @@ class GaussianGCNACPolicy(ACPolicy):
         self.lr = tf.placeholder(tf.float32, [])
         self.optimizer = tf.train.RMSPropOptimizer(learning_rate=self.lr, decay=alpha, epsilon=epsilon)
         self._train = self.optimizer.apply_gradients(list(zip(grads, wts)))
+        self.metrics = {
+            'actor_loss': policy_loss, 'value_loss': value_loss,
+            'entropy': entropy, 'actor_grad_norm': actor_grad_norm,
+            'critic_grad_norm': critic_grad_norm, 'grad_norm': raw_grad_norm,
+            'clipping_factor': tf.minimum(
+                1., max_grad_norm / tf.maximum(raw_grad_norm, 1e-12)),
+            'loss': self.loss,
+        }
         
         # 7. TensorBoard Summaries
         self.summary = tf.summary.merge([

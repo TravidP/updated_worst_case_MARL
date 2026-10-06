@@ -108,10 +108,16 @@ def train(args):
     from utils import Counter, Trainer, Tester, copy_file, init_dir, init_log, init_test_flag
 
     tf.reset_default_graph()
+    config_dir = os.path.abspath(args.config_dir)
+    revised_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                               'config', 'revised')
+    if os.path.commonpath([config_dir, revised_dir]) == revised_dir:
+        raise ValueError(
+            'main.py train is a legacy workflow and cannot consume config/revised; '
+            'use `python -m revision.runner` for revised training')
     base_dir = args.base_dir
     dirs = init_dir(base_dir)
     init_log(dirs['log'])
-    config_dir = os.path.abspath(args.config_dir)
     copy_file(config_dir, dirs['data'])
     config = configparser.ConfigParser()
     config.read(config_dir)

@@ -18,8 +18,10 @@ def statistics(values):
 
 def seed_interval(values):
     out=statistics(values)
-    out['ci95']=2.776*out['sd']/math.sqrt(5) if out['n']==5 else None
-    out['complete']=out['n']==5
+    # One independently trained controller per combination: no training-seed CI.
+    out['ci95']=None
+    out['complete']=out['n']==len(settings()['training_seeds'])
+    out['uncertainty_basis']='single_training_seed; rollout SD reported per scenario'
     return out
 
 
@@ -50,6 +52,8 @@ def collect(roots):
                          pilot=m.get('pilot',False),scenario=scenario['id'],split=scenario['split'],family=scenario['family'],
                          arrival_seed=artifact['arrival_seed'],policy_seed=m['policy_seed'],wall_seconds=result['wall_seconds'],
                          record=str(path),manifest_hash=claimed)
+                if not row['pilot'] and row['seed'] not in settings()['training_seeds']:
+                    raise ValueError('Historical training seed is outside the active single-seed protocol')
                 key=tuple(row[k] for k in ('network','controller','method','seed','scenario','split','arrival_seed','pilot'))
                 if key in seen: raise ValueError('Duplicate comparison observation; select one explicit attempt')
                 tk=(row['network'],row['scenario'],row['split'],row['arrival_seed'],row['pilot'])
@@ -226,7 +230,7 @@ def report(roots, output):
         for ext in ('png','svg'):fig.savefig(str(output/('training_%03d.'%i+ext)),bbox_inches='tight')
         plt.close(fig)
     public_rows=[{k:v for k,v in r.items() if k not in ('record','checkpoint')} for r in rows]
-    export={'version':1,'rollouts':public_rows,'scenarios':scenarios,'seeds':seeds,'comparisons':aggregates,'paired':paired,
+    export={'version':2,'training_seeds':settings()['training_seeds'],'rollouts':public_rows,'scenarios':scenarios,'seeds':seeds,'comparisons':aggregates,'paired':paired,
             'curves':curves,'heatmaps':maps,'families':family_rows,'worst':worst,'costs':pipeline,
             'rejected_count':len(rejected),'publication_complete':all(r['complete'] for r in aggregates)}
     write_json(output/'dashboard.json',export)

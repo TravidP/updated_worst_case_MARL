@@ -70,4 +70,8 @@ def checkpoint_identity(path, network, family, seed):
         raise ValueError('Checkpoint origin manifest integrity failure')
     if (manifest.get('network'), manifest.get('controller'), manifest.get('seed')) != (network, family, seed):
         raise ValueError('Checkpoint network/controller/training-seed mismatch')
+    result_path = origin.parent / 'result.json'
+    result = json.loads(result_path.read_text()) if result_path.exists() else {}
+    if result.get('status') == 'degraded':
+        raise ValueError('A degraded run cannot supply a parent or resume checkpoint')
     return manifest

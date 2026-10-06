@@ -18,7 +18,7 @@ class FixtureEnv:
     def __init__(self, network='grid', family='ia2c'):
         self.network = network
         self.config = configparser.ConfigParser()
-        self.config.read(str(ROOT / 'config' / ('config_{}_{}.ini'.format(family, 'large' if network == 'grid' else 'real'))))
+        self.config.read(str(ROOT / 'config/revised' / ('config_{}_{}.ini'.format(family, 'large' if network == 'grid' else 'real'))))
         self.n_s_ls, self.n_a_ls = [4, 4], [2, 2]
         self.n_w_ls = [1, 1] if network == 'grid' else [0, 0]
         self.n_f_ls = [1, 1] if family == 'ma2c' else [0, 0]
@@ -34,7 +34,7 @@ def advance(model, env, steps, learning=True):
     for i in range(steps):
         obs = [np.ones(4, dtype=np.float32) * (i % 7 + 1) / 10. for _ in range(2)]
         decision = model.act(obs, env, learning)
-        model.observe(obs, decision, np.array([-.15, -.15]), obs, False, learning)
+        model.observe(obs, decision, np.array([-15., -15.]), obs, False, learning)
     return obs
 
 
@@ -124,11 +124,11 @@ class Corrections(unittest.TestCase):
         samples = np.tile([12., 3.], (600, 1))
         for family in ('ia2c', 'ppo', 'iqll'):
             for method in METHODS:
-                np.testing.assert_allclose(m.rewards(samples[:5], family), [-.15, -.15])
-        np.testing.assert_allclose(m.rewards(samples[:5], 'ma2c'), [-.147, -.138])
-        self.assertAlmostEqual(m.wce(samples), .15)
+                np.testing.assert_allclose(m.rewards(samples[:5], family), [-15., -15.])
+        np.testing.assert_allclose(m.rewards(samples[:5], 'ma2c'), [-14.7, -13.8])
+        self.assertAlmostEqual(m.wce(samples), 15.)
         variable = [[0, 0], [10, 0], [20, 0], [30, 0], [40, 0]]
-        np.testing.assert_allclose(m.rewards(variable, 'ia2c'), [-.2, -.2])
+        np.testing.assert_allclose(m.rewards(variable, 'ia2c'), [-40., -40.])
         dedup = QueueMetric({'a': ['x', 'x'], 'b': ['y']}, {'a': ['b'], 'b': ['a']})
         self.assertEqual(dedup.lanes, ['x', 'y'])
 

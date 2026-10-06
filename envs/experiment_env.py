@@ -1,7 +1,8 @@
 """Read-only reuse of legacy maps/state encoders; isolated SUMO files and queues."""
-import configparser
 import json
 import os
+import fcntl
+import hashlib
 import socket
 import shutil
 import sys
@@ -20,6 +21,35 @@ from experiments.core import ROOT, QueueMetric, file_hash, write_json
 from experiments.demand import profiles
 
 
+TRACI_START_LOCK = Path('/tmp') / ('cbwce_traci_start_' +
+                                   hashlib.sha256(str(ROOT).encode()).hexdigest()[:16] + '.lock')
+
+
+def start_traci_locked(command, label, stdout):
+    """Serialize only SUMO startup so parallel workers cannot reuse a free port."""
+    lock_fd = os.open(str(TRACI_START_LOCK), os.O_CREAT | os.O_RDWR, 0o600)
+    try:
+        fcntl.flock(lock_fd, fcntl.LOCK_EX)
+        # This installed TraCI release can return None from getFreeSocketPort()
+        # when port=None. Select on loopback ourselves, but keep the process
+        # lock until the connection is live so sibling workers cannot race for
+        # the released port. Retry with a new port for unrelated local users.
+        error = None
+        for _ in range(10):
+            with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as probe:
+                probe.bind(('127.0.0.1', 0))
+                port = probe.getsockname()[1]
+            try:
+                return traci.start(command, port=port, numRetries=10,
+                                   label=label, stdout=stdout)
+            except traci.exceptions.FatalTraCIError as exc:
+                error = exc
+        raise error
+    finally:
+        fcntl.flock(lock_fd, fcntl.LOCK_UN)
+        os.close(lock_fd)
+
+
 def validate_visualization(enabled):
     if type(enabled) is not bool:
         raise ValueError('visualization must be boolean')
@@ -31,7 +61,8 @@ def validate_visualization(enabled):
 
 
 class RevisedMixin:
-    def __init__(self, network, family, output, seed=9001, visualization=False):
+    def __init__(self, network, family, output, seed=9001, visualization=False,
+                 config_path=None):
         validate_visualization(visualization)
         self.visualization = visualization
         self.network = network
@@ -44,17 +75,13 @@ class RevisedMixin:
         self.lane_rows = []
         self.connection_label = 'revision_' + uuid.uuid4().hex
         self.log_stream = None
-        suffix = 'large' if network == 'grid' else 'real'
-        config = configparser.ConfigParser()
-        from experiments.protocol import config_path
-        config.read(str(config_path(network, family)))
+        from experiments.configuration import load_controller_config, load_wce_config
+        config, self.config_path = load_controller_config(
+            network, family, path=config_path, seed=seed)
+        wce, self.wce_config_path = load_wce_config(network)
         self.config = config
+        self.wce_config = wce
         cfg = config['ENV_CONFIG']
-        cfg['seed'] = str(seed)
-        cfg['objective'] = 'queue'
-        cfg['coef_wait'] = '0'
-        cfg['episode_length_sec'] = '6600'
-        cfg['fast_wait_metric'] = 'true'
         self.net_file = ROOT / ('large_grid/data/exp.net.xml' if network == 'grid'
                                 else 'real_net_subnet/data/in/most.net.xml')
         add_file = ROOT / ('large_grid/data/exp.add.xml' if network == 'grid'
@@ -98,11 +125,12 @@ class RevisedMixin:
         if gui:
             command += ['--start', '--quit-on-end']
         self.log_stream = (self.work / ('sumo_{}.log'.format(attempt))).open('w')
-        # Fail visibly when local sockets are unavailable instead of retrying port=None.
-        with socket.socket() as probe:
-            probe.bind(('127.0.0.1', 0))
-            port = probe.getsockname()[1]
-        traci.start(command, port=port, numRetries=5, label=self.connection_label, stdout=self.log_stream)
+        try:
+            start_traci_locked(command, self.connection_label, self.log_stream)
+        except BaseException:
+            self.log_stream.close()
+            self.log_stream = None
+            raise
         self.sim = traci.getConnection(self.connection_label)
         self.effective_seed = int(command[command.index('--seed') + 1])
         startup = {'requested_seed': int(seed), 'effective_seed': self.effective_seed,
@@ -111,6 +139,8 @@ class RevisedMixin:
         self.startups.append(startup)
         write_json(self.work / ('startup_{}.json'.format(attempt)), startup)
         self.rows, self.lane_rows, self.controller_rows = [], [], []
+        self.wait_rows = []
+        self.cumulative_stopped_time = 0.
         self.scheduled = 0
         if hasattr(self, 'metric'):
             for lane in self.metric.lanes:
@@ -181,16 +211,37 @@ class RevisedMixin:
                 'pending': len(self.sim.simulation.getPendingVehicles()),
                 'teleports': self.sim.simulation.getStartingTeleportNumber(),
                 'collisions': self.sim.simulation.getCollidingVehiclesNumber()})
+            if getattr(self, 'capture_waiting', False):
+                lane_index = {lane:i for i,lane in enumerate(self.metric.lanes)}
+                waits = np.zeros(len(lane_index)); count = 0
+                results = self.sim.vehicle.getAllSubscriptionResults()
+                for vehicle in vehicles:
+                    result = results[vehicle]
+                    if tc.VAR_WAITING_TIME not in result:
+                        self.sim.vehicle.subscribe(vehicle, [tc.VAR_SPEED, tc.VAR_WAITING_TIME, tc.VAR_LANE_ID])
+                        result = self.sim.vehicle.getSubscriptionResults(vehicle)
+                    if result[tc.VAR_LANE_ID] in lane_index:
+                        waits[lane_index[result[tc.VAR_LANE_ID]]] += result[tc.VAR_WAITING_TIME]
+                        count += 1
+                self.wait_rows.append(waits)
+                self.cumulative_stopped_time += sum(queue)
+                self.rows[-1].update(monitored_vehicles=count, current_wait_sum_vehicle_seconds=float(waits.sum()),
+                    current_wait_mean_seconds=float(waits.sum()/count) if count else 0.,
+                    cumulative_stopped_vehicle_seconds=float(self.cumulative_stopped_time))
 
     def step(self, actions):
-        if self.cur_sec + 5 > self.episode_length_sec:
+        if self.cur_sec + self.control_interval_sec > self.episode_length_sec:
             raise ValueError('Controller step would exceed horizon')
-        self._set_phase(actions, 'yellow', 2)
-        self._simulate(2)
-        self._set_phase(actions, 'green', 3)
-        self._simulate(3)
-        rewards = self.metric.rewards(self.lane_rows[-5:], self.agent)
-        self.controller_rows.append({'time': self.cur_sec, 'learner_rewards': rewards.tolist()})
+        yellow = self.yellow_interval_sec
+        green = self.control_interval_sec - yellow
+        self._set_phase(actions, 'yellow', yellow)
+        self._simulate(yellow)
+        self._set_phase(actions, 'green', green)
+        self._simulate(green)
+        rewards = self.metric.rewards(self.lane_rows[-1:], self.agent)
+        if not np.all(np.isfinite(rewards)):
+            raise FloatingPointError('Nonfinite controller reward')
+        self.controller_rows.append({'time': self.cur_sec, 'raw_rewards': rewards.tolist()})
         return self._get_state(), rewards, self.cur_sec == self.episode_length_sec
 
     def wce_observation(self):
@@ -233,6 +284,7 @@ class MonacoEnvironment(RevisedMixin, RealNetEnv):
     pass
 
 
-def make_environment(network, family, output, seed=9001, visualization=False):
-    return (GridEnvironment if network == 'grid' else MonacoEnvironment)(
-        network, family, output, seed, visualization=visualization)
+def make_environment(network, family, output, seed=9001, visualization=False, config_path=None):
+    cls = GridEnvironment if network == 'grid' else MonacoEnvironment
+    return cls(network, family, output, seed, visualization=visualization,
+               config_path=config_path)
