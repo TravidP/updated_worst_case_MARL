@@ -1,0 +1,35 @@
+{
+  "status": "passed",
+  "grid_formal_rollouts": 200,
+  "grid_smoke_rollouts": 4,
+  "monaco_formal_rollouts": 0,
+  "monaco_status": "blocked_route_and_historical_provenance",
+  "browser": {
+    "main_grid": 4600,
+    "main_monaco": 4600,
+    "supplementary_grid": 200,
+    "evaluation_set_switching": true,
+    "network_switching": true,
+    "bilingual": true,
+    "external_scenarios": 1,
+    "overview_curves": 20,
+    "download_rows": 3600,
+    "download_columns": 61,
+    "download_numeric_reconciliation": true,
+    "external_monaco_pending": true,
+    "independent_url_state": true,
+    "console_errors": []
+  },
+  "main_data": {
+    "files_checked": 929,
+    "changed": []
+  },
+  "paper": {
+    "supplementary_tex": "paper/external_group12_results.tex",
+    "standalone_table_compile": "passed",
+    "rendered_table_visual_inspection": "passed",
+    "full_manuscript_pdf_rebuilt": false,
+    "full_build_limitation": "IEEEtran.cls is unavailable in the current TeX installation; existing main figures were not rebuilt."
+  },
+  "regression_tests_passed": 13
+}

@@ -1,0 +1,75 @@
+日期：2026-10-06
+Monaco 旧需求流程复测结果
+
+完成：200/200 正式评估 + 4 次完整预检查。4 controllers × 5 methods × 10 rollouts，每次3600秒。
+结论：旧代码可以运行该 CSV，因为不可达 OD 被静默跳过；它没有运行完整14个OD。
+位置：envs/real_net_env.py 的 _inject_scenario_traffic；先抽 Poisson 数量，findRoute失败/空路径时continue。
+原始评估入口：eval_signal_controllers_real.py；同一需求CSV重复6次，每块600秒，默认10次评估。
+本次直接调用原需求生成函数并记录每次抽样；实际SUMO按600秒块注入，未删除CSV行、改路网或补路。
+不可达 OD：-10051#2 → 10043，108.333333 veh/h；源需求2383.333332，路由可达需求2274.999999 veh/h（少4.545455%）。
+历史模型的8个指定目录只有.meta，均缺.index与.data-*，无法恢复原模型；详见legacy_model_inventory.json。
+使用当前seed101的20个最终模型，2320000学习步；完整checkpoint哈希、网络/输入哈希、3600连续样本均验收。
+部分历史parent来源缺失仍单独记录；本次验证现有最终模型，未声称补齐历史血缘证明。
+与历史精确复现的差异：当前模型/执行器、空网络解析并缓存路线、共享配对需求和独立策略RNG。
+历史生成器首次解析OD时使用实时网络，需求与策略共享全局numpy RNG；旧文件没有给全局numpy RNG显式设定评估种子。
+SUMO种子61001–61010，需求种子51001–51010；未假称使用历史10000–100000种子及其随机轨迹。
+旧策略默认A2C/PPO采样，IQL贪心；本次使用当前冻结策略评估规则。
+排队口径：116条受控入口lane逐秒halting总和；已验证与旧_measure_traffic_step的lane集合相同且没有重复。
+保留旧出发时间抖动，不对块尾/3600秒做上界裁剪，3份输入各有1辆计划在3600秒或之后出发。
+此结果是部分需求的旧流程复测，不能标为完整14OD外部需求已通过。
+网站独立新增Monaco旧流程复测集合；原主实验929个数据文件哈希未变，严格Group12的Monaco状态仍待验证。
+网站：http://127.0.0.1:8878/?evaluationSet=monaco_legacy_replay&network=monaco&split=external
+未更改原Grid结果、主实验或论文。
+
+需求种子 | 抽样总数 | 不可达OD跳过 | 实际计划车辆 | 3600秒及之后出发
+51001 | 2352 | 99 | 2253 | 0
+51002 | 2332 | 109 | 2223 | 1
+51003 | 2322 | 100 | 2222 | 0
+51004 | 2356 | 107 | 2249 | 1
+51005 | 2319 | 114 | 2205 | 0
+51006 | 2408 | 115 | 2293 | 0
+51007 | 2373 | 107 | 2266 | 1
+51008 | 2315 | 106 | 2209 | 0
+51009 | 2390 | 120 | 2270 | 0
+51010 | 2360 | 112 | 2248 | 0
+
+平均排队（辆，越低越好）：controller | method | mean | sd | completed | pending | teleports
+ia2c | baseline | 129.569 | 12.061 | 1466.6 | 388.6 | 7.4
+ia2c | domain_randomization | 150.876 | 12.382 | 1328.2 | 456.2 | 29.1
+ia2c | fixed_wce | 143.913 | 13.691 | 1378.8 | 452.2 | 16.7
+ia2c | online_wce | 121.296 | 11.733 | 1505.2 | 355.0 | 7.6
+ia2c | random_group | 152.766 | 13.223 | 958.2 | 858.9 | 34.6
+iqll | baseline | 200.841 | 10.357 | 135.4 | 1656.0 | 354.4
+iqll | domain_randomization | 205.868 | 4.879 | 117.6 | 1642.4 | 351.8
+iqll | fixed_wce | 208.444 | 3.717 | 139.3 | 1630.4 | 348.6
+iqll | online_wce | 185.099 | 14.015 | 96.7 | 1719.3 | 353.2
+iqll | random_group | 188.396 | 8.822 | 192.4 | 1599.0 | 307.7
+ma2c | baseline | 57.082 | 21.979 | 1920.8 | 91.7 | 2.6
+ma2c | domain_randomization | 68.465 | 22.604 | 1835.3 | 146.1 | 5.2
+ma2c | fixed_wce | 86.066 | 19.201 | 1722.4 | 197.7 | 8.4
+ma2c | online_wce | 85.669 | 25.765 | 1722.0 | 195.1 | 9.1
+ma2c | random_group | 51.031 | 16.422 | 1909.8 | 133.3 | 1.1
+ppo | baseline | 92.301 | 24.195 | 1426.0 | 493.4 | 8.8
+ppo | domain_randomization | 21.965 | 1.606 | 2136.0 | 6.8 | 0.0
+ppo | fixed_wce | 30.544 | 9.546 | 2051.0 | 44.8 | 0.7
+ppo | online_wce | 25.886 | 0.796 | 2068.4 | 73.1 | 0.0
+ppo | random_group | 101.340 | 13.131 | 1283.8 | 577.1 | 11.0
+
+Online WCE 相对 baseline：controller | 平均逐次收益% | wins/10 | Holm p
+ia2c | 6.221% | 8/10 | 0.093750
+iqll | 7.647% | 9/10 | 0.087891
+ma2c | -54.757% | 0/10 | 0.039062
+ppo | 69.552% | 10/10 | 0.039062
+
+统计：50000次配对bootstrap探索性95%区间；双侧精确sign-flip检验，对20项比较做Holm校正。
+推断仅针对单个训练seed101下的评估随机性。所有冻结学习步保持2320000，WCE更新为0。
+Campaign：/home/sdc_joran/Journal/deeprl_signal_control/runs_eval/revised/monaco_legacy_group12_seed101_v1/campaign.json
+验收：/home/sdc_joran/Journal/deeprl_signal_control/runs_eval/revised/monaco_legacy_group12_seed101_v1/acceptance/monaco.json
+详细统计：/home/sdc_joran/Journal/deeprl_signal_control/runs_eval/revised/monaco_legacy_group12_seed101_v1/analysis/monaco/paired_statistics.json
+曲线CSV：/home/sdc_joran/Journal/deeprl_signal_control/runs_eval/revised/monaco_legacy_group12_seed101_v1/analysis/monaco/queue_timeseries_mean_sd.csv
+
+旧口径指标补充：已直接调用原eval_signal_controllers_real.py的summarize_group与save_raw_timeseries，生成20组×2类=40份原始CSV，每份3600秒×10次。
+旧平均速度为各秒车辆平均速度的等权时间平均（空网络记0）；当前网站mean_speed为车辆秒数加权平均，两者不能直接混用。排队口径和均值完全相同。
+旧口径CSV：/home/sdc_joran/Journal/deeprl_signal_control/runs_eval/revised/monaco_legacy_group12_seed101_v1/analysis/monaco/legacy_metrics/legacy_summary_averages.csv
+运行差异补充：旧vType speedDev=0.1，当前为0，二者均显式设置车辆speed factor；本次不是历史随机轨迹完全复现。
+网站QA：中文20组指标与20条曲线显示正常；实际浏览器下载3600行×61列，所有min/mean/max与20份导出曲线在小数舍入精度内一致。

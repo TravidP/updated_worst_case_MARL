@@ -1,0 +1,1644 @@
+{
+  "ci_method": "50,000 paired bootstrap resamples, percentile 95%, exploratory and unadjusted.",
+  "comparisons": [
+    {
+      "controller": "ia2c",
+      "exploratory_paired_bootstrap_ci95": [
+        -17.264495833333335,
+        -4.789861111111105
+      ],
+      "holm_adjusted_p": 0.09375,
+      "mean_method": 151.3033888888889,
+      "mean_percent_reduction": -8.317527029368806,
+      "mean_reference": 139.5890277777778,
+      "method": "random_group",
+      "n": 10,
+      "paired_queue_reduction_mean": -11.714361111111108,
+      "paired_queue_reduction_sd": 10.728167162321952,
+      "per_rollout_percent_reduction": [
+        -11.418623211568185,
+        -16.561607856571896,
+        -13.417269060265982,
+        9.94668886134514,
+        -12.152913936647128,
+        -4.612670139472353,
+        -4.710554433553813,
+        -6.101824496428983,
+        -13.384363953648815,
+        -10.762132066876044
+      ],
+      "reference": "baseline",
+      "ties": 0,
+      "two_sided_exact_signflip_p": 0.01171875,
+      "wins": 1
+    },
+    {
+      "controller": "ia2c",
+      "exploratory_paired_bootstrap_ci95": [
+        -31.446918750000002,
+        -20.000572222222225
+      ],
+      "holm_adjusted_p": 0.0390625,
+      "mean_method": 165.33247222222224,
+      "mean_percent_reduction": -18.52802951363561,
+      "mean_reference": 139.5890277777778,
+      "method": "domain_randomization",
+      "n": 10,
+      "paired_queue_reduction_mean": -25.743444444444446,
+      "paired_queue_reduction_sd": 9.777604580045725,
+      "per_rollout_percent_reduction": [
+        -29.122716024067554,
+        -19.02287693654602,
+        -15.66496265825312,
+        -22.386686386398967,
+        -11.432484358835417,
+        -20.356662745757014,
+        -18.926007588437415,
+        -14.004325927519576,
+        -5.950527892917312,
+        -28.4130446176237
+      ],
+      "reference": "baseline",
+      "ties": 0,
+      "two_sided_exact_signflip_p": 0.001953125,
+      "wins": 0
+    },
+    {
+      "controller": "ia2c",
+      "exploratory_paired_bootstrap_ci95": [
+        -12.629799305555556,
+        -2.2073090277777783
+      ],
+      "holm_adjusted_p": 0.24609375,
+      "mean_method": 147.29775,
+      "mean_percent_reduction": -5.509216920923483,
+      "mean_reference": 139.5890277777778,
+      "method": "fixed_wce",
+      "n": 10,
+      "paired_queue_reduction_mean": -7.708722222222224,
+      "paired_queue_reduction_sd": 8.913212432542318,
+      "per_rollout_percent_reduction": [
+        -7.455878480116913,
+        -13.149290091736141,
+        0.3131115459882664,
+        6.9056985635332735,
+        0.9838908320606783,
+        -8.276550159637045,
+        -7.54005752060263,
+        -8.34277789089903,
+        -6.009603706229968,
+        -12.520712301595314
+      ],
+      "reference": "baseline",
+      "ties": 0,
+      "two_sided_exact_signflip_p": 0.03515625,
+      "wins": 3
+    },
+    {
+      "controller": "ia2c",
+      "exploratory_paired_bootstrap_ci95": [
+        8.951898611111114,
+        17.522500694444442
+      ],
+      "holm_adjusted_p": 0.0390625,
+      "mean_method": 126.15130555555557,
+      "mean_percent_reduction": 9.6294305659715,
+      "mean_reference": 139.5890277777778,
+      "method": "online_wce",
+      "n": 10,
+      "paired_queue_reduction_mean": 13.437722222222224,
+      "paired_queue_reduction_sd": 7.314309431439698,
+      "per_rollout_percent_reduction": [
+        0.8549895161760587,
+        4.405618362452881,
+        14.416909620991255,
+        14.06966973440236,
+        12.587812207497903,
+        10.747773483448153,
+        2.802739742948373,
+        8.09536249812711,
+        12.993181018785718,
+        15.320249474885197
+      ],
+      "reference": "baseline",
+      "ties": 0,
+      "two_sided_exact_signflip_p": 0.001953125,
+      "wins": 10
+    },
+    {
+      "controller": "ia2c",
+      "exploratory_paired_bootstrap_ci95": [
+        16.30075,
+        26.413111805555555
+      ],
+      "holm_adjusted_p": 0.0390625,
+      "mean_method": 126.15130555555557,
+      "mean_percent_reduction": 14.18403383855949,
+      "mean_reference": 147.29775,
+      "method": "online_wce",
+      "n": 10,
+      "paired_queue_reduction_mean": 21.146444444444448,
+      "paired_queue_reduction_sd": 8.634191248664724,
+      "per_rollout_percent_reduction": [
+        7.734214371371756,
+        15.514819792467389,
+        14.148097401504767,
+        7.695391726805341,
+        11.719225763310934,
+        17.57012355402603,
+        9.617622960234627,
+        15.172345318281682,
+        17.925531329855286,
+        24.742966167737087
+      ],
+      "reference": "fixed_wce",
+      "ties": 0,
+      "two_sided_exact_signflip_p": 0.001953125,
+      "wins": 10
+    },
+    {
+      "controller": "iqll",
+      "exploratory_paired_bootstrap_ci95": [
+        0.5382222222222197,
+        6.326111111111109
+      ],
+      "holm_adjusted_p": 0.390625,
+      "mean_method": 214.6438611111111,
+      "mean_percent_reduction": 1.5124635749482376,
+      "mean_reference": 217.9782777777778,
+      "method": "random_group",
+      "n": 10,
+      "paired_queue_reduction_mean": 3.3344166666666637,
+      "paired_queue_reduction_sd": 4.925060102914305,
+      "per_rollout_percent_reduction": [
+        -0.5235211003691856,
+        3.018294662878787,
+        4.070831921818095,
+        0.3323247411492739,
+        5.02814521900152,
+        0.9816945172878062,
+        -1.096245622264323,
+        -0.9211659303148133,
+        0.5855466618155332,
+        3.6487306784796827
+      ],
+      "reference": "baseline",
+      "ties": 0,
+      "two_sided_exact_signflip_p": 0.078125,
+      "wins": 7
+    },
+    {
+      "controller": "iqll",
+      "exploratory_paired_bootstrap_ci95": [
+        -2.965481250000007,
+        3.0543749999999905
+      ],
+      "holm_adjusted_p": 1.0,
+      "mean_method": 218.24538888888893,
+      "mean_percent_reduction": -0.1442815043165644,
+      "mean_reference": 217.9782777777778,
+      "method": "domain_randomization",
+      "n": 10,
+      "paired_queue_reduction_mean": -0.26711111111111735,
+      "paired_queue_reduction_sd": 5.175877324028091,
+      "per_rollout_percent_reduction": [
+        1.8359321587553925,
+        -0.27874307121637,
+        -0.9153209489073172,
+        -0.6868640443269992,
+        -1.4241062755600198,
+        -0.04249373121757991,
+        -2.7446986246860834,
+        -2.696098531054918,
+        0.17913811573989502,
+        5.330439909308356
+      ],
+      "reference": "baseline",
+      "ties": 0,
+      "two_sided_exact_signflip_p": 0.88671875,
+      "wins": 3
+    },
+    {
+      "controller": "iqll",
+      "exploratory_paired_bootstrap_ci95": [
+        -26.660805555555562,
+        -20.669232638888886
+      ],
+      "holm_adjusted_p": 0.0390625,
+      "mean_method": 241.50100000000003,
+      "mean_percent_reduction": -10.828132354728888,
+      "mean_reference": 217.9782777777778,
+      "method": "fixed_wce",
+      "n": 10,
+      "paired_queue_reduction_mean": -23.522722222222225,
+      "paired_queue_reduction_sd": 5.114664892404121,
+      "per_rollout_percent_reduction": [
+        -9.085844799732604,
+        -10.739948886492106,
+        -16.37098443137136,
+        -11.561530506721821,
+        -9.902346295626861,
+        -11.212985471737838,
+        -11.465253493624122,
+        -12.254620565231216,
+        -8.972065571119606,
+        -6.715743525631351
+      ],
+      "reference": "baseline",
+      "ties": 0,
+      "two_sided_exact_signflip_p": 0.001953125,
+      "wins": 0
+    },
+    {
+      "controller": "iqll",
+      "exploratory_paired_bootstrap_ci95": [
+        -2.163166666666663,
+        4.3691527777777734
+      ],
+      "holm_adjusted_p": 1.0,
+      "mean_method": 216.96877777777777,
+      "mean_percent_reduction": 0.45329048941712724,
+      "mean_reference": 217.9782777777778,
+      "method": "online_wce",
+      "n": 10,
+      "paired_queue_reduction_mean": 1.0094999999999998,
+      "paired_queue_reduction_sd": 5.59510529737839,
+      "per_rollout_percent_reduction": [
+        0.13027889051508715,
+        3.3561226062031526,
+        -0.14183256639174213,
+        -0.2863635783318703,
+        -0.6718456820635413,
+        -2.883320891475087,
+        -3.131546839465902,
+        5.006765553083965,
+        2.6241586319810724,
+        0.530488770116138
+      ],
+      "reference": "baseline",
+      "ties": 0,
+      "two_sided_exact_signflip_p": 0.6015625,
+      "wins": 5
+    },
+    {
+      "controller": "iqll",
+      "exploratory_paired_bootstrap_ci95": [
+        20.409006250000004,
+        29.03030972222223
+      ],
+      "holm_adjusted_p": 0.0390625,
+      "mean_method": 216.96877777777777,
+      "mean_percent_reduction": 10.14040523585063,
+      "mean_reference": 241.50100000000003,
+      "method": "online_wce",
+      "n": 10,
+      "paired_queue_reduction_mean": 24.532222222222224,
+      "paired_queue_reduction_sd": 7.386294168704582,
+      "per_rollout_percent_reduction": [
+        8.448505584906357,
+        12.728985008963352,
+        13.94604672657951,
+        10.10668003314153,
+        8.398820338861693,
+        7.489830926604825,
+        7.4765062590871985,
+        15.376993865730972,
+        10.641464986760766,
+        6.790218627870089
+      ],
+      "reference": "fixed_wce",
+      "ties": 0,
+      "two_sided_exact_signflip_p": 0.001953125,
+      "wins": 10
+    },
+    {
+      "controller": "ma2c",
+      "exploratory_paired_bootstrap_ci95": [
+        15.009611111111113,
+        25.104705555555558
+      ],
+      "holm_adjusted_p": 0.0390625,
+      "mean_method": 63.57886111111111,
+      "mean_percent_reduction": 23.976633948560206,
+      "mean_reference": 83.662,
+      "method": "random_group",
+      "n": 10,
+      "paired_queue_reduction_mean": 20.08313888888889,
+      "paired_queue_reduction_sd": 8.543470651666786,
+      "per_rollout_percent_reduction": [
+        21.489348628274076,
+        36.01665070710108,
+        5.019292135065793,
+        42.60182564830706,
+        26.182200193184947,
+        27.95551026037916,
+        19.96806651333731,
+        25.614567875671508,
+        17.762305924946045,
+        17.15657159933508
+      ],
+      "reference": "baseline",
+      "ties": 0,
+      "two_sided_exact_signflip_p": 0.001953125,
+      "wins": 10
+    },
+    {
+      "controller": "ma2c",
+      "exploratory_paired_bootstrap_ci95": [
+        -2.728472222222223,
+        8.285609722222228
+      ],
+      "holm_adjusted_p": 1.0,
+      "mean_method": 80.72769444444444,
+      "mean_percent_reduction": 4.128816202892147,
+      "mean_reference": 83.662,
+      "method": "domain_randomization",
+      "n": 10,
+      "paired_queue_reduction_mean": 2.934305555555556,
+      "paired_queue_reduction_sd": 9.457725409887988,
+      "per_rollout_percent_reduction": [
+        10.319233916218478,
+        12.699725389954173,
+        7.801530856987922,
+        -7.344928989901292,
+        17.37148618445638,
+        14.24077791911236,
+        11.649471378375353,
+        -8.829128849317273,
+        -11.485622780756112,
+        -5.13438299620852
+      ],
+      "reference": "baseline",
+      "ties": 0,
+      "two_sided_exact_signflip_p": 0.333984375,
+      "wins": 6
+    },
+    {
+      "controller": "ma2c",
+      "exploratory_paired_bootstrap_ci95": [
+        -33.75053402777777,
+        -15.633333333333331
+      ],
+      "holm_adjusted_p": 0.0390625,
+      "mean_method": 108.21180555555557,
+      "mean_percent_reduction": -30.71440911573912,
+      "mean_reference": 83.662,
+      "method": "fixed_wce",
+      "n": 10,
+      "paired_queue_reduction_mean": -24.549805555555555,
+      "paired_queue_reduction_sd": 15.286027731026929,
+      "per_rollout_percent_reduction": [
+        -14.926797085466472,
+        -40.72498634863606,
+        -40.06131770496591,
+        -29.010092194262526,
+        1.3075236369533254,
+        -38.26646334922069,
+        -9.257064567634654,
+        -26.63693043908387,
+        -34.96233377428113,
+        -74.60562933079322
+      ],
+      "reference": "baseline",
+      "ties": 0,
+      "two_sided_exact_signflip_p": 0.00390625,
+      "wins": 1
+    },
+    {
+      "controller": "ma2c",
+      "exploratory_paired_bootstrap_ci95": [
+        -33.274249999999995,
+        -24.127722222222225
+      ],
+      "holm_adjusted_p": 0.0390625,
+      "mean_method": 112.47888888888887,
+      "mean_percent_reduction": -34.89723864517852,
+      "mean_reference": 83.662,
+      "method": "online_wce",
+      "n": 10,
+      "paired_queue_reduction_mean": -28.81688888888889,
+      "paired_queue_reduction_sd": 7.796717093860786,
+      "per_rollout_percent_reduction": [
+        -23.869615696826425,
+        -29.311259011878672,
+        -36.74473898262666,
+        -42.70050053896681,
+        -21.115325770448337,
+        -50.50803819098558,
+        -26.184677656717618,
+        -33.87859336715326,
+        -36.79426303697001,
+        -47.86537419921183
+      ],
+      "reference": "baseline",
+      "ties": 0,
+      "two_sided_exact_signflip_p": 0.001953125,
+      "wins": 0
+    },
+    {
+      "controller": "ma2c",
+      "exploratory_paired_bootstrap_ci95": [
+        -10.675437500000006,
+        3.002777777777767
+      ],
+      "holm_adjusted_p": 1.0,
+      "mean_method": 112.47888888888887,
+      "mean_percent_reduction": -4.674265699658553,
+      "mean_reference": 108.21180555555557,
+      "method": "online_wce",
+      "n": 10,
+      "paired_queue_reduction_mean": -4.2670833333333364,
+      "paired_queue_reduction_sd": 11.770310881555199,
+      "per_rollout_percent_reduction": [
+        -7.781317184633218,
+        8.11066153417894,
+        2.3679476794053174,
+        -10.61188943581976,
+        -22.719917701647045,
+        -8.853611024132613,
+        -15.493380822623207,
+        -5.718444771963928,
+        -1.3573633557290905,
+        15.314658086379069
+      ],
+      "reference": "fixed_wce",
+      "ties": 0,
+      "two_sided_exact_signflip_p": 0.291015625,
+      "wins": 3
+    },
+    {
+      "controller": "ppo",
+      "exploratory_paired_bootstrap_ci95": [
+        -36.207417361111105,
+        -17.099138888888888
+      ],
+      "holm_adjusted_p": 0.0390625,
+      "mean_method": 115.075,
+      "mean_percent_reduction": -32.42800952375189,
+      "mean_reference": 89.00380555555556,
+      "method": "random_group",
+      "n": 10,
+      "paired_queue_reduction_mean": -26.071194444444444,
+      "paired_queue_reduction_sd": 16.489692636255192,
+      "per_rollout_percent_reduction": [
+        -13.414506548364628,
+        -12.007842977686673,
+        -16.16458692648606,
+        -63.98759401647527,
+        -67.65459944504843,
+        -11.239680027377338,
+        -17.283231325676503,
+        -28.733422035280483,
+        -20.636316258964285,
+        -73.1583156761592
+      ],
+      "reference": "baseline",
+      "ties": 0,
+      "two_sided_exact_signflip_p": 0.001953125,
+      "wins": 0
+    },
+    {
+      "controller": "ppo",
+      "exploratory_paired_bootstrap_ci95": [
+        57.162825,
+        74.55183749999999
+      ],
+      "holm_adjusted_p": 0.0390625,
+      "mean_method": 23.12811111111111,
+      "mean_percent_reduction": 73.27922866792863,
+      "mean_reference": 89.00380555555556,
+      "method": "domain_randomization",
+      "n": 10,
+      "paired_queue_reduction_mean": 65.87569444444443,
+      "paired_queue_reduction_sd": 14.90305392622659,
+      "per_rollout_percent_reduction": [
+        73.74346434048505,
+        82.58294381233819,
+        72.72021282899763,
+        59.986892941239226,
+        68.83711684813476,
+        76.9492984557471,
+        77.95307840071993,
+        74.92825157016752,
+        75.78532399310673,
+        69.30570348835006
+      ],
+      "reference": "baseline",
+      "ties": 0,
+      "two_sided_exact_signflip_p": 0.001953125,
+      "wins": 10
+    },
+    {
+      "controller": "ppo",
+      "exploratory_paired_bootstrap_ci95": [
+        23.927811805555557,
+        60.58986458333333
+      ],
+      "holm_adjusted_p": 0.0703125,
+      "mean_method": 46.08291666666666,
+      "mean_percent_reduction": 48.21708363237172,
+      "mean_reference": 89.00380555555556,
+      "method": "fixed_wce",
+      "n": 10,
+      "paired_queue_reduction_mean": 42.92088888888889,
+      "paired_queue_reduction_sd": 31.28426009313246,
+      "per_rollout_percent_reduction": [
+        -9.236766503941576,
+        78.40231118616137,
+        39.2551608848746,
+        47.558048267505924,
+        66.49561069011959,
+        64.83482696667664,
+        79.82728882684465,
+        -3.447072120405747,
+        68.14805815154314,
+        50.33336997433866
+      ],
+      "reference": "baseline",
+      "ties": 0,
+      "two_sided_exact_signflip_p": 0.0078125,
+      "wins": 8
+    },
+    {
+      "controller": "ppo",
+      "exploratory_paired_bootstrap_ci95": [
+        53.884575,
+        70.02749097222222
+      ],
+      "holm_adjusted_p": 0.0390625,
+      "mean_method": 26.876972222222218,
+      "mean_percent_reduction": 69.10966480123962,
+      "mean_reference": 89.00380555555556,
+      "method": "online_wce",
+      "n": 10,
+      "paired_queue_reduction_mean": 62.12683333333333,
+      "paired_queue_reduction_sd": 13.78440943122435,
+      "per_rollout_percent_reduction": [
+        71.90286717028737,
+        76.23303104130532,
+        71.00360848696172,
+        61.554024705281684,
+        61.1213429178769,
+        70.45226076913204,
+        74.79882090301292,
+        70.93523327181424,
+        70.50794675942949,
+        62.58751198729442
+      ],
+      "reference": "baseline",
+      "ties": 0,
+      "two_sided_exact_signflip_p": 0.001953125,
+      "wins": 10
+    },
+    {
+      "controller": "ppo",
+      "exploratory_paired_bootstrap_ci95": [
+        3.218213194444444,
+        38.83862638888889
+      ],
+      "holm_adjusted_p": 0.26953125,
+      "mean_method": 26.876972222222218,
+      "mean_percent_reduction": 22.218072333604113,
+      "mean_reference": 46.08291666666666,
+      "method": "online_wce",
+      "n": 10,
+      "paired_queue_reduction_mean": 19.205944444444448,
+      "paired_queue_reduction_sd": 30.322581036809545,
+      "per_rollout_percent_reduction": [
+        74.27868498039183,
+        -10.044038339260057,
+        52.265259180152796,
+        26.688511726583158,
+        -16.040488673099976,
+        15.974423891309147,
+        -24.92708035458966,
+        71.90373189648496,
+        7.4089316724049725,
+        24.67278735566393
+      ],
+      "reference": "fixed_wce",
+      "ties": 0,
+      "two_sided_exact_signflip_p": 0.044921875,
+      "wins": 7
+    }
+  ],
+  "inference_scope": "Evaluation arrival/SUMO/policy sampling only; no across-training-seed claim.",
+  "network": "monaco",
+  "scenario": {
+    "family": "external",
+    "horizon": 3600,
+    "id": "monaco_repaired_full14_v1",
+    "label": {
+      "en": "Monaco repaired map \u00b7 all 14 OD pairs",
+      "zh": "Monaco \u4fee\u590d\u5730\u56fe \u00b7 \u5b8c\u657414\u4e2aOD"
+    },
+    "mapping_version": "repaired_topology_v2_original_600s_generator_v1",
+    "network": "monaco",
+    "network_file": "/home/sdc_joran/Journal/deeprl_signal_control/real_net_subnet/repaired/group12_topology_v2/data/in/most.net.xml",
+    "network_hash": "cd6d7b1fcf1f1dfa42c8461ef6cdd7a935109f3aa9549d7da4558fe584fd2483",
+    "provenance_status": "repaired_topology_transfer",
+    "repair_manifest": "/home/sdc_joran/Journal/deeprl_signal_control/real_net_subnet/repaired/group12_topology_v2/repair_manifest.json",
+    "repair_manifest_hash": "18442a1b3f78d914487336b198998dbbe69e0b0b657a098b3f7d90262f0e263b",
+    "route_validation": {
+      "original_flow_routes": 88,
+      "physical_probe_completed": 102,
+      "positive_od": 14,
+      "skipped_od": [],
+      "status": "passed",
+      "valid_od": 14
+    },
+    "source_files": [
+      "/home/sdc_joran/Journal/deeprl_signal_control/real_net_subnet/repaired/group12_topology_v2/Real_Life_Monaco.csv"
+    ],
+    "source_hashes": {
+      "/home/sdc_joran/Journal/deeprl_signal_control/real_net_subnet/repaired/group12_topology_v2/Real_Life_Monaco.csv": "0078afe59a4a04ead22bd0fe3720b9647f5740b03fb67118013eaf402d3a0dce"
+    },
+    "split": "external",
+    "total_rate": 2383.3333319999997,
+    "training_network_hash": "0ff05a7efb668ae1ba80785a75c09a151679462039ebdb392c3f8ea565bda9a5"
+  },
+  "summary": [
+    {
+      "collisions": {
+        "mean": 0.0,
+        "sd": 0.0
+      },
+      "completed": {
+        "mean": 1422.4,
+        "sd": 69.06229072366483
+      },
+      "controller": "ia2c",
+      "inserted": {
+        "mean": 1859.3,
+        "sd": 56.46247524782376
+      },
+      "integrated_queue": {
+        "mean": 502520.5,
+        "sd": 15181.241240791582
+      },
+      "mean_queue": {
+        "mean": 139.5890277777778,
+        "sd": 4.217011455775437
+      },
+      "mean_speed": {
+        "mean": 1.1955676108453743,
+        "sd": 0.08333373213089786
+      },
+      "method": "baseline",
+      "n": 10,
+      "peak_queue": {
+        "mean": 230.5,
+        "sd": 9.9135149053087
+      },
+      "pending": {
+        "mean": 513.2,
+        "sd": 63.03402961011527
+      },
+      "remaining": {
+        "mean": 436.8,
+        "sd": 22.139958847698377
+      },
+      "scheduled": {
+        "mean": 2373.5,
+        "sd": 38.560918615152886
+      },
+      "teleports": {
+        "mean": 16.5,
+        "sd": 19.443650777453175
+      }
+    },
+    {
+      "collisions": {
+        "mean": 0.6,
+        "sd": 0.9660917830792958
+      },
+      "completed": {
+        "mean": 1235.2,
+        "sd": 112.0444356295999
+      },
+      "controller": "ia2c",
+      "inserted": {
+        "mean": 1731.9,
+        "sd": 95.2219045761589
+      },
+      "integrated_queue": {
+        "mean": 595196.9,
+        "sd": 32730.658021867577
+      },
+      "mean_queue": {
+        "mean": 165.33247222222224,
+        "sd": 9.091849450518774
+      },
+      "mean_speed": {
+        "mean": 0.9280222871368918,
+        "sd": 0.11058278856851772
+      },
+      "method": "domain_randomization",
+      "n": 10,
+      "peak_queue": {
+        "mean": 263.3,
+        "sd": 11.776152927750973
+      },
+      "pending": {
+        "mean": 640.6,
+        "sd": 102.74369404818316
+      },
+      "remaining": {
+        "mean": 495.8,
+        "sd": 27.58743675419423
+      },
+      "scheduled": {
+        "mean": 2373.5,
+        "sd": 38.560918615152886
+      },
+      "teleports": {
+        "mean": 66.4,
+        "sd": 28.379178595896285
+      }
+    },
+    {
+      "collisions": {
+        "mean": 0.0,
+        "sd": 0.0
+      },
+      "completed": {
+        "mean": 1371.8,
+        "sd": 88.95666860269043
+      },
+      "controller": "ia2c",
+      "inserted": {
+        "mean": 1826.5,
+        "sd": 85.2581048607371
+      },
+      "integrated_queue": {
+        "mean": 530271.9,
+        "sd": 37103.63396533193
+      },
+      "mean_queue": {
+        "mean": 147.29775,
+        "sd": 10.30656499036998
+      },
+      "mean_speed": {
+        "mean": 1.0991106356980351,
+        "sd": 0.11782997427976752
+      },
+      "method": "fixed_wce",
+      "n": 10,
+      "peak_queue": {
+        "mean": 243.4,
+        "sd": 10.864826019980459
+      },
+      "pending": {
+        "mean": 546.0,
+        "sd": 72.89413937728845
+      },
+      "remaining": {
+        "mean": 454.4,
+        "sd": 20.774984957876626
+      },
+      "scheduled": {
+        "mean": 2373.5,
+        "sd": 38.560918615152886
+      },
+      "teleports": {
+        "mean": 30.3,
+        "sd": 15.930752929127012
+      }
+    },
+    {
+      "collisions": {
+        "mean": 0.0,
+        "sd": 0.0
+      },
+      "completed": {
+        "mean": 1566.4,
+        "sd": 79.78192499279241
+      },
+      "controller": "ia2c",
+      "inserted": {
+        "mean": 1964.7,
+        "sd": 74.8614275400445
+      },
+      "integrated_queue": {
+        "mean": 454144.7,
+        "sd": 30059.04517242319
+      },
+      "mean_queue": {
+        "mean": 126.15130555555557,
+        "sd": 8.349734770117553
+      },
+      "mean_speed": {
+        "mean": 1.4106041833169298,
+        "sd": 0.13152451774030158
+      },
+      "method": "online_wce",
+      "n": 10,
+      "peak_queue": {
+        "mean": 217.0,
+        "sd": 19.888578520235065
+      },
+      "pending": {
+        "mean": 407.8,
+        "sd": 72.93497865298316
+      },
+      "remaining": {
+        "mean": 398.3,
+        "sd": 33.146308659906275
+      },
+      "scheduled": {
+        "mean": 2373.5,
+        "sd": 38.560918615152886
+      },
+      "teleports": {
+        "mean": 6.8,
+        "sd": 4.131182235954578
+      }
+    },
+    {
+      "collisions": {
+        "mean": 0.0,
+        "sd": 0.0
+      },
+      "completed": {
+        "mean": 1024.0,
+        "sd": 70.06504914085988
+      },
+      "controller": "ia2c",
+      "inserted": {
+        "mean": 1460.7,
+        "sd": 35.24533066000847
+      },
+      "integrated_queue": {
+        "mean": 544692.2,
+        "sd": 46698.25756873114
+      },
+      "mean_queue": {
+        "mean": 151.3033888888889,
+        "sd": 12.97173821353643
+      },
+      "mean_speed": {
+        "mean": 0.9127643207510261,
+        "sd": 0.10549575730686082
+      },
+      "method": "random_group",
+      "n": 10,
+      "peak_queue": {
+        "mean": 233.0,
+        "sd": 19.770910168449223
+      },
+      "pending": {
+        "mean": 911.8,
+        "sd": 44.118023527805505
+      },
+      "remaining": {
+        "mean": 436.2,
+        "sd": 36.823301801380545
+      },
+      "scheduled": {
+        "mean": 2373.5,
+        "sd": 38.560918615152886
+      },
+      "teleports": {
+        "mean": 30.0,
+        "sd": 11.69045194450012
+      }
+    },
+    {
+      "collisions": {
+        "mean": 0.2,
+        "sd": 0.6324555320336759
+      },
+      "completed": {
+        "mean": 244.0,
+        "sd": 31.439536326804255
+      },
+      "controller": "iqll",
+      "inserted": {
+        "mean": 773.6,
+        "sd": 31.67964646267379
+      },
+      "integrated_queue": {
+        "mean": 784721.8,
+        "sd": 16876.41612691773
+      },
+      "mean_queue": {
+        "mean": 217.9782777777778,
+        "sd": 4.687893368588258
+      },
+      "mean_speed": {
+        "mean": 0.20975635611329002,
+        "sd": 0.018316246701774435
+      },
+      "method": "baseline",
+      "n": 10,
+      "peak_queue": {
+        "mean": 287.3,
+        "sd": 6.667499947923176
+      },
+      "pending": {
+        "mean": 1598.9,
+        "sd": 44.33571422178237
+      },
+      "remaining": {
+        "mean": 526.2,
+        "sd": 7.568942389058652
+      },
+      "scheduled": {
+        "mean": 2373.5,
+        "sd": 38.560918615152886
+      },
+      "teleports": {
+        "mean": 338.3,
+        "sd": 13.458165633630097
+      }
+    },
+    {
+      "collisions": {
+        "mean": 0.0,
+        "sd": 0.0
+      },
+      "completed": {
+        "mean": 126.8,
+        "sd": 7.757433710820723
+      },
+      "controller": "iqll",
+      "inserted": {
+        "mean": 664.5,
+        "sd": 12.851718432438
+      },
+      "integrated_queue": {
+        "mean": 785683.4,
+        "sd": 18407.83693128796
+      },
+      "mean_queue": {
+        "mean": 218.24538888888893,
+        "sd": 5.113288036468877
+      },
+      "mean_speed": {
+        "mean": 0.14042116674863928,
+        "sd": 0.0057663127284128595
+      },
+      "method": "domain_randomization",
+      "n": 10,
+      "peak_queue": {
+        "mean": 278.8,
+        "sd": 6.613118276073197
+      },
+      "pending": {
+        "mean": 1708.0,
+        "sd": 40.013886478460336
+      },
+      "remaining": {
+        "mean": 534.7,
+        "sd": 10.625441167311594
+      },
+      "scheduled": {
+        "mean": 2373.5,
+        "sd": 38.560918615152886
+      },
+      "teleports": {
+        "mean": 373.6,
+        "sd": 15.254871717294483
+      }
+    },
+    {
+      "collisions": {
+        "mean": 0.4,
+        "sd": 0.8432740427115679
+      },
+      "completed": {
+        "mean": 222.2,
+        "sd": 22.909483722782678
+      },
+      "controller": "iqll",
+      "inserted": {
+        "mean": 824.7,
+        "sd": 24.756817242933312
+      },
+      "integrated_queue": {
+        "mean": 869403.6,
+        "sd": 13649.10051737232
+      },
+      "mean_queue": {
+        "mean": 241.50100000000003,
+        "sd": 3.791416810381202
+      },
+      "mean_speed": {
+        "mean": 0.21970881288749658,
+        "sd": 0.015613499016812544
+      },
+      "method": "fixed_wce",
+      "n": 10,
+      "peak_queue": {
+        "mean": 318.9,
+        "sd": 7.0624201077093804
+      },
+      "pending": {
+        "mean": 1547.8,
+        "sd": 41.71277448882483
+      },
+      "remaining": {
+        "mean": 597.8,
+        "sd": 17.674840876228558
+      },
+      "scheduled": {
+        "mean": 2373.5,
+        "sd": 38.560918615152886
+      },
+      "teleports": {
+        "mean": 394.4,
+        "sd": 17.82133552795637
+      }
+    },
+    {
+      "collisions": {
+        "mean": 0.0,
+        "sd": 0.0
+      },
+      "completed": {
+        "mean": 117.6,
+        "sd": 10.221980673474633
+      },
+      "controller": "iqll",
+      "inserted": {
+        "mean": 643.9,
+        "sd": 16.427957200387933
+      },
+      "integrated_queue": {
+        "mean": 781087.6,
+        "sd": 23690.409152697684
+      },
+      "mean_queue": {
+        "mean": 216.96877777777777,
+        "sd": 6.580669209082692
+      },
+      "mean_speed": {
+        "mean": 0.17147739206788584,
+        "sd": 0.007082232759599008
+      },
+      "method": "online_wce",
+      "n": 10,
+      "peak_queue": {
+        "mean": 297.7,
+        "sd": 9.730250653389037
+      },
+      "pending": {
+        "mean": 1728.6,
+        "sd": 45.729154328016556
+      },
+      "remaining": {
+        "mean": 522.7,
+        "sd": 16.813024052138207
+      },
+      "scheduled": {
+        "mean": 2373.5,
+        "sd": 38.560918615152886
+      },
+      "teleports": {
+        "mean": 385.2,
+        "sd": 28.385442278275907
+      }
+    },
+    {
+      "collisions": {
+        "mean": 0.0,
+        "sd": 0.0
+      },
+      "completed": {
+        "mean": 182.6,
+        "sd": 16.847024135503048
+      },
+      "controller": "iqll",
+      "inserted": {
+        "mean": 709.3,
+        "sd": 13.60596274514311
+      },
+      "integrated_queue": {
+        "mean": 772717.9,
+        "sd": 18631.707588290334
+      },
+      "mean_queue": {
+        "mean": 214.6438611111111,
+        "sd": 5.1754743300806485
+      },
+      "mean_speed": {
+        "mean": 0.18795833024414121,
+        "sd": 0.014769660204993821
+      },
+      "method": "random_group",
+      "n": 10,
+      "peak_queue": {
+        "mean": 277.5,
+        "sd": 5.54276304943863
+      },
+      "pending": {
+        "mean": 1663.2,
+        "sd": 45.51141492954145
+      },
+      "remaining": {
+        "mean": 524.0,
+        "sd": 10.434983894999018
+      },
+      "scheduled": {
+        "mean": 2373.5,
+        "sd": 38.560918615152886
+      },
+      "teleports": {
+        "mean": 351.6,
+        "sd": 16.412732185037864
+      }
+    },
+    {
+      "collisions": {
+        "mean": 0.0,
+        "sd": 0.0
+      },
+      "completed": {
+        "mean": 1889.1,
+        "sd": 99.66215151422553
+      },
+      "controller": "ma2c",
+      "inserted": {
+        "mean": 2232.7,
+        "sd": 72.66980115563824
+      },
+      "integrated_queue": {
+        "mean": 301183.2,
+        "sd": 49022.46271478231
+      },
+      "mean_queue": {
+        "mean": 83.662,
+        "sd": 13.6173507541062
+      },
+      "mean_speed": {
+        "mean": 2.216020711238262,
+        "sd": 0.3615705321394396
+      },
+      "method": "baseline",
+      "n": 10,
+      "peak_queue": {
+        "mean": 192.5,
+        "sd": 29.65449188384264
+      },
+      "pending": {
+        "mean": 139.8,
+        "sd": 56.55636323370008
+      },
+      "remaining": {
+        "mean": 343.6,
+        "sd": 52.060221538778215
+      },
+      "scheduled": {
+        "mean": 2373.5,
+        "sd": 38.560918615152886
+      },
+      "teleports": {
+        "mean": 8.8,
+        "sd": 7.612854625930772
+      }
+    },
+    {
+      "collisions": {
+        "mean": 0.6,
+        "sd": 0.9660917830792958
+      },
+      "completed": {
+        "mean": 1849.4,
+        "sd": 139.26649114397748
+      },
+      "controller": "ma2c",
+      "inserted": {
+        "mean": 2184.7,
+        "sd": 119.49063189686089
+      },
+      "integrated_queue": {
+        "mean": 290619.7,
+        "sd": 67699.79645964807
+      },
+      "mean_queue": {
+        "mean": 80.72769444444444,
+        "sd": 18.80549901656891
+      },
+      "mean_speed": {
+        "mean": 2.18755459473426,
+        "sd": 0.49893869540721836
+      },
+      "method": "domain_randomization",
+      "n": 10,
+      "peak_queue": {
+        "mean": 169.6,
+        "sd": 23.324760329839282
+      },
+      "pending": {
+        "mean": 187.8,
+        "sd": 122.11178849271224
+      },
+      "remaining": {
+        "mean": 335.1,
+        "sd": 43.26263463493128
+      },
+      "scheduled": {
+        "mean": 2373.5,
+        "sd": 38.560918615152886
+      },
+      "teleports": {
+        "mean": 7.3,
+        "sd": 8.000694414306244
+      }
+    },
+    {
+      "collisions": {
+        "mean": 0.2,
+        "sd": 0.6324555320336759
+      },
+      "completed": {
+        "mean": 1670.3,
+        "sd": 113.89961467108755
+      },
+      "controller": "ma2c",
+      "inserted": {
+        "mean": 2061.7,
+        "sd": 105.85949807803422
+      },
+      "integrated_queue": {
+        "mean": 389562.5,
+        "sd": 63825.94037824015
+      },
+      "mean_queue": {
+        "mean": 108.21180555555557,
+        "sd": 17.729427882844483
+      },
+      "mean_speed": {
+        "mean": 1.6649811719449876,
+        "sd": 0.327115660207703
+      },
+      "method": "fixed_wce",
+      "n": 10,
+      "peak_queue": {
+        "mean": 202.8,
+        "sd": 10.315037566582102
+      },
+      "pending": {
+        "mean": 310.8,
+        "sd": 108.33569228200935
+      },
+      "remaining": {
+        "mean": 391.3,
+        "sd": 29.28044474464902
+      },
+      "scheduled": {
+        "mean": 2373.5,
+        "sd": 38.560918615152886
+      },
+      "teleports": {
+        "mean": 9.9,
+        "sd": 4.532597979574677
+      }
+    },
+    {
+      "collisions": {
+        "mean": 0.0,
+        "sd": 0.0
+      },
+      "completed": {
+        "mean": 1619.2,
+        "sd": 140.87015297783984
+      },
+      "controller": "ma2c",
+      "inserted": {
+        "mean": 2030.1,
+        "sd": 119.86330176960382
+      },
+      "integrated_queue": {
+        "mean": 404924.0,
+        "sd": 62421.828635680184
+      },
+      "mean_queue": {
+        "mean": 112.47888888888887,
+        "sd": 17.339396843244494
+      },
+      "mean_speed": {
+        "mean": 1.5552536423523748,
+        "sd": 0.30301756723036083
+      },
+      "method": "online_wce",
+      "n": 10,
+      "peak_queue": {
+        "mean": 217.3,
+        "sd": 19.5962014459719
+      },
+      "pending": {
+        "mean": 342.4,
+        "sd": 121.47537473359228
+      },
+      "remaining": {
+        "mean": 410.8,
+        "sd": 36.17488385913937
+      },
+      "scheduled": {
+        "mean": 2373.5,
+        "sd": 38.560918615152886
+      },
+      "teleports": {
+        "mean": 24.4,
+        "sd": 16.29723902997069
+      }
+    },
+    {
+      "collisions": {
+        "mean": 0.0,
+        "sd": 0.0
+      },
+      "completed": {
+        "mean": 1949.7,
+        "sd": 83.30539531680338
+      },
+      "controller": "ma2c",
+      "inserted": {
+        "mean": 2213.5,
+        "sd": 63.421429956898464
+      },
+      "integrated_queue": {
+        "mean": 228883.9,
+        "sd": 48323.194516942094
+      },
+      "mean_queue": {
+        "mean": 63.57886111111111,
+        "sd": 13.423109588039472
+      },
+      "mean_speed": {
+        "mean": 2.8042736278681635,
+        "sd": 0.521058355106078
+      },
+      "method": "random_group",
+      "n": 10,
+      "peak_queue": {
+        "mean": 137.5,
+        "sd": 23.740495174092537
+      },
+      "pending": {
+        "mean": 159.0,
+        "sd": 40.60924908331981
+      },
+      "remaining": {
+        "mean": 263.8,
+        "sd": 38.91814772342361
+      },
+      "scheduled": {
+        "mean": 2373.5,
+        "sd": 38.560918615152886
+      },
+      "teleports": {
+        "mean": 1.3,
+        "sd": 1.3374935098492586
+      }
+    },
+    {
+      "collisions": {
+        "mean": 0.4,
+        "sd": 0.8432740427115679
+      },
+      "completed": {
+        "mean": 1525.2,
+        "sd": 67.67865246885461
+      },
+      "controller": "ppo",
+      "inserted": {
+        "mean": 1879.9,
+        "sd": 45.481253769486656
+      },
+      "integrated_queue": {
+        "mean": 320413.7,
+        "sd": 49433.62567243295
+      },
+      "mean_queue": {
+        "mean": 89.00380555555556,
+        "sd": 13.731562686786932
+      },
+      "mean_speed": {
+        "mean": 1.7299543810792684,
+        "sd": 0.2522504878279471
+      },
+      "method": "baseline",
+      "n": 10,
+      "peak_queue": {
+        "mean": 185.4,
+        "sd": 22.296985346803176
+      },
+      "pending": {
+        "mean": 492.6,
+        "sd": 66.5602483969724
+      },
+      "remaining": {
+        "mean": 354.7,
+        "sd": 38.413105402540246
+      },
+      "scheduled": {
+        "mean": 2373.5,
+        "sd": 38.560918615152886
+      },
+      "teleports": {
+        "mean": 8.7,
+        "sd": 3.4657049948186747
+      }
+    },
+    {
+      "collisions": {
+        "mean": 0.2,
+        "sd": 0.6324555320336759
+      },
+      "completed": {
+        "mean": 2259.2,
+        "sd": 43.80715314496785
+      },
+      "controller": "ppo",
+      "inserted": {
+        "mean": 2366.3,
+        "sd": 36.62740322035766
+      },
+      "integrated_queue": {
+        "mean": 83261.2,
+        "sd": 10043.137588533886
+      },
+      "mean_queue": {
+        "mean": 23.12811111111111,
+        "sd": 2.789760441259413
+      },
+      "mean_speed": {
+        "mean": 5.917773822348703,
+        "sd": 0.39097167068998934
+      },
+      "method": "domain_randomization",
+      "n": 10,
+      "peak_queue": {
+        "mean": 56.8,
+        "sd": 16.05407528739458
+      },
+      "pending": {
+        "mean": 6.2,
+        "sd": 8.86691728969106
+      },
+      "remaining": {
+        "mean": 107.1,
+        "sd": 40.53105805017514
+      },
+      "scheduled": {
+        "mean": 2373.5,
+        "sd": 38.560918615152886
+      },
+      "teleports": {
+        "mean": 0.1,
+        "sd": 0.31622776601683794
+      }
+    },
+    {
+      "collisions": {
+        "mean": 0.4,
+        "sd": 0.8432740427115679
+      },
+      "completed": {
+        "mean": 2024.1,
+        "sd": 280.96320439200264
+      },
+      "controller": "ppo",
+      "inserted": {
+        "mean": 2229.1,
+        "sd": 206.02882754065698
+      },
+      "integrated_queue": {
+        "mean": 165898.5,
+        "sd": 110153.06970580126
+      },
+      "mean_queue": {
+        "mean": 46.08291666666666,
+        "sd": 30.598074918278122
+      },
+      "mean_speed": {
+        "mean": 4.386905350010679,
+        "sd": 1.7931513297398376
+      },
+      "method": "fixed_wce",
+      "n": 10,
+      "peak_queue": {
+        "mean": 105.5,
+        "sd": 49.84475900232641
+      },
+      "pending": {
+        "mean": 143.4,
+        "sd": 224.10672060922724
+      },
+      "remaining": {
+        "mean": 204.8,
+        "sd": 116.07449715113518
+      },
+      "scheduled": {
+        "mean": 2373.5,
+        "sd": 38.560918615152886
+      },
+      "teleports": {
+        "mean": 12.2,
+        "sd": 20.858251764389713
+      }
+    },
+    {
+      "collisions": {
+        "mean": 0.4,
+        "sd": 0.8432740427115679
+      },
+      "completed": {
+        "mean": 2191.8,
+        "sd": 37.978941533434025
+      },
+      "controller": "ppo",
+      "inserted": {
+        "mean": 2297.2,
+        "sd": 34.825916275734144
+      },
+      "integrated_queue": {
+        "mean": 96757.1,
+        "sd": 6461.240738262101
+      },
+      "mean_queue": {
+        "mean": 26.876972222222218,
+        "sd": 1.7947890939616944
+      },
+      "mean_speed": {
+        "mean": 5.571963796956403,
+        "sd": 0.22898570299398277
+      },
+      "method": "online_wce",
+      "n": 10,
+      "peak_queue": {
+        "mean": 55.4,
+        "sd": 7.6623176070371235
+      },
+      "pending": {
+        "mean": 75.3,
+        "sd": 26.187571267471306
+      },
+      "remaining": {
+        "mean": 105.4,
+        "sd": 10.373041983911952
+      },
+      "scheduled": {
+        "mean": 2373.5,
+        "sd": 38.560918615152886
+      },
+      "teleports": {
+        "mean": 0.3,
+        "sd": 0.4830458915396479
+      }
+    },
+    {
+      "collisions": {
+        "mean": 0.2,
+        "sd": 0.6324555320336759
+      },
+      "completed": {
+        "mean": 1295.5,
+        "sd": 63.13521644498857
+      },
+      "controller": "ppo",
+      "inserted": {
+        "mean": 1703.8,
+        "sd": 48.25579988169528
+      },
+      "integrated_queue": {
+        "mean": 414270.0,
+        "sd": 30584.8122258236
+      },
+      "mean_queue": {
+        "mean": 115.075,
+        "sd": 8.495781173839887
+      },
+      "mean_speed": {
+        "mean": 1.1841007937080013,
+        "sd": 0.12675759425681066
+      },
+      "method": "random_group",
+      "n": 10,
+      "peak_queue": {
+        "mean": 212.6,
+        "sd": 8.896940797575061
+      },
+      "pending": {
+        "mean": 668.7,
+        "sd": 67.69219551272757
+      },
+      "remaining": {
+        "mean": 408.2,
+        "sd": 23.489004519845732
+      },
+      "scheduled": {
+        "mean": 2373.5,
+        "sd": 38.560918615152886
+      },
+      "teleports": {
+        "mean": 16.1,
+        "sd": 6.41958807955083
+      }
+    }
+  ],
+  "test_method": "Two-sided exact paired sign-flip test (2^10 assignments); Holm across all 20 pre-specified comparisons. Assumes symmetry of paired differences under the null.",
+  "training_seed": 101
+}

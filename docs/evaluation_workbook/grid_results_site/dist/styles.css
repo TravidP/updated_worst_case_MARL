@@ -40,7 +40,8 @@ section { margin: 28px 0; padding: clamp(20px, 3vw, 38px); background: var(--whi
 h2 { margin: 0; font-family: Georgia, "Noto Serif SC", serif; font-size: clamp(1.35rem, 2.2vw, 2.05rem); font-weight: 600; }
 h3 { margin: 0 0 8px; font-size: 1rem; }
 .section-description { margin: -8px 0 20px; color: var(--muted); }
-.filters { display: grid; grid-template-columns: minmax(145px, .55fr) minmax(145px, .55fr) minmax(155px, .6fr) minmax(300px, 1.7fr); gap: 16px; }
+.filters { display: grid; grid-template-columns: minmax(145px, 1fr) minmax(145px, 1fr) minmax(155px, 1.1fr) minmax(145px, 1fr); gap: 16px; }
+.scenario-filter { grid-column: 1 / -1; }
 .filters label { display: grid; gap: 7px; font-size: .8rem; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
 select { width: 100%; min-height: 46px; padding: 9px 36px 9px 12px; color: var(--ink); background: white; border: 1px solid #9eb0ba; border-radius: 3px; text-transform: none; letter-spacing: normal; }
 select:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(14,90,118,.15); }

@@ -1,0 +1,226 @@
+{
+  "status": "blocked",
+  "affected_flows": [
+    {
+      "flow_id": "f_5_10",
+      "begin": 1500.0,
+      "end": 1800.0,
+      "rate": 325.0,
+      "hourly_contribution": 27.083333333333332,
+      "missing_edges": [
+        "10180#0",
+        "10180#1"
+      ],
+      "connected_blocks": [
+        {
+          "edges": [
+            "-10051#2",
+            "-10051#1",
+            "10178",
+            "10179",
+            "10050#2"
+          ],
+          "controlled_from_edges": [
+            "-10051#1"
+          ]
+        },
+        {
+          "edges": [
+            "10180#2",
+            "10180#3",
+            "10181#0",
+            "10181#1",
+            "10181#2",
+            "10116",
+            "10077",
+            "10031#1",
+            "-10089#4",
+            "gneE4",
+            "-10108#5",
+            "gneE7",
+            "-10062",
+            "10043"
+          ],
+          "controlled_from_edges": [
+            "-10062",
+            "-10089#4",
+            "10043",
+            "10077",
+            "10180#3",
+            "10181#2",
+            "gneE4",
+            "gneE7"
+          ]
+        }
+      ]
+    },
+    {
+      "flow_id": "f_6_6",
+      "begin": 1800.0,
+      "end": 2100.0,
+      "rate": 325.0,
+      "hourly_contribution": 27.083333333333332,
+      "missing_edges": [
+        "10180#0",
+        "10180#1"
+      ],
+      "connected_blocks": [
+        {
+          "edges": [
+            "-10051#2",
+            "-10051#1",
+            "10178",
+            "10179",
+            "10050#2"
+          ],
+          "controlled_from_edges": [
+            "-10051#1"
+          ]
+        },
+        {
+          "edges": [
+            "10180#2",
+            "10180#3",
+            "10181#0",
+            "10181#1",
+            "10181#2",
+            "10116",
+            "10077",
+            "10031#1",
+            "-10089#4",
+            "gneE4",
+            "-10108#5",
+            "gneE7",
+            "-10062",
+            "10043"
+          ],
+          "controlled_from_edges": [
+            "-10062",
+            "-10089#4",
+            "10043",
+            "10077",
+            "10180#3",
+            "10181#2",
+            "gneE4",
+            "gneE7"
+          ]
+        }
+      ]
+    },
+    {
+      "flow_id": "f_7_4",
+      "begin": 2100.0,
+      "end": 2400.0,
+      "rate": 325.0,
+      "hourly_contribution": 27.083333333333332,
+      "missing_edges": [
+        "10180#0",
+        "10180#1"
+      ],
+      "connected_blocks": [
+        {
+          "edges": [
+            "-10051#2",
+            "-10051#1",
+            "10178",
+            "10179",
+            "10050#2"
+          ],
+          "controlled_from_edges": [
+            "-10051#1"
+          ]
+        },
+        {
+          "edges": [
+            "10180#2",
+            "10180#3",
+            "10181#0",
+            "10181#1",
+            "10181#2",
+            "10116",
+            "10077",
+            "10031#1",
+            "-10089#4",
+            "gneE4",
+            "-10108#5",
+            "gneE7",
+            "-10062",
+            "10043"
+          ],
+          "controlled_from_edges": [
+            "-10062",
+            "-10089#4",
+            "10043",
+            "10077",
+            "10180#3",
+            "10181#2",
+            "gneE4",
+            "gneE7"
+          ]
+        }
+      ]
+    },
+    {
+      "flow_id": "f_8_2",
+      "begin": 2400.0,
+      "end": 2700.0,
+      "rate": 325.0,
+      "hourly_contribution": 27.083333333333332,
+      "missing_edges": [
+        "10180#0",
+        "10180#1"
+      ],
+      "connected_blocks": [
+        {
+          "edges": [
+            "-10051#2",
+            "-10051#1",
+            "10178",
+            "10179",
+            "10050#2"
+          ],
+          "controlled_from_edges": [
+            "-10051#1"
+          ]
+        },
+        {
+          "edges": [
+            "10180#2",
+            "10180#3",
+            "10181#0",
+            "10181#1",
+            "10181#2",
+            "10116",
+            "10077",
+            "10031#1",
+            "-10089#4",
+            "gneE4",
+            "-10108#5",
+            "gneE7",
+            "-10062",
+            "10043"
+          ],
+          "controlled_from_edges": [
+            "-10062",
+            "-10089#4",
+            "10043",
+            "10077",
+            "10180#3",
+            "10181#2",
+            "gneE4",
+            "gneE7"
+          ]
+        }
+      ]
+    }
+  ],
+  "reason": "Four source flows leave and re-enter the current subnet through missing edges 10180#0 and 10180#1. Both connected blocks contain signal-controlled edges. Keeping only the latter block discards demand at a controlled junction; independent block replay changes trip counts. No equivalent single continuous route exists for the original OD.",
+  "projection_policy": "No arbitrary OD removal, network modification, or hash-check bypass.",
+  "sum_hourly_affected": 108.33333333333333,
+  "first_block_monitored_lanes": [
+    "-10051#1_1"
+  ],
+  "first_block_controlled_nodes": [
+    "9643"
+  ]
+}

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-10-06T17:07:04.517498+01:00 by Eclipse SUMO netconvert v1_26_0+0455-77b9dbc222e
+-->
+
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="/home/sdc_joran/Journal/deeprl_signal_control/real_net_subnet/repaired/group12_topology_v1/source_export/original.nod.xml"/>
+        <edge-files value="/home/sdc_joran/Journal/deeprl_signal_control/real_net_subnet/repaired/group12_topology_v1/source_export/original.edg.xml"/>
+        <connection-files value="/home/sdc_joran/Journal/deeprl_signal_control/real_net_subnet/repaired/group12_topology_v1/source_export/original.con.xml"/>
+        <tllogic-files value="/home/sdc_joran/Journal/deeprl_signal_control/real_net_subnet/repaired/group12_topology_v1/source_export/original.tll.xml"/>
+        <type-files value="/home/sdc_joran/Journal/deeprl_signal_control/real_net_subnet/repaired/group12_topology_v1/source_export/original.typ.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/home/sdc_joran/Journal/deeprl_signal_control/real_net_subnet/repaired/group12_topology_v1/source_export/roundtrip.net.xml"/>
+        <plain-output.lanes value="true"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.avoid-overlap value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="-1.00"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</netconvertConfiguration>

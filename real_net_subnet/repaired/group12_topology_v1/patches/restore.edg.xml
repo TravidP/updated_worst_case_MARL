@@ -1,0 +1,9 @@
+<edges><edge from="9963" id="10180#0" numLanes="2" priority="6" speed="13.89" to="9601" type="highway.tertiary">
+        <lane allow="pedestrian" index="0" shape="444.83,626.29,72.91 434.32,614.39,72.55" speed="13.89" width="1.50" />
+        <lane disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship cable_car subway" index="1" shape="446.59,624.74,72.91 436.08,612.84,72.55" speed="13.89" />
+    </edge>
+    <edge from="9601" id="10180#1" numLanes="2" priority="6" shape="435.68,609.97,72.50 421.39,595.90,72.80 409.50,583.06,77.10 400.97,573.48,78.20 397.12,571.66,78.20" speed="13.89" to="8746" type="highway.tertiary">
+        <lane allow="pedestrian" index="0" shape="431.14,611.04,72.54 418.55,598.65,72.80 406.58,585.72,77.10 398.55,576.71,78.20 398.09,576.49,78.20" speed="13.89" width="1.50" />
+        <lane disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship cable_car subway" index="1" shape="432.79,609.37,72.54 420.24,597.01,72.80 408.32,584.14,77.10 399.99,574.79,78.20 399.09,574.36,78.20" speed="13.89" />
+    </edge>
+    </edges>

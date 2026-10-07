@@ -1,0 +1,52 @@
+Monaco legacy demand replay
+
+This is a separately labelled partial-demand reproduction. The legacy
+RealNetEnv._inject_scenario_traffic function silently skips an unreachable OD.
+The original fourteen-OD CSV and network are unchanged. This replay does not
+make the complete external-demand preflight pass.
+
+The eight legacy model directories lack TensorFlow .index/.data-* weights.
+Current complete final seed-101 models are used instead (4 controllers x
+5 methods x 10 paired rollouts). Current checkpoint integrity and network
+signatures are enforced. Missing historical ancestry remains disclosed.
+
+Runtime: /home/sdc_joran/miniconda3/envs/deeprlsc/bin/python
+Commands, each using a NEW isolated output for preparation:
+
+python scripts/monaco_legacy_campaign.py prepare --output runs_eval/revised/monaco_legacy_group12_seed101_v1
+python scripts/monaco_legacy_campaign.py smoke --output runs_eval/revised/monaco_legacy_group12_seed101_v1 --workers 4
+python scripts/monaco_legacy_campaign.py run --output runs_eval/revised/monaco_legacy_group12_seed101_v1 --workers 4
+
+Finalize with modern Python (numpy available):
+python scripts/finalize_monaco_legacy.py --campaign runs_eval/revised/monaco_legacy_group12_seed101_v1/campaign.json --wait
+
+Then export the original evaluator's queue/speed CSV convention with the
+TensorFlow-1 Python runtime:
+python scripts/export_monaco_legacy_metrics.py runs_eval/revised/monaco_legacy_group12_seed101_v1/campaign.json
+This directly calls summarize_group and save_raw_timeseries. The old speed
+metric averages each second equally (zero for an empty network); the current
+website speed averages vehicle-seconds. Queue averages are identical. Both
+speed metrics are retained separately; every raw series has 3600 samples.
+
+The original demand function is called with recording proxies for vehicle and
+route registration; actual SUMO findRoute supplies route edges. Every sampled
+and skipped count is retained. Six blocks are replayed at their original
+injection times, with original IDs, Poisson draw order, speed factors and
+unclipped upper departure jitter. Route resolution is done on an empty network.
+The historical evaluator resolved uncached routes in the live network and
+shared the global numpy RNG with policy sampling. This adaptation deliberately
+uses fixed shared arrivals and an independent policy RNG and reports those
+differences. SUMO seeds are 61001-61010, arrival seeds 51001-51010.
+The old dummy vType has speedDev=0.1, current runtime speedDev=0; both set an
+explicit speed factor per vehicle. Historical random trajectories are not
+claimed to be identical.
+
+Final acceptance checks all 200 immutable results, 3600 consecutive samples,
+116 unique monitored lanes (the exact legacy queue lane set), all six block
+injections, paired seeds, frozen 2320000 learning steps, zero WCE updates,
+source/demand/checkpoint hashes, and current network signature. It emits paired
+statistics, 3600-row queue-curve CSV, and a Chinese execution report.
+
+Finalization exports a separate monaco_legacy_replay website evaluation set.
+Existing Grid and main result data are preserved; strict External Group 12's
+Monaco entry still awaits full-demand validation. The paper is unchanged.

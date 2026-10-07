@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "evaluationSets": [
+    {
+      "id": "main_v7",
+      "label": {
+        "zh": "主实验 Main v7",
+        "en": "Main v7"
+      },
+      "networks": [
+        {
+          "id": "grid",
+          "label": {
+            "zh": "Grid 路网",
+            "en": "Grid network"
+          },
+          "base": "data",
+          "available": true,
+          "expectedRollouts": 4600
+        },
+        {
+          "id": "monaco",
+          "label": {
+            "zh": "Monaco 城市路网",
+            "en": "Monaco city network"
+          },
+          "base": "data/networks/monaco",
+          "available": true,
+          "expectedRollouts": 4600
+        }
+      ]
+    },
+    {
+      "id": "external_group12",
+      "label": {
+        "zh": "Hangzhou realworld data for grid",
+        "en": "Hangzhou realworld data for grid"
+      },
+      "networks": [
+        {
+          "id": "grid",
+          "label": {
+            "zh": "Grid 路网",
+            "en": "Grid network"
+          },
+          "base": "data/supplementary/group12_v1/grid",
+          "available": true,
+          "expectedRollouts": 200,
+          "expectedGroups": 20,
+          "status": {
+            "zh": "完整结果已验收；上游来源尚未验证",
+            "en": "Complete and validated; upstream provenance unverified"
+          },
+          "campaign": "runs_eval/revised/external_group12_seed101_v3/campaign.json",
+          "provenanceStatus": "unverified_upstream_mapping",
+          "networkHash": "d28bd45f2f85c56c03c4c7fca66127bbf1fa85ad8762effed5fb5b61c9ea579a",
+          "mappingVersion": "local_csv_v1"
+        }
+      ]
+    },
+    {
+      "id": "monaco_repaired_full14",
+      "label": {
+        "zh": "Monaco real world dataset",
+        "en": "Monaco real world dataset"
+      },
+      "networks": [
+        {
+          "id": "monaco",
+          "label": {
+            "zh": "Monaco 城市路网",
+            "en": "Monaco city network"
+          },
+          "base": "data/supplementary/monaco_repaired_v1/monaco",
+          "available": true,
+          "expectedRollouts": 200,
+          "expectedGroups": 20,
+          "campaign": "runs_eval/revised/monaco_repaired_group12_seed101_v1/campaign.json",
+          "provenanceStatus": "repaired_topology_transfer",
+          "networkHash": "cd6d7b1fcf1f1dfa42c8461ef6cdd7a935109f3aa9549d7da4558fe584fd2483",
+          "mappingVersion": "repaired_topology_v2_original_600s_generator_v1",
+          "status": {
+            "zh": "200次冻结策略评估已验收；完整14/14 OD，修复地图迁移测试",
+            "en": "200 frozen rollouts validated; all 14 OD, repaired-map transfer"
+          }
+        }
+      ]
+    }
+  ]
+}

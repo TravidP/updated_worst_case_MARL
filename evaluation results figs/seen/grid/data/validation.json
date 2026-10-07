@@ -1,0 +1,25 @@
+{
+  "status": "passed",
+  "checks": {
+    "rollouts": 4600,
+    "groups": 460,
+    "seriesCsvFiles": 460,
+    "summaryRows": 460,
+    "stepsPerRollout": 3600,
+    "arrivalSeeds": [
+      51001,
+      51002,
+      51003,
+      51004,
+      51005,
+      51006,
+      51007,
+      51008,
+      51009,
+      51010
+    ],
+    "pairedDemandAndSumoSeeds": true,
+    "finiteNonnegativeQueue": true,
+    "meanQueueReconciled": true
+  }
+}

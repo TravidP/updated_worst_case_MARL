@@ -1,0 +1,406 @@
+{
+  "real_world_evaluation_report": [
+    {
+      "id": "real-grid",
+      "title": "Hangzhou realworld",
+      "network": "Grid Network",
+      "kind": "scenario",
+      "scenario": "grid_sparse_native_2983"
+    },
+    {
+      "id": "real-monaco",
+      "title": "Monaco real world data",
+      "network": "Monaco Network",
+      "kind": "scenario",
+      "scenario": "monaco_repaired_full14_v1"
+    }
+  ],
+  "complete_evaluation_report": [
+    {
+      "id": "reading-guide",
+      "kind": "intro"
+    },
+    {
+      "id": "contents",
+      "kind": "contents"
+    },
+    {
+      "id": "real-grid",
+      "title": "Hangzhou realworld",
+      "network": "Grid Network",
+      "kind": "scenario",
+      "scenario": "grid_sparse_native_2983"
+    },
+    {
+      "id": "real-monaco",
+      "title": "Monaco real world data",
+      "network": "Monaco Network",
+      "kind": "scenario",
+      "scenario": "monaco_repaired_full14_v1"
+    },
+    {
+      "id": "seen-grid-summary",
+      "title": "Seen evaluation - network summary",
+      "network": "Grid Network",
+      "kind": "network_summary",
+      "scenario": null
+    },
+    {
+      "id": "seen-grid-seen_Center_to_Periphery",
+      "title": "Center to periphery",
+      "network": "Grid Network / Seen",
+      "kind": "scenario",
+      "scenario": "seen_Center_to_Periphery"
+    },
+    {
+      "id": "seen-grid-seen_E_to_W",
+      "title": "East to west",
+      "network": "Grid Network / Seen",
+      "kind": "scenario",
+      "scenario": "seen_E_to_W"
+    },
+    {
+      "id": "seen-grid-seen_NE_to_SW",
+      "title": "Northeast to southwest",
+      "network": "Grid Network / Seen",
+      "kind": "scenario",
+      "scenario": "seen_NE_to_SW"
+    },
+    {
+      "id": "seen-grid-seen_NW_to_SE",
+      "title": "Northwest to southeast",
+      "network": "Grid Network / Seen",
+      "kind": "scenario",
+      "scenario": "seen_NW_to_SE"
+    },
+    {
+      "id": "seen-grid-seen_N_to_S",
+      "title": "North to south",
+      "network": "Grid Network / Seen",
+      "kind": "scenario",
+      "scenario": "seen_N_to_S"
+    },
+    {
+      "id": "seen-grid-seen_Periphery_to_Center",
+      "title": "Periphery to center",
+      "network": "Grid Network / Seen",
+      "kind": "scenario",
+      "scenario": "seen_Periphery_to_Center"
+    },
+    {
+      "id": "seen-grid-seen_SE_to_NW",
+      "title": "Southeast to northwest",
+      "network": "Grid Network / Seen",
+      "kind": "scenario",
+      "scenario": "seen_SE_to_NW"
+    },
+    {
+      "id": "seen-grid-seen_SW_to_NE",
+      "title": "Southwest to northeast",
+      "network": "Grid Network / Seen",
+      "kind": "scenario",
+      "scenario": "seen_SW_to_NE"
+    },
+    {
+      "id": "seen-grid-seen_S_to_N",
+      "title": "South to north",
+      "network": "Grid Network / Seen",
+      "kind": "scenario",
+      "scenario": "seen_S_to_N"
+    },
+    {
+      "id": "seen-grid-seen_Uniform",
+      "title": "Uniform demand",
+      "network": "Grid Network / Seen",
+      "kind": "scenario",
+      "scenario": "seen_Uniform"
+    },
+    {
+      "id": "seen-grid-seen_W_to_E",
+      "title": "West to east",
+      "network": "Grid Network / Seen",
+      "kind": "scenario",
+      "scenario": "seen_W_to_E"
+    },
+    {
+      "id": "seen-monaco-summary",
+      "title": "Seen evaluation - network summary",
+      "network": "Monaco Network",
+      "kind": "network_summary",
+      "scenario": null
+    },
+    {
+      "id": "seen-monaco-seen_Center_to_Periphery",
+      "title": "Center to periphery",
+      "network": "Monaco Network / Seen",
+      "kind": "scenario",
+      "scenario": "seen_Center_to_Periphery"
+    },
+    {
+      "id": "seen-monaco-seen_E_to_W",
+      "title": "East to west",
+      "network": "Monaco Network / Seen",
+      "kind": "scenario",
+      "scenario": "seen_E_to_W"
+    },
+    {
+      "id": "seen-monaco-seen_NE_to_SW",
+      "title": "Northeast to southwest",
+      "network": "Monaco Network / Seen",
+      "kind": "scenario",
+      "scenario": "seen_NE_to_SW"
+    },
+    {
+      "id": "seen-monaco-seen_NW_to_SE",
+      "title": "Northwest to southeast",
+      "network": "Monaco Network / Seen",
+      "kind": "scenario",
+      "scenario": "seen_NW_to_SE"
+    },
+    {
+      "id": "seen-monaco-seen_N_to_S",
+      "title": "North to south",
+      "network": "Monaco Network / Seen",
+      "kind": "scenario",
+      "scenario": "seen_N_to_S"
+    },
+    {
+      "id": "seen-monaco-seen_Periphery_to_Center",
+      "title": "Periphery to center",
+      "network": "Monaco Network / Seen",
+      "kind": "scenario",
+      "scenario": "seen_Periphery_to_Center"
+    },
+    {
+      "id": "seen-monaco-seen_SE_to_NW",
+      "title": "Southeast to northwest",
+      "network": "Monaco Network / Seen",
+      "kind": "scenario",
+      "scenario": "seen_SE_to_NW"
+    },
+    {
+      "id": "seen-monaco-seen_SW_to_NE",
+      "title": "Southwest to northeast",
+      "network": "Monaco Network / Seen",
+      "kind": "scenario",
+      "scenario": "seen_SW_to_NE"
+    },
+    {
+      "id": "seen-monaco-seen_S_to_N",
+      "title": "South to north",
+      "network": "Monaco Network / Seen",
+      "kind": "scenario",
+      "scenario": "seen_S_to_N"
+    },
+    {
+      "id": "seen-monaco-seen_Uniform",
+      "title": "Uniform demand",
+      "network": "Monaco Network / Seen",
+      "kind": "scenario",
+      "scenario": "seen_Uniform"
+    },
+    {
+      "id": "seen-monaco-seen_W_to_E",
+      "title": "West to east",
+      "network": "Monaco Network / Seen",
+      "kind": "scenario",
+      "scenario": "seen_W_to_E"
+    },
+    {
+      "id": "test-grid-summary",
+      "title": "Test evaluation - network summary",
+      "network": "Grid Network",
+      "kind": "network_summary",
+      "scenario": null
+    },
+    {
+      "id": "test-grid-families",
+      "title": "Test evaluation - demand-family summaries",
+      "network": "Grid Network",
+      "kind": "family_summary",
+      "scenario": null
+    },
+    {
+      "id": "test-grid-mixture_1",
+      "title": "Mixture scenario 1",
+      "network": "Grid Network / Test",
+      "kind": "scenario",
+      "scenario": "mixture_1"
+    },
+    {
+      "id": "test-grid-mixture_2",
+      "title": "Mixture scenario 2",
+      "network": "Grid Network / Test",
+      "kind": "scenario",
+      "scenario": "mixture_2"
+    },
+    {
+      "id": "test-grid-mixture_3",
+      "title": "Mixture scenario 3",
+      "network": "Grid Network / Test",
+      "kind": "scenario",
+      "scenario": "mixture_3"
+    },
+    {
+      "id": "test-grid-peak_1.1",
+      "title": "Peak demand \u00d71.1",
+      "network": "Grid Network / Test",
+      "kind": "scenario",
+      "scenario": "peak_1.1"
+    },
+    {
+      "id": "test-grid-peak_1.25",
+      "title": "Peak demand \u00d71.25",
+      "network": "Grid Network / Test",
+      "kind": "scenario",
+      "scenario": "peak_1.25"
+    },
+    {
+      "id": "test-grid-peak_1.5",
+      "title": "Peak demand \u00d71.5",
+      "network": "Grid Network / Test",
+      "kind": "scenario",
+      "scenario": "peak_1.5"
+    },
+    {
+      "id": "test-grid-redistribution_0.25",
+      "title": "OD redistribution \u03c3=0.25",
+      "network": "Grid Network / Test",
+      "kind": "scenario",
+      "scenario": "redistribution_0.25"
+    },
+    {
+      "id": "test-grid-redistribution_0.5",
+      "title": "OD redistribution \u03c3=0.5",
+      "network": "Grid Network / Test",
+      "kind": "scenario",
+      "scenario": "redistribution_0.5"
+    },
+    {
+      "id": "test-grid-redistribution_0.75",
+      "title": "OD redistribution \u03c3=0.75",
+      "network": "Grid Network / Test",
+      "kind": "scenario",
+      "scenario": "redistribution_0.75"
+    },
+    {
+      "id": "test-grid-switch_1200",
+      "title": "Rapid switching every 1200 s",
+      "network": "Grid Network / Test",
+      "kind": "scenario",
+      "scenario": "switch_1200"
+    },
+    {
+      "id": "test-grid-switch_300",
+      "title": "Rapid switching every 300 s",
+      "network": "Grid Network / Test",
+      "kind": "scenario",
+      "scenario": "switch_300"
+    },
+    {
+      "id": "test-grid-switch_900",
+      "title": "Rapid switching every 900 s",
+      "network": "Grid Network / Test",
+      "kind": "scenario",
+      "scenario": "switch_900"
+    },
+    {
+      "id": "test-monaco-summary",
+      "title": "Test evaluation - network summary",
+      "network": "Monaco Network",
+      "kind": "network_summary",
+      "scenario": null
+    },
+    {
+      "id": "test-monaco-families",
+      "title": "Test evaluation - demand-family summaries",
+      "network": "Monaco Network",
+      "kind": "family_summary",
+      "scenario": null
+    },
+    {
+      "id": "test-monaco-mixture_1",
+      "title": "Mixture scenario 1",
+      "network": "Monaco Network / Test",
+      "kind": "scenario",
+      "scenario": "mixture_1"
+    },
+    {
+      "id": "test-monaco-mixture_2",
+      "title": "Mixture scenario 2",
+      "network": "Monaco Network / Test",
+      "kind": "scenario",
+      "scenario": "mixture_2"
+    },
+    {
+      "id": "test-monaco-mixture_3",
+      "title": "Mixture scenario 3",
+      "network": "Monaco Network / Test",
+      "kind": "scenario",
+      "scenario": "mixture_3"
+    },
+    {
+      "id": "test-monaco-peak_1.1",
+      "title": "Peak demand \u00d71.1",
+      "network": "Monaco Network / Test",
+      "kind": "scenario",
+      "scenario": "peak_1.1"
+    },
+    {
+      "id": "test-monaco-peak_1.25",
+      "title": "Peak demand \u00d71.25",
+      "network": "Monaco Network / Test",
+      "kind": "scenario",
+      "scenario": "peak_1.25"
+    },
+    {
+      "id": "test-monaco-peak_1.5",
+      "title": "Peak demand \u00d71.5",
+      "network": "Monaco Network / Test",
+      "kind": "scenario",
+      "scenario": "peak_1.5"
+    },
+    {
+      "id": "test-monaco-redistribution_0.25",
+      "title": "OD redistribution \u03c3=0.25",
+      "network": "Monaco Network / Test",
+      "kind": "scenario",
+      "scenario": "redistribution_0.25"
+    },
+    {
+      "id": "test-monaco-redistribution_0.5",
+      "title": "OD redistribution \u03c3=0.5",
+      "network": "Monaco Network / Test",
+      "kind": "scenario",
+      "scenario": "redistribution_0.5"
+    },
+    {
+      "id": "test-monaco-redistribution_0.75",
+      "title": "OD redistribution \u03c3=0.75",
+      "network": "Monaco Network / Test",
+      "kind": "scenario",
+      "scenario": "redistribution_0.75"
+    },
+    {
+      "id": "test-monaco-switch_1200",
+      "title": "Rapid switching every 1200 s",
+      "network": "Monaco Network / Test",
+      "kind": "scenario",
+      "scenario": "switch_1200"
+    },
+    {
+      "id": "test-monaco-switch_300",
+      "title": "Rapid switching every 300 s",
+      "network": "Monaco Network / Test",
+      "kind": "scenario",
+      "scenario": "switch_300"
+    },
+    {
+      "id": "test-monaco-switch_900",
+      "title": "Rapid switching every 900 s",
+      "network": "Monaco Network / Test",
+      "kind": "scenario",
+      "scenario": "switch_900"
+    }
+  ]
+}

@@ -1,0 +1,809 @@
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex)
+ restricted \write18 enabled.
+entering extended mode
+(./complete_evaluation_report.tex
+LaTeX2e <2021-11-15> patch level 1
+L3 programming layer <2022-01-21>
+(/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2021/10/04 v1.4n Standard LaTeX document class
+(/usr/share/texlive/texmf-dist/tex/latex/base/size11.clo))
+(/usr/share/texlive/texmf-dist/tex/latex/base/fontenc.sty)
+(/usr/share/texmf/tex/latex/lm/lmodern.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/geometry/geometry.sty
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty)
+(/usr/share/texlive/texmf-dist/tex/generic/iftex/ifvtex.sty
+(/usr/share/texlive/texmf-dist/tex/generic/iftex/iftex.sty)))
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/graphics.cfg)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-def/pdftex.def)))
+(/usr/share/texlive/texmf-dist/tex/latex/booktabs/booktabs.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/caption/caption.sty
+(/usr/share/texlive/texmf-dist/tex/latex/caption/caption3.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/tools/multicol.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/lastpage/lastpage.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/hyperref.sty
+(/usr/share/texlive/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty)
+(/usr/share/texlive/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+(/usr/share/texlive/texmf-dist/tex/generic/infwarerr/infwarerr.sty))
+(/usr/share/texlive/texmf-dist/tex/generic/kvsetkeys/kvsetkeys.sty)
+(/usr/share/texlive/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty)
+(/usr/share/texlive/texmf-dist/tex/generic/pdfescape/pdfescape.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/hycolor/hycolor.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/letltxmacro/letltxmacro.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/auxhook/auxhook.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/kvoptions/kvoptions.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/pd1enc.def)
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/hyperref-langpatches.def)
+(/usr/share/texlive/texmf-dist/tex/generic/intcalc/intcalc.sty)
+(/usr/share/texlive/texmf-dist/tex/generic/etexcmds/etexcmds.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/puenc.def)
+(/usr/share/texlive/texmf-dist/tex/latex/url/url.sty)
+(/usr/share/texlive/texmf-dist/tex/generic/bitset/bitset.sty
+(/usr/share/texlive/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/base/atbegshi-ltx.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/hpdftex.def
+(/usr/share/texlive/texmf-dist/tex/latex/base/atveryend-ltx.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+(/usr/share/texlive/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty)))
+(/usr/share/texmf/tex/latex/lm/t1lmr.fd)
+(/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def)
+(/home/sdc_joran/Journal/deeprl_signal_control/evaluation results figs/latex/bu
+ild/complete_evaluation_report.aux)
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+(/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+) (/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg))
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
+(/usr/share/texlive/texmf-dist/tex/latex/refcount/refcount.sty)
+(/usr/share/texlive/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty))
+(/home/sdc_joran/Journal/deeprl_signal_control/evaluation results figs/latex/bu
+ild/complete_evaluation_report.out)
+(/home/sdc_joran/Journal/deeprl_signal_control/evaluation results figs/latex/bu
+ild/complete_evaluation_report.out) (/usr/share/texmf/tex/latex/lm/ot1lmr.fd)
+(/usr/share/texmf/tex/latex/lm/omllmm.fd)
+(/usr/share/texmf/tex/latex/lm/omslmsy.fd)
+(/usr/share/texmf/tex/latex/lm/omxlmex.fd) [1{/var/lib/texmf/fonts/map/pdftex/u
+pdmap/pdftex.map}] [2]
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 136.
+See the caption package documentation for explanation.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 137.
+See the caption package documentation for explanation.
+
+(./assets/tables/real_world/grid/grid_sparse_native_2983/tables/mean_queue.tex)
+[3 <../real_world/grid/grid_sparse_native_2983/figures/all_controllers_queue.pn
+g>]
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 142.
+See the caption package documentation for explanation.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 143.
+See the caption package documentation for explanation.
+
+
+(./assets/tables/real_world/monaco/monaco_repaired_full14_v1/tables/mean_queue.
+tex) [4 <../real_world/monaco/monaco_repaired_full14_v1/figures/all_controllers
+_queue.png>]
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 148.
+See the caption package documentation for explanation.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 149.
+See the caption package documentation for explanation.
+
+(./assets/tables/seen/grid/summary/mean_queue.tex) [5 <./assets/heatmaps/seen/g
+rid.pdf>]
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 154.
+See the caption package documentation for explanation.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 155.
+See the caption package documentation for explanation.
+
+(./assets/tables/seen/grid/seen_Center_to_Periphery/tables/mean_queue.tex)
+[6 <./assets/overviews/seen/grid/seen_Center_to_Periphery.pdf>]
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 160.
+See the caption package documentation for explanation.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 161.
+See the caption package documentation for explanation.
+
+(./assets/tables/seen/grid/seen_E_to_W/tables/mean_queue.tex) [7 <./assets/over
+views/seen/grid/seen_E_to_W.pdf>]
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 166.
+See the caption package documentation for explanation.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 167.
+See the caption package documentation for explanation.
+
+(./assets/tables/seen/grid/seen_NE_to_SW/tables/mean_queue.tex) [8 <./assets/ov
+erviews/seen/grid/seen_NE_to_SW.pdf>]
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 172.
+See the caption package documentation for explanation.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 173.
+See the caption package documentation for explanation.
+
+(./assets/tables/seen/grid/seen_NW_to_SE/tables/mean_queue.tex) [9 <./assets/ov
+erviews/seen/grid/seen_NW_to_SE.pdf>]
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 178.
+See the caption package documentation for explanation.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 179.
+See the caption package documentation for explanation.
+
+(./assets/tables/seen/grid/seen_N_to_S/tables/mean_queue.tex) [10 <./assets/ove
+rviews/seen/grid/seen_N_to_S.pdf>]
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 184.
+See the caption package documentation for explanation.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 185.
+See the caption package documentation for explanation.
+
+(./assets/tables/seen/grid/seen_Periphery_to_Center/tables/mean_queue.tex)
+[11 <./assets/overviews/seen/grid/seen_Periphery_to_Center.pdf>]
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 190.
+See the caption package documentation for explanation.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 191.
+See the caption package documentation for explanation.
+
+(./assets/tables/seen/grid/seen_SE_to_NW/tables/mean_queue.tex) [12 <./assets/o
+verviews/seen/grid/seen_SE_to_NW.pdf>]
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 196.
+See the caption package documentation for explanation.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 197.
+See the caption package documentation for explanation.
+
+(./assets/tables/seen/grid/seen_SW_to_NE/tables/mean_queue.tex) [13 <./assets/o
+verviews/seen/grid/seen_SW_to_NE.pdf>]
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 202.
+See the caption package documentation for explanation.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 203.
+See the caption package documentation for explanation.
+
+(./assets/tables/seen/grid/seen_S_to_N/tables/mean_queue.tex) [14 <./assets/ove
+rviews/seen/grid/seen_S_to_N.pdf>]
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 208.
+See the caption package documentation for explanation.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 209.
+See the caption package documentation for explanation.
+
+(./assets/tables/seen/grid/seen_Uniform/tables/mean_queue.tex) [15 <./assets/ov
+erviews/seen/grid/seen_Uniform.pdf>]
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 214.
+See the caption package documentation for explanation.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 215.
+See the caption package documentation for explanation.
+
+(./assets/tables/seen/grid/seen_W_to_E/tables/mean_queue.tex) [16 <./assets/ove
+rviews/seen/grid/seen_W_to_E.pdf>]
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 220.
+See the caption package documentation for explanation.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 221.
+See the caption package documentation for explanation.
+
+(./assets/tables/seen/monaco/summary/mean_queue.tex) [17 <./assets/heatmaps/see
+n/monaco.pdf>]
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 226.
+See the caption package documentation for explanation.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 227.
+See the caption package documentation for explanation.
+
+(./assets/tables/seen/monaco/seen_Center_to_Periphery/tables/mean_queue.tex)
+[18 <./assets/overviews/seen/monaco/seen_Center_to_Periphery.pdf>]
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 232.
+See the caption package documentation for explanation.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 233.
+See the caption package documentation for explanation.
+
+(./assets/tables/seen/monaco/seen_E_to_W/tables/mean_queue.tex) [19 <./assets/o
+verviews/seen/monaco/seen_E_to_W.pdf>]
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 238.
+See the caption package documentation for explanation.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 239.
+See the caption package documentation for explanation.
+
+(./assets/tables/seen/monaco/seen_NE_to_SW/tables/mean_queue.tex) [20 <./assets
+/overviews/seen/monaco/seen_NE_to_SW.pdf>]
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 244.
+See the caption package documentation for explanation.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 245.
+See the caption package documentation for explanation.
+
+(./assets/tables/seen/monaco/seen_NW_to_SE/tables/mean_queue.tex) [21 <./assets
+/overviews/seen/monaco/seen_NW_to_SE.pdf>]
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 250.
+See the caption package documentation for explanation.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 251.
+See the caption package documentation for explanation.
+
+(./assets/tables/seen/monaco/seen_N_to_S/tables/mean_queue.tex) [22 <./assets/o
+verviews/seen/monaco/seen_N_to_S.pdf>]
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 256.
+See the caption package documentation for explanation.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 257.
+See the caption package documentation for explanation.
+
+(./assets/tables/seen/monaco/seen_Periphery_to_Center/tables/mean_queue.tex)
+[23 <./assets/overviews/seen/monaco/seen_Periphery_to_Center.pdf>]
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 262.
+See the caption package documentation for explanation.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 263.
+See the caption package documentation for explanation.
+
+(./assets/tables/seen/monaco/seen_SE_to_NW/tables/mean_queue.tex) [24 <./assets
+/overviews/seen/monaco/seen_SE_to_NW.pdf>]
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 268.
+See the caption package documentation for explanation.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 269.
+See the caption package documentation for explanation.
+
+(./assets/tables/seen/monaco/seen_SW_to_NE/tables/mean_queue.tex) [25 <./assets
+/overviews/seen/monaco/seen_SW_to_NE.pdf>]
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 274.
+See the caption package documentation for explanation.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 275.
+See the caption package documentation for explanation.
+
+(./assets/tables/seen/monaco/seen_S_to_N/tables/mean_queue.tex) [26 <./assets/o
+verviews/seen/monaco/seen_S_to_N.pdf>]
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 280.
+See the caption package documentation for explanation.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 281.
+See the caption package documentation for explanation.
+
+(./assets/tables/seen/monaco/seen_Uniform/tables/mean_queue.tex) [27 <./assets/
+overviews/seen/monaco/seen_Uniform.pdf>]
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 286.
+See the caption package documentation for explanation.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 287.
+See the caption package documentation for explanation.
+
+(./assets/tables/seen/monaco/seen_W_to_E/tables/mean_queue.tex) [28 <./assets/o
+verviews/seen/monaco/seen_W_to_E.pdf>]
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 292.
+See the caption package documentation for explanation.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 293.
+See the caption package documentation for explanation.
+
+(./assets/tables/test/grid/summary/mean_queue.tex) [29 <./assets/heatmaps/test/
+grid.pdf>]
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 298.
+See the caption package documentation for explanation.
+
+(./assets/tables/test/grid/summary/redistribution_mean_queue.tex)
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 300.
+See the caption package documentation for explanation.
+
+(./assets/tables/test/grid/summary/mixture_mean_queue.tex)
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 302.
+See the caption package documentation for explanation.
+
+(./assets/tables/test/grid/summary/temporal_mean_queue.tex)
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 304.
+See the caption package documentation for explanation.
+
+(./assets/tables/test/grid/summary/peak_mean_queue.tex) [30]
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 310.
+See the caption package documentation for explanation.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 311.
+See the caption package documentation for explanation.
+
+(./assets/tables/test/grid/mixture_1/tables/mean_queue.tex) [31 <./assets/overv
+iews/test/grid/mixture_1.pdf>]
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 316.
+See the caption package documentation for explanation.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 317.
+See the caption package documentation for explanation.
+
+(./assets/tables/test/grid/mixture_2/tables/mean_queue.tex) [32 <./assets/overv
+iews/test/grid/mixture_2.pdf>]
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 322.
+See the caption package documentation for explanation.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 323.
+See the caption package documentation for explanation.
+
+(./assets/tables/test/grid/mixture_3/tables/mean_queue.tex) [33 <./assets/overv
+iews/test/grid/mixture_3.pdf>]
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\times' on input line 327.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 328.
+See the caption package documentation for explanation.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 329.
+See the caption package documentation for explanation.
+
+(./assets/tables/test/grid/peak_1.1/tables/mean_queue.tex) [34 <./assets/overvi
+ews/test/grid/peak_1.1.pdf>]
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\times' on input line 333.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 334.
+See the caption package documentation for explanation.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 335.
+See the caption package documentation for explanation.
+
+(./assets/tables/test/grid/peak_1.25/tables/mean_queue.tex) [35 <./assets/overv
+iews/test/grid/peak_1.25.pdf>]
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\times' on input line 339.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 340.
+See the caption package documentation for explanation.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 341.
+See the caption package documentation for explanation.
+
+(./assets/tables/test/grid/peak_1.5/tables/mean_queue.tex) [36 <./assets/overvi
+ews/test/grid/peak_1.5.pdf>]
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\sigma' on input line 345.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 346.
+See the caption package documentation for explanation.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 347.
+See the caption package documentation for explanation.
+
+(./assets/tables/test/grid/redistribution_0.25/tables/mean_queue.tex) [37 <./as
+sets/overviews/test/grid/redistribution_0.25.pdf>]
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\sigma' on input line 351.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 352.
+See the caption package documentation for explanation.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 353.
+See the caption package documentation for explanation.
+
+(./assets/tables/test/grid/redistribution_0.5/tables/mean_queue.tex) [38 <./ass
+ets/overviews/test/grid/redistribution_0.5.pdf>]
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\sigma' on input line 357.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 358.
+See the caption package documentation for explanation.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 359.
+See the caption package documentation for explanation.
+
+(./assets/tables/test/grid/redistribution_0.75/tables/mean_queue.tex) [39 <./as
+sets/overviews/test/grid/redistribution_0.75.pdf>]
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 364.
+See the caption package documentation for explanation.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 365.
+See the caption package documentation for explanation.
+
+(./assets/tables/test/grid/switch_1200/tables/mean_queue.tex) [40 <./assets/ove
+rviews/test/grid/switch_1200.pdf>]
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 370.
+See the caption package documentation for explanation.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 371.
+See the caption package documentation for explanation.
+
+(./assets/tables/test/grid/switch_300/tables/mean_queue.tex) [41 <./assets/over
+views/test/grid/switch_300.pdf>]
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 376.
+See the caption package documentation for explanation.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 377.
+See the caption package documentation for explanation.
+
+(./assets/tables/test/grid/switch_900/tables/mean_queue.tex) [42 <./assets/over
+views/test/grid/switch_900.pdf>]
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 382.
+See the caption package documentation for explanation.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 383.
+See the caption package documentation for explanation.
+
+(./assets/tables/test/monaco/summary/mean_queue.tex) [43 <./assets/heatmaps/tes
+t/monaco.pdf>]
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 388.
+See the caption package documentation for explanation.
+
+(./assets/tables/test/monaco/summary/redistribution_mean_queue.tex)
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 390.
+See the caption package documentation for explanation.
+
+(./assets/tables/test/monaco/summary/mixture_mean_queue.tex)
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 392.
+See the caption package documentation for explanation.
+
+(./assets/tables/test/monaco/summary/temporal_mean_queue.tex)
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 394.
+See the caption package documentation for explanation.
+
+(./assets/tables/test/monaco/summary/peak_mean_queue.tex) [44]
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 400.
+See the caption package documentation for explanation.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 401.
+See the caption package documentation for explanation.
+
+(./assets/tables/test/monaco/mixture_1/tables/mean_queue.tex) [45 <./assets/ove
+rviews/test/monaco/mixture_1.pdf>]
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 406.
+See the caption package documentation for explanation.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 407.
+See the caption package documentation for explanation.
+
+(./assets/tables/test/monaco/mixture_2/tables/mean_queue.tex) [46 <./assets/ove
+rviews/test/monaco/mixture_2.pdf>]
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 412.
+See the caption package documentation for explanation.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 413.
+See the caption package documentation for explanation.
+
+(./assets/tables/test/monaco/mixture_3/tables/mean_queue.tex) [47 <./assets/ove
+rviews/test/monaco/mixture_3.pdf>]
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\times' on input line 417.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 418.
+See the caption package documentation for explanation.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 419.
+See the caption package documentation for explanation.
+
+(./assets/tables/test/monaco/peak_1.1/tables/mean_queue.tex) [48 <./assets/over
+views/test/monaco/peak_1.1.pdf>]
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\times' on input line 423.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 424.
+See the caption package documentation for explanation.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 425.
+See the caption package documentation for explanation.
+
+(./assets/tables/test/monaco/peak_1.25/tables/mean_queue.tex) [49 <./assets/ove
+rviews/test/monaco/peak_1.25.pdf>]
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\times' on input line 429.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 430.
+See the caption package documentation for explanation.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 431.
+See the caption package documentation for explanation.
+
+(./assets/tables/test/monaco/peak_1.5/tables/mean_queue.tex) [50 <./assets/over
+views/test/monaco/peak_1.5.pdf>]
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\sigma' on input line 435.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 436.
+See the caption package documentation for explanation.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 437.
+See the caption package documentation for explanation.
+
+(./assets/tables/test/monaco/redistribution_0.25/tables/mean_queue.tex)
+[51 <./assets/overviews/test/monaco/redistribution_0.25.pdf>]
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\sigma' on input line 441.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 442.
+See the caption package documentation for explanation.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 443.
+See the caption package documentation for explanation.
+
+(./assets/tables/test/monaco/redistribution_0.5/tables/mean_queue.tex) [52 <./a
+ssets/overviews/test/monaco/redistribution_0.5.pdf>]
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\sigma' on input line 447.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 448.
+See the caption package documentation for explanation.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 449.
+See the caption package documentation for explanation.
+
+(./assets/tables/test/monaco/redistribution_0.75/tables/mean_queue.tex)
+[53 <./assets/overviews/test/monaco/redistribution_0.75.pdf>]
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 454.
+See the caption package documentation for explanation.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 455.
+See the caption package documentation for explanation.
+
+(./assets/tables/test/monaco/switch_1200/tables/mean_queue.tex) [54 <./assets/o
+verviews/test/monaco/switch_1200.pdf>]
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 460.
+See the caption package documentation for explanation.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 461.
+See the caption package documentation for explanation.
+
+(./assets/tables/test/monaco/switch_300/tables/mean_queue.tex) [55 <./assets/ov
+erviews/test/monaco/switch_300.pdf>]
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 466.
+See the caption package documentation for explanation.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 467.
+See the caption package documentation for explanation.
+
+(./assets/tables/test/monaco/switch_900/tables/mean_queue.tex)
+
+AED: lastpage setting LastPage
+[56 <./assets/overviews/test/monaco/switch_900.pdf>]
+(/home/sdc_joran/Journal/deeprl_signal_control/evaluation results figs/latex/bu
+ild/complete_evaluation_report.aux) ){/usr/share/texmf/fonts/enc/dvips/lm/lm-ma
+thit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}{/usr/share/texmf/fonts
+/enc/dvips/lm/lm-mathsy.enc}</usr/share/texmf/fonts/type1/public/lm/lmbx10.pfb>
+</usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type
+1/public/lm/lmmi10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi12.pfb></usr
+/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf/fonts/type1/publ
+ic/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb>
+Output written on "/home/sdc_joran/Journal/deeprl_signal_control/evaluation res
+ults figs/latex/build/complete_evaluation_report.pdf" (56 pages, 72936589 bytes
+).
+Transcript written on "/home/sdc_joran/Journal/deeprl_signal_control/evaluation
+ results figs/latex/build/complete_evaluation_report.log".

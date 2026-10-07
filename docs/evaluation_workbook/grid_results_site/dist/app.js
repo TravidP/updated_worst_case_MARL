@@ -4,8 +4,8 @@ const UI = {
   zh: {
     skip: "跳到主要内容", eyebrow: "CBWCE 评估工作簿", filtersTitle: "结果筛选",
     loading: "正在读取数据…", loadingSelection: "正在读取当前场景…", ready: "数据完整 · {count} / {expected}",
-    error: "数据读取失败", network: "路网", controller: "Controller", split: "数据划分", scenario: "场景",
-    seen: "Seen（训练分布内）", test: "Test（冻结测试集）", waitingImport: "等待导入",
+    error: "数据读取失败", network: "路网", controller: "Controller", split: "评估数据集", scenario: "场景",
+    seen: "Seen（训练分布内）", test: "Test（冻结测试集）", external: "External（补充外部需求）", evaluationSet: "评估集合", waitingImport: "等待导入", provenanceDownload: "来源与路线审计 JSON", pairedDownload: "配对比较 CSV",
     gridSubtitle: "4,600 条已完成 rollout 的只读快照；Monaco 可在完整后导入。",
     monacoSubtitle: "4,600 条已完成 Monaco rollout 的只读快照。",
     overviewTitle: "多算法平均排队总览", overviewDescription: "选择需要比较的方法；每条线是 10 次运行的逐秒平均全网 queue。",
@@ -31,8 +31,8 @@ const UI = {
   en: {
     skip: "Skip to main content", eyebrow: "CBWCE evaluation workbook", filtersTitle: "Result filters",
     loading: "Loading data…", loadingSelection: "Loading selected scenario…", ready: "Complete dataset · {count} / {expected}",
-    error: "Unable to load data", network: "Network", controller: "Controller", split: "Split", scenario: "Scenario",
-    seen: "Seen (in-distribution)", test: "Test (frozen test set)", waitingImport: "awaiting import",
+    error: "Unable to load data", network: "Network", controller: "Controller", split: "Evaluate datasets", scenario: "Scenario",
+    seen: "Seen (in-distribution)", test: "Test (frozen test set)", external: "External (supplementary demand)", evaluationSet: "Evaluation set", waitingImport: "awaiting import", provenanceDownload: "Source and route audit JSON", pairedDownload: "Paired comparison CSV",
     gridSubtitle: "Read-only snapshot of 4,600 completed rollouts; Monaco can be imported when complete.",
     monacoSubtitle: "Read-only snapshot of 4,600 completed Monaco rollouts.",
     overviewTitle: "Multi-controller mean queue overview", overviewDescription: "Choose the methods to compare; each line is the second-by-second mean network queue across 10 runs.",
@@ -58,7 +58,7 @@ const UI = {
 };
 
 const state = {
-  lang: readStoredLanguage(), registry: null, network: "grid", networkEntry: null, dataBase: "data",
+  lang: "en", registry: null, evaluationSets: null, evaluationSet: "main_v7", network: "grid", networkEntry: null, dataBase: "data",
   catalog: null, summary: [], series: new Map(), controllers: new Set(["ia2c"]), panels: {left: new Set(), right: new Set()}, split: "seen", scenario: null,
   selectedMethods: new Set(), smoothing: 0, yMode: "zero", smoothCache: new Map(), view: {start: 1, end: 3600},
   loadToken: 0, yMax: 1, resizeTimer: null, drag: null, framePending: false
@@ -66,8 +66,6 @@ const state = {
 
 const $ = selector => document.querySelector(selector);
 const $$ = selector => Array.from(document.querySelectorAll(selector));
-function readStoredLanguage() { try { return localStorage.getItem("cbwce-grid-language") === "en" ? "en" : "zh"; } catch (_) { return "zh"; } }
-function storeLanguage() { try { localStorage.setItem("cbwce-grid-language", state.lang); } catch (_) {} }
 function t(key, vars = {}) {
   const value = UI[state.lang][key];
   if (typeof value !== "string") throw new Error(`Missing ${state.lang} translation: ${key}`);
@@ -84,6 +82,7 @@ function parseCsv(text) {
   });
 }
 function formatNumber(value, metricKey = "") {
+  if (value === null || value === undefined || value === "") return "—";
   const number = Number(value);
   if (!Number.isFinite(number)) return "—";
   if (metricKey === "completion_rate") return `${number.toFixed(2)}%`;
@@ -95,7 +94,7 @@ function formatNumber(value, metricKey = "") {
 function networkLabel(entry) { return local(entry.label); }
 function methodDisplay(method) { return `${method.id} · ${method[state.lang]}`; }
 function scenarioDisplay(item) { return `${local(item.label)} / ${item.id}`; }
-function findScenario() { return state.catalog.scenarios.find(item => item.split === state.split && item.id === state.scenario); }
+function findScenario() { return state.catalog && state.catalog.scenarios.find(item => item.split === state.split && item.id === state.scenario); }
 function familyDisplay(familyId) {
   const family = state.catalog.families.find(item => item.id === familyId);
   return family ? local(family.label) : familyId;
@@ -111,12 +110,32 @@ function showFatal(message) {
 
 function populateNetworks() {
   if (!state.registry) return;
+  if (!state.registry.networks.some(entry => entry.id === state.network)) state.network = state.registry.networks[0].id;
   const select = $("#network-select");
-  select.innerHTML = state.registry.networks.map(entry => {
+  select.innerHTML = state.evaluationSets.find(entry => entry.id === "main_v7").networks.map(entry => {
     const suffix = entry.available ? "" : ` (${t("waitingImport")})`;
-    return `<option value="${escapeHtml(entry.id)}" ${entry.available ? "" : "disabled"}>${escapeHtml(networkLabel(entry) + suffix)}</option>`;
+    return `<option value="${escapeHtml(entry.id)}">${escapeHtml(networkLabel(entry) + suffix)}</option>`;
   }).join("");
   select.value = state.network;
+}
+function datasetLabel() {
+  return state.evaluationSet === "main_v7" ? t(state.split) : local(state.registry.label);
+}
+function selectDataset(id, split = "external") {
+  state.registry = state.evaluationSets.find(entry => entry.id === id);
+  state.evaluationSet = state.registry.id;
+  state.split = split; state.scenario = null;
+  if (!state.registry.networks.some(entry => entry.id === state.network && entry.available)) {
+    state.network = state.registry.networks.find(entry => entry.available).id;
+  }
+  populateNetworks(); loadNetwork();
+}
+function saveUrl() {
+  const url = new URL(location.href);
+  for (const key of ["evaluationSet", "network", "split", "scenario"]) {
+    if (state[key]) url.searchParams.set(key, state[key]); else url.searchParams.delete(key);
+  }
+  history.replaceState(null, "", url);
 }
 function populateControllers() {
   $("#controller-select").innerHTML = state.catalog.controllers.map(c => `<label class="controller-option"><input type="checkbox" value="${c.id}" ${state.controllers.has(c.id) ? "checked" : ""}>${escapeHtml(c.label)}</label>`).join("");
@@ -139,8 +158,11 @@ function renderCurveLegend() {
 
 function populateSplits() {
   const select = $("#split-select");
-  select.innerHTML = `<option value="seen">${escapeHtml(t("seen"))}</option><option value="test">${escapeHtml(t("test"))}</option>`;
-  select.value = state.split;
+  const splits = state.evaluationSet === "main_v7" ? [...new Set(state.catalog.scenarios.map(s => s.split))] : ["seen", "test"];
+  const main = splits.map(split => `<option value="${split}">${escapeHtml(t(split))}</option>`);
+  const real = state.evaluationSets.filter(entry => entry.id !== "main_v7" && entry.networks.some(network => network.id === state.network && network.available)).map(entry => `<option value="${escapeHtml(entry.id)}">${escapeHtml(local(entry.label))}</option>`);
+  select.innerHTML = main.concat(real).join("");
+  select.value = state.evaluationSet === "main_v7" ? state.split : state.evaluationSet;
 }
 function populateScenarios() {
   const select = $("#scenario-select"), items = state.catalog.scenarios.filter(item => item.split === state.split);
@@ -151,23 +173,39 @@ function populateScenarios() {
 function updateDatasetCopy() {
   if (!state.catalog || !state.networkEntry) return;
   const isGrid = state.network === "grid", count = state.catalog.counts.rollouts;
-  $("#site-title").textContent = local(state.catalog.title);
+  $("#site-title").textContent = state.evaluationSet === "main_v7" ? local(state.catalog.title) : local(state.registry.label);
   $("#site-subtitle").textContent = t(isGrid ? "gridSubtitle" : "monacoSubtitle");
-  $("#coverage-copy").textContent = t("coverage", {count: count.toLocaleString(state.lang === "zh" ? "zh-CN" : "en-US")});
+  $("#coverage-copy").textContent = `4 controllers × 5 methods × ${state.catalog.counts.scenarios} scenarios × 10 runs = ${count.toLocaleString()} rollouts`;
   $("#provisional-copy").textContent = t(isGrid ? "gridProvisional" : "monacoProvisional");
+  if (state.evaluationSet === "external_group12") {
+    $("#site-subtitle").textContent = state.lang === "zh" ? "独立补充实验；仅一个训练种子的十次评估采样。" : "Separate supplementary campaign; ten evaluation samples from one training seed.";
+    $("#provisional-copy").textContent = state.lang === "zh" ? "Grid 上游来源和历史映射尚未验证；当前使用本地稀疏 OD 原生需求。Monaco 等待路线与历史来源核验。" : "Grid upstream provenance and historical mapping are unverified; this tests the native local sparse OD profile. Monaco awaits route and historical provenance validation.";
+  }
+  if (state.evaluationSet === "monaco_repaired_full14") {
+    $("#site-subtitle").textContent = state.lang === "zh" ? "完整14个OD · 六个600秒块 · 20个当前冻结模型 · 200次评估。" : "All 14 OD · six 600s blocks · 20 current frozen models · 200 rollouts.";
+    $("#provisional-copy").textContent = state.lang === "zh" ? "模型在原地图训练，通过观测、动作、车道顺序和邻接关系检查后迁移到修复地图；评估期间权重不变。恢复2条遗漏道路，重算几何并调整43个检测器。仅训练种子101，部分历史训练血缘及上游来源尚未核实。" : "Policies trained on the original map transfer to the repaired map after observation, action, lane-order and neighbor checks; weights remain frozen. Two omitted roads restored, geometry recomputed and 43 detectors adjusted. One training seed (101); some historical ancestry and upstream provenance remain unverified.";
+  }
   $("#footer-copy").textContent = t("footer", {source: state.catalog.generatedFrom});
   const summary = $("#download-summary");
   summary.href = `${state.dataBase}/metrics_summary.csv`;
-  summary.setAttribute("download", state.lang === "zh" ? `${state.network}_指标汇总.csv` : `${state.network}_metrics_summary.csv`);
+  summary.setAttribute("download", state.lang === "zh" ? `${state.evaluationSet}_${state.network}_指标汇总.csv` : `${state.evaluationSet}_${state.network}_metrics_summary.csv`);
+  $("#download-provenance").hidden = !state.catalog.provenance;
+  $("#download-provenance").href = `${state.dataBase}/catalog.json`;
+  $("#download-provenance").setAttribute("download", `${state.network}_provenance.json`);
+  $("#download-paired").hidden = !state.catalog.provenance;
+  $("#download-paired").href = `${state.dataBase}/queue_comparisons.csv`;
+  $("#download-paired").setAttribute("download", `${state.network}_paired_comparisons.csv`);
 }
 function applyLanguage() {
   document.documentElement.lang = state.lang === "zh" ? "zh-CN" : "en";
   document.title = state.lang === "zh" ? "CBWCE 结果 · Protocol v7" : "CBWCE Results · Protocol v7";
   $$('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
   $$('[data-i18n-aria]').forEach(el => { el.setAttribute("aria-label", t(el.dataset.i18nAria)); });
-  $$('[data-lang]').forEach(button => button.setAttribute("aria-pressed", String(button.dataset.lang === state.lang)));
   populateNetworks();
-  if (!state.catalog) return;
+  if (!state.catalog) {
+    if (state.networkEntry && !state.networkEntry.available) showPending();
+    return;
+  }
   updateDatasetCopy(); populateControllers(); populateSplits(); populateScenarios(); renderSelectionNote(); renderLegend(); renderCurveLegend(); renderMethodCards();
   renderTable(); renderGlossary(); initializeToolbars(); bindChartEvents(); drawAll();
   setReadyStatus();
@@ -179,7 +217,8 @@ function setReadyStatus() {
 }
 function renderSelectionNote() {
   const scenario = findScenario(); if (!scenario) return;
-  $("#selection-note").textContent = `${t("selection", {network: networkLabel(state.networkEntry), controller: Array.from(state.controllers).map(c => c.toUpperCase()).join(" + "), split: t(state.split), scenario: scenarioDisplay(scenario)})} · ${t("family")}: ${familyDisplay(scenario.family)}`;
+  saveUrl();
+  $("#selection-note").textContent = `${t("selection", {network: networkLabel(state.networkEntry), controller: Array.from(state.controllers).map(c => c.toUpperCase()).join(" + "), split: datasetLabel(), scenario: scenarioDisplay(scenario)})} · ${t("family")}: ${familyDisplay(scenario.family)}`;
 }
 function renderLegend() {
   $("#legend").innerHTML = state.catalog.methods.map(method => {
@@ -223,19 +262,37 @@ function initializeToolbars() {
 }
 
 function seriesUrl(curve) { return `${state.dataBase}/series/${encodeURIComponent(curve.controller)}/${encodeURIComponent(curve.method)}/${encodeURIComponent(state.split)}/${encodeURIComponent(state.scenario)}.csv`; }
+function showPending() {
+  $("#selection-note").textContent = local(state.networkEntry.status);
+  $("#dataset-status").textContent = local(state.networkEntry.status);
+  $("#site-title").textContent = `${local(state.registry.label)} · ${networkLabel(state.networkEntry)}`;
+  $("#site-subtitle").textContent = local(state.networkEntry.status);
+  $("#footer-copy").textContent = local(state.networkEntry.status);
+}
 async function loadNetwork() {
   const token = ++state.loadToken;
   state.series = new Map(); state.catalog = null; state.summary = []; setStatus("loading");
-  state.networkEntry = state.registry.networks.find(entry => entry.id === state.network && entry.available);
+  state.networkEntry = state.registry.networks.find(entry => entry.id === state.network);
   if (!state.networkEntry) { showFatal(t("generatedMissing")); return; }
+  saveUrl();
+  $("#fatal-error").hidden = true;
+  document.querySelectorAll("main > section:not(:first-child)").forEach(section => { section.hidden = !state.networkEntry.available; });
+  if (!state.networkEntry.available) {
+    state.split = null; state.scenario = null; saveUrl(); showPending();
+    $("#download-provenance").hidden = true; $("#download-paired").hidden = true;
+    $("#scenario-select").innerHTML = ""; $("#split-select").innerHTML = ""; $("#controller-select").innerHTML = "";
+    return;
+  }
   state.dataBase = state.networkEntry.base;
   try {
     const responses = await Promise.all([fetch(`${state.dataBase}/catalog.json`, {cache: "no-store"}), fetch(`${state.dataBase}/metrics_summary.csv`, {cache: "no-store"})]);
     if (!responses[0].ok || !responses[1].ok) throw new Error(t("generatedMissing"));
     const catalog = await responses[0].json(), summary = parseCsv(await responses[1].text());
     if (token !== state.loadToken) return;
-    if (catalog.counts.rollouts !== state.networkEntry.expectedRollouts || summary.length !== 460) throw new Error(t("countFailed"));
-    state.catalog = catalog; state.summary = summary; state.controllers = new Set([catalog.controllers[0].id]); state.panels.left = new Set(catalog.methods.map(m => `${catalog.controllers[0].id}/${m.id}`)); state.panels.right = new Set(catalog.methods.map(m => `${catalog.controllers[1].id}/${m.id}`)); state.split = "seen"; state.scenario = null;
+    if (catalog.counts.rollouts !== state.networkEntry.expectedRollouts || summary.length !== (state.networkEntry.expectedGroups || 460)) throw new Error(t("countFailed"));
+    state.catalog = catalog; state.summary = summary; state.controllers = new Set([catalog.controllers[0].id]); state.panels.left = new Set(catalog.methods.map(m => `${catalog.controllers[0].id}/${m.id}`)); state.panels.right = new Set(catalog.methods.map(m => `${catalog.controllers[1].id}/${m.id}`));
+    if (!catalog.scenarios.some(s => s.split === state.split)) state.split = catalog.scenarios[0].split;
+    if (!catalog.scenarios.some(s => s.id === state.scenario && s.split === state.split)) state.scenario = null;
     state.selectedMethods = new Set(catalog.methods.map(method => method.id));
     populateControllers(); populateSplits(); populateScenarios(); applyLanguage();
     await loadSelection();
@@ -405,10 +462,42 @@ function bindChartEvents() {
   bindCanvas($("#overview-canvas"), $("#overview-tooltip"), "overview", null);
   if (state.catalog) ["left", "right"].forEach(panel => bindCanvas($(`#chart-${panel}`), $(`#tooltip-${panel}`), "band", panel));
 }
+function chartExportCanvas(canvas, chartId) {
+  const curves = chartCurves(chartId === "overview" ? "overview" : "band", chartId);
+  const output = document.createElement("canvas"), ctx = output.getContext("2d");
+  const font = "14px system-ui, sans-serif", margin = 24, gap = 24, rowHeight = 30;
+  ctx.font = font;
+  const entries = curves.map(curve => ({curve, label: curveLabel(curve), width: Math.ceil(ctx.measureText(curveLabel(curve)).width) + 48}));
+  const width = Math.ceil(Math.max(canvas._plot.width, ...entries.map(entry => entry.width + margin * 2)));
+  const rows = []; let row = [], rowWidth = 0;
+  entries.forEach(entry => {
+    if (row.length && rowWidth + gap + entry.width > width - margin * 2) { rows.push({entries: row, width: rowWidth}); row = []; rowWidth = 0; }
+    rowWidth += (row.length ? gap : 0) + entry.width; row.push(entry);
+  });
+  if (row.length) rows.push({entries: row, width: rowWidth});
+  const chartHeight = Math.ceil(canvas._plot.height), height = chartHeight + margin * 2 + rows.length * rowHeight;
+  const ratio = Math.max(2, window.devicePixelRatio || 1);
+  output.width = Math.ceil(width * ratio); output.height = Math.ceil(height * ratio);
+  ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+  ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, width, height);
+  ctx.drawImage(canvas, (width - canvas._plot.width) / 2, 0, canvas._plot.width, canvas._plot.height);
+  ctx.font = font; ctx.textAlign = "left"; ctx.textBaseline = "middle";
+  rows.forEach((legendRow, index) => {
+    let x = (width - legendRow.width) / 2;
+    const y = chartHeight + margin + rowHeight * (index + 0.5);
+    legendRow.entries.forEach(entry => {
+      ctx.strokeStyle = entry.curve.color; ctx.lineWidth = 2.2; ctx.setLineDash(entry.curve.dash);
+      ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x + 32, y); ctx.stroke(); ctx.setLineDash([]);
+      ctx.fillStyle = "#354e5d"; ctx.fillText(entry.label, x + 42, y);
+      x += entry.width + gap;
+    });
+  });
+  return output;
+}
 function downloadChart(chartId) {
   const canvas = chartId === "overview" ? $("#overview-canvas") : $(`#chart-${chartId}`);
   if (!canvas || !state.series.size) { showFatal(t("downloadError")); return; }
-  canvas.toBlob(blob => {
+  chartExportCanvas(canvas, chartId).toBlob(blob => {
     if (!blob) { showFatal(t("downloadError")); return; }
     const url = URL.createObjectURL(blob), anchor = document.createElement("a"), view = `${Math.round(state.view.start)}-${Math.round(state.view.end)}s`;
     anchor.href = url; anchor.download = `${state.network}_${Array.from(state.controllers).join("+")}_${state.split}_${state.scenario}_${chartId}_${view}.png`;
@@ -429,14 +518,14 @@ function renderTable() {
     const best = {};
     state.catalog.metrics.forEach(metric => {
       if (metric.direction === "check") return;
-      const values = controllerRows.map(row => Number(row[`${metric.key}_mean`])).filter(Number.isFinite);
+      const values = controllerRows.map(row => row[`${metric.key}_mean`] === "" ? NaN : Number(row[`${metric.key}_mean`])).filter(Number.isFinite);
       best[metric.key] = metric.direction === "lower" ? Math.min.apply(null, values) : Math.max.apply(null, values);
     });
     const body = state.catalog.methods.map(method => {
       const row = controllerRows.find(item => item.method === method.id);
       if (!row) return "";
       const cells = state.catalog.metrics.map(metric => {
-        const mean = Number(row[`${metric.key}_mean`]);
+        const mean = row[`${metric.key}_mean`] === "" ? NaN : Number(row[`${metric.key}_mean`]);
         const isBest = metric.direction !== "check" && Number.isFinite(mean) && Math.abs(mean - best[metric.key]) < 1e-9;
         return `<td data-metric="${metric.key}" class="${isBest ? "best" : ""}"${isBest ? ` title="${escapeHtml(controller.label + ' · ' + t('bestValue'))}"` : ""}>${isBest ? '<span aria-hidden="true">★ </span>' : ""}${formatNumber(mean, metric.key)}<span class="range">[${formatNumber(row[`${metric.key}_min`], metric.key)}–${formatNumber(row[`${metric.key}_max`], metric.key)}] ± ${formatNumber(row[`${metric.key}_sd`], metric.key)}</span></td>`;
       }).join("");
@@ -463,16 +552,30 @@ function downloadCurrentCsv() {
 async function init() {
   applyLanguage();
   try {
-    const response = await fetch("data/networks.json", {cache: "no-store"}); if (!response.ok) throw new Error(t("generatedMissing"));
-    state.registry = await response.json();
-    const first = state.registry.networks.find(entry => entry.available); if (!first) throw new Error(t("generatedMissing"));
-    state.network = first.id; populateNetworks(); await loadNetwork();
+    const response = await fetch("data/evaluation_sets.json", {cache: "no-store"}); if (!response.ok) throw new Error(t("generatedMissing"));
+    state.evaluationSets = (await response.json()).evaluationSets.filter(entry => entry.id !== "monaco_legacy_replay");
+    const params = new URLSearchParams(location.search);
+    state.evaluationSet = params.get("evaluationSet") || "main_v7";
+    state.registry = state.evaluationSets.find(e => e.id === state.evaluationSet) || state.evaluationSets[0];
+    state.evaluationSet = state.registry.id;
+    state.network = params.get("network") || state.registry.networks[0].id;
+    state.split = params.get("split") || "seen"; state.scenario = params.get("scenario");
+    populateNetworks(); await loadNetwork();
   } catch (error) { setStatus("error", "error"); showFatal(`${t("error")}: ${error.message}`); }
 }
 
-$$('[data-lang]').forEach(button => button.addEventListener("click", () => { state.lang = button.dataset.lang; storeLanguage(); applyLanguage(); }));
-$("#network-select").addEventListener("change", event => { state.network = event.target.value; loadNetwork(); });
-$("#split-select").addEventListener("change", event => { state.split = event.target.value; state.scenario = null; populateScenarios(); renderSelectionNote(); loadSelection(); });
+$("#network-select").addEventListener("change", event => {
+  state.network = event.target.value;
+  if (!state.registry.networks.some(entry => entry.id === state.network && entry.available)) {
+    selectDataset("main_v7", "seen");
+  } else { populateNetworks(); loadNetwork(); }
+});
+$("#split-select").addEventListener("change", event => {
+  const value = event.target.value;
+  if (state.evaluationSets.some(entry => entry.id === value)) { selectDataset(value); return; }
+  if (state.evaluationSet !== "main_v7") { selectDataset("main_v7", value); return; }
+  state.split = value; state.scenario = null; populateScenarios(); renderSelectionNote(); loadSelection();
+});
 $("#scenario-select").addEventListener("change", event => { state.scenario = event.target.value; renderSelectionNote(); loadSelection(); });
 $("#smoothing-range").addEventListener("input", event => { state.smoothing = Number(event.target.value); $("#smoothing-value").value = state.smoothing.toFixed(2); state.smoothCache.clear(); scheduleDraw(); });
 $("#axis-mode").addEventListener("change", event => { state.yMode = event.target.value; hideTooltips(); drawAll(); });

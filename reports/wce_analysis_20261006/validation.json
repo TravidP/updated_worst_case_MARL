@@ -1,0 +1,16 @@
+[
+  {
+    "network": "grid",
+    "summary_rows": 460,
+    "rollout_rows": 4600,
+    "summary_reconciled": true,
+    "paired_exogenous_inputs": true
+  },
+  {
+    "network": "monaco",
+    "summary_rows": 460,
+    "rollout_rows": 4600,
+    "summary_reconciled": true,
+    "paired_exogenous_inputs": true
+  }
+]

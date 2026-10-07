@@ -1,0 +1,668 @@
+{
+  "schemaVersion": 1,
+  "network": "monaco",
+  "title": {
+    "zh": "Monaco 临时结果 · Protocol v7 · 训练种子 101",
+    "en": "Preliminary Monaco results · Protocol v7 · training seed 101"
+  },
+  "generatedFrom": "runs_eval/revised/publication_seed101_v1/monaco",
+  "controllers": [
+    {
+      "id": "ia2c",
+      "label": "IA2C"
+    },
+    {
+      "id": "ma2c",
+      "label": "MA2C"
+    },
+    {
+      "id": "iqll",
+      "label": "IQLL"
+    },
+    {
+      "id": "ppo",
+      "label": "PPO"
+    }
+  ],
+  "methods": [
+    {
+      "id": "baseline",
+      "zh": "基线",
+      "en": "Baseline",
+      "color": "#244a75"
+    },
+    {
+      "id": "random_group",
+      "zh": "随机分组",
+      "en": "Random grouping",
+      "color": "#d6781f"
+    },
+    {
+      "id": "domain_randomization",
+      "zh": "域随机化",
+      "en": "Domain randomization",
+      "color": "#2d876e"
+    },
+    {
+      "id": "fixed_wce",
+      "zh": "固定 WCE",
+      "en": "Fixed WCE",
+      "color": "#985da5"
+    },
+    {
+      "id": "online_wce",
+      "zh": "在线 WCE",
+      "en": "Online WCE",
+      "color": "#c3423f"
+    }
+  ],
+  "families": [
+    {
+      "id": "seen",
+      "label": {
+        "zh": "训练分布内需求",
+        "en": "Seen demand profiles"
+      }
+    },
+    {
+      "id": "redistribution",
+      "label": {
+        "zh": "OD 重分配",
+        "en": "OD redistribution"
+      }
+    },
+    {
+      "id": "mixture",
+      "label": {
+        "zh": "混合分布",
+        "en": "Mixture distribution"
+      }
+    },
+    {
+      "id": "temporal",
+      "label": {
+        "zh": "时序切换",
+        "en": "Temporal switching"
+      }
+    },
+    {
+      "id": "peak",
+      "label": {
+        "zh": "峰值缩放",
+        "en": "Peak scaling"
+      }
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "seen_Center_to_Periphery",
+      "split": "seen",
+      "family": "seen",
+      "label": {
+        "zh": "中心到外围",
+        "en": "Center to periphery"
+      }
+    },
+    {
+      "id": "seen_E_to_W",
+      "split": "seen",
+      "family": "seen",
+      "label": {
+        "zh": "东向西",
+        "en": "East to west"
+      }
+    },
+    {
+      "id": "seen_NE_to_SW",
+      "split": "seen",
+      "family": "seen",
+      "label": {
+        "zh": "东北向西南",
+        "en": "Northeast to southwest"
+      }
+    },
+    {
+      "id": "seen_NW_to_SE",
+      "split": "seen",
+      "family": "seen",
+      "label": {
+        "zh": "西北向东南",
+        "en": "Northwest to southeast"
+      }
+    },
+    {
+      "id": "seen_N_to_S",
+      "split": "seen",
+      "family": "seen",
+      "label": {
+        "zh": "北向南",
+        "en": "North to south"
+      }
+    },
+    {
+      "id": "seen_Periphery_to_Center",
+      "split": "seen",
+      "family": "seen",
+      "label": {
+        "zh": "外围到中心",
+        "en": "Periphery to center"
+      }
+    },
+    {
+      "id": "seen_SE_to_NW",
+      "split": "seen",
+      "family": "seen",
+      "label": {
+        "zh": "东南向西北",
+        "en": "Southeast to northwest"
+      }
+    },
+    {
+      "id": "seen_SW_to_NE",
+      "split": "seen",
+      "family": "seen",
+      "label": {
+        "zh": "西南向东北",
+        "en": "Southwest to northeast"
+      }
+    },
+    {
+      "id": "seen_S_to_N",
+      "split": "seen",
+      "family": "seen",
+      "label": {
+        "zh": "南向北",
+        "en": "South to north"
+      }
+    },
+    {
+      "id": "seen_Uniform",
+      "split": "seen",
+      "family": "seen",
+      "label": {
+        "zh": "均匀需求",
+        "en": "Uniform demand"
+      }
+    },
+    {
+      "id": "seen_W_to_E",
+      "split": "seen",
+      "family": "seen",
+      "label": {
+        "zh": "西向东",
+        "en": "West to east"
+      }
+    },
+    {
+      "id": "mixture_1",
+      "split": "test",
+      "family": "mixture",
+      "label": {
+        "zh": "混合场景 1",
+        "en": "Mixture scenario 1"
+      }
+    },
+    {
+      "id": "mixture_2",
+      "split": "test",
+      "family": "mixture",
+      "label": {
+        "zh": "混合场景 2",
+        "en": "Mixture scenario 2"
+      }
+    },
+    {
+      "id": "mixture_3",
+      "split": "test",
+      "family": "mixture",
+      "label": {
+        "zh": "混合场景 3",
+        "en": "Mixture scenario 3"
+      }
+    },
+    {
+      "id": "peak_1.1",
+      "split": "test",
+      "family": "peak",
+      "label": {
+        "zh": "峰值需求 ×1.1",
+        "en": "Peak demand ×1.1"
+      }
+    },
+    {
+      "id": "peak_1.25",
+      "split": "test",
+      "family": "peak",
+      "label": {
+        "zh": "峰值需求 ×1.25",
+        "en": "Peak demand ×1.25"
+      }
+    },
+    {
+      "id": "peak_1.5",
+      "split": "test",
+      "family": "peak",
+      "label": {
+        "zh": "峰值需求 ×1.5",
+        "en": "Peak demand ×1.5"
+      }
+    },
+    {
+      "id": "redistribution_0.25",
+      "split": "test",
+      "family": "redistribution",
+      "label": {
+        "zh": "OD 重分配 σ=0.25",
+        "en": "OD redistribution σ=0.25"
+      }
+    },
+    {
+      "id": "redistribution_0.5",
+      "split": "test",
+      "family": "redistribution",
+      "label": {
+        "zh": "OD 重分配 σ=0.5",
+        "en": "OD redistribution σ=0.5"
+      }
+    },
+    {
+      "id": "redistribution_0.75",
+      "split": "test",
+      "family": "redistribution",
+      "label": {
+        "zh": "OD 重分配 σ=0.75",
+        "en": "OD redistribution σ=0.75"
+      }
+    },
+    {
+      "id": "switch_1200",
+      "split": "test",
+      "family": "temporal",
+      "label": {
+        "zh": "每 1200 秒快速切换",
+        "en": "Rapid switching every 1200 s"
+      }
+    },
+    {
+      "id": "switch_300",
+      "split": "test",
+      "family": "temporal",
+      "label": {
+        "zh": "每 300 秒快速切换",
+        "en": "Rapid switching every 300 s"
+      }
+    },
+    {
+      "id": "switch_900",
+      "split": "test",
+      "family": "temporal",
+      "label": {
+        "zh": "每 900 秒快速切换",
+        "en": "Rapid switching every 900 s"
+      }
+    }
+  ],
+  "metrics": [
+    {
+      "key": "mean_queue",
+      "source": "mean_queue",
+      "label": {
+        "zh": "平均排队",
+        "en": "Mean queue"
+      },
+      "unit": {
+        "key": "vehicles",
+        "zh": "车辆数",
+        "en": "vehicles"
+      },
+      "direction": "lower",
+      "directionLabel": {
+        "zh": "越低越好",
+        "en": "lower is better"
+      },
+      "description": {
+        "zh": "每秒全网受监控车道排队车辆总数的平均值。",
+        "en": "Mean of the network-wide queued-vehicle total at each second."
+      }
+    },
+    {
+      "key": "peak_queue",
+      "source": "peak_queue",
+      "label": {
+        "zh": "峰值排队",
+        "en": "Peak queue"
+      },
+      "unit": {
+        "key": "vehicles",
+        "zh": "车辆数",
+        "en": "vehicles"
+      },
+      "direction": "lower",
+      "directionLabel": {
+        "zh": "越低越好",
+        "en": "lower is better"
+      },
+      "description": {
+        "zh": "10 次运行内的全网排队峰值。",
+        "en": "Peak network-wide queued-vehicle total across a run."
+      }
+    },
+    {
+      "key": "integrated_queue",
+      "source": "integrated_queue",
+      "label": {
+        "zh": "累计排队",
+        "en": "Integrated queue"
+      },
+      "unit": {
+        "key": "vehicle_seconds",
+        "zh": "车辆·秒",
+        "en": "vehicle·seconds"
+      },
+      "direction": "lower",
+      "directionLabel": {
+        "zh": "越低越好",
+        "en": "lower is better"
+      },
+      "description": {
+        "zh": "逐秒全网排队总量的时间积分。",
+        "en": "Time integral of the second-by-second network queue."
+      }
+    },
+    {
+      "key": "mean_speed",
+      "source": "mean_speed",
+      "label": {
+        "zh": "平均速度",
+        "en": "Mean speed"
+      },
+      "unit": {
+        "key": "m_per_s",
+        "zh": "米/秒",
+        "en": "m/s"
+      },
+      "direction": "higher",
+      "directionLabel": {
+        "zh": "越高越好",
+        "en": "higher is better"
+      },
+      "description": {
+        "zh": "仿真期间车辆平均速度。",
+        "en": "Average vehicle speed during the simulation."
+      }
+    },
+    {
+      "key": "completed",
+      "source": "completed",
+      "label": {
+        "zh": "已完成车辆",
+        "en": "Completed vehicles"
+      },
+      "unit": {
+        "key": "vehicles",
+        "zh": "车辆数",
+        "en": "vehicles"
+      },
+      "direction": "higher",
+      "directionLabel": {
+        "zh": "越高越好",
+        "en": "higher is better"
+      },
+      "description": {
+        "zh": "在仿真结束前完成行程的车辆数。",
+        "en": "Vehicles that completed their trips before simulation end."
+      }
+    },
+    {
+      "key": "completion_rate",
+      "source": null,
+      "label": {
+        "zh": "完成率",
+        "en": "Completion rate"
+      },
+      "unit": {
+        "key": "percent",
+        "zh": "%",
+        "en": "%"
+      },
+      "direction": "higher",
+      "directionLabel": {
+        "zh": "越高越好",
+        "en": "higher is better"
+      },
+      "description": {
+        "zh": "已完成车辆数除以已插入车辆数。",
+        "en": "Completed vehicles divided by inserted vehicles."
+      }
+    },
+    {
+      "key": "pending",
+      "source": "pending",
+      "label": {
+        "zh": "待出发车辆",
+        "en": "Pending vehicles"
+      },
+      "unit": {
+        "key": "vehicles",
+        "zh": "车辆数",
+        "en": "vehicles"
+      },
+      "direction": "lower",
+      "directionLabel": {
+        "zh": "越低越好",
+        "en": "lower is better"
+      },
+      "description": {
+        "zh": "仿真结束时尚未插入路网的计划车辆。",
+        "en": "Scheduled vehicles not yet inserted at simulation end."
+      }
+    },
+    {
+      "key": "remaining",
+      "source": "remaining",
+      "label": {
+        "zh": "在网车辆",
+        "en": "Remaining vehicles"
+      },
+      "unit": {
+        "key": "vehicles",
+        "zh": "车辆数",
+        "en": "vehicles"
+      },
+      "direction": "lower",
+      "directionLabel": {
+        "zh": "越低越好",
+        "en": "lower is better"
+      },
+      "description": {
+        "zh": "仿真结束时仍在路网中的车辆。",
+        "en": "Vehicles still present in the network at simulation end."
+      }
+    },
+    {
+      "key": "mean_completed_departure_delay",
+      "source": "mean_completed_departure_delay",
+      "label": {
+        "zh": "平均出发延误",
+        "en": "Mean departure delay"
+      },
+      "unit": {
+        "key": "seconds",
+        "zh": "秒",
+        "en": "s"
+      },
+      "direction": "lower",
+      "directionLabel": {
+        "zh": "越低越好",
+        "en": "lower is better"
+      },
+      "description": {
+        "zh": "已完成车辆的平均实际出发延迟。",
+        "en": "Mean actual departure delay among completed vehicles."
+      }
+    },
+    {
+      "key": "mean_completed_time_loss",
+      "source": "mean_completed_time_loss",
+      "label": {
+        "zh": "平均时间损失",
+        "en": "Mean time loss"
+      },
+      "unit": {
+        "key": "seconds",
+        "zh": "秒",
+        "en": "s"
+      },
+      "direction": "lower",
+      "directionLabel": {
+        "zh": "越低越好",
+        "en": "lower is better"
+      },
+      "description": {
+        "zh": "已完成车辆相对自由流的平均时间损失。",
+        "en": "Mean time loss relative to free flow among completed vehicles."
+      }
+    },
+    {
+      "key": "mean_completed_travel_time",
+      "source": "mean_completed_travel_time",
+      "label": {
+        "zh": "平均旅行时间",
+        "en": "Mean travel time"
+      },
+      "unit": {
+        "key": "seconds",
+        "zh": "秒",
+        "en": "s"
+      },
+      "direction": "lower",
+      "directionLabel": {
+        "zh": "越低越好",
+        "en": "lower is better"
+      },
+      "description": {
+        "zh": "已完成车辆的平均旅行时间。",
+        "en": "Mean travel time among completed vehicles."
+      }
+    },
+    {
+      "key": "mean_completed_waiting_time",
+      "source": "mean_completed_waiting_time",
+      "label": {
+        "zh": "平均等待时间",
+        "en": "Mean waiting time"
+      },
+      "unit": {
+        "key": "seconds",
+        "zh": "秒",
+        "en": "s"
+      },
+      "direction": "lower",
+      "directionLabel": {
+        "zh": "越低越好",
+        "en": "lower is better"
+      },
+      "description": {
+        "zh": "已完成车辆的平均累计等待时间。",
+        "en": "Mean accumulated waiting time among completed vehicles."
+      }
+    },
+    {
+      "key": "teleports",
+      "source": "teleports",
+      "label": {
+        "zh": "传送次数",
+        "en": "Teleports"
+      },
+      "unit": {
+        "key": "count",
+        "zh": "次",
+        "en": "count"
+      },
+      "direction": "lower",
+      "directionLabel": {
+        "zh": "越低越好",
+        "en": "lower is better"
+      },
+      "description": {
+        "zh": "SUMO 为解除堵塞而传送车辆的次数。",
+        "en": "Number of SUMO vehicle teleports used to resolve blocking."
+      }
+    },
+    {
+      "key": "collisions",
+      "source": "collisions",
+      "label": {
+        "zh": "碰撞次数",
+        "en": "Collisions"
+      },
+      "unit": {
+        "key": "count",
+        "zh": "次",
+        "en": "count"
+      },
+      "direction": "lower",
+      "directionLabel": {
+        "zh": "越低越好",
+        "en": "lower is better"
+      },
+      "description": {
+        "zh": "仿真记录的碰撞事件数。",
+        "en": "Number of collision events recorded by the simulation."
+      }
+    },
+    {
+      "key": "scheduled",
+      "source": "scheduled",
+      "label": {
+        "zh": "计划车辆",
+        "en": "Scheduled vehicles"
+      },
+      "unit": {
+        "key": "vehicles",
+        "zh": "车辆数",
+        "en": "vehicles"
+      },
+      "direction": "check",
+      "directionLabel": {
+        "zh": "仅核对",
+        "en": "verification only"
+      },
+      "description": {
+        "zh": "需求文件中的计划车辆数，仅用于核对。",
+        "en": "Vehicles scheduled by the demand file; verification only."
+      }
+    },
+    {
+      "key": "inserted",
+      "source": "inserted",
+      "label": {
+        "zh": "已插入车辆",
+        "en": "Inserted vehicles"
+      },
+      "unit": {
+        "key": "vehicles",
+        "zh": "车辆数",
+        "en": "vehicles"
+      },
+      "direction": "check",
+      "directionLabel": {
+        "zh": "仅核对",
+        "en": "verification only"
+      },
+      "description": {
+        "zh": "实际插入路网的车辆数，仅用于核对。",
+        "en": "Vehicles actually inserted into the network; verification only."
+      }
+    }
+  ],
+  "counts": {
+    "controllers": 4,
+    "methods": 5,
+    "scenarios": 23,
+    "groups": 460,
+    "rollouts": 4600,
+    "stepsPerRollout": 3600,
+    "runsPerGroup": 10
+  }
+}

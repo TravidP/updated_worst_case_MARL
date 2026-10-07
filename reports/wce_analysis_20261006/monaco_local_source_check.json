@@ -1,0 +1,16 @@
+{
+  "source": "real_net/data/in/most_0.rou.xml",
+  "source_sha256": "f5e39ab4490174f2855392b9d498277dff320d145325c3c86fee6e7069250ede",
+  "flows": 88,
+  "audit_rows": 88,
+  "matching_source_parameters": true,
+  "errors": [],
+  "time_begin": 0.0,
+  "time_end": 3300.0,
+  "tail_interval_no_new_source_flow": [
+    3300,
+    3600
+  ],
+  "upstream_version": "unverified",
+  "constant_csv_replay_is_transformed": true
+}

@@ -1,0 +1,66 @@
+日期：2026-10-06
+Monaco 修复地图完整需求冻结策略评估
+
+完成：200/200 正式评估 + 4 次3600秒完整预检查。4 controllers × 5 methods × 10 rollouts。
+完整14/14 OD，原始2383.333332 veh/h需求；六个600秒块直接调用原需求生成函数；没有跳过OD或抽样车辆。
+恢复原MoST地图遗漏道路10180#0、10180#1及优先路口9601；28个受控路口、116条入口车道与264个信号连接编号保留。
+netconvert重算几何，43个检测器位置/覆盖调整；这属于修复地图迁移测试，不是原地图测试或新训练结果。
+先在真实原地图严格加载20个当前最终checkpoint，再核验观测/动作/车道顺序/邻接关系，冻结推理于实际修复地图。
+逐次记录原训练签名与实际目标签名、权重前后SHA256；200次均权重不变，学习步2320000，WCE更新0。
+训练seed101；需求seed51001–51010，SUMO seed61001–61010；方法共享配对需求与SUMO随机种子，策略使用独立RNG。
+保留旧生成器出发时间抖动，包括3600秒及以后出发；未声称精确重现历史共享随机数轨迹。
+仅验证当前20个最终模型；部分历史训练父模型缺失，上游原始地图来源版本仍未完全核实。
+排队：116条受控入口lane逐秒halting总和。速度：车辆秒加权平均，与旧速度等时间平均口径不同。
+网站独立集合新增；已有主实验、Grid外部评估和旧Monaco部分需求复测数据全部哈希未变。
+网站：http://127.0.0.1:8878/?evaluationSet=monaco_repaired_full14&network=monaco&split=external
+
+需求种子 | 抽样总数 | 跳过 | 计划车辆 | 3600秒及之后出发
+51001 | 2397 | 0 | 2397 | 1
+51002 | 2329 | 0 | 2329 | 1
+51003 | 2376 | 0 | 2376 | 0
+51004 | 2396 | 0 | 2396 | 1
+51005 | 2342 | 0 | 2342 | 1
+51006 | 2392 | 0 | 2392 | 1
+51007 | 2307 | 0 | 2307 | 0
+51008 | 2429 | 0 | 2429 | 0
+51009 | 2358 | 0 | 2358 | 0
+51010 | 2409 | 0 | 2409 | 1
+
+平均排队（辆，越低越好）：controller | method | mean | sd | completed | pending | teleports
+ia2c | baseline | 139.589 | 4.217 | 1422.4 | 513.2 | 16.5
+ia2c | domain_randomization | 165.332 | 9.092 | 1235.2 | 640.6 | 66.4
+ia2c | fixed_wce | 147.298 | 10.307 | 1371.8 | 546.0 | 30.3
+ia2c | online_wce | 126.151 | 8.350 | 1566.4 | 407.8 | 6.8
+ia2c | random_group | 151.303 | 12.972 | 1024.0 | 911.8 | 30.0
+iqll | baseline | 217.978 | 4.688 | 244.0 | 1598.9 | 338.3
+iqll | domain_randomization | 218.245 | 5.113 | 126.8 | 1708.0 | 373.6
+iqll | fixed_wce | 241.501 | 3.791 | 222.2 | 1547.8 | 394.4
+iqll | online_wce | 216.969 | 6.581 | 117.6 | 1728.6 | 385.2
+iqll | random_group | 214.644 | 5.175 | 182.6 | 1663.2 | 351.6
+ma2c | baseline | 83.662 | 13.617 | 1889.1 | 139.8 | 8.8
+ma2c | domain_randomization | 80.728 | 18.805 | 1849.4 | 187.8 | 7.3
+ma2c | fixed_wce | 108.212 | 17.729 | 1670.3 | 310.8 | 9.9
+ma2c | online_wce | 112.479 | 17.339 | 1619.2 | 342.4 | 24.4
+ma2c | random_group | 63.579 | 13.423 | 1949.7 | 159.0 | 1.3
+ppo | baseline | 89.004 | 13.732 | 1525.2 | 492.6 | 8.7
+ppo | domain_randomization | 23.128 | 2.790 | 2259.2 | 6.2 | 0.1
+ppo | fixed_wce | 46.083 | 30.598 | 2024.1 | 143.4 | 12.2
+ppo | online_wce | 26.877 | 1.795 | 2191.8 | 75.3 | 0.3
+ppo | random_group | 115.075 | 8.496 | 1295.5 | 668.7 | 16.1
+
+Online WCE 相对 baseline：controller | 平均逐次收益% | wins/10 | Holm p
+ia2c | 9.629% | 10/10 | 0.039062
+iqll | 0.453% | 5/10 | 1.000000
+ma2c | -34.897% | 0/10 | 0.039062
+ppo | 69.110% | 10/10 | 0.039062
+
+统计：50000次配对bootstrap探索性95%区间；双侧精确sign-flip检验，对20项比较做Holm校正。
+推断仅针对单个训练seed101下的评估随机性。所有冻结学习步保持2320000，WCE更新为0。
+Campaign：/home/sdc_joran/Journal/deeprl_signal_control/runs_eval/revised/monaco_repaired_group12_seed101_v1/campaign.json
+验收：/home/sdc_joran/Journal/deeprl_signal_control/runs_eval/revised/monaco_repaired_group12_seed101_v1/acceptance/monaco.json
+详细统计：/home/sdc_joran/Journal/deeprl_signal_control/runs_eval/revised/monaco_repaired_group12_seed101_v1/analysis/monaco/paired_statistics.json
+曲线CSV：/home/sdc_joran/Journal/deeprl_signal_control/runs_eval/revised/monaco_repaired_group12_seed101_v1/analysis/monaco/queue_timeseries_mean_sd.csv
+
+网站最终检查：新增集合自动选择Monaco，4类控制器20条曲线和20个方法行已实际显示。
+浏览器下载CSV为3600行×61列，20组min/mean/max与网站源CSV逐项一致；已有981个数据文件哈希不变。
+验收记录：/home/sdc_joran/Journal/deeprl_signal_control/runs_eval/revised/monaco_repaired_group12_seed101_v1/website_checks.json

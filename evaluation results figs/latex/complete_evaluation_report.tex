@@ -1,0 +1,469 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[a3paper,landscape,left=12mm,right=12mm,top=12mm,bottom=14mm,includefoot]{geometry}
+\usepackage{graphicx,booktabs,caption,multicol,fancyhdr,lastpage}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{pdfauthor={Evaluation results archive},pdfsubject={Traffic signal control evaluation},bookmarksnumbered=true}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\fancyfoot[L]{\small CBWCE evaluation results}
+\fancyfoot[R]{\small Page \thepage\ of \pageref*{LastPage}}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{3pt}
+\setlength{\tabcolsep}{16pt}
+\renewcommand{\arraystretch}{1.20}
+\captionsetup{font=small,labelfont=bf,skip=3pt}
+\newcommand{\PageHeading}[3]{\normalsize\phantomsection\label{#1}\pdfbookmark[1]{#2}{bookmark-#1}
+{\Large\bfseries #2}\hfill {\large #3}\par\vspace{2pt}}
+\newcommand{\Chart}[3]{\begin{center}\includegraphics[width=#3]{#1}
+\captionof{figure}{#2}\end{center}}
+\newcommand{\QueueTable}[2]{\begin{center}\captionof{table}{#1}
+\input{#2}\par\vspace{2pt}{\small Mean queue (vehicles; lower is better). Bold: lowest unrounded mean within each controller.}\end{center}}
+\hypersetup{pdftitle={Complete evaluation report}}\begin{document}
+\pdfbookmark[0]{Complete evaluation report}{complete-report}
+{\Huge\bfseries Complete evaluation report}\par\vspace{8mm}
+{\Large Real-world, Seen and Test results / Grid and Monaco networks}\par\vspace{8mm}
+\begin{minipage}[t]{0.57\textwidth}
+\section*{How to read this report}
+Each scenario page combines four controller panels (IA2C, MA2C, IQLL and PPO)
+with a selectable-text LaTeX table. The five methods are Baseline, Random grouping,
+Domain randomization, Fixed WCE and Online WCE.
+
+Network queue is the sum of queued vehicles across monitored lanes at each second.
+Solid curves are 10-run means; shaded bands are pointwise minimum-to-maximum ranges,
+not confidence intervals. Curves and band boundaries use EMA = 0.9, initialized at
+the first observation. Each panel starts at zero and uses its own adaptive y-axis.
+
+Tables and heatmaps use unsmoothed Mean queue (vehicles; lower is better).
+Bold values identify the lowest unrounded mean within each controller, including
+exact ties. Values are displayed to two decimal places. Network and family summaries
+give equal weight to scenarios.
+
+All results use training seed 101 and 10 evaluation runs per scenario/controller/method.
+The sampling ranges measure evaluation variability; they do not measure variability
+across independently trained policies.
+
+\section*{Coverage}
+48 scenarios, 192 controller panels, 60 Mean queue tables and four heatmaps.
+Real-world: two scenarios. Seen: 11 scenarios per network. Test: 12 scenarios per
+network, organized into redistribution, mixture, temporal switching and peak demand.
+The report contains 9,600 evaluation runs across 960 controller/method/scenario groups.
+\end{minipage}\hfill
+\begin{minipage}[t]{0.38\textwidth}
+\section*{Report structure}
+\begin{tabular}{ll}
+Real-world & Grid and Monaco scenario pages\\
+Seen & Network summaries and scenario pages\\
+Test & Network summaries, family tables and scenarios
+\end{tabular}
+\section*{Navigation and sources}
+Use the clickable contents or PDF bookmarks to jump to a network, summary or scenario.
+The adjacent real-world report contains the two real-world pages as a standalone document.
+
+Figures reproduce the archived evaluation series. Real-world pages embed the specified
+original overview PNGs; their tables are taken directly from the corresponding LaTeX
+tabular environments. Seen/Test overview graphics preserve all four controllers and
+five methods while avoiding repeated single-controller pages.
+
+The report archive includes editable LaTeX sources, generated overview graphics,
+a build script, an input/output hash manifest and a validation report. Numerical values
+are carried over from the existing archive, without running training or simulation.
+\end{minipage}
+\vfill{\small A3 landscape / English / Compact scenario overviews}
+
+\newpage
+\pdfbookmark[0]{Contents}{contents}\section*{Contents}\begin{multicols}{3}\small
+\noindent\hyperref[real-grid]{Grid Network / Hangzhou realworld}\hfill\pageref*{real-grid}\par\vspace{3pt}
+\noindent\hyperref[real-monaco]{Monaco Network / Monaco real world data}\hfill\pageref*{real-monaco}\par\vspace{3pt}
+\noindent\hyperref[seen-grid-summary]{Grid Network / Seen evaluation - network summary}\hfill\pageref*{seen-grid-summary}\par\vspace{3pt}
+\noindent\hyperref[seen-grid-seen_Center_to_Periphery]{Grid Network / Seen / Center to periphery}\hfill\pageref*{seen-grid-seen_Center_to_Periphery}\par\vspace{3pt}
+\noindent\hyperref[seen-grid-seen_E_to_W]{Grid Network / Seen / East to west}\hfill\pageref*{seen-grid-seen_E_to_W}\par\vspace{3pt}
+\noindent\hyperref[seen-grid-seen_NE_to_SW]{Grid Network / Seen / Northeast to southwest}\hfill\pageref*{seen-grid-seen_NE_to_SW}\par\vspace{3pt}
+\noindent\hyperref[seen-grid-seen_NW_to_SE]{Grid Network / Seen / Northwest to southeast}\hfill\pageref*{seen-grid-seen_NW_to_SE}\par\vspace{3pt}
+\noindent\hyperref[seen-grid-seen_N_to_S]{Grid Network / Seen / North to south}\hfill\pageref*{seen-grid-seen_N_to_S}\par\vspace{3pt}
+\noindent\hyperref[seen-grid-seen_Periphery_to_Center]{Grid Network / Seen / Periphery to center}\hfill\pageref*{seen-grid-seen_Periphery_to_Center}\par\vspace{3pt}
+\noindent\hyperref[seen-grid-seen_SE_to_NW]{Grid Network / Seen / Southeast to northwest}\hfill\pageref*{seen-grid-seen_SE_to_NW}\par\vspace{3pt}
+\noindent\hyperref[seen-grid-seen_SW_to_NE]{Grid Network / Seen / Southwest to northeast}\hfill\pageref*{seen-grid-seen_SW_to_NE}\par\vspace{3pt}
+\noindent\hyperref[seen-grid-seen_S_to_N]{Grid Network / Seen / South to north}\hfill\pageref*{seen-grid-seen_S_to_N}\par\vspace{3pt}
+\noindent\hyperref[seen-grid-seen_Uniform]{Grid Network / Seen / Uniform demand}\hfill\pageref*{seen-grid-seen_Uniform}\par\vspace{3pt}
+\noindent\hyperref[seen-grid-seen_W_to_E]{Grid Network / Seen / West to east}\hfill\pageref*{seen-grid-seen_W_to_E}\par\vspace{3pt}
+\noindent\hyperref[seen-monaco-summary]{Monaco Network / Seen evaluation - network summary}\hfill\pageref*{seen-monaco-summary}\par\vspace{3pt}
+\noindent\hyperref[seen-monaco-seen_Center_to_Periphery]{Monaco Network / Seen / Center to periphery}\hfill\pageref*{seen-monaco-seen_Center_to_Periphery}\par\vspace{3pt}
+\noindent\hyperref[seen-monaco-seen_E_to_W]{Monaco Network / Seen / East to west}\hfill\pageref*{seen-monaco-seen_E_to_W}\par\vspace{3pt}
+\noindent\hyperref[seen-monaco-seen_NE_to_SW]{Monaco Network / Seen / Northeast to southwest}\hfill\pageref*{seen-monaco-seen_NE_to_SW}\par\vspace{3pt}
+\noindent\hyperref[seen-monaco-seen_NW_to_SE]{Monaco Network / Seen / Northwest to southeast}\hfill\pageref*{seen-monaco-seen_NW_to_SE}\par\vspace{3pt}
+\noindent\hyperref[seen-monaco-seen_N_to_S]{Monaco Network / Seen / North to south}\hfill\pageref*{seen-monaco-seen_N_to_S}\par\vspace{3pt}
+\noindent\hyperref[seen-monaco-seen_Periphery_to_Center]{Monaco Network / Seen / Periphery to center}\hfill\pageref*{seen-monaco-seen_Periphery_to_Center}\par\vspace{3pt}
+\noindent\hyperref[seen-monaco-seen_SE_to_NW]{Monaco Network / Seen / Southeast to northwest}\hfill\pageref*{seen-monaco-seen_SE_to_NW}\par\vspace{3pt}
+\noindent\hyperref[seen-monaco-seen_SW_to_NE]{Monaco Network / Seen / Southwest to northeast}\hfill\pageref*{seen-monaco-seen_SW_to_NE}\par\vspace{3pt}
+\noindent\hyperref[seen-monaco-seen_S_to_N]{Monaco Network / Seen / South to north}\hfill\pageref*{seen-monaco-seen_S_to_N}\par\vspace{3pt}
+\noindent\hyperref[seen-monaco-seen_Uniform]{Monaco Network / Seen / Uniform demand}\hfill\pageref*{seen-monaco-seen_Uniform}\par\vspace{3pt}
+\noindent\hyperref[seen-monaco-seen_W_to_E]{Monaco Network / Seen / West to east}\hfill\pageref*{seen-monaco-seen_W_to_E}\par\vspace{3pt}
+\noindent\hyperref[test-grid-summary]{Grid Network / Test evaluation - network summary}\hfill\pageref*{test-grid-summary}\par\vspace{3pt}
+\noindent\hyperref[test-grid-families]{Grid Network / Test evaluation - demand-family summaries}\hfill\pageref*{test-grid-families}\par\vspace{3pt}
+\noindent\hyperref[test-grid-mixture_1]{Grid Network / Test / Mixture scenario 1}\hfill\pageref*{test-grid-mixture_1}\par\vspace{3pt}
+\noindent\hyperref[test-grid-mixture_2]{Grid Network / Test / Mixture scenario 2}\hfill\pageref*{test-grid-mixture_2}\par\vspace{3pt}
+\noindent\hyperref[test-grid-mixture_3]{Grid Network / Test / Mixture scenario 3}\hfill\pageref*{test-grid-mixture_3}\par\vspace{3pt}
+\noindent\hyperref[test-grid-peak_1.1]{Grid Network / Test / Peak demand \ensuremath{\times}1.1}\hfill\pageref*{test-grid-peak_1.1}\par\vspace{3pt}
+\noindent\hyperref[test-grid-peak_1.25]{Grid Network / Test / Peak demand \ensuremath{\times}1.25}\hfill\pageref*{test-grid-peak_1.25}\par\vspace{3pt}
+\noindent\hyperref[test-grid-peak_1.5]{Grid Network / Test / Peak demand \ensuremath{\times}1.5}\hfill\pageref*{test-grid-peak_1.5}\par\vspace{3pt}
+\noindent\hyperref[test-grid-redistribution_0.25]{Grid Network / Test / OD redistribution \ensuremath{\sigma}=0.25}\hfill\pageref*{test-grid-redistribution_0.25}\par\vspace{3pt}
+\noindent\hyperref[test-grid-redistribution_0.5]{Grid Network / Test / OD redistribution \ensuremath{\sigma}=0.5}\hfill\pageref*{test-grid-redistribution_0.5}\par\vspace{3pt}
+\noindent\hyperref[test-grid-redistribution_0.75]{Grid Network / Test / OD redistribution \ensuremath{\sigma}=0.75}\hfill\pageref*{test-grid-redistribution_0.75}\par\vspace{3pt}
+\noindent\hyperref[test-grid-switch_1200]{Grid Network / Test / Rapid switching every 1200 s}\hfill\pageref*{test-grid-switch_1200}\par\vspace{3pt}
+\noindent\hyperref[test-grid-switch_300]{Grid Network / Test / Rapid switching every 300 s}\hfill\pageref*{test-grid-switch_300}\par\vspace{3pt}
+\noindent\hyperref[test-grid-switch_900]{Grid Network / Test / Rapid switching every 900 s}\hfill\pageref*{test-grid-switch_900}\par\vspace{3pt}
+\noindent\hyperref[test-monaco-summary]{Monaco Network / Test evaluation - network summary}\hfill\pageref*{test-monaco-summary}\par\vspace{3pt}
+\noindent\hyperref[test-monaco-families]{Monaco Network / Test evaluation - demand-family summaries}\hfill\pageref*{test-monaco-families}\par\vspace{3pt}
+\noindent\hyperref[test-monaco-mixture_1]{Monaco Network / Test / Mixture scenario 1}\hfill\pageref*{test-monaco-mixture_1}\par\vspace{3pt}
+\noindent\hyperref[test-monaco-mixture_2]{Monaco Network / Test / Mixture scenario 2}\hfill\pageref*{test-monaco-mixture_2}\par\vspace{3pt}
+\noindent\hyperref[test-monaco-mixture_3]{Monaco Network / Test / Mixture scenario 3}\hfill\pageref*{test-monaco-mixture_3}\par\vspace{3pt}
+\noindent\hyperref[test-monaco-peak_1.1]{Monaco Network / Test / Peak demand \ensuremath{\times}1.1}\hfill\pageref*{test-monaco-peak_1.1}\par\vspace{3pt}
+\noindent\hyperref[test-monaco-peak_1.25]{Monaco Network / Test / Peak demand \ensuremath{\times}1.25}\hfill\pageref*{test-monaco-peak_1.25}\par\vspace{3pt}
+\noindent\hyperref[test-monaco-peak_1.5]{Monaco Network / Test / Peak demand \ensuremath{\times}1.5}\hfill\pageref*{test-monaco-peak_1.5}\par\vspace{3pt}
+\noindent\hyperref[test-monaco-redistribution_0.25]{Monaco Network / Test / OD redistribution \ensuremath{\sigma}=0.25}\hfill\pageref*{test-monaco-redistribution_0.25}\par\vspace{3pt}
+\noindent\hyperref[test-monaco-redistribution_0.5]{Monaco Network / Test / OD redistribution \ensuremath{\sigma}=0.5}\hfill\pageref*{test-monaco-redistribution_0.5}\par\vspace{3pt}
+\noindent\hyperref[test-monaco-redistribution_0.75]{Monaco Network / Test / OD redistribution \ensuremath{\sigma}=0.75}\hfill\pageref*{test-monaco-redistribution_0.75}\par\vspace{3pt}
+\noindent\hyperref[test-monaco-switch_1200]{Monaco Network / Test / Rapid switching every 1200 s}\hfill\pageref*{test-monaco-switch_1200}\par\vspace{3pt}
+\noindent\hyperref[test-monaco-switch_300]{Monaco Network / Test / Rapid switching every 300 s}\hfill\pageref*{test-monaco-switch_300}\par\vspace{3pt}
+\noindent\hyperref[test-monaco-switch_900]{Monaco Network / Test / Rapid switching every 900 s}\hfill\pageref*{test-monaco-switch_900}\par\vspace{3pt}
+\end{multicols}
+
+\newpage
+\PageHeading{real-grid}{Hangzhou realworld}{Grid Network}
+\Chart{../real_world/grid/grid_sparse_native_2983/figures/all_controllers_queue.png}{Hangzhou realworld - four controllers and five methods.}{11.2in}
+\QueueTable{Hangzhou realworld - unsmoothed Mean queue.}{assets/tables/real_world/grid/grid_sparse_native_2983/tables/mean_queue.tex}
+\small n = 10 evaluation runs per controller/method; training seed = 101. Solid: mean; shaded bands: pointwise min-max; EMA = 0.9. Independent y-axis ranges.
+
+\newpage
+\PageHeading{real-monaco}{Monaco real world data}{Monaco Network}
+\Chart{../real_world/monaco/monaco_repaired_full14_v1/figures/all_controllers_queue.png}{Monaco real world data - four controllers and five methods.}{11.2in}
+\QueueTable{Monaco real world data - unsmoothed Mean queue.}{assets/tables/real_world/monaco/monaco_repaired_full14_v1/tables/mean_queue.tex}
+\small n = 10 evaluation runs per controller/method; training seed = 101. Solid: mean; shaded bands: pointwise min-max; EMA = 0.9. Independent y-axis ranges.
+
+\newpage
+\PageHeading{seen-grid-summary}{Seen evaluation - network summary}{Grid Network}
+\Chart{assets/heatmaps/seen/grid.pdf}{Seen evaluation - network summary - unsmoothed Mean queue by scenario.}{14.0in}
+\QueueTable{Seen evaluation - network summary - equal weight per scenario.}{assets/tables/seen/grid/summary/mean_queue.tex}
+\small Each scenario has 10 evaluation runs per controller/method; training seed = 101. Summary values weight scenarios equally.
+
+\newpage
+\PageHeading{seen-grid-seen_Center_to_Periphery}{Center to periphery}{Grid Network / Seen}
+\Chart{assets/overviews/seen/grid/seen_Center_to_Periphery.pdf}{Seen evaluation: Center to periphery - four controllers and five methods.}{13.4in}
+\QueueTable{Center to periphery - unsmoothed Mean queue.}{assets/tables/seen/grid/seen_Center_to_Periphery/tables/mean_queue.tex}
+\small n = 10 evaluation runs per controller/method; training seed = 101. Solid: mean; shaded bands: pointwise min-max; EMA = 0.9. Independent y-axis ranges.
+
+\newpage
+\PageHeading{seen-grid-seen_E_to_W}{East to west}{Grid Network / Seen}
+\Chart{assets/overviews/seen/grid/seen_E_to_W.pdf}{Seen evaluation: East to west - four controllers and five methods.}{13.4in}
+\QueueTable{East to west - unsmoothed Mean queue.}{assets/tables/seen/grid/seen_E_to_W/tables/mean_queue.tex}
+\small n = 10 evaluation runs per controller/method; training seed = 101. Solid: mean; shaded bands: pointwise min-max; EMA = 0.9. Independent y-axis ranges.
+
+\newpage
+\PageHeading{seen-grid-seen_NE_to_SW}{Northeast to southwest}{Grid Network / Seen}
+\Chart{assets/overviews/seen/grid/seen_NE_to_SW.pdf}{Seen evaluation: Northeast to southwest - four controllers and five methods.}{13.4in}
+\QueueTable{Northeast to southwest - unsmoothed Mean queue.}{assets/tables/seen/grid/seen_NE_to_SW/tables/mean_queue.tex}
+\small n = 10 evaluation runs per controller/method; training seed = 101. Solid: mean; shaded bands: pointwise min-max; EMA = 0.9. Independent y-axis ranges.
+
+\newpage
+\PageHeading{seen-grid-seen_NW_to_SE}{Northwest to southeast}{Grid Network / Seen}
+\Chart{assets/overviews/seen/grid/seen_NW_to_SE.pdf}{Seen evaluation: Northwest to southeast - four controllers and five methods.}{13.4in}
+\QueueTable{Northwest to southeast - unsmoothed Mean queue.}{assets/tables/seen/grid/seen_NW_to_SE/tables/mean_queue.tex}
+\small n = 10 evaluation runs per controller/method; training seed = 101. Solid: mean; shaded bands: pointwise min-max; EMA = 0.9. Independent y-axis ranges.
+
+\newpage
+\PageHeading{seen-grid-seen_N_to_S}{North to south}{Grid Network / Seen}
+\Chart{assets/overviews/seen/grid/seen_N_to_S.pdf}{Seen evaluation: North to south - four controllers and five methods.}{13.4in}
+\QueueTable{North to south - unsmoothed Mean queue.}{assets/tables/seen/grid/seen_N_to_S/tables/mean_queue.tex}
+\small n = 10 evaluation runs per controller/method; training seed = 101. Solid: mean; shaded bands: pointwise min-max; EMA = 0.9. Independent y-axis ranges.
+
+\newpage
+\PageHeading{seen-grid-seen_Periphery_to_Center}{Periphery to center}{Grid Network / Seen}
+\Chart{assets/overviews/seen/grid/seen_Periphery_to_Center.pdf}{Seen evaluation: Periphery to center - four controllers and five methods.}{13.4in}
+\QueueTable{Periphery to center - unsmoothed Mean queue.}{assets/tables/seen/grid/seen_Periphery_to_Center/tables/mean_queue.tex}
+\small n = 10 evaluation runs per controller/method; training seed = 101. Solid: mean; shaded bands: pointwise min-max; EMA = 0.9. Independent y-axis ranges.
+
+\newpage
+\PageHeading{seen-grid-seen_SE_to_NW}{Southeast to northwest}{Grid Network / Seen}
+\Chart{assets/overviews/seen/grid/seen_SE_to_NW.pdf}{Seen evaluation: Southeast to northwest - four controllers and five methods.}{13.4in}
+\QueueTable{Southeast to northwest - unsmoothed Mean queue.}{assets/tables/seen/grid/seen_SE_to_NW/tables/mean_queue.tex}
+\small n = 10 evaluation runs per controller/method; training seed = 101. Solid: mean; shaded bands: pointwise min-max; EMA = 0.9. Independent y-axis ranges.
+
+\newpage
+\PageHeading{seen-grid-seen_SW_to_NE}{Southwest to northeast}{Grid Network / Seen}
+\Chart{assets/overviews/seen/grid/seen_SW_to_NE.pdf}{Seen evaluation: Southwest to northeast - four controllers and five methods.}{13.4in}
+\QueueTable{Southwest to northeast - unsmoothed Mean queue.}{assets/tables/seen/grid/seen_SW_to_NE/tables/mean_queue.tex}
+\small n = 10 evaluation runs per controller/method; training seed = 101. Solid: mean; shaded bands: pointwise min-max; EMA = 0.9. Independent y-axis ranges.
+
+\newpage
+\PageHeading{seen-grid-seen_S_to_N}{South to north}{Grid Network / Seen}
+\Chart{assets/overviews/seen/grid/seen_S_to_N.pdf}{Seen evaluation: South to north - four controllers and five methods.}{13.4in}
+\QueueTable{South to north - unsmoothed Mean queue.}{assets/tables/seen/grid/seen_S_to_N/tables/mean_queue.tex}
+\small n = 10 evaluation runs per controller/method; training seed = 101. Solid: mean; shaded bands: pointwise min-max; EMA = 0.9. Independent y-axis ranges.
+
+\newpage
+\PageHeading{seen-grid-seen_Uniform}{Uniform demand}{Grid Network / Seen}
+\Chart{assets/overviews/seen/grid/seen_Uniform.pdf}{Seen evaluation: Uniform demand - four controllers and five methods.}{13.4in}
+\QueueTable{Uniform demand - unsmoothed Mean queue.}{assets/tables/seen/grid/seen_Uniform/tables/mean_queue.tex}
+\small n = 10 evaluation runs per controller/method; training seed = 101. Solid: mean; shaded bands: pointwise min-max; EMA = 0.9. Independent y-axis ranges.
+
+\newpage
+\PageHeading{seen-grid-seen_W_to_E}{West to east}{Grid Network / Seen}
+\Chart{assets/overviews/seen/grid/seen_W_to_E.pdf}{Seen evaluation: West to east - four controllers and five methods.}{13.4in}
+\QueueTable{West to east - unsmoothed Mean queue.}{assets/tables/seen/grid/seen_W_to_E/tables/mean_queue.tex}
+\small n = 10 evaluation runs per controller/method; training seed = 101. Solid: mean; shaded bands: pointwise min-max; EMA = 0.9. Independent y-axis ranges.
+
+\newpage
+\PageHeading{seen-monaco-summary}{Seen evaluation - network summary}{Monaco Network}
+\Chart{assets/heatmaps/seen/monaco.pdf}{Seen evaluation - network summary - unsmoothed Mean queue by scenario.}{14.0in}
+\QueueTable{Seen evaluation - network summary - equal weight per scenario.}{assets/tables/seen/monaco/summary/mean_queue.tex}
+\small Each scenario has 10 evaluation runs per controller/method; training seed = 101. Summary values weight scenarios equally.
+
+\newpage
+\PageHeading{seen-monaco-seen_Center_to_Periphery}{Center to periphery}{Monaco Network / Seen}
+\Chart{assets/overviews/seen/monaco/seen_Center_to_Periphery.pdf}{Seen evaluation: Center to periphery - four controllers and five methods.}{13.4in}
+\QueueTable{Center to periphery - unsmoothed Mean queue.}{assets/tables/seen/monaco/seen_Center_to_Periphery/tables/mean_queue.tex}
+\small n = 10 evaluation runs per controller/method; training seed = 101. Solid: mean; shaded bands: pointwise min-max; EMA = 0.9. Independent y-axis ranges.
+
+\newpage
+\PageHeading{seen-monaco-seen_E_to_W}{East to west}{Monaco Network / Seen}
+\Chart{assets/overviews/seen/monaco/seen_E_to_W.pdf}{Seen evaluation: East to west - four controllers and five methods.}{13.4in}
+\QueueTable{East to west - unsmoothed Mean queue.}{assets/tables/seen/monaco/seen_E_to_W/tables/mean_queue.tex}
+\small n = 10 evaluation runs per controller/method; training seed = 101. Solid: mean; shaded bands: pointwise min-max; EMA = 0.9. Independent y-axis ranges.
+
+\newpage
+\PageHeading{seen-monaco-seen_NE_to_SW}{Northeast to southwest}{Monaco Network / Seen}
+\Chart{assets/overviews/seen/monaco/seen_NE_to_SW.pdf}{Seen evaluation: Northeast to southwest - four controllers and five methods.}{13.4in}
+\QueueTable{Northeast to southwest - unsmoothed Mean queue.}{assets/tables/seen/monaco/seen_NE_to_SW/tables/mean_queue.tex}
+\small n = 10 evaluation runs per controller/method; training seed = 101. Solid: mean; shaded bands: pointwise min-max; EMA = 0.9. Independent y-axis ranges.
+
+\newpage
+\PageHeading{seen-monaco-seen_NW_to_SE}{Northwest to southeast}{Monaco Network / Seen}
+\Chart{assets/overviews/seen/monaco/seen_NW_to_SE.pdf}{Seen evaluation: Northwest to southeast - four controllers and five methods.}{13.4in}
+\QueueTable{Northwest to southeast - unsmoothed Mean queue.}{assets/tables/seen/monaco/seen_NW_to_SE/tables/mean_queue.tex}
+\small n = 10 evaluation runs per controller/method; training seed = 101. Solid: mean; shaded bands: pointwise min-max; EMA = 0.9. Independent y-axis ranges.
+
+\newpage
+\PageHeading{seen-monaco-seen_N_to_S}{North to south}{Monaco Network / Seen}
+\Chart{assets/overviews/seen/monaco/seen_N_to_S.pdf}{Seen evaluation: North to south - four controllers and five methods.}{13.4in}
+\QueueTable{North to south - unsmoothed Mean queue.}{assets/tables/seen/monaco/seen_N_to_S/tables/mean_queue.tex}
+\small n = 10 evaluation runs per controller/method; training seed = 101. Solid: mean; shaded bands: pointwise min-max; EMA = 0.9. Independent y-axis ranges.
+
+\newpage
+\PageHeading{seen-monaco-seen_Periphery_to_Center}{Periphery to center}{Monaco Network / Seen}
+\Chart{assets/overviews/seen/monaco/seen_Periphery_to_Center.pdf}{Seen evaluation: Periphery to center - four controllers and five methods.}{13.4in}
+\QueueTable{Periphery to center - unsmoothed Mean queue.}{assets/tables/seen/monaco/seen_Periphery_to_Center/tables/mean_queue.tex}
+\small n = 10 evaluation runs per controller/method; training seed = 101. Solid: mean; shaded bands: pointwise min-max; EMA = 0.9. Independent y-axis ranges.
+
+\newpage
+\PageHeading{seen-monaco-seen_SE_to_NW}{Southeast to northwest}{Monaco Network / Seen}
+\Chart{assets/overviews/seen/monaco/seen_SE_to_NW.pdf}{Seen evaluation: Southeast to northwest - four controllers and five methods.}{13.4in}
+\QueueTable{Southeast to northwest - unsmoothed Mean queue.}{assets/tables/seen/monaco/seen_SE_to_NW/tables/mean_queue.tex}
+\small n = 10 evaluation runs per controller/method; training seed = 101. Solid: mean; shaded bands: pointwise min-max; EMA = 0.9. Independent y-axis ranges.
+
+\newpage
+\PageHeading{seen-monaco-seen_SW_to_NE}{Southwest to northeast}{Monaco Network / Seen}
+\Chart{assets/overviews/seen/monaco/seen_SW_to_NE.pdf}{Seen evaluation: Southwest to northeast - four controllers and five methods.}{13.4in}
+\QueueTable{Southwest to northeast - unsmoothed Mean queue.}{assets/tables/seen/monaco/seen_SW_to_NE/tables/mean_queue.tex}
+\small n = 10 evaluation runs per controller/method; training seed = 101. Solid: mean; shaded bands: pointwise min-max; EMA = 0.9. Independent y-axis ranges.
+
+\newpage
+\PageHeading{seen-monaco-seen_S_to_N}{South to north}{Monaco Network / Seen}
+\Chart{assets/overviews/seen/monaco/seen_S_to_N.pdf}{Seen evaluation: South to north - four controllers and five methods.}{13.4in}
+\QueueTable{South to north - unsmoothed Mean queue.}{assets/tables/seen/monaco/seen_S_to_N/tables/mean_queue.tex}
+\small n = 10 evaluation runs per controller/method; training seed = 101. Solid: mean; shaded bands: pointwise min-max; EMA = 0.9. Independent y-axis ranges.
+
+\newpage
+\PageHeading{seen-monaco-seen_Uniform}{Uniform demand}{Monaco Network / Seen}
+\Chart{assets/overviews/seen/monaco/seen_Uniform.pdf}{Seen evaluation: Uniform demand - four controllers and five methods.}{13.4in}
+\QueueTable{Uniform demand - unsmoothed Mean queue.}{assets/tables/seen/monaco/seen_Uniform/tables/mean_queue.tex}
+\small n = 10 evaluation runs per controller/method; training seed = 101. Solid: mean; shaded bands: pointwise min-max; EMA = 0.9. Independent y-axis ranges.
+
+\newpage
+\PageHeading{seen-monaco-seen_W_to_E}{West to east}{Monaco Network / Seen}
+\Chart{assets/overviews/seen/monaco/seen_W_to_E.pdf}{Seen evaluation: West to east - four controllers and five methods.}{13.4in}
+\QueueTable{West to east - unsmoothed Mean queue.}{assets/tables/seen/monaco/seen_W_to_E/tables/mean_queue.tex}
+\small n = 10 evaluation runs per controller/method; training seed = 101. Solid: mean; shaded bands: pointwise min-max; EMA = 0.9. Independent y-axis ranges.
+
+\newpage
+\PageHeading{test-grid-summary}{Test evaluation - network summary}{Grid Network}
+\Chart{assets/heatmaps/test/grid.pdf}{Test evaluation - network summary - unsmoothed Mean queue by scenario.}{14.0in}
+\QueueTable{Test evaluation - network summary - equal weight per scenario.}{assets/tables/test/grid/summary/mean_queue.tex}
+\small Each scenario has 10 evaluation runs per controller/method; training seed = 101. Summary values weight scenarios equally.
+
+\newpage
+\PageHeading{test-grid-families}{Test evaluation - demand-family summaries}{Grid Network}
+\QueueTable{Redistribution - equal weight across the three scenarios.}{assets/tables/test/grid/summary/redistribution_mean_queue.tex}
+\vspace{8mm}
+\QueueTable{Mixture - equal weight across the three scenarios.}{assets/tables/test/grid/summary/mixture_mean_queue.tex}
+\vspace{8mm}
+\QueueTable{Temporal - equal weight across the three scenarios.}{assets/tables/test/grid/summary/temporal_mean_queue.tex}
+\vspace{8mm}
+\QueueTable{Peak - equal weight across the three scenarios.}{assets/tables/test/grid/summary/peak_mean_queue.tex}
+\vspace{8mm}
+\small Each family contains three frozen test scenarios. n = 10 per scenario/controller/method; training seed = 101.
+
+\newpage
+\PageHeading{test-grid-mixture_1}{Mixture scenario 1}{Grid Network / Test}
+\Chart{assets/overviews/test/grid/mixture_1.pdf}{Test evaluation: Mixture scenario 1 - four controllers and five methods.}{13.4in}
+\QueueTable{Mixture scenario 1 - unsmoothed Mean queue.}{assets/tables/test/grid/mixture_1/tables/mean_queue.tex}
+\small n = 10 evaluation runs per controller/method; training seed = 101. Solid: mean; shaded bands: pointwise min-max; EMA = 0.9. Independent y-axis ranges.
+
+\newpage
+\PageHeading{test-grid-mixture_2}{Mixture scenario 2}{Grid Network / Test}
+\Chart{assets/overviews/test/grid/mixture_2.pdf}{Test evaluation: Mixture scenario 2 - four controllers and five methods.}{13.4in}
+\QueueTable{Mixture scenario 2 - unsmoothed Mean queue.}{assets/tables/test/grid/mixture_2/tables/mean_queue.tex}
+\small n = 10 evaluation runs per controller/method; training seed = 101. Solid: mean; shaded bands: pointwise min-max; EMA = 0.9. Independent y-axis ranges.
+
+\newpage
+\PageHeading{test-grid-mixture_3}{Mixture scenario 3}{Grid Network / Test}
+\Chart{assets/overviews/test/grid/mixture_3.pdf}{Test evaluation: Mixture scenario 3 - four controllers and five methods.}{13.4in}
+\QueueTable{Mixture scenario 3 - unsmoothed Mean queue.}{assets/tables/test/grid/mixture_3/tables/mean_queue.tex}
+\small n = 10 evaluation runs per controller/method; training seed = 101. Solid: mean; shaded bands: pointwise min-max; EMA = 0.9. Independent y-axis ranges.
+
+\newpage
+\PageHeading{test-grid-peak_1.1}{Peak demand \ensuremath{\times}1.1}{Grid Network / Test}
+\Chart{assets/overviews/test/grid/peak_1.1.pdf}{Test evaluation: Peak demand \ensuremath{\times}1.1 - four controllers and five methods.}{13.4in}
+\QueueTable{Peak demand \ensuremath{\times}1.1 - unsmoothed Mean queue.}{assets/tables/test/grid/peak_1.1/tables/mean_queue.tex}
+\small n = 10 evaluation runs per controller/method; training seed = 101. Solid: mean; shaded bands: pointwise min-max; EMA = 0.9. Independent y-axis ranges.
+
+\newpage
+\PageHeading{test-grid-peak_1.25}{Peak demand \ensuremath{\times}1.25}{Grid Network / Test}
+\Chart{assets/overviews/test/grid/peak_1.25.pdf}{Test evaluation: Peak demand \ensuremath{\times}1.25 - four controllers and five methods.}{13.4in}
+\QueueTable{Peak demand \ensuremath{\times}1.25 - unsmoothed Mean queue.}{assets/tables/test/grid/peak_1.25/tables/mean_queue.tex}
+\small n = 10 evaluation runs per controller/method; training seed = 101. Solid: mean; shaded bands: pointwise min-max; EMA = 0.9. Independent y-axis ranges.
+
+\newpage
+\PageHeading{test-grid-peak_1.5}{Peak demand \ensuremath{\times}1.5}{Grid Network / Test}
+\Chart{assets/overviews/test/grid/peak_1.5.pdf}{Test evaluation: Peak demand \ensuremath{\times}1.5 - four controllers and five methods.}{13.4in}
+\QueueTable{Peak demand \ensuremath{\times}1.5 - unsmoothed Mean queue.}{assets/tables/test/grid/peak_1.5/tables/mean_queue.tex}
+\small n = 10 evaluation runs per controller/method; training seed = 101. Solid: mean; shaded bands: pointwise min-max; EMA = 0.9. Independent y-axis ranges.
+
+\newpage
+\PageHeading{test-grid-redistribution_0.25}{OD redistribution \ensuremath{\sigma}=0.25}{Grid Network / Test}
+\Chart{assets/overviews/test/grid/redistribution_0.25.pdf}{Test evaluation: OD redistribution \ensuremath{\sigma}=0.25 - four controllers and five methods.}{13.4in}
+\QueueTable{OD redistribution \ensuremath{\sigma}=0.25 - unsmoothed Mean queue.}{assets/tables/test/grid/redistribution_0.25/tables/mean_queue.tex}
+\small n = 10 evaluation runs per controller/method; training seed = 101. Solid: mean; shaded bands: pointwise min-max; EMA = 0.9. Independent y-axis ranges.
+
+\newpage
+\PageHeading{test-grid-redistribution_0.5}{OD redistribution \ensuremath{\sigma}=0.5}{Grid Network / Test}
+\Chart{assets/overviews/test/grid/redistribution_0.5.pdf}{Test evaluation: OD redistribution \ensuremath{\sigma}=0.5 - four controllers and five methods.}{13.4in}
+\QueueTable{OD redistribution \ensuremath{\sigma}=0.5 - unsmoothed Mean queue.}{assets/tables/test/grid/redistribution_0.5/tables/mean_queue.tex}
+\small n = 10 evaluation runs per controller/method; training seed = 101. Solid: mean; shaded bands: pointwise min-max; EMA = 0.9. Independent y-axis ranges.
+
+\newpage
+\PageHeading{test-grid-redistribution_0.75}{OD redistribution \ensuremath{\sigma}=0.75}{Grid Network / Test}
+\Chart{assets/overviews/test/grid/redistribution_0.75.pdf}{Test evaluation: OD redistribution \ensuremath{\sigma}=0.75 - four controllers and five methods.}{13.4in}
+\QueueTable{OD redistribution \ensuremath{\sigma}=0.75 - unsmoothed Mean queue.}{assets/tables/test/grid/redistribution_0.75/tables/mean_queue.tex}
+\small n = 10 evaluation runs per controller/method; training seed = 101. Solid: mean; shaded bands: pointwise min-max; EMA = 0.9. Independent y-axis ranges.
+
+\newpage
+\PageHeading{test-grid-switch_1200}{Rapid switching every 1200 s}{Grid Network / Test}
+\Chart{assets/overviews/test/grid/switch_1200.pdf}{Test evaluation: Rapid switching every 1200 s - four controllers and five methods.}{13.4in}
+\QueueTable{Rapid switching every 1200 s - unsmoothed Mean queue.}{assets/tables/test/grid/switch_1200/tables/mean_queue.tex}
+\small n = 10 evaluation runs per controller/method; training seed = 101. Solid: mean; shaded bands: pointwise min-max; EMA = 0.9. Independent y-axis ranges.
+
+\newpage
+\PageHeading{test-grid-switch_300}{Rapid switching every 300 s}{Grid Network / Test}
+\Chart{assets/overviews/test/grid/switch_300.pdf}{Test evaluation: Rapid switching every 300 s - four controllers and five methods.}{13.4in}
+\QueueTable{Rapid switching every 300 s - unsmoothed Mean queue.}{assets/tables/test/grid/switch_300/tables/mean_queue.tex}
+\small n = 10 evaluation runs per controller/method; training seed = 101. Solid: mean; shaded bands: pointwise min-max; EMA = 0.9. Independent y-axis ranges.
+
+\newpage
+\PageHeading{test-grid-switch_900}{Rapid switching every 900 s}{Grid Network / Test}
+\Chart{assets/overviews/test/grid/switch_900.pdf}{Test evaluation: Rapid switching every 900 s - four controllers and five methods.}{13.4in}
+\QueueTable{Rapid switching every 900 s - unsmoothed Mean queue.}{assets/tables/test/grid/switch_900/tables/mean_queue.tex}
+\small n = 10 evaluation runs per controller/method; training seed = 101. Solid: mean; shaded bands: pointwise min-max; EMA = 0.9. Independent y-axis ranges.
+
+\newpage
+\PageHeading{test-monaco-summary}{Test evaluation - network summary}{Monaco Network}
+\Chart{assets/heatmaps/test/monaco.pdf}{Test evaluation - network summary - unsmoothed Mean queue by scenario.}{14.0in}
+\QueueTable{Test evaluation - network summary - equal weight per scenario.}{assets/tables/test/monaco/summary/mean_queue.tex}
+\small Each scenario has 10 evaluation runs per controller/method; training seed = 101. Summary values weight scenarios equally.
+
+\newpage
+\PageHeading{test-monaco-families}{Test evaluation - demand-family summaries}{Monaco Network}
+\QueueTable{Redistribution - equal weight across the three scenarios.}{assets/tables/test/monaco/summary/redistribution_mean_queue.tex}
+\vspace{8mm}
+\QueueTable{Mixture - equal weight across the three scenarios.}{assets/tables/test/monaco/summary/mixture_mean_queue.tex}
+\vspace{8mm}
+\QueueTable{Temporal - equal weight across the three scenarios.}{assets/tables/test/monaco/summary/temporal_mean_queue.tex}
+\vspace{8mm}
+\QueueTable{Peak - equal weight across the three scenarios.}{assets/tables/test/monaco/summary/peak_mean_queue.tex}
+\vspace{8mm}
+\small Each family contains three frozen test scenarios. n = 10 per scenario/controller/method; training seed = 101.
+
+\newpage
+\PageHeading{test-monaco-mixture_1}{Mixture scenario 1}{Monaco Network / Test}
+\Chart{assets/overviews/test/monaco/mixture_1.pdf}{Test evaluation: Mixture scenario 1 - four controllers and five methods.}{13.4in}
+\QueueTable{Mixture scenario 1 - unsmoothed Mean queue.}{assets/tables/test/monaco/mixture_1/tables/mean_queue.tex}
+\small n = 10 evaluation runs per controller/method; training seed = 101. Solid: mean; shaded bands: pointwise min-max; EMA = 0.9. Independent y-axis ranges.
+
+\newpage
+\PageHeading{test-monaco-mixture_2}{Mixture scenario 2}{Monaco Network / Test}
+\Chart{assets/overviews/test/monaco/mixture_2.pdf}{Test evaluation: Mixture scenario 2 - four controllers and five methods.}{13.4in}
+\QueueTable{Mixture scenario 2 - unsmoothed Mean queue.}{assets/tables/test/monaco/mixture_2/tables/mean_queue.tex}
+\small n = 10 evaluation runs per controller/method; training seed = 101. Solid: mean; shaded bands: pointwise min-max; EMA = 0.9. Independent y-axis ranges.
+
+\newpage
+\PageHeading{test-monaco-mixture_3}{Mixture scenario 3}{Monaco Network / Test}
+\Chart{assets/overviews/test/monaco/mixture_3.pdf}{Test evaluation: Mixture scenario 3 - four controllers and five methods.}{13.4in}
+\QueueTable{Mixture scenario 3 - unsmoothed Mean queue.}{assets/tables/test/monaco/mixture_3/tables/mean_queue.tex}
+\small n = 10 evaluation runs per controller/method; training seed = 101. Solid: mean; shaded bands: pointwise min-max; EMA = 0.9. Independent y-axis ranges.
+
+\newpage
+\PageHeading{test-monaco-peak_1.1}{Peak demand \ensuremath{\times}1.1}{Monaco Network / Test}
+\Chart{assets/overviews/test/monaco/peak_1.1.pdf}{Test evaluation: Peak demand \ensuremath{\times}1.1 - four controllers and five methods.}{13.4in}
+\QueueTable{Peak demand \ensuremath{\times}1.1 - unsmoothed Mean queue.}{assets/tables/test/monaco/peak_1.1/tables/mean_queue.tex}
+\small n = 10 evaluation runs per controller/method; training seed = 101. Solid: mean; shaded bands: pointwise min-max; EMA = 0.9. Independent y-axis ranges.
+
+\newpage
+\PageHeading{test-monaco-peak_1.25}{Peak demand \ensuremath{\times}1.25}{Monaco Network / Test}
+\Chart{assets/overviews/test/monaco/peak_1.25.pdf}{Test evaluation: Peak demand \ensuremath{\times}1.25 - four controllers and five methods.}{13.4in}
+\QueueTable{Peak demand \ensuremath{\times}1.25 - unsmoothed Mean queue.}{assets/tables/test/monaco/peak_1.25/tables/mean_queue.tex}
+\small n = 10 evaluation runs per controller/method; training seed = 101. Solid: mean; shaded bands: pointwise min-max; EMA = 0.9. Independent y-axis ranges.
+
+\newpage
+\PageHeading{test-monaco-peak_1.5}{Peak demand \ensuremath{\times}1.5}{Monaco Network / Test}
+\Chart{assets/overviews/test/monaco/peak_1.5.pdf}{Test evaluation: Peak demand \ensuremath{\times}1.5 - four controllers and five methods.}{13.4in}
+\QueueTable{Peak demand \ensuremath{\times}1.5 - unsmoothed Mean queue.}{assets/tables/test/monaco/peak_1.5/tables/mean_queue.tex}
+\small n = 10 evaluation runs per controller/method; training seed = 101. Solid: mean; shaded bands: pointwise min-max; EMA = 0.9. Independent y-axis ranges.
+
+\newpage
+\PageHeading{test-monaco-redistribution_0.25}{OD redistribution \ensuremath{\sigma}=0.25}{Monaco Network / Test}
+\Chart{assets/overviews/test/monaco/redistribution_0.25.pdf}{Test evaluation: OD redistribution \ensuremath{\sigma}=0.25 - four controllers and five methods.}{13.4in}
+\QueueTable{OD redistribution \ensuremath{\sigma}=0.25 - unsmoothed Mean queue.}{assets/tables/test/monaco/redistribution_0.25/tables/mean_queue.tex}
+\small n = 10 evaluation runs per controller/method; training seed = 101. Solid: mean; shaded bands: pointwise min-max; EMA = 0.9. Independent y-axis ranges.
+
+\newpage
+\PageHeading{test-monaco-redistribution_0.5}{OD redistribution \ensuremath{\sigma}=0.5}{Monaco Network / Test}
+\Chart{assets/overviews/test/monaco/redistribution_0.5.pdf}{Test evaluation: OD redistribution \ensuremath{\sigma}=0.5 - four controllers and five methods.}{13.4in}
+\QueueTable{OD redistribution \ensuremath{\sigma}=0.5 - unsmoothed Mean queue.}{assets/tables/test/monaco/redistribution_0.5/tables/mean_queue.tex}
+\small n = 10 evaluation runs per controller/method; training seed = 101. Solid: mean; shaded bands: pointwise min-max; EMA = 0.9. Independent y-axis ranges.
+
+\newpage
+\PageHeading{test-monaco-redistribution_0.75}{OD redistribution \ensuremath{\sigma}=0.75}{Monaco Network / Test}
+\Chart{assets/overviews/test/monaco/redistribution_0.75.pdf}{Test evaluation: OD redistribution \ensuremath{\sigma}=0.75 - four controllers and five methods.}{13.4in}
+\QueueTable{OD redistribution \ensuremath{\sigma}=0.75 - unsmoothed Mean queue.}{assets/tables/test/monaco/redistribution_0.75/tables/mean_queue.tex}
+\small n = 10 evaluation runs per controller/method; training seed = 101. Solid: mean; shaded bands: pointwise min-max; EMA = 0.9. Independent y-axis ranges.
+
+\newpage
+\PageHeading{test-monaco-switch_1200}{Rapid switching every 1200 s}{Monaco Network / Test}
+\Chart{assets/overviews/test/monaco/switch_1200.pdf}{Test evaluation: Rapid switching every 1200 s - four controllers and five methods.}{13.4in}
+\QueueTable{Rapid switching every 1200 s - unsmoothed Mean queue.}{assets/tables/test/monaco/switch_1200/tables/mean_queue.tex}
+\small n = 10 evaluation runs per controller/method; training seed = 101. Solid: mean; shaded bands: pointwise min-max; EMA = 0.9. Independent y-axis ranges.
+
+\newpage
+\PageHeading{test-monaco-switch_300}{Rapid switching every 300 s}{Monaco Network / Test}
+\Chart{assets/overviews/test/monaco/switch_300.pdf}{Test evaluation: Rapid switching every 300 s - four controllers and five methods.}{13.4in}
+\QueueTable{Rapid switching every 300 s - unsmoothed Mean queue.}{assets/tables/test/monaco/switch_300/tables/mean_queue.tex}
+\small n = 10 evaluation runs per controller/method; training seed = 101. Solid: mean; shaded bands: pointwise min-max; EMA = 0.9. Independent y-axis ranges.
+
+\newpage
+\PageHeading{test-monaco-switch_900}{Rapid switching every 900 s}{Monaco Network / Test}
+\Chart{assets/overviews/test/monaco/switch_900.pdf}{Test evaluation: Rapid switching every 900 s - four controllers and five methods.}{13.4in}
+\QueueTable{Rapid switching every 900 s - unsmoothed Mean queue.}{assets/tables/test/monaco/switch_900/tables/mean_queue.tex}
+\small n = 10 evaluation runs per controller/method; training seed = 101. Solid: mean; shaded bands: pointwise min-max; EMA = 0.9. Independent y-axis ranges.
+\end{document}

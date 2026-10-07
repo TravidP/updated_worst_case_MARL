@@ -1,0 +1,4 @@
+{
+  "status": "failed",
+  "reason": "Network routes restored, but copied detector end positions exceed recompiled lane bounds. Version 2 recalculates detector positions with the same end setback and coverage cap."
+}

@@ -1,0 +1,394 @@
+{
+  "adjusted_detector_positions": 43,
+  "base_network_hash": "0ff05a7efb668ae1ba80785a75c09a151679462039ebdb392c3f8ea565bda9a5",
+  "commands": [
+    [
+      "netconvert",
+      "--sumo-net-file",
+      "/home/sdc_joran/Journal/deeprl_signal_control/real_net/data/in/most.net.xml",
+      "--plain-output-prefix",
+      "/home/sdc_joran/Journal/deeprl_signal_control/real_net_subnet/repaired/group12_topology_v2/source_export/original",
+      "--plain-output.lanes",
+      "true",
+      "--offset.disable-normalization",
+      "true",
+      "--output-file",
+      "/home/sdc_joran/Journal/deeprl_signal_control/real_net_subnet/repaired/group12_topology_v2/source_export/roundtrip.net.xml"
+    ],
+    [
+      "netconvert",
+      "--sumo-net-file",
+      "/home/sdc_joran/Journal/deeprl_signal_control/real_net_subnet/data/in/most.net.xml",
+      "--node-files",
+      "/home/sdc_joran/Journal/deeprl_signal_control/real_net_subnet/repaired/group12_topology_v2/patches/restore.nod.xml",
+      "--edge-files",
+      "/home/sdc_joran/Journal/deeprl_signal_control/real_net_subnet/repaired/group12_topology_v2/patches/restore.edg.xml",
+      "--connection-files",
+      "/home/sdc_joran/Journal/deeprl_signal_control/real_net_subnet/repaired/group12_topology_v2/patches/restore.con.xml",
+      "--offset.disable-normalization",
+      "true",
+      "--geometry.min-radius.fix.railways",
+      "false",
+      "--geometry.max-grade.fix",
+      "false",
+      "--output-file",
+      "/home/sdc_joran/Journal/deeprl_signal_control/real_net_subnet/repaired/group12_topology_v2/data/in/most.net.xml"
+    ],
+    [
+      "sumo",
+      "-c",
+      "/home/sdc_joran/Journal/deeprl_signal_control/real_net_subnet/repaired/group12_topology_v2/data/connectivity_probe.sumocfg",
+      "--seed",
+      "71001",
+      "--no-step-log",
+      "true",
+      "--duration-log.disable",
+      "true",
+      "--time-to-teleport",
+      "300",
+      "--tripinfo-output",
+      "/home/sdc_joran/Journal/deeprl_signal_control/real_net_subnet/repaired/group12_topology_v2/probe_tripinfo.xml",
+      "--error-log",
+      "/home/sdc_joran/Journal/deeprl_signal_control/real_net_subnet/repaired/group12_topology_v2/probe_errors.log"
+    ]
+  ],
+  "controlled_link_mappings_unchanged": 264,
+  "demand_unchanged": true,
+  "existing_lane_attribute_changes": 373,
+  "geometry_note": "Current netconvert recomputes some existing lane and junction geometry. See geometry_changes.json. This is a new topology version, not an equivalent original-network evaluation.",
+  "junction_changes": [
+    {
+      "id": "8746",
+      "old_type": "dead_end",
+      "original_type": "priority",
+      "repaired_type": "priority"
+    },
+    {
+      "id": "9601",
+      "old_type": null,
+      "original_type": "priority",
+      "repaired_type": "priority"
+    },
+    {
+      "id": "9963",
+      "old_type": "dead_end",
+      "original_type": "priority",
+      "repaired_type": "priority"
+    }
+  ],
+  "model_compatibility": "New network hash. Existing final checkpoints remain bound to the old network; no hash bypass or policy evaluation performed.",
+  "monitored_lane_length_changes": 43,
+  "monitored_lanes_unchanged": 116,
+  "original_additional_hash": "cff978f25da76e411a0a167e772f5e0c505c02b04ef01ac28dedfb6eddc1015c",
+  "original_demand_hash": "0078afe59a4a04ead22bd0fe3720b9647f5740b03fb67118013eaf402d3a0dce",
+  "passenger_routes": [
+    {
+      "destination": "10043",
+      "edges": [
+        "-10051#2",
+        "-10051#1",
+        "10178",
+        "10179",
+        "10050#2",
+        "10180#0",
+        "10180#1",
+        "10180#2",
+        "10180#3",
+        "10181#0",
+        "10181#1",
+        "10181#2",
+        "10116",
+        "10077",
+        "10031#1",
+        "-10089#4",
+        "gneE4",
+        "-10108#5",
+        "gneE7",
+        "-10062",
+        "10043"
+      ],
+      "origin": "-10051#2",
+      "rate": 108.333333
+    },
+    {
+      "destination": "10085",
+      "edges": [
+        "-10063",
+        "-10065#0",
+        "10071#5",
+        "-10053#0",
+        "10080#0",
+        "10080#1",
+        "10080#2",
+        "10090#1",
+        "gneE5",
+        "10046#0",
+        "10046#1",
+        "gneE16",
+        "10085"
+      ],
+      "origin": "-10063",
+      "rate": 108.333333
+    },
+    {
+      "destination": "-10110",
+      "edges": [
+        "-10064#5",
+        "-10064#4",
+        "-10064#3",
+        "gneE11",
+        "10090#0",
+        "10090#1",
+        "-10115#5",
+        "-10115#4",
+        "-10110"
+      ],
+      "origin": "-10064#5",
+      "rate": 108.333333
+    },
+    {
+      "destination": "-10086",
+      "edges": [
+        "-10070#0",
+        "10071#4",
+        "10071#5",
+        "-10053#0",
+        "10080#0",
+        "10080#1",
+        "10080#2",
+        "10090#1",
+        "gneE5",
+        "10046#0",
+        "10046#1",
+        "-10086"
+      ],
+      "origin": "-10070#0",
+      "rate": 108.333333
+    },
+    {
+      "destination": "10072",
+      "edges": [
+        "-10114#0",
+        "10108#0",
+        "-10067#1",
+        "-10067#0",
+        "10053#0",
+        "-10071#5",
+        "10065#0",
+        "10065#1",
+        "10065#2",
+        "10102",
+        "10032",
+        "10072"
+      ],
+      "origin": "-10114#0",
+      "rate": 270.833333
+    },
+    {
+      "destination": "10076",
+      "edges": [
+        "-10114#0",
+        "10108#0",
+        "-10067#1",
+        "-10067#0",
+        "10053#0",
+        "-10071#5",
+        "10065#0",
+        "10065#1",
+        "10065#2",
+        "10102",
+        "10032",
+        "10072",
+        "10048",
+        "10076"
+      ],
+      "origin": "-10114#0",
+      "rate": 108.333333
+    },
+    {
+      "destination": "10104",
+      "edges": [
+        "-10118",
+        "-10059",
+        "-10064#3",
+        "gneE11",
+        "10090#0",
+        "10090#1",
+        "-10115#5",
+        "10104"
+      ],
+      "origin": "-10118",
+      "rate": 162.5
+    },
+    {
+      "destination": "-10061#5",
+      "edges": [
+        "-10185#1",
+        "-10185#0",
+        "10183#14",
+        "10183#15",
+        "10183#16",
+        "10120",
+        "10122",
+        "10094#0",
+        "10094#1",
+        "10094#2",
+        "10094#3",
+        "10089#2",
+        "10089#3",
+        "10089#4",
+        "10091",
+        "10092",
+        "gneE10",
+        "-10071#5",
+        "10065#0",
+        "10065#1",
+        "-10061#5"
+      ],
+      "origin": "-10185#1",
+      "rate": 108.333333
+    },
+    {
+      "destination": "-10071#3",
+      "edges": [
+        "-10185#1",
+        "-10185#0",
+        "10183#14",
+        "10183#15",
+        "10183#16",
+        "10120",
+        "10122",
+        "10094#0",
+        "10094#1",
+        "10094#2",
+        "10094#3",
+        "10089#2",
+        "10089#3",
+        "10089#4",
+        "10091",
+        "10092",
+        "gneE10",
+        "-10071#5",
+        "-10071#4",
+        "-10071#3"
+      ],
+      "origin": "-10185#1",
+      "rate": 162.5
+    },
+    {
+      "destination": "10104",
+      "edges": [
+        "10052#4",
+        "10052#5",
+        "10181#0",
+        "10181#1",
+        "10181#2",
+        "10116",
+        "10077",
+        "10031#1",
+        "-10089#4",
+        "gneE4",
+        "-10115#5",
+        "10104"
+      ],
+      "origin": "10052#4",
+      "rate": 216.666667
+    },
+    {
+      "destination": "-10085",
+      "edges": [
+        "10061#4",
+        "10061#5",
+        "10065#2",
+        "10102",
+        "10031#0",
+        "10031#1",
+        "-10089#4",
+        "10046#0",
+        "10046#1",
+        "-10086",
+        "-10078#3",
+        "-10085"
+      ],
+      "origin": "10061#4",
+      "rate": 216.666667
+    },
+    {
+      "destination": "10085",
+      "edges": [
+        "10071#3",
+        "10071#4",
+        "10071#5",
+        "-10053#0",
+        "10080#0",
+        "10080#1",
+        "10080#2",
+        "10090#1",
+        "gneE5",
+        "10046#0",
+        "10046#1",
+        "gneE16",
+        "10085"
+      ],
+      "origin": "10071#3",
+      "rate": 162.5
+    },
+    {
+      "destination": "10063",
+      "edges": [
+        "10096#1",
+        "10094#3",
+        "10089#2",
+        "10089#3",
+        "10089#4",
+        "10091",
+        "10092",
+        "gneE10",
+        "-10071#5",
+        "10065#0",
+        "10063"
+      ],
+      "origin": "10096#1",
+      "rate": 325.0
+    },
+    {
+      "destination": "10072",
+      "edges": [
+        "10115#1",
+        "10115#2",
+        "10115#4",
+        "10115#5",
+        "-10090#1",
+        "-10090#0",
+        "gneE12",
+        "10064#3",
+        "10102",
+        "10032",
+        "10072"
+      ],
+      "origin": "10115#1",
+      "rate": 216.666667
+    }
+  ],
+  "physical_probe_completed": 102,
+  "physical_probe_scheduled": 102,
+  "positive_od": 14,
+  "provenance_scope": "Restored from the exact local 2018 source map; upstream byte-for-byte equivalence unverified.",
+  "repair_version": "group12_topology_v2",
+  "repaired_additional_hash": "32d05118e708f71b1a6385ee07ff2a61349461a0c8fbd5441ebaa46e7f2d6bb0",
+  "repaired_network_hash": "cd6d7b1fcf1f1dfa42c8461ef6cdd7a935109f3aa9549d7da4558fe584fd2483",
+  "restored_edges": [
+    "10180#0",
+    "10180#1"
+  ],
+  "source_flows": 88,
+  "source_map": "/home/sdc_joran/Journal/deeprl_signal_control/real_net/data/in/most.net.xml",
+  "source_map_hash": "f6cac3323549267944b31be1d78e0f10b0f09dc7d5d6cb2a21193638b3a14faa",
+  "status": "passed",
+  "tls_programs_unchanged": 28,
+  "tools": {
+    "netconvert": "Eclipse SUMO netconvert v1_26_0+0455-77b9dbc222e"
+  },
+  "total_veh_per_hour": 2383.3333319999997,
+  "upstream_reference": "https://github.com/lcodeca/MoSTScenario"
+}

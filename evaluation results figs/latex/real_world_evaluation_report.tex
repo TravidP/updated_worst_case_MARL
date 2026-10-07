@@ -1,0 +1,35 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[a3paper,landscape,left=12mm,right=12mm,top=12mm,bottom=14mm,includefoot]{geometry}
+\usepackage{graphicx,booktabs,caption,multicol,fancyhdr,lastpage}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{pdfauthor={Evaluation results archive},pdfsubject={Traffic signal control evaluation},bookmarksnumbered=true}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\fancyfoot[L]{\small CBWCE evaluation results}
+\fancyfoot[R]{\small Page \thepage\ of \pageref*{LastPage}}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{3pt}
+\setlength{\tabcolsep}{16pt}
+\renewcommand{\arraystretch}{1.20}
+\captionsetup{font=small,labelfont=bf,skip=3pt}
+\newcommand{\PageHeading}[3]{\normalsize\phantomsection\label{#1}\pdfbookmark[1]{#2}{bookmark-#1}
+{\Large\bfseries #2}\hfill {\large #3}\par\vspace{2pt}}
+\newcommand{\Chart}[3]{\begin{center}\includegraphics[width=#3]{#1}
+\captionof{figure}{#2}\end{center}}
+\newcommand{\QueueTable}[2]{\begin{center}\captionof{table}{#1}
+\input{#2}\par\vspace{2pt}{\small Mean queue (vehicles; lower is better). Bold: lowest unrounded mean within each controller.}\end{center}}
+\hypersetup{pdftitle={Real-world evaluation report}}\begin{document}
+\PageHeading{real-grid}{Hangzhou realworld}{Grid Network}
+\Chart{../real_world/grid/grid_sparse_native_2983/figures/all_controllers_queue.png}{Hangzhou realworld - four controllers and five methods.}{11.2in}
+\QueueTable{Hangzhou realworld - unsmoothed Mean queue.}{assets/tables/real_world/grid/grid_sparse_native_2983/tables/mean_queue.tex}
+\small n = 10 evaluation runs per controller/method; training seed = 101. Solid: mean; shaded bands: pointwise min-max; EMA = 0.9. Independent y-axis ranges.
+
+\newpage
+\PageHeading{real-monaco}{Monaco real world data}{Monaco Network}
+\Chart{../real_world/monaco/monaco_repaired_full14_v1/figures/all_controllers_queue.png}{Monaco real world data - four controllers and five methods.}{11.2in}
+\QueueTable{Monaco real world data - unsmoothed Mean queue.}{assets/tables/real_world/monaco/monaco_repaired_full14_v1/tables/mean_queue.tex}
+\small n = 10 evaluation runs per controller/method; training seed = 101. Solid: mean; shaded bands: pointwise min-max; EMA = 0.9. Independent y-axis ranges.
+\end{document}

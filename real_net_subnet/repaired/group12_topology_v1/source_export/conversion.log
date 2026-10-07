@@ -1,0 +1,38 @@
+Warning: Ambiguity in turnarounds computation at junction '9751'.
+Warning: Found sharp turn with radius 5.04 at the start of edge '-10075#1'.
+Warning: Found sharp turn with radius 3.16 at the end of edge '-10078#2'.
+Warning: Found sharp turn with radius 3.90 at the end of edge '-10078#3'.
+Warning: Found sharp turn with radius 7.15 at the start of edge '-10081'.
+Warning: Found sharp turn with radius 5.04 at the end of edge '10075#1'.
+Warning: Edge '-10060' is not connected to outgoing edges at junction '9300'.
+Warning: Edge '-10069#0' is not connected to outgoing edges at junction '9824'.
+Warning: Lane '-10088_1' is not connected from any incoming edge at junction '9285'.
+Warning: Lane '-10095_1' is not connected from any incoming edge at junction '8767'.
+Warning: Edge '-10173#0' is not connected to outgoing edges at junction '10007'.
+Warning: Edge '-10184#0' is not connected to outgoing edges at junction '9694'.
+Warning: Lane '-10186_1' is not connected from any incoming edge at junction '9785'.
+Warning: Edge '-10211' is not connected to outgoing edges at junction '8752'.
+Warning: Lane '10060_1' is not connected from any incoming edge at junction '9300'.
+Warning: Lane '10069#0_1' is not connected from any incoming edge at junction '9824'.
+Warning: Minor green from edge '-10089#4' to edge 'gneE4' exceeds 19.44m/s. Maybe a left-turn lane is missing.
+Warning: Minor green from edge '10089#3' to edge '10046#0' exceeds 19.44m/s. Maybe a left-turn lane is missing.
+Warning: Minor green from edge '-10089#2' to edge '10109' exceeds 19.44m/s. Maybe a left-turn lane is missing.
+Warning: Minor green from edge '10089#1' to edge '-10094#3' exceeds 19.44m/s. Maybe a left-turn lane is missing.
+Warning: Minor green from edge 'gneE11' to edge 'gneE10' exceeds 19.44m/s. Maybe a left-turn lane is missing.
+Warning: Edge '-10039' has a grade of 48.72%.
+Warning: Connection '-10039_0->-10105_0' has a grade of 16.44%.
+Warning: Edge '-10040' has a grade of 14.84%.
+Warning: Connection '-10042_0->10111_0' has a grade of 11.04%.
+Warning: Edge '-10043' has a grade of 11.53%.
+Warning: Edge '-10046#0' has a grade of 49.45%.
+Warning: Edge '-10046#1' has a grade of 109.19%.
+Warning: Connection '-10080#2_1->-10080#1_1' has a grade of 33.09%.
+Warning: Connection '-10085_1->10046#5_1' has a grade of 14.80%.
+Warning: Connection '-10106#0_1->10089#0_1' has a grade of 13.27%.
+Warning: 9 total messages of type: Connection '%' has a grade of %%.
+Warning: 374 total messages of type: Edge '%' has a grade of %%.
+Warning: 10 total messages of type: Edge '%' is not connected to outgoing edges at junction '%'.
+Warning: 8 total messages of type: Found sharp turn with radius % at the % of edge '%'.
+Warning: 8 total messages of type: Lane '%' is not connected from any incoming edge at junction '%'.
+Warning: 11 total messages of type: Minor green from edge '%' to edge '%' exceeds %m/s. Maybe a left-turn lane is missing.
+Success.

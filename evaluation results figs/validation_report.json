@@ -1,0 +1,454 @@
+{
+  "status": "passed",
+  "scenario_count": 48,
+  "groups": 960,
+  "rollouts": 9600,
+  "curve_figures": 192,
+  "rendered_figures_and_tables": 258,
+  "checks": [
+    {
+      "network": "grid",
+      "split": "real_world",
+      "scenario": "grid_sparse_native_2983",
+      "groups": 20,
+      "rollouts": 200,
+      "series_rows": 3600,
+      "status": "passed"
+    },
+    {
+      "network": "monaco",
+      "split": "real_world",
+      "scenario": "monaco_repaired_full14_v1",
+      "groups": 20,
+      "rollouts": 200,
+      "series_rows": 3600,
+      "status": "passed"
+    },
+    {
+      "network": "grid",
+      "split": "seen",
+      "scenario": "seen_Center_to_Periphery",
+      "groups": 20,
+      "rollouts": 200,
+      "series_rows": 3600,
+      "status": "passed"
+    },
+    {
+      "network": "grid",
+      "split": "seen",
+      "scenario": "seen_E_to_W",
+      "groups": 20,
+      "rollouts": 200,
+      "series_rows": 3600,
+      "status": "passed"
+    },
+    {
+      "network": "grid",
+      "split": "seen",
+      "scenario": "seen_NE_to_SW",
+      "groups": 20,
+      "rollouts": 200,
+      "series_rows": 3600,
+      "status": "passed"
+    },
+    {
+      "network": "grid",
+      "split": "seen",
+      "scenario": "seen_NW_to_SE",
+      "groups": 20,
+      "rollouts": 200,
+      "series_rows": 3600,
+      "status": "passed"
+    },
+    {
+      "network": "grid",
+      "split": "seen",
+      "scenario": "seen_N_to_S",
+      "groups": 20,
+      "rollouts": 200,
+      "series_rows": 3600,
+      "status": "passed"
+    },
+    {
+      "network": "grid",
+      "split": "seen",
+      "scenario": "seen_Periphery_to_Center",
+      "groups": 20,
+      "rollouts": 200,
+      "series_rows": 3600,
+      "status": "passed"
+    },
+    {
+      "network": "grid",
+      "split": "seen",
+      "scenario": "seen_SE_to_NW",
+      "groups": 20,
+      "rollouts": 200,
+      "series_rows": 3600,
+      "status": "passed"
+    },
+    {
+      "network": "grid",
+      "split": "seen",
+      "scenario": "seen_SW_to_NE",
+      "groups": 20,
+      "rollouts": 200,
+      "series_rows": 3600,
+      "status": "passed"
+    },
+    {
+      "network": "grid",
+      "split": "seen",
+      "scenario": "seen_S_to_N",
+      "groups": 20,
+      "rollouts": 200,
+      "series_rows": 3600,
+      "status": "passed"
+    },
+    {
+      "network": "grid",
+      "split": "seen",
+      "scenario": "seen_Uniform",
+      "groups": 20,
+      "rollouts": 200,
+      "series_rows": 3600,
+      "status": "passed"
+    },
+    {
+      "network": "grid",
+      "split": "seen",
+      "scenario": "seen_W_to_E",
+      "groups": 20,
+      "rollouts": 200,
+      "series_rows": 3600,
+      "status": "passed"
+    },
+    {
+      "network": "monaco",
+      "split": "seen",
+      "scenario": "seen_Center_to_Periphery",
+      "groups": 20,
+      "rollouts": 200,
+      "series_rows": 3600,
+      "status": "passed"
+    },
+    {
+      "network": "monaco",
+      "split": "seen",
+      "scenario": "seen_E_to_W",
+      "groups": 20,
+      "rollouts": 200,
+      "series_rows": 3600,
+      "status": "passed"
+    },
+    {
+      "network": "monaco",
+      "split": "seen",
+      "scenario": "seen_NE_to_SW",
+      "groups": 20,
+      "rollouts": 200,
+      "series_rows": 3600,
+      "status": "passed"
+    },
+    {
+      "network": "monaco",
+      "split": "seen",
+      "scenario": "seen_NW_to_SE",
+      "groups": 20,
+      "rollouts": 200,
+      "series_rows": 3600,
+      "status": "passed"
+    },
+    {
+      "network": "monaco",
+      "split": "seen",
+      "scenario": "seen_N_to_S",
+      "groups": 20,
+      "rollouts": 200,
+      "series_rows": 3600,
+      "status": "passed"
+    },
+    {
+      "network": "monaco",
+      "split": "seen",
+      "scenario": "seen_Periphery_to_Center",
+      "groups": 20,
+      "rollouts": 200,
+      "series_rows": 3600,
+      "status": "passed"
+    },
+    {
+      "network": "monaco",
+      "split": "seen",
+      "scenario": "seen_SE_to_NW",
+      "groups": 20,
+      "rollouts": 200,
+      "series_rows": 3600,
+      "status": "passed"
+    },
+    {
+      "network": "monaco",
+      "split": "seen",
+      "scenario": "seen_SW_to_NE",
+      "groups": 20,
+      "rollouts": 200,
+      "series_rows": 3600,
+      "status": "passed"
+    },
+    {
+      "network": "monaco",
+      "split": "seen",
+      "scenario": "seen_S_to_N",
+      "groups": 20,
+      "rollouts": 200,
+      "series_rows": 3600,
+      "status": "passed"
+    },
+    {
+      "network": "monaco",
+      "split": "seen",
+      "scenario": "seen_Uniform",
+      "groups": 20,
+      "rollouts": 200,
+      "series_rows": 3600,
+      "status": "passed"
+    },
+    {
+      "network": "monaco",
+      "split": "seen",
+      "scenario": "seen_W_to_E",
+      "groups": 20,
+      "rollouts": 200,
+      "series_rows": 3600,
+      "status": "passed"
+    },
+    {
+      "network": "grid",
+      "split": "test",
+      "scenario": "mixture_1",
+      "groups": 20,
+      "rollouts": 200,
+      "series_rows": 3600,
+      "status": "passed"
+    },
+    {
+      "network": "grid",
+      "split": "test",
+      "scenario": "mixture_2",
+      "groups": 20,
+      "rollouts": 200,
+      "series_rows": 3600,
+      "status": "passed"
+    },
+    {
+      "network": "grid",
+      "split": "test",
+      "scenario": "mixture_3",
+      "groups": 20,
+      "rollouts": 200,
+      "series_rows": 3600,
+      "status": "passed"
+    },
+    {
+      "network": "grid",
+      "split": "test",
+      "scenario": "peak_1.1",
+      "groups": 20,
+      "rollouts": 200,
+      "series_rows": 3600,
+      "status": "passed"
+    },
+    {
+      "network": "grid",
+      "split": "test",
+      "scenario": "peak_1.25",
+      "groups": 20,
+      "rollouts": 200,
+      "series_rows": 3600,
+      "status": "passed"
+    },
+    {
+      "network": "grid",
+      "split": "test",
+      "scenario": "peak_1.5",
+      "groups": 20,
+      "rollouts": 200,
+      "series_rows": 3600,
+      "status": "passed"
+    },
+    {
+      "network": "grid",
+      "split": "test",
+      "scenario": "redistribution_0.25",
+      "groups": 20,
+      "rollouts": 200,
+      "series_rows": 3600,
+      "status": "passed"
+    },
+    {
+      "network": "grid",
+      "split": "test",
+      "scenario": "redistribution_0.5",
+      "groups": 20,
+      "rollouts": 200,
+      "series_rows": 3600,
+      "status": "passed"
+    },
+    {
+      "network": "grid",
+      "split": "test",
+      "scenario": "redistribution_0.75",
+      "groups": 20,
+      "rollouts": 200,
+      "series_rows": 3600,
+      "status": "passed"
+    },
+    {
+      "network": "grid",
+      "split": "test",
+      "scenario": "switch_1200",
+      "groups": 20,
+      "rollouts": 200,
+      "series_rows": 3600,
+      "status": "passed"
+    },
+    {
+      "network": "grid",
+      "split": "test",
+      "scenario": "switch_300",
+      "groups": 20,
+      "rollouts": 200,
+      "series_rows": 3600,
+      "status": "passed"
+    },
+    {
+      "network": "grid",
+      "split": "test",
+      "scenario": "switch_900",
+      "groups": 20,
+      "rollouts": 200,
+      "series_rows": 3600,
+      "status": "passed"
+    },
+    {
+      "network": "monaco",
+      "split": "test",
+      "scenario": "mixture_1",
+      "groups": 20,
+      "rollouts": 200,
+      "series_rows": 3600,
+      "status": "passed"
+    },
+    {
+      "network": "monaco",
+      "split": "test",
+      "scenario": "mixture_2",
+      "groups": 20,
+      "rollouts": 200,
+      "series_rows": 3600,
+      "status": "passed"
+    },
+    {
+      "network": "monaco",
+      "split": "test",
+      "scenario": "mixture_3",
+      "groups": 20,
+      "rollouts": 200,
+      "series_rows": 3600,
+      "status": "passed"
+    },
+    {
+      "network": "monaco",
+      "split": "test",
+      "scenario": "peak_1.1",
+      "groups": 20,
+      "rollouts": 200,
+      "series_rows": 3600,
+      "status": "passed"
+    },
+    {
+      "network": "monaco",
+      "split": "test",
+      "scenario": "peak_1.25",
+      "groups": 20,
+      "rollouts": 200,
+      "series_rows": 3600,
+      "status": "passed"
+    },
+    {
+      "network": "monaco",
+      "split": "test",
+      "scenario": "peak_1.5",
+      "groups": 20,
+      "rollouts": 200,
+      "series_rows": 3600,
+      "status": "passed"
+    },
+    {
+      "network": "monaco",
+      "split": "test",
+      "scenario": "redistribution_0.25",
+      "groups": 20,
+      "rollouts": 200,
+      "series_rows": 3600,
+      "status": "passed"
+    },
+    {
+      "network": "monaco",
+      "split": "test",
+      "scenario": "redistribution_0.5",
+      "groups": 20,
+      "rollouts": 200,
+      "series_rows": 3600,
+      "status": "passed"
+    },
+    {
+      "network": "monaco",
+      "split": "test",
+      "scenario": "redistribution_0.75",
+      "groups": 20,
+      "rollouts": 200,
+      "series_rows": 3600,
+      "status": "passed"
+    },
+    {
+      "network": "monaco",
+      "split": "test",
+      "scenario": "switch_1200",
+      "groups": 20,
+      "rollouts": 200,
+      "series_rows": 3600,
+      "status": "passed"
+    },
+    {
+      "network": "monaco",
+      "split": "test",
+      "scenario": "switch_300",
+      "groups": 20,
+      "rollouts": 200,
+      "series_rows": 3600,
+      "status": "passed"
+    },
+    {
+      "network": "monaco",
+      "split": "test",
+      "scenario": "switch_900",
+      "groups": 20,
+      "rollouts": 200,
+      "series_rows": 3600,
+      "status": "passed"
+    }
+  ],
+  "checks_per_group": [
+    "coverage",
+    "finite_nonnegative",
+    "time_1_to_3600",
+    "min_mean_max_order",
+    "rollout_mean_min_max_sd",
+    "timeseries_mean",
+    "EMA_recurrence",
+    "text_within_canvas",
+    "no_text_overlap",
+    "PNG_dimensions"
+  ]
+}

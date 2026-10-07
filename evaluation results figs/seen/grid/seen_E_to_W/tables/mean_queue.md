@@ -1,0 +1,15 @@
+# Grid | East to west
+
+Mean queue (vehicles; lower is better)
+
+| Controller | Baseline | Random grouping | Domain randomization | Fixed WCE | Online WCE |
+|---|---:|---:|---:|---:|---:|
+| IA2C | 136.81 | **93.91** | 156.61 | 172.92 | 167.31 |
+| MA2C | 133.19 | **132.46** | 136.58 | 145.44 | 146.41 |
+| IQLL | **132.03** | 347.84 | 322.65 | 366.33 | 427.74 |
+| PPO | 138.29 | 85.07 | 27.09 | 50.60 | **26.50** |
+
+n = 10 per method; training seed = 101; table statistics are unsmoothed.
+Frozen in-distribution evaluation.
+
+Bold: lowest unrounded mean within each controller; exact ties included.

@@ -1,0 +1,14 @@
+\begin{tabular}{lrrrrr}
+\hline
+Controller & Baseline & Random grouping & Domain randomization & Fixed WCE & Online WCE \\
+\hline
+IA2C & 110.06 & \textbf{99.66} & 129.46 & 147.78 & 188.00 \\
+MA2C & \textbf{97.37} & 106.40 & 118.83 & 123.35 & 123.46 \\
+IQLL & 355.48 & 224.10 & 142.62 & \textbf{131.32} & 219.84 \\
+PPO & 123.37 & 75.65 & \textbf{62.63} & 111.90 & 65.83 \\
+\hline
+\end{tabular}
+% Grid | Northwest to southeast
+% Mean queue (vehicles; lower is better)
+% n = 10 per method; training seed = 101; table statistics are unsmoothed.
+Frozen in-distribution evaluation.

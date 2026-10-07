@@ -139,7 +139,7 @@ def metric_values(summary: dict) -> dict[str, float]:
             completed = finite_number(summary["completed"], "completed")
             values[key] = 100.0 * completed / inserted if inserted else 0.0
         else:
-            values[key] = finite_number(summary[source], source)
+            values[key] = None if summary.get(source) is None else finite_number(summary[source], source)
     return values
 
 
@@ -157,9 +157,47 @@ def main() -> None:
     parser.add_argument("--input", type=Path, help="Override the publication network directory.")
     parser.add_argument("--output", type=Path, help="Override the generated site-data directory.")
     parser.add_argument("--force", action="store_true", help="Replace an existing generated data directory.")
+    parser.add_argument("--campaign", type=Path, help="Validated isolated supplementary campaign.json.")
+    parser.add_argument("--evaluation-set", choices=("external_group12", "monaco_legacy_replay", "monaco_repaired_full14"),
+                        default="external_group12", help="Keep partial legacy demand in a separate evaluation set.")
     args = parser.parse_args()
     network = args.network
     meta = NETWORK_META[network]
+    external = args.campaign is not None
+    accepted = None
+    scenario_count = 1 if external else 23
+    expected_rollouts = 200 if external else 4600
+    splits = ("external",) if external else ("seen", "test")
+    if external:
+        sys.path.insert(0, str(REPO_ROOT))
+        from scripts.validate_external_results import validate
+        accepted = validate(args.campaign.resolve(), network)
+        legacy = accepted["scenario"].get("provenance_status") == "legacy_partial_demand_replay"
+        if legacy != (args.evaluation_set == "monaco_legacy_replay"):
+            parser.error("Partial legacy replay must use its own evaluation set")
+        repaired = accepted["scenario"].get("provenance_status") == "repaired_topology_transfer"
+        if repaired != (args.evaluation_set == "monaco_repaired_full14"):
+            parser.error("Repaired topology must use its own evaluation set")
+        if repaired:
+            acceptance = read_json(args.campaign.resolve().parent / "acceptance/monaco.json")
+            if network != "monaco" or acceptance.get("repaired_transfer_verified") != 200:
+                parser.error("Frozen transfer acceptance is required")
+        if legacy:
+            acceptance = read_json(args.campaign.resolve().parent / "acceptance/monaco.json")
+            if network != "monaco" or acceptance.get("legacy_block_injections_verified") != 200:
+                parser.error("Legacy block replay acceptance is required")
+        if args.input or args.output or args.force:
+            parser.error("Supplementary export uses isolated campaign paths and exclusive output")
+        args.input = args.campaign.resolve().parent / network
+        version = "monaco_repaired_v1" if repaired else ("monaco_legacy_v1" if legacy else "group12_v1")
+        args.output = SITE_ROOT / "dist/data/supplementary" / version / network
+        meta = dict(meta, base=f"data/supplementary/{version}/{network}",
+                    title={"zh": f"{network.title()} 补充外部需求测试 · 种子 101", "en": f"{network.title()} supplementary external demand · seed 101"})
+        if legacy:
+            meta["title"] = {"zh": "Monaco 旧流程复测 · 跳过不可达 OD · 种子 101",
+                             "en": "Monaco legacy replay · unreachable OD skipped · seed 101"}
+        if repaired:
+            meta["title"] = {"zh": "Monaco 修复地图测试 · 完整14个OD · 种子101", "en": "Monaco repaired map · all 14 OD · seed 101"}
     input_root = (args.input or (PUBLICATION_ROOT / network)).resolve()
     output_root = (args.output or (SITE_ROOT / "dist" / meta["base"])).resolve()
     if not input_root.is_dir():
@@ -178,14 +216,14 @@ def main() -> None:
     pairing: dict[tuple[str, str, int], tuple[str, int]] = {}
     policy_pairing: dict[tuple[str, str, str, int], int] = {}
     raw_rows: list[list[object]] = []
-    summary_paths = sorted(input_root.glob("*/*/*/*/rollout_*/attempt_001/rollout_summary.json"))
-    if len(summary_paths) != 4600:
+    summary_paths = [Path(p) for p in accepted["summaries"]] if external else sorted(input_root.glob("*/*/*/*/rollout_*/attempt_001/rollout_summary.json"))
+    if len(summary_paths) != expected_rollouts:
         raise AssertionError(f"Expected 4,600 complete {network} summaries, found {len(summary_paths):,}")
 
     for index, summary_path in enumerate(summary_paths, 1):
         rel = summary_path.relative_to(input_root)
         controller, method, split, scenario_id, rollout_dir, attempt, filename = rel.parts
-        if controller not in CONTROLLERS or method not in METHODS or split not in ("seen", "test"):
+        if controller not in CONTROLLERS or method not in METHODS or split not in splits:
             raise AssertionError(f"Unexpected path identifiers: {rel}")
         summary = read_json(summary_path)
         if summary.get("status") != "complete":
@@ -203,7 +241,9 @@ def main() -> None:
         art_scenario = artifact["scenario"]
         if art_scenario["id"] != scenario_id or art_scenario["split"] != split:
             raise AssertionError(f"Scenario mismatch for {summary_path}")
-        family = art_scenario["family"]
+        family = art_scenario.get("family", "external" if external else None)
+        if family is None:
+            raise AssertionError("Scenario family is missing")
         scenario_meta[(split, scenario_id)] = family
         arrival_seed = int(artifact["arrival_seed"])
         effective_sumo_seed = int(summary["effective_sumo_seed"])
@@ -221,7 +261,7 @@ def main() -> None:
             raise AssertionError(f"Policy-seed pairing mismatch at {policy_key}")
         policy_pairing[policy_key] = policy_seed
         values = metric_values(summary)
-        if any(value < 0 for value in values.values()):
+        if any(value < 0 for value in values.values() if value is not None):
             raise AssertionError(f"Negative metric in {summary_path}")
         npz_path = summary_path.with_name("rollout.npz")
         groups[(controller, method, split, scenario_id)].append({
@@ -236,15 +276,15 @@ def main() -> None:
         raw_rows.append([
             controller, method, split, family, scenario_id, rollout_dir,
             arrival_seed, effective_sumo_seed, demand_hash,
-            *[f"{values[key]:.9g}" for key, *_ in METRICS],
+            *["" if values[key] is None else f"{values[key]:.9g}" for key, *_ in METRICS],
         ])
         if index % 500 == 0:
             print(f"validated metadata: {index:,}/4,600", flush=True)
 
-    expected_groups = 4 * 5 * 23
+    expected_groups = 4 * 5 * scenario_count
     if len(groups) != expected_groups:
         raise AssertionError(f"Expected {expected_groups} groups, found {len(groups)}")
-    if len(scenario_meta) != 23:
+    if len(scenario_meta) != scenario_count:
         raise AssertionError(f"Expected 23 scenarios, found {len(scenario_meta)}")
 
     metric_keys = [metric[0] for metric in METRICS]
@@ -302,6 +342,9 @@ def main() -> None:
         row: list[object] = [controller, method, split, family, scenario_id, len(records)]
         for metric_key in metric_keys:
             metric_data = [record["metrics"][metric_key] for record in records]
+            if any(value is None for value in metric_data):
+                row.extend(("", "", "", ""))
+                continue
             row.extend((
                 f"{statistics.fmean(metric_data):.9g}",
                 f"{min(metric_data):.9g}",
@@ -320,7 +363,7 @@ def main() -> None:
     )
 
     scenario_entries = []
-    for split in ("seen", "test"):
+    for split in splits:
         ids = sorted(scenario_id for (item_split, scenario_id) in scenario_meta if item_split == split)
         for scenario_id in ids:
             family = scenario_meta[(split, scenario_id)]
@@ -347,19 +390,44 @@ def main() -> None:
         "generatedFrom": str(input_root.relative_to(REPO_ROOT)),
         "controllers": [{"id": value, "label": value.upper()} for value in CONTROLLERS],
         "methods": [{"id": value, **METHOD_META[value]} for value in METHODS],
-        "families": [{"id": key, "label": value} for key, value in FAMILY_META.items()],
+        "families": [{"id": key, "label": value} for key, value in (dict(FAMILY_META, external={"zh": "外部需求", "en": "External demand"}) if external else FAMILY_META).items()],
         "scenarios": scenario_entries,
         "metrics": metrics_catalog,
-        "counts": {"controllers": 4, "methods": 5, "scenarios": 23, "groups": 460, "rollouts": 4600, "stepsPerRollout": 3600, "runsPerGroup": 10},
+        "counts": {"controllers": 4, "methods": 5, "scenarios": scenario_count, "groups": expected_groups, "rollouts": expected_rollouts, "stepsPerRollout": 3600, "runsPerGroup": 10},
     }
+    if external:
+        catalog["provenance"] = accepted["scenario"]
+        if legacy:
+            campaign_meta = read_json(args.campaign.resolve())
+            catalog["provenance"] = dict(accepted["scenario"],
+                protocolNotes=campaign_meta["protocol_notes"],
+                runtimeDifferences={"legacyVTypeSpeedDev": 0.1, "currentVTypeSpeedDev": 0,
+                                    "bothSetExplicitVehicleSpeedFactor": True,
+                                    "exactHistoricalRandomTrajectoryReproduction": False},
+                legacyModelInventory=read_json(args.campaign.resolve().parent / "legacy_model_inventory.json"),
+                generationAudits=[read_json(Path(a["path"]))["generation_audit"]
+                                  for a in campaign_meta["networks"][network]["artifacts"]])
+        if repaired:
+            campaign_meta = read_json(args.campaign.resolve())
+            catalog["provenance"] = dict(accepted["scenario"],
+                protocolNotes=campaign_meta["protocol_notes"],
+                transitionGate=read_json(Path(campaign_meta["transition_gate"])),
+                generationAudits=[read_json(Path(a["path"]))["generation_audit"]
+                                  for a in campaign_meta["networks"][network]["artifacts"]])
+        catalog["scenarios"][0]["label"] = accepted["scenario"]["label"]
+        analysis_root = args.campaign.resolve().parent / "analysis" / network
+        for name in ("paired_statistics.json", "queue_comparisons.csv"):
+            if (analysis_root / name).is_file():
+                shutil.copyfile(analysis_root / name, temp_root / name)
+    catalog["missingMetricPolicy"] = "Empty CSV fields mean unavailable. A ten-run aggregate is unavailable if any constituent value is missing."
     with (temp_root / "catalog.json").open("w", encoding="utf-8") as handle:
         json.dump(catalog, handle, ensure_ascii=False, indent=2)
         handle.write("\n")
     validation = {
         "status": "passed",
         "checks": {
-            "rollouts": 4600,
-            "groups": 460,
+            "rollouts": expected_rollouts,
+            "groups": expected_groups,
             "seriesCsvFiles": series_count,
             "summaryRows": len(summary_rows),
             "stepsPerRollout": EXPECTED_STEPS,
@@ -379,15 +447,40 @@ def main() -> None:
         shutil.rmtree(output_root)
     temp_root.rename(output_root)
     atexit.unregister(cleanup_temp)
-    registry_path = SITE_ROOT / "dist/data/networks.json"
+    registry_path = SITE_ROOT / ("dist/data/evaluation_sets.json" if external else "dist/data/networks.json")
     registry = read_json(registry_path)
+    if external:
+        registry = next((entry for entry in registry["evaluationSets"] if entry["id"] == args.evaluation_set), None)
+        if registry is None:
+            registry = {"id": args.evaluation_set,
+                        "label": ({"zh": "Monaco 修复地图 · 完整需求", "en": "Monaco repaired map · full demand"} if repaired else {"zh": "Monaco 旧流程复测（跳过不可达 OD）", "en": "Monaco legacy replay (OD skipped)"}),
+                        "networks": []}
+    if external and args.evaluation_set in ("external_group12", "monaco_repaired_full14"):
+        label = "Hangzhou realworld data for grid" if args.evaluation_set == "external_group12" else "Monaco real world dataset"
+        registry["label"] = {"zh": label, "en": label}
     matched = False
     for entry in registry["networks"]:
         if entry["id"] == network:
-            entry.update({"label": meta["label"], "base": meta["base"], "available": True, "expectedRollouts": 4600})
+            entry.update({"label": meta["label"], "base": meta["base"], "available": True, "expectedRollouts": expected_rollouts, "expectedGroups": expected_groups})
             matched = True
     if not matched:
-        registry["networks"].append({"id": network, "label": meta["label"], "base": meta["base"], "available": True, "expectedRollouts": 4600})
+        registry["networks"].append({"id": network, "label": meta["label"], "base": meta["base"], "available": True, "expectedRollouts": expected_rollouts, "expectedGroups": expected_groups})
+    if external:
+        for entry in registry["networks"]:
+            if entry["id"] == network:
+                entry.update({"campaign": str(args.campaign.resolve().relative_to(REPO_ROOT)),
+                              "provenanceStatus": accepted["scenario"]["provenance_status"],
+                              "networkHash": accepted["scenario"]["network_hash"],
+                              "mappingVersion": accepted["scenario"]["mapping_version"],
+                              "status": ({"zh": "200次旧流程复测已验收；13/14 OD，不是完整需求测试", "en": "200 legacy replays validated; 13/14 OD, partial demand"}
+                                         if legacy else ({"zh": "200次冻结策略评估已验收；完整14/14 OD，修复地图迁移测试", "en": "200 frozen rollouts validated; all 14 OD, repaired-map transfer"} if repaired else {"zh": "完整结果已验收；上游来源尚未验证", "en": "Complete and validated; upstream provenance unverified"}))})
+        full_registry = read_json(registry_path)
+        matching = next((i for i, entry in enumerate(full_registry["evaluationSets"]) if entry["id"] == args.evaluation_set), None)
+        if matching is None:
+            full_registry["evaluationSets"].append(registry)
+        else:
+            full_registry["evaluationSets"][matching] = registry
+        registry = full_registry
     registry_tmp = registry_path.with_suffix(".json.tmp")
     with registry_tmp.open("w", encoding="utf-8") as handle:
         json.dump(registry, handle, ensure_ascii=False, indent=2)

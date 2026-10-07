@@ -1,0 +1,20 @@
+\begin{table*}[t]
+\centering
+\caption{Supplementary Grid sparse-demand evaluation at the native $2983$ veh/h rate. Entries are mean network queue $\pm$ sample standard deviation over ten paired 3600-s rollouts using the final checkpoint of training seed 101. Upstream provenance and the historical Hangzhou mapping remain unverified.}
+\label{tab:external_grid_sparse}
+\begin{tabular}{lccccc}
+\toprule
+Controller & Baseline & Random group & Domain randomization & Fixed WCE & Online WCE \\
+\midrule
+IA2C & $54.21 \pm 2.85$ & $59.19 \pm 4.47$ & $53.66 \pm 2.05$ & $52.78 \pm 1.61$ & $60.13 \pm 2.47$ \\
+MA2C & $48.70 \pm 1.23$ & $45.41 \pm 1.51$ & $48.18 \pm 1.45$ & $48.82 \pm 1.97$ & $48.37 \pm 1.58$ \\
+IQL-LR & $182.72 \pm 31.13$ & $69.75 \pm 13.59$ & $40.47 \pm 3.43$ & $30.59 \pm 4.47$ & $108.14 \pm 19.70$ \\
+PPO & $33.33 \pm 1.57$ & $44.97 \pm 5.91$ & $17.91 \pm 0.86$ & $22.45 \pm 0.90$ & $16.44 \pm 1.20$ \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\paragraph{Supplementary sparse-demand results.}
+The isolated Grid campaign completed all 200 formal rollouts, plus four separate full-horizon controller smoke checks. All positive-demand OD routes passed passenger-compatible path and SUMO loading checks; the formal results passed complete-matrix, per-second sample, paired-seed, demand-hash, network-signature, and final-checkpoint integrity checks. No learning or WCE updates were performed during these evaluations.
+As shown in \cref{tab:external_grid_sparse}, Online WCE does not improve every architecture on this profile. Its mean per-rollout queue reductions relative to Baseline are $-11.08\%$ for IA2C, $0.69\%$ for MA2C, $39.32\%$ for IQL-LR, and $50.57\%$ for PPO. MA2C has no significant paired difference after Holm correction ($p=1.00$); the IA2C deterioration and IQL-LR/PPO reductions have adjusted two-sided exact sign-flip $p=0.0391$ when correcting the 20 prespecified comparisons. The test assumes symmetry of paired differences under the null. Fixed WCE outperforms Online WCE on IQL-LR ($30.59$ versus $108.14$ queued vehicles).
+Throughput and removal diagnostics constrain this interpretation. IQL-LR Online WCE still averages $802.8$ pending vehicles and $22.4$ teleports, compared with $5.4$ pending vehicles and $4.4$ teleports for Fixed WCE. MA2C Online WCE completes fewer vehicles than Baseline ($2619.0$ versus $2698.1$) despite its small queue reduction. PPO Online WCE completes more vehicles ($2905.4$ versus $2763.5$), with $0.8$ versus $118.6$ pending vehicles and no teleports in either method. These results do not support uniform external-demand superiority or across-training-seed stability. The Monaco supplementary campaign remains unexecuted pending route and historical-provenance validation.

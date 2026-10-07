@@ -1,0 +1,7 @@
+<connections><connection from="10050#2" fromLane="1" to="10180#0" toLane="1" />
+
+    <connection from="10180#0" fromLane="1" to="10180#1" toLane="1" />
+
+    <connection from="10180#1" fromLane="1" to="10180#2" toLane="1" />
+
+    </connections>

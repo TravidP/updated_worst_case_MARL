@@ -1,0 +1,41 @@
+Supplementary external-demand evaluation / 外部需求补充评估
+
+Runtime / 评估环境:
+  /home/sdc_joran/miniconda3/envs/deeprlsc/bin/python (Python 3.6, TensorFlow 1)
+  SUMO/TraCI needs loopback TCP access. No GUI or controller training is used.
+
+Active campaign / 本次运行:
+  runs_eval/revised/external_group12_seed101_v3/campaign.json
+  v1 and v2 contain failed preflight attempts only; their outputs are preserved.
+  Do not interpret the native sparse Grid input as a verified Hangzhou mapping.
+  Monaco is blocked by route continuity and unavailable historical provenance.
+
+Fresh campaign / 新建独立 campaign:
+  /home/sdc_joran/miniconda3/envs/deeprlsc/bin/python scripts/external_campaign.py prepare --output runs_eval/revised/NEW_EXCLUSIVE_CAMPAIGN
+
+Full controller smoke checks / 四个 controller 的完整冒烟测试:
+  /home/sdc_joran/miniconda3/envs/deeprlsc/bin/python scripts/external_campaign.py smoke --output runs_eval/revised/NEW_EXCLUSIVE_CAMPAIGN --network grid --workers 4
+
+Formal 200-rollout matrix / 正式 200 次评估:
+  /home/sdc_joran/miniconda3/envs/deeprlsc/bin/python scripts/external_campaign.py run --output runs_eval/revised/NEW_EXCLUSIVE_CAMPAIGN --network grid --workers 4
+
+Completed attempts are skipped. A failed attempt remains intact; rerunning creates
+a new attempt directory. Reruns are for execution failures, never chosen by queue
+performance. Keep source and scheduler hashes frozen after preparation.
+
+Acceptance / 验收 (modern Python with NumPy):
+  python scripts/validate_external_results.py --campaign runs_eval/revised/NEW_EXCLUSIVE_CAMPAIGN/campaign.json --network grid
+
+Finalization / 统计和导入 (modern Python, not Python 3.6):
+  python scripts/finalize_external_campaign.py --campaign runs_eval/revised/NEW_EXCLUSIVE_CAMPAIGN/campaign.json --network grid --wait
+
+The exporter exclusively writes dist/data/supplementary/group12_v1/grid and updates
+the external evaluation-set registry after validation. It refuses to overwrite an
+existing supplementary export. Main data is unchanged. The finalizer is for the
+first accepted group12_v1 export; a later campaign requires a new export version.
+
+Local results / 本地结果:
+  http://127.0.0.1:8878/?evaluationSet=external_group12&network=grid
+
+No normalized Grid or temporal Monaco variant is run by these commands.
+No across-training-seed claim is justified by the ten evaluation samples.

@@ -1,0 +1,961 @@
+{
+  "training": [
+    {
+      "network": "grid",
+      "controller": "ia2c",
+      "method": "baseline",
+      "run": "/home/sdc_joran/Journal/deeprl_signal_control/runs/revised/grid/ia2c/seed_101/baseline/publication_20260919T110516_bffa1fe4",
+      "parent_declared_hash": "1e41cb6adffb959574725a9b8ce9cb1b9526ee4925f8426e48d4f5c43a9fb455",
+      "learning_steps": 2320000,
+      "wce_updates": 0,
+      "config": {
+        "adv_norm": "false",
+        "batch_size": "120",
+        "entropy_coef_init": "0.01",
+        "entropy_decay": "constant",
+        "gamma": "0.99",
+        "lr_decay": "constant",
+        "lr_init": "5e-4",
+        "max_grad_norm": "40",
+        "num_ft": "32",
+        "num_fw": "128",
+        "num_lstm": "64",
+        "reward_clip": "2.0",
+        "reward_norm": "3000.0",
+        "rmsp_alpha": "0.99",
+        "rmsp_epsilon": "1e-5",
+        "value_coef": "0.5"
+      },
+      "runtime": {
+        "blas_threads": "1",
+        "concurrent_workers": "unspecified",
+        "logical_cpus": 20,
+        "numpy": "1.26.4",
+        "omp_threads": "1",
+        "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.35",
+        "python": "3.10.12",
+        "tensorflow": "2.15.1",
+        "tensorflow_threads": 1
+      },
+      "source_checks": {
+        "agents/controller.py": true,
+        "agents/wce.py": true,
+        "experiments/core.py": false,
+        "experiments/runner.py": true
+      }
+    },
+    {
+      "network": "grid",
+      "controller": "ia2c",
+      "method": "fixed_wce",
+      "run": "/home/sdc_joran/Journal/deeprl_signal_control/output_coevolution/revised/grid/ia2c/seed_101/fixed_wce/publication_20260924T054007_773e599b",
+      "parent_declared_hash": "1e41cb6adffb959574725a9b8ce9cb1b9526ee4925f8426e48d4f5c43a9fb455",
+      "learning_steps": 2320000,
+      "wce_updates": 500,
+      "config": {
+        "adv_norm": "false",
+        "batch_size": "120",
+        "entropy_coef_init": "0.01",
+        "entropy_decay": "constant",
+        "gamma": "0.99",
+        "lr_decay": "constant",
+        "lr_init": "5e-4",
+        "max_grad_norm": "40",
+        "num_ft": "32",
+        "num_fw": "128",
+        "num_lstm": "64",
+        "reward_clip": "2.0",
+        "reward_norm": "3000.0",
+        "rmsp_alpha": "0.99",
+        "rmsp_epsilon": "1e-5",
+        "value_coef": "0.5"
+      },
+      "runtime": {
+        "blas_threads": "1",
+        "concurrent_workers": "unspecified",
+        "logical_cpus": 20,
+        "numpy": "1.19.5",
+        "omp_threads": "1",
+        "platform": "Linux-6.8.0-124-generic-x86_64-with-debian-bookworm-sid",
+        "python": "3.6.13",
+        "tensorflow": "1.12.0",
+        "tensorflow_threads": 1
+      },
+      "source_checks": {
+        "agents/controller.py": true,
+        "agents/wce.py": true,
+        "experiments/core.py": false,
+        "experiments/runner.py": true
+      },
+      "max_controller_reward_clip_fraction": 0.0,
+      "courses": {
+        "first100": {
+          "entropy": 2.2338270491744323,
+          "mean_max_weight": 0.2109431742508336,
+          "top_profile": "E_to_W",
+          "top_mean_weight": 0.10140380341576094,
+          "training_queue": 87.97890000000001
+        },
+        "last100": {
+          "entropy": 2.234399274296413,
+          "mean_max_weight": 0.2110517714960622,
+          "top_profile": "E_to_W",
+          "top_mean_weight": 0.09913135430929337,
+          "training_queue": 87.30003181818182
+        }
+      }
+    },
+    {
+      "network": "grid",
+      "controller": "ia2c",
+      "method": "online_wce",
+      "run": "/home/sdc_joran/Journal/deeprl_signal_control/output_coevolution/revised/grid/ia2c/seed_101/online_wce/publication_20260925T092820_79e065be",
+      "parent_declared_hash": "1e41cb6adffb959574725a9b8ce9cb1b9526ee4925f8426e48d4f5c43a9fb455",
+      "learning_steps": 2320000,
+      "wce_updates": 1500,
+      "config": {
+        "adv_norm": "false",
+        "batch_size": "120",
+        "entropy_coef_init": "0.01",
+        "entropy_decay": "constant",
+        "gamma": "0.99",
+        "lr_decay": "constant",
+        "lr_init": "5e-4",
+        "max_grad_norm": "40",
+        "num_ft": "32",
+        "num_fw": "128",
+        "num_lstm": "64",
+        "reward_clip": "2.0",
+        "reward_norm": "3000.0",
+        "rmsp_alpha": "0.99",
+        "rmsp_epsilon": "1e-5",
+        "value_coef": "0.5"
+      },
+      "runtime": {
+        "blas_threads": "1",
+        "concurrent_workers": "unspecified",
+        "logical_cpus": 20,
+        "numpy": "1.19.5",
+        "omp_threads": "1",
+        "platform": "Linux-6.8.0-124-generic-x86_64-with-debian-bookworm-sid",
+        "python": "3.6.13",
+        "tensorflow": "1.12.0",
+        "tensorflow_threads": 1
+      },
+      "source_checks": {
+        "agents/controller.py": true,
+        "agents/wce.py": true,
+        "experiments/core.py": false,
+        "experiments/runner.py": true
+      },
+      "max_controller_reward_clip_fraction": 0.0,
+      "courses": {
+        "first100": {
+          "entropy": 2.2318517556672934,
+          "mean_max_weight": 0.2120440522523331,
+          "top_profile": "E_to_W",
+          "top_mean_weight": 0.10177859556191571,
+          "training_queue": 87.23362272727273
+        },
+        "last100": {
+          "entropy": 0.938995499687203,
+          "mean_max_weight": 0.7336206821088965,
+          "top_profile": "SW_to_NE",
+          "top_mean_weight": 0.7270923086841917,
+          "training_queue": 134.38001666666665
+        }
+      }
+    },
+    {
+      "network": "grid",
+      "controller": "ma2c",
+      "method": "baseline",
+      "run": "/home/sdc_joran/Journal/deeprl_signal_control/runs/revised/grid/ma2c/seed_101/baseline/publication_20260919T110516_de174e9f",
+      "parent_declared_hash": "f9566cc92412e557ff4760b7033e2ec3a57dcdd5b6d9d5c66f5561fe3aba98db",
+      "learning_steps": 2320000,
+      "wce_updates": 0,
+      "config": {
+        "adv_norm": "false",
+        "batch_size": "120",
+        "entropy_coef_init": "0.01",
+        "entropy_decay": "constant",
+        "gamma": "0.99",
+        "lr_decay": "constant",
+        "lr_init": "5e-4",
+        "max_grad_norm": "40",
+        "num_fp": "64",
+        "num_ft": "32",
+        "num_fw": "128",
+        "num_lstm": "64",
+        "reward_clip": "2.0",
+        "reward_norm": "2000.0",
+        "rmsp_alpha": "0.99",
+        "rmsp_epsilon": "1e-5",
+        "tf_inter_op_threads": "1",
+        "tf_intra_op_threads": "1",
+        "tf_operation_timeout_ms": "600000",
+        "value_coef": "0.5"
+      },
+      "runtime": {
+        "blas_threads": "1",
+        "concurrent_workers": "unspecified",
+        "logical_cpus": 20,
+        "numpy": "1.26.4",
+        "omp_threads": "1",
+        "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.35",
+        "python": "3.10.12",
+        "tensorflow": "2.15.1",
+        "tensorflow_threads": 1
+      },
+      "source_checks": {
+        "agents/controller.py": true,
+        "agents/wce.py": true,
+        "experiments/core.py": false,
+        "experiments/runner.py": true
+      }
+    },
+    {
+      "network": "grid",
+      "controller": "ma2c",
+      "method": "fixed_wce",
+      "run": "/home/sdc_joran/Journal/deeprl_signal_control/output_coevolution/revised/grid/ma2c/seed_101/fixed_wce/publication_20260924T082634_aa85666b",
+      "parent_declared_hash": "f9566cc92412e557ff4760b7033e2ec3a57dcdd5b6d9d5c66f5561fe3aba98db",
+      "learning_steps": 2320000,
+      "wce_updates": 500,
+      "config": {
+        "adv_norm": "false",
+        "batch_size": "120",
+        "entropy_coef_init": "0.01",
+        "entropy_decay": "constant",
+        "gamma": "0.99",
+        "lr_decay": "constant",
+        "lr_init": "5e-4",
+        "max_grad_norm": "40",
+        "num_fp": "64",
+        "num_ft": "32",
+        "num_fw": "128",
+        "num_lstm": "64",
+        "reward_clip": "2.0",
+        "reward_norm": "2000.0",
+        "rmsp_alpha": "0.99",
+        "rmsp_epsilon": "1e-5",
+        "tf_inter_op_threads": "1",
+        "tf_intra_op_threads": "1",
+        "tf_operation_timeout_ms": "600000",
+        "value_coef": "0.5"
+      },
+      "runtime": {
+        "blas_threads": "1",
+        "concurrent_workers": "unspecified",
+        "logical_cpus": 20,
+        "numpy": "1.19.5",
+        "omp_threads": "1",
+        "platform": "Linux-6.8.0-124-generic-x86_64-with-debian-bookworm-sid",
+        "python": "3.6.13",
+        "tensorflow": "1.12.0",
+        "tensorflow_threads": 1
+      },
+      "source_checks": {
+        "agents/controller.py": true,
+        "agents/wce.py": true,
+        "experiments/core.py": false,
+        "experiments/runner.py": true
+      },
+      "max_controller_reward_clip_fraction": 0.0,
+      "courses": {
+        "first100": {
+          "entropy": 2.234013697493903,
+          "mean_max_weight": 0.21097015146951684,
+          "top_profile": "E_to_W",
+          "top_mean_weight": 0.10119407190569688,
+          "training_queue": 72.46332575757575
+        },
+        "last100": {
+          "entropy": 2.2348988149720044,
+          "mean_max_weight": 0.2111014052527035,
+          "top_profile": "E_to_W",
+          "top_mean_weight": 0.09813718673492579,
+          "training_queue": 69.82509242424243
+        }
+      }
+    },
+    {
+      "network": "grid",
+      "controller": "ma2c",
+      "method": "online_wce",
+      "run": "/home/sdc_joran/Journal/deeprl_signal_control/output_coevolution/revised/grid/ma2c/seed_101/online_wce/publication_20260925T102236_52e76186",
+      "parent_declared_hash": "f9566cc92412e557ff4760b7033e2ec3a57dcdd5b6d9d5c66f5561fe3aba98db",
+      "learning_steps": 2320000,
+      "wce_updates": 1500,
+      "config": {
+        "adv_norm": "false",
+        "batch_size": "120",
+        "entropy_coef_init": "0.01",
+        "entropy_decay": "constant",
+        "gamma": "0.99",
+        "lr_decay": "constant",
+        "lr_init": "5e-4",
+        "max_grad_norm": "40",
+        "num_fp": "64",
+        "num_ft": "32",
+        "num_fw": "128",
+        "num_lstm": "64",
+        "reward_clip": "2.0",
+        "reward_norm": "2000.0",
+        "rmsp_alpha": "0.99",
+        "rmsp_epsilon": "1e-5",
+        "tf_inter_op_threads": "1",
+        "tf_intra_op_threads": "1",
+        "tf_operation_timeout_ms": "600000",
+        "value_coef": "0.5"
+      },
+      "runtime": {
+        "blas_threads": "1",
+        "concurrent_workers": "unspecified",
+        "logical_cpus": 20,
+        "numpy": "1.19.5",
+        "omp_threads": "1",
+        "platform": "Linux-6.8.0-124-generic-x86_64-with-debian-bookworm-sid",
+        "python": "3.6.13",
+        "tensorflow": "1.12.0",
+        "tensorflow_threads": 1
+      },
+      "source_checks": {
+        "agents/controller.py": true,
+        "agents/wce.py": true,
+        "experiments/core.py": false,
+        "experiments/runner.py": true
+      },
+      "max_controller_reward_clip_fraction": 0.0,
+      "courses": {
+        "first100": {
+          "entropy": 2.2325676989453678,
+          "mean_max_weight": 0.21179848266529228,
+          "top_profile": "E_to_W",
+          "top_mean_weight": 0.10091717471670453,
+          "training_queue": 71.88280303030304
+        },
+        "last100": {
+          "entropy": 2.178020967861109,
+          "mean_max_weight": 0.23515321326088218,
+          "top_profile": "E_to_W",
+          "top_mean_weight": 0.11936534987952108,
+          "training_queue": 72.98737727272726
+        }
+      }
+    },
+    {
+      "network": "monaco",
+      "controller": "ia2c",
+      "method": "baseline",
+      "run": "/home/sdc_joran/Journal/deeprl_signal_control/runs/revised/monaco/ia2c/seed_101/baseline/publication_20260921T101956_d364f6a8",
+      "parent_declared_hash": "87903d2fa4e7c07dd754badd9d69bf8d201f8ec28217689504856d53da77b8c6",
+      "learning_steps": 2320000,
+      "wce_updates": 0,
+      "config": {
+        "adv_norm": "false",
+        "batch_size": "120",
+        "entropy_coef_init": "0.01",
+        "entropy_decay": "constant",
+        "gamma": "0.99",
+        "lr_decay": "constant",
+        "lr_init": "5e-4",
+        "max_grad_norm": "40",
+        "num_ft": "32",
+        "num_fw": "128",
+        "num_lstm": "64",
+        "reward_clip": "2.0",
+        "reward_norm": "1000",
+        "rmsp_alpha": "0.99",
+        "rmsp_epsilon": "1e-5",
+        "tf_inter_op_threads": "1",
+        "tf_intra_op_threads": "1",
+        "tf_operation_timeout_ms": "600000",
+        "value_coef": "0.5"
+      },
+      "runtime": {
+        "blas_threads": "1",
+        "concurrent_workers": "unspecified",
+        "logical_cpus": 20,
+        "numpy": "1.19.5",
+        "omp_threads": "1",
+        "platform": "Linux-6.8.0-124-generic-x86_64-with-debian-bookworm-sid",
+        "python": "3.6.13",
+        "tensorflow": "1.12.0",
+        "tensorflow_threads": 1
+      },
+      "source_checks": {
+        "agents/controller.py": true,
+        "agents/wce.py": true,
+        "experiments/core.py": false,
+        "experiments/runner.py": true
+      }
+    },
+    {
+      "network": "monaco",
+      "controller": "ia2c",
+      "method": "fixed_wce",
+      "run": "/home/sdc_joran/Journal/deeprl_signal_control/output_coevolution_real/revised/monaco/ia2c/seed_101/fixed_wce/publication_20260924T132346_8a25e1dd",
+      "parent_declared_hash": "87903d2fa4e7c07dd754badd9d69bf8d201f8ec28217689504856d53da77b8c6",
+      "learning_steps": 2320000,
+      "wce_updates": 500,
+      "config": {
+        "adv_norm": "false",
+        "batch_size": "120",
+        "entropy_coef_init": "0.01",
+        "entropy_decay": "constant",
+        "gamma": "0.99",
+        "lr_decay": "constant",
+        "lr_init": "5e-4",
+        "max_grad_norm": "40",
+        "num_ft": "32",
+        "num_fw": "128",
+        "num_lstm": "64",
+        "reward_clip": "2.0",
+        "reward_norm": "1000",
+        "rmsp_alpha": "0.99",
+        "rmsp_epsilon": "1e-5",
+        "tf_inter_op_threads": "1",
+        "tf_intra_op_threads": "1",
+        "tf_operation_timeout_ms": "600000",
+        "value_coef": "0.5"
+      },
+      "runtime": {
+        "blas_threads": "1",
+        "concurrent_workers": "unspecified",
+        "logical_cpus": 20,
+        "numpy": "1.19.5",
+        "omp_threads": "1",
+        "platform": "Linux-6.8.0-124-generic-x86_64-with-debian-bookworm-sid",
+        "python": "3.6.13",
+        "tensorflow": "1.12.0",
+        "tensorflow_threads": 1
+      },
+      "source_checks": {
+        "agents/controller.py": true,
+        "agents/wce.py": true,
+        "experiments/core.py": false,
+        "experiments/runner.py": true
+      },
+      "max_controller_reward_clip_fraction": 0.0,
+      "courses": {
+        "first100": {
+          "entropy": 2.235602897497519,
+          "mean_max_weight": 0.21024230132945365,
+          "top_profile": "S_to_N",
+          "top_mean_weight": 0.09633460645224734,
+          "training_queue": 57.22679545454545
+        },
+        "last100": {
+          "entropy": 2.236269212639076,
+          "mean_max_weight": 0.21059438529681235,
+          "top_profile": "NW_to_SE",
+          "top_mean_weight": 0.09561237755879932,
+          "training_queue": 28.845098484848485
+        }
+      }
+    },
+    {
+      "network": "monaco",
+      "controller": "ia2c",
+      "method": "online_wce",
+      "run": "/home/sdc_joran/Journal/deeprl_signal_control/output_coevolution_real/revised/monaco/ia2c/seed_101/online_wce/publication_20260925T133729_5eb7e27b",
+      "parent_declared_hash": "87903d2fa4e7c07dd754badd9d69bf8d201f8ec28217689504856d53da77b8c6",
+      "learning_steps": 2320000,
+      "wce_updates": 1500,
+      "config": {
+        "adv_norm": "false",
+        "batch_size": "120",
+        "entropy_coef_init": "0.01",
+        "entropy_decay": "constant",
+        "gamma": "0.99",
+        "lr_decay": "constant",
+        "lr_init": "5e-4",
+        "max_grad_norm": "40",
+        "num_ft": "32",
+        "num_fw": "128",
+        "num_lstm": "64",
+        "reward_clip": "2.0",
+        "reward_norm": "1000",
+        "rmsp_alpha": "0.99",
+        "rmsp_epsilon": "1e-5",
+        "tf_inter_op_threads": "1",
+        "tf_intra_op_threads": "1",
+        "tf_operation_timeout_ms": "600000",
+        "value_coef": "0.5"
+      },
+      "runtime": {
+        "blas_threads": "1",
+        "concurrent_workers": "unspecified",
+        "logical_cpus": 20,
+        "numpy": "1.19.5",
+        "omp_threads": "1",
+        "platform": "Linux-6.8.0-124-generic-x86_64-with-debian-bookworm-sid",
+        "python": "3.6.13",
+        "tensorflow": "1.12.0",
+        "tensorflow_threads": 1
+      },
+      "source_checks": {
+        "agents/controller.py": true,
+        "agents/wce.py": true,
+        "experiments/core.py": false,
+        "experiments/runner.py": true
+      },
+      "max_controller_reward_clip_fraction": 0.0,
+      "courses": {
+        "first100": {
+          "entropy": 2.2343037362495908,
+          "mean_max_weight": 0.21091679126790078,
+          "top_profile": "S_to_N",
+          "top_mean_weight": 0.09687213513729898,
+          "training_queue": 60.99446363636364
+        },
+        "last100": {
+          "entropy": 2.2171973568381014,
+          "mean_max_weight": 0.2196432601026968,
+          "top_profile": "Uniform",
+          "top_mean_weight": 0.10730384227366314,
+          "training_queue": 30.70728484848485
+        }
+      }
+    },
+    {
+      "network": "monaco",
+      "controller": "ma2c",
+      "method": "baseline",
+      "run": "/home/sdc_joran/Journal/deeprl_signal_control/runs/revised/monaco/ma2c/seed_101/baseline/publication_20260921T232411_e7c37342",
+      "parent_declared_hash": "d579f7b8893bb02459903031f62a3ecbbd1f323dcca96597cfd7c08f68e72253",
+      "learning_steps": 2320000,
+      "wce_updates": 0,
+      "config": {
+        "adv_norm": "false",
+        "batch_size": "120",
+        "entropy_coef_init": "0.01",
+        "entropy_decay": "constant",
+        "gamma": "0.99",
+        "lr_decay": "constant",
+        "lr_init": "5e-4",
+        "max_grad_norm": "40",
+        "num_fp": "64",
+        "num_ft": "32",
+        "num_fw": "128",
+        "num_lstm": "64",
+        "reward_clip": "2.0",
+        "reward_norm": "200",
+        "rmsp_alpha": "0.99",
+        "rmsp_epsilon": "1e-5",
+        "value_coef": "0.5"
+      },
+      "runtime": {
+        "blas_threads": "1",
+        "concurrent_workers": "unspecified",
+        "logical_cpus": 20,
+        "numpy": "1.19.5",
+        "omp_threads": "1",
+        "platform": "Linux-6.8.0-124-generic-x86_64-with-debian-bookworm-sid",
+        "python": "3.6.13",
+        "tensorflow": "1.12.0",
+        "tensorflow_threads": 1
+      },
+      "source_checks": {
+        "agents/controller.py": true,
+        "agents/wce.py": true,
+        "experiments/core.py": false,
+        "experiments/runner.py": true
+      }
+    },
+    {
+      "network": "monaco",
+      "controller": "ma2c",
+      "method": "fixed_wce",
+      "run": "/home/sdc_joran/Journal/deeprl_signal_control/output_coevolution_real/revised/monaco/ma2c/seed_101/fixed_wce/publication_20260924T152812_121189a7",
+      "parent_declared_hash": "d579f7b8893bb02459903031f62a3ecbbd1f323dcca96597cfd7c08f68e72253",
+      "learning_steps": 2320000,
+      "wce_updates": 500,
+      "config": {
+        "adv_norm": "false",
+        "batch_size": "120",
+        "entropy_coef_init": "0.01",
+        "entropy_decay": "constant",
+        "gamma": "0.99",
+        "lr_decay": "constant",
+        "lr_init": "5e-4",
+        "max_grad_norm": "40",
+        "num_fp": "64",
+        "num_ft": "32",
+        "num_fw": "128",
+        "num_lstm": "64",
+        "reward_clip": "2.0",
+        "reward_norm": "200",
+        "rmsp_alpha": "0.99",
+        "rmsp_epsilon": "1e-5",
+        "value_coef": "0.5"
+      },
+      "runtime": {
+        "blas_threads": "1",
+        "concurrent_workers": "unspecified",
+        "logical_cpus": 20,
+        "numpy": "1.19.5",
+        "omp_threads": "1",
+        "platform": "Linux-6.8.0-124-generic-x86_64-with-debian-bookworm-sid",
+        "python": "3.6.13",
+        "tensorflow": "1.12.0",
+        "tensorflow_threads": 1
+      },
+      "source_checks": {
+        "agents/controller.py": true,
+        "agents/wce.py": true,
+        "experiments/core.py": false,
+        "experiments/runner.py": true
+      },
+      "max_controller_reward_clip_fraction": 0.0,
+      "courses": {
+        "first100": {
+          "entropy": 2.2352949283105494,
+          "mean_max_weight": 0.2104994544787045,
+          "top_profile": "S_to_N",
+          "top_mean_weight": 0.0970748101156226,
+          "training_queue": 19.026857575757578
+        },
+        "last100": {
+          "entropy": 2.235821480995971,
+          "mean_max_weight": 0.21076988553283596,
+          "top_profile": "S_to_N",
+          "top_mean_weight": 0.09428210441254073,
+          "training_queue": 16.989519696969698
+        }
+      }
+    },
+    {
+      "network": "monaco",
+      "controller": "ma2c",
+      "method": "online_wce",
+      "run": "/home/sdc_joran/Journal/deeprl_signal_control/output_coevolution_real/revised/monaco/ma2c/seed_101/online_wce/publication_20260925T182406_2c5ff93d",
+      "parent_declared_hash": "d579f7b8893bb02459903031f62a3ecbbd1f323dcca96597cfd7c08f68e72253",
+      "learning_steps": 2320000,
+      "wce_updates": 1500,
+      "config": {
+        "adv_norm": "false",
+        "batch_size": "120",
+        "entropy_coef_init": "0.01",
+        "entropy_decay": "constant",
+        "gamma": "0.99",
+        "lr_decay": "constant",
+        "lr_init": "5e-4",
+        "max_grad_norm": "40",
+        "num_fp": "64",
+        "num_ft": "32",
+        "num_fw": "128",
+        "num_lstm": "64",
+        "reward_clip": "2.0",
+        "reward_norm": "200",
+        "rmsp_alpha": "0.99",
+        "rmsp_epsilon": "1e-5",
+        "value_coef": "0.5"
+      },
+      "runtime": {
+        "blas_threads": "1",
+        "concurrent_workers": "unspecified",
+        "logical_cpus": 20,
+        "numpy": "1.19.5",
+        "omp_threads": "1",
+        "platform": "Linux-6.8.0-124-generic-x86_64-with-debian-bookworm-sid",
+        "python": "3.6.13",
+        "tensorflow": "1.12.0",
+        "tensorflow_threads": 1
+      },
+      "source_checks": {
+        "agents/controller.py": true,
+        "agents/wce.py": true,
+        "experiments/core.py": false,
+        "experiments/runner.py": true
+      },
+      "max_controller_reward_clip_fraction": 0.0,
+      "courses": {
+        "first100": {
+          "entropy": 2.234242434822139,
+          "mean_max_weight": 0.21101666813463898,
+          "top_profile": "S_to_N",
+          "top_mean_weight": 0.09721080630774497,
+          "training_queue": 18.827630303030304
+        },
+        "last100": {
+          "entropy": 2.177647008167425,
+          "mean_max_weight": 0.23736575979181174,
+          "top_profile": "NW_to_SE",
+          "top_mean_weight": 0.09593491955716657,
+          "training_queue": 16.01840303030303
+        }
+      }
+    }
+  ],
+  "external_od_support": {
+    "training_positive_pairs": 1980,
+    "external_pairs": 14,
+    "shared_exact_pairs": 0,
+    "missing_pairs": [
+      [
+        "-10051#2",
+        "10043"
+      ],
+      [
+        "-10063",
+        "10085"
+      ],
+      [
+        "-10064#5",
+        "-10110"
+      ],
+      [
+        "-10070#0",
+        "-10086"
+      ],
+      [
+        "-10114#0",
+        "10072"
+      ],
+      [
+        "-10114#0",
+        "10076"
+      ],
+      [
+        "-10118",
+        "10104"
+      ],
+      [
+        "-10185#1",
+        "-10061#5"
+      ],
+      [
+        "-10185#1",
+        "-10071#3"
+      ],
+      [
+        "10052#4",
+        "10104"
+      ],
+      [
+        "10061#4",
+        "-10085"
+      ],
+      [
+        "10071#3",
+        "10085"
+      ],
+      [
+        "10096#1",
+        "10063"
+      ],
+      [
+        "10115#1",
+        "10072"
+      ]
+    ],
+    "scope": "Exact origin/destination pairs; shared intermediate roads are not measured by this check."
+  },
+  "repaired_ma2c_hotspots": [
+    {
+      "node": "9429",
+      "baseline": 11.357277777777776,
+      "online": 16.296944444444446,
+      "difference": 4.939666666666669
+    },
+    {
+      "node": "joinedS_1",
+      "baseline": 11.245222222222223,
+      "online": 15.823333333333332,
+      "difference": 4.5781111111111095
+    },
+    {
+      "node": "10026",
+      "baseline": 9.373972222222223,
+      "online": 13.613972222222223,
+      "difference": 4.24
+    },
+    {
+      "node": "joinedS_0",
+      "baseline": 7.560638888888889,
+      "online": 11.720166666666668,
+      "difference": 4.159527777777779
+    },
+    {
+      "node": "cluster_9563_9597",
+      "baseline": 7.244111111111111,
+      "online": 9.833944444444445,
+      "difference": 2.589833333333334
+    },
+    {
+      "node": "cluster_8985_9609",
+      "baseline": 7.289611111111112,
+      "online": 9.783305555555554,
+      "difference": 2.4936944444444418
+    },
+    {
+      "node": "cluster_9043_9052",
+      "baseline": 5.376055555555556,
+      "online": 7.482555555555555,
+      "difference": 2.1064999999999987
+    },
+    {
+      "node": "8794",
+      "baseline": 2.030944444444444,
+      "online": 3.1599444444444442,
+      "difference": 1.129
+    },
+    {
+      "node": "9433",
+      "baseline": 1.3320833333333333,
+      "online": 1.9920000000000002,
+      "difference": 0.6599166666666669
+    },
+    {
+      "node": "9480",
+      "baseline": 0.4299166666666666,
+      "online": 0.9387222222222222,
+      "difference": 0.5088055555555556
+    },
+    {
+      "node": "9531",
+      "baseline": 2.9258055555555553,
+      "online": 3.383833333333333,
+      "difference": 0.4580277777777777
+    },
+    {
+      "node": "8940",
+      "baseline": 2.752638888888889,
+      "online": 3.1759444444444442,
+      "difference": 0.4233055555555554
+    },
+    {
+      "node": "9431",
+      "baseline": 0.9074444444444444,
+      "online": 1.18625,
+      "difference": 0.27880555555555564
+    },
+    {
+      "node": "9713",
+      "baseline": 0.7948611111111111,
+      "online": 1.0523333333333333,
+      "difference": 0.2574722222222222
+    },
+    {
+      "node": "9466",
+      "baseline": 0.9030833333333332,
+      "online": 1.1341666666666668,
+      "difference": 0.23108333333333353
+    },
+    {
+      "node": "9561",
+      "baseline": 1.0048888888888892,
+      "online": 1.0759722222222226,
+      "difference": 0.07108333333333339
+    },
+    {
+      "node": "9721",
+      "baseline": 0.7555833333333334,
+      "online": 0.8202777777777778,
+      "difference": 0.06469444444444439
+    },
+    {
+      "node": "9643",
+      "baseline": 0.0,
+      "online": 0.04136111111111111,
+      "difference": 0.04136111111111111
+    },
+    {
+      "node": "9058",
+      "baseline": 0.07808333333333332,
+      "online": 0.08722222222222223,
+      "difference": 0.009138888888888905
+    },
+    {
+      "node": "8996",
+      "baseline": 0.0,
+      "online": 0.0,
+      "difference": 0.0
+    },
+    {
+      "node": "9153",
+      "baseline": 0.0,
+      "online": 0.0,
+      "difference": 0.0
+    },
+    {
+      "node": "9413",
+      "baseline": 0.0,
+      "online": 0.0,
+      "difference": 0.0
+    },
+    {
+      "node": "9837",
+      "baseline": 0.0,
+      "online": 0.0,
+      "difference": 0.0
+    },
+    {
+      "node": "9884",
+      "baseline": 0.0,
+      "online": 0.0,
+      "difference": 0.0
+    },
+    {
+      "node": "cluster_8751_9630",
+      "baseline": 0.0,
+      "online": 0.0,
+      "difference": 0.0
+    },
+    {
+      "node": "cluster_9389_9689",
+      "baseline": 0.9645833333333332,
+      "online": 0.9170277777777777,
+      "difference": -0.04755555555555557
+    },
+    {
+      "node": "9309",
+      "baseline": 5.666500000000001,
+      "online": 5.564333333333334,
+      "difference": -0.10216666666666718
+    },
+    {
+      "node": "9007",
+      "baseline": 3.6686944444444447,
+      "online": 3.3952777777777774,
+      "difference": -0.2734166666666673
+    }
+  ],
+  "ma2c_sum_reward_node_coefficients": {
+    "10026": 5.5,
+    "8794": 4.6,
+    "8940": 2.8,
+    "8996": 3.7,
+    "9007": 2.8,
+    "9058": 3.7,
+    "9153": 1.9,
+    "9309": 3.7,
+    "9413": 2.8,
+    "9429": 2.8,
+    "9431": 4.6,
+    "9433": 1.0,
+    "9466": 3.7,
+    "9480": 1.0,
+    "9531": 2.8,
+    "9561": 4.6,
+    "9643": 1.9,
+    "9713": 4.6,
+    "9721": 3.7,
+    "9837": 3.7,
+    "9884": 4.6,
+    "cluster_8751_9630": 1.9,
+    "cluster_8985_9609": 3.7,
+    "cluster_9043_9052": 4.6,
+    "cluster_9389_9689": 4.6,
+    "cluster_9563_9597": 4.6,
+    "joinedS_0": 3.7,
+    "joinedS_1": 4.6
+  },
+  "observation_saturation_lower_bound": {
+    "baseline": 0.01448515325670498,
+    "online_wce": 0.025888409961685822,
+    "definition": "Fraction of control-step lane samples with halting count >=10; vehicle count >=halting implies normalized wave at clip2. This is a lower bound, not an exact observation-saturation measure."
+  }
+}

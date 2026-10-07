@@ -1,0 +1,237 @@
+[
+  {
+    "controller": "ia2c",
+    "method": "baseline",
+    "visited": 4,
+    "missing": [
+      {
+        "checkpoint": "/home/sdc_joran/Journal/deeprl_signal_control/runs/revised/monaco/ia2c/seed_101/parent/publication_20260918T080153_952b0792/checkpoint_000198000",
+        "missing": "originating_run_manifest"
+      }
+    ],
+    "errors": [],
+    "available_final_checkpoint_hash": "b171eeab93cc0dc5dd7eca9f068a96b18156626ab963802bc7d3bc5f1f8693b0"
+  },
+  {
+    "controller": "ia2c",
+    "method": "domain_randomization",
+    "visited": 4,
+    "missing": [
+      {
+        "checkpoint": "/home/sdc_joran/Journal/deeprl_signal_control/runs/revised/monaco/ia2c/seed_101/parent/publication_20260918T080153_952b0792/checkpoint_000198000",
+        "missing": "originating_run_manifest"
+      }
+    ],
+    "errors": [],
+    "available_final_checkpoint_hash": "ecdb64072d0441ece25ff4bd6395188c3e7ca6dab80c5adb95062213aafe5d2c"
+  },
+  {
+    "controller": "ia2c",
+    "method": "fixed_wce",
+    "visited": 4,
+    "missing": [
+      {
+        "checkpoint": "/home/sdc_joran/Journal/deeprl_signal_control/runs/revised/monaco/ia2c/seed_101/parent/publication_20260918T080153_952b0792/checkpoint_000198000",
+        "missing": "originating_run_manifest"
+      }
+    ],
+    "errors": [],
+    "available_final_checkpoint_hash": "cf0f165d313c57cc0b21482db8b7a23cefed6d48662b36b05a9b7cf61361c42c"
+  },
+  {
+    "controller": "ia2c",
+    "method": "online_wce",
+    "visited": 4,
+    "missing": [
+      {
+        "checkpoint": "/home/sdc_joran/Journal/deeprl_signal_control/runs/revised/monaco/ia2c/seed_101/parent/publication_20260918T080153_952b0792/checkpoint_000198000",
+        "missing": "originating_run_manifest"
+      }
+    ],
+    "errors": [],
+    "available_final_checkpoint_hash": "36963329a9cf2d6b5d7e127fd27a15ca8e23eb939f6e6ce2b0a74cf0d01e232a"
+  },
+  {
+    "controller": "ia2c",
+    "method": "random_group",
+    "visited": 3,
+    "missing": [
+      {
+        "checkpoint": "/home/sdc_joran/Journal/deeprl_signal_control/runs/revised/monaco/ia2c/seed_101/parent/publication_20260918T080153_952b0792/checkpoint_000198000",
+        "missing": "originating_run_manifest"
+      }
+    ],
+    "errors": [],
+    "available_final_checkpoint_hash": "7ef52630c7c6de3976c9142c9c1d8ed022b77c343037eb00d4e17cd4c0caaa4c"
+  },
+  {
+    "controller": "iqll",
+    "method": "baseline",
+    "visited": 4,
+    "missing": [
+      {
+        "checkpoint": "/home/sdc_joran/Journal/deeprl_signal_control/runs/revised/monaco/iqll/seed_101/parent/publication_20260918T080153_b200ec72/checkpoint_000237600",
+        "missing": "originating_run_manifest"
+      }
+    ],
+    "errors": [],
+    "available_final_checkpoint_hash": "ad4c5515e2bd6326defbba04af9acceefd02e9a22844f3597809b9ff3d22587c"
+  },
+  {
+    "controller": "iqll",
+    "method": "domain_randomization",
+    "visited": 4,
+    "missing": [
+      {
+        "checkpoint": "/home/sdc_joran/Journal/deeprl_signal_control/runs/revised/monaco/iqll/seed_101/parent/publication_20260918T080153_b200ec72/checkpoint_000237600",
+        "missing": "originating_run_manifest"
+      }
+    ],
+    "errors": [],
+    "available_final_checkpoint_hash": "1172ae8b2ae3fbf74f0fd329387af951289b79d776db7be87ce021a235ed0a70"
+  },
+  {
+    "controller": "iqll",
+    "method": "fixed_wce",
+    "visited": 4,
+    "missing": [
+      {
+        "checkpoint": "/home/sdc_joran/Journal/deeprl_signal_control/runs/revised/monaco/iqll/seed_101/parent/publication_20260918T080153_b200ec72/checkpoint_000237600",
+        "missing": "originating_run_manifest"
+      }
+    ],
+    "errors": [],
+    "available_final_checkpoint_hash": "76d331a050c3bafeb84a9b530e0b6b8e2a9de2d1d9c21484cb198fa1c2018118"
+  },
+  {
+    "controller": "iqll",
+    "method": "online_wce",
+    "visited": 4,
+    "missing": [
+      {
+        "checkpoint": "/home/sdc_joran/Journal/deeprl_signal_control/runs/revised/monaco/iqll/seed_101/parent/publication_20260918T080153_b200ec72/checkpoint_000237600",
+        "missing": "originating_run_manifest"
+      }
+    ],
+    "errors": [],
+    "available_final_checkpoint_hash": "63f061c11a0130ef9c5fe344865c45a3a84e3cfce1ed9e674337b700b3316295"
+  },
+  {
+    "controller": "iqll",
+    "method": "random_group",
+    "visited": 3,
+    "missing": [
+      {
+        "checkpoint": "/home/sdc_joran/Journal/deeprl_signal_control/runs/revised/monaco/iqll/seed_101/parent/publication_20260918T080153_b200ec72/checkpoint_000237600",
+        "missing": "originating_run_manifest"
+      }
+    ],
+    "errors": [],
+    "available_final_checkpoint_hash": "6f520341f300e7ac674f33d8a32fa12064edc4eeddd050e8a78518d5119f9044"
+  },
+  {
+    "controller": "ma2c",
+    "method": "baseline",
+    "visited": 2,
+    "missing": [],
+    "errors": [],
+    "available_final_checkpoint_hash": "071faf38cad64b1179c42ee384ed0b4f938568612792add9f8b2e9a2c1729570"
+  },
+  {
+    "controller": "ma2c",
+    "method": "domain_randomization",
+    "visited": 3,
+    "missing": [],
+    "errors": [],
+    "available_final_checkpoint_hash": "796be8dc1f2ac5ddc7c8bf99c382d5d02e2ebef1825046f7830c7694c6dfff37"
+  },
+  {
+    "controller": "ma2c",
+    "method": "fixed_wce",
+    "visited": 3,
+    "missing": [],
+    "errors": [],
+    "available_final_checkpoint_hash": "2debe7f056fbccfd9796c277747226c78eea28595174130eacc580429e286d84"
+  },
+  {
+    "controller": "ma2c",
+    "method": "online_wce",
+    "visited": 3,
+    "missing": [],
+    "errors": [],
+    "available_final_checkpoint_hash": "b16bcd39be1fff1eee36d7864b557d0b3b4561805eba71c6bbf8d361fdb91552"
+  },
+  {
+    "controller": "ma2c",
+    "method": "random_group",
+    "visited": 2,
+    "missing": [],
+    "errors": [],
+    "available_final_checkpoint_hash": "2b244efad6da5210cc7fcb23d71008dc0655d0a037b3930195d3f926798c54f9"
+  },
+  {
+    "controller": "ppo",
+    "method": "baseline",
+    "visited": 4,
+    "missing": [
+      {
+        "checkpoint": "/home/sdc_joran/Journal/deeprl_signal_control/runs/revised/monaco/ppo/seed_101/parent/publication_20260918T080153_c66217ad/checkpoint_000132000",
+        "missing": "originating_run_manifest"
+      }
+    ],
+    "errors": [],
+    "available_final_checkpoint_hash": "32e9f4e7e0da34b7c40578530a56816302444a9294143d96f7adbeeecc53a687"
+  },
+  {
+    "controller": "ppo",
+    "method": "domain_randomization",
+    "visited": 4,
+    "missing": [
+      {
+        "checkpoint": "/home/sdc_joran/Journal/deeprl_signal_control/runs/revised/monaco/ppo/seed_101/parent/publication_20260918T080153_c66217ad/checkpoint_000132000",
+        "missing": "originating_run_manifest"
+      }
+    ],
+    "errors": [],
+    "available_final_checkpoint_hash": "ed6d41d1824b21922f824b21518f84c403ceb6e9dfb75cc2891d4f5595d43708"
+  },
+  {
+    "controller": "ppo",
+    "method": "fixed_wce",
+    "visited": 4,
+    "missing": [
+      {
+        "checkpoint": "/home/sdc_joran/Journal/deeprl_signal_control/runs/revised/monaco/ppo/seed_101/parent/publication_20260918T080153_c66217ad/checkpoint_000132000",
+        "missing": "originating_run_manifest"
+      }
+    ],
+    "errors": [],
+    "available_final_checkpoint_hash": "f1313baab1e83a6156388cc5212d25d9e64e027396761be4d35446d147bf8d3a"
+  },
+  {
+    "controller": "ppo",
+    "method": "online_wce",
+    "visited": 4,
+    "missing": [
+      {
+        "checkpoint": "/home/sdc_joran/Journal/deeprl_signal_control/runs/revised/monaco/ppo/seed_101/parent/publication_20260918T080153_c66217ad/checkpoint_000132000",
+        "missing": "originating_run_manifest"
+      }
+    ],
+    "errors": [],
+    "available_final_checkpoint_hash": "d99f76eddf42b5dc6cfdc42ff06148048525f991706effc47236edebc06ecec3"
+  },
+  {
+    "controller": "ppo",
+    "method": "random_group",
+    "visited": 3,
+    "missing": [
+      {
+        "checkpoint": "/home/sdc_joran/Journal/deeprl_signal_control/runs/revised/monaco/ppo/seed_101/parent/publication_20260918T080153_c66217ad/checkpoint_000132000",
+        "missing": "originating_run_manifest"
+      }
+    ],
+    "errors": [],
+    "available_final_checkpoint_hash": "50975fec979207fa601a528dbf6f577089abcab350108ae2467dd97d492dd8d7"
+  }
+]

@@ -1,0 +1,79 @@
+{
+  "grid_provenance": {
+    "status": "unverified_hangzhou_mapping",
+    "first_local_git_commit": "01de52575b245f264e3487cc1f7544e92c0218b7",
+    "first_local_git_date": "2026-03-15",
+    "historical_csv_sha256": "1a2bdc51cf5656cf7ea348bdf8fee0271345feeac9f9ee732de02500ab71b9c0",
+    "matches_current_csv": true,
+    "mapping_script_or_original_4x4_files_found": false
+  },
+  "grid_models": {
+    "final_checkpoints": 20,
+    "learning_steps": 2320000,
+    "training_profiles": 11,
+    "all_ancestry_bundles_available": true
+  },
+  "artifact_checks": "All ten artifacts have unique ids, positive speed factors, sorted departures within horizon, complete OD endpoints and verified hashes. All 140 positive OD paths passed passenger-compatible routing and actual SUMO loading.",
+  "artifacts": [
+    {
+      "arrival_seed": 51001,
+      "scheduled": 3029,
+      "artifact_hash": "70fbb78d57124af5e98e34113db91ddd512758047f20af9355fc4daa721acfd0"
+    },
+    {
+      "arrival_seed": 51002,
+      "scheduled": 3005,
+      "artifact_hash": "98301751e969c9e629aa5e8bdb1c45fb4a4a4845161a29dae473ba671bc27656"
+    },
+    {
+      "arrival_seed": 51003,
+      "scheduled": 2996,
+      "artifact_hash": "7fd2a27c57d6e39fef4543b01ecabf000ac16499a27969241b4571ad52792ce4"
+    },
+    {
+      "arrival_seed": 51004,
+      "scheduled": 2959,
+      "artifact_hash": "3e64d645476200c355ca4b4e0751c5bb584fc14b5986cb4979c7be6f7aa7a57c"
+    },
+    {
+      "arrival_seed": 51005,
+      "scheduled": 3016,
+      "artifact_hash": "550cd369a1b3bdc6451e8e3df5fca43f18a17fba32ca4f000849d334fcb81ea4"
+    },
+    {
+      "arrival_seed": 51006,
+      "scheduled": 2940,
+      "artifact_hash": "e54f8ad5da3213c72aa779c99277c4eb87209a0b56964a9584683ed754996670"
+    },
+    {
+      "arrival_seed": 51007,
+      "scheduled": 2907,
+      "artifact_hash": "48927106656661ad191f34a718ba1331cc216cb3c566d082b82eedc32cc4e8e2"
+    },
+    {
+      "arrival_seed": 51008,
+      "scheduled": 2950,
+      "artifact_hash": "93886cebbd4aee621db42b4b23de007f20049d96e2e174c4e76d9af2ca0a1c79"
+    },
+    {
+      "arrival_seed": 51009,
+      "scheduled": 3024,
+      "artifact_hash": "bef5aa95bd192a0d20ee8fde8335d6c32857e63a2f5406b4239de9976103c096"
+    },
+    {
+      "arrival_seed": 51010,
+      "scheduled": 3019,
+      "artifact_hash": "1ce81a625e720ec4f787a2050c1477ed8754037cc185c2a1da84dcc37c1a3f21"
+    }
+  ],
+  "monaco_status": "blocked_route_and_ancestry_provenance",
+  "main_data_regression": {
+    "existing_files": 929,
+    "changed_files": 0
+  },
+  "regression_unit_tests": {
+    "test_workflow": 10,
+    "test_results_restore": 3,
+    "status": "passed"
+  }
+}

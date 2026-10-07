@@ -1,0 +1,1 @@
+<configuration><input><net-file value="in/most.net.xml" /><additional-files value="in/most.add.xml" /><route-files value="in/connectivity_probe.rou.xml" /></input><time><end value="3600" /></time></configuration>

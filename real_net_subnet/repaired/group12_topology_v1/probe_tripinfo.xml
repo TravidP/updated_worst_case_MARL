@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-10-06T17:07:04.663108+01:00 by Eclipse SUMO sumo v1_26_0+0455-77b9dbc222e
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="/home/sdc_joran/Journal/deeprl_signal_control/real_net_subnet/repaired/group12_topology_v1/data/in/most.net.xml"/>
+        <route-files value="/home/sdc_joran/Journal/deeprl_signal_control/real_net_subnet/repaired/group12_topology_v1/data/in/connectivity_probe.rou.xml"/>
+        <additional-files value="/home/sdc_joran/Journal/deeprl_signal_control/real_net_subnet/repaired/group12_topology_v1/data/in/most.add.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="/home/sdc_joran/Journal/deeprl_signal_control/real_net_subnet/repaired/group12_topology_v1/probe_tripinfo.xml"/>
+    </output>
+
+    <time>
+        <end value="3600"/>
+    </time>
+
+    <processing>
+        <time-to-teleport value="300"/>
+    </processing>
+
+    <report>
+        <error-log value="/home/sdc_joran/Journal/deeprl_signal_control/real_net_subnet/repaired/group12_topology_v1/probe_errors.log"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <random_number>
+        <seed value="71001"/>
+    </random_number>
+
+</sumoConfiguration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+</tripinfos>

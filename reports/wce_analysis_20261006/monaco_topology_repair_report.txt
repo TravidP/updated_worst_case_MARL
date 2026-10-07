@@ -1,0 +1,35 @@
+日期：2026-10-06
+Monaco 数据集拓扑修复报告
+
+原地图：本地 real_net/data/in/most.net.xml，2018-10-11 Netedit生成；原子路网是2026-03-25从它裁剪而来。
+官方场景名称：Monaco SUMO Traffic (MoST) Scenario；https://github.com/lcodeca/MoSTScenario
+本次使用确切本地原图作为恢复依据，未声称与当前上游GitHub地图逐字节一致。
+
+根因：keep_edges.txt只选了270条道路，遗漏10180#0和10180#1，继而删除中间节点9601。
+原路线链：10050#2 → 9963 → 10180#0 → 9601 → 10180#1 → 8746 → 10180#2。
+9963、8746在裁剪图中变为dead_end；原图均为priority。9601原图也是priority，不是缺失的受控信号灯。
+OD的起点-10051#2和终点10043均已存在，故不是OD起终点名称拼写问题。
+历史Real_Life_Monaco_audit_summary.json曾记录需要补两条边、保留272条边，但实际net.xml及keep_edges.txt仍是270条。
+修复：原图导出PlainXML，提取两条真实道路、三个节点和三条原车道连接，再用netconvert编译；没有造一条直连捷径。
+SUMO官方支持net.xml与PlainXML补丁一起加载：https://sumo.dlr.de/docs/Networks/PlainXML.html
+
+验收：14/14个正需求OD有乘用车路线；原88条flow投影均为一个连续区块，连接完整。
+实际SUMO运行3600秒：14个OD各1辆+88条flow各1辆，共102辆全部到达；没有vaporization，错误/警告日志为空。
+从88条flow贡献重新聚合的14个OD流量与原CSV在1e-6精度内逐行相等。
+需求CSV保持字节一致，总量2383.333332 veh/h；没有丢弃108.333333 veh/h的失败OD。
+保留原28个TLS相位表、264个信号控制连接映射以及116条监测车道ID。
+
+版本区别：原裁剪程序netconvert1.19，当前netconvert1.26会重算几何。373条已有lane属性发生变化，43条监测lane长度变化；明细见geometry_changes.json。
+相应调整43个检测器的位置，保持原来距离车道末端的退距与检测长度上限；明细见detector_adjustments.json。
+修复版是新的地图版本，网络SHA256：cd6d7b1fcf1f1dfa42c8461ef6cdd7a935109f3aa9549d7da4558fe584fd2483
+原训练地图、原CSV、已有模型和测试结果均未替换。模型维度/信号映射一致，不代表旧network签名自动兼容。
+本次仅执行拓扑/路线/车辆探针验收，没有在新地图上运行200次策略比较或训练，也没有绕过checkpoint哈希检查。
+第一次修复尝试v1因旧检测器位置超出新lane长度而失败，完整日志和preflight_failure.json保留；v2已修复并通过。
+
+修复版目录：/home/sdc_joran/Journal/deeprl_signal_control/real_net_subnet/repaired/group12_topology_v2
+地图：/home/sdc_joran/Journal/deeprl_signal_control/real_net_subnet/repaired/group12_topology_v2/data/in/most.net.xml
+修复版需求：/home/sdc_joran/Journal/deeprl_signal_control/real_net_subnet/repaired/group12_topology_v2/Real_Life_Monaco.csv
+重建flow路线审计：/home/sdc_joran/Journal/deeprl_signal_control/real_net_subnet/repaired/group12_topology_v2/Real_Life_Monaco_route_audit.csv
+可运行探针配置：/home/sdc_joran/Journal/deeprl_signal_control/real_net_subnet/repaired/group12_topology_v2/data/connectivity_probe.sumocfg
+验收及来源manifest：/home/sdc_joran/Journal/deeprl_signal_control/real_net_subnet/repaired/group12_topology_v2/repair_manifest.json
+复现脚本：scripts/repair_monaco_topology.py（使用新的输出目录；需要sumolib、netconvert和sumo）。

@@ -1,0 +1,49 @@
+日期：2026-10-06
+外部需求测试执行报告
+
+Grid：200/200 正式评估完成，4 controllers × 5 methods × 10 rollouts。
+另有 4 次独立的完整 controller 冒烟评估。所有正式结果通过 3600 秒连续样本、NPZ 维度、需求/SUMO/policy seed 配对、来源/网络/checkpoint 哈希与冻结学习步数验收。
+输入：本地 Grid sparse external candidate；原生 2983 veh/h，140 个正需求 OD。十个共享 artifact 已通过实际 SUMO 路线加载。上游 Hangzhou 来源及映射未验证。
+Monaco：未启动正式 campaign。-10051#2 → 10043 的 108.333333 veh/h 不可达，涉及四条源 flow，当前路网缺少 10180#0 和 10180#1。两段路径均包含受控路口，不能删掉前段声称等价。另有历史来源 manifest 缺失。
+主网站原有 929 个数据文件 SHA-256 均未改变。主实验仍为每网络 4600 条，共 9200 条；Grid 补充结果 200 条独立展示。
+仅 seed 101；置信区间针对评估随机性，不能推断跨训练种子稳定性。未启动新训练或 WCE 更新。
+
+平均排队（mean_queue，越低越好）：
+controller | method | mean | sd | completed | pending | teleports | collisions
+ia2c | baseline | 54.208 | 2.850 | 2491.200 | 361.100 | 0.000 | 0.000
+ia2c | domain_randomization | 53.659 | 2.046 | 2541.000 | 319.000 | 0.000 | 0.000
+ia2c | fixed_wce | 52.783 | 1.614 | 2589.600 | 268.000 | 0.000 | 0.000
+ia2c | online_wce | 60.130 | 2.469 | 2497.800 | 353.800 | 0.000 | 0.000
+ia2c | random_group | 59.188 | 4.470 | 2398.900 | 444.300 | 0.000 | 0.000
+iqll | baseline | 182.722 | 31.135 | 1716.100 | 892.100 | 25.100 | 0.000
+iqll | domain_randomization | 40.470 | 3.432 | 2396.100 | 490.800 | 7.600 | 0.000
+iqll | fixed_wce | 30.589 | 4.470 | 2870.300 | 5.400 | 4.400 | 0.000
+iqll | online_wce | 108.137 | 19.697 | 1929.700 | 802.800 | 22.400 | 0.000
+iqll | random_group | 69.749 | 13.594 | 2551.100 | 234.700 | 3.500 | 0.000
+ma2c | baseline | 48.704 | 1.234 | 2698.100 | 160.100 | 0.000 | 0.000
+ma2c | domain_randomization | 48.176 | 1.446 | 2633.700 | 231.500 | 0.000 | 0.000
+ma2c | fixed_wce | 48.818 | 1.969 | 2627.900 | 239.800 | 0.000 | 0.000
+ma2c | online_wce | 48.367 | 1.580 | 2619.000 | 246.300 | 0.000 | 0.000
+ma2c | random_group | 45.406 | 1.515 | 2722.200 | 141.200 | 0.000 | 0.000
+ppo | baseline | 33.328 | 1.569 | 2763.500 | 118.600 | 0.000 | 0.000
+ppo | domain_randomization | 17.912 | 0.863 | 2902.600 | 2.100 | 0.000 | 0.000
+ppo | fixed_wce | 22.451 | 0.899 | 2858.600 | 42.200 | 0.000 | 0.000
+ppo | online_wce | 16.443 | 1.201 | 2905.400 | 0.800 | 0.000 | 0.000
+ppo | random_group | 44.965 | 5.911 | 2770.700 | 77.400 | 0.000 | 0.000
+
+Online WCE 相对 baseline：controller | 平均逐次收益% | wins/10 | Holm p
+ia2c | -11.076% | 0/10 | 0.039062
+iqll | 39.315% | 10/10 | 0.039062
+ma2c | 0.689% | 6/10 | 1.000000
+ppo | 50.572% | 10/10 | 0.039062
+
+配对置信区间使用 50,000 次配对 bootstrap，95% percentile，未做同时覆盖校正，作为探索性区间。
+正式 p 值使用双侧精确配对 sign-flip 检验（1024 个符号组合），对 20 个预设比较做 Holm 校正；要求零假设下差异对称。
+详细置信区间与所有指标：/home/sdc_joran/Journal/deeprl_signal_control/runs_eval/revised/external_group12_seed101_v3/analysis/grid/paired_statistics.json
+验收：/home/sdc_joran/Journal/deeprl_signal_control/runs_eval/revised/external_group12_seed101_v3/acceptance/grid.json
+Campaign：/home/sdc_joran/Journal/deeprl_signal_control/runs_eval/revised/external_group12_seed101_v3/campaign.json
+网站：http://127.0.0.1:8878/?evaluationSet=external_group12&network=grid
+
+最终网页验收：主 Grid/Monaco 4,600 条切换、补充 Grid 200 条、Monaco pending、20 条曲线、中英文、来源说明和独立 URL 均通过。CSV 实际下载为 3,600 行 × 61 列，所有数值与二十份原始 series CSV 逐项一致。
+论文新增结果表与限制说明，独立表格已编译并渲染检查；当前缺少 IEEEtran.cls，未重建完整论文 PDF 或旧图。
+最终验收：reports/wce_analysis_20261006/external_final_acceptance.json

@@ -1,0 +1,15 @@
+# Monaco | OD redistribution σ=0.5
+
+Mean queue (vehicles; lower is better)
+
+| Controller | Baseline | Random grouping | Domain randomization | Fixed WCE | Online WCE |
+|---|---:|---:|---:|---:|---:|
+| IA2C | 155.75 | 217.44 | **130.01** | 192.07 | 149.88 |
+| MA2C | 16.55 | **15.84** | 16.76 | 19.11 | 18.93 |
+| IQLL | 331.35 | **229.14** | 309.71 | 308.90 | 305.46 |
+| PPO | 162.20 | 217.88 | 10.16 | 7.76 | **7.54** |
+
+n = 10 per method; training seed = 101; table statistics are unsmoothed.
+Frozen test evaluation.
+
+Bold: lowest unrounded mean within each controller; exact ties included.
