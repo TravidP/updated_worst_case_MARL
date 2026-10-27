@@ -1,0 +1,68 @@
+{
+  "source_file_count": 515,
+  "raw_csv_count": 384,
+  "total_source_bytes": 128879696,
+  "raw_shapes": [
+    [
+      3600,
+      10
+    ]
+  ],
+  "mismatches_over_0_011": [],
+  "missing_latex_references": [
+    {
+      "tex_line": 697,
+      "latex_reference": "Images/Graphs/map.jpeg",
+      "available_file": "",
+      "status": "missing"
+    },
+    {
+      "tex_line": 704,
+      "latex_reference": "Images/Graphs/baseline.png",
+      "available_file": "",
+      "status": "missing"
+    },
+    {
+      "tex_line": 710,
+      "latex_reference": "Images/Graphs/retrained.png",
+      "available_file": "",
+      "status": "missing"
+    },
+    {
+      "tex_line": 773,
+      "latex_reference": "shuwei.jpeg",
+      "available_file": "",
+      "status": "missing"
+    },
+    {
+      "tex_line": 777,
+      "latex_reference": "Joran.png",
+      "available_file": "",
+      "status": "missing"
+    },
+    {
+      "tex_line": 782,
+      "latex_reference": "Arda.png",
+      "available_file": "",
+      "status": "missing"
+    },
+    {
+      "tex_line": 786,
+      "latex_reference": "Bayu.png",
+      "available_file": "",
+      "status": "missing"
+    },
+    {
+      "tex_line": 806,
+      "latex_reference": "Omer.png",
+      "available_file": "",
+      "status": "missing"
+    },
+    {
+      "tex_line": 819,
+      "latex_reference": "Saeed.jpg",
+      "available_file": "",
+      "status": "missing"
+    }
+  ]
+}

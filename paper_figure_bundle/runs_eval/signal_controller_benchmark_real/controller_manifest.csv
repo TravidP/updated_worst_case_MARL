@@ -1,0 +1,9 @@
+controller,controller_label,family,variant,checkpoint_step,model_dir,config_path
+ia2c_real,IA2C Real,ia2c,baseline,1001040,/home/sdc_joran/Journal/deeprl_signal_control/runs/ia2c_real/model,/home/sdc_joran/Journal/deeprl_signal_control/runs/ia2c_real/data/config_ia2c_real.ini
+ma2c_real,MA2C Real,ma2c,baseline,1000560,/home/sdc_joran/Journal/deeprl_signal_control/runs/ma2c_real/model,/home/sdc_joran/Journal/deeprl_signal_control/runs/ma2c_real/data/config_ma2c_real.ini
+ppo_real,PPO Real,ppo,baseline,1000920,/home/sdc_joran/Journal/deeprl_signal_control/runs/ppo_real/model,/home/sdc_joran/Journal/deeprl_signal_control/runs/ppo_real/data/config_ppo_real.ini
+iqll_real,IQL-LR Real,iqll,baseline,1000560,/home/sdc_joran/Journal/deeprl_signal_control/runs/iqll_real/model,/home/sdc_joran/Journal/deeprl_signal_control/config/config_iqll_real.ini
+ia2c_retrained,IA2C Retrained,ia2c,retrained,2321040,/home/sdc_joran/Journal/deeprl_signal_control/output_coevolution_real/ia2c_from_real_fresh/model_traffic,/home/sdc_joran/Journal/deeprl_signal_control/config/config_ia2c_real.ini
+ma2c_retrained,MA2C Retrained,ma2c,retrained,1858560,/home/sdc_joran/Journal/deeprl_signal_control/output_coevolution_real/ma2c_real_old/model_traffic,/home/sdc_joran/Journal/deeprl_signal_control/config/config_ma2c_real.ini
+ppo_retrained,PPO Retrained,ppo,retrained,2309040,/home/sdc_joran/Journal/deeprl_signal_control/output_coevolution_real/ppo/model_traffic,/home/sdc_joran/Journal/deeprl_signal_control/config/config_ppo_real.ini
+iqll_retrained,IQL-LR Retrained,iqll,retrained,1648680,/home/sdc_joran/Journal/deeprl_signal_control/output_coevolution_real/iql-lr/model_traffic,/home/sdc_joran/Journal/deeprl_signal_control/config/config_iqll_real.ini

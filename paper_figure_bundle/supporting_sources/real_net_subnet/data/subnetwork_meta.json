@@ -1,0 +1,326 @@
+{
+  "summary": {
+    "tls_program_count": 28,
+    "physical_signalized_junction_count": 30,
+    "buffer_hops": 1,
+    "selected_edge_count": 270,
+    "netconvert": "generated"
+  },
+  "controllers": {
+    "10026": {
+      "phase_key": "6.0",
+      "neighbors": [
+        "9431",
+        "9561",
+        "cluster_9563_9597",
+        "9531"
+      ],
+      "physical_junctions": [
+        "10026"
+      ]
+    },
+    "8794": {
+      "phase_key": "4.0",
+      "neighbors": [
+        "cluster_8985_9609",
+        "9837",
+        "9058",
+        "cluster_9563_9597"
+      ],
+      "physical_junctions": [
+        "8794"
+      ]
+    },
+    "8940": {
+      "phase_key": "2.1",
+      "neighbors": [
+        "9007",
+        "9429"
+      ],
+      "physical_junctions": [
+        "8940"
+      ]
+    },
+    "8996": {
+      "phase_key": "2.2",
+      "neighbors": [
+        "cluster_9389_9689",
+        "9713"
+      ],
+      "physical_junctions": [
+        "8996"
+      ]
+    },
+    "9007": {
+      "phase_key": "2.3",
+      "neighbors": [
+        "9309",
+        "8940"
+      ],
+      "physical_junctions": [
+        "9007"
+      ]
+    },
+    "9058": {
+      "phase_key": "4.0",
+      "neighbors": [
+        "cluster_8985_9609",
+        "8794",
+        "joinedS_0"
+      ],
+      "physical_junctions": [
+        "9058"
+      ]
+    },
+    "9153": {
+      "phase_key": "2.0",
+      "neighbors": [
+        "9643"
+      ],
+      "physical_junctions": [
+        "9153"
+      ]
+    },
+    "9309": {
+      "phase_key": "4.0",
+      "neighbors": [
+        "9466",
+        "9007",
+        "cluster_9043_9052"
+      ],
+      "physical_junctions": [
+        "9309"
+      ]
+    },
+    "9413": {
+      "phase_key": "2.3",
+      "neighbors": [
+        "9721",
+        "9837"
+      ],
+      "physical_junctions": [
+        "9413"
+      ]
+    },
+    "9429": {
+      "phase_key": "5.0",
+      "neighbors": [
+        "cluster_9043_9052",
+        "joinedS_1",
+        "8940"
+      ],
+      "physical_junctions": [
+        "9429"
+      ]
+    },
+    "9431": {
+      "phase_key": "2.4",
+      "neighbors": [
+        "9721",
+        "9884",
+        "9561",
+        "10026"
+      ],
+      "physical_junctions": [
+        "9431"
+      ]
+    },
+    "9433": {
+      "phase_key": "2.5",
+      "neighbors": [
+        "joinedS_1"
+      ],
+      "physical_junctions": [
+        "9433"
+      ]
+    },
+    "9466": {
+      "phase_key": "4.0",
+      "neighbors": [
+        "9309",
+        "joinedS_0",
+        "cluster_9043_9052"
+      ],
+      "physical_junctions": [
+        "9466"
+      ]
+    },
+    "9480": {
+      "phase_key": "2.3",
+      "neighbors": [
+        "8996",
+        "9713"
+      ],
+      "physical_junctions": [
+        "9480"
+      ]
+    },
+    "9531": {
+      "phase_key": "2.6",
+      "neighbors": [
+        "joinedS_1",
+        "10026"
+      ],
+      "physical_junctions": [
+        "9531"
+      ]
+    },
+    "9561": {
+      "phase_key": "4.0",
+      "neighbors": [
+        "cluster_9389_9689",
+        "10026",
+        "9431",
+        "9884"
+      ],
+      "physical_junctions": [
+        "9561"
+      ]
+    },
+    "9643": {
+      "phase_key": "2.3",
+      "neighbors": [
+        "9153"
+      ],
+      "physical_junctions": [
+        "9643"
+      ]
+    },
+    "9713": {
+      "phase_key": "3.0",
+      "neighbors": [
+        "9721",
+        "9884",
+        "8996"
+      ],
+      "physical_junctions": [
+        "9713"
+      ]
+    },
+    "9721": {
+      "phase_key": "6.0",
+      "neighbors": [
+        "9431",
+        "9713",
+        "9413"
+      ],
+      "physical_junctions": [
+        "9721"
+      ]
+    },
+    "9837": {
+      "phase_key": "3.1",
+      "neighbors": [
+        "9413",
+        "8794",
+        "cluster_8985_9609"
+      ],
+      "physical_junctions": [
+        "9837"
+      ]
+    },
+    "9884": {
+      "phase_key": "2.7",
+      "neighbors": [
+        "9713",
+        "9431",
+        "cluster_9389_9689",
+        "9561"
+      ],
+      "physical_junctions": [
+        "9884"
+      ]
+    },
+    "cluster_8751_9630": {
+      "phase_key": "4.0",
+      "neighbors": [
+        "cluster_9389_9689"
+      ],
+      "physical_junctions": [
+        "cluster_8751_9630"
+      ]
+    },
+    "cluster_8985_9609": {
+      "phase_key": "4.0",
+      "neighbors": [
+        "9837",
+        "8794",
+        "9058"
+      ],
+      "physical_junctions": [
+        "cluster_8985_9609"
+      ]
+    },
+    "cluster_9043_9052": {
+      "phase_key": "4.1",
+      "neighbors": [
+        "cluster_9563_9597",
+        "9466",
+        "9309",
+        "10026",
+        "joinedS_1"
+      ],
+      "physical_junctions": [
+        "cluster_9043_9052"
+      ]
+    },
+    "cluster_9389_9689": {
+      "phase_key": "4.0",
+      "neighbors": [
+        "9884",
+        "9561",
+        "cluster_8751_9630",
+        "8996"
+      ],
+      "physical_junctions": [
+        "cluster_9389_9689"
+      ]
+    },
+    "cluster_9563_9597": {
+      "phase_key": "4.2",
+      "neighbors": [
+        "10026",
+        "8794",
+        "joinedS_0",
+        "cluster_9043_9052"
+      ],
+      "physical_junctions": [
+        "cluster_9563_9597"
+      ]
+    },
+    "joinedS_0": {
+      "phase_key": "6.1",
+      "neighbors": [
+        "9058",
+        "cluster_9563_9597",
+        "9466"
+      ],
+      "physical_junctions": [
+        "9970",
+        "cluster_9154_9919"
+      ]
+    },
+    "joinedS_1": {
+      "phase_key": "3.2",
+      "neighbors": [
+        "9531",
+        "9429"
+      ],
+      "physical_junctions": [
+        "9316",
+        "9490"
+      ]
+    }
+  },
+  "files": {
+    "keep_edges": "C:\\Users\\ardak\\PycharmProjects\\groningen_sumo\\deeprl_signal_control\\real_net_subnet\\data\\in\\keep_edges.txt",
+    "additional": "C:\\Users\\ardak\\PycharmProjects\\groningen_sumo\\deeprl_signal_control\\real_net_subnet\\data\\in\\most.add.xml",
+    "sumocfg": "C:\\Users\\ardak\\PycharmProjects\\groningen_sumo\\deeprl_signal_control\\real_net_subnet\\data\\most.sumocfg",
+    "training_config": "C:\\Users\\ardak\\PycharmProjects\\groningen_sumo\\deeprl_signal_control\\real_net_subnet\\data\\config_test_real_subnet.ini",
+    "network": "C:\\Users\\ardak\\PycharmProjects\\groningen_sumo\\deeprl_signal_control\\real_net_subnet\\data\\in\\most.net.xml"
+  },
+  "detector_adjustment": {
+    "adjusted": 116,
+    "skipped": []
+  }
+}
