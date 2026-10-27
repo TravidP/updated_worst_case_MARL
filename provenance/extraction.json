@@ -1,0 +1,262 @@
+{
+  "source_commit": "7518db4ad50b22aa7f625d28abef103ccc7996db",
+  "source_status": " M agents/controller.py\n?? cbwce_standalone/\n?? \"evaluation results figs/learning_curves/\"\n?? reports/a2c_optimization_20261009/\n?? scripts/analyze_a2c_optimization.py\n?? tests/test_a2c_optimization.py\n?? tmp/\n",
+  "files": [
+    {
+      "source": "LICENSE",
+      "destination": "LICENSE",
+      "sha256": "8fe4a8c9ed63c50b44a70af45604d9abc5b69fd9281b3ffe8793dda56685c8a7"
+    },
+    {
+      "source": "tf_compat.py",
+      "destination": "tf_compat.py",
+      "sha256": "8d164e4931d49b7e7214e502eaa06a8df80f830499b40e7faf1688edd5b87e6f"
+    },
+    {
+      "source": "agents/__init__.py",
+      "destination": "agents/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "agents/controller.py",
+      "destination": "agents/controller.py",
+      "sha256": "550a4f812f6e62504e1b6651ccd2d1ca245ed05fb9270e009b1e3715171a7dc5"
+    },
+    {
+      "source": "agents/wce.py",
+      "destination": "agents/wce.py",
+      "sha256": "5971f300351c901f0b609d9136ccb72ef95f2f87ac782f394becb481bebb8981"
+    },
+    {
+      "source": "agents/policies.py",
+      "destination": "agents/policies.py",
+      "sha256": "9a7517c3798ae45c27c929c307551987b7d6bb01a9bc091590f59024dfa42859"
+    },
+    {
+      "source": "agents/utils.py",
+      "destination": "agents/utils.py",
+      "sha256": "a00fddd1b991b427a4634f28a33d268bdec7a2fd68be496ba136cfd94f1d339c"
+    },
+    {
+      "source": "agents/recurrent.py",
+      "destination": "agents/recurrent.py",
+      "sha256": "5e6f8bf312bff1eca7ea54a24ce8099e52388b2779d563df42fe4939e8994d15"
+    },
+    {
+      "source": "envs/__init__.py",
+      "destination": "envs/__init__.py",
+      "sha256": "15c65f58c4c7959a4ad9b882f6e23606088937f9c23c5045fe1209b44f9c22dd"
+    },
+    {
+      "source": "envs/env.py",
+      "destination": "envs/env.py",
+      "sha256": "a58f9989479091a5f2b63ac329b2882cbb960bd2589a0db8feeb579fe80a8409"
+    },
+    {
+      "source": "envs/large_grid_env.py",
+      "destination": "envs/large_grid_env.py",
+      "sha256": "abf6ff07bc6e6a339db8d753942610a3324c547ad1ba8b5b38cacdc7029b4c65"
+    },
+    {
+      "source": "envs/real_net_env.py",
+      "destination": "envs/real_net_env.py",
+      "sha256": "6b74588aec34db4c7ef77a3b09de591bca3a603892b4a3390dac1a70e3609734"
+    },
+    {
+      "source": "envs/experiment_env.py",
+      "destination": "envs/experiment_env.py",
+      "sha256": "72773473a88abae5bf6fe048b953886fcde1c92481bc2010d368b3bd0b0a6517"
+    },
+    {
+      "source": "experiments/__init__.py",
+      "destination": "experiments/__init__.py",
+      "sha256": "64f85dca5cb54d8b6d233cb68453f34fd0c73d2252928a7f50ca571451258d15"
+    },
+    {
+      "source": "experiments/configuration.py",
+      "destination": "experiments/configuration.py",
+      "sha256": "788d73b3c357b59ac9f06b888d98308254f8b32f56da3a2a8596631689bd7c59"
+    },
+    {
+      "source": "experiments/core.py",
+      "destination": "experiments/core.py",
+      "sha256": "9d73a9b44675292f2e831ac42c3c3aec6af425b03528e14b07e783435cf2f9df"
+    },
+    {
+      "source": "experiments/demand.py",
+      "destination": "experiments/demand.py",
+      "sha256": "9eb219491c879bfeceeaf503613b0f7aa41843d3fefa41e525046203bf84d344"
+    },
+    {
+      "source": "experiments/scenarios.py",
+      "destination": "experiments/scenarios.py",
+      "sha256": "12f5746fab44a5c98f7515c6e8f312e5b4dc8d5bc993052abbdfb7ea9da51eef"
+    },
+    {
+      "source": "large_grid/data/build_file.py",
+      "destination": "large_grid/data/build_file.py",
+      "sha256": "5c790a37c9255df88ea093d505c4a46b26e2fcc6e7294ecec97add0019bbc592"
+    },
+    {
+      "source": "config/revised/config_wce_real.ini",
+      "destination": "config/revised/config_wce_real.ini",
+      "sha256": "3ff5f57352d32496041ea826d1cd41aa41f2593581fb0635ca97eb44986dcc44"
+    },
+    {
+      "source": "config/revised/config_ma2c_large.ini",
+      "destination": "config/revised/config_ma2c_large.ini",
+      "sha256": "a6d7d64c4d091d983fa5ec79af4ed984e336c2768033e553e0182a4ef0e05a62"
+    },
+    {
+      "source": "config/revised/config_ppo_large.ini",
+      "destination": "config/revised/config_ppo_large.ini",
+      "sha256": "40c15778e8e7a6e2ea676e13d75671794158c26ca1eb4163eb04cd6fda2c9191"
+    },
+    {
+      "source": "config/revised/config_ppo_real.ini",
+      "destination": "config/revised/config_ppo_real.ini",
+      "sha256": "15fc7e0622adae2969328b3719abe2d7d4820710a267ecc2bdcba414f108bac2"
+    },
+    {
+      "source": "config/revised/config_wce_large.ini",
+      "destination": "config/revised/config_wce_large.ini",
+      "sha256": "38a8e32c17426e2cc40225eb5b535960dfb7334bf65b56866ff4b0fcbf2eeb7e"
+    },
+    {
+      "source": "config/revised/config_ma2c_real.ini",
+      "destination": "config/revised/config_ma2c_real.ini",
+      "sha256": "329ad97180da6ec044398b60c04d6f6b434d9a264c757526f05ba80ac66e01af"
+    },
+    {
+      "source": "large_grid/data/exp.net.xml",
+      "destination": "assets/grid/network.net.xml",
+      "sha256": "d28bd45f2f85c56c03c4c7fca66127bbf1fa85ad8762effed5fb5b61c9ea579a"
+    },
+    {
+      "source": "large_grid/data/exp.add.xml",
+      "destination": "assets/grid/detectors.add.xml",
+      "sha256": "949a18e966371f9336179d402324d4eda26b96e63ded1d28cca32a054b9788ea"
+    },
+    {
+      "source": "data_traffic/demand_N_to_S.csv",
+      "destination": "assets/grid/demand/N_to_S.csv",
+      "sha256": "8f4546858657b46230cd0f6cbc521985ba10727c5716fdeee7fac714479176db"
+    },
+    {
+      "source": "data_traffic/demand_S_to_N.csv",
+      "destination": "assets/grid/demand/S_to_N.csv",
+      "sha256": "9d4d6d02cacf3462e3dcd800b8008b81b32f4acfd206a2152a4605b4354dc910"
+    },
+    {
+      "source": "data_traffic/demand_W_to_E.csv",
+      "destination": "assets/grid/demand/W_to_E.csv",
+      "sha256": "91b069e7df7787b6d82d452e2754f25dcb6e131f1db268648039cad36e70bf55"
+    },
+    {
+      "source": "data_traffic/demand_E_to_W.csv",
+      "destination": "assets/grid/demand/E_to_W.csv",
+      "sha256": "7d34fae0a0f8594a0f70f7feb1daf70bd874ffe01968cf27fda3c01b0b9c5d66"
+    },
+    {
+      "source": "data_traffic/demand_NW_to_SE.csv",
+      "destination": "assets/grid/demand/NW_to_SE.csv",
+      "sha256": "401303d0beef8d7f52fc80fcb2fdbb085455a742b45b459d4f6cc6b7c5c2b574"
+    },
+    {
+      "source": "data_traffic/demand_SE_to_NW.csv",
+      "destination": "assets/grid/demand/SE_to_NW.csv",
+      "sha256": "d73a8e3e4cd06224b5a19ad250562f441df76f7daa51b6209ce18ee519b1ecfa"
+    },
+    {
+      "source": "data_traffic/demand_SW_to_NE.csv",
+      "destination": "assets/grid/demand/SW_to_NE.csv",
+      "sha256": "8da0781a404de4192104d743434ce89ede239e6f0ab5b6e87f820707d7df9ff8"
+    },
+    {
+      "source": "data_traffic/demand_NE_to_SW.csv",
+      "destination": "assets/grid/demand/NE_to_SW.csv",
+      "sha256": "a0a04146b8a43714d8c5b0210d68cb47457a338cf4135b2cbaa1cd4f18929e5d"
+    },
+    {
+      "source": "data_traffic/demand_Periphery_to_Center.csv",
+      "destination": "assets/grid/demand/Periphery_to_Center.csv",
+      "sha256": "734ea32b252f21abaf240b69265e1ba2340e1e85e097da7f49875256c226988b"
+    },
+    {
+      "source": "data_traffic/demand_Center_to_Periphery.csv",
+      "destination": "assets/grid/demand/Center_to_Periphery.csv",
+      "sha256": "8069012eabfd753e323ee8d9f32e851c550728b1f5513e6c71f1135390a2afff"
+    },
+    {
+      "source": "data_traffic/demand_Uniform.csv",
+      "destination": "assets/grid/demand/Uniform.csv",
+      "sha256": "3ce8746a136cae7fba89e928253d51bb63bb646178ec1f6096e021334735a761"
+    },
+    {
+      "source": "real_net_subnet/data/in/most.net.xml",
+      "destination": "assets/monaco/network.net.xml",
+      "sha256": "0ff05a7efb668ae1ba80785a75c09a151679462039ebdb392c3f8ea565bda9a5"
+    },
+    {
+      "source": "real_net_subnet/data/in/most.add.xml",
+      "destination": "assets/monaco/detectors.add.xml",
+      "sha256": "cff978f25da76e411a0a167e772f5e0c505c02b04ef01ac28dedfb6eddc1015c"
+    },
+    {
+      "source": "real_net_subnet/demand_groups/N_to_S.csv",
+      "destination": "assets/monaco/demand/N_to_S.csv",
+      "sha256": "39bac1db49a7eedeec831ca4b57948bdf2d975254192d74c0863c7865f1cdd73"
+    },
+    {
+      "source": "real_net_subnet/demand_groups/S_to_N.csv",
+      "destination": "assets/monaco/demand/S_to_N.csv",
+      "sha256": "20ea142447137a7d44c208be76517c2304dd96985377562a4aa2484dc2db011e"
+    },
+    {
+      "source": "real_net_subnet/demand_groups/W_to_E.csv",
+      "destination": "assets/monaco/demand/W_to_E.csv",
+      "sha256": "fd73dbe6b3fde3633243af0ae654f5712fe020b5989495470c0727f545aab6fb"
+    },
+    {
+      "source": "real_net_subnet/demand_groups/E_to_W.csv",
+      "destination": "assets/monaco/demand/E_to_W.csv",
+      "sha256": "0d2a06e4c97113ffb8149f6f5c3dc521fcbf3a8db0d7eb22aad5319b6c7d57c0"
+    },
+    {
+      "source": "real_net_subnet/demand_groups/NW_to_SE.csv",
+      "destination": "assets/monaco/demand/NW_to_SE.csv",
+      "sha256": "bf7bc57a937b74cf388ef16a393abf8a720173b10afad9ad80694b2a3af4536a"
+    },
+    {
+      "source": "real_net_subnet/demand_groups/SE_to_NW.csv",
+      "destination": "assets/monaco/demand/SE_to_NW.csv",
+      "sha256": "8c070a700206fd455783c5bf469e33673c95f985da628e5c86c8cb3cd6d5682a"
+    },
+    {
+      "source": "real_net_subnet/demand_groups/SW_to_NE.csv",
+      "destination": "assets/monaco/demand/SW_to_NE.csv",
+      "sha256": "0e74acf9002981d51f08eb467a96d3c5630982096bb9bc7da8f0c4a470627774"
+    },
+    {
+      "source": "real_net_subnet/demand_groups/NE_to_SW.csv",
+      "destination": "assets/monaco/demand/NE_to_SW.csv",
+      "sha256": "422bb2725393abbad4aa0eb56f24a03fb9cabd72b70215ffbec7d448e48145e5"
+    },
+    {
+      "source": "real_net_subnet/demand_groups/Periphery_to_Center.csv",
+      "destination": "assets/monaco/demand/Periphery_to_Center.csv",
+      "sha256": "8fe05498f68072c62d3ff92743293cb433455870ab78a88c945a2b1253a021a4"
+    },
+    {
+      "source": "real_net_subnet/demand_groups/Center_to_Periphery.csv",
+      "destination": "assets/monaco/demand/Center_to_Periphery.csv",
+      "sha256": "87c9511124e6037381411f43f9a53e22e9438bd41cefdd414032678c552face8"
+    },
+    {
+      "source": "real_net_subnet/demand_groups/Uniform.csv",
+      "destination": "assets/monaco/demand/Uniform.csv",
+      "sha256": "ab8d3a5ca175be1293d35c97b147373f03b212ea699e3e369c132976611a9cbc"
+    }
+  ],
+  "note": "File contents include working-tree changes. Original project remains untouched."
+}

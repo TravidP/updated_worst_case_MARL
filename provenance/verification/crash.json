@@ -1,0 +1,7 @@
+{
+  "duplicate_submission_rejected": true,
+  "exact_resumed_training_tensors": true,
+  "previous_checkpoint_preserved": true,
+  "signal": "SIGKILL",
+  "status": "passed"
+}

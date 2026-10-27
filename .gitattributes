@@ -1,0 +1,4 @@
+# Preserve exact input bytes: scientific identities use SHA-256 across machines.
+assets/** -text -diff
+*.npz binary
+*.gz binary

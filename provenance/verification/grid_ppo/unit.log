@@ -1,0 +1,30 @@
+/usr/lib/python3/dist-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.17.3 and <1.25.0 is required for this version of SciPy (detected version 1.26.4
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+WARNING:tensorflow:From /home/sdc_joran/.local/lib/python3.10/site-packages/tensorflow/python/compat/v2_compat.py:108: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+Instructions for updating:
+non-resource variables are not supported in the long term
+test_actor_critic_masked_update_and_frozen_graph (test_learning.LearningTests) ... WARNING:tensorflow:From /home/sdc_joran/.local/lib/python3.10/site-packages/tensorflow/python/training/rmsprop.py:188: calling Ones.__init__ (from tensorflow.python.ops.init_ops) with dtype is deprecated and will be removed in a future version.
+Instructions for updating:
+Call initializer instance with the dtype argument instead of passing it to the constructor
+ok
+test_replay_bound_and_chunk_roundtrip (test_learning.LearningTests) ... ok
+test_target_and_exact_next_update_recovery (test_learning.LearningTests) ... /home/sdc_joran/Journal/deeprl_signal_control/cbwce_standalone/agents/dql.py:67: UserWarning: `tf.layers.dense` is deprecated and will be removed in a future version. Please use `tf.keras.layers.Dense` instead.
+  h=tf.layers.dense(x,128,activation=tf.nn.relu,name='fc1')
+/home/sdc_joran/Journal/deeprl_signal_control/cbwce_standalone/agents/dql.py:68: UserWarning: `tf.layers.dense` is deprecated and will be removed in a future version. Please use `tf.keras.layers.Dense` instead.
+  h=tf.layers.dense(h,64,activation=tf.nn.relu,name='fc2')
+/home/sdc_joran/Journal/deeprl_signal_control/cbwce_standalone/agents/dql.py:69: UserWarning: `tf.layers.dense` is deprecated and will be removed in a future version. Please use `tf.keras.layers.Dense` instead.
+  return tf.layers.dense(h,int(actions),name='q')
+ok
+test_directions_no_learning_and_continuation (test_protocol.ProtocolTests) ... ok
+test_manifest_fail_closed (test_protocol.ProtocolTests) ... ok
+test_plateau_and_meaningful_improvements (test_protocol.ProtocolTests) ... ok
+test_release_and_archive (test_protocol.ProtocolTests) ... ok
+test_reward_reads_neighborhood_coefficient (test_protocol.ProtocolTests) ... ok
+test_streamed_statistics_and_bounds (test_protocol.ProtocolTests) ... ok
+test_failed_publish_preserves_previous_recovery (test_storage.StorageTests) ... ok
+test_retention_protects_roles_pins_and_recovery_dependencies (test_storage.StorageTests) ... ok
+
+----------------------------------------------------------------------
+Ran 11 tests in 3.516s
+
+OK

@@ -1,0 +1,9 @@
+{
+  "audit_bytes": 169870914,
+  "audit_control_steps": 22,
+  "case": "monaco_ma2c",
+  "compact_bytes": 169866529,
+  "exact_training_tensors": true,
+  "status": "passed",
+  "streamed_queue_matches_audit": true
+}

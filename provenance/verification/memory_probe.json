@@ -1,0 +1,37 @@
+{
+  "results": [
+    {
+      "lanes": 150,
+      "legacy_lists": {
+        "peak_traced_bytes": 13792023,
+        "retained_bytes": 13791847,
+        "seconds": 0.10281578800641
+      },
+      "network": "grid",
+      "retained_reduction_fraction": 0.995695282872555,
+      "seconds": 6600,
+      "streaming": {
+        "peak_traced_bytes": 63070,
+        "retained_bytes": 59370,
+        "seconds": 0.1593439670978114
+      }
+    },
+    {
+      "lanes": 116,
+      "legacy_lists": {
+        "peak_traced_bytes": 11562928,
+        "retained_bytes": 11562752,
+        "seconds": 0.07918694301042706
+      },
+      "network": "monaco",
+      "retained_reduction_fraction": 0.9961132090353577,
+      "seconds": 6600,
+      "streaming": {
+        "peak_traced_bytes": 47984,
+        "retained_bytes": 44942,
+        "seconds": 0.13185944396536797
+      }
+    }
+  ],
+  "scope": "Synthetic queue/statistics buffering only; not total model/SUMO RSS or training throughput."
+}

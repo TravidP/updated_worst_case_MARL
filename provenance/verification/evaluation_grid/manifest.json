@@ -1,0 +1,22 @@
+{
+  "checkpoint_hash": "d48a49d008b17721cc4e8fb8ef0757713755b14a7ea1f6fc11baed553d763279",
+  "controller": "dql",
+  "method": "baseline",
+  "network": "grid",
+  "pilot": true,
+  "rollouts": 1,
+  "runtime": {
+    "numpy": "1.26.4",
+    "python": "3.10.12",
+    "sumo": "Eclipse SUMO sumo v1_26_0+0455-77b9dbc222e",
+    "sumolib": "1.26.0.post455",
+    "tensorflow": "2.15.1",
+    "traci": "1.26.0.post455"
+  },
+  "seed": 9001,
+  "selection": "best",
+  "source": "cfd3b4aa42015c296eb11af70b2eb8de1803d0f6685e9bf2a7b9fa688188921b",
+  "test_hash": "c6e94d9e5c22fb3d667c3109eb62aad4b532115877563319299c397a2e503eaf",
+  "training_status": "max_budget_unconfirmed",
+  "validation_hash": "b2c8b4b146b219cfc2731f3b2c251fab78440f49f8ef7c0c893284cd7ffc10ed"
+}

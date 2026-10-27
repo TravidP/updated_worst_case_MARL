@@ -1,0 +1,26 @@
+[
+  {
+    "error": "ValueError: Publication requires an explicit frozen validation manifest",
+    "manifest": "missing",
+    "network": "grid",
+    "status": "correctly_rejected"
+  },
+  {
+    "error": "ValueError: Publication requires frozen validation manifest",
+    "manifest": "unfrozen",
+    "network": "grid",
+    "status": "correctly_rejected"
+  },
+  {
+    "error": "ValueError: Publication requires an explicit frozen validation manifest",
+    "manifest": "missing",
+    "network": "monaco",
+    "status": "correctly_rejected"
+  },
+  {
+    "error": "ValueError: Publication requires frozen validation manifest",
+    "manifest": "unfrozen",
+    "network": "monaco",
+    "status": "correctly_rejected"
+  }
+]

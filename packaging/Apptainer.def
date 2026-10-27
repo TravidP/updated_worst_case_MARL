@@ -1,0 +1,25 @@
+Bootstrap: docker
+From: {{ BASE_IMAGE }}
+
+%files
+    packaging/requirements.lock /opt/cbwce/requirements.lock
+
+%post
+    apt-get update
+    apt-get install -y --no-install-recommends libgl1 libglib2.0-0 libgomp1 libxrender1 libxext6 libfox-1.6-0 libglu1-mesa
+    rm -rf /var/lib/apt/lists/*
+    python -m pip install --no-cache-dir --require-hashes -r /opt/cbwce/requirements.lock
+    python -m pip check
+
+%environment
+    export OMP_NUM_THREADS=1
+    export OPENBLAS_NUM_THREADS=1
+    export MKL_NUM_THREADS=1
+    export TF_ENABLE_ONEDNN_OPTS=0
+    export TF_CPP_MIN_LOG_LEVEL=2
+    export PYTHONDONTWRITEBYTECODE=1
+    export MPLBACKEND=Agg
+
+%test
+    python -c "import tensorflow,numpy,traci,sumolib; assert tensorflow.__version__=='2.15.1'; assert numpy.__version__=='1.26.4'"
+    sumo --version

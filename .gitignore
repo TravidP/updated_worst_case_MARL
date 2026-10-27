@@ -1,0 +1,7 @@
+__pycache__/
+*.py[cod]
+.venv/
+*.sif
+*.tar.zst
+*.tar.gz
+*.egg-info/

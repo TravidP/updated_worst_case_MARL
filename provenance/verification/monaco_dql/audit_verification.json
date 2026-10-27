@@ -1,0 +1,9 @@
+{
+  "audit_bytes": 17170566,
+  "audit_control_steps": 22,
+  "case": "monaco_dql",
+  "compact_bytes": 17166745,
+  "exact_training_tensors": true,
+  "status": "passed",
+  "streamed_queue_matches_audit": true
+}

@@ -1,0 +1,22 @@
+{
+  "cases": [
+    "monaco_ma2c"
+  ],
+  "elapsed_seconds": 565.114443351049,
+  "fingerprint": "cfd3b4aa42015c296eb11af70b2eb8de1803d0f6685e9bf2a7b9fa688188921b",
+  "limitations": [
+    "Short correctness pilots, not performance or convergence evidence.",
+    "Container/Habrok acceptance requires running this script inside the locked image."
+  ],
+  "pilot_block_seconds": 10,
+  "runtime": {
+    "numpy": "1.26.4",
+    "python": "3.10.12",
+    "sumo": "Eclipse SUMO sumo v1_26_0+0455-77b9dbc222e",
+    "sumolib": "1.26.0.post455",
+    "tensorflow": "2.15.1",
+    "traci": "1.26.0.post455"
+  },
+  "status": "partial",
+  "validation_rollouts": 1
+}

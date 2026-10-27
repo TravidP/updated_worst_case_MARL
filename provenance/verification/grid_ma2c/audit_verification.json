@@ -1,0 +1,9 @@
+{
+  "audit_bytes": 173554095,
+  "audit_control_steps": 22,
+  "case": "grid_ma2c",
+  "compact_bytes": 173549088,
+  "exact_training_tensors": true,
+  "status": "passed",
+  "streamed_queue_matches_audit": true
+}

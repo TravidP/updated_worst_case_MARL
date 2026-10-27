@@ -1,0 +1,21 @@
+{
+  "checks": [
+    {
+      "agents": 25,
+      "horizon": 10,
+      "lanes": 150,
+      "network": "grid",
+      "status": "passed"
+    },
+    {
+      "agents": 28,
+      "horizon": 10,
+      "lanes": 116,
+      "network": "monaco",
+      "status": "passed"
+    }
+  ],
+  "loaded_modules_independent": true,
+  "original_python_open_denied": true,
+  "status": "passed"
+}

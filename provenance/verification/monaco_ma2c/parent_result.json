@@ -1,0 +1,13 @@
+{
+  "attempt": "3cc330d551c29b2f",
+  "best": "e000000_best_da8423a0",
+  "completed_episodes": 1,
+  "max_checkpoint_seconds": 0.5092747280141339,
+  "max_episode_seconds": 13.179456960991956,
+  "output_bytes": 169866529,
+  "output_files": 31,
+  "peak_rss_kib": 1514612,
+  "pilot": true,
+  "status": "no_learning",
+  "total_seconds": 64.08114332600962
+}

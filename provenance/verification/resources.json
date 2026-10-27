@@ -1,0 +1,482 @@
+[
+  {
+    "case": "grid_ma2c",
+    "max_checkpoint_seconds": 0.44017570302821696,
+    "max_episode_seconds": 14.603489979053847,
+    "output_bytes": 173549088,
+    "output_files": 31,
+    "peak_rss_kib": 1497444,
+    "stage": "parent",
+    "total_seconds": 60.96164037799463
+  },
+  {
+    "case": "grid_ma2c",
+    "max_checkpoint_seconds": 0.02007868606597185,
+    "max_episode_seconds": 5.603260466014035,
+    "output_bytes": 4510530,
+    "output_files": 31,
+    "peak_rss_kib": 888180,
+    "stage": "wce",
+    "total_seconds": 52.62951628502924
+  },
+  {
+    "case": "grid_ma2c",
+    "max_checkpoint_seconds": 0.43539462401531637,
+    "max_episode_seconds": 14.43659309996292,
+    "output_bytes": 173549982,
+    "output_files": 31,
+    "peak_rss_kib": 1544576,
+    "stage": "baseline",
+    "total_seconds": 66.58883148198947
+  },
+  {
+    "case": "grid_ma2c",
+    "max_checkpoint_seconds": 0.44350940897129476,
+    "max_episode_seconds": 14.795563292922452,
+    "output_bytes": 173549995,
+    "output_files": 31,
+    "peak_rss_kib": 1537440,
+    "stage": "random_group",
+    "total_seconds": 66.85613652702887
+  },
+  {
+    "case": "grid_ma2c",
+    "max_checkpoint_seconds": 0.4562148150289431,
+    "max_episode_seconds": 18.941769425058737,
+    "output_bytes": 173551202,
+    "output_files": 31,
+    "peak_rss_kib": 1544272,
+    "stage": "domain_randomization",
+    "total_seconds": 99.30677456001285
+  },
+  {
+    "case": "grid_ma2c",
+    "max_checkpoint_seconds": 0.518094751983881,
+    "max_episode_seconds": 14.652944343048148,
+    "output_bytes": 173551986,
+    "output_files": 31,
+    "peak_rss_kib": 1547572,
+    "stage": "fixed_wce",
+    "total_seconds": 75.7628569699591
+  },
+  {
+    "case": "grid_ma2c",
+    "max_checkpoint_seconds": 0.4794789080042392,
+    "max_episode_seconds": 12.30484181898646,
+    "output_bytes": 177960954,
+    "output_files": 44,
+    "peak_rss_kib": 1517984,
+    "stage": "online_wce",
+    "total_seconds": 51.2600869750604
+  },
+  {
+    "case": "grid_ma2c",
+    "max_checkpoint_seconds": 0.4605180079815909,
+    "max_episode_seconds": 12.366521544056013,
+    "output_bytes": 177961470,
+    "output_files": 45,
+    "peak_rss_kib": 1559304,
+    "stage": "resumed",
+    "total_seconds": 65.46985144400969
+  },
+  {
+    "case": "grid_dql",
+    "max_checkpoint_seconds": 0.12824549293145537,
+    "max_episode_seconds": 5.52402847900521,
+    "output_bytes": 23310878,
+    "output_files": 115,
+    "peak_rss_kib": 717776,
+    "stage": "parent",
+    "total_seconds": 31.8760635079816
+  },
+  {
+    "case": "grid_dql",
+    "max_checkpoint_seconds": 0.021143977995961905,
+    "max_episode_seconds": 3.522503464948386,
+    "output_bytes": 4510545,
+    "output_files": 31,
+    "peak_rss_kib": 590488,
+    "stage": "wce",
+    "total_seconds": 38.30029331194237
+  },
+  {
+    "case": "grid_dql",
+    "max_checkpoint_seconds": 0.1169183689635247,
+    "max_episode_seconds": 6.398026342969388,
+    "output_bytes": 23377880,
+    "output_files": 140,
+    "peak_rss_kib": 719736,
+    "stage": "baseline",
+    "total_seconds": 49.934372135903686
+  },
+  {
+    "case": "grid_dql",
+    "max_checkpoint_seconds": 0.1412996279541403,
+    "max_episode_seconds": 6.079263843013905,
+    "output_bytes": 23380162,
+    "output_files": 140,
+    "peak_rss_kib": 719220,
+    "stage": "random_group",
+    "total_seconds": 41.65637709700968
+  },
+  {
+    "case": "grid_dql",
+    "max_checkpoint_seconds": 0.12990468507632613,
+    "max_episode_seconds": 6.509652410983108,
+    "output_bytes": 23381420,
+    "output_files": 140,
+    "peak_rss_kib": 718784,
+    "stage": "domain_randomization",
+    "total_seconds": 34.94544821593445
+  },
+  {
+    "case": "grid_dql",
+    "max_checkpoint_seconds": 0.15582598897162825,
+    "max_episode_seconds": 6.326749311061576,
+    "output_bytes": 23385219,
+    "output_files": 140,
+    "peak_rss_kib": 722484,
+    "stage": "fixed_wce",
+    "total_seconds": 40.70300830900669
+  },
+  {
+    "case": "grid_dql",
+    "max_checkpoint_seconds": 0.13131419103592634,
+    "max_episode_seconds": 7.42757277097553,
+    "output_bytes": 28995499,
+    "output_files": 156,
+    "peak_rss_kib": 728532,
+    "stage": "online_wce",
+    "total_seconds": 58.23497225297615
+  },
+  {
+    "case": "grid_dql",
+    "max_checkpoint_seconds": 0.16685178596526384,
+    "max_episode_seconds": 7.6851314819650725,
+    "output_bytes": 28996049,
+    "output_files": 157,
+    "peak_rss_kib": 732084,
+    "stage": "resumed",
+    "total_seconds": 91.49148195201997
+  },
+  {
+    "case": "grid_ppo",
+    "max_checkpoint_seconds": 0.37463611806742847,
+    "max_episode_seconds": 15.082403912907466,
+    "output_bytes": 135526627,
+    "output_files": 31,
+    "peak_rss_kib": 1408676,
+    "stage": "parent",
+    "total_seconds": 55.65783556806855
+  },
+  {
+    "case": "grid_ppo",
+    "max_checkpoint_seconds": 0.020192506024613976,
+    "max_episode_seconds": 4.679130044998601,
+    "output_bytes": 4510533,
+    "output_files": 31,
+    "peak_rss_kib": 845480,
+    "stage": "wce",
+    "total_seconds": 55.747463803971186
+  },
+  {
+    "case": "grid_ppo",
+    "max_checkpoint_seconds": 0.35947415500413626,
+    "max_episode_seconds": 16.255234454059973,
+    "output_bytes": 135527522,
+    "output_files": 31,
+    "peak_rss_kib": 1444892,
+    "stage": "baseline",
+    "total_seconds": 63.90054942597635
+  },
+  {
+    "case": "grid_ppo",
+    "max_checkpoint_seconds": 0.3809174520429224,
+    "max_episode_seconds": 17.333142422954552,
+    "output_bytes": 135527545,
+    "output_files": 31,
+    "peak_rss_kib": 1444796,
+    "stage": "random_group",
+    "total_seconds": 67.38236153905746
+  },
+  {
+    "case": "grid_ppo",
+    "max_checkpoint_seconds": 0.40986698400229216,
+    "max_episode_seconds": 20.09358986397274,
+    "output_bytes": 135528749,
+    "output_files": 31,
+    "peak_rss_kib": 1444288,
+    "stage": "domain_randomization",
+    "total_seconds": 101.51958977710456
+  },
+  {
+    "case": "grid_ppo",
+    "max_checkpoint_seconds": 0.37295038904994726,
+    "max_episode_seconds": 17.193127076956443,
+    "output_bytes": 172493985,
+    "output_files": 36,
+    "peak_rss_kib": 1448544,
+    "stage": "fixed_wce",
+    "total_seconds": 72.77931997796986
+  },
+  {
+    "case": "grid_ppo",
+    "max_checkpoint_seconds": 0.4138142609735951,
+    "max_episode_seconds": 14.023334953002632,
+    "output_bytes": 178104020,
+    "output_files": 52,
+    "peak_rss_kib": 1457544,
+    "stage": "online_wce",
+    "total_seconds": 52.43296907201875
+  },
+  {
+    "case": "grid_ppo",
+    "max_checkpoint_seconds": 0.4019556699786335,
+    "max_episode_seconds": 12.95246814598795,
+    "output_bytes": 178104576,
+    "output_files": 53,
+    "peak_rss_kib": 1459356,
+    "stage": "resumed",
+    "total_seconds": 65.52465926809236
+  },
+  {
+    "case": "monaco_ma2c",
+    "max_checkpoint_seconds": 0.5092747280141339,
+    "max_episode_seconds": 13.179456960991956,
+    "output_bytes": 169866529,
+    "output_files": 31,
+    "peak_rss_kib": 1514612,
+    "stage": "parent",
+    "total_seconds": 64.08114332600962
+  },
+  {
+    "case": "monaco_ma2c",
+    "max_checkpoint_seconds": 0.01711016008630395,
+    "max_episode_seconds": 5.821155236917548,
+    "output_bytes": 883861,
+    "output_files": 31,
+    "peak_rss_kib": 880396,
+    "stage": "wce",
+    "total_seconds": 54.633125184918754
+  },
+  {
+    "case": "monaco_ma2c",
+    "max_checkpoint_seconds": 0.41685234499163926,
+    "max_episode_seconds": 14.944087588926777,
+    "output_bytes": 169867420,
+    "output_files": 31,
+    "peak_rss_kib": 1552760,
+    "stage": "baseline",
+    "total_seconds": 65.80238296708558
+  },
+  {
+    "case": "monaco_ma2c",
+    "max_checkpoint_seconds": 0.45247961103450507,
+    "max_episode_seconds": 12.481790959951468,
+    "output_bytes": 169867407,
+    "output_files": 31,
+    "peak_rss_kib": 1553496,
+    "stage": "random_group",
+    "total_seconds": 62.85048143204767
+  },
+  {
+    "case": "monaco_ma2c",
+    "max_checkpoint_seconds": 0.44614633708260953,
+    "max_episode_seconds": 19.68339444603771,
+    "output_bytes": 169868603,
+    "output_files": 31,
+    "peak_rss_kib": 1553576,
+    "stage": "domain_randomization",
+    "total_seconds": 106.86717033502646
+  },
+  {
+    "case": "monaco_ma2c",
+    "max_checkpoint_seconds": 0.442881379975006,
+    "max_episode_seconds": 14.768732990021817,
+    "output_bytes": 169869419,
+    "output_files": 31,
+    "peak_rss_kib": 1557452,
+    "stage": "fixed_wce",
+    "total_seconds": 66.36206217005383
+  },
+  {
+    "case": "monaco_ma2c",
+    "max_checkpoint_seconds": 0.42730383202433586,
+    "max_episode_seconds": 13.791636476991698,
+    "output_bytes": 170651730,
+    "output_files": 44,
+    "peak_rss_kib": 1565576,
+    "stage": "online_wce",
+    "total_seconds": 52.45534152002074
+  },
+  {
+    "case": "monaco_ma2c",
+    "max_checkpoint_seconds": 0.44073364802170545,
+    "max_episode_seconds": 12.551205359981395,
+    "output_bytes": 170652229,
+    "output_files": 45,
+    "peak_rss_kib": 1575508,
+    "stage": "resumed",
+    "total_seconds": 65.6211755850818
+  },
+  {
+    "case": "monaco_dql",
+    "max_checkpoint_seconds": 0.14355941500980407,
+    "max_episode_seconds": 6.489311910001561,
+    "output_bytes": 17166745,
+    "output_files": 90,
+    "peak_rss_kib": 732780,
+    "stage": "parent",
+    "total_seconds": 36.785868534003384
+  },
+  {
+    "case": "monaco_dql",
+    "max_checkpoint_seconds": 0.021961847902275622,
+    "max_episode_seconds": 6.137664180016145,
+    "output_bytes": 883854,
+    "output_files": 31,
+    "peak_rss_kib": 588424,
+    "stage": "wce",
+    "total_seconds": 41.17583589302376
+  },
+  {
+    "case": "monaco_dql",
+    "max_checkpoint_seconds": 0.15384521591477096,
+    "max_episode_seconds": 8.451729521038942,
+    "output_bytes": 22078126,
+    "output_files": 124,
+    "peak_rss_kib": 733980,
+    "stage": "baseline",
+    "total_seconds": 48.51014727004804
+  },
+  {
+    "case": "monaco_dql",
+    "max_checkpoint_seconds": 0.13351485400926322,
+    "max_episode_seconds": 6.204301660065539,
+    "output_bytes": 17166249,
+    "output_files": 90,
+    "peak_rss_kib": 733436,
+    "stage": "random_group",
+    "total_seconds": 39.32511566195171
+  },
+  {
+    "case": "monaco_dql",
+    "max_checkpoint_seconds": 0.14023108908440918,
+    "max_episode_seconds": 4.606357557000592,
+    "output_bytes": 17170385,
+    "output_files": 90,
+    "peak_rss_kib": 733676,
+    "stage": "domain_randomization",
+    "total_seconds": 36.75429620000068
+  },
+  {
+    "case": "monaco_dql",
+    "max_checkpoint_seconds": 0.1458822120912373,
+    "max_episode_seconds": 4.786301081068814,
+    "output_bytes": 17171346,
+    "output_files": 90,
+    "peak_rss_kib": 736288,
+    "stage": "fixed_wce",
+    "total_seconds": 43.17462031694595
+  },
+  {
+    "case": "monaco_dql",
+    "max_checkpoint_seconds": 0.14479997695889324,
+    "max_episode_seconds": 11.821495861047879,
+    "output_bytes": 17953950,
+    "output_files": 103,
+    "peak_rss_kib": 740116,
+    "stage": "online_wce",
+    "total_seconds": 78.93460490100551
+  },
+  {
+    "case": "monaco_dql",
+    "max_checkpoint_seconds": 0.1644343399675563,
+    "max_episode_seconds": 7.364612533943728,
+    "output_bytes": 17954464,
+    "output_files": 104,
+    "peak_rss_kib": 746028,
+    "stage": "resumed",
+    "total_seconds": 74.03990194597282
+  },
+  {
+    "case": "monaco_ppo",
+    "max_checkpoint_seconds": 0.35674338100943714,
+    "max_episode_seconds": 15.515145203913562,
+    "output_bytes": 128147057,
+    "output_files": 31,
+    "peak_rss_kib": 1408348,
+    "stage": "parent",
+    "total_seconds": 66.19944706594106
+  },
+  {
+    "case": "monaco_ppo",
+    "max_checkpoint_seconds": 0.019292488927021623,
+    "max_episode_seconds": 5.171149409958161,
+    "output_bytes": 883867,
+    "output_files": 31,
+    "peak_rss_kib": 802676,
+    "stage": "wce",
+    "total_seconds": 51.206281451974064
+  },
+  {
+    "case": "monaco_ppo",
+    "max_checkpoint_seconds": 0.3624250879511237,
+    "max_episode_seconds": 15.110556151950732,
+    "output_bytes": 128147961,
+    "output_files": 31,
+    "peak_rss_kib": 1441408,
+    "stage": "baseline",
+    "total_seconds": 63.18358371697832
+  },
+  {
+    "case": "monaco_ppo",
+    "max_checkpoint_seconds": 0.352960716933012,
+    "max_episode_seconds": 15.652695495984517,
+    "output_bytes": 128147963,
+    "output_files": 31,
+    "peak_rss_kib": 1441084,
+    "stage": "random_group",
+    "total_seconds": 68.10368451999966
+  },
+  {
+    "case": "monaco_ppo",
+    "max_checkpoint_seconds": 0.34950767003465444,
+    "max_episode_seconds": 22.331790022086352,
+    "output_bytes": 128149158,
+    "output_files": 31,
+    "peak_rss_kib": 1440916,
+    "stage": "domain_randomization",
+    "total_seconds": 108.1039703360293
+  },
+  {
+    "case": "monaco_ppo",
+    "max_checkpoint_seconds": 0.36872306000441313,
+    "max_episode_seconds": 14.990680194925517,
+    "output_bytes": 128149978,
+    "output_files": 31,
+    "peak_rss_kib": 1413888,
+    "stage": "fixed_wce",
+    "total_seconds": 64.73410878598224
+  },
+  {
+    "case": "monaco_ppo",
+    "max_checkpoint_seconds": 0.4293588849250227,
+    "max_episode_seconds": 15.750273762037978,
+    "output_bytes": 128932295,
+    "output_files": 44,
+    "peak_rss_kib": 1422612,
+    "stage": "online_wce",
+    "total_seconds": 51.10925864998717
+  },
+  {
+    "case": "monaco_ppo",
+    "max_checkpoint_seconds": 0.3986603330122307,
+    "max_episode_seconds": 13.786736606038176,
+    "output_bytes": 128932812,
+    "output_files": 45,
+    "peak_rss_kib": 1447464,
+    "stage": "resumed",
+    "total_seconds": 62.87310799898114
+  }
+]
