@@ -4,7 +4,7 @@
 
 - 本地：`cbwce_standalone/`，独立 Git 仓库。
 - 分支：`training/local-v8.3`。
-- 目标远端：https://github.com/TravidP/updated_worst_case_MARL/tree/training/local-v8.3 （尚未发布；本机 Git 写入认证不可用）。
+- 目标远端：https://github.com/TravidP/updated_worst_case_MARL/tree/training/local-v8.3 （已发布，2026-11-16 核验）。
 - 起点：`a367a6615a99a1e9f3c1a715248ade461c3bfcbf`，不继承旧仓库的大型历史。
 - 旧 `main`、`revision` 不改写，不 force push。
 - 已保留已有 README、中英文计划和发布白名单的工作区修改；新增训练输出忽略规则。
@@ -75,3 +75,13 @@
 新仓库已设置 `remote.origin.fetch=+refs/heads/training/local-v8.3:refs/remotes/origin/training/local-v8.3` 和 `remote.origin.tagOpt=--no-tags`。不要恢复全分支 fetch。归档 bundle 显式选择本地 `main`、`training/local-v8.3`，避免将后台 fetch 的历史一起打包。
 
 一次包含旧远端引用的临时 bundle 超过连接器 512 MiB 上限，上传被拒绝；该临时包已删除并重建为约 541 KiB 的精简包，未删除任何旧项目历史。
+
+## 认证与容量确认后的继续执行
+
+用户已完成 GitHub 登录，并确认 Drive 为无限量校园存储。`training/local-v8.3` 已成功推送；核验时旧远端 `main=1a2e7b2`、`revision=7518db4` 保持不变。此前“认证／容量阻塞”属于历史记录，已经解除。
+
+连接器实际还有 100 MiB 的传输限制，因此每个最多 512 MiB 的归档分成不超过 95 MiB 的传输片段。片段按 manifest 顺序拼接；先验证每片 SHA-256，再验证完整归档和所有成员，最后清理本地源文件。单个片段不能独立解包。每个 manifest 保存各片 Drive ID、大小、哈希及顺序。
+
+新增 `scripts/migrate_storage.py` 和 `scripts/archive_transport.py`，分离打包、传输、验证与清理。清理前重新检查源文件大小、mtime 和 SHA-256；受旧 Git 跟踪的文件先保留，避免旧源码及尚未完成完整历史备份的文件被误删。三项安全测试覆盖损坏下载、源文件变化以及清理日志。
+
+后续批次以 `cbwce_archive/catalogs/batch_*.json` 和 `deletion_journal.jsonl` 为准，不用旧的首批统计推断全部完成。
