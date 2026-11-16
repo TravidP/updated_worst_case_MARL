@@ -170,14 +170,21 @@ def verify(root, catalog, staging, number, drive_id):
             members = t.getmembers()
             assert len(members) == len(m['members'])
             assert [x.name for x in members] == [x['path'] for x in m['members']]
-            names = {x['path'] for x in m['members']}
+            verified = {}
             for item, member in zip(m['members'], members):
-                assert (member.isfile() and member.size == item['size']) or (member.islnk() and member.linkname in names)
+                if member.islnk():
+                    # Do not seek backwards through gzip for each hardlink.
+                    assert member.linkname in verified, 'Hardlink must refer to an earlier verified member'
+                    assert verified[member.linkname] == (item['sha256'], item['size'])
+                    verified[member.name] = verified[member.linkname]
+                    continue
+                assert member.isfile() and member.size == item['size']
                 h = hashlib.sha256()
                 with t.extractfile(member) as f:
                     for b in iter(lambda: f.read(1024 * 1024), b''):
                         h.update(b)
                 assert h.hexdigest() == item['sha256'], item['path']
+                verified[member.name] = (h.hexdigest(), member.size)
     m.update(state='download_verified', drive_id=drive_id)
     save(manifest, m)
     print(json.dumps({'state': m['state'], 'files': len(m['members'])}))

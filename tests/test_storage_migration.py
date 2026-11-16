@@ -17,6 +17,11 @@ migration = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(migration)
 
 
+restore_spec = importlib.util.spec_from_file_location('restore_archive', Path(__file__).parents[1] / 'scripts/storage/restore_archive.py')
+restorer = importlib.util.module_from_spec(restore_spec)
+restore_spec.loader.exec_module(restorer)
+
+
 class ArchiveSafetyTest(unittest.TestCase):
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory()
@@ -91,6 +96,12 @@ class ArchiveSafetyTest(unittest.TestCase):
                  archive_sha256=hashlib.sha256(data).hexdigest(), archive_bytes=len(data))
         self.manifest.write_text(json.dumps(m))
         self.restored.write_bytes(data)
+        restore_manifest = self.catalog / 'raw_restore.json'
+        restore_m = dict(m, members=m['members'] + [dict(m['members'][0], path='second.txt')])
+        restore_manifest.write_text(json.dumps(restore_m))
+        raw_tree = self.root / 'raw-restore'
+        restorer.restore(restore_manifest, self.root, raw_tree)
+        self.assertEqual((raw_tree / 'results.txt').stat().st_ino, (raw_tree / 'second.txt').stat().st_ino)
         with contextlib.redirect_stdout(io.StringIO()):
             migration.verify(self.root, self.catalog, self.staging, 2, 'test-only-raw')
             migration.cleanup(self.root, self.catalog, self.staging, 2, 'test-only-manifest')
@@ -108,6 +119,9 @@ class ArchiveSafetyTest(unittest.TestCase):
             migration.pack(self.root, self.catalog, self.staging, 3, 2)
             shutil.copyfile(self.staging / 'batch_000003.tar.gz', self.staging / 'restored_000003.tar.gz')
             migration.verify(self.root, self.catalog, self.staging, 3, 'test-hardlinks')
+            restored_tree = self.root / 'hardlink-restore'
+            restorer.restore(self.catalog / 'batch_000003.json', self.staging, restored_tree)
+            self.assertEqual((restored_tree / 'results.txt').stat().st_ino, (restored_tree / 'alias.txt').stat().st_ino)
             migration.cleanup(self.root, self.catalog, self.staging, 3, 'test-hardlink-manifest')
         m = json.loads((self.catalog / 'batch_000003.json').read_text())
         self.assertEqual(len(m['members']), 2)
@@ -120,6 +134,23 @@ class ArchiveSafetyTest(unittest.TestCase):
 
     def test_tracked_hardlink_is_archived_but_preserved(self):
         self.check_hardlinks(True)
+
+    def test_offline_restore_and_refuse_overwrite(self):
+        output = self.root / 'restored-tree'
+        result = restorer.restore(self.manifest, self.staging, output)
+        self.assertEqual(result['files'], 1)
+        self.assertEqual((output / 'results.txt').read_bytes(), self.source.read_bytes())
+        with self.assertRaises(FileExistsError):
+            restorer.restore(self.manifest, self.staging, output)
+
+    def test_restore_rejects_traversal_before_writing(self):
+        m = json.loads(self.manifest.read_text())
+        m['members'][0]['path'] = '../outside.txt'
+        self.manifest.write_text(json.dumps(m))
+        output = self.root / 'restored-tree'
+        with self.assertRaises(ValueError):
+            restorer.restore(self.manifest, self.staging, output)
+        self.assertFalse(output.exists())
 
     def test_verified_cleanup_records_exact_file(self):
         with contextlib.redirect_stdout(io.StringIO()):
