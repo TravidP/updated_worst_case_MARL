@@ -1,6 +1,6 @@
 # CB-WCE Standalone: Directory Guide and Operations Manual
 
-Current branch: [`training/local-v8.3`](https://github.com/TravidP/updated_worst_case_MARL/tree/training/local-v8.3). This directory is the branch root. Local CPU execution is the current target; cluster templates are optional. See the [repository layout](docs/repository_structure_zh.md).
+Current branch: [`updated_worst_case_MAR`](https://github.com/TravidP/updated_worst_case_MARL/tree/updated_worst_case_MAR). This directory is the branch root. Local CPU execution is the current target; cluster templates are optional. See the [repository layout](docs/repository_structure_zh.md).
 
 [中文 README](README.md) · [English experiment plan](docs/revision_plan_v8_en.md) · [Chinese plan](docs/revision_plan_v8_zh.md) · [Implementation evidence](docs/implementation_status.md)
 

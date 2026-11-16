@@ -60,3 +60,15 @@ bash scripts/run_local.sh check --network monaco
 多个独立实验应使用独立进程、不同输出目录；同一实验恢复仍使用原目录。启动脚本只控制单任务线程，尚不是自动并发调度器。当前代码仍按 v8.1 校验 3600 秒 validation；中文 v8.3 计划的 6600 秒 validation 和完整本地调度尚待实现，不因目录整理就宣称完成。
 
 目录变化会改变源码身份哈希；旧验收证据保留为历史证据，重新运行检查后生成新的记录。不要绕过旧 checkpoint 的源码兼容性检查。
+
+## 当前发布分支
+
+整理后的独立项目发布在现有 GitHub 仓库的 `updated_worst_case_MAR` 分支，项目文件直接位于仓库根目录。本地目录仍名为 `cbwce_standalone`，以保持正在运行的归档脚本路径有效。旧 `main`、`revision` 和 `training/local-v8.3` 分支保留。
+
+克隆精简分支（不下载其他分支历史）：
+
+```bash
+git clone --single-branch --branch updated_worst_case_MAR --no-tags https://github.com/TravidP/updated_worst_case_MARL.git updated_worst_case_MAR
+```
+
+源码、必要地图与十一种需求保存在 Git；训练输出、模型和旧归档保存在项目外部。Google Drive 归档独立运行，切换此代码分支不停止上传。
