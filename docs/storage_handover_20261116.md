@@ -67,3 +67,11 @@
 3. 旧完整 Git bundle、LFS 对象、其余结果、完整地图输入恢复测试均尚未执行；旧数据保持原位。本次未将旧模型标记为已通过恢复测试。
 4. `cbwce_archive/catalogs/migration.json` 是本地机器状态入口，`deletion_journal.jsonl` 逐文件记录删除前核验和删除完成。继续迁移时先读取这些记录，避免重复上传／删除。
 5. 此次没有修改训练算法或运行正式训练，v8.3 的本地调度及验证时长同步仍按计划另行实施。
+
+## 防止后台 fetch 重新拉入旧历史
+
+添加远端后检测到新仓库自动出现旧 `origin/main`、`origin/revision` 引用及约 1.74 GiB pack。已仅在独立新仓库删除这些远端跟踪引用并回收不可达对象，旧仓库和远端分支未改动。独立仓库的对象包恢复到约 547 KiB。
+
+新仓库已设置 `remote.origin.fetch=+refs/heads/training/local-v8.3:refs/remotes/origin/training/local-v8.3` 和 `remote.origin.tagOpt=--no-tags`。不要恢复全分支 fetch。归档 bundle 显式选择本地 `main`、`training/local-v8.3`，避免将后台 fetch 的历史一起打包。
+
+一次包含旧远端引用的临时 bundle 超过连接器 512 MiB 上限，上传被拒绝；该临时包已删除并重建为约 541 KiB 的精简包，未删除任何旧项目历史。
