@@ -1,8 +1,10 @@
-# Revision Plan v8.1: Standalone Project, Validation-Driven Training and Hábrók Deployment
+# Revision Plan v8.2: Standalone Project, Validation-Driven Training and Hábrók Deployment
 
 Date: 2026-10-27. Chinese counterpart: [revision_plan_v8_zh.md](revision_plan_v8_zh.md).
 
 This document specifies the protocol and acceptance criteria. Code availability is not acceptance evidence. Actual verification is recorded separately in `implementation_status.md`; publication training, container construction and deployment are not claimed complete.
+
+This update changes the two plans only: it explains parameter fairness and architectures, and specifies controller validation as one complete sequence of 11 pregenerated DR demand blocks with three fixed realizations. **Duration needs confirmation: 11×60 seconds is only 660 seconds; this revision provisionally uses 600 seconds per block to meet the stated 6600-second total.** Filenames remain `revision_plan_v8_*.md`. Existing v8.1 code still enforces 3600-second validation; complete the synchronization and acceptance work in Section 8 before claiming the new protocol is implemented or covered by previous tests.
 
 ## 1. Objectives and experimental matrix
 
@@ -19,9 +21,9 @@ Create the compact `cbwce_standalone` project for Groningen's Hábrók cluster, 
 | Selection | Minimize mean queue for controllers; maximize frozen-parent mean queue for WCE |
 | Endpoints | Common-budget best and best at individual stopping |
 
-**Validation scenario count, composition and generation parameters remain user decisions.** Require an explicit frozen manifest; the supplied Uniform development fixture must not replace publication validation. Separate development, selection and final-test identities and random streams.
+**Controller validation uses 11 pregenerated, frozen DR demand groups per network, in a fixed sequence lasting 6600 seconds, with three fixed realizations.** Each group provisionally lasts 600 seconds pending resolution of the 60/600-second discrepancy. Exact weights, design seeds and random streams still require an explicit frozen manifest; the Uniform development fixture is not a substitute. Separate development, selection and final-test identities and random streams.
 
-Publication totals: 18 parents, 18 offline WCE runs and 90 continuations. Final evaluation provisionally retains eleven seen and twelve generalization scenarios, ten realizations each: 20,700 rollouts per endpoint. Identical selected checkpoint hashes may reuse results.
+Publication totals: 18 parents, 18 offline WCE runs and 90 continuations. Final evaluation still provisionally retains eleven seen and twelve generalization scenarios, ten realizations each, each lasting 3600 seconds: 20,700 rollouts per endpoint. Identical selected checkpoint hashes may reuse results. The 6600-second change applies to controller validation, not automatically to final testing.
 
 ## 2. Standalone preservation and layout
 
@@ -57,8 +59,9 @@ Replace linear `iqll` with independent DQL networks: `128 ReLU → 64 ReLU → Q
 | Optimizer | RMSProp | Adam | Adam |
 | LSTM | 64 | 64 | None |
 | Advantage normalization | On | On | Not applicable |
-| Rollout/batch | 120 | 120 | 64 |
-| Updates | Once/rollout | Four epochs/rollout | Once/four learning steps |
+| Contiguous rollout length | 120 joint control steps | 120 joint control steps | Not applicable; append transitions to replay |
+| Samples per intersection per optimization | 120 valid samples from the current rollout; final segment may be shorter | The same 120 valid rollout samples; final segment may be shorter | 64 historical transitions randomly sampled from replay |
+| Updates | Once/rollout | Four epochs on the same rollout; each currently uses the entire valid sequence | After warm-up, one optimization per intersection every four joint control steps |
 | Entropy | 0.01 | 0.01 | Not applicable |
 | PPO clip | — | 0.2 | — |
 | Replay | — | — | 50,000 joint transitions |
@@ -67,6 +70,31 @@ Replace linear `iqll` with independent DQL networks: `128 ReLU → 64 ReLU → Q
 | Gradient-norm limit | 40 | 40 | 10 |
 
 Preserve existing MA2C/PPO encoder widths. Initial DQL epsilon decreases linearly from 1.0 to 0.01 over 500,000 steps.
+
+### 3.1 Which settings should match
+
+**Do not force identical rollout/batch sizes, update frequencies or gradient-clipping thresholds.** Retain `120 / 120 / 64` and `40 / 40 / 10` as development starting points. Numerical differences alone do not imply unfairness, and these defaults are not established optima.
+
+- MA2C/PPO's 120 denotes a newly collected contiguous sequence, corresponding to 600 seconds at five-second control intervals. DQL's 64 denotes historical replay samples, not 320 contiguous seconds or 64 episodes. Padding is excluded from valid MA2C/PPO samples.
+- MA2C uses the current rollout once. PPO's clipped objective supports repeated optimization of the same data; this implementation uses four epochs. DQL uses replay and a target network, with a different update schedule. These mechanisms have algorithmic support, but `120`, `64` and `4` are project choices, not universally optimal settings prescribed by the papers. [PPO paper](https://arxiv.org/abs/1707.06347), [DQN paper](https://deepmind-media.storage.googleapis.com/dqn/DQNNaturePaper.pdf).
+- A learning step means one five-second joint network control step, without multiplying by intersections or confusing it with an optimizer update. After warm-up, a complete 1320-step episode produces 11 MA2C, 44 PPO or 330 DQL optimizations per intersection. With 64 replay samples per update, DQL draws approximately 16 samples per newly collected step; this does not mean each transition is replayed exactly 16 times.
+- The gradient-norm limit controls stability. MA2C/PPO clip combined actor/critic gradients per intersection; DQL clips online-Q gradients per intersection, without optimizing the target network. Different objectives, parameter counts, reward scales and optimizers mean identical thresholds do not imply identical parameter changes. Retain `40 / 40 / 10`; record unclipped norms, gradient-clipping frequency, scaling factors and losses during development. Distinguish PPO's policy-ratio clip fraction from gradient-clipping frequency. Diagnose scaling and numerical problems before preregistering any additional sensitivity study.
+
+Match simulator/action interfaces within each network, environment-interaction budgets, validation traffic/realizations, tuning-candidate counts and evaluation rules. Within a controller, all five continuation methods use identical networks and optimization settings. Report per-intersection/network parameter counts, optimizer updates, wall-clock, aggregate job RSS and validation cost. Equal interaction budgets are not equal compute budgets; report computation separately. Retain the existing four development candidates per network/controller rather than silently expanding the search.
+
+### 3.2 Must the neural networks match?
+
+**The current architectures differ. Retain DQL's `128 → 64` MLP for the primary experiment rather than adding an LSTM solely to match layer labels.** The following reflects `agents/recurrent.py`, `agents/controller.py`, `agents/dql.py` and both networks' INI files; encoder widths are distinct from input dimensions.
+
+| Controller | Current per-intersection network | Observation and memory |
+|---|---|---|
+| MA2C | Wave encoder 128; separate wait encoder 32 when present; fingerprint encoder 64; concatenate, then LSTM 64; actor outputs action probabilities and critic outputs scalar V | Local/neighbor wave, available local wait and neighbor fingerprints; configured weighting of neighbor wave; temporal memory |
+| PPO | Wave encoder 128; separate wait encoder 32 when present; concatenate, then LSTM 64; actor outputs action probabilities and critic outputs scalar V | Local/neighbor wave and available local wait; no MA2C fingerprints; temporal memory |
+| DQL | Full observation → Dense 128 ReLU → Dense 64 ReLU → one Q-value per action; identically shaped online and target networks | Local/neighbor observations returned by the DQL environment, without removing neighbor inputs; no fingerprints or LSTM |
+
+MA2C/PPO currently have separate actor and critic encoders/LSTMs, not a shared backbone with two heads. DQL's Dense 64 is not an LSTM 64; matching numbers do not match capacity. Report DQL's trainable online parameters separately from storage including the target, which is not another trainable decision network.
+
+The primary experiment compares controller systems and the benefits of five continuation methods within each controller. MA2C has additional fingerprints and DQL lacks recurrent memory, so cross-controller differences cannot be attributed solely to the optimization algorithm. A later algorithm-only claim requires a separate ablation matching base observations, encoders, memory and rewards; do not silently replace the existing MA2C/PPO here. Adding recurrence to DQL requires sequence replay, burn-in, hidden-state handling and new recovery verification: a separate recurrent-DQN experiment, not a required change in this revision.
 
 | Reward divisor | MA2C | PPO | DQL |
 |---|---:|---:|---:|
@@ -79,13 +107,37 @@ Four development candidates per network/controller, each for 1000 episodes: MA2C
 
 ## 4. Validation, best and plateau stopping
 
-Validate controllers at episode zero, every 100 complete episodes and at stopping. Use three fixed realizations per scenario, 3600 seconds each, starting empty. MA2C/PPO use fixed stochastic-policy seeds; DQL is greedy. Pair traffic artifacts and SUMO seeds across methods. Independent models/random streams must not alter learner parameters, optimizer, replay or counters.
+### 4.1 Fixed DR sequence and three realizations
 
-The score is the equally weighted scenario mean of network-total queue:
+Initial training and all five continuations validate at episode zero, every 100 complete episodes and at stopping; reuse an identical validation already completed at the stopping endpoint.
+
+| Item | Revised controller validation |
+|---|---|
+| Demand groups per network | 11 pregenerated DR mixtures |
+| Group duration | Provisionally 600 seconds, or 120 joint control steps |
+| Complete rollout | All 11 groups in fixed order: 6600 seconds / 1320 joint control steps |
+| Routine realizations | Three; each starts empty and runs the complete sequence |
+| Work per validation round | Three complete rollouts, totaling 19,800 simulated seconds; not 33 independent rollouts |
+| Traffic/recurrent state | Reset only at the start of a complete rollout; retain vehicles, queues and LSTM state across group switches |
+| Plateau confirmation | Seven additional independent fixed realizations of the same sequence, ten complete rollouts per candidate in total |
+
+If 60 seconds per group is intended, explicitly select a 660-second total or repeat the eleven-group sequence ten times to reach 6600 seconds before freezing. Never encode `11×60` as 6600 in documentation or manifests. The following formula and budgets assume `11×600` provisionally.
+
+Groups are **mixtures of the eleven original profiles**, not simply those profiles played individually. By default retain the existing DR distribution: generate `w_b ~ Dirichlet(1,…,1)` offline per network for `b=1,…,11`, with eleven nonnegative weights summing to one. Combine normalized demands as `d_b = Σ_k w_bk d_k`; introduce no additional total-flow multipliers, spatial noise or peak settings in this revision. Eleven groups form a small fixed development/selection benchmark, not guaranteed coverage of the entire DR space; generalization claims require the independent final tests.
+
+Freeze all weights, group IDs/order, interval boundaries, profile names/order, network/profile/generator hashes, design seed and traffic/SUMO/policy seeds for the three realizations. Profile storage order can differ between networks: bind weights to names rather than copying unchecked array positions across maps. All checkpoints, algorithms, publication training seeds and continuation methods reuse the same validation inputs within each network, without redrawing weights or reordering groups. Tuning uses a separate development manifest with the same dimensions but different groups and random streams; do not repeatedly tune against publication selection inputs.
+
+The three realizations share the eleven demand-rate groups and order but use independent fixed arrival/vehicle streams, SUMO seeds and MA2C/PPO policy seeds; DQL is greedy. Materialize/share traffic artifacts per complete rollout. Vehicles carry across group boundaries, so a group's queue reflects earlier traffic; the eleven blocks are not independent experimental samples. Validation neither trains WCE nor allows it to change this external DR sequence. Isolated models and random streams leave training parameters, optimizers, replay and counters unchanged.
+
+### 4.2 Metric and plateau stopping
+
+Select using mean network-total queue over three complete rollouts, including every measurement from second 1 through 6600:
 
 \[
-J=\frac1G\sum_g\frac1R\sum_r\frac1{3600}\sum_{t=1}^{3600}\sum_{\ell\in L}q_\ell(t),\quad R=3.
+J_{\mathrm{val}}=\frac1R\sum_{r=1}^{R}\frac1T\sum_{t=1}^{T}\sum_{\ell\in L}q_{\ell,r}(t),\qquad R=3,\quad T=6600.
 \]
+
+Equal 600-second blocks make this equivalent to equally averaging their block means. Routine best uses this single overall score; retain realization and block means diagnostically. Three realizations neither prove stability throughout the DR domain nor constitute three independent training seeds. Routine validation every 100 complete 6600-second training episodes adds approximately 3% in simulated seconds, excluding episode zero, stopping/confirmation evaluations; this is not a wall-clock estimate.
 
 Save every strict improvement; retain the earlier checkpoint on ties. Throughput, pending vehicles, teleports, collisions and tail metrics are diagnostic only. Incomplete rollouts have no valid score.
 
@@ -99,13 +151,15 @@ Plateau candidacy requires the minimum episode count; five validation intervals 
 
 Meaningful improvement is `max(anchor×0.01,0.1)`. Reset the anchor/patience only after cumulative improvement reaches that threshold; smaller improvements still update best.
 
-Confirm the latest five candidates and best on seven additional independent fixed realizations, ten total per scenario. Recheck spread, trend and current-to-best gap without redefining routine best ranking.
+Confirm the latest five candidates and best using seven additional independent fixed realizations of the same eleven-group DR sequence: ten complete 6600-second rollouts per candidate in total. Freeze the routine three and additional seven before running; pair them across candidates, deduplicate identical candidates and reuse the existing three results. Recheck spread, trend and current-to-best gap without redefining routine best ranking. Up to six distinct candidates require `6×7×6600 = 277,200` additional simulated seconds; report that cost separately. Failed confirmation resumes training rather than declaring a ceiling.
 
 Terminal outcomes are `plateau_confirmed`, `max_budget_unconfirmed`, `no_learning` and `failed`. An unfinished segment is `interrupted`, not converged. An empirical plateau is not global optimality; exhausting the budget does not imply convergence.
 
 ### WCE
 
 Freeze the best parent. Retain Grid CNN-A2C and Monaco GCN-A2C. Output eleven demand weights every 600 seconds and update once per full episode. Every 100 episodes, evaluate full 6600-second mean queue on ten seed combinations, maximizing the result. Add twenty combinations for confirmation, thirty total.
+
+This evaluates WCE's own adversarial demand policy: **do not replace its actions with the fixed eleven-group DR sequence**, which would eliminate the distinction between WCE candidates. The new three-realization rule applies only to controller validation; offline WCE retains `10 → 30` realizations. Controller selection/stopping in online-WCE continuation still uses the external fixed DR sequence above.
 
 Fix external random streams and demand constraints, not WCE-generated vehicle schedules. Index random streams by block, OD and variable type. Retain existing learning-rate, reward-scale and entropy starts; explicitly disable WCE advantage normalization. Reference the frozen parent by hash. Publication fixed/online branches share the same plateau-confirmed best WCE.
 
@@ -159,5 +213,7 @@ Official references: [storage](https://wiki.hpc.rug.nl/habrok/migration/migratio
 ## 8. Acceptance and delivery
 
 Acceptance covers relocation without the original tree; both networks × three controllers; streaming/audit agreement; learning invariance under reduced logging; bounded replay/monitoring; isolated validation; full recovery and snapshot rejection; interruption/corruption/duplicate-job protection; reference-safe retention; RSS/bytes/file-count/write-time measurements; bilingual consistency; and refusal of publication runs without a frozen manifest.
+
+Implementation work required by this document revision: after confirming block duration, give controller validation a separate `6600` horizon with eleven `600`-second blocks while retaining final tests at `3600`. Update `config/protocol.json`, manifest checks, evaluation workers, generator/cache identities; do not globally replace 3600. Verify complete interval coverage, three rollouts/33 blocks, continuous traffic/recurrent state across blocks, equal weighting and seven-realization confirmation. Update the README, run identities and resource measurements. The new protocol is incompatible with old 3600-second validation scores, best/patience state, caches and gates: use a new protocol version and run IDs, revalidate and do not carry old selection state into new publication runs. The three-realization setting applies only to controller validation; WCE and final-test repeat counts remain as specified above.
 
 Deliver standalone code, bilingual plans, runtime locks/build definitions, input releases, Slurm templates, verification evidence, resource reports and archival tools. Actual trained models and result archives are produced by subsequent authorized, gated experiments; they cannot be fabricated in advance.
