@@ -38,3 +38,23 @@ python scripts/storage/restore_archive.py \
 仅在 manifest 已上传并读回、完整下载验证通过后调用 `cleanup`。清理前再次检查源文件大小、mtime 与 SHA-256，先持久化删除 intent，再删除精确列出的文件。原件有变化则停止该批。硬链接最后一个本地引用移除时才计入释放块数。
 
 `hardlink_groups.json` 来自旧清单与实际 inode 盘点；它帮助同一份内容只上传一次，同时保留多个原路径。不要把整个目录 `rm -rf` 或 `git clean` 当作本流程的替代。
+
+## rclone 批量归档（2026-11-16）
+
+`rclone_migrate.py` 接续已完成的连接器批次，直接上传完整归档，不受连接器的 100 MiB 文件限制。认证配置位于项目之外，权限必须为 0600；不要提交或归档 OAuth 凭据。
+
+```bash
+python3 -u scripts/storage/rclone_migrate.py \
+  --root /path/to/legacy/project \
+  --rclone /path/to/rclone \
+  --config /private/path/archive.conf \
+  --root-folder-id VERIFIED_ARCHIVE_FOLDER_ID --start 13
+```
+
+默认 remote 为 `cbwce_archive`。任务锁防止两个 rclone worker 同时清理；启动前必须结束旧连接器 worker。每批次上传完整归档和不可变 manifest，下载 manifest 核验，再完整下载归档并核验所有成员，最后执行已有的逐文件清理流程。只使用 copyto，不执行远端 sync/delete。普通文件完成后自动处理大型原始文件及其硬链接。
+
+查看旧项目下 `cbwce_archive/catalogs/rclone_worker.json` 和 `rclone_worker.log`；`migration.json` 汇总已完成清理的批次。`kill -USR1 <PID>` 请求当前批次完成后停止。失败后使用相同 `--start` 重启，已完成批次会跳过。若打包被强行中断留下无 manifest 的临时归档，程序会停止，需检查临时文件后再重试；不要直接删源文件。
+
+rclone 批次的云端文件为 `batch_NNNNNN.tar.gz`（或 `.raw`）及 `batch_NNNNNN.manifest.json`，下载到同一目录后使用 `restore_archive.py` 恢复到一个新目录。`archive_file` 字段提供实际下载文件名。历史分片批次继续使用原有恢复流程。
+
+`inventory_untracked_complete` 仅表示当前清单中符合条件的未跟踪输出已处理，不代表旧 Git、LFS、全部源码或后续新增数据已归档。旧 Git 与 tracked 文件不会被本任务删除。

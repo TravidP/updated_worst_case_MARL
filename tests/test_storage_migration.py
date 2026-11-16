@@ -44,6 +44,41 @@ class ArchiveSafetyTest(unittest.TestCase):
     def tearDown(self):
         self.temp.cleanup()
 
+    def test_rclone_worker_roundtrip_and_resume(self):
+        import configparser
+        remote = self.root / 'cloud'
+        remote.mkdir()
+        config = self.root / 'private.conf'
+        config.write_text('[cbwce_archive]\nroot_folder_id = test-root\n')
+        config.chmod(0o600)
+        def fake_rc(command, **kwargs):
+            action = next(x for x in command if x in ('copyto', 'lsjson'))
+            args = command[command.index(action) + 1:]
+            def path(value):
+                return remote / value.split(':', 1)[1] if value.startswith('cbwce_archive:') else Path(value)
+            if action == 'copyto':
+                src, dst = map(path, args[:2])
+                dst.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copyfile(src, dst)
+                return ''
+            obj = path(args[0])
+            return json.dumps([dict(Size=obj.stat().st_size, ID='test-' + obj.name)])
+        script = Path(__file__).parents[1] / 'scripts/storage/rclone_migrate.py'
+        argv = [str(script), '--root', str(self.root), '--rclone', 'fake-rclone',
+                '--config', str(config), '--root-folder-id', 'test-root', '--start', '2', '--max-batches', '1']
+        (self.catalog / 'migration.json').write_text('{}')
+        with patch.dict(sys.modules, {'migrate_storage': migration}), patch.object(sys, 'argv', argv), \
+             patch('subprocess.check_output', side_effect=fake_rc), patch('subprocess.run'), \
+             patch('signal.signal'), contextlib.redirect_stdout(io.StringIO()):
+            runpy.run_path(str(script), run_name='__main__')
+            runpy.run_path(str(script), run_name='__main__')
+        self.assertFalse(self.source.exists())
+        self.assertEqual(json.loads(self.manifest.read_text())['state'], 'local_removed')
+        restored = self.root / 'offline_restore'
+        restorer.restore(remote / '02_legacy_results/batch_000002.manifest.json',
+                         remote / '02_legacy_results', restored)
+        self.assertEqual((restored / 'results.txt').read_text(), 'restorable result\n')
+
     def test_corrupt_download_never_allows_cleanup(self):
         self.restored.write_bytes(b'corrupted')
         with self.assertRaises(AssertionError):

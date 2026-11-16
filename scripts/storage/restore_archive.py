@@ -48,7 +48,7 @@ def restore(manifest, parts_dir, destination):
                     with path.open('rb') as f:
                         shutil.copyfileobj(f, out, 1024 * 1024)
         else:
-            path = parts_dir / Path(m['archive']).name
+            path = parts_dir / relative(m.get('archive_file', Path(m['archive']).name))
             with path.open('rb') as f, payload.open('wb') as out:
                 shutil.copyfileobj(f, out, 1024 * 1024)
         if digest(payload) != m['archive_sha256']:

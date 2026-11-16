@@ -101,3 +101,11 @@ Google Drive 归档继续，与目录整理并行；未因代码分支工作停�
 受旧 Git 跟踪的硬链接也可以随同备份，但本阶段保留本地。清理时仅在最后一个本地硬链接即将移除时计入 `removed_allocated_bytes`；不能用重复路径的逻辑大小声称释放了等量磁盘。恢复时须保留所有 manifest 路径，raw_file 类型没有 tar 层；可按 `hardlink_to` 重建关联。
 
 下载损坏、源文件变化、已记 intent 的中断续接、并行片段重组、raw 单文件恢复、硬链接块数及 tracked 副本保留，均有对应安全测试。
+
+## rclone 授权与切换
+
+用户已完成 Google 授权。对既有私有归档根目录的小文件上传、下载与 SHA-256 核验通过；连接器批次 1–12 已完成核验和清理。后续从第 13 批切换到 `scripts/storage/rclone_migrate.py`，支持完整归档直接传输、逐批恢复验证、持久状态和批次边界停止。
+
+授权配置在项目之外的 `~/.config/rclone/cbwce-archive-20261116.conf`（0600）；便携二进制为 `~/.local/bin/cbwce-rclone`。两者不进入代码发布包。运行状态和日志保存在旧项目 `cbwce_archive/catalogs/rclone_worker.json`、`rclone_worker.log`。归档仍在进行，不表示整体迁移完成；旧仓库 Git/LFS 与未提交源码继续保留。
+
+完成第 12 批后：已校验并清理 191,761 个文件，逻辑大小 45,855,008,917 字节，按删除最后一个硬链接统计释放约 43.1 GiB。此时磁盘可用约 212.8 GiB；最新数值以 `status.py` 输出为准。
