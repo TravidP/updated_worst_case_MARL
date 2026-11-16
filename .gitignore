@@ -17,3 +17,16 @@ __pycache__/
 /output/
 *.log
 .env
+
+# Generated learner state and simulator diagnostics belong outside source Git.
+*.npz
+*.npy
+*.pkl
+*.pickle
+*.ckpt
+*.ckpt.*
+*.h5
+*.keras
+events.out.tfevents.*
+tripinfo*.xml
+vehroute*.xml
