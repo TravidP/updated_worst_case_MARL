@@ -30,7 +30,7 @@ if a.action == 'split':
             parts.append(dict(path=str(path), bytes=len(chunk), sha256=hashlib.sha256(chunk).hexdigest()))
             index += 1
     m['transport_parts'] = parts
-    m['transport_protocol'] = ('Concatenate transport_parts in listed order and check archive_sha256; restore as members[0].path without tar extraction.' if m.get('archive_kind') == 'raw_file' else 'Concatenate transport_parts in listed order, check archive_sha256, then extract and verify member hashes.')
+    m['transport_protocol'] = ('Concatenate transport_parts in listed order and check archive_sha256; restore identical bytes to every members[].path (hardlink_to may be recreated), without tar extraction.' if m.get('archive_kind') == 'raw_file' else 'Concatenate transport_parts in listed order, check archive_sha256, then extract and verify member hashes.')
     save(manifest, m)
     print(json.dumps(parts))
 elif a.action == 'record':

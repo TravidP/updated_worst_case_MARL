@@ -8,6 +8,7 @@ import unittest
 import runpy
 import sys
 import hashlib
+import os
 from unittest.mock import patch
 from pathlib import Path
 
@@ -94,6 +95,31 @@ class ArchiveSafetyTest(unittest.TestCase):
             migration.verify(self.root, self.catalog, self.staging, 2, 'test-only-raw')
             migration.cleanup(self.root, self.catalog, self.staging, 2, 'test-only-manifest')
         self.assertFalse(self.source.exists())
+
+    def check_hardlinks(self, tracked_alias):
+        alias = self.root / 'alias.txt'
+        os.link(self.source, alias)
+        original = json.loads((self.catalog / 'inventory.jsonl').read_text())
+        linked = dict(original, path='alias.txt', tracked=tracked_alias)
+        (self.catalog / 'inventory.jsonl').write_text(json.dumps(original)+'\n'+json.dumps(linked)+'\n')
+        (self.catalog / 'hardlink_groups.json').write_text(json.dumps([[original, linked]]))
+        blocks = self.source.stat().st_blocks * 512
+        with contextlib.redirect_stdout(io.StringIO()):
+            migration.pack(self.root, self.catalog, self.staging, 3, 2)
+            shutil.copyfile(self.staging / 'batch_000003.tar.gz', self.staging / 'restored_000003.tar.gz')
+            migration.verify(self.root, self.catalog, self.staging, 3, 'test-hardlinks')
+            migration.cleanup(self.root, self.catalog, self.staging, 3, 'test-hardlink-manifest')
+        m = json.loads((self.catalog / 'batch_000003.json').read_text())
+        self.assertEqual(len(m['members']), 2)
+        self.assertFalse(self.source.exists())
+        self.assertEqual(alias.exists(), tracked_alias)
+        self.assertEqual(m['removed_allocated_bytes'], 0 if tracked_alias else blocks)
+
+    def test_hardlinks_count_blocks_only_once(self):
+        self.check_hardlinks(False)
+
+    def test_tracked_hardlink_is_archived_but_preserved(self):
+        self.check_hardlinks(True)
 
     def test_verified_cleanup_records_exact_file(self):
         with contextlib.redirect_stdout(io.StringIO()):

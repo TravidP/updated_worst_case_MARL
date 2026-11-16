@@ -36,6 +36,31 @@ def source(root, item):
     return path
 
 
+def linked_items(root, item, groups, excluded):
+    primary = source(root, item)
+    inode = (primary.stat().st_dev, primary.stat().st_ino)
+    result = [dict(item)]
+    for alias in groups.get(item['path'], []):
+        if alias['path'] == item['path'] or alias['path'] in excluded:
+            continue
+        p = root / alias['path']
+        if not p.exists():
+            continue
+        p = source(root, alias)
+        if (p.stat().st_dev, p.stat().st_ino) != inode:
+            raise ValueError('Hardlink relationship changed: ' + alias['path'])
+        result.append(dict(alias, hardlink_to=item['path']))
+    return result
+
+
+def hardlink_index(catalog):
+    p = catalog / 'hardlink_groups.json'
+    if not p.exists():
+        return {}
+    groups = json.loads(p.read_text())
+    return {item['path']: group for group in groups for item in group}
+
+
 def pack(root, catalog, staging, number, limit_mib):
     name = 'batch_%06d' % number
     manifest = catalog / (name + '.json')
@@ -54,6 +79,8 @@ def pack(root, catalog, staging, number, limit_mib):
     if output.exists():
         raise ValueError('Unfinished archive exists; inspect before retrying')
     selected = []
+    selected_names = set()
+    groups = hardlink_index(catalog)
     limit = limit_mib * 1024**2
     with output.open('xb') as raw:
         with gzip.GzipFile(fileobj=raw, mode='wb', compresslevel=6, mtime=0) as gz:
@@ -61,7 +88,7 @@ def pack(root, catalog, staging, number, limit_mib):
                 with (catalog / 'inventory.jsonl').open() as inventory:
                     for line in inventory:
                         item = json.loads(line)
-                        if item['path'] in done or item['tracked']:
+                        if item['path'] in done or item['path'] in selected_names or item['tracked']:
                             continue
                         if selected and item['path'].split('/')[0] != selected[0]['path'].split('/')[0]:
                             break
@@ -73,9 +100,13 @@ def pack(root, catalog, staging, number, limit_mib):
                         if selected and raw.tell() + item['size'] + 1024**2 > limit:
                             break
                         p = source(root, item)
-                        item['sha256'] = sha(p)
-                        archive.add(p, arcname=item['path'], recursive=False)
-                        selected.append(item)
+                        items = linked_items(root, item, groups, done | selected_names)
+                        content_hash = sha(p)
+                        for entry in items:
+                            entry['sha256'] = content_hash
+                            archive.add(root / entry['path'], arcname=entry['path'], recursive=False)
+                            selected.append(entry)
+                            selected_names.add(entry['path'])
                         gz.flush()
     if not selected:
         output.unlink()
@@ -110,11 +141,15 @@ def pack_large(root, catalog, staging, number):
             if not (root / item['path']).exists():
                 continue
             p = source(root, item)
-            item['sha256'] = sha(p)
+            items = linked_items(root, item, hardlink_index(catalog), done)
+            content_hash = sha(p)
+            for entry in items:
+                entry['sha256'] = content_hash
+            item = items[0]
             m = dict(state='packed', archive=str(p), archive_kind='raw_file',
                      archive_is_source=True, archive_sha256=item['sha256'],
-                     archive_bytes=item['size'], source_bytes=item['size'],
-                     files=1, members=[item])
+                     archive_bytes=item['size'], source_bytes=sum(x['size'] for x in items),
+                     files=len(items), members=items, category=item['path'].split('/')[0])
             save(manifest, m)
             print(json.dumps({k:v for k,v in m.items() if k != 'members'}))
             return
@@ -127,16 +162,17 @@ def verify(root, catalog, staging, number, drive_id):
     restored = staging / ('restored_%06d.tar.gz' % number)
     assert sha(restored) == m['archive_sha256'], 'Downloaded archive hash mismatch'
     if m.get('archive_kind') == 'raw_file':
-        assert len(m['members']) == 1
-        assert restored.stat().st_size == m['members'][0]['size']
-        assert m['archive_sha256'] == m['members'][0]['sha256']
+        for item in m['members']:
+            assert restored.stat().st_size == item['size']
+            assert m['archive_sha256'] == item['sha256']
     else:
         with tarfile.open(restored, 'r:gz') as t:
             members = t.getmembers()
             assert len(members) == len(m['members'])
             assert [x.name for x in members] == [x['path'] for x in m['members']]
+            names = {x['path'] for x in m['members']}
             for item, member in zip(m['members'], members):
-                assert member.isfile() and member.size == item['size']
+                assert (member.isfile() and member.size == item['size']) or (member.islnk() and member.linkname in names)
                 h = hashlib.sha256()
                 with t.extractfile(member) as f:
                     for b in iter(lambda: f.read(1024 * 1024), b''):
@@ -163,7 +199,8 @@ def cleanup(root, catalog, staging, number, manifest_drive_id):
                     prior[r['path']] = r
     pending, allocated = [], 0
     for item in m['members']:
-        assert not item['tracked']
+        if item['tracked']:
+            continue
         p = root / item['path']
         if not p.exists():
             r = prior.get(item['path'])
@@ -180,19 +217,23 @@ def cleanup(root, catalog, staging, number, manifest_drive_id):
             for item in pending[offset:offset + 100]:
                 p = source(root, item)
                 r = dict(path=item['path'], sha256=item['sha256'], bytes=item['size'],
-                         allocated_bytes=p.stat().st_blocks * 512, archive_drive_id=m['drive_id'])
+                         allocated_bytes=0, archive_drive_id=m['drive_id'])
                 records.append(r)
                 log.write(json.dumps(dict(r, state='verified_before_unlink')) + '\n')
             log.flush()
             os.fsync(log.fileno())
             for r in records:
-                (root / r['path']).unlink()
+                p = root / r['path']
+                stat = p.stat()
+                r['allocated_bytes'] = stat.st_blocks * 512 if stat.st_nlink == 1 else 0
+                p.unlink()
                 allocated += r['allocated_bytes']
                 log.write(json.dumps(dict(r, state='local_removed')) + '\n')
             log.flush()
             os.fsync(log.fileno())
-    m.update(state='local_removed', removed_files=len(m['members']),
-             removed_bytes=m['source_bytes'], removed_allocated_bytes=allocated,
+    removable = [x for x in m['members'] if not x['tracked']]
+    m.update(state='local_removed_untracked_only' if len(removable) != len(m['members']) else 'local_removed', removed_files=len(removable),
+             removed_bytes=sum(x['size'] for x in removable), removed_allocated_bytes=allocated,
              manifest_drive_id=manifest_drive_id)
     save(manifest, m)
     if not m.get('archive_is_source'):
