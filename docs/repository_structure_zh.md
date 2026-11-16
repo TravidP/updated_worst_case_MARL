@@ -63,12 +63,12 @@ bash scripts/run_local.sh check --network monaco
 
 ## 当前发布分支
 
-整理后的独立项目发布在现有 GitHub 仓库的 `updated_worst_case_MAR` 分支，项目文件直接位于仓库根目录。本地目录仍名为 `cbwce_standalone`，以保持正在运行的归档脚本路径有效。旧 `main`、`revision` 和 `training/local-v8.3` 分支保留。
+整理后的独立项目发布在现有 GitHub 仓库的 `refactor/standalone-local-training` 分支，项目文件直接位于仓库根目录。本地目录仍名为 `cbwce_standalone`，以保持正在运行的归档脚本路径有效。旧 `main`、`revision` 和 `training/local-v8.3` 分支保留。
 
 克隆精简分支（不下载其他分支历史）：
 
 ```bash
-git clone --single-branch --branch updated_worst_case_MAR --no-tags https://github.com/TravidP/updated_worst_case_MARL.git updated_worst_case_MAR
+git clone --single-branch --branch refactor/standalone-local-training --no-tags https://github.com/TravidP/updated_worst_case_MARL.git updated_worst_case_MAR
 ```
 
 源码、必要地图与十一种需求保存在 Git；训练输出、模型和旧归档保存在项目外部。Google Drive 归档独立运行，切换此代码分支不停止上传。

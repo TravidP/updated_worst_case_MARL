@@ -1,6 +1,6 @@
 # CB-WCE Standalone：目录说明与运行手册
 
-当前分支：[`updated_worst_case_MAR`](https://github.com/TravidP/updated_worst_case_MARL/tree/updated_worst_case_MAR)。本目录的内容直接作为分支根目录；当前采用本地 CPU 运行。见 [必要文件与目录说明](docs/repository_structure_zh.md)。
+当前分支：[`refactor/standalone-local-training`](https://github.com/TravidP/updated_worst_case_MARL/tree/refactor/standalone-local-training)。本目录的内容直接作为分支根目录；当前采用本地 CPU 运行。见 [必要文件与目录说明](docs/repository_structure_zh.md)。
 
 [English README](README_en.md) · [中文实验计划](docs/revision_plan_v8_zh.md) · [English plan](docs/revision_plan_v8_en.md) · [实施与验证记录](docs/implementation_status.md)
 
@@ -525,4 +525,4 @@ python main.py archive \
 
 ## 精简训练分支与存储交接
 
-本地训练工作分支为 `updated_worst_case_MAR`。旧数据云端迁移进度、恢复方法和未完成项见 [存储交接记录](docs/storage_handover_20261116.md)。创建新分支本身不会释放旧工作区磁盘空间。
+本地训练工作分支为 `refactor/standalone-local-training`。旧数据云端迁移进度、恢复方法和未完成项见 [存储交接记录](docs/storage_handover_20261116.md)。创建新分支本身不会释放旧工作区磁盘空间。
