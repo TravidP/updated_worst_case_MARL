@@ -4,7 +4,7 @@
 
 - 本地：`cbwce_standalone/`，独立 Git 仓库。
 - 分支：`training/local-v8.3`。
-- 远端：https://github.com/TravidP/updated_worst_case_MARL/tree/training/local-v8.3
+- 目标远端：https://github.com/TravidP/updated_worst_case_MARL/tree/training/local-v8.3 （尚未发布；本机 Git 写入认证不可用）。
 - 起点：`a367a6615a99a1e9f3c1a715248ade461c3bfcbf`，不继承旧仓库的大型历史。
 - 旧 `main`、`revision` 不改写，不 force push。
 - 已保留已有 README、中英文计划和发布白名单的工作区修改；新增训练输出忽略规则。
@@ -28,8 +28,8 @@
 - 清单：`../cbwce_archive/catalogs/inventory.jsonl`，388,224 个文件，178,405,110,244 逻辑字节。逻辑字节与 `du` 的实际占用可能不同。
 - 旧仓库状态、refs、未提交补丁分别保存在同目录 `legacy_status_before.txt`、`legacy_refs_before.txt`、`legacy_uncommitted.patch`。
 - 42 字节探针上传并下载核验成功；SHA-256 `910723369fa98bc9ba84fecb1cfaefa6b12e1f62f681c6a3dfc7580caa02987a`。
-- 真实结果批次：处理中，完成状态以追加记录为准。
-- 尚未删除任何旧数据；旧 Git 与 LFS 均保留。
+- 真实结果批次：已完成上传、完整下载和 860 个成员逐项 SHA-256 核验。
+- 已删除该批 859 个未跟踪结果，保留 1 个受 Git 跟踪的 README；旧 Git 与 LFS 均保留。
 - Drive 总配额尚未核实，不能保证完整历史数据可容纳。
 
 ## 归档与恢复规则
@@ -41,3 +41,29 @@
 恢复时先下载归档和 manifest，校验压缩包 SHA-256，再在空目录检查 tar 路径并解包，逐个匹配成员 SHA-256。Git bundle 不包含 Git LFS 的真实对象，旧 `.git` 不得仅凭 bundle 存在就删除。
 
 新训练分支推荐用 `git clone --single-branch --branch training/local-v8.3 --depth 1 https://github.com/TravidP/updated_worst_case_MARL.git` 获取；不要默认拉取全部旧分支历史。
+
+## 本次执行结果
+
+| 产物 | 位置／核验 |
+|---|---|
+| 结果批次 000001 | [Drive 压缩包](https://drive.google.com/file/d/1z3UNwIeJvLUvgVJIaCvcuEWkJzICyD0J/view)，32,778,487 字节 |
+| 批次成员清单 | [上传时的验证清单](https://drive.google.com/file/d/1bf6GN8oOJTrFLNZdkP5RireeOBG4vZr2/view)；删除后状态见本地 `batch_000001.json` 和 `deletion_journal.jsonl` |
+| 完整初始盘点 | [压缩清单](https://drive.google.com/file/d/1w9g8T63uyHtYGTZkOZyeLxrknOjREiI7/view)，388,224 项，包含未归档项 |
+| 独立项目 Git 备份 | [bundle](https://drive.google.com/file/d/1WEETFhtocZI1MkLh1Dzeml1KSJgQVQCP/view)，截至提交 `270175d`；已下载校验、克隆、`git fsck --full` 通过 |
+| 旧源码选取备份 | [132 个源文件和补丁](https://drive.google.com/file/d/1l53DxjVwCVxpob93JpJpHdrCAch3iGso/view)；仅为选取源码，不能代替完整旧 Git/LFS/输入备份 |
+
+结果压缩包 SHA-256：`74fcd25244a65d14ba9fdbdcba91d28bd1da6b3f718e3866fd5ceee04490042f`。
+独立项目 bundle SHA-256：`3b4fcf4ce568a21ed32d95460920924ff311da32544921920aa3e86c792094b2`。
+初始盘点 gzip SHA-256：`3bcf1b2ff663b7d3a032ab7d999603fb57c1624561cb0cec6f1aa524582fc31e`。
+
+本次源文件清理量：267,508,848 逻辑字节；按文件分配块统计释放 269,414,400 字节（约 256.93 MiB）。打包和下载验证临时副本已删除。保留空目录，未执行 `git clean`、历史改写或旧 Git 删除。
+
+整盘可用空间从执行开始的 182,237,151,232 字节变为检查时的 180,526,747,648 字节；整盘统计受其他写入影响，不能把文件清理量当作整盘净增量。本次归档目录仍保留清单及少量恢复证据。
+
+## 未完成项与继续入口
+
+1. **远端分支发布未完成。** HTTPS 返回无可用用户名／凭据；SSH 返回 `Permission denied (publickey)`。现有 GitHub 连接器的提交接口要求已有父提交，不能用于保持本次独立根历史。完成本机 GitHub 认证后，在 `cbwce_standalone` 内执行 `git push -u origin training/local-v8.3`，不要 force push。
+2. **大规模归档未继续。** Drive 连接器不暴露容量接口；浏览器连接未能打开容量页。需确认该账户剩余容量后继续分批归档。不得把 388,224 项初始清单误认为全部已备份。
+3. 旧完整 Git bundle、LFS 对象、其余结果、完整地图输入恢复测试均尚未执行；旧数据保持原位。本次未将旧模型标记为已通过恢复测试。
+4. `cbwce_archive/catalogs/migration.json` 是本地机器状态入口，`deletion_journal.jsonl` 逐文件记录删除前核验和删除完成。继续迁移时先读取这些记录，避免重复上传／删除。
+5. 此次没有修改训练算法或运行正式训练，v8.3 的本地调度及验证时长同步仍按计划另行实施。
