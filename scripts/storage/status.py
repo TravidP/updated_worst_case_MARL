@@ -2,6 +2,7 @@
 import argparse
 import json
 import os
+import subprocess
 from pathlib import Path
 from migrate_storage import save
 
@@ -28,6 +29,7 @@ if batches and batches[0]['batch']=='batch_000001' and not batches[0]['removed_a
         batches[0]['removed_allocated_bytes'] = sum(r['allocated_bytes'] for r in map(json.loads, f)
             if r.get('archive_drive_id')=='1z3UNwIeJvLUvgVJIaCvcuEWkJzICyD0J' and r['state']=='local_removed')
 stat = os.statvfs(root)
+status['commit'] = subprocess.check_output(['git', '-C', str(root / 'cbwce_standalone'), 'rev-parse', 'HEAD'], text=True).strip()
 status.update(status='migration_in_progress', remote_branch_published=True,
               drive_capacity='User confirmed unlimited institutional storage', batches=batches,
               local_removed_bytes=sum(x['removed_bytes'] for x in batches),

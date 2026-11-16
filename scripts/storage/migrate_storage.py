@@ -56,13 +56,15 @@ def pack(root, catalog, staging, number, limit_mib):
     selected = []
     limit = limit_mib * 1024**2
     with output.open('xb') as raw:
-        with gzip.GzipFile(fileobj=raw, mode='wb', compresslevel=1, mtime=0) as gz:
+        with gzip.GzipFile(fileobj=raw, mode='wb', compresslevel=6, mtime=0) as gz:
             with tarfile.open(fileobj=gz, mode='w|', dereference=False) as archive:
                 with (catalog / 'inventory.jsonl').open() as inventory:
                     for line in inventory:
                         item = json.loads(line)
                         if item['path'] in done or item['tracked']:
                             continue
+                        if selected and item['path'].split('/')[0] != selected[0]['path'].split('/')[0]:
+                            break
                         p = root / item['path']
                         if not p.exists():
                             continue
@@ -82,7 +84,7 @@ def pack(root, catalog, staging, number, limit_mib):
     assert output.stat().st_size <= 512 * 1024**2
     m = {'state': 'packed', 'archive': str(output), 'archive_sha256': sha(output),
          'archive_bytes': output.stat().st_size, 'source_bytes': sum(x['size'] for x in selected),
-         'files': len(selected), 'members': selected}
+         'files': len(selected), 'members': selected, 'category': selected[0]['path'].split('/')[0]}
     save(manifest, m)
     print(json.dumps({k:v for k,v in m.items() if k != 'members'}))
 
