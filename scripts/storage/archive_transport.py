@@ -3,6 +3,7 @@ import argparse
 import hashlib
 import json
 import urllib.request
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from migrate_storage import save
 
@@ -29,7 +30,7 @@ if a.action == 'split':
             parts.append(dict(path=str(path), bytes=len(chunk), sha256=hashlib.sha256(chunk).hexdigest()))
             index += 1
     m['transport_parts'] = parts
-    m['transport_protocol'] = 'Concatenate transport_parts in listed order, check archive_sha256, then extract and verify member hashes.'
+    m['transport_protocol'] = ('Concatenate transport_parts in listed order and check archive_sha256; restore as members[0].path without tar extraction.' if m.get('archive_kind') == 'raw_file' else 'Concatenate transport_parts in listed order, check archive_sha256, then extract and verify member hashes.')
     save(manifest, m)
     print(json.dumps(parts))
 elif a.action == 'record':
@@ -44,14 +45,25 @@ else:
     urls = json.loads(a.json)
     assert len(urls) == len(m['transport_parts'])
     restored = staging / ('restored_%06d.tar.gz' % a.number)
+    offsets = []
+    total = 0
+    for part in m['transport_parts']:
+        offsets.append(total)
+        total += part['bytes']
     with restored.open('wb') as out:
-        for url, part in zip(urls, m['transport_parts']):
-            assert url.startswith('https://')
-            h, size = hashlib.sha256(), 0
-            with urllib.request.urlopen(url, timeout=60) as response:
-                for block in iter(lambda: response.read(1024 * 1024), b''):
-                    h.update(block)
-                    size += len(block)
-                    out.write(block)
-            assert h.hexdigest() == part['sha256'] and size == part['bytes']
+        out.truncate(total)
+    def download_one(index):
+        url, part = urls[index], m['transport_parts'][index]
+        assert url.startswith('https://')
+        h, size = hashlib.sha256(), 0
+        with urllib.request.urlopen(url, timeout=60) as response, restored.open('r+b') as out:
+            out.seek(offsets[index])
+            for block in iter(lambda: response.read(1024 * 1024), b''):
+                size += len(block)
+                assert size <= part['bytes'], 'Fragment exceeds its assigned range'
+                h.update(block)
+                out.write(block)
+        assert h.hexdigest() == part['sha256'] and size == part['bytes']
+    with ThreadPoolExecutor(max_workers=min(4, len(urls))) as pool:
+        list(pool.map(download_one, range(len(urls))))
     print('All transport fragments verified')

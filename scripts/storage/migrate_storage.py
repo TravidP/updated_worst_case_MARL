@@ -87,22 +87,59 @@ def pack(root, catalog, staging, number, limit_mib):
     print(json.dumps({k:v for k,v in m.items() if k != 'members'}))
 
 
+def pack_large(root, catalog, staging, number):
+    manifest = catalog / ('batch_%06d.json' % number)
+    if manifest.exists():
+        m = json.loads(manifest.read_text())
+        print(json.dumps({k:v for k,v in m.items() if k != 'members'}))
+        return
+    done = set()
+    for p in catalog.glob('batch_*.json'):
+        if not p.stem.removeprefix('batch_').isdigit():
+            continue
+        m = json.loads(p.read_text())
+        if m['state'] in ('download_verified', 'local_removed', 'local_removed_untracked_only'):
+            done.update(x['path'] for x in m['members'])
+    with (catalog / 'inventory.jsonl').open() as inventory:
+        for line in inventory:
+            item = json.loads(line)
+            if item['tracked'] or item['path'] in done or item['size'] < 447 * 1024**2:
+                continue
+            if not (root / item['path']).exists():
+                continue
+            p = source(root, item)
+            item['sha256'] = sha(p)
+            m = dict(state='packed', archive=str(p), archive_kind='raw_file',
+                     archive_is_source=True, archive_sha256=item['sha256'],
+                     archive_bytes=item['size'], source_bytes=item['size'],
+                     files=1, members=[item])
+            save(manifest, m)
+            print(json.dumps({k:v for k,v in m.items() if k != 'members'}))
+            return
+    print(json.dumps({'state': 'no_eligible_files'}))
+
+
 def verify(root, catalog, staging, number, drive_id):
     manifest = catalog / ('batch_%06d.json' % number)
     m = json.loads(manifest.read_text())
     restored = staging / ('restored_%06d.tar.gz' % number)
     assert sha(restored) == m['archive_sha256'], 'Downloaded archive hash mismatch'
-    with tarfile.open(restored, 'r:gz') as t:
-        members = t.getmembers()
-        assert len(members) == len(m['members'])
-        assert [x.name for x in members] == [x['path'] for x in m['members']]
-        for item, member in zip(m['members'], members):
-            assert member.isfile() and member.size == item['size']
-            h = hashlib.sha256()
-            with t.extractfile(member) as f:
-                for b in iter(lambda: f.read(1024 * 1024), b''):
-                    h.update(b)
-            assert h.hexdigest() == item['sha256'], item['path']
+    if m.get('archive_kind') == 'raw_file':
+        assert len(m['members']) == 1
+        assert restored.stat().st_size == m['members'][0]['size']
+        assert m['archive_sha256'] == m['members'][0]['sha256']
+    else:
+        with tarfile.open(restored, 'r:gz') as t:
+            members = t.getmembers()
+            assert len(members) == len(m['members'])
+            assert [x.name for x in members] == [x['path'] for x in m['members']]
+            for item, member in zip(m['members'], members):
+                assert member.isfile() and member.size == item['size']
+                h = hashlib.sha256()
+                with t.extractfile(member) as f:
+                    for b in iter(lambda: f.read(1024 * 1024), b''):
+                        h.update(b)
+                assert h.hexdigest() == item['sha256'], item['path']
     m.update(state='download_verified', drive_id=drive_id)
     save(manifest, m)
     print(json.dumps({'state': m['state'], 'files': len(m['members'])}))
@@ -156,7 +193,8 @@ def cleanup(root, catalog, staging, number, manifest_drive_id):
              removed_bytes=m['source_bytes'], removed_allocated_bytes=allocated,
              manifest_drive_id=manifest_drive_id)
     save(manifest, m)
-    Path(m['archive']).unlink()
+    if not m.get('archive_is_source'):
+        Path(m['archive']).unlink()
     for part in m.get('transport_parts', []):
         p = Path(part['path'])
         if p.resolve().parent != staging.resolve():
@@ -168,7 +206,7 @@ def cleanup(root, catalog, staging, number, manifest_drive_id):
 
 def main():
     p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument('action', choices=['pack', 'verify', 'cleanup'])
+    p.add_argument('action', choices=['pack', 'pack-large', 'verify', 'cleanup'])
     p.add_argument('--root', type=Path, required=True)
     p.add_argument('--number', type=int, required=True)
     p.add_argument('--limit-mib', type=int, default=448)
@@ -179,6 +217,8 @@ def main():
     catalog, staging = root / 'cbwce_archive/catalogs', root / 'cbwce_archive/staging'
     if a.action == 'pack':
         pack(root, catalog, staging, a.number, a.limit_mib)
+    elif a.action == 'pack-large':
+        pack_large(root, catalog, staging, a.number)
     elif a.action == 'verify':
         verify(root, catalog, staging, a.number, a.drive_id)
     else:

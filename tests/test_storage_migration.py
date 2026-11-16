@@ -5,6 +5,10 @@ import json
 import shutil
 import tempfile
 import unittest
+import runpy
+import sys
+import hashlib
+from unittest.mock import patch
 from pathlib import Path
 
 spec = importlib.util.spec_from_file_location('migration', Path(__file__).parents[1] / 'scripts/storage/migrate_storage.py')
@@ -63,6 +67,33 @@ class ArchiveSafetyTest(unittest.TestCase):
         with contextlib.redirect_stdout(io.StringIO()):
             migration.cleanup(self.root, self.catalog, self.staging, 2, 'test-only-manifest')
         self.assertEqual(json.loads(self.manifest.read_text())['state'], 'local_removed')
+
+    def test_parallel_fragment_restore(self):
+        data = (self.staging / 'batch_000002.tar.gz').read_bytes()
+        chunks = [data[:30], data[30:70], data[70:]]
+        urls = ['https://test.invalid/' + str(i) for i in range(3)]
+        m = json.loads(self.manifest.read_text())
+        m['transport_parts'] = [dict(bytes=len(b), sha256=hashlib.sha256(b).hexdigest()) for b in chunks]
+        self.manifest.write_text(json.dumps(m))
+        argv = ['archive_transport.py', 'download', '--root', str(self.root), '--number', '2', '--json', json.dumps(urls)]
+        script = Path(__file__).parents[1] / 'scripts/storage/archive_transport.py'
+        with patch.dict(sys.modules, {'migrate_storage': migration}), patch.object(sys, 'argv', argv), \
+             patch('urllib.request.urlopen', side_effect=lambda url, timeout: io.BytesIO(chunks[urls.index(url)])), \
+             contextlib.redirect_stdout(io.StringIO()):
+            runpy.run_path(str(script), run_name='__main__')
+        self.assertEqual(self.restored.read_bytes(), data)
+
+    def test_raw_file_restore_and_single_delete(self):
+        data = self.source.read_bytes()
+        m = json.loads(self.manifest.read_text())
+        m.update(archive=str(self.source), archive_kind='raw_file', archive_is_source=True,
+                 archive_sha256=hashlib.sha256(data).hexdigest(), archive_bytes=len(data))
+        self.manifest.write_text(json.dumps(m))
+        self.restored.write_bytes(data)
+        with contextlib.redirect_stdout(io.StringIO()):
+            migration.verify(self.root, self.catalog, self.staging, 2, 'test-only-raw')
+            migration.cleanup(self.root, self.catalog, self.staging, 2, 'test-only-manifest')
+        self.assertFalse(self.source.exists())
 
     def test_verified_cleanup_records_exact_file(self):
         with contextlib.redirect_stdout(io.StringIO()):
