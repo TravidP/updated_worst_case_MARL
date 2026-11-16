@@ -35,7 +35,7 @@ def parser():
 
 def fingerprint():
     files=[]
-    for folder in ('agents','envs','experiments','config','assets','large_grid'):
+    for folder in ('agents','envs','experiments','config','assets'):
         files.extend(p for p in (ROOT/folder).rglob('*') if p.is_file() and '__pycache__' not in p.parts)
     files.extend([ROOT/'main.py',ROOT/'tf_compat.py'])
     return digest({str(p.relative_to(ROOT)):file_hash(p) for p in sorted(files)})

@@ -16,7 +16,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def source_hashes():
     files = [p for folder in ('experiments', 'revision', 'agents', 'envs', 'tests') for p in (ROOT / folder).rglob('*.py')]
-    files += [ROOT / 'main.py', ROOT / 'tf_compat.py', ROOT / 'large_grid/data/build_file.py']
+    files += [ROOT / 'main.py', ROOT / 'tf_compat.py']
     files += list((ROOT / 'config' / 'revised').glob('*.json'))
     return {str(p.relative_to(ROOT)): file_hash(p) for p in sorted(files)}
 

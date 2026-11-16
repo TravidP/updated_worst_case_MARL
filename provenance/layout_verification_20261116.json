@@ -1,0 +1,43 @@
+{
+  "status": "passed",
+  "old_workspace_access": "blocked by Python audit hook",
+  "unit_tests": 15,
+  "cases": [
+    {
+      "network": "grid",
+      "controller": "ma2c",
+      "nodes": 25,
+      "seconds": 10
+    },
+    {
+      "network": "grid",
+      "controller": "dql",
+      "nodes": 25,
+      "seconds": 10
+    },
+    {
+      "network": "grid",
+      "controller": "ppo",
+      "nodes": 25,
+      "seconds": 10
+    },
+    {
+      "network": "monaco",
+      "controller": "ma2c",
+      "nodes": 28,
+      "seconds": 10
+    },
+    {
+      "network": "monaco",
+      "controller": "dql",
+      "nodes": 28,
+      "seconds": 10
+    },
+    {
+      "network": "monaco",
+      "controller": "ppo",
+      "nodes": 28,
+      "seconds": 10
+    }
+  ]
+}

@@ -7,7 +7,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-spec = importlib.util.spec_from_file_location('migration', Path(__file__).parents[1] / 'scripts/migrate_storage.py')
+spec = importlib.util.spec_from_file_location('migration', Path(__file__).parents[1] / 'scripts/storage/migrate_storage.py')
 migration = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(migration)
 
@@ -49,6 +49,20 @@ class ArchiveSafetyTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             migration.cleanup(self.root, self.catalog, self.staging, 2, 'test-only-manifest')
         self.assertTrue(self.source.exists())
+
+    def test_resume_after_durable_intent_and_unlink(self):
+        with contextlib.redirect_stdout(io.StringIO()):
+            migration.verify(self.root, self.catalog, self.staging, 2, 'test-only-id')
+        m = json.loads(self.manifest.read_text())
+        item = m['members'][0]
+        record = dict(path=item['path'], sha256=item['sha256'], bytes=item['size'],
+                      allocated_bytes=self.source.stat().st_blocks * 512,
+                      archive_drive_id='test-only-id', state='verified_before_unlink')
+        (self.catalog / 'deletion_journal.jsonl').write_text(json.dumps(record)+'\n')
+        self.source.unlink()
+        with contextlib.redirect_stdout(io.StringIO()):
+            migration.cleanup(self.root, self.catalog, self.staging, 2, 'test-only-manifest')
+        self.assertEqual(json.loads(self.manifest.read_text())['state'], 'local_removed')
 
     def test_verified_cleanup_records_exact_file(self):
         with contextlib.redirect_stdout(io.StringIO()):

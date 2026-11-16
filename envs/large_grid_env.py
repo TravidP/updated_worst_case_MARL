@@ -13,7 +13,7 @@ import seaborn as sns
 import time
 import socket
 from envs.env import PhaseMap, PhaseSet, TrafficSimulator
-from large_grid.data.build_file import gen_rou_file
+from envs.grid_builder import gen_rou_file
 import traci
 import pandas as pd
 
@@ -307,7 +307,7 @@ class LargeGridEnv(TrafficSimulator):
             )
             f.write('</routes>\n')
 
-        from large_grid.data.build_file import output_config, write_file
+        from envs.grid_builder import output_config, write_file
         sumocfg_file = os.path.join(self.data_path, f'expdummy_{self.sim_thread}.sumocfg')
         write_file(sumocfg_file, output_config(thread=self.sim_thread, end=self.episode_length_sec))
         return sumocfg_file

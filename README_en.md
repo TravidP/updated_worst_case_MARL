@@ -1,5 +1,7 @@
 # CB-WCE Standalone: Directory Guide and Operations Manual
 
+Current branch: [`training/local-v8.3`](https://github.com/TravidP/updated_worst_case_MARL/tree/training/local-v8.3). This directory is the branch root. Local CPU execution is the current target; cluster templates are optional. See the [repository layout](docs/repository_structure_zh.md).
+
 [中文 README](README.md) · [English experiment plan](docs/revision_plan_v8_en.md) · [Chinese plan](docs/revision_plan_v8_zh.md) · [Implementation evidence](docs/implementation_status.md)
 
 This standalone project compares MA2C, DQL and PPO, and five continuation methods, on a **5×5 Grid** and the **Monaco subnet used by the revised runner**. Runtime source, necessary networks and original demand profiles were extracted through a whitelist. The directory has independent Git history and can be relocated without the original workspace. See [extraction provenance](provenance/extraction.json) and [LICENSE](LICENSE).
@@ -42,12 +44,12 @@ cbwce_standalone/
 ├── LICENSE
 ├── agents/                      # Controllers, WCE and network layers
 ├── envs/                        # SUMO, observations, phases and measurements
+│   └── grid_builder.py          # Grid helper now inside envs/
 ├── experiments/                 # Demand, validation, selection and persistence
 ├── config/protocol.json         # Current experiment contract
 ├── config/revised/              # Controller and WCE INIs
 ├── assets/grid/                 # network.net.xml, detectors.add.xml, demand/
 ├── assets/monaco/               # Same layout, minimal Monaco inputs
-├── large_grid/data/build_file.py # Retained Grid environment dependency
 ├── tests/                       # Unit and state-consistency checks
 ├── scripts/                     # Verification, evaluation, exports, releases
 ├── scripts/slurm/               # Job matrices, resource template and launcher
@@ -390,7 +392,7 @@ Per-second measurements continue, but routine statistics are accumulated online.
 
 The synthetic buffer benchmark is not total memory. Historical trainer `ru_maxrss` also excludes aggregate simultaneous SUMO/validator memory. Measure total job peak in the target image with filled replay and apply at least a 1.3 margin.
 
-## 12. Apptainer and Hábrók
+## 12. Optional cluster workflow (not the current execution target)
 
 ### Build and verify
 

@@ -36,7 +36,7 @@
 
 清单中的 size/mtime 是初始盘点；打包时才计算内容 SHA-256。每批生成独立压缩包与逐文件 manifest，重新读取包内成员验证哈希。上传后须下载完整包并匹配哈希、检查成员，才允许删除该批精确列出的源文件。任何不匹配均保留原件。
 
-`python scripts/archive_batch.py --help` 显示显式清单打包方式。该工具只打包、不删除，默认每批 256 MiB 源数据；超过单批上限的文件跳过并留在清单，必须另行分片，不能算已归档。完整清单、上传 ID、下载校验和删除记录放在项目外的 `cbwce_archive/catalogs/`。
+`python scripts/storage/archive_batch.py --help` 显示显式清单打包方式。该工具只打包、不删除，默认每批 256 MiB 源数据；超过单批上限的文件跳过并留在清单，必须另行分片，不能算已归档。完整清单、上传 ID、下载校验和删除记录放在项目外的 `cbwce_archive/catalogs/`。
 
 恢复时先下载归档和 manifest，校验压缩包 SHA-256，再在空目录检查 tar 路径并解包，逐个匹配成员 SHA-256。Git bundle 不包含 Git LFS 的真实对象，旧 `.git` 不得仅凭 bundle 存在就删除。
 
@@ -82,6 +82,14 @@
 
 连接器实际还有 100 MiB 的传输限制，因此每个最多 512 MiB 的归档分成不超过 95 MiB 的传输片段。片段按 manifest 顺序拼接；先验证每片 SHA-256，再验证完整归档和所有成员，最后清理本地源文件。单个片段不能独立解包。每个 manifest 保存各片 Drive ID、大小、哈希及顺序。
 
-新增 `scripts/migrate_storage.py` 和 `scripts/archive_transport.py`，分离打包、传输、验证与清理。清理前重新检查源文件大小、mtime 和 SHA-256；受旧 Git 跟踪的文件先保留，避免旧源码及尚未完成完整历史备份的文件被误删。三项安全测试覆盖损坏下载、源文件变化以及清理日志。
+新增 `scripts/storage/migrate_storage.py` 和 `scripts/storage/archive_transport.py`，分离打包、传输、验证与清理。清理前重新检查源文件大小、mtime 和 SHA-256；受旧 Git 跟踪的文件先保留，避免旧源码及尚未完成完整历史备份的文件被误删。三项安全测试覆盖损坏下载、源文件变化以及清理日志。
 
 后续批次以 `cbwce_archive/catalogs/batch_*.json` 和 `deletion_journal.jsonl` 为准，不用旧的首批统计推断全部完成。
+
+## 独立代码目录整理
+
+训练所需文件直接作为 `updated_worst_case_MARL` 的 `training/local-v8.3` 分支根目录。Grid 构建辅助文件已移入 `envs/grid_builder.py`；迁移工具集中到 `scripts/storage/`；新增 `requirements.txt`、`.env.example`、`scripts/run_local.sh` 和 `docs/repository_structure_zh.md`。集群模板仅保留为可选文件。
+
+目录调整后，两地图配置检查、15 项单元测试通过；白名单发布包在 `/tmp` 独立解包，并用 Python audit hook 拒绝读取旧工作区。两地图 × 三控制器配置各完成 10 秒 SUMO 环境检查。证据见 `provenance/layout_verification_20261116.json`。这是目录自包含与环境检查，不是正式训练或 v8.3 协议验收。
+
+Google Drive 归档继续，与目录整理并行；未因代码分支工作停止归档。前三批已清理，第四批及后续状态继续记录在项目外 catalogs 中。

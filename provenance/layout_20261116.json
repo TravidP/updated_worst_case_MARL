@@ -1,0 +1,26 @@
+{
+  "date": "2026-11-16",
+  "branch": "training/local-v8.3",
+  "moves": [
+    {
+      "previous": "large_grid/data/build_file.py",
+      "current": "envs/grid_builder.py",
+      "sha256": "5c790a37c9255df88ea093d505c4a46b26e2fcc6e7294ecec97add0019bbc592"
+    },
+    {
+      "previous": "scripts/archive_batch.py",
+      "current": "scripts/storage/archive_batch.py",
+      "sha256": "f0eaf1acf186cdcedf0d8366c687f4e72e0033571e019af4a2466fe55cdca49e"
+    },
+    {
+      "previous": "scripts/archive_transport.py",
+      "current": "scripts/storage/archive_transport.py",
+      "sha256": "bd843714f134d3ca89aa4ba938b3b0133f7fbef11e7da83a78829b086cc2aaa1"
+    },
+    {
+      "previous": "scripts/migrate_storage.py",
+      "current": "scripts/storage/migrate_storage.py",
+      "sha256": "96b7d5aa60b6a32e80034571fd0aeac9e301eddcaf5164aa544da7d91cb39738"
+    }
+  ]
+}

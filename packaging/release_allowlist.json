@@ -1,6 +1,37 @@
 {
-  "directories": ["agents", "envs", "experiments", "config", "assets", "tests", "scripts", "docs", "packaging", "provenance", "large_grid"],
-  "files": ["main.py", "tf_compat.py", "README.md", "README_en.md", "LICENSE", ".gitignore", ".gitattributes"],
-  "excluded_suffixes": [".sif", ".tar.gz", ".tar.zst", ".pyc", ".pyo"],
-  "excluded_directories": [".git", "__pycache__", ".venv"]
+  "directories": [
+    "agents",
+    "envs",
+    "experiments",
+    "config",
+    "assets",
+    "tests",
+    "scripts",
+    "docs",
+    "packaging",
+    "provenance"
+  ],
+  "files": [
+    "main.py",
+    "tf_compat.py",
+    "README.md",
+    "README_en.md",
+    "LICENSE",
+    ".gitignore",
+    ".gitattributes",
+    "requirements.txt",
+    ".env.example"
+  ],
+  "excluded_suffixes": [
+    ".sif",
+    ".tar.gz",
+    ".tar.zst",
+    ".pyc",
+    ".pyo"
+  ],
+  "excluded_directories": [
+    ".git",
+    "__pycache__",
+    ".venv"
+  ]
 }

@@ -1,5 +1,7 @@
 # CB-WCE Standalone：目录说明与运行手册
 
+当前分支：[`training/local-v8.3`](https://github.com/TravidP/updated_worst_case_MARL/tree/training/local-v8.3)。本目录的内容直接作为分支根目录；当前采用本地 CPU 运行。见 [必要文件与目录说明](docs/repository_structure_zh.md)。
+
 [English README](README_en.md) · [中文实验计划](docs/revision_plan_v8_zh.md) · [English plan](docs/revision_plan_v8_en.md) · [实施与验证记录](docs/implementation_status.md)
 
 本项目用于在 **5×5 Grid** 和当前修订入口使用的 **Monaco 子路网**上，比较 MA2C、DQL、PPO 及五种续训方式。源码、必要地图和原始需求从旧项目按白名单提取，本目录具有独立 Git 历史，可以整体迁移，不依赖旧工作区绝对路径。
@@ -11,10 +13,10 @@
 | 项目 | 当前情况 |
 |---|---|
 | 运行代码和 manifest 协议 | v8.1，见 `config/protocol.json` |
-| 最新实验计划 | v8.2，文件名仍为 `docs/revision_plan_v8_zh.md` 和 `_en.md` |
+| 最新实验计划 | 中文 v8.3（本地多核）；英文仍为 v8.2，待同步 |
 | 当前 controller validation | 每场景 3600 秒，常规 3 个固定实现，确认合计 10 个 |
 | v8.2 controller validation | 11 个预生成 DR 混合组，暂定每组 600 秒，连续 6600 秒，3 个完整实现；**尚未同步到代码** |
-| 时长待确认 | 原描述含“每组 60 秒”；11×60=660，11×600=6600；计划暂按后者 |
+| 目标时长 | 当前中文计划已明确每组 600 秒、总计 6600 秒；英文计划待同步 |
 | 离线 WCE validation | 完整 6600 秒，常规 10 个种子组合，确认合计 30 个 |
 | 最终测试 | 暂定 11 个 seen + 12 个泛化场景，每场景 10 次、每次 3600 秒 |
 | 已有证据 | 11 项单元测试、六组地图／算法短流程、30 个续训分支，以及恢复、审计、迁移检查 |
@@ -29,8 +31,8 @@
 1. 阅读第 1 节和双语计划，明确当前实现与目标协议的差异。
 2. 查看目录、路径与配置；先在开发环境做检查和短流程。
 3. 熟悉 best、恢复点、运行状态和结果导出，再进行阶段分叉。
-4. 准备正式实验时，先完成新协议实现和 manifest，再构建、验收镜像与测量资源。
-5. 发布代码和输入，上传 Hábrók，分阶段提交；最后校验归档与独立备份。
+4. 本地正式实验前，先完成新协议、冻结 manifest、本地环境验收与资源测量。
+5. 本地分阶段运行，归档结果并校验独立备份；本阶段不部署 Hábrók。
 
 ## 3. 文件夹结构与职责
 
@@ -42,6 +44,7 @@ cbwce_standalone/
 ├── LICENSE
 ├── agents/                      # 控制器、WCE 与网络层
 ├── envs/                        # SUMO 环境、观测、相位和统计接口
+│   └── grid_builder.py          # 已归入 envs 的 Grid 辅助依赖
 ├── experiments/                 # 需求、验证、选模、恢复和归档
 ├── config/
 │   ├── protocol.json            # 当前预算、时长、种子、停止协议
@@ -49,7 +52,6 @@ cbwce_standalone/
 ├── assets/
 │   ├── grid/                    # network.net.xml、detectors.add.xml、demand/
 │   └── monaco/                  # 同样结构，使用精简 Monaco 输入
-├── large_grid/data/build_file.py # 环境仍使用的 Grid 辅助依赖
 ├── tests/                       # 单元与状态一致性检查
 ├── scripts/                     # 验收、评估、导出与发布
 │   └── slurm/                   # 任务矩阵、资源模板、容器启动
@@ -409,7 +411,7 @@ Report 校验每份 23×10 rollout、哈希、交通/SUMO 配对及每单元的�
 
 统计缓冲测量不等于总内存。历史 trainer `ru_maxrss` 也不包含并行 SUMO／验证进程总量；应在目标镜像、replay 填满时测量总作业峰值，正式配额留至少 1.3 倍余量。
 
-## 12. Apptainer 与 Hábrók
+## 12. 可选历史配套：Apptainer 与 Hábrók（当前不部署）
 
 ### 12.1 构建与容器验收
 

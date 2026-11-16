@@ -1,0 +1,2 @@
+# Python 3.10; pinned packages and hashes are maintained in one file.
+-r packaging/requirements.lock
