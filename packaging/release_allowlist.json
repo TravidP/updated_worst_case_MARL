@@ -27,11 +27,24 @@
     ".tar.gz",
     ".tar.zst",
     ".pyc",
-    ".pyo"
+    ".pyo",
+    ".npz",
+    ".npy",
+    ".pkl",
+    ".pickle",
+    ".ckpt",
+    ".h5",
+    ".keras"
   ],
   "excluded_directories": [
     ".git",
     "__pycache__",
     ".venv"
+  ],
+  "excluded_patterns": [
+    "*.ckpt.*",
+    "events.out.tfevents.*",
+    "tripinfo*.xml",
+    "vehroute*.xml"
   ]
 }
