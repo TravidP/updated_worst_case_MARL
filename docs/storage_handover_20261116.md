@@ -1,5 +1,81 @@
 # 存储迁移交接记录 — 2026-11-16
 
+## 2026-11-18 最终交接与恢复指南
+
+当前开发仓库和分支均为 `cbwce_standalone`。旧仓库已完成云端恢复验证和本地清理，最终状态为 `legacy_cleaned_backup_retained`。下方“迁移过程记录”中的待办和传输进度均为当时状态。
+
+本地同级目录 `cbwce_archive/` 约 53 GiB。新训练不依赖它。`legacy_backup/reconciled_tree/` 是已合入补充包、验证通过的旧工作区，当前分支为 `revision`，包含旧 .git、LFS 和未提交文件。需要立即查看旧源码时，可直接从这里复制。另一个 `restored/` 是第一次校验中止时的部分副本。`catalogs/` 约 515 MiB，保存 141 个结果批次的成员路径、哈希和清理记录，可用于查找某次实验。完整历史结果保存在 [Google Drive 归档目录](https://drive.google.com/drive/folders/1LsS460qo-oZWThkFy2Qh8Ya2EuGvCm_G)。
+
+### 只需 GitHub 上旧分支的已提交代码
+
+在项目外执行，目录名选一个尚不存在的名字。要查看旧主分支，把 `revision` 换成 `main`。
+
+```bash
+git clone --single-branch --branch revision https://github.com/TravidP/updated_worst_case_MARL.git legacy-revision
+```
+
+### 恢复归档时的工作区，包括未提交修改
+
+本机最快的方法是在新位置执行 `cp -a --reflink=auto /home/sdc_joran/Journal/deeprl_signal_control/cbwce_archive/legacy_backup/reconciled_tree ./legacy-worktree`（目标必须尚不存在）。不要直接在核验副本里开发。
+
+如从云端恢复，在空的新目录运行下面的 Bash 命令。示例使用本机已授权的 rclone；其他电脑需将同名 remote 配置到相同 Drive 归档根目录。也可用浏览器按原文件名下载这三个文件。主包为 12.75 GiB，请为解压另留约 16 GiB。
+
+```bash
+set -eu
+rc() { "$HOME/.local/bin/cbwce-rclone" --config "$HOME/.config/rclone/cbwce-archive-20261116.conf" "$@"; }
+src=cbwce_archive:01_legacy_source/legacy_complete_20261118
+mkdir downloads legacy-worktree
+rc copyto "$src/legacy.tar.gz" downloads/legacy.tar.gz
+rc copyto "$src/reconciliation_v1/corrections.tar.gz" downloads/corrections.tar.gz
+rc copyto "$src/reconciliation_v1/recovery.json" downloads/recovery.json
+(cd downloads && sha256sum -c <<'HASHES'
+520baf1e1adad85eb7ad670445e8088e334bd90cbdf3c9c77020860d9963eb1a  legacy.tar.gz
+828d8bb8a2d4514285cf071ef5315ada2e189dd5c8cd63bd18f829e703878105  corrections.tar.gz
+3ce1c490fc405a542dd24f98d776ee05692a6fa7adb6da6480370ab7c1771bd5  recovery.json
+HASHES
+)
+tar -xzf downloads/legacy.tar.gz -C legacy-worktree
+# 此次 recovery.json 中 remove_after_base 为空；直接叠加补充包。
+tar -xzf downloads/corrections.tar.gz -C legacy-worktree
+python3 - <<'VERIFY'
+import hashlib, json
+from pathlib import Path
+root = Path("legacy-worktree")
+expected = json.loads(Path("downloads/recovery.json").read_text())["files"]
+for name, digest in expected.items():
+    h = hashlib.sha256()
+    with (root / name).open("rb") as f:
+        for chunk in iter(lambda: f.read(1024 * 1024), b""):
+            h.update(chunk)
+    if h.hexdigest() != digest:
+        raise SystemExit(f"校验失败 {name}")
+print(f"已核验 {len(expected)} 个文件")
+VERIFY
+git -C legacy-worktree fsck --full
+git -C legacy-worktree status --short --branch
+```
+
+应看到 `revision` 以及归档时的本地修改。主包和补充包必须配套使用；第一次打包时旧仓库的远端跟踪引用曾更新。正式校验依据为 `reconciliation_v1/recovery.json`。
+
+### 将旧实验结果放回原来的目录位置
+
+结果文件分成 141 批，每批成员路径相对于旧仓库根目录。示例恢复第 13 批，沿用上面的 `rc` 函数和新建的 `legacy-worktree`。每批独立解包校验后，再按相对路径合并。工作区恢复后、开始编辑前执行。
+
+```bash
+tools_dir=/home/sdc_joran/Journal/deeprl_signal_control/cbwce_standalone/scripts/storage
+mkdir batch-download-13
+rc copy cbwce_archive:02_legacy_results batch-download-13 --include 'batch_000013.*'
+python3 "$tools_dir/restore_archive.py" --manifest batch-download-13/batch_000013.manifest.json --parts-dir batch-download-13 --destination verified-13
+rsync -aH --ignore-existing verified-13/ legacy-worktree/
+```
+
+- 第 1 批使用 `02_legacy_results/batch_000001.json` 和 `legacy_results_000001.tar.gz`。
+- 第 2–12 批使用同名编号的 `.json` 和所有 `.tar.gz.partNNN` 分片。保存到同一下载目录，由恢复脚本按清单拼接并校验。
+- 第 13–141 批在 `02_legacy_results` 或 `03_figures_reports`，使用 `.manifest.json` 和清单指定的 `.tar.gz` 或 `.raw`。对 raw 文件也使用同一恢复脚本。
+- 要查某个实验属于哪批，可执行 `rg -l -F '实验相对路径' cbwce_archive/catalogs/batch_[0-9][0-9][0-9][0-9][0-9][0-9].json`（在包含 archive 的父目录运行）。需要全部结构时，对 141 批分别执行下载、验证和合并，每批使用新的目标目录。已有路径会被保留，若恢复目标已有自行修改的同名文件，请在干净的工作区副本中进行合并。
+
+## 迁移过程记录（历史）
+
 ## 新训练入口
 
 - 本地：`cbwce_standalone/`，独立 Git 仓库。
