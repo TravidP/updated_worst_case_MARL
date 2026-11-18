@@ -115,3 +115,11 @@ Google Drive 归档继续，与目录整理并行；未因代码分支工作停�
 原始清单内未跟踪输出已全部处理，141 批，385,341 个文件；每批均完成上传、完整下载 SHA-256 与成员核验，然后清理本地源文件。任务状态为 `inventory_untracked_complete`，不是整个旧项目备份完成。旧 Git/LFS、受 Git 跟踪文件及完整工作区源码仍保留，需单独备份验证后才可清理。
 
 当前发布分支为 `refactor/standalone-local-training`。项目保持白名单结构；旧结果不合并回源码目录。归档清单保存在旧项目的 `cbwce_archive/catalogs`，云端批次 manifest 用于按需恢复；凭据不进入 Git。
+
+## 完整旧仓库备份与清理任务（2026-11-18）
+
+用户已明确授权：完整归档验证后删除旧仓库。`backup_legacy_repository.py` 由独立用户服务 `cbwce-legacy-backup` 执行；状态和日志分别为旧目录 `cbwce_archive/catalogs/legacy_backup_status.json`、`legacy_backup.log`。
+
+范围为剩余旧文件（包含完整 `.git`、LFS、未提交修改和未跟踪文件），排除并保留 `cbwce_standalone`、`cbwce_archive`、`.agents`、`.aws`、`.codex`、`.vscode`。任何符号链接、变化的源文件或校验错误均会中止流程。云端目标为既有私有归档根下 `01_legacy_source/legacy_complete_20261118`。
+
+只有完整下载、逐文件恢复哈希、Git refs、`git fsck --full` 和 LFS 内容哈希通过，且源文件再次核对未变化后，才执行逐文件清理。云端 manifest 和 verification 记录先于删除发布。完整本地备份及恢复副本暂保留至最终交接检查，不立即删除。`legacy_cleaned_backup_retained` 才表示旧文件清理完成；任务启动不等于完成。失败后需检查状态再恢复，不盲目重跑或删除已有备份。
