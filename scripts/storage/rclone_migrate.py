@@ -39,7 +39,7 @@ def main():
     signal.signal(signal.SIGUSR1, lambda *_: stop.append(True))
     env = dict(os.environ, XDG_CACHE_HOME='/tmp/cbwce-rclone-cache')
     base = [a.rclone, '--config', str(a.config), '--cache-dir', '/tmp/cbwce-rclone-cache',
-            '--retries', '5', '--low-level-retries', '10']
+            '--retries', '5', '--low-level-retries', '10', '--stats', '60s', '--stats-log-level', 'NOTICE', '--timeout', '5m']
     def rc(*args):
         return subprocess.check_output(base + list(map(str, args)), env=env, text=True)
     def state(phase, n):

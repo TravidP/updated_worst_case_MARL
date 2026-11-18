@@ -71,7 +71,9 @@ cbwce_standalone/
 | [envs/env.py](envs/env.py) | Base simulator, phase, observation and node definitions |
 | [envs/large_grid_env.py](envs/large_grid_env.py), [envs/real_net_env.py](envs/real_net_env.py) | Network-specific topology and observation interfaces |
 
-Only `ma2c`, `dql` and `ppo` are exposed by the CLI. Retained legacy helper classes do not enable IA2C/IQLL experiments. MA2C/PPO use separate actor/critic networks with LSTM 64; DQL is feedforward. Architecture and hyperparameter fairness are explained in plan Section 3.
+Only `ma2c`, `dql` and `ppo` are exposed by the CLI. Retained legacy helper classes do not enable IA2C/IQLL experiments. MA2C/PPO use separate actor/critic networks with LSTM 64. DQL uses wave 128 encoders → LSTM 64 → Q, with identical online/target architectures. DQL uses `sequence_length=16` for training and inference: each batch samples 64 endpoints and reconstructs contiguous histories, stopping at episode boundaries and masking left padding. Full checkpoints preserve inference histories; old feedforward DQL checkpoints are incompatible. Architecture and hyperparameter fairness are explained in plan Section 3.
+
+Both Grid and Monaco use **wave-only traffic observations** for MA2C, DQL, PPO and WCE. Controllers retain local/neighbor wave inputs and MA2C retains neighbor fingerprints. WCE concatenates only padded per-node wave vectors: Grid CNN input is 25 × 6 = 150 (6 channels, previously 300 / 12 channels); Monaco GCN input is 28 × 11 = 308 (each node padded to 11 monitored lanes). Wave retains the existing measurement semantics: detector-area vehicle counts in Grid and lane vehicle counts in Monaco, divided by `norm_wave` and clipped by `clip_wave`. Waiting time is not an input; queue-based rewards are unchanged. The six controller INIs enforce `observation = wave`; unused `num_ft`, `norm_wait`, `clip_wait` and `fast_wait_metric` settings have been removed. New observation signatures reject checkpoints from the previous observation schema; restart training and regenerate dependent WCE checkpoints.
 
 ### Experiment modules
 

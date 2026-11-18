@@ -109,3 +109,9 @@ Google Drive 归档继续，与目录整理并行；未因代码分支工作停�
 授权配置在项目之外的 `~/.config/rclone/cbwce-archive-20261116.conf`（0600）；便携二进制为 `~/.local/bin/cbwce-rclone`。两者不进入代码发布包。运行状态和日志保存在旧项目 `cbwce_archive/catalogs/rclone_worker.json`、`rclone_worker.log`。归档仍在进行，不表示整体迁移完成；旧仓库 Git/LFS 与未提交源码继续保留。
 
 完成第 12 批后：已校验并清理 191,761 个文件，逻辑大小 45,855,008,917 字节，按删除最后一个硬链接统计释放约 43.1 GiB。此时磁盘可用约 212.8 GiB；最新数值以 `status.py` 输出为准。
+
+## 2026-11-18 输出归档完成核对
+
+原始清单内未跟踪输出已全部处理，141 批，385,341 个文件；每批均完成上传、完整下载 SHA-256 与成员核验，然后清理本地源文件。任务状态为 `inventory_untracked_complete`，不是整个旧项目备份完成。旧 Git/LFS、受 Git 跟踪文件及完整工作区源码仍保留，需单独备份验证后才可清理。
+
+当前发布分支为 `refactor/standalone-local-training`。项目保持白名单结构；旧结果不合并回源码目录。归档清单保存在旧项目的 `cbwce_archive/catalogs`，云端批次 manifest 用于按需恢复；凭据不进入 Git。

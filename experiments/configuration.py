@@ -21,7 +21,7 @@ COMMON_MODEL = {
 }
 ACTOR_CRITIC_MODEL = {
     'entropy_coef_init', 'entropy_coef_min', 'entropy_decay',
-    'entropy_decay_steps', 'value_coef', 'num_lstm', 'num_fw', 'num_ft',
+    'entropy_decay_steps', 'value_coef', 'num_lstm', 'num_fw',
     'adv_norm',
 }
 MODEL_KEYS = {
@@ -34,12 +34,14 @@ MODEL_KEYS = {
         'adam_epsilon', 'buffer_size', 'epsilon_init', 'epsilon_min',
         'epsilon_decay', 'epsilon_decay_steps', 'updates_per_trigger',
         'update_interval', 'learning_starts', 'target_interval',
+        'num_fw', 'num_lstm', 'sequence_length',
     },
 }
 ENV_COMMON = {
-    'clip_wave', 'clip_wait', 'control_interval_sec', 'agent', 'coop_gamma',
-    'data_path', 'episode_length_sec', 'norm_wave', 'norm_wait', 'coef_wait',
-    'objective', 'scenario', 'yellow_interval_sec', 'fast_wait_metric',
+    'observation',
+    'clip_wave', 'control_interval_sec', 'agent', 'coop_gamma',
+    'data_path', 'episode_length_sec', 'norm_wave', 'coef_wait',
+    'objective', 'scenario', 'yellow_interval_sec',
     'sim_progress_log_sec', 'step_stage_warn_sec', 'trainer_stage_warn_sec',
     'stall_watchdog_sec', 'stall_watchdog_poll_sec',
 }
@@ -48,8 +50,9 @@ ENV_NETWORK = {
     'monaco': {'flow_rate'},
 }
 ENV_REQUIRED = {
-    'clip_wave', 'clip_wait', 'control_interval_sec', 'agent', 'coop_gamma',
-    'data_path', 'episode_length_sec', 'norm_wave', 'norm_wait', 'coef_wait',
+    'observation',
+    'clip_wave', 'control_interval_sec', 'agent', 'coop_gamma',
+    'data_path', 'episode_length_sec', 'norm_wave', 'coef_wait',
     'objective', 'scenario', 'yellow_interval_sec',
 }
 WCE_KEYS = {'adv_norm',
@@ -142,6 +145,8 @@ def load_controller_config(network, family, path=None, seed=1):
     }
     _exact_keys(model, MODEL_KEYS[family], required, family)
     _exact_keys(env, ENV_COMMON | ENV_NETWORK[network], ENV_REQUIRED | ENV_NETWORK[network], network)
+    if env.get('observation') != 'wave':
+        raise ValueError('Standalone observations must be wave only')
     expected_scenario = 'large_grid' if network == 'grid' else 'real_net'
     if env.get('agent') != family or env.get('scenario') != expected_scenario:
         raise ValueError('Configuration identity does not match {}/{}'.format(network, family))
@@ -160,7 +165,7 @@ def load_controller_config(network, family, path=None, seed=1):
                       'value_coef', 'rmsp_alpha', 'rmsp_epsilon', 'adam_epsilon',
                       'epsilon_init', 'epsilon_min'}, family,
               allow_zero={'entropy_coef_init', 'entropy_coef_min', 'epsilon_min'})
-    _integers(model, {'batch_size', 'num_lstm', 'num_fw', 'num_ft', 'num_fp',
+    _integers(model, {'sequence_length', 'batch_size', 'num_lstm', 'num_fw', 'num_fp',
                       'buffer_size', 'update_interval', 'updates_per_trigger',
                       'ppo_n_epoch', 'lr_decay_steps', 'entropy_decay_steps',
                       'epsilon_decay_steps', 'learning_starts', 'target_interval', 'tf_operation_timeout_ms',
@@ -183,10 +188,9 @@ def load_controller_config(network, family, path=None, seed=1):
         if not 0 < model.getfloat('ppo_clip_ratio') < 1 or model.getint('ppo_n_epoch') < 1:
             raise ValueError('Invalid PPO clip ratio or epoch count')
     _positive(env, {'control_interval_sec', 'episode_length_sec', 'norm_wave',
-                    'norm_wait', 'clip_wave', 'clip_wait', 'coop_gamma',
+                    'clip_wave', 'coop_gamma',
                     'peak_flow1', 'peak_flow2', 'flow_rate'}, network,
               allow_zero={'coop_gamma'})
-    _booleans(env, {'fast_wait_metric'}, network)
     # Runtime identity comes from CLI/protocol, not from the tracked INI.
     env['seed'] = str(int(seed))
     env['test_seeds'] = ','.join(map(str, protocol['sumo_seeds'][:3]))

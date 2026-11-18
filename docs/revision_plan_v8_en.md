@@ -50,17 +50,17 @@ Produce separate code, input and run releases with inventories and SHA-256 check
 
 Remove IA2C from the new matrix. Preserve MA2C neighbor observations, fingerprints, neighborhood rewards and LSTM. Normalize advantages over valid samples, excluding padding. Read the neighborhood coefficient from configuration, default 0.9. Inspect entropy/policy gradients, effective value-loss coefficients, reward clipping and gradient clipping. Scale rewards once at the learner boundary. Retain n-step returns without introducing GAE; MA2C updates once per rollout.
 
-Replace linear `iqll` with independent DQL networks: `128 ReLU → 64 ReLU → Q`. Use distinct online/target networks, uniform replay, Huber loss and epsilon-greedy exploration; greedy evaluation. Do not add Double DQN, dueling heads or prioritized replay.
+Replace linear `iqll` with independent DQL networks: `wave 128 → LSTM 64 → Q`. Use distinct online/target networks, uniform replay, Huber loss and epsilon-greedy exploration; greedy evaluation. Do not add Double DQN, dueling heads or prioritized replay.
 
 | Parameter | MA2C | PPO | DQL |
 |---|---:|---:|---:|
 | Learning rate | 5e-4 | 3e-4 | 1e-4 |
 | Discount | 0.99 | 0.99 | 0.99 |
 | Optimizer | RMSProp | Adam | Adam |
-| LSTM | 64 | 64 | None |
+| LSTM | 64 | 64 | 64 (16-step window) |
 | Advantage normalization | On | On | Not applicable |
 | Contiguous rollout length | 120 joint control steps | 120 joint control steps | Not applicable; append transitions to replay |
-| Samples per intersection per optimization | 120 valid samples from the current rollout; final segment may be shorter | The same 120 valid rollout samples; final segment may be shorter | 64 historical transitions randomly sampled from replay |
+| Samples per intersection per optimization | 120 valid samples from the current rollout; final segment may be shorter | The same 120 valid rollout samples; final segment may be shorter | 64 uniformly sampled replay endpoints, each with up to 16 history steps |
 | Updates | Once/rollout | Four epochs on the same rollout; each currently uses the entire valid sequence | After warm-up, one optimization per intersection every four joint control steps |
 | Entropy | 0.01 | 0.01 | Not applicable |
 | PPO clip | — | 0.2 | — |
@@ -84,17 +84,19 @@ Match simulator/action interfaces within each network, environment-interaction b
 
 ### 3.2 Must the neural networks match?
 
-**The current architectures differ. Retain DQL's `128 → 64` MLP for the primary experiment rather than adding an LSTM solely to match layer labels.** The following reflects `agents/recurrent.py`, `agents/controller.py`, `agents/dql.py` and both networks' INI files; encoder widths are distinct from input dimensions.
+DQL now uses the same wave encoder widths and LSTM gate equations as PPO and MA2C. MA2C/PPO retain separate actor and critic networks; DQL retains separate online and target Q networks.
 
 | Controller | Current per-intersection network | Observation and memory |
 |---|---|---|
-| MA2C | Wave encoder 128; separate wait encoder 32 when present; fingerprint encoder 64; concatenate, then LSTM 64; actor outputs action probabilities and critic outputs scalar V | Local/neighbor wave, available local wait and neighbor fingerprints; configured weighting of neighbor wave; temporal memory |
-| PPO | Wave encoder 128; separate wait encoder 32 when present; concatenate, then LSTM 64; actor outputs action probabilities and critic outputs scalar V | Local/neighbor wave and available local wait; no MA2C fingerprints; temporal memory |
-| DQL | Full observation → Dense 128 ReLU → Dense 64 ReLU → one Q-value per action; identically shaped online and target networks | Local/neighbor observations returned by the DQL environment, without removing neighbor inputs; no fingerprints or LSTM |
+| MA2C | Wave 128; fingerprint 64; LSTM 64; separate policy/V outputs | Neighbor fingerprints and recurrent state across the episode |
+| PPO | Wave 128; LSTM 64; separate policy/V outputs | No fingerprints; recurrent state across the episode |
+| DQL | Wave 128; LSTM 64; Q per action | No fingerprints; bounded 16-step history |
 
-MA2C/PPO currently have separate actor and critic encoders/LSTMs, not a shared backbone with two heads. DQL's Dense 64 is not an LSTM 64; matching numbers do not match capacity. Report DQL's trainable online parameters separately from storage including the target, which is not another trainable decision network.
+DQL samples 64 transition endpoints uniformly and reconstructs each contiguous history from fixed-capacity replay. Histories stop at terminal boundaries or the oldest retained transition. Left padding is masked. Online and target windows each start from zero state, matching bounded-window inference; the target window shifts the history and appends the next observation. Only the endpoint receives a Huber TD loss, with gradients through the valid history (no separate detached burn-in). `sequence_length=16` is a configurable project choice, not a tuned optimum. Full checkpoints preserve inference histories and replay; architecture identity rejects old feedforward checkpoints.
 
-The primary experiment compares controller systems and the benefits of five continuation methods within each controller. MA2C has additional fingerprints and DQL lacks recurrent memory, so cross-controller differences cannot be attributed solely to the optimization algorithm. A later algorithm-only claim requires a separate ablation matching base observations, encoders, memory and rewards; do not silently replace the existing MA2C/PPO here. Adding recurrence to DQL requires sequence replay, burn-in, hidden-state handling and new recovery verification: a separate recurrent-DQN experiment, not a required change in this revision.
+Report online trainable parameters separately from storage including the target network. Shared LSTM widths do not make the systems identical: MA2C has fingerprints, and DQL has finite history and replay while MA2C/PPO carry episode state. Algorithm-only conclusions still require matched-input and memory ablations.
+
+Both Grid and Monaco use **wave-only traffic observations** for MA2C, DQL, PPO and WCE. Controllers retain local/neighbor wave inputs and MA2C retains neighbor fingerprints. WCE concatenates only padded per-node wave vectors: Grid CNN input is 25 × 6 = 150 (6 channels, previously 300 / 12 channels); Monaco GCN input is 28 × 11 = 308 (each node padded to 11 monitored lanes). Wave retains the existing measurement semantics: detector-area vehicle counts in Grid and lane vehicle counts in Monaco, divided by `norm_wave` and clipped by `clip_wave`. Waiting time is not an input; queue-based rewards are unchanged. The six controller INIs enforce `observation = wave`; unused `num_ft`, `norm_wait`, `clip_wait` and `fast_wait_metric` settings have been removed. New observation signatures reject checkpoints from the previous observation schema; restart training and regenerate dependent WCE checkpoints.
 
 | Reward divisor | MA2C | PPO | DQL |
 |---|---:|---:|---:|

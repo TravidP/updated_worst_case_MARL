@@ -1,6 +1,6 @@
 # 新训练分支的目录与必要文件
 
-远端仓库：`TravidP/updated_worst_case_MARL`。新分支：`training/local-v8.3`。
+远端仓库：`TravidP/updated_worst_case_MARL`。新分支：`refactor/standalone-local-training`。
 本地工作目录仍叫 `cbwce_standalone`；推送后其内容直接位于分支根目录，不在 GitHub 上再套一层同名目录。无需复制旧项目或修改旧 `main`、`revision`。
 
 ```text
@@ -46,7 +46,7 @@ repository root/
 ## 获取与本地检查
 
 ```bash
-git clone --single-branch --branch training/local-v8.3 --depth 1 \
+git clone --single-branch --branch refactor/standalone-local-training --depth 1 \
   https://github.com/TravidP/updated_worst_case_MARL.git updated_worst_case_MARL-local
 cd updated_worst_case_MARL-local
 # 使用已有 Python 3.10 环境；若需新环境再安装锁定依赖：
@@ -63,7 +63,7 @@ bash scripts/run_local.sh check --network monaco
 
 ## 当前发布分支
 
-整理后的独立项目发布在现有 GitHub 仓库的 `refactor/standalone-local-training` 分支，项目文件直接位于仓库根目录。本地目录仍名为 `cbwce_standalone`，以保持正在运行的归档脚本路径有效。旧 `main`、`revision` 和 `training/local-v8.3` 分支保留。
+整理后的独立项目发布在现有 GitHub 仓库的 `refactor/standalone-local-training` 分支，项目文件直接位于仓库根目录。本地目录仍名为 `cbwce_standalone`，以保持正在运行的归档脚本路径有效。旧 `main`、`revision` 分支保留；临时分支已删除。
 
 克隆精简分支（不下载其他分支历史）：
 

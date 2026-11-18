@@ -230,14 +230,13 @@ class RevisedMixin:
         return self._get_state(), rewards, self.cur_sec == self.episode_length_sec
 
     def wce_observation(self):
+        """Node-major wave features only, padded to a common lane width."""
         self._measure_state_step()
         features = []
         for name in self.wce_nodes:
             node = self.nodes[name]
             wave = np.pad(node.wave_state, (0, self.feature_width - len(node.wave_state)), 'constant')
             features.extend(wave)
-            if self.network == 'grid':
-                features.extend(np.pad(node.wait_state, (0, self.feature_width - len(node.wait_state)), 'constant'))
         return np.asarray(features, dtype=np.float32)
 
     def adjacency(self):

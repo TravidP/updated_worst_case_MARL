@@ -73,7 +73,9 @@ cbwce_standalone/
 | [envs/env.py](envs/env.py) | 基础交通仿真、相位、观测和节点定义 |
 | [envs/large_grid_env.py](envs/large_grid_env.py)、[envs/real_net_env.py](envs/real_net_env.py) | 地图拓扑与观测接口 |
 
-CLI 仅开放 `ma2c`、`dql`、`ppo`；辅助文件保留旧类不代表支持 `ia2c`／`iqll` 实验。MA2C/PPO 含 LSTM 64，actor、critic 分开；DQL 无 LSTM。网络结构和参数公平性说明见计划第 3 节。
+CLI 仅开放 `ma2c`、`dql`、`ppo`；辅助文件保留旧类不代表支持 `ia2c`／`iqll` 实验。MA2C/PPO 含 LSTM 64，actor、critic 分开；DQL 使用 wave 128 编码 → LSTM 64 → Q，online 与 target 同形。DQL 的 `sequence_length=16` 控制训练与推理的历史窗口；每批 64 个随机终点，各自重建连续历史，遇 episode 边界截断并屏蔽左侧补零。完整 checkpoint 保存推理历史，旧版前馈 DQL checkpoint 不兼容。网络结构和参数公平性说明见计划第 3 节。
+
+Grid 与 Monaco 的 MA2C、DQL、PPO 和 WCE 均使用 **仅 wave 的交通观测**。控制器保留本地／邻居 wave，MA2C 保留邻居 fingerprint 通信特征。WCE 仅拼接按节点补齐的 wave：Grid CNN 输入为 25 × 6 = 150 维（6 通道，原为 300 维／12 通道）；Monaco GCN 输入为 28 × 11 = 308 维（每节点补齐到 11 条监测车道）。wave 沿用原采样口径：Grid 为检测区域车辆数，Monaco 为车道车辆数，经 `norm_wave` 归一化和 `clip_wave` 截断。等待时间不作为输入，queue 奖励保持不变。六套控制器 INI 固定 `observation = wave`，移除了无效的 `num_ft`、`norm_wait`、`clip_wait`、`fast_wait_metric` 参数。新的观测签名拒绝旧观测版本 checkpoint；需重新训练并生成配套 WCE checkpoint。
 
 ### 3.2 实验编排
 

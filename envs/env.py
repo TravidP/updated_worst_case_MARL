@@ -103,9 +103,9 @@ class TrafficSimulator:
         self.coop_gamma = config.getfloat('coop_gamma')
         self.cur_episode = 0
         self.norms = {'wave': config.getfloat('norm_wave'),
-                      'wait': config.getfloat('norm_wait')}
+                      'wait': config.getfloat('norm_wait', fallback=1.)}
         self.clips = {'wave': config.getfloat('clip_wave'),
-                      'wait': config.getfloat('clip_wait')}
+                      'wait': config.getfloat('clip_wait', fallback=-1.)}
         self.coef_wait = config.getfloat('coef_wait')
         self.fast_wait_metric = config.getboolean('fast_wait_metric', fallback=False)
         self.sim_progress_log_sec = config.getint('sim_progress_log_sec', fallback=0)

@@ -1,0 +1,11 @@
+{
+  "batches": 141,
+  "cloud_manifest_missing": [],
+  "remote_files": 343,
+  "tests_passed": 29,
+  "map_checks": [
+    "grid",
+    "monaco"
+  ],
+  "scope": "Inventoried untracked outputs only; legacy Git/LFS not yet fully backed up"
+}

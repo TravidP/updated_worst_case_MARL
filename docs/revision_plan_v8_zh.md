@@ -52,17 +52,17 @@ cbwce_archive/    # 经校验的长期成果，项目外
 
 IA2C 从新矩阵移除；MA2C 保留邻居观测、fingerprint、邻域奖励和 LSTM。开启有效样本 advantage normalization，排除 padding；邻居奖励权重从配置读取，默认 0.9。检查 entropy 梯度、策略梯度、value loss 的有效系数、奖励裁剪和梯度裁剪。奖励只在 learner 边界缩放一次。保留 n-step return，不同时引入 GAE；MA2C 每 rollout 更新一次。
 
-DQL 替换线性 `iqll`，每路口独立 `128 ReLU → 64 ReLU → Q`；独立 online／target 网络，均匀 replay、Huber loss、epsilon-greedy，验证使用 greedy。不加入 Double DQN、Dueling 或 prioritized replay。
+DQL 替换线性 `iqll`，每路口独立 `wave 128 → LSTM 64 → Q`；独立 online／target 网络，均匀 replay、Huber loss、epsilon-greedy，验证使用 greedy。不加入 Double DQN、Dueling 或 prioritized replay。
 
 | 参数 | MA2C | PPO | DQL |
 |---|---:|---:|---:|
 | 学习率 | 5e-4 | 3e-4 | 1e-4 |
 | gamma | 0.99 | 0.99 | 0.99 |
 | 优化器 | RMSProp | Adam | Adam |
-| LSTM | 64 | 64 | 无 |
+| LSTM | 64 | 64 | 64（16 步窗口） |
 | Advantage normalization | 开 | 开 | 不适用 |
 | 连续 rollout 长度 | 120 个联合控制步 | 120 个联合控制步 | 不适用，逐步写入 replay |
-| 每路口一次优化的数据量 | 当前 rollout 的 120 个有效样本；末段可更短 | 同一 rollout 的 120 个有效样本；末段可更短 | replay 随机抽取 64 个历史转移 |
+| 每路口一次优化的数据量 | 当前 rollout 的 120 个有效样本；末段可更短 | 同一 rollout 的 120 个有效样本；末段可更短 | replay 随机抽取 64 个转移终点，各带最多 16 步历史 |
 | 更新 | 每 rollout 一次 | 同一 rollout 四轮，当前实现每轮使用整个有效序列 | warm-up 后，每 4 个联合控制步、每路口优化一次 |
 | Entropy | 0.01 | 0.01 | 不适用 |
 | PPO clip | — | 0.2 | — |
@@ -86,17 +86,19 @@ DQL 替换线性 `iqll`，每路口独立 `128 ReLU → 64 ReLU → Q`；独立 
 
 ### 3.2 神经网络是否需要相同
 
-**当前结构不同，主实验建议保留 DQL 的 `128 → 64` MLP，不为凑齐结构给它添加 LSTM。** 以下根据 `agents/recurrent.py`、`agents/controller.py`、`agents/dql.py` 和两地图 INI 配置核对；分支宽度与输入维数是不同概念。
+DQL 现已参考 PPO／MA2C 的 wave 编码宽度与 LSTM 门控方程。MA2C/PPO 保留独立 actor、critic；DQL 保留独立 online、target Q 网络。
 
 | 控制器 | 每路口当前网络 | 观测与记忆 |
 |---|---|---|
-| MA2C | wave 编码 128；wait 存在时单独编码 32；fingerprint 编码 64；拼接后进入 LSTM 64；actor 输出动作概率，critic 输出标量 V | 本地与邻居 wave、可用的本地 wait、邻居 fingerprint；邻居 wave 按配置加权；具有时序记忆 |
-| PPO | wave 编码 128；wait 存在时单独编码 32；拼接后进入 LSTM 64；actor 输出动作概率，critic 输出标量 V | 本地与邻居 wave、可用的本地 wait；无 MA2C fingerprint；具有时序记忆 |
-| DQL | 完整观测 → Dense 128 ReLU → Dense 64 ReLU → 每个动作一个 Q 值；online 与 target 两套同形网络 | 使用环境为 DQL 返回的本地／邻居观测，不额外删除邻居输入；无 fingerprint、无 LSTM |
+| MA2C | wave 128；fingerprint 64；LSTM 64；独立 policy/V 输出 | 含邻居 fingerprint；跨 episode 内步骤传递循环状态 |
+| PPO | wave 128；LSTM 64；独立 policy/V 输出 | 无 fingerprint；跨 episode 内步骤传递循环状态 |
+| DQL | wave 128；LSTM 64；每动作 Q 值 | 无 fingerprint；最多 16 步历史窗口 |
 
-MA2C/PPO 的 actor 和 critic 各有自己的编码器与 LSTM，当前不是共享一个 backbone 后分两个 head。DQL 的第二个 Dense 64 也不是 LSTM 64；相同数字不代表相同容量。报告 DQL 的可训练 online 参数量和包含 target 的总存储量，不能把 target 当成第二个可训练决策网络。
+DQL 均匀抽取 64 个转移终点，从定长 replay 重建各自连续历史，遇 terminal 或最早保留的转移时停止，左侧补零通过 mask 屏蔽。online 与 target 窗口均从零状态开始，与有限窗口推理一致；target 窗口左移并追加 next observation。仅终点计算 Huber TD loss，梯度通过有效历史传播，不另设截断梯度的 burn-in。`sequence_length=16` 是可配置的工程起点，尚非调优结论。完整 checkpoint 保存推理历史和 replay；架构标识拒绝旧版前馈 checkpoint。
 
-主实验比较的是不同控制器系统，以及各控制器内部五种续训策略的收益。MA2C 具有额外 fingerprint，DQL 没有循环记忆，因此跨控制器性能差不能只归因于优化算法。若后续需要“只改变算法”的结论，应单列匹配基础观测、编码器、记忆机制和奖励定义的消融；不在本轮悄悄替换既有 MA2C/PPO。给 DQL 加 LSTM 会引入序列 replay、burn-in、隐状态处理与新的恢复验证，属于另一个 recurrent DQN 实验，不是本次必需修改。
+可训练 online 参数量与含 target 的存储量分别报告。相同 LSTM 宽度不代表系统完全相同：MA2C 有 fingerprint，DQL 使用有限历史和 replay，MA2C/PPO 传递 episode 内状态。只归因于算法的结论仍需匹配输入与记忆机制的消融。
+
+Grid 与 Monaco 的 MA2C、DQL、PPO 和 WCE 均使用 **仅 wave 的交通观测**。控制器保留本地／邻居 wave，MA2C 保留邻居 fingerprint 通信特征。WCE 仅拼接按节点补齐的 wave：Grid CNN 输入为 25 × 6 = 150 维（6 通道，原为 300 维／12 通道）；Monaco GCN 输入为 28 × 11 = 308 维（每节点补齐到 11 条监测车道）。wave 沿用原采样口径：Grid 为检测区域车辆数，Monaco 为车道车辆数，经 `norm_wave` 归一化和 `clip_wave` 截断。等待时间不作为输入，queue 奖励保持不变。六套控制器 INI 固定 `observation = wave`，移除了无效的 `num_ft`、`norm_wait`、`clip_wait`、`fast_wait_metric` 参数。新的观测签名拒绝旧观测版本 checkpoint；需重新训练并生成配套 WCE checkpoint。
 
 | 奖励除数 | MA2C | PPO | DQL |
 |---|---:|---:|---:|

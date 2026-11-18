@@ -20,7 +20,7 @@ import pandas as pd
 sns.set_color_codes()
 
 
-STATE_NAMES = ['wave', 'wait']
+STATE_NAMES = ['wave']
 PHASE_NUM = 5
 SCENARIO_DURATION = 600  # 10 minutes per CSV group
 # map from ild order (alphabeta) to signal order (clockwise from north)

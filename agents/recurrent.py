@@ -61,3 +61,29 @@ class CompactPolicy(CompactNetwork, LstmACPolicy):
 
 class CompactFingerprintPolicy(CompactNetwork, FPLstmACPolicy):
     pass
+
+
+def window_lstm(xs, mask, width, scope):
+    """Batched finite histories using the same gates/initializers as MA2C/PPO.
+
+    Each window starts with zero memory. Left padding leaves memory untouched;
+    gradients pass through all valid history steps to the final Q prediction.
+    """
+    with tf.variable_scope(scope):
+        wx = tf.get_variable('wx', [int(xs.shape[2]), width * 4], initializer=DEFAULT_METHOD(DEFAULT_SCALE, DEFAULT_MODE))
+        wh = tf.get_variable('wh', [width, width * 4], initializer=DEFAULT_METHOD(DEFAULT_SCALE, DEFAULT_MODE))
+        bias = tf.get_variable('b', [width * 4], initializer=tf.zeros_initializer())
+    zero = tf.zeros([tf.shape(xs)[0], width], tf.float32)
+
+    def body(index, c, h):
+        z = tf.matmul(xs[:, index], wx) + tf.matmul(h, wh) + bias
+        i, f, o, u = tf.split(z, 4, axis=1)
+        next_c = tf.sigmoid(f) * c + tf.sigmoid(i) * tf.tanh(u)
+        next_h = tf.sigmoid(o) * tf.tanh(next_c)
+        valid = mask[:, index:index + 1]
+        return index + 1, valid * next_c + (1. - valid) * c, valid * next_h + (1. - valid) * h
+
+    _, _, h = tf.while_loop(lambda index, *_: index < tf.shape(xs)[1], body,
+                            (tf.constant(0), zero, zero), parallel_iterations=1)
+    h.set_shape([None, width])
+    return h

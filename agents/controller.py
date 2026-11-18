@@ -95,6 +95,8 @@ class Controller:
         return super().__new__(cls)
 
     def __init__(self, env, family, seed, training=True):
+        if any(env.n_w_ls):
+            raise ValueError('Standalone controllers require wave-only observations')
         self.training = training
         from experiments.protocol import scientific_config
         self.family = family
@@ -119,7 +121,7 @@ class Controller:
         self.batch_histogram = {}
         self.graph = tf.Graph()
         self.policies = []
-        self.signature = {'kind': 'controller', 'network': env.network, 'family': family,
+        self.signature = {'observation': 'wave_v1', 'kind': 'controller', 'network': env.network, 'family': family,
                           'n_s': list(map(int, env.n_s_ls)), 'n_a': list(map(int, env.n_a_ls)),
                           'n_w': list(map(int, env.n_w_ls)), 'n_f': list(map(int, env.n_f_ls)),
                           'config': scientific_config(env.config),
@@ -135,7 +137,6 @@ class Controller:
                                    self.config.getfloat('adam_epsilon'))
                 else:
                     common = dict(n_fc_wave=self.config.getint('num_fw'),
-                                  n_fc_wait=self.config.getint('num_ft'),
                                   n_lstm=self.config.getint('num_lstm'), name=name)
                     if family == 'ma2c':
                         p = CompactFingerprintPolicy(ns - nw - nf, na, nw, nf, self.batch,

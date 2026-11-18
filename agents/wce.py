@@ -24,10 +24,13 @@ class WCE:
         self.macro_steps = 0
         self.graph = tf.Graph()
         size = len(env.wce_observation())
+        if size != len(env.wce_nodes) * env.feature_width:
+            raise ValueError('WCE requires one wave vector per node')
         self.signature = {'kind': 'wce', 'network': env.network, 'input_size': size,
                           'nodes': env.wce_nodes, 'features': env.feature_width,
                           'adjacency': env.adjacency().tolist(), 'assets': env.asset_hashes,
-                          'config': dict(self.config), 'architecture_version': 1,
+                          'config': dict(self.config), 'architecture_version': 2,
+                          'observation': 'wave_v1',
                           'protocol_version': '8.1', 'action_size': 11,
                           'reward': 'mean_queue_learner_boundary_scaled_v3'}
         with self.graph.as_default(), initialization_stream(self.rng['initialization']):

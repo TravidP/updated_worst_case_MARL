@@ -1,10 +1,12 @@
-"""Independent DQN controllers with fixed-array replay and separate targets."""
+"""Independent recurrent DQN with bounded history replay and separate targets."""
 import json
 from pathlib import Path
 import numpy as np
 from tf_compat import tf
 from experiments.core import Streams
 from experiments.protocol import scientific_config
+from agents.recurrent import window_lstm
+from agents.utils import fc
 
 class Replay:
     def __init__(self, capacity, dimensions):
@@ -21,6 +23,33 @@ class Replay:
             for name,value in [('obs',obs[i]),('next_obs',next_obs[i]),('action',actions[i]),
                                ('reward',rewards[i]),('terminal',terminal)]: a[name][k]=value
         self.size=min(self.size+1,self.capacity); self.cursor=(k+1)%self.capacity
+
+    def sequences(self, agent, indices, length):
+        """Left-pad histories, stopping at terminal or the oldest retained item.
+
+        Sample endpoints uniformly; only the endpoint contributes a TD loss.
+        The preceding observations reconstruct memory under current parameters.
+        """
+        data = self.arrays[agent]
+        indices = np.asarray(indices, dtype=np.int64)
+        obs = np.zeros((len(indices), length, data['obs'].shape[1]), np.float32)
+        mask = np.zeros((len(indices), length), np.float32)
+        oldest = self.cursor if self.size == self.capacity else 0
+        for row, endpoint in enumerate(indices):
+            k = int(endpoint)
+            for column in range(length - 1, -1, -1):
+                obs[row, column] = data['obs'][k]
+                mask[row, column] = 1.
+                if k == oldest:
+                    break
+                previous = (k - 1) % self.capacity
+                if data['terminal'][previous]:
+                    break
+                k = previous
+        next_obs = np.concatenate([obs[:, 1:], data['next_obs'][indices, None]], axis=1)
+        next_mask = np.concatenate([mask[:, 1:], np.ones((len(indices), 1), np.float32)], axis=1)
+        return dict(obs=obs, mask=mask, next_obs=next_obs, next_mask=next_mask,
+                    **{key: data[key][indices] for key in ('action', 'reward', 'terminal')})
 
     @property
     def nbytes(self): return sum(a.nbytes for agent in self.arrays for a in agent.values())
@@ -46,34 +75,42 @@ class Replay:
 class DQLController:
     def __init__(self, env, family, seed, training=True):
         from agents.controller import initialization_stream
+        if any(env.n_w_ls):
+            raise ValueError('Standalone controllers require wave-only observations')
         self.family=family; self.training=training;self.config=env.config['MODEL_CONFIG'];c=self.config
         self.rng=Streams(seed);self.learning_steps=0;self.scheduler_steps=0
         self.backward_calls=0;self.minibatch_updates=0;self.batch_histogram={};self.diagnostics=[]
         self.exploration_origin=0;self.continuation=False;self.previous_done=True
         self.batch=c.getint('batch_size');self.gamma=c.getfloat('gamma')
+        self.sequence_length=c.getint('sequence_length')
+        self.history=[[] for _ in env.n_s_ls]
         self.reward_norm=c.getfloat('reward_norm');self.reward_clip=c.getfloat('reward_clip')
-        self.signature=dict(kind='controller',network=env.network,family=family,n_s=list(map(int,env.n_s_ls)),
+        self.signature=dict(observation='wave_v1',kind='controller',network=env.network,family=family,n_s=list(map(int,env.n_s_ls)),
             n_a=list(map(int,env.n_a_ls)),config=scientific_config(env.config),assets=env.asset_hashes,
-            lanes=env.metric.lanes,reward='learner_boundary_scaled_v3',architecture='dqn_128_64_v1')
+            lanes=env.metric.lanes,reward='learner_boundary_scaled_v3',architecture='dqn_window_lstm_v2',n_w=list(map(int,env.n_w_ls)))
         self.replay=Replay(c.getint('buffer_size'),env.n_s_ls) if training else None
         self.graph=tf.Graph();self.policies=[];self.online=[];self.target=[];self.updates=[]
         with self.graph.as_default(), initialization_stream(self.rng['initialization']):
             tf.set_random_seed(seed)
             for i,(width,actions) in enumerate(zip(env.n_s_ls,env.n_a_ls)):
                 with tf.variable_scope('agent%d'%i):
-                    obs=tf.placeholder(tf.float32,[None,int(width)],name='obs')
-                    def net(x, scope):
+                    obs=tf.placeholder(tf.float32,[None,self.sequence_length,int(width)],name='obs')
+                    mask=tf.placeholder(tf.float32,[None,self.sequence_length],name='mask')
+                    def net(x, valid, scope):
                         with tf.variable_scope(scope):
-                            h=tf.layers.dense(x,128,activation=tf.nn.relu,name='fc1')
-                            h=tf.layers.dense(h,64,activation=tf.nn.relu,name='fc2')
+                            flat=tf.reshape(x,[-1,int(width)])
+                            h=fc(flat, 'fcw', c.getint('num_fw'))
+                            encoded=tf.reshape(h,[-1,self.sequence_length,int(h.shape[1])])
+                            h=window_lstm(encoded,valid,c.getint('num_lstm'),'lstm')
                             return tf.layers.dense(h,int(actions),name='q')
-                    q=net(obs,'online')
+                    q=net(obs,mask,'online')
                     online=tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES,scope='agent%d/online'%i)
                     self.online.extend(online)
-                    entry=dict(obs=obs,q=q)
+                    entry=dict(obs=obs,mask=mask,q=q)
                     if training:
-                        nxt=tf.placeholder(tf.float32,[None,int(width)],name='next_obs')
-                        tq=net(nxt,'target')
+                        nxt=tf.placeholder(tf.float32,[None,self.sequence_length,int(width)],name='next_obs')
+                        next_mask=tf.placeholder(tf.float32,[None,self.sequence_length],name='next_mask')
+                        tq=net(nxt,next_mask,'target')
                         target=tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES,scope='agent%d/target'%i)
                         self.target.extend(target)
                         action=tf.placeholder(tf.int32,[None]);reward=tf.placeholder(tf.float32,[None])
@@ -87,7 +124,7 @@ class DQLController:
                         metrics=dict(td_loss=loss,predicted_q=tf.reduce_mean(selected),target_q=tf.reduce_mean(y),grad_norm=norm)
                         with tf.control_dependencies(list(metrics.values())):
                             update=optimizer.apply_gradients(zip(clipped,online))
-                        entry.update(next_obs=nxt,action=action,reward=reward,terminal=terminal,lr=lr,
+                        entry.update(next_obs=nxt,next_mask=next_mask,action=action,reward=reward,terminal=terminal,lr=lr,
                                      update=update,metrics=metrics,target=y)
                 self.policies.append(entry)
             self.sync=[tf.assign(t,o) for o,t in zip(self.online,self.target)]
@@ -110,7 +147,9 @@ class DQLController:
         return 1.+(.01-1.)*min(1.,self.scheduler_steps/self.config.getint('epsilon_decay_steps'))
 
     def branch(self): self.continuation=True;self.exploration_origin=self.learning_steps
-    def reset(self): self.previous_done=True
+    def reset(self):
+        self.previous_done=True
+        self.history=[[] for _ in self.policies]
     def flush(self,*args,**kwargs): pass
     def transform_rewards(self,rewards):
         scaled=np.asarray(rewards,dtype=np.float32)/self.reward_norm
@@ -119,7 +158,18 @@ class DQLController:
 
     def act(self,obs,env,learning):
         if learning and not self.training:raise ValueError('Inference-only controller')
-        q=self.sess.run([p['q'] for p in self.policies],{p['obs']:[o] for p,o in zip(self.policies,obs)})
+        if self.previous_done:
+            self.history=[[] for _ in self.policies]
+        feed={}
+        for i,(p,o) in enumerate(zip(self.policies,obs)):
+            self.history[i].append(np.asarray(o,dtype=np.float32).copy())
+            self.history[i]=self.history[i][-self.sequence_length:]
+            count=len(self.history[i])
+            window=np.zeros((1,self.sequence_length,len(o)),np.float32)
+            mask=np.zeros((1,self.sequence_length),np.float32)
+            window[0,-count:]=self.history[i];mask[0,-count:]=1.
+            feed.update({p['obs']:window,p['mask']:mask})
+        q=self.sess.run([p['q'] for p in self.policies],feed)
         actions=[]
         for values in q:
             actions.append(int(self.rng['policy'].randint(values.shape[1])) if learning and self.rng['policy'].rand()<self.epsilon else int(np.argmax(values[0])))
@@ -134,8 +184,8 @@ class DQLController:
             if self.learning_steps>=self.config.getint('learning_starts') and self.replay.size>=self.batch and self.learning_steps%self.config.getint('update_interval')==0:
                 for i,p in enumerate(self.policies):
                     index=self.rng['replay'].choice(self.replay.size,self.batch,replace=False)
-                    data=self.replay.arrays[i]
-                    feed={p[k]:v[index] for k,v in data.items()};feed[p['lr']]=self.lr
+                    data=self.replay.sequences(i,index,self.sequence_length)
+                    feed={p[k]:v for k,v in data.items()};feed[p['lr']]=self.lr
                     metrics,_=self.sess.run([p['metrics'],p['update']],feed)
                     self.diagnostics.append(dict(metrics,agent=i,epsilon=self.epsilon,learning_steps=self.learning_steps))
                 self.backward_calls+=1;self.minibatch_updates+=1
@@ -145,9 +195,11 @@ class DQLController:
         return reward,clipped
 
     def state(self):
-        return dict(rng=self.rng.state(),**{k:getattr(self,k) for k in ('learning_steps','scheduler_steps',
+        return dict(rng=self.rng.state(),history=[[o.copy() for o in h] for h in self.history],**{k:getattr(self,k) for k in ('learning_steps','scheduler_steps',
             'backward_calls','minibatch_updates','batch_histogram','exploration_origin','continuation','previous_done')})
     def restore_state(self,state):
+        import copy
+        state=copy.deepcopy(state)
         self.rng.restore(state['rng'])
         for k,v in state.items():
             if k!='rng':setattr(self,k,v)
