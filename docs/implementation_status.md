@@ -74,3 +74,36 @@ At 50,000 joint transitions, replay arrays require 323,250,000 bytes for Grid an
 
 Hábrók 模板依据官方 [存储说明](https://wiki.hpc.rug.nl/habrok/migration/migration_habrok)、[配额](https://wiki.hpc.rug.nl/habrok/data_management/quota)、[Apptainer](https://wiki.hpc.rug.nl/habrok/examples/apptainer) 和 [Slurm 说明](https://wiki.hpc.rug.nl/habrok/job_management/scheduling_system) 核对。账户、配额和资源实测需在目标集群确认。
 Templates were checked against those official sources; account-specific quotas and resources still require target-cluster verification.
+
+
+## 2026-11-18：单次完整序列验证 / One complete validation sequence
+
+常规控制器验证改为一个固定实现：从空网络开始，连续运行 11 个 600 秒 DR 混合块，共 6600 秒。新增 `dr_sequence_v1` 校验和显式设计种子的 manifest 生成；平台确认补跑 9 次，合计 10 次。离线 WCE 的 10 → 30 和最终测试的 3600 秒保持不变。旧 validation manifest、分数、best/patience 与 gate 不可复用。
+
+Routine controller validation now uses one fixed realization of eleven consecutive 600-second DR blocks (6600 seconds), with no reset between blocks. The new `dr_sequence_v1` schema and seeded manifest generator distinguish this from historical validation. Confirmation adds nine realizations (ten total); offline WCE 10 → 30 and 3600-second final tests are unchanged. Old validation manifests, scores, best/patience and gates cannot be reused.
+
+本次验证：6 项既有协议测试、4 项新序列测试通过；覆盖完整 6600 秒／1320 次决策的模拟 worker、11 组连续性、总分与区间均值一致、九次补充确认、旧格式／不完整序列拒绝和最终测试保持 3600 秒。Grid 与 Monaco 各完成一次真实 SUMO 的 11×10=110 秒开发检查，通过独立验证子进程读取推理 checkpoint，并核对一个 rollout 与 11 个区间。CLI 的开发／冻结 manifest 生成与校验通过。未运行完整 6600 秒真实 SUMO 验证或正式训练；上述短流程不是收敛证据。
+
+Checks passed: six existing protocol tests and four new sequence tests, including a mocked full 6600-second/1320-decision worker, eleven-block continuity, overall/block score agreement, nine additional confirmation runs, rejection of old/incomplete designs and unchanged final-test horizons. Real SUMO checks on both Grid and Monaco each used one 11×10=110-second pilot through an independent validation subprocess loading an inference checkpoint. Development/frozen manifest generation and CLI validation passed. Full 6600-second real-SUMO validation and publication training were not run; short checks are not convergence evidence.
+
+
+## 2026-11-18：简化停止规则 / Simplified stopping (supersedes confirmation above)
+
+用户确认采用 `patience_v1`：达到阶段最少回合且连续 5 次常规验证无实质改善，即停止并选用历史 best。保留累计改善阈值 `max(anchor×0.01,0.1)`、最大预算和共同预算 best；微小改善仍保存 best，但不重置计数。episode 0 仅建立基线，计数随 checkpoint 保存和恢复。取消极差／斜率／距 best 的停止门槛，以及控制器九次、WCE 二十次补充确认。曲线诊断继续写入验证日志，训练 entropy/loss 不控制停止。控制器常规验证仍为一次完整 11 组，WCE 仍为十次常规验证。
+
+The accepted `patience_v1` rule stops after the stage minimum and five evaluations without meaningful improvement, selecting historical best. It retains cumulative threshold `max(anchor×0.01,0.1)`, budget caps and common-budget best. Small improvements save best without resetting patience; episode zero only establishes the baseline. Checkpoints preserve the counter. Range/slope/best-gap gates and additional controller/WCE confirmation are removed; diagnostics remain. Routine controller validation is one eleven-block sequence; routine WCE validation remains ten realizations.
+
+结果状态改为 `early_stopped`、`max_budget_reached`、`no_learning`；父模型／WCE 未改善也允许按 patience 停止。正式分叉及作业准备同步识别 `early_stopped`。旧停止状态拒绝直接恢复，必须使用新运行。验证覆盖 9 项协议／停止测试与 4 项序列测试：包含波动或退化时停止、最少回合、预算上限、微小与累计改善、WCE 最大化方向、计数恢复、旧状态拒绝，以及完整 11 组验证。此次未运行新的完整 SUMO 训练。
+
+Outcomes are `early_stopped`, `max_budget_reached` and `no_learning`; unimproved parents/WCE can stop by patience. Publication branching and job preparation recognize `early_stopped`. Old stopping state is rejected; start a new run. Verification covers nine protocol/stopping tests and four sequence tests, including noisy/degraded scores, minimum/cap enforcement, small/cumulative improvements, WCE maximization, restored counters, old-state rejection and eleven-block validation. No new full SUMO training was run for this stopping change.
+
+
+## 2026-11-18：开启 WCE advantage normalization / Enabled WCE advantage normalization
+
+Grid 与 Monaco 的 WCE 配置均设为 `adv_norm = true`。每次完整 11 宏步更新，对 actor advantage 做 `(A - mean(A)) / (std(A) + 1e-8)`；critic return 和奖励定义保持不变。日志保留标准化前后均值／标准差。配置加载器移除旧的禁用限制，同时校验布尔值。中英文计划和 README 已同步。
+
+Both WCE configurations now enable advantage normalization over each complete eleven-macro-step update. Only actor advantages are standardized; critic returns and rewards retain their definitions. Diagnostics include pre/post-normalization means and standard deviations. The loader accepts the boolean option instead of rejecting enabled normalization. Bilingual plans and READMEs are synchronized.
+
+6 项相关测试通过：配置与标准化输入测试 2 项，wave/WCE 回归测试 4 项；覆盖开关、常数 advantage、critic target 不变、两图 CNN/GCN 更新与 checkpoint 恢复。新配置会改变 WCE checkpoint 身份，旧 `adv_norm=false` checkpoint 不能直接按新配置加载。尚未开展新配置的完整训练或效果对比。
+
+Six relevant tests passed: two configuration/advantage-feed tests and four wave/WCE regressions, covering enabled/disabled behavior, constant advantages, unchanged critic targets, CNN/GCN updates and checkpoint restoration. The changed WCE configuration changes checkpoint identity; old `adv_norm=false` checkpoints cannot be directly loaded under the new configuration. Full training and performance comparisons have not been run.

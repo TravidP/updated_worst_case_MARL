@@ -9,9 +9,28 @@ from pathlib import Path
 import numpy as np
 from experiments.core import digest
 from experiments.storage import atomic_json
-from experiments.protocol import root
+from experiments.protocol import root, settings
 
 def seed(*parts):return int(digest(list(parts))[:8],16)%2147483646+1
+
+def validation_manifest(network, design_seed, frozen=False):
+    """One fixed DR sequence; realization zero is the routine validation."""
+    from experiments.demand import profiles
+    from experiments.core import file_hash
+    groups = profiles(network)
+    p = settings()
+    rng = np.random.RandomState(design_seed)
+    names = [g['name'] for g in groups]
+    blocks = [dict(id='dr_%02d' % (i + 1), start=i*p['validation_block_seconds'],
+                   duration=p['validation_block_seconds'], weights=rng.dirichlet(np.ones(11)).tolist())
+              for i in range(p['validation_blocks'])]
+    return dict(version='8.1', validation_schema=p['validation_schema'], network=network,
+                split='validation', frozen=frozen, profile_names=names,
+                profiles_hash=digest(groups),
+                network_hash=file_hash(root('assets')/network/'network.net.xml'),
+                scenarios=[dict(id='dr_sequence', horizon=p['validation_seconds'],
+                                generation_seed=int(design_seed), profile_names=names, blocks=blocks)])
+
 
 def load_manifest(path,network,publication=False,split='validation'):
     if not path:raise ValueError('Explicit frozen validation manifest required')
@@ -22,12 +41,36 @@ def load_manifest(path,network,publication=False,split='validation'):
     if publication and manifest['frozen'] is not True:raise ValueError('Publication requires frozen validation manifest')
     scenarios=manifest.get('scenarios',[])
     if not scenarios:raise ValueError('Validation scenario design has not been supplied')
+    p = settings()
+    horizon = p['validation_seconds'] if split == 'validation' else p['evaluation_seconds']
+    if split == 'validation':
+        from experiments.demand import profiles
+        from experiments.core import file_hash
+        groups = profiles(network)
+        names = [g['name'] for g in groups]
+        if manifest.get('validation_schema') != p['validation_schema'] or len(scenarios) != 1:
+            raise ValueError('Validation requires one dr_sequence_v1 scenario')
+        if manifest.get('profile_names') != names or manifest.get('profiles_hash') != digest(groups):
+            raise ValueError('Validation profile identity/order mismatch')
+        if manifest.get('network_hash') != file_hash(root('assets')/network/'network.net.xml'):
+            raise ValueError('Validation network identity mismatch')
     ids=[]
     for scene in scenarios:
         ids.append(scene['id']);cursor=0
-        if scene.get('horizon')!=3600:raise ValueError('Validation/test horizon must be 3600 seconds')
+        if scene.get('horizon') != horizon:raise ValueError('Incorrect '+split+' horizon')
+        if split == 'validation':
+            if len(scene['blocks']) != p['validation_blocks'] or scene.get('profile_names') != names:
+                raise ValueError('Validation requires eleven named-profile DR blocks')
+            if type(scene.get('generation_seed')) is not int or not 0 <= scene['generation_seed'] < 2**32:
+                raise ValueError('Validation requires a uint32 design seed')
+            if (any(not isinstance(b.get('id'), str) or not b['id'] for b in scene['blocks']) or
+                    len({b['id'] for b in scene['blocks']}) != p['validation_blocks']):
+                raise ValueError('Validation block IDs must be unique')
         for b in scene['blocks']:
             if b['start']!=cursor or b['duration']<=0 or b['duration']%5:raise ValueError('Invalid scenario intervals')
+            if split == 'validation' and (b['duration'] != p['validation_block_seconds'] or
+                    'weights' not in b or any(k in b for k in ('profile','sigma','multiplier'))):
+                raise ValueError('Validation requires eleven 600-second DR mixtures')
             if 'weights' in b:
                 w=np.asarray(b['weights'],dtype=float)
                 if w.shape!=(11,) or not np.isfinite(w).all() or (w<0).any() or not np.isclose(w.sum(),1):raise ValueError('Invalid mixture weights')
@@ -38,7 +81,7 @@ def load_manifest(path,network,publication=False,split='validation'):
             if 'sigma' in b and (type(scene.get('generation_seed')) is not int or not 0<=scene['generation_seed']<2**32):
                 raise ValueError('Redistribution requires a uint32 generation_seed')
             cursor+=b['duration']
-        if cursor!=3600:raise ValueError('Scenario must cover 3600 seconds')
+        if cursor!=horizon:raise ValueError('Scenario must cover the complete horizon')
     if len(set(ids))!=len(ids):raise ValueError('Duplicate scenario IDs')
     return manifest,digest(manifest)
 
@@ -112,7 +155,16 @@ def worker(request):
                 scenes=[dict(id='wce',horizon=6600)]
             else:scenes=request['manifest']['scenarios']
             for scene in scenes:
+                if not is_wce and request.get('pilot_block_seconds'):
+                    import copy
+                    scene=copy.deepcopy(scene)
+                    duration=request['pilot_block_seconds']
+                    for i,b in enumerate(scene['blocks']):
+                        b.update(start=i*duration,duration=duration)
+                    scene['horizon']=len(scene['blocks'])*duration
                 horizon=request.get('pilot_horizon',scene['horizon'])
+                if not is_wce and horizon != scene['horizon']:
+                    raise ValueError('Controller validation must run the complete sequence')
                 block_seconds=request.get('pilot_block_seconds',600)
                 for index in range(request.get('start',0),request['repeats']):
                     namespace=request['manifest_hash']
@@ -123,6 +175,7 @@ def worker(request):
                     hashes=[]
                     if not is_wce:
                         vehicles,h=traffic(env,scene,namespace,index);env.inject(vehicles);hashes.append(h)
+                    block_scores=[];block_total=0.;block_start=0
                     for step in range(horizon//5):
                         if is_wce and step%(block_seconds//5)==0:
                             weights,_,_=wce.act(env.wce_observation())
@@ -130,8 +183,18 @@ def worker(request):
                             env.inject(vehicles);hashes.append(digest(vehicles))
                         decision=ctrl.act(obs,env,False);obs,reward,done=env.step(decision[0])
                         ctrl.previous_done=done
+                        if not is_wce:
+                            block=scene['blocks'][len(block_scores)]
+                            end=block['start']+block['duration']
+                            if (step+1)*5 == end:
+                                total=env.metrics.total
+                                block_scores.append(dict(id=block.get('id',str(len(block_scores))),
+                                    start=block_start,duration=end-block_start,
+                                    mean_queue=(total-block_total)/(end-block_start)))
+                                block_total=total;block_start=end
                     result=env.metrics.summary(horizon,detail=request.get('detail',False))
                     result.update(scenario=scene['id'],realization=index,demand_hash=digest(hashes),scheduled=env.scheduled,sumo_seed=rs)
+                    if not is_wce:result['blocks']=block_scores
                     rows.append(result)
                     if env.audit and request.get('audit_output'):
                         env.export_episode(Path(request['audit_output'])/(digest([scene['id'],index])[:16]))

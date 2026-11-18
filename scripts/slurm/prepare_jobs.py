@@ -20,7 +20,7 @@ if a.stage not in ['parent','wce','continue']:p.error('Invalid stage')
 image=Path(a.image).resolve();image_hash=file_hash(image);run_root=Path(a.run_root).resolve();jobs=[]
 def parent(path):
     result=json.loads((path/'result.json').read_text())
-    if result['status']!='plateau_confirmed':raise ValueError('Parent has not confirmed a plateau: '+str(path))
+    if result['status']!='early_stopped':raise ValueError('Parent has not completed patience stopping: '+str(path))
     receipt=json.loads((path/'scheduler.json').read_text())
     if receipt['exit_code']!=0 or not receipt['job_id']:raise ValueError('Missing successful scheduler receipt')
     account=subprocess.check_output(['sacct','-n','-X','-P','-j',receipt['job_id'],
@@ -47,7 +47,7 @@ for network in ['grid','monaco']:
                 if output.exists():
                     result=json.loads((output/'result.json').read_text()) if (output/'result.json').exists() else {}
                     if result.get('status')=='interrupted':argv+=['--resume']
-                    elif result.get('status') in ('plateau_confirmed','max_budget_unconfirmed','no_learning'):continue
+                    elif result.get('status') in ('early_stopped','max_budget_reached','no_learning'):continue
                     else:raise ValueError('Existing failed/active run needs inspection: '+str(output))
                 jobs.append(dict(image=str(image),image_sha256=image_hash,code_release=str(Path(a.code_release).resolve()),
                                  data_root=str(Path(a.data_root).resolve()),run_root=str(run_root),cache_root=str(Path(a.cache_root).resolve()),argv=argv))

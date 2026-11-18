@@ -7,6 +7,8 @@ from experiments.protocol import settings, scenario_root
 
 
 def definitions(network, split):
+    if split == 'validation':
+        raise ValueError('Use validation_manifest with an explicit design seed')
     names = [g['name'] for g in original_profiles(network)]
     protocol_version = settings()['version']
     def scenario(name, family, seed, blocks, **metadata):
@@ -52,6 +54,9 @@ def definitions(network, split):
 
 def block_rows(groups, definition, block):
     if 'weights' in block:
+        if 'profile_names' in definition:
+            by_name = {g['name']: g for g in groups}
+            groups = [by_name[name] for name in definition['profile_names']]
         rows = mixture(groups, block['weights'])
     else:
         rows = list(next(g for g in groups if g['name'] == block['profile'])['rows'])

@@ -85,6 +85,10 @@ class WCE:
                 returns.append(running)
             returns = np.asarray(returns[::-1], dtype=np.float32)
             advantages = returns - np.array([t[2] for t in self.pending])
+            raw_advantage_mean = float(advantages.mean())
+            raw_advantage_std = float(advantages.std())
+            if self.config.getboolean('adv_norm'):
+                advantages = (advantages - raw_advantage_mean) / (raw_advantage_std + 1e-8)
             p = self.policy
             feed = {p.ob_fw: np.array([t[0] for t in self.pending]), p.done_fw: np.zeros(11),
                     p.A: np.array([t[1] for t in self.pending]), p.R: returns, p.ADV: advantages,
@@ -97,6 +101,10 @@ class WCE:
                 learner_reward_mean=float(np.mean([t[4] for t in self.pending])),
                 reward_clip_fraction=float(np.mean([t[5] for t in self.pending])),
                 return_target=float(np.mean(returns)),
+                raw_advantage_mean=raw_advantage_mean,
+                raw_advantage_std=raw_advantage_std,
+                advantage_mean=float(advantages.mean()),
+                advantage_std=float(advantages.std()),
                 learning_rate=scheduled(self.config, 'lr', self.updates),
                 entropy_coef=scheduled(self.config, 'entropy', self.updates),
                 macro_steps=self.macro_steps)

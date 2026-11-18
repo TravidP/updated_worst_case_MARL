@@ -1,6 +1,6 @@
 # CB-WCE Standalone: Directory Guide and Operations Manual
 
-Current branch: [`refactor/standalone-local-training`](https://github.com/TravidP/updated_worst_case_MARL/tree/refactor/standalone-local-training). This directory is the branch root. Local CPU execution is the current target; cluster templates are optional. See the [repository layout](docs/repository_structure_zh.md).
+Current branch: [`cbwce_standalone`](https://github.com/TravidP/updated_worst_case_MARL/tree/cbwce_standalone). This directory is the branch root. Local CPU execution is the current target; cluster templates are optional. See the [repository layout](docs/repository_structure_zh.md).
 
 [中文 README](README.md) · [English experiment plan](docs/revision_plan_v8_en.md) · [Chinese plan](docs/revision_plan_v8_zh.md) · [Implementation evidence](docs/implementation_status.md)
 
@@ -13,18 +13,22 @@ This README describes the files and executable interfaces that actually exist. T
 | Item | Current state |
 |---|---|
 | Runtime/manifest protocol | v8.1, defined in `config/protocol.json` |
-| Latest experiment plan | v8.2; filenames remain `docs/revision_plan_v8_en.md` and `_zh.md` |
-| Implemented controller validation | 3600 seconds per scenario; three routine realizations, ten for confirmation |
-| Planned v8.2 controller validation | Eleven pregenerated DR mixtures, provisionally 600 seconds each, one continuous 6600-second sequence with three complete realizations; **not implemented yet** |
-| Duration awaiting confirmation | The request also mentioned 60 seconds/group: 11×60=660, whereas 11×600=6600; the plan provisionally adopts the latter |
-| Offline WCE validation | 6600 seconds, ten routine seed combinations, thirty for confirmation |
+| Latest experiment plan | Chinese v8.3/local execution; English execution section remains v8.2; validation synchronized on 2026-11-18 |
+| Implemented controller validation | One continuous 11×600=6600-second DR sequence; one routine realization; patience stopping without extra confirmation |
+| Validation schema | `dr_sequence_v1`; one scenario, eleven frozen DR mixture blocks |
+| Confirmed duration | 600 seconds/group, 6600 seconds/rollout |
+| Offline WCE validation | 6600 seconds, ten routine seed combinations; patience stopping without extra confirmation |
 | Final tests | Provisionally eleven seen and twelve generalization scenarios, ten realizations each, 3600 seconds each |
 | Existing evidence | Eleven unit tests, six network/controller pilots, thirty continuation branches, recovery, audit and relocation checks |
 | Outstanding | Publication validation manifests, SIF build/container acceptance, Hábrók measurements, publication training and publication-model archives |
 
-**Do not pass a 6600-second manifest to the existing v8.1 validator or reuse old selection scores/best/patience under the new design.** Synchronize code, protocol, cache identities and tests first; see Section 8 of the plan.
+**Old 3600-second validation manifests and best/patience cannot be reused.** Generate the new schema, start a new run and regenerate the verification gate. Final tests still use 3600 seconds.
 
 [Saved verification evidence](provenance/verification) uses short 110-second training episodes and small replay buffers; separate evaluation checks used full 3600-second horizons. This is correctness evidence, not convergence or cluster-memory certification. Temporary pilot checkpoints have been removed; rerun the verifier to recreate them.
+
+Stopping uses `patience_v1`: after the stage minimum, five evaluations without a cumulative improvement of `max(anchor×0.01,0.1)` end training and select historical best. No stability or extra-confirmation gates. Small improvements still save best; patience survives recovery. Parents/offline WCE with no meaningful improvement report `no_learning`. Maximum budgets and common-budget best remain. Old stopping state cannot resume under this protocol.
+
+WCE advantage normalization is enabled by default (`adv_norm = true`): each update normalizes actor advantages over its eleven macro-step samples using `(A - mean(A)) / (std(A) + 1e-8)`, with population standard deviation. Critic return targets and reward scaling retain their existing definitions. This applies to offline and online WCE learning; fixed WCE performs inference only. Diagnostics record advantage means and standard deviations before and after normalization.
 
 ## 2. Suggested workflow
 
@@ -169,7 +173,7 @@ parent training → best controller
         └── online_wce: train controller and WCE
 ```
 
-All five branches share a best parent; fixed/online share a best WCE. Baseline uses the original profile sequence, random group samples a single profile, and DR samples Dirichlet mixtures. Publication branching requires plateau-confirmed ancestry with matching network, controller, training seed and WCE-parent identity.
+All five branches share a best parent; fixed/online share a best WCE. Baseline uses the original profile sequence, random group samples a single profile, and DR samples Dirichlet mixtures. Publication branching requires patience-stopped ancestry with matching network, controller, training seed and WCE-parent identity.
 
 ## 6. Environment and basic checks
 
@@ -235,7 +239,7 @@ for method in baseline random_group domain_randomization fixed_wce online_wce; d
 done
 ```
 
-Eleven ten-second blocks produce 110 seconds/22 decisions, below DQL's default 5000-step warm-up. This manual example checks orchestration. The verifier reduces replay/warm-up settings to exercise actual updates and recovery. `no_learning` or `max_budget_unconfirmed` can be normal short-budget outcomes.
+Eleven ten-second blocks produce 110 seconds/22 decisions, below DQL's default 5000-step warm-up. This manual example checks orchestration. The verifier reduces replay/warm-up settings to exercise actual updates and recovery. `no_learning` or `max_budget_reached` can be normal short-budget outcomes.
 
 The following run SUMO and create models, costing more time/space than unit tests:
 
@@ -256,21 +260,14 @@ Audit/crash scripts require the verifier's model directories, not just archived 
 
 ### Current manifest schema
 
-This unfrozen development example is accepted by v8.1; it is **not** the proposed DR validation design:
+Generate a development sequence, or an explicitly seeded validation design:
 
-```json
-{
-  "version": "8.1", "network": "grid", "split": "validation", "frozen": false,
-  "scenarios": [{
-    "id": "development_example", "horizon": 3600, "generation_seed": 9001,
-    "blocks": [{"start": 0, "duration": 3600, "profile": "Uniform"}]
-  }]
-}
+```bash
+python main.py pilot-manifest --network grid --output grid-development.json
+python main.py validation-manifest --network grid --design-seed 41001 --output grid-validation.json --frozen
 ```
 
-Blocks support a profile or eleven normalized `weights`, plus `multiplier`/`sigma`. Current manifests must cover 3600 seconds contiguously, use unique IDs and a boolean `frozen`. Publication training requires frozen `split=validation`; final tests require `split=test`. Simply changing the Uniform fixture to `true` does not establish an appropriate publication design.
-
-The v8.2 design freezes eleven mixtures/order and three realizations, retaining traffic/recurrent state across blocks. Confirm duration and synchronize implementation before generating its manifest. Offline WCE still evaluates its own demand policy, not replacement fixed-DR actions.
+Use a distinct design seed for development and selection. The `dr_sequence_v1` manifest contains one 6600-second scenario with eleven consecutive 600-second DR mixtures, profile-name ordering, input hashes and the design seed. Routine validation runs realization 0 once, starting empty; traffic and recurrent state persist across blocks. Seeds derive deterministically from the manifest hash, scenario, realization and stream, pairing all candidates. Block means are diagnostic; selection uses the mean queue over the complete 6600 seconds. No additional confirmation realizations are required; offline WCE retains ten routine evaluations of its own demand policy and uses the same patience rule. Final-test manifests remain at 3600 seconds. `--pilot-block-seconds` compresses all eleven blocks for smoke tests, never truncates to the first group.
 
 ### Arguments and gates
 
@@ -288,7 +285,7 @@ The v8.2 design freezes eleven mixtures/order and three realizations, retaining 
 | `--audit` | Detailed output; normally disabled for routine training |
 | `--pilot` | Development overrides; excludes publication training seeds |
 
-Publication rejects `--config`, `--max-episodes`, `--validate-every`, `--validation-repeats` and `--pilot-block-seconds`. It also checks runtime locks and source fingerprints. Successful process exit does not mean plateau completion.
+Publication rejects `--config`, `--max-episodes`, `--validate-every`, `--validation-repeats` and `--pilot-block-seconds`. It also checks runtime locks and source fingerprints. Successful process exit alone does not establish patience completion.
 
 ```bash
 python main.py parent --help
@@ -298,7 +295,7 @@ python main.py check --network grid --publication \
   --validation "$CBWCE_DATA_ROOT/manifests/grid-validation.json"
 ```
 
-After implementing the intended protocol and supplying manifests/image/gate, the publication command structure is:
+After supplying the new-schema manifests and a matching runtime/gate, the publication command structure is:
 
 ```bash
 python main.py parent --network grid --controller ma2c --seed 101 \
@@ -325,7 +322,7 @@ one_run/
 ├── attempts.jsonl         # Restarts and rollback boundaries
 ├── episodes.jsonl.gz      # Complete episodes with attempt identity
 ├── blocks.jsonl.gz        # Weights, traffic hashes, diagnostics
-├── validation.jsonl.gz    # Routine and confirmation results
+├── validation.jsonl.gz    # Routine scores and stopping diagnostics
 ├── checkpoints/e.../
 │   ├── manifest.json      # Kind, signatures, parents, hashes
 │   ├── runner.pkl         # Runner/selection state
@@ -344,9 +341,9 @@ Not all files/models appear in every stage. Frozen parents/fixed WCEs are shared
 | `latest` | Latest valid full recovery point, used by `--resume` |
 | `final` | Terminal training state, not necessarily best |
 | `best_at_common_budget` | Best inference endpoint frozen at 1000 continuation episodes |
-| `plateau_confirmed` | Confirmed empirical plateau, not global optimality |
-| `max_budget_unconfirmed` | Maximum budget reached without confirmation |
-| `no_learning` | Parent/offline WCE reaches its cap without the required meaningful improvement |
+| `early_stopped` | Minimum episodes reached and patience exhausted; not proof of convergence |
+| `max_budget_reached` | Maximum budget reached before patience stopping |
+| `no_learning` | Parent/offline WCE stops without meaningful improvement, at patience or the budget cap |
 | `interrupted` | Unfinished stage requiring recovery |
 | `failed` | Error requiring inspection |
 
@@ -443,7 +440,7 @@ sbatch --array=0-17%4 scripts/slurm/train.sbatch "$CBWCE_HPC_ROOT/parents.json"
 
 Submit from the project root because the template uses a relative launcher path. Upload the code archive and its `.tar.gz.manifest.json`. Matrix preparation needs project dependencies and, for downstream checks, access to `sacct`.
 
-Generation does not submit or automatically schedule successors. Full counts are 18 parents, 18 WCEs and 90 continuations; completed items can reduce the actual matrix. After parents confirm plateaus and Slurm reports `COMPLETED/0:0`, generate a new `--stage wce` JSON; after WCEs pass, generate `--stage continue`. Interrupted jobs acquire `--resume`; failed/active directories require inspection. The launcher verifies artifacts and forwards signals; the trainer periodically writes durable checkpoints directly to the run root, not just at job exit.
+Generation does not submit or automatically schedule successors. Full counts are 18 parents, 18 WCEs and 90 continuations; completed items can reduce the actual matrix. After parents complete patience stopping and Slurm reports `COMPLETED/0:0`, generate a new `--stage wce` JSON; after WCEs pass, generate `--stage continue`. Interrupted jobs acquire `--resume`; failed/active directories require inspection. The launcher verifies artifacts and forwards signals; the trainer periodically writes durable checkpoints directly to the run root, not just at job exit.
 
 ## 13. Releases, archives and independent preservation
 
@@ -479,7 +476,7 @@ Existing sibling `cbwce_archive/releases/*v8.1*` packages are snapshots of initi
 
 | Symptom | Check |
 |---|---|
-| Rejected 6600-second manifest | Implement the protocol migration; current validation is v8.1/3600 seconds |
+| Rejected validation manifest | Regenerate with `validation-manifest`; require `dr_sequence_v1`, eleven 600-second mixtures and matching input hashes |
 | Unfrozen-manifest error | Confirm approved design, split and frozen status; never substitute the pilot fixture |
 | Missing/stale gate | Reverify scientific source/config/input changes in the matching image |
 | Missing runtime lock | Complete an actual image build and runtime recording |

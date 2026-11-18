@@ -203,13 +203,12 @@ def load_wce_config(network, path=None):
     parser, selected = _read(path or wce_config_path(network))
     _exact_sections(parser, ('WCE_CONFIG',), selected)
     cfg = parser['WCE_CONFIG']
-    if cfg.getboolean('adv_norm'):
-        raise ValueError('WCE advantage normalization is disabled in v8.1')
     required = WCE_KEYS - {
         'lr_min', 'lr_decay_steps', 'entropy_coef_min', 'entropy_decay_steps',
         'tf_operation_timeout_ms', 'tf_intra_op_threads', 'tf_inter_op_threads',
     }
     _exact_keys(cfg, WCE_KEYS, required, 'wce/' + network)
+    _booleans(cfg, {'adv_norm'}, 'wce/' + network)
     _positive(cfg, {'gamma', 'lr_init', 'lr_min', 'max_grad_norm', 'reward_norm',
                     'reward_clip', 'entropy_coef_init', 'entropy_coef_min',
                     'value_coef', 'rmsp_alpha', 'rmsp_epsilon'}, 'wce/' + network,

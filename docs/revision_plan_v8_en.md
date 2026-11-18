@@ -4,7 +4,7 @@ Date: 2026-10-27. Chinese counterpart: [revision_plan_v8_zh.md](revision_plan_v8
 
 This document specifies the protocol and acceptance criteria. Code availability is not acceptance evidence. Actual verification is recorded separately in `implementation_status.md`; publication training, container construction and deployment are not claimed complete.
 
-This update changes the two plans only: it explains parameter fairness and architectures, and specifies controller validation as one complete sequence of 11 pregenerated DR demand blocks with three fixed realizations. **Duration needs confirmation: 11×60 seconds is only 660 seconds; this revision provisionally uses 600 seconds per block to meet the stated 6600-second total.** Filenames remain `revision_plan_v8_*.md`. Existing v8.1 code still enforces 3600-second validation; complete the synchronization and acceptance work in Section 8 before claiming the new protocol is implemented or covered by previous tests.
+Validation update, 2026-11-18: routine controller validation is **one fixed realization of eleven frozen DR blocks, 600 seconds each, 6600 seconds total**. Code now enforces the separate `dr_sequence_v1` validation schema; final tests remain 3600 seconds. Historical acceptance results do not cover this new schema. The Chinese plan also contains a newer local-execution plan; this update synchronizes validation only.
 
 ## 1. Objectives and experimental matrix
 
@@ -21,7 +21,7 @@ Create the compact `cbwce_standalone` project for Groningen's Hábrók cluster, 
 | Selection | Minimize mean queue for controllers; maximize frozen-parent mean queue for WCE |
 | Endpoints | Common-budget best and best at individual stopping |
 
-**Controller validation uses 11 pregenerated, frozen DR demand groups per network, in a fixed sequence lasting 6600 seconds, with three fixed realizations.** Each group provisionally lasts 600 seconds pending resolution of the 60/600-second discrepancy. Exact weights, design seeds and random streams still require an explicit frozen manifest; the Uniform development fixture is not a substitute. Separate development, selection and final-test identities and random streams.
+**Controller validation uses 11 pregenerated, frozen DR demand groups per network, in a fixed sequence lasting 6600 seconds, with one fixed realization.** Each group lasts the confirmed 600 seconds. Exact weights, design seeds and random streams still require an explicit frozen manifest; the development manifest is not a substitute. Separate development, selection and final-test identities and random streams.
 
 Publication totals: 18 parents, 18 offline WCE runs and 90 continuations. Final evaluation still provisionally retains eleven seen and twelve generalization scenarios, ten realizations each, each lasting 3600 seconds: 20,700 rollouts per endpoint. Identical selected checkpoint hashes may reuse results. The 6600-second change applies to controller validation, not automatically to final testing.
 
@@ -109,7 +109,7 @@ Four development candidates per network/controller, each for 1000 episodes: MA2C
 
 ## 4. Validation, best and plateau stopping
 
-### 4.1 Fixed DR sequence and three realizations
+### 4.1 Fixed DR sequence and one realization
 
 Initial training and all five continuations validate at episode zero, every 100 complete episodes and at stopping; reuse an identical validation already completed at the stopping endpoint.
 
@@ -118,28 +118,28 @@ Initial training and all five continuations validate at episode zero, every 100 
 | Demand groups per network | 11 pregenerated DR mixtures |
 | Group duration | Provisionally 600 seconds, or 120 joint control steps |
 | Complete rollout | All 11 groups in fixed order: 6600 seconds / 1320 joint control steps |
-| Routine realizations | Three; each starts empty and runs the complete sequence |
-| Work per validation round | Three complete rollouts, totaling 19,800 simulated seconds; not 33 independent rollouts |
+| Routine realizations | One; each starts empty and runs the complete sequence |
+| Work per validation round | One complete rollout, totaling 6600 simulated seconds; no reset between the eleven blocks |
 | Traffic/recurrent state | Reset only at the start of a complete rollout; retain vehicles, queues and LSTM state across group switches |
-| Plateau confirmation | Seven additional independent fixed realizations of the same sequence, ten complete rollouts per candidate in total |
+| Stopping | Minimum episodes reached and five evaluations without meaningful improvement; no extra confirmation |
 
 If 60 seconds per group is intended, explicitly select a 660-second total or repeat the eleven-group sequence ten times to reach 6600 seconds before freezing. Never encode `11×60` as 6600 in documentation or manifests. The following formula and budgets assume `11×600` provisionally.
 
 Groups are **mixtures of the eleven original profiles**, not simply those profiles played individually. By default retain the existing DR distribution: generate `w_b ~ Dirichlet(1,…,1)` offline per network for `b=1,…,11`, with eleven nonnegative weights summing to one. Combine normalized demands as `d_b = Σ_k w_bk d_k`; introduce no additional total-flow multipliers, spatial noise or peak settings in this revision. Eleven groups form a small fixed development/selection benchmark, not guaranteed coverage of the entire DR space; generalization claims require the independent final tests.
 
-Freeze all weights, group IDs/order, interval boundaries, profile names/order, network/profile/generator hashes, design seed and traffic/SUMO/policy seeds for the three realizations. Profile storage order can differ between networks: bind weights to names rather than copying unchecked array positions across maps. All checkpoints, algorithms, publication training seeds and continuation methods reuse the same validation inputs within each network, without redrawing weights or reordering groups. Tuning uses a separate development manifest with the same dimensions but different groups and random streams; do not repeatedly tune against publication selection inputs.
+Freeze all weights, group IDs/order, interval boundaries, profile names/order, network/profile/generator hashes, design seed and traffic/SUMO/policy seeds for the single routine realization (derived from manifest hash, scenario ID, realization index and stream name). Profile storage order can differ between networks: bind weights to names rather than copying unchecked array positions across maps. All checkpoints, algorithms, publication training seeds and continuation methods reuse the same validation inputs within each network, without redrawing weights or reordering groups. Tuning uses a separate development manifest with the same dimensions but different groups and random streams; do not repeatedly tune against publication selection inputs.
 
-The three realizations share the eleven demand-rate groups and order but use independent fixed arrival/vehicle streams, SUMO seeds and MA2C/PPO policy seeds; DQL is greedy. Materialize/share traffic artifacts per complete rollout. Vehicles carry across group boundaries, so a group's queue reflects earlier traffic; the eleven blocks are not independent experimental samples. Validation neither trains WCE nor allows it to change this external DR sequence. Isolated models and random streams leave training parameters, optimizers, replay and counters unchanged.
+Routine validation uses realization index 0, reusing the eleven demand-rate groups, order and fixed arrival/vehicle streams, SUMO seed and MA2C/PPO policy seed; DQL is greedy. Materialize/share traffic artifacts per complete rollout. Vehicles carry across group boundaries, so a group's queue reflects earlier traffic; the eleven blocks are not independent experimental samples. Validation neither trains WCE nor allows it to change this external DR sequence. Isolated models and random streams leave training parameters, optimizers, replay and counters unchanged.
 
 ### 4.2 Metric and plateau stopping
 
-Select using mean network-total queue over three complete rollouts, including every measurement from second 1 through 6600:
+Select using mean network-total queue over one complete rollout, including every measurement from second 1 through 6600:
 
 \[
-J_{\mathrm{val}}=\frac1R\sum_{r=1}^{R}\frac1T\sum_{t=1}^{T}\sum_{\ell\in L}q_{\ell,r}(t),\qquad R=3,\quad T=6600.
+J_{\mathrm{val}}=\frac1R\sum_{r=1}^{R}\frac1T\sum_{t=1}^{T}\sum_{\ell\in L}q_{\ell,r}(t),\qquad R=1,\quad T=6600.
 \]
 
-Equal 600-second blocks make this equivalent to equally averaging their block means. Routine best uses this single overall score; retain realization and block means diagnostically. Three realizations neither prove stability throughout the DR domain nor constitute three independent training seeds. Routine validation every 100 complete 6600-second training episodes adds approximately 3% in simulated seconds, excluding episode zero, stopping/confirmation evaluations; this is not a wall-clock estimate.
+Equal 600-second blocks make this equivalent to equally averaging their block means. Routine best uses this single overall score; retain realization and block means diagnostically. One fixed realization reduces cost but does not estimate variability across realizations; the three independent training seeds remain unchanged. Routine validation every 100 complete 6600-second training episodes adds approximately 1% in simulated seconds, excluding episode zero, stopping evaluations; this is not a wall-clock estimate.
 
 Save every strict improvement; retain the earlier checkpoint on ties. Throughput, pending vehicles, teleports, collisions and tail metrics are diagnostic only. Incomplete rollouts have no valid score.
 
@@ -149,21 +149,21 @@ Save every strict improvement; retain the earlier checkpoint on ties. Throughput
 | Offline WCE | 500 | 3000 |
 | Continuation | 1000 | 5000 |
 
-Plateau candidacy requires the minimum episode count; five validation intervals (500 episodes) without meaningful improvement; latest-five range ≤ `max(mean,1)×2%`; absolute fitted slope ≤ `max(mean,1)×0.5%` per validation interval; current-to-best gap ≤ `max(best,1)×2%`. Initial training must improve meaningfully over episode zero at least once.
+Stop when both conditions hold: the stage minimum episode count has been reached and five consecutive routine evaluations have produced no meaningful improvement. At one evaluation per 100 episodes this normally means 500 episodes. Episode zero establishes the baseline and does not count as a failed improvement. Patience accumulates before the minimum and is preserved across checkpoint recovery.
 
-Meaningful improvement is `max(anchor×0.01,0.1)`. Reset the anchor/patience only after cumulative improvement reaches that threshold; smaller improvements still update best.
+Meaningful improvement is `max(anchor×0.01,0.1)`: a decrease for controllers, an increase for WCE. Reaching this cumulative improvement updates the anchor and resets the counter. Every strict improvement still saves best; ties keep the earlier checkpoint. Smaller improvements do not reset patience.
 
-Confirm the latest five candidates and best using seven additional independent fixed realizations of the same eleven-group DR sequence: ten complete 6600-second rollouts per candidate in total. Freeze the routine three and additional seven before running; pair them across candidates, deduplicate identical candidates and reuse the existing three results. Recheck spread, trend and current-to-best gap without redefining routine best ranking. Up to six distinct candidates require `6×7×6600 = 277,200` additional simulated seconds; report that cost separately. Failed confirmation resumes training rather than declaring a ceiling.
+Range, slope and current-to-best gap are diagnostic only, as are training entropy, loss and gradients. Remove all stability gates and additional confirmation evaluations. Select historical best at stopping, even if the last model has deteriorated. Retain the common-budget best and maximum training budgets.
 
-Terminal outcomes are `plateau_confirmed`, `max_budget_unconfirmed`, `no_learning` and `failed`. An unfinished segment is `interrupted`, not converged. An empirical plateau is not global optimality; exhausting the budget does not imply convergence.
+Patience produces `early_stopped`; parents/offline WCE without meaningful improvement may also stop, but report `no_learning`. Hitting the budget first produces `max_budget_reached` (or `no_learning` for unimproved parents/offline WCE). Errors are `failed`; unfinished segments are `interrupted`. Early stopping does not prove convergence or global optimality. Automatic publication branching uses historical best from `early_stopped` ancestors; no-learning and budget-limited runs require inspection.
 
 ### WCE
 
-Freeze the best parent. Retain Grid CNN-A2C and Monaco GCN-A2C. Output eleven demand weights every 600 seconds and update once per full episode. Every 100 episodes, evaluate full 6600-second mean queue on ten seed combinations, maximizing the result. Add twenty combinations for confirmation, thirty total.
+Freeze the best parent. Retain Grid CNN-A2C and Monaco GCN-A2C. Output eleven demand weights every 600 seconds and update once per full episode. Every 100 episodes, evaluate full 6600-second mean queue on ten seed combinations, maximizing the result. Do not add confirmation evaluations; use the same minimum-episode and five-evaluation patience rule.
 
-This evaluates WCE's own adversarial demand policy: **do not replace its actions with the fixed eleven-group DR sequence**, which would eliminate the distinction between WCE candidates. The new three-realization rule applies only to controller validation; offline WCE retains `10 → 30` realizations. Controller selection/stopping in online-WCE continuation still uses the external fixed DR sequence above.
+This evaluates WCE's own adversarial demand policy: **do not replace its actions with the fixed eleven-group DR sequence**, which would eliminate the distinction between WCE candidates. The new one-realization rule applies only to controller validation; offline WCE retains ten routine realizations, with patience stopping and no confirmation. Controller selection/stopping in online-WCE continuation still uses the external fixed DR sequence above.
 
-Fix external random streams and demand constraints, not WCE-generated vehicle schedules. Index random streams by block, OD and variable type. Retain existing learning-rate, reward-scale and entropy starts; explicitly disable WCE advantage normalization. Reference the frozen parent by hash. Publication fixed/online branches share the same plateau-confirmed best WCE.
+Fix external random streams and demand constraints, not WCE-generated vehicle schedules. Index random streams by block, OD and variable type. Retain existing learning-rate, reward-scale and entropy starts; WCE advantage normalization is enabled by default (`adv_norm = true`): each update normalizes actor advantages over its eleven macro-step samples using `(A - mean(A)) / (std(A) + 1e-8)`, with population standard deviation. Critic return targets and reward scaling retain their existing definitions. This applies to offline and online WCE learning; fixed WCE performs inference only. Diagnostics record advantage means and standard deviations before and after normalization. Reference the frozen parent by hash. Publication fixed/online branches share the same patience-stopped best WCE.
 
 ### Continuation and fairness
 
@@ -208,7 +208,7 @@ Apptainer runtime: Python 3.10, TensorFlow CPU 2.15.1 via compat.v1, NumPy 1.26.
 
 CPU pilot defaults: regular partition, one task, two CPUs, 8 GiB, single-threaded numerical libraries, 24-hour segments, array concurrency four. The memory request is provisional: measure RSS, episode and write durations, then request at least 1.3× measured peak rounded upward. Disable oneDNN optimization as part of fixed runtime settings.
 
-Forward Slurm signals to workers. Stop starting episodes before the deadline; discard unfinished episodes if necessary. Resume preserves budgets, patience and exploration. Periodically persist to scratch instead of relying on exit copies. Downstream stages require job success and application `plateau_confirmed`; unfinished normal segments resume their current stage. Verify archives before removing inactive scratch copies.
+Forward Slurm signals to workers. Stop starting episodes before the deadline; discard unfinished episodes if necessary. Resume preserves budgets, patience and exploration. Periodically persist to scratch instead of relying on exit copies. Downstream stages require job success and application `early_stopped`; unfinished normal segments resume their current stage. Verify archives before removing inactive scratch copies.
 
 Official references: [storage](https://wiki.hpc.rug.nl/habrok/migration/migration_habrok), [quotas](https://wiki.hpc.rug.nl/habrok/data_management/quota), [Apptainer](https://wiki.hpc.rug.nl/habrok/examples/apptainer), [Slurm](https://wiki.hpc.rug.nl/habrok/job_management/scheduling_system).
 
@@ -216,6 +216,4 @@ Official references: [storage](https://wiki.hpc.rug.nl/habrok/migration/migratio
 
 Acceptance covers relocation without the original tree; both networks × three controllers; streaming/audit agreement; learning invariance under reduced logging; bounded replay/monitoring; isolated validation; full recovery and snapshot rejection; interruption/corruption/duplicate-job protection; reference-safe retention; RSS/bytes/file-count/write-time measurements; bilingual consistency; and refusal of publication runs without a frozen manifest.
 
-Implementation work required by this document revision: after confirming block duration, give controller validation a separate `6600` horizon with eleven `600`-second blocks while retaining final tests at `3600`. Update `config/protocol.json`, manifest checks, evaluation workers, generator/cache identities; do not globally replace 3600. Verify complete interval coverage, three rollouts/33 blocks, continuous traffic/recurrent state across blocks, equal weighting and seven-realization confirmation. Update the README, run identities and resource measurements. The new protocol is incompatible with old 3600-second validation scores, best/patience state, caches and gates: use a new protocol version and run IDs, revalidate and do not carry old selection state into new publication runs. The three-realization setting applies only to controller validation; WCE and final-test repeat counts remain as specified above.
-
-Deliver standalone code, bilingual plans, runtime locks/build definitions, input releases, Slurm templates, verification evidence, resource reports and archival tools. Actual trained models and result archives are produced by subsequent authorized, gated experiments; they cannot be fabricated in advance.
+Implemented validation changes: separate `dr_sequence_v1` schema, eleven 600-second blocks, one routine rollout/eleven intervals, `patience_v1` stopping without confirmation, unchanged 3600-second final tests and ten routine WCE realizations. `validation-manifest` generates weights from an explicit design seed and binds profile names and input hashes; random streams derive from the manifest hash and realization index. `pilot-manifest` generates an unfrozen development sequence. Traffic and recurrent state persist across all blocks; diagnostics retain block means while best uses the overall mean. Short development runs scale all eleven blocks. The new schema, manifest hashes, source fingerprint and run protocol invalidate old selection/cache/gate identities: start new runs and revalidate instead of resuming old scores or best/patience.

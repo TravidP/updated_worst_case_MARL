@@ -17,9 +17,8 @@ class ProtocolTests(unittest.TestCase):
         s=Selection('parent',p);s.add(0,100,'0');s.add(100,90,'1')
         for e in range(200,700,100):s.add(e,90,'x'+str(e))
         self.assertTrue(s.candidate())
-        self.assertTrue(s.stable([90]*5,90))
-        self.assertFalse(s.stable([90,91,92,93,94],90))
-        self.assertFalse(s.stable([100]*5,90))
+        self.assertEqual(s.terminal(),'early_stopped')
+        self.assertEqual(s.diagnostics()['no_improvement_evals'],5)
         restored=Selection('parent',p,s.state());self.assertEqual(restored.state(),s.state())
         s.add(700,89.95,'tiny');self.assertEqual(s.anchor_episode,100)
         self.assertEqual(s.best['checkpoint'],'tiny')
@@ -32,9 +31,50 @@ class ProtocolTests(unittest.TestCase):
         for stage in ['parent','wce','continue']:
             s=Selection(stage,p)
             for e in range(0,700,100):s.add(e,10,'x'+str(e))
-            self.assertEqual(s.candidate(),stage=='continue')
+            self.assertTrue(s.candidate())
+            self.assertEqual(s.terminal(),'early_stopped' if stage=='continue' else 'no_learning')
         s=Selection('wce',p);s.add(0,10,'a');s.add(100,12,'b');s.add(200,11,'c')
         self.assertEqual(s.best['checkpoint'],'b')
+
+    def test_patience_ignores_noise_and_restores_counter(self):
+        p=settings();p['min_episodes']['parent']=500
+        s=Selection('parent',p)
+        s.add(0,100,'initial');s.add(100,90,'best')
+        for e,score in [(200,110),(300,95),(400,130),(500,120)]:s.add(e,score,str(e))
+        self.assertIsNone(s.terminal())
+        restored=Selection('parent',p,s.state())
+        restored.add(600,140,'last')
+        self.assertEqual(restored.terminal(),'early_stopped')
+        self.assertEqual(restored.best['checkpoint'],'best')
+        self.assertGreater(restored.diagnostics()['current_best_gap'],0)
+        restored.add(700,89.95,'tiny')
+        self.assertEqual(restored.no_improvement_evals,6)
+        restored.add(800,89.,'meaningful')
+        self.assertEqual(restored.no_improvement_evals,0)
+        self.assertIsNone(restored.terminal())
+
+    def test_minimum_budget_and_evaluation_count(self):
+        p=settings();s=Selection('parent',p)
+        for e in range(0,601,100):s.add(e,100,str(e))
+        self.assertIsNone(s.terminal())  # Patience elapsed, but below minimum 1000.
+        s.add(1000,100,'minimum');self.assertEqual(s.terminal(),'no_learning')
+        p['min_episodes']['parent']=0
+        s=Selection('parent',p);s.add(0,100,'initial');s.add(1000,90,'better')
+        s.add(2000,90,'late')
+        self.assertFalse(s.candidate())  # One observation, not ten inferred intervals.
+        p['max_episodes']['parent']=2000
+        self.assertEqual(s.terminal(),'max_budget_reached')
+        self.assertEqual(s.best['checkpoint'],'better')
+
+    def test_wce_patience_direction_and_old_state_rejection(self):
+        p=settings();p['min_episodes']['wce']=0
+        s=Selection('wce',p);s.add(0,10,'initial');s.add(100,12,'best')
+        for e,score in [(200,11),(300,8),(400,10),(500,7),(600,9)]:s.add(e,score,str(e))
+        self.assertEqual(s.terminal(),'early_stopped')
+        self.assertEqual(s.best['checkpoint'],'best')
+        old=s.state();del old['no_improvement_evals']
+        with self.assertRaisesRegex(ValueError,'incompatible'):
+            Selection('wce',p,old)
 
     def test_streamed_statistics_and_bounds(self):
         m=EpisodeMetrics(['a','b'],audit=True)

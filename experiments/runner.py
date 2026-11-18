@@ -85,8 +85,8 @@ def preflight(args):
             if identity['source']!=fingerprint() or identity['protocol']!=p:
                 raise ValueError('Publication ancestry source/protocol mismatch')
             result=json.loads((origin/'result.json').read_text())
-            if result['status']!='plateau_confirmed' or Checkpoints(origin).role('best').resolve()!=Path(path).resolve():
-                raise ValueError('Stage branch requires plateau-confirmed best')
+            if result['status']!='early_stopped' or Checkpoints(origin).role('best').resolve()!=Path(path).resolve():
+                raise ValueError('Stage branch requires patience-stopped best')
     if args.wce and inspect_checkpoint(args.wce)['parents'].get('controller',{}).get('hash')!=inspect_checkpoint(args.parent)['hash']:
         raise ValueError('WCE belongs to a different parent')
     return p,manifest,mhash
@@ -181,7 +181,7 @@ def _run(args,run,p,manifest,mhash):
                          config=str(Path(args.config).resolve()) if args.config else None,manifest=manifest,
                          manifest_hash=mhash,repeats=repeats,start=start)
                 if args.pilot and args.pilot_block_seconds:
-                    req['pilot_horizon']=min(p['training_seconds'],3600) if args.stage!='wce' else p['training_seconds']
+                    req['pilot_horizon']=p['training_seconds']
                     req['pilot_block_seconds']=p['demand_seconds']
                 return evaluate(req)
             def validate():
@@ -190,28 +190,16 @@ def _run(args,run,p,manifest,mhash):
                 repeats=p['wce_validation_repeats'] if args.stage=='wce' else p['validation_repeats']
                 result=request(snapshot,repeats)
                 improved=selection.add(episode,result['score'],snapshot)
-                append_record(run/'validation.jsonl.gz',dict(attempt=attempt,episode=episode,kind='routine',**result))
+                append_record(run/'validation.jsonl.gz',dict(attempt=attempt,episode=episode,kind='routine',stopping_diagnostics=selection.diagnostics(),**result))
                 store.update(window=True,name=snapshot)
                 if improved:
                     best_full=save('full','best');store.update('best',best_full)
                     store.update('best_inference',snapshot)
                 if args.stage=='continue' and episode==p['common_budget']:
                     common=selection.best_through(p['common_budget'])['checkpoint'];store.update('best_at_common_budget',common)
-                confirmed=False
-                if selection.candidate():
-                    count=p['wce_confirmation_repeats'] if args.stage=='wce' else p['confirmation_repeats']
-                    candidates=selection.history[-p['window']:]+[selection.best]
-                    scores={}
-                    for row in candidates:
-                        name=row['checkpoint']
-                        if name in scores:continue
-                        extra=request(name,count,repeats)
-                        scores[name]=(row['score']*repeats+extra['score']*(count-repeats))/count
-                        append_record(run/'validation.jsonl.gz',dict(attempt=attempt,episode=episode,kind='confirmation',candidate=name,**extra))
-                    confirmed=selection.stable([scores[r['checkpoint']] for r in candidates[:-1]],scores[selection.best['checkpoint']])
                 recovery=save('full','recovery');store.update(name=recovery,latest=True)
                 store.collect()
-                return selection.terminal(confirmed)
+                return selection.terminal()
 
             if not selection.history:status=validate() or 'interrupted'
             while episode<p['max_episodes'][args.stage] and status=='interrupted':

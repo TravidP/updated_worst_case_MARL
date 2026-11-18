@@ -1,6 +1,6 @@
 # CB-WCE Standalone：目录说明与运行手册
 
-当前分支：[`refactor/standalone-local-training`](https://github.com/TravidP/updated_worst_case_MARL/tree/refactor/standalone-local-training)。本目录的内容直接作为分支根目录；当前采用本地 CPU 运行。见 [必要文件与目录说明](docs/repository_structure_zh.md)。
+当前分支：[`cbwce_standalone`](https://github.com/TravidP/updated_worst_case_MARL/tree/cbwce_standalone)。本目录的内容直接作为分支根目录；当前采用本地 CPU 运行。见 [必要文件与目录说明](docs/repository_structure_zh.md)。
 
 [English README](README_en.md) · [中文实验计划](docs/revision_plan_v8_zh.md) · [English plan](docs/revision_plan_v8_en.md) · [实施与验证记录](docs/implementation_status.md)
 
@@ -14,17 +14,21 @@
 |---|---|
 | 运行代码和 manifest 协议 | v8.1，见 `config/protocol.json` |
 | 最新实验计划 | 中文 v8.3（本地多核）；英文仍为 v8.2，待同步 |
-| 当前 controller validation | 每场景 3600 秒，常规 3 个固定实现，确认合计 10 个 |
-| v8.2 controller validation | 11 个预生成 DR 混合组，暂定每组 600 秒，连续 6600 秒，3 个完整实现；**尚未同步到代码** |
-| 目标时长 | 当前中文计划已明确每组 600 秒、总计 6600 秒；英文计划待同步 |
-| 离线 WCE validation | 完整 6600 秒，常规 10 个种子组合，确认合计 30 个 |
+| 当前 controller validation | 连续运行 11×600=6600 秒；常规 1 个固定实现，patience 停止，不追加确认验证 |
+| 验证 schema | `dr_sequence_v1`：一个场景，11 个冻结的 DR 混合块 |
+| 已确认时长 | 每组 600 秒、总计 6600 秒，中英文验证规则已同步 |
+| 离线 WCE validation | 完整 6600 秒，常规 10 个种子组合，patience 停止，不追加确认验证 |
 | 最终测试 | 暂定 11 个 seen + 12 个泛化场景，每场景 10 次、每次 3600 秒 |
 | 已有证据 | 11 项单元测试、六组地图／算法短流程、30 个续训分支，以及恢复、审计、迁移检查 |
 | 尚未完成 | 正式验证 manifest、SIF 构建及容器内验收、Hábrók 实测、正式训练与正式模型归档 |
 
-**不要把 6600 秒 manifest 直接交给现有 v8.1 校验器，也不要把旧 validation 分数接入新协议的 best/patience。** 新协议需同步代码、版本、缓存身份和测试，清单见计划第 8 节。
+**旧 3600 秒 validation manifest 和 best/patience 不可复用。** 生成新 schema，使用新运行目录，并重新生成验证 gate；最终测试仍为 3600 秒。
 
 历史证据在 [provenance/verification](provenance/verification)。训练流程检查使用 110 秒短回合及小 replay；部分评估检查使用完整 3600 秒。它们不能证明收敛或超算内存足够。过去的临时试验 checkpoint 已清理，复测需重新运行脚本。
+
+停止采用 `patience_v1`：达到阶段最少回合后，连续五次验证未达到累计 `max(anchor×0.01,0.1)` 的实质改善，就停止并选用历史 best。不再设稳定性或额外确认门槛；微小改善仍保存 best，patience 随 checkpoint 恢复。父模型／离线 WCE 无实质改善时记为 `no_learning`。保留最大预算和共同预算 best；旧停止状态不能直接按新协议恢复。
+
+WCE advantage normalization 默认开启（`adv_norm = true`）：每次更新在完整 11 个宏步样本内使用 `(A − mean(A)) / (std(A) + 1e-8)`，标准差采用总体标准差；仅处理 actor advantage，critic return 与奖励缩放保持原定义。离线 WCE 和 online WCE 均生效，fixed WCE 仅推理。日志记录标准化前后 advantage 均值及标准差。
 
 ## 2. 推荐阅读和执行顺序
 
@@ -171,7 +175,7 @@ parent：初始训练 → best 父控制器
         └── online_wce：控制器和 WCE 同时续训
 ```
 
-五种续训共享同一父模型，后两种共享同一 WCE。Baseline 使用原需求顺序，random group 抽取单一组，DR 使用 Dirichlet 混合。正式分叉要求上游 `plateau_confirmed`，并核对地图、算法、训练种子及 WCE 的父模型归属。
+五种续训共享同一父模型，后两种共享同一 WCE。Baseline 使用原需求顺序，random group 抽取单一组，DR 使用 Dirichlet 混合。正式分叉要求上游 `early_stopped`，并核对地图、算法、训练种子及 WCE 的父模型归属。
 
 ## 6. 环境准备与基础检查
 
@@ -242,7 +246,7 @@ for method in baseline random_group domain_randomization fixed_wce online_wce; d
 done
 ```
 
-这里 11×10=110 秒、22 个控制步，低于默认 DQL 5000 步 warm-up，主要检查管线。完整 verifier 会临时缩小 replay/warm-up，实际覆盖梯度更新和恢复。短预算出现 `no_learning` 或 `max_budget_unconfirmed` 可以是正常结果。
+这里 11×10=110 秒、22 个控制步，低于默认 DQL 5000 步 warm-up，主要检查管线。完整 verifier 会临时缩小 replay/warm-up，实际覆盖梯度更新和恢复。短预算出现 `no_learning` 或 `max_budget_reached` 可以是正常结果。
 
 以下会启动 SUMO 并生成模型，明显比单元测试耗时和占空间：
 
@@ -263,21 +267,14 @@ python scripts/measure_metrics.py --output "$CBWCE_RUN_ROOT/metrics-memory.json"
 
 ### 8.1 当前 manifest
 
-这是现有 v8.1 支持的未冻结开发样例，**不是新 DR 验证集**：
+生成开发序列或指定种子的正式验证设计：
 
-```json
-{
-  "version": "8.1", "network": "grid", "split": "validation", "frozen": false,
-  "scenarios": [{
-    "id": "development_example", "horizon": 3600, "generation_seed": 9001,
-    "blocks": [{"start": 0, "duration": 3600, "profile": "Uniform"}]
-  }]
-}
+```bash
+python main.py pilot-manifest --network grid --output grid-development.json
+python main.py validation-manifest --network grid --design-seed 41001 --output grid-validation.json --frozen
 ```
 
-Blocks 支持 profile 或十一项归一化 `weights`，以及 `multiplier`／`sigma`。当前必须连续覆盖 3600 秒、ID 唯一、`frozen` 为 JSON 布尔值。正式训练要求冻结的 `split=validation`；最终测试要求 `split=test`。不要仅将 Uniform 样例改为 `true` 就当作正式设计。
-
-v8.2 需冻结十一组 DR 权重、顺序与三个随机实现，组间保留交通和循环状态。每组时长确认、程序同步后再生成新协议 manifest。离线 WCE 继续验证其自身需求策略，不能用固定 DR 序列替代它的动作。
+开发与正式选模使用不同设计种子。`dr_sequence_v1` manifest 包含一个 6600 秒场景、连续的 11 个 600 秒 DR 混合块、profile 名称顺序、输入哈希和设计种子。常规验证仅运行索引 0 一次，从空网络开始，组间保留车辆与循环状态。交通／SUMO／策略随机流由 manifest 哈希、场景、实现索引和流名称确定，在所有候选之间配对。区间均值只作诊断，选模使用完整 6600 秒平均排队。不再追加确认验证；离线 WCE 仍每次用 10 个实现验证自身需求策略，采用相同 patience 停止规则。最终测试 manifest 保持 3600 秒。开发参数 `--pilot-block-seconds` 会缩短全部 11 个区间，不会只截取第一个组。
 
 ### 8.2 参数、门禁与恢复
 
@@ -332,7 +329,7 @@ one_run/
 ├── attempts.jsonl         # 重启与恢复起点
 ├── episodes.jsonl.gz      # 完整回合摘要及 attempt 身份
 ├── blocks.jsonl.gz        # 权重、交通哈希、区间诊断
-├── validation.jsonl.gz    # 常规和确认验证
+├── validation.jsonl.gz    # 常规验证分数与停止诊断
 ├── checkpoints/e.../
 │   ├── manifest.json      # 类型、签名、父引用、文件哈希
 │   ├── runner.pkl         # 运行与选模状态
@@ -351,9 +348,9 @@ one_run/
 | `latest` | 最近有效完整恢复点，由 `--resume` 读取 |
 | `final` | 阶段终止时状态，不保证比 best 好 |
 | `best_at_common_budget` | 续训 1000 回合时冻结的最佳推理终点 |
-| `plateau_confirmed` | 经验平台已确认，不是全局最优证明 |
-| `max_budget_unconfirmed` | 达到最大预算，未确认平台 |
-| `no_learning` | 父模型／离线 WCE 到上限仍无规定的实质改善 |
+| `early_stopped` | 达到最少回合且 patience 耗尽；不代表收敛证明 |
+| `max_budget_reached` | 达到最大预算，尚未触发 patience 停止 |
+| `no_learning` | 父模型／离线 WCE 因 patience 或预算停止，仍无实质改善 |
 | `interrupted` | 未完成，需恢复 |
 | `failed` | 发生错误，需先查看原因 |
 
@@ -508,7 +505,7 @@ python main.py archive \
 
 | 情况 | 排查方向 |
 |---|---|
-| 6600 秒 manifest 被拒绝 | 当前校验仍为 v8.1／3600 秒；完成协议迁移，不伪造旧字段 |
+| 验证 manifest 被拒绝 | 用 `validation-manifest` 重新生成，核对 `dr_sequence_v1`、11 个 600 秒混合块及输入哈希 |
 | 未冻结 manifest | 检查设计、split 与 frozen；不要以 Uniform pilot 代替正式验证 |
 | Missing/stale gate | 科学源码／配置／输入变化后，在匹配镜像中重新验收 |
 | 缺少 runtime.lock.json | 尚未完成实际容器构建与环境记录 |
@@ -527,4 +524,4 @@ python main.py archive \
 
 ## 精简训练分支与存储交接
 
-本地训练工作分支为 `refactor/standalone-local-training`。旧数据云端迁移进度、恢复方法和未完成项见 [存储交接记录](docs/storage_handover_20261116.md)。创建新分支本身不会释放旧工作区磁盘空间。
+本地训练工作分支为 `cbwce_standalone`。旧数据云端迁移进度、恢复方法和未完成项见 [存储交接记录](docs/storage_handover_20261116.md)。创建新分支本身不会释放旧工作区磁盘空间。

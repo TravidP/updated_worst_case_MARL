@@ -17,6 +17,8 @@ def main():
     check=sub.add_parser('check');check.add_argument('--network',choices=['grid','monaco'],default='grid')
     check.add_argument('--validation');check.add_argument('--publication',action='store_true')
     make=sub.add_parser('pilot-manifest');make.add_argument('--network',choices=['grid','monaco'],required=True);make.add_argument('--output',required=True)
+    val=sub.add_parser('validation-manifest');val.add_argument('--network',choices=['grid','monaco'],required=True);val.add_argument('--output',required=True)
+    val.add_argument('--design-seed',type=int,required=True);val.add_argument('--frozen',action='store_true')
     bench=sub.add_parser('test-manifest');bench.add_argument('--network',choices=['grid','monaco'],required=True);bench.add_argument('--output',required=True)
     ev=sub.add_parser('evaluate');ev.add_argument('--request',required=True);ev.add_argument('--output',required=True)
     package=sub.add_parser('package');package.add_argument('--kind',choices=['code','inputs','run'],required=True);package.add_argument('--source');package.add_argument('--output',required=True)
@@ -39,15 +41,17 @@ def main():
             verify_runtime()
         print(json.dumps(dict(status='passed',network=opts.network,profiles=len(groups),publication=opts.publication,
                              assets_root=str(root('assets'))),indent=2))
-    elif opts.command in ('pilot-manifest','test-manifest'):
+    elif opts.command in ('pilot-manifest','validation-manifest','test-manifest'):
         if Path(opts.output).exists():raise FileExistsError(opts.output)
-        if opts.command=='pilot-manifest':
-            scenes=[dict(id='pilot_uniform',horizon=3600,generation_seed=9001,blocks=[dict(start=0,duration=3600,profile='Uniform')])]
-            split='validation';frozen=False
+        if opts.command in ('pilot-manifest','validation-manifest'):
+            from experiments.validation import validation_manifest
+            manifest=validation_manifest(opts.network,9001 if opts.command=='pilot-manifest' else opts.design_seed,
+                                         False if opts.command=='pilot-manifest' else opts.frozen)
         else:
             from experiments.scenarios import definitions
-            scenes=definitions(opts.network,'seen')+definitions(opts.network,'test');split='test';frozen=True
-        atomic_json(opts.output,dict(version='8.1',network=opts.network,split=split,frozen=frozen,scenarios=scenes))
+            scenes=definitions(opts.network,'seen')+definitions(opts.network,'test')
+            manifest=dict(version='8.1',network=opts.network,split='test',frozen=True,scenarios=scenes)
+        atomic_json(opts.output,manifest)
     elif opts.command=='evaluate':
         from experiments.validation import evaluate
         if Path(opts.output).exists():raise FileExistsError(opts.output)
