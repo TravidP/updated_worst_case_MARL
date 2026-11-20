@@ -1,0 +1,50 @@
+{
+  "cases": [
+    "monaco_dql"
+  ],
+  "checks": {},
+  "correctness_status": "partial",
+  "elapsed_seconds": 253.8237120900303,
+  "fingerprint": "dfe4496b7056534e0ed78a9cad5ba025471989636ae42a9f8d0b3d917c03bace",
+  "limitations": [
+    "Correctness checks are not convergence evidence.",
+    "Publication requires the locked local/container runtime; development-system results do not bypass that gate."
+  ],
+  "pilot_block_seconds": 10,
+  "runtime": {
+    "cpu": "Intel(R) Core(TM) Ultra 7 265K",
+    "dependency_lock_sha256": "f9d33432e5e9f770254336b5ff22356560322b65a8a3965da6abb3da17eb7042",
+    "numpy": "1.26.4",
+    "onednn": "0",
+    "packages": {
+      "eclipse-sumo": null,
+      "matplotlib": "3.10.8",
+      "numpy": "1.26.4",
+      "pandas": "2.3.3",
+      "scipy": "1.8.0",
+      "seaborn": "0.13.2",
+      "setuptools": "59.6.0",
+      "sumolib": null,
+      "tensorflow-cpu": null,
+      "traci": null
+    },
+    "python": "3.10.12",
+    "sumo": "Eclipse SUMO sumo v1_26_0+0455-77b9dbc222e",
+    "sumo_sha256": "a86332239ee2fcec255773a9c081055b61eec115e08caadf6a9d871f56eeab0b",
+    "sumolib": "1.26.0.post455",
+    "system": "Linux-6.8.0-124-generic-x86_64-with-glibc2.35",
+    "tensorflow": "2.15.1",
+    "threads": {
+      "MKL_NUM_THREADS": "1",
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "TF_NUM_INTEROP_THREADS": "1",
+      "TF_NUM_INTRAOP_THREADS": "1"
+    },
+    "traci": "1.26.0.post455"
+  },
+  "runtime_error": "Publication requires released SUMO 1.26.0 (not a development build)",
+  "runtime_verified": false,
+  "status": "partial",
+  "validation_rollouts": 1
+}

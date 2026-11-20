@@ -1,0 +1,10 @@
+% Build training_plan_en.tex first, then run pdftex training_workflow_en.tex.
+% Crop the workflow page while retaining its validation notes.
+\pdfpagewidth=1132.5bp
+\pdfpageheight=735bp
+\pdfhorigin=-29bp
+\pdfvorigin=-29bp
+\pdfinfo{/Title (Training workflow: 42 training tasks)}
+\pdfximage page 1 {training_plan_en.pdf}
+\shipout\hbox{\pdfrefximage\pdflastximage}
+\end

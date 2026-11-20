@@ -1,0 +1,37 @@
+{
+  "hash": "9decb3d49f8d3bc2dea0b61a4efb745141d3eefe6742ff26ebe52bcec3d493e7",
+  "profile": "local",
+  "runtime": {
+    "cpu": "Intel(R) Core(TM) Ultra 7 265K",
+    "dependency_lock_sha256": "f9d33432e5e9f770254336b5ff22356560322b65a8a3965da6abb3da17eb7042",
+    "numpy": "1.26.4",
+    "onednn": "0",
+    "packages": {
+      "eclipse-sumo": "1.26.0",
+      "matplotlib": "3.8.4",
+      "numpy": "1.26.4",
+      "pandas": "2.2.3",
+      "scipy": "1.11.4",
+      "seaborn": "0.13.2",
+      "setuptools": "75.8.0",
+      "sumolib": "1.26.0",
+      "tensorflow-cpu": "2.15.1",
+      "traci": "1.26.0"
+    },
+    "python": "3.10.12",
+    "sumo": "Eclipse SUMO sumo 1.26.0",
+    "sumo_sha256": "eaecf8c05a3934154f4d78528de55a218b3542f674eb175be446fe2544a6463d",
+    "sumolib": "1.26.0",
+    "system": "Linux-6.8.0-124-generic-x86_64-with-glibc2.35",
+    "tensorflow": "2.15.1",
+    "threads": {
+      "MKL_NUM_THREADS": "1",
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "TF_NUM_INTEROP_THREADS": "1",
+      "TF_NUM_INTRAOP_THREADS": "1"
+    },
+    "traci": "1.26.0"
+  },
+  "schema": "runtime_lock_v1"
+}

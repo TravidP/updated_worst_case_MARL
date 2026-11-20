@@ -1,0 +1,15 @@
+test_campaign_freeze_and_extension (test_local_campaign.CampaignTests) ... ok
+test_defaults_and_unlimited_segments (test_local_campaign.CampaignTests) ... ok
+test_durable_queue_with_real_subprocess_receipt (test_local_campaign.CampaignTests) ... ok
+test_resources_include_whole_tree_and_full_replay (test_local_campaign.CampaignTests) ... ok
+test_single_and_extended_matrix (test_local_campaign.CampaignTests) ... ok
+test_adopts_running_supervisor_without_duplicate (test_local_campaign.QueueRecoveryTests) ... ok
+test_queue_lock_and_failure_blocks_dependants (test_local_campaign.QueueRecoveryTests) ... ok
+test_stops_after_three_normal_segments_without_progress (test_local_campaign.QueueRecoveryTests) ... ok
+test_tuning_campaign_runs_24_explicit_development_configs (test_local_campaign.QueueRecoveryTests) ... ok
+test_locked_baseline_and_mismatch (test_local_campaign.RuntimeTests) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 3.069s
+
+OK

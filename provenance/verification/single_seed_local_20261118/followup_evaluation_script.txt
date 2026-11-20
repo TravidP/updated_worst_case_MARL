@@ -1,0 +1,40 @@
+import json,os,sys
+from pathlib import Path
+root=Path('/home/sdc_joran/Journal/deeprl_signal_control/cbwce_standalone');sys.path.insert(0,str(root))
+from experiments.runtime import configure_threads,identity
+configure_threads()
+from experiments.runner import fingerprint
+from experiments.storage import atomic_json
+from experiments.validation import load_manifest,evaluate
+from experiments.evaluation import evaluate_run,read_evaluation
+from experiments.checkpoint import Checkpoints
+from experiments.scenarios import test_manifest
+network=sys.argv[1]
+prior=Path('/tmp/cbwce-single-seed-final');case=prior/(network+'_dql')
+out=Path('/tmp/cbwce-evaluation-fixed')/network;out.mkdir(parents=True,exist_ok=False)
+source=fingerprint();manifest,mhash=load_manifest(prior/(network+'_pilot.json'),network)
+full=evaluate(dict(stage='parent',network=network,controller='dql',seed=9001,
+ checkpoint=str(Checkpoints(case/'parent').role('best_inference')),config=str(case/'pilot.ini'),
+ manifest=manifest,manifest_hash=mhash,repeats=1))
+assert full['rollouts'][0]['sample_count']==6600 and len(full['rollouts'][0]['blocks'])==11
+atomic_json(out/'full_validation.json',full)
+print(network,'6600-second validation passed',flush=True)
+test=out/'test.json';atomic_json(test,test_manifest(network));destination=out/'evaluation'
+options=dict(pilot=True,rollouts=1,scenarios=['seen_Uniform','peak_1.5'])
+evaluate_run(case/'parent',test,destination,**options)
+before={p.name:p.read_bytes() for p in (destination/'rows').glob('*.gz')}
+evaluate_run(case/'parent',test,destination,resume=True,**options)
+assert before=={p.name:p.read_bytes() for p in (destination/'rows').glob('*.gz')}
+_,rows=read_evaluation(destination)
+assert len(rows)==2
+for r in rows:
+ assert r['sample_count']==3600 and r['trips']['count']==r['completed']
+ assert r['trips']['arrived_records']==r['arrived']
+ assert r['completion_rate']==r['completed']/r['inserted']
+ print(network,r['scenario'],'arrived',r['arrived'],'completed',r['completed'],'removed',r['removed'],flush=True)
+assert source==fingerprint()
+atomic_json(out/'verification.json',dict(status='passed',source=source,runtime=identity(),
+ training_source=json.loads((case/'parent/manifest.json').read_text())['source'],
+ checks=dict(full_validation=True,full_evaluation=True,audit_equivalence=True,evaluation_resume=True),
+ note='Current evaluation code exercised using prior pilot-trained checkpoints; source identities are recorded separately.'))
+print(network,'full evaluation/audit/resume passed',flush=True)

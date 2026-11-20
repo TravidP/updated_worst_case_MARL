@@ -1,0 +1,33 @@
+{
+  "concurrent_isolation": true,
+  "crash_resume": true,
+  "frozen_policy_comparisons": [
+    {
+      "network": "grid",
+      "stage": "wce",
+      "status": "passed",
+      "training_source": "dfe4496b7056534e0ed78a9cad5ba025471989636ae42a9f8d0b3d917c03bace"
+    },
+    {
+      "network": "grid",
+      "stage": "fixed_wce",
+      "status": "passed",
+      "training_source": "dfe4496b7056534e0ed78a9cad5ba025471989636ae42a9f8d0b3d917c03bace"
+    },
+    {
+      "network": "monaco",
+      "stage": "wce",
+      "status": "passed",
+      "training_source": "dfe4496b7056534e0ed78a9cad5ba025471989636ae42a9f8d0b3d917c03bace"
+    },
+    {
+      "network": "monaco",
+      "stage": "fixed_wce",
+      "status": "passed",
+      "training_source": "dfe4496b7056534e0ed78a9cad5ba025471989636ae42a9f8d0b3d917c03bace"
+    }
+  ],
+  "note": "Frozen-policy tensors were produced before the evaluation-only trip-count fix; crash/concurrent execution uses current source.",
+  "source": "7a71dcab48e663673c98b9a0bac9f48c26a80dc2ae88e0b84e98b94a2ea70393",
+  "status": "passed"
+}

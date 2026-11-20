@@ -1,0 +1,90 @@
+/usr/lib/python3/dist-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.17.3 and <1.25.0 is required for this version of SciPy (detected version 1.26.4
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+WARNING:tensorflow:From /home/sdc_joran/.local/lib/python3.10/site-packages/tensorflow/python/compat/v2_compat.py:108: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+Instructions for updating:
+non-resource variables are not supported in the long term
+/home/sdc_joran/.local/lib/python3.10/site-packages/matplotlib/projections/__init__.py:63: UserWarning: Unable to import Axes3D. This may be due to multiple versions of Matplotlib being installed (e.g. as a system package and as a pip package). As a result, the 3D projection is not available.
+  warnings.warn("Unable to import Axes3D. This may be due to multiple versions of "
+test_act_replay_context_reset_and_terminal_target (test_dql_recurrent.RecurrentDQLTests) ... /home/sdc_joran/Journal/deeprl_signal_control/cbwce_standalone/agents/dql.py:105: UserWarning: `tf.layers.dense` is deprecated and will be removed in a future version. Please use `tf.keras.layers.Dense` instead.
+  return tf.layers.dense(h,int(actions),name='q')
+ok
+test_batched_gates_match_existing_lstm_and_ignore_padding (test_dql_recurrent.RecurrentDQLTests) ... ok
+test_replay_terminal_padding_and_wraparound (test_dql_recurrent.RecurrentDQLTests) ... ok
+test_exact_windows_tail_and_bounded_detail (test_evaluation_v2.EvaluationTests) ... ok
+test_partial_evaluation_resumes_only_missing_rollouts_and_reuses_cache (test_evaluation_v2.EvaluationTests) ... ok
+test_report_single_seed_and_missing_training_seed (test_evaluation_v2.EvaluationTests) ... ok
+test_scenes_conserve_rates_and_switching (test_evaluation_v2.EvaluationTests) ... ok
+test_shard_integrity_and_resume (test_evaluation_v2.EvaluationTests) ... ok
+test_teleport_removals_are_arrivals_but_not_completions (test_evaluation_v2.EvaluationTests) ... ok
+test_tripinfo_complete_excluded_empty_and_bad (test_evaluation_v2.EvaluationTests) ... ok
+test_actor_critic_masked_update_and_frozen_graph (test_learning.LearningTests) ... WARNING:tensorflow:From /home/sdc_joran/.local/lib/python3.10/site-packages/tensorflow/python/training/rmsprop.py:188: calling Ones.__init__ (from tensorflow.python.ops.init_ops) with dtype is deprecated and will be removed in a future version.
+Instructions for updating:
+Call initializer instance with the dtype argument instead of passing it to the constructor
+ok
+test_replay_bound_and_chunk_roundtrip (test_learning.LearningTests) ... ok
+test_target_and_exact_next_update_recovery (test_learning.LearningTests) ... ok
+test_campaign_freeze_and_extension (test_local_campaign.CampaignTests) ... ok
+test_defaults_and_unlimited_segments (test_local_campaign.CampaignTests) ... ok
+test_durable_queue_with_real_subprocess_receipt (test_local_campaign.CampaignTests) ... ok
+test_resources_include_whole_tree_and_full_replay (test_local_campaign.CampaignTests) ... ok
+test_single_and_extended_matrix (test_local_campaign.CampaignTests) ... ok
+test_adopts_running_supervisor_without_duplicate (test_local_campaign.QueueRecoveryTests) ... ok
+test_queue_lock_and_failure_blocks_dependants (test_local_campaign.QueueRecoveryTests) ... ok
+test_stops_after_three_normal_segments_without_progress (test_local_campaign.QueueRecoveryTests) ... ok
+test_tuning_campaign_runs_24_explicit_development_configs (test_local_campaign.QueueRecoveryTests) ... ok
+test_locked_baseline_and_mismatch (test_local_campaign.RuntimeTests) ... ok
+test_directions_no_learning_and_continuation (test_protocol.ProtocolTests) ... ok
+test_manifest_fail_closed (test_protocol.ProtocolTests) ... ok
+test_minimum_budget_and_evaluation_count (test_protocol.ProtocolTests) ... ok
+test_patience_ignores_noise_and_restores_counter (test_protocol.ProtocolTests) ... ok
+test_plateau_and_meaningful_improvements (test_protocol.ProtocolTests) ... ok
+test_release_and_archive (test_protocol.ProtocolTests) ... ok
+test_reward_reads_neighborhood_coefficient (test_protocol.ProtocolTests) ... ok
+test_streamed_statistics_and_bounds (test_protocol.ProtocolTests) ... ok
+test_wce_patience_direction_and_old_state_rejection (test_protocol.ProtocolTests) ... ok
+test_failed_publish_preserves_previous_recovery (test_storage.StorageTests) ... ok
+test_retention_protects_roles_pins_and_recovery_dependencies (test_storage.StorageTests) ... ok
+test_changed_source_is_preserved (test_storage_migration.ArchiveSafetyTest) ... ok
+test_corrupt_download_never_allows_cleanup (test_storage_migration.ArchiveSafetyTest) ... ok
+test_hardlinks_count_blocks_only_once (test_storage_migration.ArchiveSafetyTest) ... ok
+test_offline_restore_and_refuse_overwrite (test_storage_migration.ArchiveSafetyTest) ... ok
+test_parallel_fragment_restore (test_storage_migration.ArchiveSafetyTest) ... ok
+test_raw_file_restore_and_single_delete (test_storage_migration.ArchiveSafetyTest) ... ok
+test_rclone_worker_roundtrip_and_resume (test_storage_migration.ArchiveSafetyTest) ... ok
+test_restore_rejects_traversal_before_writing (test_storage_migration.ArchiveSafetyTest) ... ok
+test_resume_after_durable_intent_and_unlink (test_storage_migration.ArchiveSafetyTest) ... ok
+test_tracked_hardlink_is_archived_but_preserved (test_storage_migration.ArchiveSafetyTest) ... ok
+test_verified_cleanup_records_exact_file (test_storage_migration.ArchiveSafetyTest) ... ok
+test_final_tests_remain_3600_and_weights_bind_names (test_validation_sequence.ValidationSequenceTests) ... ok
+test_frozen_design_and_protocol (test_validation_sequence.ValidationSequenceTests) ... ok
+test_reject_old_partial_or_misaligned_design (test_validation_sequence.ValidationSequenceTests) ... ok
+test_worker_runs_whole_sequence_without_block_resets (test_validation_sequence.ValidationSequenceTests) ... ok
+test_cnn_gcn_wce_update_and_checkpoint (test_wave_observations.WaveObservationTests) ... /home/sdc_joran/Journal/deeprl_signal_control/cbwce_standalone/agents/policies.py:655: UserWarning: `tf.layers.conv2d` is deprecated and will be removed in a future version. Please Use `tf.keras.layers.Conv2D` instead.
+  conv1 = tf.layers.conv2d(ob_reshaped, filters=32, kernel_size=3, padding='same', activation=tf.nn.relu)
+/home/sdc_joran/Journal/deeprl_signal_control/cbwce_standalone/agents/policies.py:656: UserWarning: `tf.layers.conv2d` is deprecated and will be removed in a future version. Please Use `tf.keras.layers.Conv2D` instead.
+  conv2 = tf.layers.conv2d(conv1, filters=64, kernel_size=3, padding='valid', activation=tf.nn.relu)
+/home/sdc_joran/Journal/deeprl_signal_control/cbwce_standalone/agents/policies.py:657: UserWarning: `tf.layers.flatten` is deprecated and will be removed in a future version. Please use `tf.keras.layers.Flatten` instead.
+  flat = tf.layers.flatten(conv2)
+/home/sdc_joran/Journal/deeprl_signal_control/cbwce_standalone/agents/policies.py:658: UserWarning: `tf.layers.dense` is deprecated and will be removed in a future version. Please use `tf.keras.layers.Dense` instead.
+  fc = tf.layers.dense(flat, 128, activation=tf.nn.relu)
+/home/sdc_joran/Journal/deeprl_signal_control/cbwce_standalone/agents/policies.py:662: UserWarning: `tf.layers.dense` is deprecated and will be removed in a future version. Please use `tf.keras.layers.Dense` instead.
+  self.mu = tf.layers.dense(fc, n_a, activation=None)
+/home/sdc_joran/Journal/deeprl_signal_control/cbwce_standalone/agents/policies.py:672: UserWarning: `tf.layers.dense` is deprecated and will be removed in a future version. Please use `tf.keras.layers.Dense` instead.
+  self.v = tf.layers.dense(fc, 1, activation=None)
+/home/sdc_joran/Journal/deeprl_signal_control/cbwce_standalone/agents/policies.py:798: UserWarning: `tf.layers.dense` is deprecated and will be removed in a future version. Please use `tf.keras.layers.Dense` instead.
+  fc = tf.layers.dense(graph_embedding, 128, activation=tf.nn.relu)
+/home/sdc_joran/Journal/deeprl_signal_control/cbwce_standalone/agents/policies.py:801: UserWarning: `tf.layers.dense` is deprecated and will be removed in a future version. Please use `tf.keras.layers.Dense` instead.
+  self.mu = tf.layers.dense(fc, n_a)
+/home/sdc_joran/Journal/deeprl_signal_control/cbwce_standalone/agents/policies.py:806: UserWarning: `tf.layers.dense` is deprecated and will be removed in a future version. Please use `tf.keras.layers.Dense` instead.
+  self.v = tf.layers.dense(fc, 1)
+ok
+test_configs_only_allow_wave (test_wave_observations.WaveObservationTests) ... ok
+test_controllers_reject_wait (test_wave_observations.WaveObservationTests) ... ok
+test_measurement_and_controller_wce_order_without_wait (test_wave_observations.WaveObservationTests) ... ok
+test_actor_feed_and_unchanged_critic_targets (test_wce_advantages.WCEAdvantageTests) ... ok
+test_default_and_boolean_validation (test_wce_advantages.WCEAdvantageTests) ... ok
+
+----------------------------------------------------------------------
+Ran 55 tests in 12.163s
+
+OK

@@ -1,0 +1,10 @@
+{
+  "metrics_schema": "evaluation_metrics_v2",
+  "rollouts": 2,
+  "score": 619.3922222222222,
+  "shards": {
+    "peak_1.5_00.json.gz": "ed7587a4e79458b6571f10e72a71b246422e91b32c6ab7ea558598a21254f44b",
+    "seen_Uniform_00.json.gz": "acc199bfc56b984e3018a482b206f235a2f3b3b1e21a6378ade7955787d92a1c"
+  },
+  "status": "complete"
+}

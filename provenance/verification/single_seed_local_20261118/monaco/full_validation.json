@@ -1,0 +1,101 @@
+{
+  "checkpoint_hash": "ac1f3e8ee44cb54d762f6e432302173182bb861e7e02c98311e06e0c48cd429b",
+  "rollouts": [
+    {
+      "active_vehicle_seconds": 3573960,
+      "arrival_seed": 1522678198,
+      "blocks": [
+        {
+          "duration": 600,
+          "id": "dr_01",
+          "mean_queue": 109.48333333333333,
+          "start": 0
+        },
+        {
+          "duration": 600,
+          "id": "dr_02",
+          "mean_queue": 253.69333333333333,
+          "start": 600
+        },
+        {
+          "duration": 600,
+          "id": "dr_03",
+          "mean_queue": 307.42333333333335,
+          "start": 1200
+        },
+        {
+          "duration": 600,
+          "id": "dr_04",
+          "mean_queue": 343.24,
+          "start": 1800
+        },
+        {
+          "duration": 600,
+          "id": "dr_05",
+          "mean_queue": 394.9266666666667,
+          "start": 2400
+        },
+        {
+          "duration": 600,
+          "id": "dr_06",
+          "mean_queue": 437.77,
+          "start": 3000
+        },
+        {
+          "duration": 600,
+          "id": "dr_07",
+          "mean_queue": 450.185,
+          "start": 3600
+        },
+        {
+          "duration": 600,
+          "id": "dr_08",
+          "mean_queue": 460.23833333333334,
+          "start": 4200
+        },
+        {
+          "duration": 600,
+          "id": "dr_09",
+          "mean_queue": 471.5516666666667,
+          "start": 4800
+        },
+        {
+          "duration": 600,
+          "id": "dr_10",
+          "mean_queue": 466.42833333333334,
+          "start": 5400
+        },
+        {
+          "duration": 600,
+          "id": "dr_11",
+          "mean_queue": 458.34166666666664,
+          "start": 6000
+        }
+      ],
+      "collisions": 0,
+      "completed": 614,
+      "completion_rate": 0.4778210116731518,
+      "demand_hash": "8860f474a318dbf188fb093f12c7e2e550457b2064e448e6521bf7df03cdee62",
+      "horizon": 6600,
+      "inserted": 1285,
+      "integrated_queue": 2491969.0,
+      "mean_queue": 377.5710606060606,
+      "mean_speed": 0.09537536690278411,
+      "metrics_schema": "evaluation_metrics_v2",
+      "peak_queue": 491.0,
+      "pending": 3047,
+      "policy_seed": 1387022749,
+      "queue_variance": 12538.441617056931,
+      "realization": 0,
+      "remaining": 662,
+      "sample_count": 6600,
+      "scenario": "dr_sequence",
+      "scheduled": 4333,
+      "speed_sum": 340867.7462958743,
+      "sumo_seed": 1888018741,
+      "teleports": 1169,
+      "wall_seconds": 54.31979923509061
+    }
+  ],
+  "score": 377.5710606060606
+}

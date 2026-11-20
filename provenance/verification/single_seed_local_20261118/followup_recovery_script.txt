@@ -1,0 +1,42 @@
+import json,sys,subprocess
+from pathlib import Path
+root=Path('/home/sdc_joran/Journal/deeprl_signal_control/cbwce_standalone');sys.path.insert(0,str(root))
+from experiments.runtime import configure_threads
+configure_threads()
+from experiments.runner import fingerprint
+from experiments.storage import atomic_json,read_records
+from experiments.checkpoint import Checkpoints
+from tf_compat import tf
+import numpy as np
+folder=Path('/tmp/cbwce-single-seed-final');source=fingerprint();frozen=[]
+for network in ('grid','monaco'):
+ case=folder/(network+'_ppo')
+ for stage,component in [('wce','wce'),('fixed_wce','controller')]:
+  direct=case/(stage+'_direct_two');resumed=case/(stage+'_resumed_two')
+  a=tf.train.NewCheckpointReader(str(Checkpoints(direct).role('final')/component/'variables'))
+  b=tf.train.NewCheckpointReader(str(Checkpoints(resumed).role('final')/component/'variables'))
+  assert a.get_variable_to_shape_map()==b.get_variable_to_shape_map()
+  for key in a.get_variable_to_shape_map():np.testing.assert_allclose(a.get_tensor(key),b.get_tensor(key),rtol=1e-6,atol=1e-7)
+  first=read_records(direct/'episodes.jsonl.gz');second=read_records(resumed/'episodes.jsonl.gz')
+  assert len(first)==len(second)==2
+  assert [x['mean_queue'] for x in first]==[x['mean_queue'] for x in second]
+  frozen.append(dict(network=network,stage=stage,status='passed',training_source=json.loads((direct/'manifest.json').read_text())['source']))
+print('Four frozen-policy recovery comparisons passed',flush=True)
+subprocess.run([sys.executable,str(root/'scripts/verify_crash.py'),'--verification',str(folder)],cwd=root,check=True)
+print('Crash recovery/duplicate ownership passed',flush=True)
+children=[]
+for network in ('grid','monaco'):
+ case=folder/(network+'_dql');log=(case/'concurrent.log').open('w')
+ argv=[sys.executable,str(root/'main.py'),'parent','--network',network,'--controller','dql','--pilot',
+  '--validation',str(folder/(network+'_pilot.json')),'--config',str(case/'pilot.ini'),
+  '--pilot-block-seconds','10','--max-episodes','1','--validate-every','1','--output',str(case/'concurrent_parent')]
+ children.append((subprocess.Popen(argv,cwd=root,stdout=log,stderr=subprocess.STDOUT),log,case))
+for child,log,case in children:
+ try:assert child.wait()==0
+ finally:log.close()
+ assert json.loads((case/'concurrent_parent/result.json').read_text())['completed_episodes']==1
+assert fingerprint()==source
+atomic_json('/tmp/cbwce-evaluation-fixed/remaining_checks.json',dict(status='passed',source=source,
+ frozen_policy_comparisons=frozen,crash_resume=True,concurrent_isolation=True,
+ note='Frozen-policy tensors were produced before the evaluation-only trip-count fix; crash/concurrent execution uses current source.'))
+print('Concurrent SUMO isolation passed',flush=True)
