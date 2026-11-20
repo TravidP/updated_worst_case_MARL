@@ -1,0 +1,68 @@
+{
+  "cutoff": "2026-11-20T15:30:05+01:00",
+  "basis": "operator_locked_partial_tuning",
+  "campaign_hash": "2e4e3c36655bae09884169c993c2f8f9f61eeec4a6df701ffc5767125d3afb13",
+  "development_source": "4132fc54571616eef6d1c704511fefcf84b9eb77600d4ca842e5b82b6ccd618c",
+  "selected": [
+    {
+      "network": "grid",
+      "controller": "ma2c",
+      "tie_rank": 1,
+      "config": "config_ma2c_large.ini",
+      "sha256": "3f951403368aed636d0391edae5ec3ce33d3392a77946a73e15fd6950032b112",
+      "score": 26.48287878787879,
+      "episode": 1000,
+      "checkpoint_hash": "7e84fbd9c2b240c15c01ef629d307244c56d48a8c01a6b8217476855842a3b46"
+    },
+    {
+      "network": "grid",
+      "controller": "ppo",
+      "tie_rank": 2,
+      "config": "config_ppo_large.ini",
+      "sha256": "4fafcc54ca8f9cf13b0b94af249559041a654ee01404ee85ffcc5b325c509c47",
+      "score": 56.43484848484849,
+      "episode": 800,
+      "checkpoint_hash": "1ca888db975e1d9e814656b23a2ea50cad0c555292b1d9b1ddc8f866aed4145d"
+    },
+    {
+      "network": "grid",
+      "controller": "dql",
+      "tie_rank": 1,
+      "config": "config_dql_large.ini",
+      "sha256": "1fc541014775067f1a15c71fd0031f68a737cc30a06d6ccb81306cae3477b118",
+      "score": 138.0010606060606,
+      "episode": 700,
+      "checkpoint_hash": "f6e7bc50a3b853cf6216f73fed382f0c552d98946706d1ce34ec3da6a51171e0"
+    },
+    {
+      "network": "monaco",
+      "controller": "ma2c",
+      "tie_rank": 1,
+      "config": "config_ma2c_real.ini",
+      "sha256": "f01557defedb55e9c3b87278ba59c64481cc31c2f52f0bac4c959dcf9fd7aa01",
+      "score": 11.978181818181818,
+      "episode": 1000,
+      "checkpoint_hash": "6970628acb40b34e65fd6bf9291294763c5cb7c222da937d361e6b963f6eecb8"
+    },
+    {
+      "network": "monaco",
+      "controller": "ppo",
+      "tie_rank": 2,
+      "config": "config_ppo_real.ini",
+      "sha256": "60499acb364b1e7a711bc06738c0663ec4c0a2ef3f730f2079f0006460d68107",
+      "score": 50.81212121212121,
+      "episode": 400,
+      "checkpoint_hash": "10b57ad85a2eae5f3f3e88a24bb0e1b0c6e8cdc46dd1e3f3041ce35925e81003"
+    },
+    {
+      "network": "monaco",
+      "controller": "dql",
+      "tie_rank": 0,
+      "config": "config_dql_real.ini",
+      "sha256": "91bfbafce9d258649f7ffe689b6ec8f30db5439b435bd091d37fc310826571b4",
+      "score": 304.62136363636364,
+      "episode": 800,
+      "checkpoint_hash": "63cebc6aedf151925816b1570739094e2bde4d791b391016d370a3a7548c5f76"
+    }
+  ]
+}

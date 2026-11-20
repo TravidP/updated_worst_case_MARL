@@ -1,0 +1,11 @@
+<!DOCTYPE html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Training control room</title><link rel="stylesheet" href="/style.css">
+<header><strong>Signal control</strong><span>Local experiments</span><time id="clock"></time></header>
+<main><div class="headline"><div><h1>Training control room</h1><p id="mode"></p></div><div class="buttons"><button id="auto" class="primary">Run automatically</button><button id="pause">Pause all</button><button id="resume">Resume queue</button></div></div>
+<section id="metrics"></section><h2>Workflow</h2><div id="phases"></div>
+<details id="workflowChecks"><summary>Configuration checks and report</summary><div id="checks"></div></details>
+<div class="stagebar"><label>Stage <select id="stage"></select></label><button id="release">Run stage</button></div>
+<p id="message" role="status"></p><div class="headline"><h2>Task queue</h2><label>Filter <input id="filter" placeholder="Map, task, status…"></label></div>
+<div class="buttons"><button id="runTasks">Run selected</button><button id="holdTasks">Pause selected</button><button id="resumeTasks">Resume selected</button><button id="retryTasks">Retry failed</button><span id="count"></span></div>
+<div class="scroll"><table><thead><tr><th></th><th>Task</th><th>Map / algorithm</th><th>Status</th><th>Episodes / rollouts</th><th>Best score</th><th>CPU / RSS</th><th>Elapsed</th></tr></thead><tbody id="tasks"></tbody></table></div>
+<section id="detail" hidden><button id="close">Close details</button><h2 id="taskTitle"></h2><p id="identity"></p><div id="curveControls"><label>Reward scale <select id="rewardScale"><option value="learner">Learner (scaled and clipped)</option><option value="raw">Raw environment reward</option></select></label></div><div id="charts"></div><pre id="log"></pre></section>
+<h2>Results</h2><div id="reports"></div><div id="resultTable" class="scroll"></div></main><script src="/app.js"></script></html>

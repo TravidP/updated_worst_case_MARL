@@ -20,6 +20,41 @@ class FakeEnv:
     def update_fingerprint(self,probabilities):pass
 
 class LearningTests(unittest.TestCase):
+    def test_continuation_inherits_weights_and_fresh_optimizer(self):
+        from experiments.runner import initialize_continuation
+        for family in ('ma2c','ppo','dql'):
+            with self.subTest(family=family), tempfile.TemporaryDirectory() as folder:
+                env=FakeEnv(family)
+                parent=Controller(env,family,101)
+                child=Controller(env,family,101)
+                try:
+                    obs=[np.ones(4),np.ones(4)]
+                    for step in range(6):
+                        action=parent.act(obs,env,True)
+                        parent.observe(obs,action,[-2,-3],obs,step==5,True)
+                    path=Path(folder)/'parent'
+                    save_checkpoint(path,{'controller':parent},{'episode':1})
+                    weights=child.online if family=='dql' else child.trainable
+                    learned=parent.online if family=='dql' else parent.trainable
+                    inherited={v.name for v in weights}
+                    if family=='dql':
+                        inherited.update(v.name for v in child.target)
+                    other=[v for v in child.variables if v.name not in inherited]
+                    before=child.sess.run(other)
+                    initialize_continuation(child,path)
+                    for x,y in zip(parent.sess.run(learned),child.sess.run(weights)):
+                        np.testing.assert_array_equal(x,y)
+                    for x,y in zip(before,child.sess.run(other)):
+                        np.testing.assert_array_equal(x,y)
+                    self.assertEqual((child.learning_steps,child.scheduler_steps),(0,0))
+                    if family=='dql':
+                        self.assertEqual((child.replay.size,child.epsilon),(0,1.0))
+                        for x,y in zip(child.sess.run(child.online),child.sess.run(child.target)):
+                            np.testing.assert_array_equal(x,y)
+                finally:
+                    parent.close()
+                    child.close()
+
     def test_replay_bound_and_chunk_roundtrip(self):
         r=Replay(8,[3,2]);size=r.nbytes
         for i in range(30):r.add([[i]*3,[i]*2],[0,1],[1,2],[[i+1]*3,[i+1]*2],False)

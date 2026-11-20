@@ -5,6 +5,7 @@ import os
 import subprocess
 import sys
 import tempfile
+import time
 from pathlib import Path
 import numpy as np
 from experiments.core import digest
@@ -43,6 +44,9 @@ def load_manifest(path,network,publication=False,split='validation'):
     if not scenarios:raise ValueError('Validation scenario design has not been supplied')
     p = settings()
     horizon = p['validation_seconds'] if split == 'validation' else p['evaluation_seconds']
+    if split == 'test':
+        from experiments.scenarios import check_test_manifest
+        check_test_manifest(manifest, network)
     if split == 'validation':
         from experiments.demand import profiles
         from experiments.core import file_hash
@@ -139,10 +143,12 @@ def worker(request):
     from envs.experiment_env import make_environment
     from experiments.checkpoint import load_checkpoint,inspect_checkpoint
     from experiments.demand import mixture
+    from experiments.metrics import RewardMean
     rows=[]
     with tempfile.TemporaryDirectory(prefix='cbwce-validation-',dir=os.environ.get('TMPDIR')) as work:
         env=make_environment(request['network'],request['controller'],work,request['seed'],
                              config_path=request.get('config'),audit=request.get('audit',False))
+        env.collect_trips = bool(request.get('tripinfo', False))
         ctrl=wce=None
         try:
             env.reset_episode(1,evaluation=True)
@@ -166,16 +172,23 @@ def worker(request):
                 if not is_wce and horizon != scene['horizon']:
                     raise ValueError('Controller validation must run the complete sequence')
                 block_seconds=request.get('pilot_block_seconds',600)
-                for index in range(request.get('start',0),request['repeats']):
+                for index in request.get('indices', range(request.get('start',0),request['repeats'])):
+                    from experiments.dispatch import pause_requested
+                    if request.get("rows_directory") and pause_requested():
+                        return dict(interrupted=True)
+                    started = time.monotonic()
                     namespace=request['manifest_hash']
                     rs=seed(namespace,scene['id'],index,'sumo')
                     obs=env.reset_episode(rs,evaluation=True,horizon=horizon);ctrl.reset()
+                    if request.get('detail', False):env.metrics.enable_detail(horizon)
                     ctrl.rng.rng['policy']=np.random.RandomState(seed(namespace,scene['id'],index,'policy'))
                     if wce:wce.rng.rng['wce']=np.random.RandomState(seed(namespace,index,'wce'))
                     hashes=[]
                     if not is_wce:
                         vehicles,h=traffic(env,scene,namespace,index);env.inject(vehicles);hashes.append(h)
                     block_scores=[];block_total=0.;block_start=0
+                    rewards=RewardMean()
+                    track_reward=request.get('stage') in ('parent','continue','wce')
                     for step in range(horizon//5):
                         if is_wce and step%(block_seconds//5)==0:
                             weights,_,_=wce.act(env.wce_observation())
@@ -183,6 +196,15 @@ def worker(request):
                             env.inject(vehicles);hashes.append(digest(vehicles))
                         decision=ctrl.act(obs,env,False);obs,reward,done=env.step(decision[0])
                         ctrl.previous_done=done
+                        if track_reward and is_wce and (step+1)*5 % block_seconds==0:
+                            total=env.metrics.total
+                            raw=(total-block_total)/block_seconds
+                            learner,_=wce.transform_reward(raw)
+                            rewards.add(raw,learner)
+                            block_total=total
+                        elif track_reward and not is_wce:
+                            learner,_=ctrl.transform_rewards(reward)
+                            rewards.add(reward,learner)
                         if not is_wce:
                             block=scene['blocks'][len(block_scores)]
                             end=block['start']+block['duration']
@@ -193,11 +215,25 @@ def worker(request):
                                     mean_queue=(total-block_total)/(end-block_start)))
                                 block_total=total;block_start=end
                     result=env.metrics.summary(horizon,detail=request.get('detail',False))
-                    result.update(scenario=scene['id'],realization=index,demand_hash=digest(hashes),scheduled=env.scheduled,sumo_seed=rs)
+                    if rewards.count:
+                        result['rewards']={'wce' if is_wce else 'controller':rewards.summary()}
+                    result.update(scenario=scene['id'],realization=index,demand_hash=digest(hashes),scheduled=env.scheduled,sumo_seed=rs,
+                                  policy_seed=seed(namespace,scene['id'],index,'policy'),
+                                  arrival_seed=seed(namespace,scene['id'],index,'arrival'),
+                                  wall_seconds=time.monotonic()-started)
+                    if request.get('tripinfo',False):
+                        from experiments.tripinfo import attach_trip_metrics
+                        attach_trip_metrics(result, env.finish_tripinfo())
                     if not is_wce:result['blocks']=block_scores
                     rows.append(result)
                     if env.audit and request.get('audit_output'):
                         env.export_episode(Path(request['audit_output'])/(digest([scene['id'],index])[:16]))
+                    if request.get('rows_directory'):
+                        from experiments.storage import atomic_gzip_json
+                        identity=request['row_identity']
+                        atomic_gzip_json(Path(request['rows_directory'])/(scene['id']+'_%02d.json.gz'%index),
+                                         dict(identity=identity, row=result, hash=digest(result)))
+                    if request.get('tripinfo',False):env.trip_file.unlink(missing_ok=True)
             scores=[np.mean([r['mean_queue'] for r in rows if r['scenario']==s['id']]) for s in scenes]
             return dict(score=float(np.mean(scores)),rollouts=rows,checkpoint_hash=inspect_checkpoint(request['checkpoint'])['hash'])
         finally:

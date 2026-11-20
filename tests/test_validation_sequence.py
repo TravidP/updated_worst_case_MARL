@@ -9,7 +9,7 @@ from unittest.mock import patch
 import numpy as np
 from experiments.protocol import settings
 from experiments.validation import validation_manifest, load_manifest, worker, seed
-from experiments.scenarios import definitions, block_rows
+from experiments.scenarios import definitions, block_rows, test_manifest
 from experiments.metrics import EpisodeMetrics
 
 
@@ -23,8 +23,9 @@ class ValidationSequenceTests(unittest.TestCase):
     def test_frozen_design_and_protocol(self):
         p = settings()
         self.assertEqual(p['validation_repeats'],1)
-        self.assertEqual(p['wce_validation_repeats'],10)
-        self.assertEqual(p['stopping_rule'],'patience_v1')
+        self.assertEqual(p['wce_validation_repeats'],1)
+        self.assertEqual(p['validation_every'],100)
+        self.assertEqual(p['stopping_rule'],'full_horizon_v2')
         self.assertNotIn('confirmation_repeats',p)
         self.assertNotIn('wce_confirmation_repeats',p)
         for network in ('grid', 'monaco'):
@@ -55,7 +56,7 @@ class ValidationSequenceTests(unittest.TestCase):
     def test_final_tests_remain_3600_and_weights_bind_names(self):
         scenes = definitions('grid', 'seen') + definitions('grid', 'test')
         self.assertEqual(len(scenes), 23)
-        self.load(dict(version='8.1', network='grid', split='test', frozen=True, scenarios=scenes), 'test')
+        self.load(test_manifest('grid'), 'test')
         self.assertTrue(all(s['horizon'] == 3600 for s in scenes))
         groups = [dict(name=str(i), rows=[('o', 'd', float(i + 1))]) for i in range(11)]
         definition = dict(profile_names=[str(i) for i in range(11)])

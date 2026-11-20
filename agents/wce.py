@@ -45,14 +45,8 @@ class WCE:
                     self.config.getfloat('max_grad_norm'),
                     self.config.getfloat('rmsp_alpha'),
                     self.config.getfloat('rmsp_epsilon'))
-            session_config = tf.ConfigProto(
-                intra_op_parallelism_threads=self.config.getint('tf_intra_op_threads', fallback=1),
-                inter_op_parallelism_threads=self.config.getint('tf_inter_op_threads', fallback=1),
-                device_count={'GPU': 0})
-            timeout = self.config.getint('tf_operation_timeout_ms', fallback=0)
-            if timeout > 0:
-                session_config.operation_timeout_in_ms = timeout
-            self.sess = tf.Session(config=session_config)
+            from experiments.runtime import session_config
+            self.sess = tf.Session(config=session_config(self.config))
             self.variables = tf.global_variables()
             self.trainable = tf.trainable_variables()
             self.inference_saver = tf.train.Saver(var_list=self.trainable, max_to_keep=0)
@@ -68,12 +62,15 @@ class WCE:
         weights /= weights.sum()
         return weights, logits, float(value)
 
-    def observe(self, obs, logits, value, reward):
-        if not self.training: raise ValueError("Inference-only WCE")
+    def transform_reward(self, reward):
         scaled = float(reward) / self.reward_norm
         learner_reward = (float(np.clip(scaled, -self.reward_clip, self.reward_clip))
                           if self.reward_clip > 0 else scaled)
-        clipped = learner_reward != scaled
+        return learner_reward, learner_reward != scaled
+
+    def observe(self, obs, logits, value, reward):
+        if not self.training: raise ValueError("Inference-only WCE")
+        learner_reward, clipped = self.transform_reward(reward)
         self.pending.append((np.array(obs), np.array(logits), float(value),
                              float(reward), learner_reward, clipped))
         self.macro_steps += 1

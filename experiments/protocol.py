@@ -13,6 +13,21 @@ def root(kind):
 def settings():
     return json.loads((ROOT/'config/protocol.json').read_text())
 
+
+def training_seeds(values=None):
+    """Campaign membership is not a model hyperparameter."""
+    p = settings()
+    values = p['training_seeds'] if values is None else values
+    if (not isinstance(values, list) or not values or
+            any(type(s) is not int or not 0 <= s < 2**31 for s in values) or
+            len(set(values)) != len(values) or p['pilot_seed'] in values):
+        raise ValueError('Training seeds must be unique uint31 integers, distinct from the pilot seed')
+    return list(values)
+
+
+def scientific_protocol():
+    return {k: v for k, v in settings().items() if k not in ('training_seeds', 'pilot_seed')}
+
 def dataset_root(network):
     return root('data')/network
 

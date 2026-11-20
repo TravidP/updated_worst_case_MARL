@@ -100,6 +100,7 @@ class Checkpoints:
                 if not name:continue
                 inspect_checkpoint(self.path/name)
                 with (self.path/name/'runner.pkl').open('rb') as f:state=pickle.load(f)
+                # Older recovery bundles may still reference a retired checkpoint role.
                 keep.update(x for x in (state.get('best_full'),state.get('common')) if x)
                 selection=state.get('selection',{})
                 for row in selection.get('history',[])[-5:]:keep.add(row['checkpoint'])

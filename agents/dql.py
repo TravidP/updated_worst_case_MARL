@@ -80,7 +80,7 @@ class DQLController:
         self.family=family; self.training=training;self.config=env.config['MODEL_CONFIG'];c=self.config
         self.rng=Streams(seed);self.learning_steps=0;self.scheduler_steps=0
         self.backward_calls=0;self.minibatch_updates=0;self.batch_histogram={};self.diagnostics=[]
-        self.exploration_origin=0;self.continuation=False;self.previous_done=True
+        self.previous_done=True
         self.batch=c.getint('batch_size');self.gamma=c.getfloat('gamma')
         self.sequence_length=c.getint('sequence_length')
         self.history=[[] for _ in env.n_s_ls]
@@ -131,7 +131,8 @@ class DQLController:
             self.variables=tf.global_variables();self.trainable=tf.trainable_variables()
             self.saver=tf.train.Saver(self.variables,max_to_keep=0)
             self.inference_saver=tf.train.Saver(self.online,max_to_keep=0)
-            self.sess=tf.Session(config=tf.ConfigProto(intra_op_parallelism_threads=1,inter_op_parallelism_threads=1,device_count={'GPU':0}))
+            from experiments.runtime import session_config
+            self.sess=tf.Session(config=session_config(self.config))
             self.sess.run(tf.global_variables_initializer())
             if training:self.sess.run(self.sync)
 
@@ -142,11 +143,9 @@ class DQLController:
 
     @property
     def epsilon(self):
-        if self.continuation:
-            return .1+(.01-.1)*min(1.,max(0,self.learning_steps-self.exploration_origin)/132000.)
-        return 1.+(.01-1.)*min(1.,self.scheduler_steps/self.config.getint('epsilon_decay_steps'))
+        from agents.controller import scheduled
+        return scheduled(self.config,'epsilon',self.scheduler_steps)
 
-    def branch(self): self.continuation=True;self.exploration_origin=self.learning_steps
     def reset(self):
         self.previous_done=True
         self.history=[[] for _ in self.policies]
@@ -196,7 +195,7 @@ class DQLController:
 
     def state(self):
         return dict(rng=self.rng.state(),history=[[o.copy() for o in h] for h in self.history],**{k:getattr(self,k) for k in ('learning_steps','scheduler_steps',
-            'backward_calls','minibatch_updates','batch_histogram','exploration_origin','continuation','previous_done')})
+            'backward_calls','minibatch_updates','batch_histogram','previous_done')})
     def restore_state(self,state):
         import copy
         state=copy.deepcopy(state)

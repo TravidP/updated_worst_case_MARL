@@ -67,6 +67,7 @@ class RevisedMixin:
                  config_path=None, audit=False):
         validate_visualization(visualization)
         self.audit = audit
+        self.collect_trips = False
         self.visualization = visualization
         self.network = network
         self.work = Path(output).resolve()
@@ -127,6 +128,8 @@ class RevisedMixin:
 ]
         if gui:
             command += ['--start', '--quit-on-end']
+        if self.collect_trips:
+            command += ['--tripinfo-output', str(self.trip_file)]
         self.log_stream = (self.work / 'sumo.log').open('w')
         try:
             start_traci_locked(command, self.connection_label, self.log_stream)
@@ -165,6 +168,12 @@ class RevisedMixin:
         self.seed = int(seed)
         self.init_test_seeds([int(seed)])
         return TrafficSimulator.reset(self, gui=self.visualization, test_ind=0)
+
+    def finish_tripinfo(self):
+        """Close SUMO so XML is complete; caller removes it after saving the row."""
+        from experiments.tripinfo import summarize_trips
+        self.terminate()
+        return summarize_trips(self.trip_file)
 
     def resolve_route(self, origin, destination):
         key = (origin, destination)

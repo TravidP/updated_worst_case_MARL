@@ -30,3 +30,21 @@ def read_records(path):
     opener = gzip.open if path.suffix == '.gz' else open
     with opener(str(path), 'rt') as f:
         return [json.loads(line) for line in f if line.strip()]
+
+
+def atomic_gzip_json(path, value):
+    """One independently verifiable compressed rollout, atomically published."""
+    path = Path(path); path.parent.mkdir(parents=True, exist_ok=True)
+    tmp = path.with_name('.'+path.name+'.'+uuid.uuid4().hex)
+    try:
+        with tmp.open('xb') as raw:
+            with gzip.GzipFile(fileobj=raw, mode='wb', mtime=0) as stream:
+                stream.write(json.dumps(value, sort_keys=True, allow_nan=False).encode())
+            raw.flush();os.fsync(raw.fileno())
+        os.replace(tmp, path)
+    finally:
+        if tmp.exists():tmp.unlink()
+
+
+def read_gzip_json(path):
+    with gzip.open(path, 'rt') as stream:return json.load(stream)

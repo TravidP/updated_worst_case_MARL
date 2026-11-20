@@ -11,6 +11,7 @@ from experiments.checkpoint import Checkpoints,inspect_checkpoint
 from experiments.core import file_hash
 from experiments.storage import atomic_json
 from experiments.validation import load_manifest
+from experiments.protocol import training_seeds
 
 p=argparse.ArgumentParser(description=__doc__)
 for key in ['stage','image','code-release','data-root','run-root','cache-root','validation-grid','validation-monaco','gate','output']:
@@ -20,7 +21,7 @@ if a.stage not in ['parent','wce','continue']:p.error('Invalid stage')
 image=Path(a.image).resolve();image_hash=file_hash(image);run_root=Path(a.run_root).resolve();jobs=[]
 def parent(path):
     result=json.loads((path/'result.json').read_text())
-    if result['status']!='early_stopped':raise ValueError('Parent has not completed patience stopping: '+str(path))
+    if result['status']!='max_budget_reached':raise ValueError('Parent has not completed its training horizon: '+str(path))
     receipt=json.loads((path/'scheduler.json').read_text())
     if receipt['exit_code']!=0 or not receipt['job_id']:raise ValueError('Missing successful scheduler receipt')
     account=subprocess.check_output(['sacct','-n','-X','-P','-j',receipt['job_id'],
@@ -33,7 +34,7 @@ def parent(path):
 for network in ['grid','monaco']:
     validation=str(Path(getattr(a,'validation_'+network)).resolve());load_manifest(validation,network,True)
     for family in ['ma2c','dql','ppo']:
-        for seed in [101,202,303]:
+        for seed in training_seeds():
             base=run_root/network/family/('seed_%d'%seed)
             methods=['baseline','random_group','domain_randomization','fixed_wce','online_wce'] if a.stage=='continue' else ['baseline']
             for method in methods:

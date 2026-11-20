@@ -145,16 +145,8 @@ class Controller:
                         p = CompactPolicy(ns - nw, na, nw, self.batch, **common)
                     if training: masked_loss(p, self.config, family == 'ppo')
                 self.policies.append(p)
-            session_config = tf.ConfigProto(
-                intra_op_parallelism_threads=self.config.getint(
-                    'tf_intra_op_threads', fallback=1),
-                inter_op_parallelism_threads=self.config.getint(
-                    'tf_inter_op_threads', fallback=1),
-                device_count={'GPU': 0})
-            timeout = self.config.getint('tf_operation_timeout_ms', fallback=0)
-            if timeout > 0:
-                session_config.operation_timeout_in_ms = timeout
-            self.sess = tf.Session(config=session_config)
+            from experiments.runtime import session_config
+            self.sess = tf.Session(config=session_config(self.config))
             self.variables = tf.global_variables()
             self.trainable = tf.trainable_variables()
             self.inference_saver = tf.train.Saver(var_list=self.trainable, max_to_keep=0)

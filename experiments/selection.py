@@ -8,13 +8,14 @@ class Selection:
         self.sign=-1 if stage=='wce' else 1
         self.history=[]; self.best=None; self.anchor=None; self.anchor_episode=0; self.improved=False
         self.no_improvement_evals=0
+        self.early_stop=None
         if state:
             if 'no_improvement_evals' not in state:
                 raise ValueError('Old stopping state is incompatible with patience_v1')
             for key,value in state.items(): setattr(self,key,value)
 
     def state(self):
-        return {k:getattr(self,k) for k in ('history','best','anchor','anchor_episode','improved','no_improvement_evals')}
+        return {k:getattr(self,k) for k in ('history','best','anchor','anchor_episode','improved','no_improvement_evals','early_stop')}
 
     def add(self, episode, score, checkpoint):
         if not np.isfinite(score) or score<0: raise ValueError('Invalid validation score')
@@ -30,6 +31,9 @@ class Selection:
         else:
             self.no_improvement_evals+=1
         self.history.append(row)
+        if (self.p.get('stopping_rule')=='full_horizon_v2' and self.stage!='continue'
+                and self.early_stop is None and self.candidate()):
+            self.early_stop=dict(trigger_episode=episode, **self.best)
         return better
 
     def diagnostics(self):
@@ -41,11 +45,6 @@ class Selection:
                     recent_slope=float(np.polyfit(np.arange(len(a)),a,1)[0]) if len(a)>1 else 0.,
                     current_best_gap=max(0.,self.sign*(a[-1]-self.best['score'])))
 
-    def best_through(self, episode):
-        candidates=[r for r in self.history if r['episode']<=episode]
-        if not candidates:raise ValueError('No evaluated checkpoint within budget')
-        return min(candidates,key=lambda r:(self.sign*r['score'],r['episode'])).copy()
-
     def candidate(self):
         if not self.history:return False
         return (self.history[-1]['episode']>=self.p['min_episodes'][self.stage] and
@@ -53,6 +52,10 @@ class Selection:
 
     def terminal(self):
         if not self.history:return None
+        if self.p.get('stopping_rule')=='full_horizon_v2':
+            if self.history[-1]['episode']>=self.p['max_episodes'][self.stage]:
+                return 'max_budget_reached'
+            return None
         if self.candidate():
             return 'no_learning' if self.stage!='continue' and not self.improved else 'early_stopped'
         if self.history[-1]['episode']>=self.p['max_episodes'][self.stage]:

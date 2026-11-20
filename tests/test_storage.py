@@ -27,7 +27,7 @@ class StorageTests(unittest.TestCase):
                 store.update(name=name,latest=True)
                 if i==0:store.pin(name)
                 if i==1:store.update('best',name)
-                if i==2:store.update('best_at_common_budget',name)
+                if i==2:store.update('best_inference',name)
             removed=store.collect()
             self.assertEqual(set(removed),{'cp3','cp4','cp5'})
             for name in ['cp0','cp1','cp2','cp6','cp7']:inspect_checkpoint(store.path/name)

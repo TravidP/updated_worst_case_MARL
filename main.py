@@ -6,7 +6,12 @@ import sys
 from pathlib import Path
 
 def main():
+    from experiments.runtime import configure_threads
+    configure_threads()
     args=sys.argv[1:]
+    if args and args[0]=='local':
+        from experiments.campaign import main as local_main
+        local_main(args[1:]);return
     if args and args[0]=='experiment':args=args[1:]
     if args and args[0] in ('parent','wce','continue'):
         from experiments.runner import parser,run
@@ -24,9 +29,13 @@ def main():
     package=sub.add_parser('package');package.add_argument('--kind',choices=['code','inputs','run'],required=True);package.add_argument('--source');package.add_argument('--output',required=True)
     ar=sub.add_parser('archive');ar.add_argument('--source',required=True);ar.add_argument('--destination',required=True)
     tune=sub.add_parser('tuning-configs');tune.add_argument('--output',required=True)
+    lock=sub.add_parser('runtime-lock');lock.add_argument('--output',required=True)
     opts=p.parse_args(args)
     from experiments.storage import atomic_json
-    if opts.command=='check':
+    if opts.command=='runtime-lock':
+        from experiments.runtime import create_local_lock
+        print(create_local_lock(opts.output))
+    elif opts.command=='check':
         from experiments.configuration import load_controller_config
         from experiments.protocol import root
         for family in ('ma2c','ppo','dql'):load_controller_config(opts.network,family)
@@ -48,9 +57,8 @@ def main():
             manifest=validation_manifest(opts.network,9001 if opts.command=='pilot-manifest' else opts.design_seed,
                                          False if opts.command=='pilot-manifest' else opts.frozen)
         else:
-            from experiments.scenarios import definitions
-            scenes=definitions(opts.network,'seen')+definitions(opts.network,'test')
-            manifest=dict(version='8.1',network=opts.network,split='test',frozen=True,scenarios=scenes)
+            from experiments.scenarios import test_manifest
+            manifest=test_manifest(opts.network)
         atomic_json(opts.output,manifest)
     elif opts.command=='evaluate':
         from experiments.validation import evaluate

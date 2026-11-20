@@ -13,6 +13,7 @@ def definitions(network, split):
     protocol_version = settings()['version']
     def scenario(name, family, seed, blocks, **metadata):
         return {'id': name, 'network': network, 'split': split, 'family': family,
+                'profile_names': names,
                 'generation_seed': seed, 'protocol_version': protocol_version,
                 'horizon': 3600, 'blocks': blocks, **metadata}
     def block(start, duration, profile='Uniform', **extra):
@@ -50,6 +51,29 @@ def definitions(network, split):
         result.append(scenario('peak_' + str(peak), 'peak', seed,
                      [block(0,1200),block(1200,1200,multiplier=peak),block(2400,1200)]))
     return result
+
+
+def test_manifest(network):
+    """The complete, frozen 11 seen + 12 test contract, separate from validation."""
+    from experiments.core import file_hash
+    from experiments.protocol import root
+    groups = profiles(network)
+    return dict(version='8.1', test_schema='test_suite_v1', network=network,
+        split='test', frozen=True, profile_names=[g['name'] for g in groups],
+        profiles_hash=digest(groups),
+        assets={name: file_hash(root('assets')/network/name)
+                for name in ('network.net.xml', 'detectors.add.xml')},
+        generator_hash=digest({name: file_hash(ROOT/'experiments'/name)
+                              for name in ('scenarios.py', 'demand.py')}),
+        scenarios=definitions(network, 'seen')+definitions(network, 'test'))
+
+
+def check_test_manifest(manifest, network):
+    expected = test_manifest(network)
+    # Exact registered composition prevents silently replacing a prescribed test.
+    for key, value in expected.items():
+        if key != 'frozen' and manifest.get(key) != value:
+            raise ValueError('Test manifest identity/composition mismatch: '+key)
 
 
 def block_rows(groups, definition, block):
@@ -96,15 +120,18 @@ def artifact_for(network, definition, arrival_seed, env):
     return path
 
 
-def materialize_suite(network, controller, output, splits=('seen','test','validation'), rollouts=10):
+def materialize_suite(network, controller, output, splits=('seen','test'), rollouts=10):
     from envs.experiment_env import make_environment
     output.mkdir(parents=True,exist_ok=False)
     env=make_environment(network,controller,output/'runtime',9001)
     try:
         env.reset_episode(61001,evaluation=True,horizon=3600)
         env.prepare_routes()
-        artifacts=[str(artifact_for(network,d,seed,env).relative_to(ROOT)) for split in splits
-                   for d in definitions(network,split) for seed in settings()['arrival_seeds'][:rollouts]]
+        from experiments.validation import traffic
+        manifest = test_manifest(network)
+        namespace = digest(manifest)
+        artifacts=[dict(scenario=d['id'],realization=i,hash=traffic(env,d,namespace,i)[1])
+                   for d in manifest['scenarios'] if d['split'] in splits for i in range(rollouts)]
         write_json(output/'manifest.json',{'network':network,'artifacts':artifacts,'status':'complete'})
         return {'artifacts':len(artifacts),'manifest':str(output/'manifest.json')}
     finally:
